@@ -1,0 +1,3624 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		33CC111A2044C6BA0003C045 /* Flutter Assemble */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 33CC111B2044C6BA0003C045 /* Build configuration list for PBXAggregateTarget "Flutter Assemble" */;
+			buildPhases = (
+				33CC111E2044C6BF0003C045 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Flutter Assemble";
+			productName = FLX;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
+		33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
+		33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F22044A3C60003C045 /* Assets.xcassets */; };
+		33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
+		33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
+		80674510C3D49510832C9470 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC78A163C75A50763B90F01 /* Pods_Runner.framework */; };
+		DF21E6E5282FDFA800444EFF /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6E2282FDFA800444EFF /* Enums.swift */; };
+		DF21E6E6282FDFA800444EFF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6E3282FDFA800444EFF /* Extensions.swift */; };
+		DF21E6E7282FDFA800444EFF /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6E4282FDFA800444EFF /* Constant.swift */; };
+		DF21E6EF282FE6BF00444EFF /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6EC282FE6BF00444EFF /* Utility.swift */; };
+		DF21E6F0282FE6BF00444EFF /* MethodChannelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6ED282FE6BF00444EFF /* MethodChannelManager.swift */; };
+		DF21E6F1282FE6BF00444EFF /* WindowUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6EE282FE6BF00444EFF /* WindowUtility.swift */; };
+		DF21E6F4282FE6C700444EFF /* CounterPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF21E6F2282FE6C700444EFF /* CounterPopupViewController.xib */; };
+		DF21E6F5282FE6C700444EFF /* CounterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6F3282FE6C700444EFF /* CounterPopupViewController.swift */; };
+		DF21E6FE282FE7B200444EFF /* CustomStatusBarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21E6FB282FE7B200444EFF /* CustomStatusBarWidget.swift */; };
+		DF21E6FF282FE7B200444EFF /* CustomStatusBarWidget2 in Resources */ = {isa = PBXBuildFile; fileRef = DF21E6FC282FE7B200444EFF /* CustomStatusBarWidget2 */; };
+		DF21E700282FE7B200444EFF /* CustomStatusBarWidget.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF21E6FD282FE7B200444EFF /* CustomStatusBarWidget.xib */; };
+		DF21E70B282FE96900444EFF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF21E70A282FE96900444EFF /* MainStoryboard.storyboard */; };
+		DF21E7122830E84200444EFF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF21E70D2830E84200444EFF /* InfoPlist.strings */; };
+		DF49FD4D2AA09E32003D8911 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF49FD4E2AA09E35003D8911 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF49FD502AA0CA49003D8911 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */; };
+		DF49FD512AA17635003D8911 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817AB2A9E100200824F79 /* PrimarryData.swift */; };
+		DF49FD522AA176AD003D8911 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */; };
+		DF49FD532AA176AE003D8911 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */; };
+		DF49FD552AA176B3003D8911 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
+		DF49FD562AA176BA003D8911 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817A82A9E0FDE00824F79 /* StoreData.swift */; };
+		DF5164DA2AAF00A600518208 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF5164DB2AAF00A700518208 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF5164DE2AAF00A700518208 /* MyCalendarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5164DD2AAF00A700518208 /* MyCalendarWidget.swift */; };
+		DF5164E02AAF00A800518208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF5164DF2AAF00A800518208 /* Assets.xcassets */; };
+		DF5164E52AAF00A800518208 /* MyCalendarWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5164D92AAF00A600518208 /* MyCalendarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF5164EC2AAF013300518208 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
+		DF5164ED2AAF045A00518208 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DF5165062AAF3E6700518208 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5165052AAF3E6700518208 /* test.swift */; };
+		DF5165072AB087CD00518208 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF5165082AB087F300518208 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF6F3B4F2AE14E2200A20949 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF6F3B502AE14E2200A20949 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF6F3B532AE14E2200A20949 /* Note4Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F3B522AE14E2200A20949 /* Note4Widget.swift */; };
+		DF6F3B552AE14E2300A20949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF6F3B542AE14E2300A20949 /* Assets.xcassets */; };
+		DF6F3B5A2AE14E2300A20949 /* Note4WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF6F3B4E2AE14E2200A20949 /* Note4WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF6F3B642AE14E4900A20949 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF6F3B652AE14E4900A20949 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF6F3B682AE14E4900A20949 /* Note5Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F3B672AE14E4900A20949 /* Note5Widget.swift */; };
+		DF6F3B6A2AE14E4A00A20949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF6F3B692AE14E4A00A20949 /* Assets.xcassets */; };
+		DF6F3B6F2AE14E4A00A20949 /* Note5WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF6F3B632AE14E4900A20949 /* Note5WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF6F3B792AE14E6600A20949 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF6F3B7A2AE14E6600A20949 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF6F3B7D2AE14E6600A20949 /* Note6Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F3B7C2AE14E6600A20949 /* Note6Widget.swift */; };
+		DF6F3B7F2AE14E6700A20949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF6F3B7E2AE14E6700A20949 /* Assets.xcassets */; };
+		DF6F3B842AE14E6700A20949 /* Note6WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF6F3B782AE14E6600A20949 /* Note6WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF6F3B8E2AE14E9200A20949 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF6F3B8F2AE14E9200A20949 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF6F3B922AE14E9300A20949 /* Note7Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F3B912AE14E9300A20949 /* Note7Widget.swift */; };
+		DF6F3B942AE14E9300A20949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF6F3B932AE14E9300A20949 /* Assets.xcassets */; };
+		DF6F3B992AE14E9300A20949 /* Note7WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF6F3B8D2AE14E9200A20949 /* Note7WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF6F3B9E2AE14F4600A20949 /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DF6F3B9F2AE14F4700A20949 /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DF6F3BA02AE14F4700A20949 /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DF6F3BA12AE14F4800A20949 /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DF6F3BA22AE14F4D00A20949 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DF6F3BA32AE14F4E00A20949 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DF6F3BA42AE14F4E00A20949 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DF6F3BA52AE14F4E00A20949 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DF6F3BA62AE14F5200A20949 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF6F3BA72AE14F5200A20949 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF6F3BA82AE14F5300A20949 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF6F3BA92AE14F5300A20949 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF6F3BAA2AE14F5600A20949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF6F3BAB2AE14F5600A20949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF6F3BAC2AE14F5700A20949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF6F3BAD2AE14F5700A20949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF6F3BAE2AE14F5D00A20949 /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DF6F3BAF2AE14F5E00A20949 /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DF6F3BB02AE14F5E00A20949 /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DF6F3BB12AE14F5F00A20949 /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DF80B1F32AA3372E008E35C3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF80B1F42AA3372E008E35C3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF80B1F72AA3372E008E35C3 /* MyQuadrantWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80B1F62AA3372E008E35C3 /* MyQuadrantWidget.swift */; };
+		DF80B1F92AA3372F008E35C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF80B1F82AA3372F008E35C3 /* Assets.xcassets */; };
+		DF80B1FE2AA3372F008E35C3 /* MyQuadrantWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF80B1F22AA3372E008E35C3 /* MyQuadrantWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF80B2032AA337C8008E35C3 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817AB2A9E100200824F79 /* PrimarryData.swift */; };
+		DF80B2042AA337C8008E35C3 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
+		DF80B2052AA337C8008E35C3 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817A82A9E0FDE00824F79 /* StoreData.swift */; };
+		DF80B2062AA337C8008E35C3 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */; };
+		DF80B2222AA33C20008E35C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DF80B2232AA33C23008E35C3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DF81CA312BB1B4FB00E2842E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF81CA302BB1B4FB00E2842E /* GoogleService-Info.plist */; };
+		DFA1A33E2AA233310070DDD7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFA1A33F2AA2333E0070DDD7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFBF30EB2869D0DD0091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
+		DFC8174F2A9CB17E00824F79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFC817552A9CB1E700824F79 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFC8179E2A9E0C0400824F79 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
+		DFC817A92A9E0FDE00824F79 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817A82A9E0FDE00824F79 /* StoreData.swift */; };
+		DFC817AC2A9E100200824F79 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817AB2A9E100200824F79 /* PrimarryData.swift */; };
+		DFEB26A32ADF7AE4004FBB7E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFEB26A42ADF7AE4004FBB7E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFEB26A72ADF7AE4004FBB7E /* NoteWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26A62ADF7AE4004FBB7E /* NoteWidget.swift */; };
+		DFEB26A92ADF7AE5004FBB7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFEB26A82ADF7AE5004FBB7E /* Assets.xcassets */; };
+		DFEB26AE2ADF7AE5004FBB7E /* NoteWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFEB26A22ADF7AE4004FBB7E /* NoteWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DFEB26CD2ADFD338004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DFEB26CE2ADFD7E6004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DFEB26CF2ADFE0A1004FBB7E /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFEB26D12ADFF0F9004FBB7E /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DFEB26D22ADFF14C004FBB7E /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DFEB26D82ADFF321004FBB7E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFEB26D92ADFF321004FBB7E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFEB26DC2ADFF322004FBB7E /* Note2Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26DB2ADFF322004FBB7E /* Note2Widget.swift */; };
+		DFEB26DE2ADFF322004FBB7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFEB26DD2ADFF322004FBB7E /* Assets.xcassets */; };
+		DFEB26E32ADFF322004FBB7E /* Note2WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFEB26D72ADFF321004FBB7E /* Note2WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DFEB26E82ADFF3F3004FBB7E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFEB26E92ADFF3F4004FBB7E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFEB26EA2ADFF52E004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DFEB26EC2ADFF585004FBB7E /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DFEB26ED2ADFF5B5004FBB7E /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFEB26EE2AE0DADE004FBB7E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFEB26EF2AE0DADE004FBB7E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFEB27312AE10713004FBB7E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFEB27322AE10713004FBB7E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFEB27352AE10713004FBB7E /* Note3Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB27342AE10713004FBB7E /* Note3Widget.swift */; };
+		DFEB27372AE10714004FBB7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFEB27362AE10714004FBB7E /* Assets.xcassets */; };
+		DFEB273C2AE10714004FBB7E /* Note3WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFEB27302AE10713004FBB7E /* Note3WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DFEB27432AE1074D004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
+		DFEB27442AE10750004FBB7E /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFEB27452AE10754004FBB7E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFEB27462AE10757004FBB7E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFEB27472AE1075E004FBB7E /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DFFD0C642A9F5561009CCDE3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFFD0C652A9F5561009CCDE3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFFD0C682A9F5561009CCDE3 /* TodayMissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFD0C672A9F5561009CCDE3 /* TodayMissionListView.swift */; };
+		DFFD0C6A2A9F5561009CCDE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFD0C692A9F5561009CCDE3 /* Assets.xcassets */; };
+		DFFD0C6F2A9F5561009CCDE3 /* TodayMissionListViewExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFFD0C632A9F5561009CCDE3 /* TodayMissionListViewExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DFFD0C762A9F55E8009CCDE3 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817A82A9E0FDE00824F79 /* StoreData.swift */; };
+		DFFD0C772A9F55E8009CCDE3 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
+		DFFD0C782A9F55E8009CCDE3 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817AB2A9E100200824F79 /* PrimarryData.swift */; };
+		DFFD0C922A9F6B39009CCDE3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFFD0C932A9F6B3D009CCDE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFFD0CF12AA08714009CCDE3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFFD0CF22AA08714009CCDE3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFFD0CF52AA08714009CCDE3 /* ClockInExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFD0CF42AA08714009CCDE3 /* ClockInExtension.swift */; };
+		DFFD0CF72AA08716009CCDE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFD0CF62AA08716009CCDE3 /* Assets.xcassets */; };
+		DFFD0CFC2AA08716009CCDE3 /* ClockInExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFFD0CF02AA08714009CCDE3 /* ClockInExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		33CC111F2044C79F0003C045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = FLX;
+		};
+		DF49FD572AA17B45003D8911 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF5164E32AAF00A800518208 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF5164D82AAF00A600518208;
+			remoteInfo = MyCalendarWidgetExtension;
+		};
+		DF5164EA2AAF00C800518208 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF6F3B582AE14E2300A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF6F3B4D2AE14E2200A20949;
+			remoteInfo = Note4WidgetExtension;
+		};
+		DF6F3B6D2AE14E4A00A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF6F3B622AE14E4900A20949;
+			remoteInfo = Note5WidgetExtension;
+		};
+		DF6F3B822AE14E6700A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF6F3B772AE14E6600A20949;
+			remoteInfo = Note6WidgetExtension;
+		};
+		DF6F3B972AE14E9300A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF6F3B8C2AE14E9200A20949;
+			remoteInfo = Note7WidgetExtension;
+		};
+		DF6F3BB72AE1533A00A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF6F3BB92AE1533D00A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF6F3BBB2AE1534000A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF6F3BBD2AE1534300A20949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF80B1FC2AA3372F008E35C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF80B1F12AA3372E008E35C3;
+			remoteInfo = MyQuadrantWidgetExtension;
+		};
+		DF80B2472AA445B2008E35C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DFEB26AC2ADF7AE5004FBB7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFEB26A12ADF7AE4004FBB7E;
+			remoteInfo = NoteWidgetExtension;
+		};
+		DFEB26E12ADFF322004FBB7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFEB26D62ADFF321004FBB7E;
+			remoteInfo = Note2WidgetExtension;
+		};
+		DFEB26F02AE0DB29004FBB7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DFEB26F22AE0DB2E004FBB7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DFEB273A2AE10714004FBB7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFEB272F2AE10713004FBB7E;
+			remoteInfo = Note3WidgetExtension;
+		};
+		DFEB27412AE10743004FBB7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DFFD0C6D2A9F5561009CCDE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFFD0C622A9F5561009CCDE3;
+			remoteInfo = TodayMissionListViewExtension;
+		};
+		DFFD0C742A9F5573009CCDE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DFFD0CFA2AA08716009CCDE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFFD0CEF2AA08713009CCDE3;
+			remoteInfo = ClockInExtensionExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		33CC110E2044A8840003C045 /* Bundle Framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Bundle Framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFDE2DC72A3D5A8E0037815B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DFEB273C2AE10714004FBB7E /* Note3WidgetExtension.appex in Embed Foundation Extensions */,
+				DF6F3B5A2AE14E2300A20949 /* Note4WidgetExtension.appex in Embed Foundation Extensions */,
+				DF5164E52AAF00A800518208 /* MyCalendarWidgetExtension.appex in Embed Foundation Extensions */,
+				DFFD0CFC2AA08716009CCDE3 /* ClockInExtensionExtension.appex in Embed Foundation Extensions */,
+				DFFD0C6F2A9F5561009CCDE3 /* TodayMissionListViewExtension.appex in Embed Foundation Extensions */,
+				DFEB26E32ADFF322004FBB7E /* Note2WidgetExtension.appex in Embed Foundation Extensions */,
+				DF6F3B6F2AE14E4A00A20949 /* Note5WidgetExtension.appex in Embed Foundation Extensions */,
+				DF6F3B842AE14E6700A20949 /* Note6WidgetExtension.appex in Embed Foundation Extensions */,
+				DFEB26AE2ADF7AE5004FBB7E /* NoteWidgetExtension.appex in Embed Foundation Extensions */,
+				DF80B1FE2AA3372F008E35C3 /* MyQuadrantWidgetExtension.appex in Embed Foundation Extensions */,
+				DF6F3B992AE14E9300A20949 /* Note7WidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05ADC9765A2DAC8E9151EC7F /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		0FC78A163C75A50763B90F01 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		242B1AB7CFE5F1391F978D9D /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		333000ED22D3DE5D00554162 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
+		335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedPluginRegistrant.swift; sourceTree = "<group>"; };
+		33CC10ED2044A3C60003C045 /* Timerbell Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Timerbell Todo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33CC10F02044A3C60003C045 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		33CC10F22044A3C60003C045 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Runner/Assets.xcassets; sourceTree = "<group>"; };
+		33CC10F52044A3C60003C045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		33CC10F72044A3C60003C045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Runner/Info.plist; sourceTree = "<group>"; };
+		33CC11122044BFA00003C045 /* MainFlutterWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlutterWindow.swift; sourceTree = "<group>"; };
+		33CEB47222A05771004F2AC0 /* Flutter-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Flutter-Debug.xcconfig"; sourceTree = "<group>"; };
+		33CEB47422A05771004F2AC0 /* Flutter-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Flutter-Release.xcconfig"; sourceTree = "<group>"; };
+		33CEB47722A0578A004F2AC0 /* Flutter-Generated.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Flutter-Generated.xcconfig"; path = "ephemeral/Flutter-Generated.xcconfig"; sourceTree = "<group>"; };
+		33E51913231747F40026EE4D /* DebugProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DebugProfile.entitlements; sourceTree = "<group>"; };
+		33E51914231749380026EE4D /* Release.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
+		33E5194F232828860026EE4D /* AppInfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppInfo.xcconfig; sourceTree = "<group>"; };
+		7A84DD282ED9021731A3E95D /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		DF21E6E2282FDFA800444EFF /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		DF21E6E3282FDFA800444EFF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DF21E6E4282FDFA800444EFF /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		DF21E6EC282FE6BF00444EFF /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		DF21E6ED282FE6BF00444EFF /* MethodChannelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MethodChannelManager.swift; sourceTree = "<group>"; };
+		DF21E6EE282FE6BF00444EFF /* WindowUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowUtility.swift; sourceTree = "<group>"; };
+		DF21E6F2282FE6C700444EFF /* CounterPopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CounterPopupViewController.xib; sourceTree = "<group>"; };
+		DF21E6F3282FE6C700444EFF /* CounterPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterPopupViewController.swift; sourceTree = "<group>"; };
+		DF21E6FB282FE7B200444EFF /* CustomStatusBarWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomStatusBarWidget.swift; sourceTree = "<group>"; };
+		DF21E6FC282FE7B200444EFF /* CustomStatusBarWidget2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CustomStatusBarWidget2; sourceTree = "<group>"; };
+		DF21E6FD282FE7B200444EFF /* CustomStatusBarWidget.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomStatusBarWidget.xib; sourceTree = "<group>"; };
+		DF21E701282FE8CA00444EFF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		DF21E70A282FE96900444EFF /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		DF21E70E2830E84200444EFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlomoMissionModel.swift; sourceTree = "<group>"; };
+		DF4B3A252A43FC1900FA47B8 /* QuadrantWidgetExtension copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "QuadrantWidgetExtension copy-Info.plist"; path = "/Users/linzhibin/Desktop/work/project/flutter/efficientTime/macos/QuadrantWidgetExtension copy-Info.plist"; sourceTree = "<absolute>"; };
+		DF5164D92AAF00A600518208 /* MyCalendarWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MyCalendarWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5164DD2AAF00A700518208 /* MyCalendarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalendarWidget.swift; sourceTree = "<group>"; };
+		DF5164DF2AAF00A800518208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF5164E12AAF00A800518208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5164E22AAF00A800518208 /* MyCalendarWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyCalendarWidget.entitlements; sourceTree = "<group>"; };
+		DF5165052AAF3E6700518208 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		DF6334972B73C8FB0087AB8F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334982B73C8FB0087AB8F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334992B73C8FC0087AB8F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = ../fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF63349A2B73C9A00087AB8F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "../zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DF63349B2B73CAF50087AB8F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF63349C2B73CAF60087AB8F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF63349D2B73CAF60087AB8F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ../de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF63349E2B73CAFC0087AB8F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF63349F2B73CAFD0087AB8F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334A02B73CAFD0087AB8F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ../ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334A12B73CB060087AB8F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334A22B73CB060087AB8F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334A32B73CB070087AB8F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ../ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334A42B73CB0E0087AB8F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334A52B73CB0E0087AB8F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334A62B73CB0E0087AB8F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = ../it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334A72B73CB200087AB8F /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334A82B73CB200087AB8F /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334A92B73CB210087AB8F /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = ../vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334AA2B73CB290087AB8F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334AB2B73CB2A0087AB8F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334AC2B73CB2A0087AB8F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = ../nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334AD2B73CB390087AB8F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334AE2B73CB390087AB8F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334AF2B73CB3A0087AB8F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = ../es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334B02B73CB3D0087AB8F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		DF6334B12B73CB3E0087AB8F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF6334B22B73CB3E0087AB8F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = ../th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DF6334B32B73CC710087AB8F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		DF6334B42B73CC710087AB8F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DF6334B52B73CC710087AB8F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "../zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DF6F3B4E2AE14E2200A20949 /* Note4WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Note4WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF6F3B522AE14E2200A20949 /* Note4Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note4Widget.swift; sourceTree = "<group>"; };
+		DF6F3B542AE14E2300A20949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF6F3B562AE14E2300A20949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF6F3B572AE14E2300A20949 /* Note4Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note4Widget.entitlements; sourceTree = "<group>"; };
+		DF6F3B632AE14E4900A20949 /* Note5WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Note5WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF6F3B672AE14E4900A20949 /* Note5Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note5Widget.swift; sourceTree = "<group>"; };
+		DF6F3B692AE14E4A00A20949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF6F3B6B2AE14E4A00A20949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF6F3B6C2AE14E4A00A20949 /* Note5Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note5Widget.entitlements; sourceTree = "<group>"; };
+		DF6F3B782AE14E6600A20949 /* Note6WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Note6WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF6F3B7C2AE14E6600A20949 /* Note6Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note6Widget.swift; sourceTree = "<group>"; };
+		DF6F3B7E2AE14E6700A20949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF6F3B802AE14E6700A20949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF6F3B812AE14E6700A20949 /* Note6Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note6Widget.entitlements; sourceTree = "<group>"; };
+		DF6F3B8D2AE14E9200A20949 /* Note7WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Note7WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF6F3B912AE14E9300A20949 /* Note7Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note7Widget.swift; sourceTree = "<group>"; };
+		DF6F3B932AE14E9300A20949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF6F3B952AE14E9300A20949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF6F3B962AE14E9300A20949 /* Note7Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note7Widget.entitlements; sourceTree = "<group>"; };
+		DF80B1F22AA3372E008E35C3 /* MyQuadrantWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MyQuadrantWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF80B1F62AA3372E008E35C3 /* MyQuadrantWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuadrantWidget.swift; sourceTree = "<group>"; };
+		DF80B1F82AA3372F008E35C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF80B1FA2AA3372F008E35C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF80B1FB2AA3372F008E35C3 /* MyQuadrantWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyQuadrantWidget.entitlements; sourceTree = "<group>"; };
+		DF81CA302BB1B4FB00E2842E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		DFBF30EA2869D0DD0091B848 /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
+		DFC817502A9CB17E00824F79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DFC817522A9CB18300824F79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DFC817542A9CB1E700824F79 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DFC817762A9CC6DF00824F79 /* CountDownWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWidget.swift; sourceTree = "<group>"; };
+		DFC817782A9CC6E100824F79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFC8177A2A9CC6E100824F79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFC8177B2A9CC6E100824F79 /* CountDownWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountDownWidget.entitlements; sourceTree = "<group>"; };
+		DFC817842A9DFB9900824F79 /* CountDownUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownUtil.swift; sourceTree = "<group>"; };
+		DFC8179D2A9E0C0400824F79 /* MissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionData.swift; sourceTree = "<group>"; };
+		DFC817A82A9E0FDE00824F79 /* StoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreData.swift; sourceTree = "<group>"; };
+		DFC817AB2A9E100200824F79 /* PrimarryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimarryData.swift; sourceTree = "<group>"; };
+		DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DFEB26A22ADF7AE4004FBB7E /* NoteWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NoteWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFEB26A62ADF7AE4004FBB7E /* NoteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWidget.swift; sourceTree = "<group>"; };
+		DFEB26A82ADF7AE5004FBB7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFEB26AA2ADF7AE5004FBB7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFEB26AB2ADF7AE5004FBB7E /* NoteWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NoteWidget.entitlements; sourceTree = "<group>"; };
+		DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WQBMissionData.swift; sourceTree = "<group>"; };
+		DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewWidget.swift; sourceTree = "<group>"; };
+		DFEB26D72ADFF321004FBB7E /* Note2WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Note2WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFEB26DB2ADFF322004FBB7E /* Note2Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note2Widget.swift; sourceTree = "<group>"; };
+		DFEB26DD2ADFF322004FBB7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFEB26DF2ADFF322004FBB7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFEB26E02ADFF322004FBB7E /* Note2Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note2Widget.entitlements; sourceTree = "<group>"; };
+		DFEB27302AE10713004FBB7E /* Note3WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Note3WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFEB27342AE10713004FBB7E /* Note3Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note3Widget.swift; sourceTree = "<group>"; };
+		DFEB27362AE10714004FBB7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFEB27382AE10714004FBB7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFEB27392AE10714004FBB7E /* Note3Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note3Widget.entitlements; sourceTree = "<group>"; };
+		DFFD0C632A9F5561009CCDE3 /* TodayMissionListViewExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodayMissionListViewExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFFD0C672A9F5561009CCDE3 /* TodayMissionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMissionListView.swift; sourceTree = "<group>"; };
+		DFFD0C692A9F5561009CCDE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFFD0C6B2A9F5561009CCDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFFD0C6C2A9F5561009CCDE3 /* TodayMissionListView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodayMissionListView.entitlements; sourceTree = "<group>"; };
+		DFFD0CF02AA08714009CCDE3 /* ClockInExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClockInExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFFD0CF42AA08714009CCDE3 /* ClockInExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockInExtension.swift; sourceTree = "<group>"; };
+		DFFD0CF62AA08716009CCDE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFFD0CF82AA08716009CCDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFFD0CF92AA08716009CCDE3 /* ClockInExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClockInExtension.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		33CC10EA2044A3C60003C045 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80674510C3D49510832C9470 /* Pods_Runner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5164D62AAF00A600518208 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5164DB2AAF00A700518208 /* SwiftUI.framework in Frameworks */,
+				DF5164DA2AAF00A600518208 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B4B2AE14E2200A20949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B502AE14E2200A20949 /* SwiftUI.framework in Frameworks */,
+				DF6F3B4F2AE14E2200A20949 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B602AE14E4900A20949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B652AE14E4900A20949 /* SwiftUI.framework in Frameworks */,
+				DF6F3B642AE14E4900A20949 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B752AE14E6600A20949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B7A2AE14E6600A20949 /* SwiftUI.framework in Frameworks */,
+				DF6F3B792AE14E6600A20949 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B8A2AE14E9200A20949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B8F2AE14E9200A20949 /* SwiftUI.framework in Frameworks */,
+				DF6F3B8E2AE14E9200A20949 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF80B1EF2AA3372E008E35C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF80B1F42AA3372E008E35C3 /* SwiftUI.framework in Frameworks */,
+				DF80B1F32AA3372E008E35C3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB269F2ADF7AE4004FBB7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB26A42ADF7AE4004FBB7E /* SwiftUI.framework in Frameworks */,
+				DFEB26A32ADF7AE4004FBB7E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB26D42ADFF321004FBB7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB26D92ADFF321004FBB7E /* SwiftUI.framework in Frameworks */,
+				DFEB26D82ADFF321004FBB7E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB272D2AE10713004FBB7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB27322AE10713004FBB7E /* SwiftUI.framework in Frameworks */,
+				DFEB27312AE10713004FBB7E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFFD0C602A9F5561009CCDE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFFD0C652A9F5561009CCDE3 /* SwiftUI.framework in Frameworks */,
+				DFFD0C642A9F5561009CCDE3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFFD0CED2AA08713009CCDE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFFD0CF22AA08714009CCDE3 /* SwiftUI.framework in Frameworks */,
+				DFFD0CF12AA08714009CCDE3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		333A3C6A24C1D6DCB934E7CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0FC78A163C75A50763B90F01 /* Pods_Runner.framework */,
+				DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */,
+				DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		33BA886A226E78AF003329D5 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				33E5194F232828860026EE4D /* AppInfo.xcconfig */,
+				9740EEB21CF90195004384FC /* Debug.xcconfig */,
+				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
+				333000ED22D3DE5D00554162 /* Warnings.xcconfig */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
+		33CC10E42044A3C60003C045 = {
+			isa = PBXGroup;
+			children = (
+				33FAB671232836740065AC1E /* Runner */,
+				33CEB47122A05771004F2AC0 /* Flutter */,
+				DFC817752A9CC6DF00824F79 /* CountDownWidget */,
+				DFFD0C662A9F5561009CCDE3 /* TodayMissionListView */,
+				DFFD0CF32AA08714009CCDE3 /* ClockInExtension */,
+				DF80B1F52AA3372E008E35C3 /* MyQuadrantWidget */,
+				DF5164DC2AAF00A700518208 /* MyCalendarWidget */,
+				DFEB26A52ADF7AE4004FBB7E /* NoteWidget */,
+				DFEB26DA2ADFF322004FBB7E /* Note2Widget */,
+				DFEB27332AE10713004FBB7E /* Note3Widget */,
+				DF6F3B512AE14E2200A20949 /* Note4Widget */,
+				DF6F3B662AE14E4900A20949 /* Note5Widget */,
+				DF6F3B7B2AE14E6600A20949 /* Note6Widget */,
+				DF6F3B902AE14E9300A20949 /* Note7Widget */,
+				33CC10EE2044A3C60003C045 /* Products */,
+				A45AF054F2DD42C254AC9EDA /* Pods */,
+				333A3C6A24C1D6DCB934E7CA /* Frameworks */,
+				DF4B3A252A43FC1900FA47B8 /* QuadrantWidgetExtension copy-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		33CC10EE2044A3C60003C045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				33CC10ED2044A3C60003C045 /* Timerbell Todo.app */,
+				DFFD0C632A9F5561009CCDE3 /* TodayMissionListViewExtension.appex */,
+				DFFD0CF02AA08714009CCDE3 /* ClockInExtensionExtension.appex */,
+				DF80B1F22AA3372E008E35C3 /* MyQuadrantWidgetExtension.appex */,
+				DF5164D92AAF00A600518208 /* MyCalendarWidgetExtension.appex */,
+				DFEB26A22ADF7AE4004FBB7E /* NoteWidgetExtension.appex */,
+				DFEB26D72ADFF321004FBB7E /* Note2WidgetExtension.appex */,
+				DFEB27302AE10713004FBB7E /* Note3WidgetExtension.appex */,
+				DF6F3B4E2AE14E2200A20949 /* Note4WidgetExtension.appex */,
+				DF6F3B632AE14E4900A20949 /* Note5WidgetExtension.appex */,
+				DF6F3B782AE14E6600A20949 /* Note6WidgetExtension.appex */,
+				DF6F3B8D2AE14E9200A20949 /* Note7WidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		33CC11242044D66E0003C045 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				33CC10F22044A3C60003C045 /* Assets.xcassets */,
+				33CC10F42044A3C60003C045 /* MainMenu.xib */,
+				33CC10F72044A3C60003C045 /* Info.plist */,
+			);
+			name = Resources;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		33CEB47122A05771004F2AC0 /* Flutter */ = {
+			isa = PBXGroup;
+			children = (
+				335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */,
+				33CEB47222A05771004F2AC0 /* Flutter-Debug.xcconfig */,
+				33CEB47422A05771004F2AC0 /* Flutter-Release.xcconfig */,
+				33CEB47722A0578A004F2AC0 /* Flutter-Generated.xcconfig */,
+			);
+			path = Flutter;
+			sourceTree = "<group>";
+		};
+		33FAB671232836740065AC1E /* Runner */ = {
+			isa = PBXGroup;
+			children = (
+				DF81CA302BB1B4FB00E2842E /* GoogleService-Info.plist */,
+				DFC8179C2A9E0BEF00824F79 /* Model */,
+				DFC817532A9CB1AF00824F79 /* Resources */,
+				DF21E70A282FE96900444EFF /* MainStoryboard.storyboard */,
+				DF21E6F7282FE75A00444EFF /* component */,
+				DF21E6EB282FE67D00444EFF /* vc */,
+				DF21E6E9282FE66B00444EFF /* utility */,
+				DF21E6E8282FE00E00444EFF /* Localization */,
+				DF21E6E0282FDF6300444EFF /* params */,
+				33CC10F02044A3C60003C045 /* AppDelegate.swift */,
+				33CC11122044BFA00003C045 /* MainFlutterWindow.swift */,
+				33E51913231747F40026EE4D /* DebugProfile.entitlements */,
+				33E51914231749380026EE4D /* Release.entitlements */,
+				33CC11242044D66E0003C045 /* Resources */,
+				33BA886A226E78AF003329D5 /* Configs */,
+				DF5165052AAF3E6700518208 /* test.swift */,
+			);
+			path = Runner;
+			sourceTree = "<group>";
+		};
+		A45AF054F2DD42C254AC9EDA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				05ADC9765A2DAC8E9151EC7F /* Pods-Runner.debug.xcconfig */,
+				7A84DD282ED9021731A3E95D /* Pods-Runner.release.xcconfig */,
+				242B1AB7CFE5F1391F978D9D /* Pods-Runner.profile.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DF21E6E0282FDF6300444EFF /* params */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E6E4282FDFA800444EFF /* Constant.swift */,
+				DF21E6E2282FDFA800444EFF /* Enums.swift */,
+				DF21E6E3282FDFA800444EFF /* Extensions.swift */,
+				DFBF30EA2869D0DD0091B848 /* Params.swift */,
+			);
+			path = params;
+			sourceTree = "<group>";
+		};
+		DF21E6E8282FE00E00444EFF /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E70C2830E84200444EFF /* en.lproj */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		DF21E6E9282FE66B00444EFF /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E6ED282FE6BF00444EFF /* MethodChannelManager.swift */,
+				DF21E6EC282FE6BF00444EFF /* Utility.swift */,
+				DF21E6EE282FE6BF00444EFF /* WindowUtility.swift */,
+			);
+			path = utility;
+			sourceTree = "<group>";
+		};
+		DF21E6EB282FE67D00444EFF /* vc */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E6F3282FE6C700444EFF /* CounterPopupViewController.swift */,
+				DF21E6F2282FE6C700444EFF /* CounterPopupViewController.xib */,
+			);
+			path = vc;
+			sourceTree = "<group>";
+		};
+		DF21E6F7282FE75A00444EFF /* component */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E6FA282FE7B200444EFF /* CustomStatusBarWidget */,
+				DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */,
+			);
+			path = component;
+			sourceTree = "<group>";
+		};
+		DF21E6FA282FE7B200444EFF /* CustomStatusBarWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E6FB282FE7B200444EFF /* CustomStatusBarWidget.swift */,
+				DF21E6FC282FE7B200444EFF /* CustomStatusBarWidget2 */,
+				DF21E6FD282FE7B200444EFF /* CustomStatusBarWidget.xib */,
+			);
+			path = CustomStatusBarWidget;
+			sourceTree = "<group>";
+		};
+		DF21E70C2830E84200444EFF /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				DF21E70D2830E84200444EFF /* InfoPlist.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		DF5164DC2AAF00A700518208 /* MyCalendarWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF5164DD2AAF00A700518208 /* MyCalendarWidget.swift */,
+				DF5164DF2AAF00A800518208 /* Assets.xcassets */,
+				DF5164E12AAF00A800518208 /* Info.plist */,
+				DF5164E22AAF00A800518208 /* MyCalendarWidget.entitlements */,
+			);
+			path = MyCalendarWidget;
+			sourceTree = "<group>";
+		};
+		DF6F3B512AE14E2200A20949 /* Note4Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF6F3B522AE14E2200A20949 /* Note4Widget.swift */,
+				DF6F3B542AE14E2300A20949 /* Assets.xcassets */,
+				DF6F3B562AE14E2300A20949 /* Info.plist */,
+				DF6F3B572AE14E2300A20949 /* Note4Widget.entitlements */,
+			);
+			path = Note4Widget;
+			sourceTree = "<group>";
+		};
+		DF6F3B662AE14E4900A20949 /* Note5Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF6F3B672AE14E4900A20949 /* Note5Widget.swift */,
+				DF6F3B692AE14E4A00A20949 /* Assets.xcassets */,
+				DF6F3B6B2AE14E4A00A20949 /* Info.plist */,
+				DF6F3B6C2AE14E4A00A20949 /* Note5Widget.entitlements */,
+			);
+			path = Note5Widget;
+			sourceTree = "<group>";
+		};
+		DF6F3B7B2AE14E6600A20949 /* Note6Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF6F3B7C2AE14E6600A20949 /* Note6Widget.swift */,
+				DF6F3B7E2AE14E6700A20949 /* Assets.xcassets */,
+				DF6F3B802AE14E6700A20949 /* Info.plist */,
+				DF6F3B812AE14E6700A20949 /* Note6Widget.entitlements */,
+			);
+			path = Note6Widget;
+			sourceTree = "<group>";
+		};
+		DF6F3B902AE14E9300A20949 /* Note7Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF6F3B912AE14E9300A20949 /* Note7Widget.swift */,
+				DF6F3B932AE14E9300A20949 /* Assets.xcassets */,
+				DF6F3B952AE14E9300A20949 /* Info.plist */,
+				DF6F3B962AE14E9300A20949 /* Note7Widget.entitlements */,
+			);
+			path = Note7Widget;
+			sourceTree = "<group>";
+		};
+		DF80B1F52AA3372E008E35C3 /* MyQuadrantWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF80B1F62AA3372E008E35C3 /* MyQuadrantWidget.swift */,
+				DF80B1F82AA3372F008E35C3 /* Assets.xcassets */,
+				DF80B1FA2AA3372F008E35C3 /* Info.plist */,
+				DF80B1FB2AA3372F008E35C3 /* MyQuadrantWidget.entitlements */,
+			);
+			path = MyQuadrantWidget;
+			sourceTree = "<group>";
+		};
+		DFC817532A9CB1AF00824F79 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */,
+				DFC817542A9CB1E700824F79 /* String+Extension.swift */,
+				DFC817512A9CB17E00824F79 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DFC817752A9CC6DF00824F79 /* CountDownWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DFC817762A9CC6DF00824F79 /* CountDownWidget.swift */,
+				DFC817782A9CC6E100824F79 /* Assets.xcassets */,
+				DFC8177A2A9CC6E100824F79 /* Info.plist */,
+				DFC8177B2A9CC6E100824F79 /* CountDownWidget.entitlements */,
+				DFC817842A9DFB9900824F79 /* CountDownUtil.swift */,
+			);
+			path = CountDownWidget;
+			sourceTree = "<group>";
+		};
+		DFC8179C2A9E0BEF00824F79 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DFC817AB2A9E100200824F79 /* PrimarryData.swift */,
+				DFC817A82A9E0FDE00824F79 /* StoreData.swift */,
+				DFC8179D2A9E0C0400824F79 /* MissionData.swift */,
+				DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */,
+				DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DFEB26A52ADF7AE4004FBB7E /* NoteWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DFEB26A62ADF7AE4004FBB7E /* NoteWidget.swift */,
+				DFEB26A82ADF7AE5004FBB7E /* Assets.xcassets */,
+				DFEB26AA2ADF7AE5004FBB7E /* Info.plist */,
+				DFEB26AB2ADF7AE5004FBB7E /* NoteWidget.entitlements */,
+			);
+			path = NoteWidget;
+			sourceTree = "<group>";
+		};
+		DFEB26DA2ADFF322004FBB7E /* Note2Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DFEB26DB2ADFF322004FBB7E /* Note2Widget.swift */,
+				DFEB26DD2ADFF322004FBB7E /* Assets.xcassets */,
+				DFEB26DF2ADFF322004FBB7E /* Info.plist */,
+				DFEB26E02ADFF322004FBB7E /* Note2Widget.entitlements */,
+			);
+			path = Note2Widget;
+			sourceTree = "<group>";
+		};
+		DFEB27332AE10713004FBB7E /* Note3Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DFEB27342AE10713004FBB7E /* Note3Widget.swift */,
+				DFEB27362AE10714004FBB7E /* Assets.xcassets */,
+				DFEB27382AE10714004FBB7E /* Info.plist */,
+				DFEB27392AE10714004FBB7E /* Note3Widget.entitlements */,
+			);
+			path = Note3Widget;
+			sourceTree = "<group>";
+		};
+		DFFD0C662A9F5561009CCDE3 /* TodayMissionListView */ = {
+			isa = PBXGroup;
+			children = (
+				DFFD0C672A9F5561009CCDE3 /* TodayMissionListView.swift */,
+				DFFD0C692A9F5561009CCDE3 /* Assets.xcassets */,
+				DFFD0C6B2A9F5561009CCDE3 /* Info.plist */,
+				DFFD0C6C2A9F5561009CCDE3 /* TodayMissionListView.entitlements */,
+			);
+			path = TodayMissionListView;
+			sourceTree = "<group>";
+		};
+		DFFD0CF32AA08714009CCDE3 /* ClockInExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DFFD0CF42AA08714009CCDE3 /* ClockInExtension.swift */,
+				DFFD0CF62AA08716009CCDE3 /* Assets.xcassets */,
+				DFFD0CF82AA08716009CCDE3 /* Info.plist */,
+				DFFD0CF92AA08716009CCDE3 /* ClockInExtension.entitlements */,
+			);
+			path = ClockInExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		33CC10EC2044A3C60003C045 /* Runner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "Runner" */;
+			buildPhases = (
+				D1D117EBC5F3ADA46AA8EB64 /* [CP] Check Pods Manifest.lock */,
+				33CC10E92044A3C60003C045 /* Sources */,
+				33CC10EA2044A3C60003C045 /* Frameworks */,
+				33CC10EB2044A3C60003C045 /* Resources */,
+				33CC110E2044A8840003C045 /* Bundle Framework */,
+				3399D490228B24CF009A79C7 /* ShellScript */,
+				007C3E4E862264FAEC4676A9 /* [CP] Embed Pods Frameworks */,
+				DFDE2DC72A3D5A8E0037815B /* Embed Foundation Extensions */,
+				A209C01F4043E2B4C76D5F72 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				33CC11202044C79F0003C045 /* PBXTargetDependency */,
+				DFFD0C6E2A9F5561009CCDE3 /* PBXTargetDependency */,
+				DFFD0CFB2AA08716009CCDE3 /* PBXTargetDependency */,
+				DF80B1FD2AA3372F008E35C3 /* PBXTargetDependency */,
+				DF5164E42AAF00A800518208 /* PBXTargetDependency */,
+				DFEB26AD2ADF7AE5004FBB7E /* PBXTargetDependency */,
+				DFEB26E22ADFF322004FBB7E /* PBXTargetDependency */,
+				DFEB273B2AE10714004FBB7E /* PBXTargetDependency */,
+				DF6F3B592AE14E2300A20949 /* PBXTargetDependency */,
+				DF6F3B6E2AE14E4A00A20949 /* PBXTargetDependency */,
+				DF6F3B832AE14E6700A20949 /* PBXTargetDependency */,
+				DF6F3B982AE14E9300A20949 /* PBXTargetDependency */,
+			);
+			name = Runner;
+			productName = Runner;
+			productReference = 33CC10ED2044A3C60003C045 /* Timerbell Todo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF5164D82AAF00A600518208 /* MyCalendarWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF5164E92AAF00A900518208 /* Build configuration list for PBXNativeTarget "MyCalendarWidgetExtension" */;
+			buildPhases = (
+				DF5164D52AAF00A600518208 /* Sources */,
+				DF5164D62AAF00A600518208 /* Frameworks */,
+				DF5164D72AAF00A600518208 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF5164EB2AAF00C800518208 /* PBXTargetDependency */,
+			);
+			name = MyCalendarWidgetExtension;
+			productName = MyCalendarWidgetExtension;
+			productReference = DF5164D92AAF00A600518208 /* MyCalendarWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF6F3B4D2AE14E2200A20949 /* Note4WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF6F3B5E2AE14E2400A20949 /* Build configuration list for PBXNativeTarget "Note4WidgetExtension" */;
+			buildPhases = (
+				DF6F3B4A2AE14E2200A20949 /* Sources */,
+				DF6F3B4B2AE14E2200A20949 /* Frameworks */,
+				DF6F3B4C2AE14E2200A20949 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF6F3BB82AE1533A00A20949 /* PBXTargetDependency */,
+			);
+			name = Note4WidgetExtension;
+			productName = Note4WidgetExtension;
+			productReference = DF6F3B4E2AE14E2200A20949 /* Note4WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF6F3B622AE14E4900A20949 /* Note5WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF6F3B702AE14E4A00A20949 /* Build configuration list for PBXNativeTarget "Note5WidgetExtension" */;
+			buildPhases = (
+				DF6F3B5F2AE14E4900A20949 /* Sources */,
+				DF6F3B602AE14E4900A20949 /* Frameworks */,
+				DF6F3B612AE14E4900A20949 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF6F3BBA2AE1533D00A20949 /* PBXTargetDependency */,
+			);
+			name = Note5WidgetExtension;
+			productName = Note5WidgetExtension;
+			productReference = DF6F3B632AE14E4900A20949 /* Note5WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF6F3B772AE14E6600A20949 /* Note6WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF6F3B852AE14E6700A20949 /* Build configuration list for PBXNativeTarget "Note6WidgetExtension" */;
+			buildPhases = (
+				DF6F3B742AE14E6600A20949 /* Sources */,
+				DF6F3B752AE14E6600A20949 /* Frameworks */,
+				DF6F3B762AE14E6600A20949 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF6F3BBC2AE1534000A20949 /* PBXTargetDependency */,
+			);
+			name = Note6WidgetExtension;
+			productName = Note6WidgetExtension;
+			productReference = DF6F3B782AE14E6600A20949 /* Note6WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF6F3B8C2AE14E9200A20949 /* Note7WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF6F3B9A2AE14E9400A20949 /* Build configuration list for PBXNativeTarget "Note7WidgetExtension" */;
+			buildPhases = (
+				DF6F3B892AE14E9200A20949 /* Sources */,
+				DF6F3B8A2AE14E9200A20949 /* Frameworks */,
+				DF6F3B8B2AE14E9200A20949 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF6F3BBE2AE1534300A20949 /* PBXTargetDependency */,
+			);
+			name = Note7WidgetExtension;
+			productName = Note7WidgetExtension;
+			productReference = DF6F3B8D2AE14E9200A20949 /* Note7WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF80B1F12AA3372E008E35C3 /* MyQuadrantWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF80B2022AA3372F008E35C3 /* Build configuration list for PBXNativeTarget "MyQuadrantWidgetExtension" */;
+			buildPhases = (
+				DF80B1EE2AA3372E008E35C3 /* Sources */,
+				DF80B1EF2AA3372E008E35C3 /* Frameworks */,
+				DF80B1F02AA3372E008E35C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF80B2482AA445B2008E35C3 /* PBXTargetDependency */,
+			);
+			name = MyQuadrantWidgetExtension;
+			productName = MyQuadrantWidgetExtension;
+			productReference = DF80B1F22AA3372E008E35C3 /* MyQuadrantWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DFEB26A12ADF7AE4004FBB7E /* NoteWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFEB26B22ADF7AE5004FBB7E /* Build configuration list for PBXNativeTarget "NoteWidgetExtension" */;
+			buildPhases = (
+				DFEB269E2ADF7AE4004FBB7E /* Sources */,
+				DFEB269F2ADF7AE4004FBB7E /* Frameworks */,
+				DFEB26A02ADF7AE4004FBB7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFEB26F12AE0DB29004FBB7E /* PBXTargetDependency */,
+			);
+			name = NoteWidgetExtension;
+			productName = NoteWidgetExtension;
+			productReference = DFEB26A22ADF7AE4004FBB7E /* NoteWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DFEB26D62ADFF321004FBB7E /* Note2WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFEB26E42ADFF323004FBB7E /* Build configuration list for PBXNativeTarget "Note2WidgetExtension" */;
+			buildPhases = (
+				DFEB26D32ADFF321004FBB7E /* Sources */,
+				DFEB26D42ADFF321004FBB7E /* Frameworks */,
+				DFEB26D52ADFF321004FBB7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFEB26F32AE0DB2E004FBB7E /* PBXTargetDependency */,
+			);
+			name = Note2WidgetExtension;
+			productName = Note2WidgetExtension;
+			productReference = DFEB26D72ADFF321004FBB7E /* Note2WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DFEB272F2AE10713004FBB7E /* Note3WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFEB273D2AE10714004FBB7E /* Build configuration list for PBXNativeTarget "Note3WidgetExtension" */;
+			buildPhases = (
+				DFEB272C2AE10713004FBB7E /* Sources */,
+				DFEB272D2AE10713004FBB7E /* Frameworks */,
+				DFEB272E2AE10713004FBB7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFEB27422AE10743004FBB7E /* PBXTargetDependency */,
+			);
+			name = Note3WidgetExtension;
+			productName = Note3WidgetExtension;
+			productReference = DFEB27302AE10713004FBB7E /* Note3WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DFFD0C622A9F5561009CCDE3 /* TodayMissionListViewExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFFD0C702A9F5562009CCDE3 /* Build configuration list for PBXNativeTarget "TodayMissionListViewExtension" */;
+			buildPhases = (
+				DFFD0C5F2A9F5561009CCDE3 /* Sources */,
+				DFFD0C602A9F5561009CCDE3 /* Frameworks */,
+				DFFD0C612A9F5561009CCDE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFFD0C752A9F5573009CCDE3 /* PBXTargetDependency */,
+			);
+			name = TodayMissionListViewExtension;
+			productName = TodayMissionListViewExtension;
+			productReference = DFFD0C632A9F5561009CCDE3 /* TodayMissionListViewExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DFFD0CEF2AA08713009CCDE3 /* ClockInExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFFD0CFD2AA08716009CCDE3 /* Build configuration list for PBXNativeTarget "ClockInExtensionExtension" */;
+			buildPhases = (
+				DFFD0CEC2AA08713009CCDE3 /* Sources */,
+				DFFD0CED2AA08713009CCDE3 /* Frameworks */,
+				DFFD0CEE2AA08713009CCDE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF49FD582AA17B45003D8911 /* PBXTargetDependency */,
+			);
+			name = ClockInExtensionExtension;
+			productName = ClockInExtensionExtension;
+			productReference = DFFD0CF02AA08714009CCDE3 /* ClockInExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		33CC10E52044A3C60003C045 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				ORGANIZATIONNAME = "";
+				TargetAttributes = {
+					33CC10EC2044A3C60003C045 = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1100;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					33CC111A2044C6BA0003C045 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					DF5164D82AAF00A600518208 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DF6F3B4D2AE14E2200A20949 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DF6F3B622AE14E4900A20949 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DF6F3B772AE14E6600A20949 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DF6F3B8C2AE14E9200A20949 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DF80B1F12AA3372E008E35C3 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DFEB26A12ADF7AE4004FBB7E = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DFEB26D62ADFF321004FBB7E = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DFEB272F2AE10713004FBB7E = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DFFD0C622A9F5561009CCDE3 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					DFFD0CEF2AA08713009CCDE3 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "Runner" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+				fr,
+				de,
+				ja,
+				ko,
+				it,
+				vi,
+				nl,
+				es,
+				th,
+				"zh-Hant",
+			);
+			mainGroup = 33CC10E42044A3C60003C045;
+			productRefGroup = 33CC10EE2044A3C60003C045 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				33CC10EC2044A3C60003C045 /* Runner */,
+				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
+				DFFD0C622A9F5561009CCDE3 /* TodayMissionListViewExtension */,
+				DFFD0CEF2AA08713009CCDE3 /* ClockInExtensionExtension */,
+				DF80B1F12AA3372E008E35C3 /* MyQuadrantWidgetExtension */,
+				DF5164D82AAF00A600518208 /* MyCalendarWidgetExtension */,
+				DFEB26A12ADF7AE4004FBB7E /* NoteWidgetExtension */,
+				DFEB26D62ADFF321004FBB7E /* Note2WidgetExtension */,
+				DFEB272F2AE10713004FBB7E /* Note3WidgetExtension */,
+				DF6F3B4D2AE14E2200A20949 /* Note4WidgetExtension */,
+				DF6F3B622AE14E4900A20949 /* Note5WidgetExtension */,
+				DF6F3B772AE14E6600A20949 /* Note6WidgetExtension */,
+				DF6F3B8C2AE14E9200A20949 /* Note7WidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		33CC10EB2044A3C60003C045 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF21E6FF282FE7B200444EFF /* CustomStatusBarWidget2 in Resources */,
+				DF21E7122830E84200444EFF /* InfoPlist.strings in Resources */,
+				DF81CA312BB1B4FB00E2842E /* GoogleService-Info.plist in Resources */,
+				33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */,
+				DFC8174F2A9CB17E00824F79 /* Localizable.strings in Resources */,
+				DF21E700282FE7B200444EFF /* CustomStatusBarWidget.xib in Resources */,
+				DF21E6F4282FE6C700444EFF /* CounterPopupViewController.xib in Resources */,
+				DF21E70B282FE96900444EFF /* MainStoryboard.storyboard in Resources */,
+				33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5164D72AAF00A600518208 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5164E02AAF00A800518208 /* Assets.xcassets in Resources */,
+				DF5165072AB087CD00518208 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B4C2AE14E2200A20949 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B552AE14E2300A20949 /* Assets.xcassets in Resources */,
+				DF6F3BAA2AE14F5600A20949 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B612AE14E4900A20949 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B6A2AE14E4A00A20949 /* Assets.xcassets in Resources */,
+				DF6F3BAB2AE14F5600A20949 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B762AE14E6600A20949 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B7F2AE14E6700A20949 /* Assets.xcassets in Resources */,
+				DF6F3BAC2AE14F5700A20949 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B8B2AE14E9200A20949 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3B942AE14E9300A20949 /* Assets.xcassets in Resources */,
+				DF6F3BAD2AE14F5700A20949 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF80B1F02AA3372E008E35C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF80B1F92AA3372F008E35C3 /* Assets.xcassets in Resources */,
+				DF80B2222AA33C20008E35C3 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB26A02ADF7AE4004FBB7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB26A92ADF7AE5004FBB7E /* Assets.xcassets in Resources */,
+				DFEB26EE2AE0DADE004FBB7E /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB26D52ADFF321004FBB7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB26DE2ADFF322004FBB7E /* Assets.xcassets in Resources */,
+				DFEB26EF2AE0DADE004FBB7E /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB272E2AE10713004FBB7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB27372AE10714004FBB7E /* Assets.xcassets in Resources */,
+				DFEB27462AE10757004FBB7E /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFFD0C612A9F5561009CCDE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFFD0C6A2A9F5561009CCDE3 /* Assets.xcassets in Resources */,
+				DFFD0C932A9F6B3D009CCDE3 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFFD0CEE2AA08713009CCDE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFFD0CF72AA08716009CCDE3 /* Assets.xcassets in Resources */,
+				DF49FD4D2AA09E32003D8911 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		007C3E4E862264FAEC4676A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3399D490228B24CF009A79C7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$PRODUCT_NAME.app\" > \"$PROJECT_DIR\"/Flutter/ephemeral/.app_filename && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh embed\n";
+		};
+		33CC111E2044C6BF0003C045 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				Flutter/ephemeral/FlutterInputs.xcfilelist,
+			);
+			inputPaths = (
+				Flutter/ephemeral/tripwire,
+			);
+			outputFileListPaths = (
+				Flutter/ephemeral/FlutterOutputs.xcfilelist,
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh && touch Flutter/ephemeral/tripwire";
+		};
+		A209C01F4043E2B4C76D5F72 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1D117EBC5F3ADA46AA8EB64 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		33CC10E92044A3C60003C045 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFC817552A9CB1E700824F79 /* String+Extension.swift in Sources */,
+				DFC817A92A9E0FDE00824F79 /* StoreData.swift in Sources */,
+				DF21E6FE282FE7B200444EFF /* CustomStatusBarWidget.swift in Sources */,
+				DF21E6EF282FE6BF00444EFF /* Utility.swift in Sources */,
+				DF21E6F1282FE6BF00444EFF /* WindowUtility.swift in Sources */,
+				DFBF30EB2869D0DD0091B848 /* Params.swift in Sources */,
+				DFC817AC2A9E100200824F79 /* PrimarryData.swift in Sources */,
+				DF5165062AAF3E6700518208 /* test.swift in Sources */,
+				DFEB26D12ADFF0F9004FBB7E /* NoteViewWidget.swift in Sources */,
+				DF21E6E6282FDFA800444EFF /* Extensions.swift in Sources */,
+				DF21E6F0282FE6BF00444EFF /* MethodChannelManager.swift in Sources */,
+				DFA1A33E2AA233310070DDD7 /* Color+Extension.swift in Sources */,
+				DFC8179E2A9E0C0400824F79 /* MissionData.swift in Sources */,
+				DF49FD502AA0CA49003D8911 /* FlomoMissionModel.swift in Sources */,
+				33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */,
+				33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */,
+				DF21E6E5282FDFA800444EFF /* Enums.swift in Sources */,
+				335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */,
+				DFEB26CD2ADFD338004FBB7E /* WQBMissionData.swift in Sources */,
+				DF21E6F5282FE6C700444EFF /* CounterPopupViewController.swift in Sources */,
+				DF21E6E7282FDFA800444EFF /* Constant.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5164D52AAF00A600518208 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5165082AB087F300518208 /* String+Extension.swift in Sources */,
+				DF5164EC2AAF013300518208 /* MissionData.swift in Sources */,
+				DF5164ED2AAF045A00518208 /* Color+Extension.swift in Sources */,
+				DF5164DE2AAF00A700518208 /* MyCalendarWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B4A2AE14E2200A20949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3BA62AE14F5200A20949 /* String+Extension.swift in Sources */,
+				DF6F3BAE2AE14F5D00A20949 /* NoteViewWidget.swift in Sources */,
+				DF6F3B532AE14E2200A20949 /* Note4Widget.swift in Sources */,
+				DF6F3BA22AE14F4D00A20949 /* Color+Extension.swift in Sources */,
+				DF6F3B9E2AE14F4600A20949 /* WQBMissionData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B5F2AE14E4900A20949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3BA72AE14F5200A20949 /* String+Extension.swift in Sources */,
+				DF6F3BAF2AE14F5E00A20949 /* NoteViewWidget.swift in Sources */,
+				DF6F3B682AE14E4900A20949 /* Note5Widget.swift in Sources */,
+				DF6F3BA32AE14F4E00A20949 /* Color+Extension.swift in Sources */,
+				DF6F3B9F2AE14F4700A20949 /* WQBMissionData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B742AE14E6600A20949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3BA82AE14F5300A20949 /* String+Extension.swift in Sources */,
+				DF6F3BB02AE14F5E00A20949 /* NoteViewWidget.swift in Sources */,
+				DF6F3B7D2AE14E6600A20949 /* Note6Widget.swift in Sources */,
+				DF6F3BA42AE14F4E00A20949 /* Color+Extension.swift in Sources */,
+				DF6F3BA02AE14F4700A20949 /* WQBMissionData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF6F3B892AE14E9200A20949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6F3BA92AE14F5300A20949 /* String+Extension.swift in Sources */,
+				DF6F3BB12AE14F5F00A20949 /* NoteViewWidget.swift in Sources */,
+				DF6F3B922AE14E9300A20949 /* Note7Widget.swift in Sources */,
+				DF6F3BA52AE14F4E00A20949 /* Color+Extension.swift in Sources */,
+				DF6F3BA12AE14F4800A20949 /* WQBMissionData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF80B1EE2AA3372E008E35C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF80B2042AA337C8008E35C3 /* MissionData.swift in Sources */,
+				DF80B2052AA337C8008E35C3 /* StoreData.swift in Sources */,
+				DF80B1F72AA3372E008E35C3 /* MyQuadrantWidget.swift in Sources */,
+				DF80B2062AA337C8008E35C3 /* FlomoMissionModel.swift in Sources */,
+				DF80B2232AA33C23008E35C3 /* String+Extension.swift in Sources */,
+				DF80B2032AA337C8008E35C3 /* PrimarryData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB269E2ADF7AE4004FBB7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB26D22ADFF14C004FBB7E /* NoteViewWidget.swift in Sources */,
+				DFEB26A72ADF7AE4004FBB7E /* NoteWidget.swift in Sources */,
+				DFEB26CF2ADFE0A1004FBB7E /* Color+Extension.swift in Sources */,
+				DFEB26E82ADFF3F3004FBB7E /* String+Extension.swift in Sources */,
+				DFEB26CE2ADFD7E6004FBB7E /* WQBMissionData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB26D32ADFF321004FBB7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB26EC2ADFF585004FBB7E /* NoteViewWidget.swift in Sources */,
+				DFEB26ED2ADFF5B5004FBB7E /* Color+Extension.swift in Sources */,
+				DFEB26E92ADFF3F4004FBB7E /* String+Extension.swift in Sources */,
+				DFEB26EA2ADFF52E004FBB7E /* WQBMissionData.swift in Sources */,
+				DFEB26DC2ADFF322004FBB7E /* Note2Widget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFEB272C2AE10713004FBB7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFEB27452AE10754004FBB7E /* String+Extension.swift in Sources */,
+				DFEB27472AE1075E004FBB7E /* NoteViewWidget.swift in Sources */,
+				DFEB27352AE10713004FBB7E /* Note3Widget.swift in Sources */,
+				DFEB27442AE10750004FBB7E /* Color+Extension.swift in Sources */,
+				DFEB27432AE1074D004FBB7E /* WQBMissionData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFFD0C5F2A9F5561009CCDE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFFD0C772A9F55E8009CCDE3 /* MissionData.swift in Sources */,
+				DFFD0C782A9F55E8009CCDE3 /* PrimarryData.swift in Sources */,
+				DFFD0C682A9F5561009CCDE3 /* TodayMissionListView.swift in Sources */,
+				DFFD0C922A9F6B39009CCDE3 /* String+Extension.swift in Sources */,
+				DF49FD532AA176AE003D8911 /* FlomoMissionModel.swift in Sources */,
+				DFFD0C762A9F55E8009CCDE3 /* StoreData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFFD0CEC2AA08713009CCDE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF49FD552AA176B3003D8911 /* MissionData.swift in Sources */,
+				DFA1A33F2AA2333E0070DDD7 /* Color+Extension.swift in Sources */,
+				DF49FD4E2AA09E35003D8911 /* String+Extension.swift in Sources */,
+				DF49FD512AA17635003D8911 /* PrimarryData.swift in Sources */,
+				DF49FD562AA176BA003D8911 /* StoreData.swift in Sources */,
+				DF49FD522AA176AD003D8911 /* FlomoMissionModel.swift in Sources */,
+				DFFD0CF52AA08714009CCDE3 /* ClockInExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		33CC11202044C79F0003C045 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = 33CC111F2044C79F0003C045 /* PBXContainerItemProxy */;
+		};
+		DF49FD582AA17B45003D8911 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF49FD572AA17B45003D8911 /* PBXContainerItemProxy */;
+		};
+		DF5164E42AAF00A800518208 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF5164D82AAF00A600518208 /* MyCalendarWidgetExtension */;
+			targetProxy = DF5164E32AAF00A800518208 /* PBXContainerItemProxy */;
+		};
+		DF5164EB2AAF00C800518208 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF5164EA2AAF00C800518208 /* PBXContainerItemProxy */;
+		};
+		DF6F3B592AE14E2300A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF6F3B4D2AE14E2200A20949 /* Note4WidgetExtension */;
+			targetProxy = DF6F3B582AE14E2300A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3B6E2AE14E4A00A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF6F3B622AE14E4900A20949 /* Note5WidgetExtension */;
+			targetProxy = DF6F3B6D2AE14E4A00A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3B832AE14E6700A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF6F3B772AE14E6600A20949 /* Note6WidgetExtension */;
+			targetProxy = DF6F3B822AE14E6700A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3B982AE14E9300A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF6F3B8C2AE14E9200A20949 /* Note7WidgetExtension */;
+			targetProxy = DF6F3B972AE14E9300A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3BB82AE1533A00A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF6F3BB72AE1533A00A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3BBA2AE1533D00A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF6F3BB92AE1533D00A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3BBC2AE1534000A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF6F3BBB2AE1534000A20949 /* PBXContainerItemProxy */;
+		};
+		DF6F3BBE2AE1534300A20949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF6F3BBD2AE1534300A20949 /* PBXContainerItemProxy */;
+		};
+		DF80B1FD2AA3372F008E35C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF80B1F12AA3372E008E35C3 /* MyQuadrantWidgetExtension */;
+			targetProxy = DF80B1FC2AA3372F008E35C3 /* PBXContainerItemProxy */;
+		};
+		DF80B2482AA445B2008E35C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF80B2472AA445B2008E35C3 /* PBXContainerItemProxy */;
+		};
+		DFEB26AD2ADF7AE5004FBB7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFEB26A12ADF7AE4004FBB7E /* NoteWidgetExtension */;
+			targetProxy = DFEB26AC2ADF7AE5004FBB7E /* PBXContainerItemProxy */;
+		};
+		DFEB26E22ADFF322004FBB7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFEB26D62ADFF321004FBB7E /* Note2WidgetExtension */;
+			targetProxy = DFEB26E12ADFF322004FBB7E /* PBXContainerItemProxy */;
+		};
+		DFEB26F12AE0DB29004FBB7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DFEB26F02AE0DB29004FBB7E /* PBXContainerItemProxy */;
+		};
+		DFEB26F32AE0DB2E004FBB7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DFEB26F22AE0DB2E004FBB7E /* PBXContainerItemProxy */;
+		};
+		DFEB273B2AE10714004FBB7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFEB272F2AE10713004FBB7E /* Note3WidgetExtension */;
+			targetProxy = DFEB273A2AE10714004FBB7E /* PBXContainerItemProxy */;
+		};
+		DFEB27422AE10743004FBB7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DFEB27412AE10743004FBB7E /* PBXContainerItemProxy */;
+		};
+		DFFD0C6E2A9F5561009CCDE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFFD0C622A9F5561009CCDE3 /* TodayMissionListViewExtension */;
+			targetProxy = DFFD0C6D2A9F5561009CCDE3 /* PBXContainerItemProxy */;
+		};
+		DFFD0C752A9F5573009CCDE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DFFD0C742A9F5573009CCDE3 /* PBXContainerItemProxy */;
+		};
+		DFFD0CFB2AA08716009CCDE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFFD0CEF2AA08713009CCDE3 /* ClockInExtensionExtension */;
+			targetProxy = DFFD0CFA2AA08716009CCDE3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		33CC10F42044A3C60003C045 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				33CC10F52044A3C60003C045 /* Base */,
+				DF21E701282FE8CA00444EFF /* zh-Hans */,
+				DF6334972B73C8FB0087AB8F /* fr */,
+				DF63349B2B73CAF50087AB8F /* de */,
+				DF63349E2B73CAFC0087AB8F /* ja */,
+				DF6334A12B73CB060087AB8F /* ko */,
+				DF6334A42B73CB0E0087AB8F /* it */,
+				DF6334A72B73CB200087AB8F /* vi */,
+				DF6334AA2B73CB290087AB8F /* nl */,
+				DF6334AD2B73CB390087AB8F /* es */,
+				DF6334B02B73CB3D0087AB8F /* th */,
+				DF6334B32B73CC710087AB8F /* zh-Hant */,
+			);
+			name = MainMenu.xib;
+			path = Runner;
+			sourceTree = "<group>";
+		};
+		DF21E70D2830E84200444EFF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF21E70E2830E84200444EFF /* en */,
+				DF6334992B73C8FC0087AB8F /* fr */,
+				DF63349A2B73C9A00087AB8F /* zh-Hans */,
+				DF63349D2B73CAF60087AB8F /* de */,
+				DF6334A02B73CAFD0087AB8F /* ja */,
+				DF6334A32B73CB070087AB8F /* ko */,
+				DF6334A62B73CB0E0087AB8F /* it */,
+				DF6334A92B73CB210087AB8F /* vi */,
+				DF6334AC2B73CB2A0087AB8F /* nl */,
+				DF6334AF2B73CB3A0087AB8F /* es */,
+				DF6334B22B73CB3E0087AB8F /* th */,
+				DF6334B52B73CC710087AB8F /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DFC817512A9CB17E00824F79 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFC817502A9CB17E00824F79 /* en */,
+				DFC817522A9CB18300824F79 /* zh-Hans */,
+				DF6334982B73C8FB0087AB8F /* fr */,
+				DF63349C2B73CAF60087AB8F /* de */,
+				DF63349F2B73CAFD0087AB8F /* ja */,
+				DF6334A22B73CB060087AB8F /* ko */,
+				DF6334A52B73CB0E0087AB8F /* it */,
+				DF6334A82B73CB200087AB8F /* vi */,
+				DF6334AB2B73CB2A0087AB8F /* nl */,
+				DF6334AE2B73CB390087AB8F /* es */,
+				DF6334B12B73CB3E0087AB8F /* th */,
+				DF6334B42B73CC710087AB8F /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		338D0CE9231458BD00FA5F75 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Profile;
+		};
+		338D0CEA231458BD00FA5F75 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		338D0CEB231458BD00FA5F75 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Profile;
+		};
+		33CC10F92044A3C60003C045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		33CC10FA2044A3C60003C045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		33CC10FC2044A3C60003C045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello;
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		33CC10FD2044A3C60003C045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Release.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		33CC111C2044C6BA0003C045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		33CC111D2044C6BA0003C045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DF5164E62AAF00A900518208 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MyCalendarWidget/MyCalendarWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyCalendarWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyCalendarWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.MyCalendarWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF5164E72AAF00A900518208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MyCalendarWidget/MyCalendarWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyCalendarWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyCalendarWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.MyCalendarWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF5164E82AAF00A900518208 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MyCalendarWidget/MyCalendarWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyCalendarWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyCalendarWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.MyCalendarWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF6F3B5B2AE14E2400A20949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note4Widget/Note4Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note4Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note4Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note4Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF6F3B5C2AE14E2400A20949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note4Widget/Note4Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note4Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note4Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note4Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF6F3B5D2AE14E2400A20949 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note4Widget/Note4Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note4Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note4Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note4Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF6F3B712AE14E4A00A20949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note5Widget/Note5Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note5Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note5Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note5Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF6F3B722AE14E4A00A20949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note5Widget/Note5Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note5Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note5Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note5Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF6F3B732AE14E4A00A20949 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note5Widget/Note5Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note5Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note5Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note5Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF6F3B862AE14E6700A20949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note6Widget/Note6Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note6Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note6Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note6Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF6F3B872AE14E6700A20949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note6Widget/Note6Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note6Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note6Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note6Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF6F3B882AE14E6700A20949 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note6Widget/Note6Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note6Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note6Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note6Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF6F3B9B2AE14E9400A20949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note7Widget/Note7Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note7Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note7Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note7Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF6F3B9C2AE14E9400A20949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note7Widget/Note7Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note7Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note7Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note7Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF6F3B9D2AE14E9400A20949 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note7Widget/Note7Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note7Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note7Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note7Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF80B1FF2AA3372F008E35C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MyQuadrantWidget/MyQuadrantWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyQuadrantWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyQuadrantWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.MyQuadrantWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF80B2002AA3372F008E35C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MyQuadrantWidget/MyQuadrantWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyQuadrantWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyQuadrantWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.MyQuadrantWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF80B2012AA3372F008E35C3 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MyQuadrantWidget/MyQuadrantWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyQuadrantWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyQuadrantWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.MyQuadrantWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DFEB26AF2ADF7AE5004FBB7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NoteWidget/NoteWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NoteWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NoteWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NoteWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFEB26B02ADF7AE5004FBB7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NoteWidget/NoteWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NoteWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NoteWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NoteWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFEB26B12ADF7AE5004FBB7E /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NoteWidget/NoteWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NoteWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NoteWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NoteWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DFEB26E52ADFF323004FBB7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note2Widget/Note2Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note2Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note2Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note2Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFEB26E62ADFF323004FBB7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note2Widget/Note2Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note2Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note2Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note2Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFEB26E72ADFF323004FBB7E /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note2Widget/Note2Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note2Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note2Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note2Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DFEB273E2AE10714004FBB7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note3Widget/Note3Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note3Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note3Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note3Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFEB273F2AE10714004FBB7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note3Widget/Note3Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note3Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note3Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note3Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFEB27402AE10714004FBB7E /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Note3Widget/Note3Widget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Note3Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Note3Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.Note3Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DFFD0C712A9F5562009CCDE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayMissionListView/TodayMissionListView.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TodayMissionListView/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodayMissionListView;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.TodayMissionListView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFFD0C722A9F5562009CCDE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayMissionListView/TodayMissionListView.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TodayMissionListView/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodayMissionListView;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.TodayMissionListView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFFD0C732A9F5562009CCDE3 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayMissionListView/TodayMissionListView.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TodayMissionListView/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodayMissionListView;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.TodayMissionListView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DFFD0CFE2AA08716009CCDE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ClockInExtension/ClockInExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClockInExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClockInExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.ClockInExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFFD0CFF2AA08716009CCDE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ClockInExtension/ClockInExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClockInExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClockInExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.ClockInExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFFD0D002AA08716009CCDE3 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ClockInExtension/ClockInExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClockInExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClockInExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.ClockInExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "Runner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33CC10F92044A3C60003C045 /* Debug */,
+				33CC10FA2044A3C60003C045 /* Release */,
+				338D0CE9231458BD00FA5F75 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "Runner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33CC10FC2044A3C60003C045 /* Debug */,
+				33CC10FD2044A3C60003C045 /* Release */,
+				338D0CEA231458BD00FA5F75 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		33CC111B2044C6BA0003C045 /* Build configuration list for PBXAggregateTarget "Flutter Assemble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33CC111C2044C6BA0003C045 /* Debug */,
+				33CC111D2044C6BA0003C045 /* Release */,
+				338D0CEB231458BD00FA5F75 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF5164E92AAF00A900518208 /* Build configuration list for PBXNativeTarget "MyCalendarWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5164E62AAF00A900518208 /* Debug */,
+				DF5164E72AAF00A900518208 /* Release */,
+				DF5164E82AAF00A900518208 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF6F3B5E2AE14E2400A20949 /* Build configuration list for PBXNativeTarget "Note4WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF6F3B5B2AE14E2400A20949 /* Debug */,
+				DF6F3B5C2AE14E2400A20949 /* Release */,
+				DF6F3B5D2AE14E2400A20949 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF6F3B702AE14E4A00A20949 /* Build configuration list for PBXNativeTarget "Note5WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF6F3B712AE14E4A00A20949 /* Debug */,
+				DF6F3B722AE14E4A00A20949 /* Release */,
+				DF6F3B732AE14E4A00A20949 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF6F3B852AE14E6700A20949 /* Build configuration list for PBXNativeTarget "Note6WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF6F3B862AE14E6700A20949 /* Debug */,
+				DF6F3B872AE14E6700A20949 /* Release */,
+				DF6F3B882AE14E6700A20949 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF6F3B9A2AE14E9400A20949 /* Build configuration list for PBXNativeTarget "Note7WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF6F3B9B2AE14E9400A20949 /* Debug */,
+				DF6F3B9C2AE14E9400A20949 /* Release */,
+				DF6F3B9D2AE14E9400A20949 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF80B2022AA3372F008E35C3 /* Build configuration list for PBXNativeTarget "MyQuadrantWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF80B1FF2AA3372F008E35C3 /* Debug */,
+				DF80B2002AA3372F008E35C3 /* Release */,
+				DF80B2012AA3372F008E35C3 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFEB26B22ADF7AE5004FBB7E /* Build configuration list for PBXNativeTarget "NoteWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFEB26AF2ADF7AE5004FBB7E /* Debug */,
+				DFEB26B02ADF7AE5004FBB7E /* Release */,
+				DFEB26B12ADF7AE5004FBB7E /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFEB26E42ADFF323004FBB7E /* Build configuration list for PBXNativeTarget "Note2WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFEB26E52ADFF323004FBB7E /* Debug */,
+				DFEB26E62ADFF323004FBB7E /* Release */,
+				DFEB26E72ADFF323004FBB7E /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFEB273D2AE10714004FBB7E /* Build configuration list for PBXNativeTarget "Note3WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFEB273E2AE10714004FBB7E /* Debug */,
+				DFEB273F2AE10714004FBB7E /* Release */,
+				DFEB27402AE10714004FBB7E /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFFD0C702A9F5562009CCDE3 /* Build configuration list for PBXNativeTarget "TodayMissionListViewExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFFD0C712A9F5562009CCDE3 /* Debug */,
+				DFFD0C722A9F5562009CCDE3 /* Release */,
+				DFFD0C732A9F5562009CCDE3 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFFD0CFD2AA08716009CCDE3 /* Build configuration list for PBXNativeTarget "ClockInExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFFD0CFE2AA08716009CCDE3 /* Debug */,
+				DFFD0CFF2AA08716009CCDE3 /* Release */,
+				DFFD0D002AA08716009CCDE3 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 33CC10E52044A3C60003C045 /* Project object */;
+}

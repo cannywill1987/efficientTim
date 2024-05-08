@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by 林智彬 on 2023/8/28.
+  
+*/
+"today" = "Vandaag";
+"clockInToday" = "Vandaag inklokken";
+"Quadrant" = "Quadrant ToDo";
+"sunday" = "Zon.";
+"monday" = "Ma.";
+"tuesday" = "Di.";
+"wednesday" = "Wo.";
+"thursday" = "Do.";
+"friday" = "Vrij.";
+"saturday" = "Zat.";
+"january" = "Jan.";
+"february" = "Feb.";
+"march" = "Mrt.";
+"april" = "Apr.";
+"may" = "Mei";
+"june" = "Jun.";
+"july" = "Jul.";
+"august" = "Aug.";
+"september" = "Sep.";
+"october" = "Okt.";
+"november" = "Nov.";
+"december" = "Dec.";
+"calendar_this_week" = "Kalender Deze Week";
+"calendar_this_week_desc" = "";
+"note1" = "Notitie 1";
+"note2" = "Notitie 2";
+"note3" = "Notitie 3";
+"note4" = "Notitie 4";
+"note5" = "Notitie 5";
+"note6" = "Notitie 6";
+"note7" = "Notitie 7";
+"note_desc" = "De inhoud van de notitie kan in de app worden ingesteld.";
+

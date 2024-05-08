@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CLIENT_ID</key>
+    <string>163911111516-gloh29m5f32vobruebkuevck16hd4mv3.apps.googleusercontent.com</string>
+    <key>REVERSED_CLIENT_ID</key>
+    <string>com.googleusercontent.apps.163911111516-gloh29m5f32vobruebkuevck16hd4mv3</string>
+    <key>ANDROID_CLIENT_ID</key>
+    <string>163911111516-8vgn1632c9m0q67hmu0eboriogsn3hn4.apps.googleusercontent.com</string>
+    <key>API_KEY</key>
+    <string>AIzaSyAy6Leuu8G_uAVOtWgB5ZGPj47G4xts8oM</string>
+    <key>GCM_SENDER_ID</key>
+    <string>163911111516</string>
+    <key>PLIST_VERSION</key>
+    <string>1</string>
+    <key>BUNDLE_ID</key>
+    <string>com.timespeed.timehello</string>
+    <key>PROJECT_ID</key>
+    <string>timerbell-3a4af</string>
+    <key>STORAGE_BUCKET</key>
+    <string>timerbell-3a4af.appspot.com</string>
+    <key>IS_ADS_ENABLED</key>
+    <false></false>
+    <key>IS_ANALYTICS_ENABLED</key>
+    <false></false>
+    <key>IS_APPINVITE_ENABLED</key>
+    <true></true>
+    <key>IS_GCM_ENABLED</key>
+    <true></true>
+    <key>IS_SIGNIN_ENABLED</key>
+    <true></true>
+    <key>GOOGLE_APP_ID</key>
+    <string>1:163911111516:ios:0704eba5fd312cfb256799</string>
+</dict>
+</plist>

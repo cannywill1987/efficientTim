@@ -1,0 +1,608 @@
+name: time_hello
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+#  harmony: ^1.0.0
+  sidebarx: ^0.16.3
+  flutter_typeahead: ^5.2.0
+  fluttertoast: ^8.2.1
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  dio: ^5.1.2
+  #  fluttertoast: ^8.0.6
+  event_bus: ^2.0.0
+  #  keyboard_visibility: ^0.5.6
+  flutter_keyboard_visibility: ^6.0.0
+  #  sqflite: ^2.0.0+3
+  path_provider: '^2.0.14'
+  flutter_slidable: ^0.6.0
+  adaptive_dialog: ^1.0.1
+  date_time_picker: "^2.1.0"
+  #  flutter_local_notifications: ^9.2.0
+  fl_chart: ^0.36.3
+  #  flutter_svg: ^0.21.0-nullsafety.0
+  material_segmented_control: ^3.1.2
+  #  video_player: ^0.6.4
+  shared_preferences: ^2.1.1
+  #  wakelock: ^0.5.4
+  #  audioplayers: any			 #用来播放mp3
+  #  #  audioplayer: 0.8.1
+  #  audioplayer_web: 0.7.1
+  just_audio: ^0.9.18
+  audio_session: ^0.1.7
+  #  bitsdojo_window: any #用来pc端显示不同window样式
+  platform_device_id: any # 小米android id就是这个
+  provider: ^6.0.1
+  #  list_wheel_scroll_view_x: ^0.0.2
+  sliver_tools: ^0.2.10
+  scroll_to_index: ^2.1.0
+  google_fonts: ^6.1.0
+  just_audio_platform_interface: ^4.0.0
+  #  sharesdk_plugin: ^1.3.6
+  #  mobcommonlib: ^1.1.4
+  wakelock: ^0.6.2
+  synchronized: ^3.0.0
+  #  bitsdojo_window_platform_interface: ^0.1.0
+  #  native_updater: ^0.1.1
+  #  bitsdojo_window_platform_interface: ^0.1.0
+  fading_edge_scrollview: ^3.0.0
+  file: ^6.1.4
+  permission_handler: ^10.2.0
+  #  package_info: 0.4.1
+  open_file: ^3.2.1
+  flutter_downloader: ^1.8.0+1 #删除会闪崩
+  #  progress_dialog: 1.2.0
+  package_info: ^2.0.2
+  #  auto_updater: ^0.1.2
+  camera: ^0.9.4+19
+  image_cropper: ^5.0.0
+  marquee: ^2.2.3
+  image_picker: ^1.0.4
+  cached_network_image: ^3.2.0
+  url_launcher: ^6.1.4
+  flutter_native_timezone: ^2.0.0
+  flutter_parsed_text: ^2.2.1 #用于代替Text组件解析手机号 邮箱或者自定义匹配字符
+  #  flutter_bugly: ^0.4.4
+  #  secverify_plugin: ^1.30.7
+  excel: 2.0.1
+  clipboard: ^0.1.3
+  #  flutter_quill: ^7.2.0
+  #  flutter_quill_extensions: ^0.3.2
+#  math_keyboard: ^0.1.6
+#  flutter_js: ^0.8.0
+  filesystem_picker: ^3.1.0
+  universal_html: ^2.0.8
+  #  youtube_player_flutter: ^8.1.2
+  webview_flutter: ^4.0.2
+  flutter_easyloading: ^3.0.5
+  #  google_sign_in: ^6.0.2
+  #  flutter_facebook_auth: ^5.0.8
+  #  firebase_auth: ^4.2.9
+  intl_phone_field: ^3.1.0
+  flutter_rating_bar: ^4.0.1
+  #  firebase_messaging: ^14.2.6
+  flutter_signin_button: ^2.0.0
+  #  rating_dialog: ^2.0.4
+  #  firebase相关google sign in
+  firebase_auth: ^4.15.3
+  firebase_core: ^2.24.2
+
+  google_sign_in: ^6.0.0
+  sign_in_with_apple: ^4.3.0
+  nil: ^1.1.1
+
+  #用于flutter extension
+  photo_view: ^0.14.0
+  video_player: ^2.4.2
+  youtube_player_flutter: ^8.1.1
+  gallery_saver: ^2.3.2
+  string_validator: ^1.0.0
+  #用于flutter quill
+  collection: ^1.17.0
+  flutter_colorpicker: ^1.0.3
+  quiver: ^3.2.1
+  pedantic: ^1.11.1
+  characters: ^1.2.1
+  diff_match_patch: ^0.4.1
+  i18n_extension: ">=8.0.0 <10.0.0"
+  device_info_plus: ^9.0.0
+  platform: ^3.1.0
+  pasteboard: ^0.2.0
+  #  flutter_ali_auth: ^0.6.2
+  ali_auth: ^1.1.0
+  dio_http2_adapter: ^2.0.0
+  uuid: ^3.0.6
+  in_app_review: ^2.0.6
+  #  modal_bottom_sheet: ^2.1.2
+  lunar_calendar_converter_new: ^2.0.0
+  shimmer: ^3.0.0 # 好看的动画闪光字体
+  audioplayers: ^5.1.0
+  flip_card: ^0.7.0 # 翻转卡片 正面 反面互换
+  #  flutter_markdown: ^0.6.18
+  flutter_reorderable_list: ^1.3.1
+  #  awesome_dialog: ^3.1.0
+  #  credit_card_scanner: ^1.0.5 # 扫描卡
+  credit_card_type_detector: ^3.0.0 # 检测卡类型
+  u_credit_card: ^1.1.0 # 信用卡卡片ui
+#  appflowy_editor: ^2.1.0
+  #  flutter_credit_card: ^4.0.1 #信用卡输入框
+  blurrycontainer: ^1.0.2 # 模糊背景
+  auto_orientation: ^2.3.1 #设置屏幕方向
+  native_device_orientation: ^1.2.1 #获取屏幕方向
+  encrypt: ^5.0.3
+  lottie: ^3.0.0
+#  material_symbols_icons: ^4.2719.1 #google font的icon https://fonts.google.com/icons
+  flutter_sound: ^9.2.13
+  flutter_vibrate: ^1.3.0
+  calendar_date_picker2: ^0.5.5
+  animate_do: ^3.3.4 #todo 不签用不用上
+dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有点问题
+  file_picker: ^5.2.5 #有ffi
+  font_awesome_flutter: ^10.5.0 #1000+icon图片库
+#  flutter_math_fork: ^0.7.2
+  meta: 1.9.1
+  crypto: ^3.0.0
+  cupertino_icons: ^1.0.4
+  http: ^1.0.0
+  #  build_runner: ^2.4.0
+  web_socket_channel: ^2.0.0
+  json_annotation: ^4.8.1
+  convert: ^3.0.0
+  http_parser: ^4.0.0
+  ffi: ^1.1.2
+  plugin_platform_interface: ^2.1.3
+  syncfusion_flutter_core: ^24.1.41
+  syncfusion_flutter_calendar: ^24.1.41
+  syncfusion_localizations: ^24.1.41
+  syncfusion_flutter_datepicker: ^24.1.41
+  syncfusion_flutter_charts: ^24.1.41
+  gallery_saver: 2.1.0
+  device_info_plus: ^8.0.0 #有ffi
+  record:
+    path: ./thirdPartyLib/record
+  firebase_analytics: ^10.7.4
+  #  flutter_inappwebview: ^5.4.6
+  easy_image_viewer: ^1.2.0
+  file_selector: ^0.9.3
+  #  flutter_image_compress: ^2.0.1
+  image_compression: ^1.0.4
+  intl: ^0.18.0
+  #  image_cropper: ^5.0.0 #图片剪裁
+  #  convex_bottom_bar: ^3.2.0
+  dio_cache_interceptor: ^3.4.4
+  im_model_gen: ^1.2.1 # @ImModel() 可以支持深拷贝
+  shimmer: ^3.0.0
+  flutter_colorpicker: ^1.0.3
+  flutter_hooks: ^0.18.5+1
+  flutter_svg: ^2.0.6
+  file_saver: ^0.1.1
+  analyzer: ^5.13.0 # 用于解决json_serializable 6.3.0有问题
+  progress_border: ^0.1.5
+  adaptive_theme: ^3.6.0
+#  state_notifier: ^1.0.0
+#  auto_route: ^8.0.2 #实现懒加载
+
+dev_dependencies:
+#  auto_route_generator: ^8.0.2
+  json_serializable: ^6.1.5
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.7
+  flutter_gen_runner: 5.1.0+1
+  build_web_compilers: ^4.0.8
+  flip_board: ^1.0.0 # 折叠计时用
+# Add this inside pubspec.yaml
+native_updater:
+  git: https://github.com/loadsmileau/native_updater
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  #  plugin:
+  #    platforms:
+  #      android:
+  #        package: com.ryanheise.just_audio
+  #        pluginClass: JustAudioPlugin
+  #      ios:
+  #        pluginClass: JustAudioPlugin
+  #      macos:
+  #        pluginClass: JustAudioPlugin
+  #        default_package: bitsdojo_window_macos
+  #      windows:
+  #        default_package: bitsdojo_window_windows
+  #      linux:
+  #        default_package: bitsdojo_window_linux
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/background_video.mp4
+
+    #    - assets/sounds/
+    - assets/img/
+    - assets/keys/
+    # assets-generator-begin
+    # assets/img/*
+    - assets/img/ic_course_train.svg
+    - assets/img/ic_zhongguo_bank.png
+    - assets/img/ic_eye_slash.svg
+    - assets/img/ic_objective.svg
+    - assets/img/avatar18.svg
+    - assets/img/avatar24.svg
+    - assets/img/avatar30.svg
+    - assets/img/ic_clock.svg
+    - assets/img/ic_zhada_bank.png
+    - assets/img/ic_feedback2.svg
+    - assets/img/ic_note.svg
+    - assets/img/ic_finished_black.svg
+    - assets/img/ic_huifeng_bank.png
+    - assets/img/bg_pic_item.png
+    - assets/img/avatar31.svg
+    - assets/img/avatar25.svg
+    - assets/img/ic_huaqi_bank.png
+    - assets/img/avatar19.svg
+    - assets/img/ic_memory_card.svg
+    - assets/img/ic_gpt.svg
+    - assets/img/ic_tab1_unselected.svg
+    - assets/img/ic_chatgpt_select.svg
+    - assets/img/bg_mission.jpg
+    - assets/img/ic_xingye_bank.png
+    - assets/img/ic_information.svg
+    - assets/img/ic_zhongxin_bank.png
+    - assets/img/ic_nongye_bank.png
+    - assets/img/ic_statistics_pic.svg
+    - assets/img/ic_feedback.svg
+    - assets/img/ic_record_reset.svg
+    - assets/img/avatar33.svg
+    - assets/img/avatar27.svg
+    - assets/img/ic_facebook.svg
+    - assets/img/ic_normal.svg
+    - assets/img/ic_instantly.svg
+    - assets/img/icon_close.png
+    - assets/img/ic_endtime2_orange.svg
+    - assets/img/ic_focus_orange.svg
+    - assets/img/ic_autorenew.png
+    - assets/img/avatar26.svg
+    - assets/img/avatar32.svg
+    - assets/img/ic_guide_lottie4.json
+    - assets/img/ic_folder_white.svg
+    - assets/img/ic_youzheng_bank.png
+    - assets/img/ic_delete.svg
+    - assets/img/ic_clockin_selected.svg
+    - assets/img/ic_alipay.svg
+    - assets/img/ic_lightning_white.svg
+    - assets/img/ic_quote_right.svg
+    - assets/img/discover.png
+    - assets/img/ic_unfinish_missions.svg
+    - assets/img/ic_background.svg
+    - assets/img/rupay.png
+    - assets/img/ic_alarm_orange.svg
+    - assets/img/ic_zhaoshang_bank.png
+    - assets/img/ic_error.svg
+    - assets/img/avatar36.svg
+    - assets/img/avatar22.svg
+    - assets/img/ic_privacy.svg
+    - assets/img/ic_qq.svg
+    - assets/img/return_btn.png
+    - assets/img/ic_folder.svg
+    - assets/img/avatar23.svg
+    - assets/img/ic_gongshang_bank.png
+    - assets/img/avatar37.svg
+    - assets/img/ic_loudspeaker.svg
+    - assets/img/ic_emoij6.svg
+    - assets/img/ic_starttime_orange.svg
+    - assets/img/bg_light.png
+    - assets/img/ic_diary.svg
+    - assets/img/ic_addlink.svg
+    - assets/img/ic_yinlian_bank.png
+    - assets/img/ic_emoji1_unselected.png
+    - assets/img/ic_chrome.svg
+    - assets/img/ic_cloud_sync.svg
+    - assets/img/ic_stop.svg
+    - assets/img/ic_credit_card.svg
+    - assets/img/ic_ai_service.svg
+    - assets/img/ic_iphone.svg
+    - assets/img/ic_guangzhou_bank.png
+    - assets/img/avatar21.svg
+    - assets/img/avatar35.svg
+    - assets/img/avatar09.svg
+    - assets/img/ic_lockscreen_selected.svg
+    - assets/img/ic_apple.svg
+    - assets/img/ic_four_quadrant_white.png
+    - assets/img/ic_course.svg
+    - assets/img/bg_badge.svg
+    - assets/img/avatar08.svg
+    - assets/img/avatar34.svg
+    - assets/img/ic_heart.svg
+    - assets/img/avatar20.svg
+    - assets/img/ic_emoji6_unselected.png
+    - assets/img/ic_addnote.svg
+    - assets/img/ic_window.svg
+    - assets/img/ic_todo.svg
+    - assets/img/ic_shanghai_bank.png
+    - assets/img/ic_num2.svg
+    - assets/img/ic_tab2_unselected.svg
+    - assets/img/ic_no_data.svg
+    - assets/img/ic_mac.svg
+    - assets/img/ic_screenrotation.svg
+    - assets/img/ic_add_column_right.png
+    - assets/img/ic_right.svg
+    - assets/img/ic_permission_setting.svg
+    - assets/img/ic_guide_lottie2.json
+    - assets/img/ic_setting.svg
+    - assets/img/ic_emoji4_unselected.png
+    - assets/img/ic_lockscreen.svg
+    - assets/img/ic_autorenew_one.png
+    - assets/img/ic_logo_red.png
+    - assets/img/ic_num3.svg
+    - assets/img/ic_tab1_selected.svg
+    - assets/img/ic_num1.svg
+    - assets/img/ic_timeline_clicked.svg
+    - assets/img/ic_statistic.svg
+    - assets/img/ic_tab5_unselected.svg
+    - assets/img/ic_date_orange.svg
+    - assets/img/chip.png
+    - assets/img/ic_finished.svg
+    - assets/img/ic_chatgpt_bg.png
+    - assets/img/ic_emoji3_unselected.png
+    - assets/img/ic_create_folder.svg
+    - assets/img/btn_unchecked.png
+    - assets/img/ic_calendar.svg
+    - assets/img/ic_timeline.svg
+    - assets/img/ic_record_playing.svg
+    - assets/img/visa.png
+    - assets/img/hipercard.png
+    - assets/img/ic_fragment.svg
+    - assets/img/ic_encrypt.svg
+    - assets/img/ic_emoji2_unselected.png
+    - assets/img/ic_tag.svg
+    - assets/img/ic_master_bank.png
+    - assets/img/ic_previous.png
+    - assets/img/ic_record_recording.svg
+    - assets/img/ic_expand_right.svg
+    - assets/img/ic_all_mission.svg
+    - assets/img/ic_tab4_unselected.svg
+    - assets/img/elo.png
+    - assets/img/ic_quote_left.svg
+    - assets/img/avatar40.svg
+    - assets/img/ic_flower.png
+    - assets/img/ic_four_quadrant.png
+    - assets/img/ic_ai_helper.svg
+    - assets/img/ic_calendar_today.svg
+    - assets/img/ic_tomorrow.svg
+    - assets/img/ic_splash_duck.png
+    - assets/img/ic_clockin_unselected.svg
+    - assets/img/ic_tomato_white.svg
+    - assets/img/ic_emoji5_unselected.png
+    - assets/img/ic_voice_diary.svg
+    - assets/img/ic_delete_remind.svg
+    - assets/img/ic_card_all_black.svg
+    - assets/img/ic_guide_lottie3.json
+    - assets/img/ic_shanghai_nongshang_bank.png
+    - assets/img/ic_paint_paint.svg
+    - assets/img/ic_all.svg
+    - assets/img/ic_guangda_bank.png
+    - assets/img/ic_logo_orange.png
+    - assets/img/ic_card_new_black.svg
+    - assets/img/ic_add_column_left.png
+    - assets/img/ic_google.svg
+    - assets/img/ic_wechat.svg
+    - assets/img/ic_minsheng_bank.png
+    - assets/img/ic_unselect_bank.png
+    - assets/img/ic_course_selected.svg
+    - assets/img/ic_volume.svg
+    - assets/img/ic_countdown_timer_selected.svg
+    - assets/img/ic_document.png
+    - assets/img/ic_time_management_selected.svg
+    - assets/img/ic_wechat_pay.svg
+    - assets/img/ic_record_start.svg
+    - assets/img/ic_time_management.svg
+    - assets/img/ic_finished_white.svg
+    - assets/img/btn_checked.png
+    - assets/img/ic_safari.svg
+    - assets/img/ic_archive.svg
+    - assets/img/ic_tags.svg
+    - assets/img/ic_dalaika_bank.png
+    - assets/img/bg_rating_guide.jpg
+    - assets/img/ic_next.png
+    - assets/img/bg_dark.png
+    - assets/img/ic_arrow_up.png
+    - assets/img/login_btn_press.png
+    - assets/img/ic_clockin.svg
+    - assets/img/ic_privacy_setting.svg
+    - assets/img/ic_tab2_selected.svg
+    - assets/img/ic_lightning_black.svg
+    - assets/img/ic_title.svg
+    - assets/img/ic_tab5_selected.svg
+    - assets/img/ic_dollar_gold.svg
+    - assets/img/login_btn_unable.png
+    - assets/img/ic_pufa_bank.png
+    - assets/img/ic_voice_note.svg
+    - assets/img/ic_view_timeline.svg
+    - assets/img/ic_visa_bank.png
+    - assets/img/ic_correct.svg
+    - assets/img/ic_function.svg
+    - assets/img/ic_folder_orange.svg
+    - assets/img/ic_launcher.png
+    - assets/img/ic_jianshe_bank.png
+    - assets/img/ic_tabbar_line.png
+    - assets/img/ic_all_finish.svg
+    - assets/img/ic_permission.svg
+    - assets/img/ic_create_mission_bg.svg
+    - assets/img/ic_ai_voice.svg
+    - assets/img/ic_repeative_orange.svg
+    - assets/img/ic_countdown_timer.svg
+    - assets/img/ic_this_week.svg
+    - assets/img/ic_focus.svg
+    - assets/img/return_btn_filll.png
+    - assets/img/ic_add_favorable_bank.png
+    - assets/img/ic_tab4_selected.svg
+    - assets/img/bg_login.jpg
+    - assets/img/ic_tab3_selected.svg
+    - assets/img/ic_today.svg
+    - assets/img/ic_wrong.svg
+    - assets/img/ic_guide_lottie1.json
+    - assets/img/ic_colors.svg
+    - assets/img/ic_funnel.svg
+    - assets/img/ic_pingan_bank.png
+    - assets/img/ic_super_note.svg
+    - assets/img/card_bg.png
+    - assets/img/ic_memorandum.svg
+    - assets/img/ic_account.svg
+    - assets/img/ic_emoji1.png
+    - assets/img/ic_method.svg
+    - assets/img/ic_wrong_question_book.svg
+    - assets/img/avatar39.svg
+    - assets/img/avatar05.svg
+    - assets/img/avatar11.svg
+    - assets/img/ic_android.svg
+    - assets/img/iOS.svg
+    - assets/img/ic_record_finish.svg
+    - assets/img/ic_circle_logo.png
+    - assets/img/ic_note3.svg
+    - assets/img/ic_jcb_bank.png
+    - assets/img/bg_light_circle_dot.png
+    - assets/img/ic_arrow_down.png
+    - assets/img/avatar10.svg
+    - assets/img/avatar04.svg
+    - assets/img/ic_more_paint.svg
+    - assets/img/avatar38.svg
+    - assets/img/ic_lanzhou_bank.png
+    - assets/img/ic_money4.svg
+    - assets/img/ic_word_document.svg
+    - assets/img/ic_tomato_checked.svg
+    - assets/img/ic_orientation.svg
+    - assets/img/ic_tomato.svg
+    - assets/img/ic_focus_training.svg
+    - assets/img/amex.png
+    - assets/img/ic_brainstorm.svg
+    - assets/img/ic_expand_left.svg
+    - assets/img/ic_emoji2.png
+    - assets/img/ic_present.svg
+    - assets/img/ic_bar_chart.svg
+    - assets/img/avatar12.svg
+    - assets/img/avatar06.svg
+    - assets/img/ic_listing.svg
+    - assets/img/ic_beijin_bank.png
+    - assets/img/avatar07.svg
+    - assets/img/avatar13.svg
+    - assets/img/ic_moon.png
+    - assets/img/ic_submission.svg
+    - assets/img/mastercard.png
+    - assets/img/ic_emoji3.png
+    - assets/img/ic_theme.svg
+    - assets/img/bg_addnote.svg
+    - assets/img/ic_jiangsu_bank.png
+    - assets/img/ic_chatgpt_selected.png
+    - assets/img/ic_eye_close.svg
+    - assets/img/ic_bank.svg
+    - assets/img/ic_right_panel.svg
+    - assets/img/ic_money3.svg
+    - assets/img/ic_jiaotong_bank.png
+    - assets/img/avatar17.svg
+    - assets/img/ic_music.svg
+    - assets/img/avatar03.svg
+    - assets/img/unionpay.png
+    - assets/img/ic_timeline_unclicked.svg
+    - assets/img/bg_tomato.png
+    - assets/img/ic_record_play.svg
+    - assets/img/avatar02.svg
+    - assets/img/avatar16.svg
+    - assets/img/login_btn_normal.png
+    - assets/img/ic_focus_target.svg
+    - assets/img/ic_money2.svg
+    - assets/img/ic_emoji6.png
+    - assets/img/ic_view_column.svg
+    - assets/img/ic_priority.svg
+    - assets/img/ic_edit.svg
+    - assets/img/ic_emoji4.png
+    - assets/img/ic_rest.svg
+    - assets/img/bg_addlink.svg
+    - assets/img/ic_view_listview.svg
+    - assets/img/avatar14.svg
+    - assets/img/ic_secure.svg
+    - assets/img/avatar28.svg
+    - assets/img/ic_card_all_white.svg
+    - assets/img/ic_huaxia_bank.png
+    - assets/img/bg_circle_light.png
+    - assets/img/avatar29.svg
+    - assets/img/ic_ningbo_bank.png
+    - assets/img/ic_endtime_orange.svg
+    - assets/img/bg_circle.png
+    - assets/img/avatar15.svg
+    - assets/img/avatar01.svg
+    - assets/img/ic_usa_yuntong_bank.png
+    - assets/img/ic_money1.svg
+    - assets/img/ic_emoji5.png
+    - assets/img/ic_card_new_white.svg
+    - assets/img/ic_guangfa_bank.png
+    - assets/img/ic_tomato_white2.png
+    # assets-generator-end
+  fonts:
+    - family: oswald
+      fonts:
+         - asset: assets/fonts/oswald.ttf
+    - family: kablammo
+      fonts:
+        - asset: assets/fonts/kablammo.ttf
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true

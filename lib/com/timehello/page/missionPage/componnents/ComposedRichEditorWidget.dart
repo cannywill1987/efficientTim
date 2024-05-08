@@ -1,0 +1,732 @@
+import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.dart';
+import 'package:time_hello/com/timehello/components/EmptyWidget.dart';
+import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
+
+import '../../../components/ImagesWrapperWidget.dart';
+import '../../../config/CONSTANTS.dart';
+import '../../../config/ColorsConfig.dart';
+import '../../../models/CheckButtonStateModel.dart';
+import '../../../models/MissionModel.dart';
+import '../../WrongQuestionBookPage/WQBReadOnlyPage.dart';
+import '../../WrongQuestionBookPage/components/WQBAudioRecordListWidget.dart';
+import '../../WrongQuestionBookPage/components/WQBRichEditorPage.dart';
+import '../../WrongQuestionBookPage/components/WQPlainTextWidget.dart';
+import '../../statisticPage/components/TitleContainerWidget.dart';
+import 'NoteWidget.dart';
+
+/**
+ * 组合的富文本编辑器
+ */
+class ComposedRichEditorWidget extends StatefulWidget {
+  String title;
+  SaveModeEnum saveModeEnum;
+  Function onTapOk;
+  MissionModel missionModel;
+  // WQBWrongQuestBookSceneEnum wqbSceneEnum = WQBWrongQuestBookSceneEnum.knowledge_point;
+
+  ComposedRichEditorWidget(
+      {Key? key,
+      required this.onTapOk,
+      // required this.wqbSceneEnum,
+      required this.title,
+      required this.saveModeEnum,
+      required this.missionModel})
+      : super(key: key);
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Expanded(
+  //       child: this.editTypeEnum == EditTypeEnum.readOnly ? WQBReadOnlyPage(
+  //     richTextModeEnum: RichTextModeEnum.note,
+  //   ) : WQBRichEditorPage(richTextModeEnum: RichTextModeEnum.note,));
+  // }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ComposedRichEditorWidgetState(
+        saveModeEnum: this.saveModeEnum,
+        missionModelTmp: this.missionModel);
+  }
+}
+
+class ComposedRichEditorWidgetState
+    extends State<ComposedRichEditorWidget> {
+  SaveModeEnum saveModeEnum;
+  MissionModel missionModel = MissionModel();
+  List<CheckButtonStateModel> blackButtonListForReading = [];
+  GlobalKey<BlackCheckButtonListWidgetState>
+      localKeyBlackCheckButtonListWidget =
+      GlobalKey<BlackCheckButtonListWidgetState>();
+
+  // image,
+  // record,
+  // plain_text,
+  // rich_text
+  WQBEditModeEnum editModeEnum = WQBEditModeEnum.plain_text;
+
+  ComposedRichEditorWidgetState(
+      {required this.saveModeEnum,
+      required MissionModel missionModelTmp}) {
+    if (missionModelTmp != null)
+      missionModel = MissionModel.fromJson(missionModelTmp.toJson());
+  }
+
+  GlobalKey<WQBRichEditorPageState> localKeyWQBRichEditorPageState =
+      GlobalKey<WQBRichEditorPageState>();
+
+  @override
+  void initState() {
+    editModeEnum = getEditModeEnum();
+    blackButtonListForReading = this.getWQBEditTypeModelList();
+  }
+
+  @override
+  void didUpdateWidget(ComposedRichEditorWidget oldWidget) {
+    //如果有新数据会走这里 加了页面刷新数据会被清空
+    if (this.widget.missionModel != null && this.widget.missionModel.objectId != this.missionModel.objectId) {
+      missionModel =
+          MissionModel.fromJson(this.widget.missionModel.toJson());
+      this.saveModeEnum = SaveModeEnum.normal;
+      this.editModeEnum = getEditModeEnum();
+    }
+    blackButtonListForReading = this.getWQBEditTypeModelList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(mainAxisSize: MainAxisSize.max, children: [
+      TitleContainerWidget(
+          title: this.widget.title ,
+          rightPartContainer: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              getBlackChecnButtonListWidget(),
+              SizedBox(
+                width: 10,
+              ),
+              InkWell(
+                onTap: () async {
+                  //保存走这里
+                  if (saveModeEnum == SaveModeEnum.normal) {
+                    saveModeEnum = SaveModeEnum.update;
+                    jumpToTabIndexForEditMode(0);
+                  } else if (saveModeEnum == SaveModeEnum.update) {
+                    await globalSave();
+                    if (this.widget.saveModeEnum == SaveModeEnum.normal) {
+                      await MongoApisManager.getInstance()
+                          .update_MissionModel(
+                              missionModel: this.widget.missionModel);
+                    }
+                  }
+                  blackButtonListForReading = this.getWQBEditTypeModelList();
+                  jumpToTabIndexForNormal(0);
+                  updateUi();
+                  // this.widget.onTapEdit.call();
+                },
+                child: saveModeEnum == SaveModeEnum.save
+                    ? SizedBox.shrink()
+                    : Text(
+                        saveModeEnum == SaveModeEnum.normal
+                            ? getI18NKey().edit
+                            : getI18NKey().save,
+                        style: TextStyle(color: Colors.red, fontSize: 12),
+                      ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              InkWell(
+                onTap: () => {
+                if(mounted) {
+                  setState(() {
+                    this.missionModel = MissionModel.fromJson(
+                        this.widget.missionModel.toJson());
+                    if (saveModeEnum == SaveModeEnum.normal) {
+                      saveModeEnum = SaveModeEnum.update;
+                    } else if (saveModeEnum == SaveModeEnum.update) {
+                      blackButtonListForReading =
+                          this.getWQBEditTypeModelList();
+                      jumpToTabIndexForNormal(0);
+                      saveModeEnum = SaveModeEnum.normal;
+                    }
+                  })
+                }
+                },
+                child: (saveModeEnum == SaveModeEnum.normal ||
+                        saveModeEnum == SaveModeEnum.save)
+                    ? SizedBox.shrink()
+                    : Text(
+                        getI18NKey().cancel,
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+              )
+            ],
+          )),
+      Container(
+          width: double.infinity,
+          height: 2,
+          color: ColorsConfig.borderLineColor),
+      Expanded(
+        child: getWidget(),
+      )
+    ]);
+  }
+
+  void updateUi() {
+    // blackButtonListForReading = this.getWQBEditTypeModelList();
+    setState(() {});
+  }
+
+  Future<MissionModel> globalSave() async {
+    setEditType();
+    //保存
+    if (localKeyWQBRichEditorPageState.currentState != null) {
+      //有富文本
+      var val = await localKeyWQBRichEditorPageState.currentState?.save();
+      this.save(val);
+      return this.widget.missionModel;
+    } else {
+      this.save({});
+      return this.widget.missionModel;
+    }
+  }
+
+  Widget getBlackChecnButtonListWidget() {
+    if (this.saveModeEnum == SaveModeEnum.update ||
+        this.saveModeEnum == SaveModeEnum.save) {
+      return BlackCheckButtonListWidget(
+          list: CONSTANTS.getWQBEditTypeModelList(),
+          initIndex: 0,
+          onTapListener: (index) {
+            jumpToTabIndexForEditMode(index);
+          });
+    } else {
+      localKeyBlackCheckButtonListWidget.currentState
+          ?.updateList(blackButtonListForReading);
+
+      return blackButtonListForReading.length == 0
+          ? SizedBox.shrink()
+          : BlackCheckButtonListWidget(
+              key: localKeyBlackCheckButtonListWidget,
+              list: blackButtonListForReading,
+              initIndex: getCurIndex(),
+              onTapListener: (val) {
+                CheckButtonStateModel checkButtonStateModel =
+                    this.getWQBEditTypeModelList()[val];
+                switch (checkButtonStateModel.code) {
+                  case "image":
+                    editModeEnum = WQBEditModeEnum.image;
+                    break;
+                  case "record":
+                    editModeEnum = WQBEditModeEnum.record;
+                    break;
+                  case "plain_text":
+                    editModeEnum = WQBEditModeEnum.plain_text;
+                    break;
+                  case "rich_text":
+                    editModeEnum = WQBEditModeEnum.rich_text;
+                    break;
+                }
+                setEditType();
+                updateUi();
+              });
+    }
+  }
+
+  void jumpToTabIndexForEditMode(index) {
+    CheckButtonStateModel checkButtonStateModel =
+        CONSTANTS.getWQBEditTypeModelList()[index];
+    switch (checkButtonStateModel.code) {
+      case "image":
+        editModeEnum = WQBEditModeEnum.image;
+        break;
+      case "record":
+        editModeEnum = WQBEditModeEnum.record;
+        break;
+      case "plain_text":
+        editModeEnum = WQBEditModeEnum.plain_text;
+        break;
+      case "rich_text":
+        editModeEnum = WQBEditModeEnum.rich_text;
+        break;
+    }
+    setEditType();
+    updateUi();
+  }
+
+  void jumpToTabIndexForNormal(index) {
+    if(blackButtonListForReading.length > 0) {
+    CheckButtonStateModel checkButtonStateModel =
+        blackButtonListForReading[index];
+    switch (checkButtonStateModel.code) {
+      case "image":
+        editModeEnum = WQBEditModeEnum.image;
+        break;
+      case "record":
+        editModeEnum = WQBEditModeEnum.record;
+        break;
+      case "plain_text":
+        editModeEnum = WQBEditModeEnum.plain_text;
+        break;
+      case "rich_text":
+        editModeEnum = WQBEditModeEnum.rich_text;
+        break;
+    }
+    // setEditType();
+    updateUi();
+    }
+  }
+
+  String getRichContentUrl() {
+    String url = "";
+    url = Utility.getOSSOriginFromUrl(this.missionModel.noteRichContentUrl ?? "");
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+    //     url = this.missionModel.wqbKnowledgeRichContentUrl;
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     url = this.missionModel.wqbWrongQuestionRichContentUrl;
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     url = this.missionModel.wqbAnswerRichContentUrl;
+    //     break;
+    // }
+    return url;
+  }
+
+  void save(val) {
+        if (TextUtil.isEmpty(val['url'] ?? "") == false) {
+          this.missionModel.noteRichContentUrl = val['url'] ?? "";
+        }
+        this.widget.missionModel.noteSmallUrls =
+            this.missionModel.noteSmallUrls;
+        this.widget.missionModel.noteBigUrls =
+            this.missionModel.noteBigUrls;
+        this.widget.missionModel.noteOriginUrls =
+            this.missionModel.noteOriginUrls;
+        this.widget.missionModel.notePoint =
+            this.missionModel.notePoint;
+        this.widget.missionModel.message =
+            this.missionModel.message;
+        this.widget.missionModel.noteRichContentUrl =
+            this.missionModel.noteRichContentUrl;
+        this.widget.missionModel.noteRecordUrls =
+            this.missionModel.noteRecordUrls;
+
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     if (TextUtil.isEmpty(val['url'] ?? "") == false) {
+    //       this.missionModel.wqbWrongQuestionRichContentUrl =
+    //           val['url'] ?? "";
+    //     }
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     if (TextUtil.isEmpty(val['url'] ?? "") == false) {
+    //       this.missionModel.wqbAnswerRichContentUrl = val['url'] ?? "";
+    //     }
+    //     break;
+    // }
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+    //
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     this.widget.missionModel.wqbTypeWrongQuestion =
+    //         this.missionModel.wqbTypeWrongQuestion;
+    //     this.widget.missionModel.wqbWrongQuestionContent =
+    //         this.missionModel.wqbWrongQuestionContent;
+    //     this.widget.missionModel.wqbWrongQuestionRichContentUrl =
+    //         this.missionModel.wqbWrongQuestionRichContentUrl;
+    //     this.widget.missionModel.wqbWrongQuestionRecordUrls =
+    //         this.missionModel.wqbWrongQuestionRecordUrls;
+    //     this.widget.missionModel.wqbWrongQuestionSmallUrls =
+    //         this.missionModel.wqbWrongQuestionSmallUrls;
+    //     this.widget.missionModel.wqbWrongQuestionBigUrls =
+    //         this.missionModel.wqbWrongQuestionBigUrls;
+    //     this.widget.missionModel.wqbWrongQuestionOriginUrls =
+    //         this.missionModel.wqbWrongQuestionOriginUrls;
+    //
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     this.widget.missionModel.wqbTypeAnswer =
+    //         this.missionModel.wqbTypeAnswer;
+    //     this.widget.missionModel.wqbAnswerRecordUrls =
+    //         this.missionModel.wqbAnswerRecordUrls;
+    //     this.widget.missionModel.wqbAnswerSmallUrls =
+    //         this.missionModel.wqbAnswerSmallUrls;
+    //     this.widget.missionModel.wqbAnswerBigUrls =
+    //         this.missionModel.wqbAnswerBigUrls;
+    //     this.widget.missionModel.wqbAnswerOriginUrls =
+    //         this.missionModel.wqbAnswerOriginUrls;
+    //     this.widget.missionModel.wqbAnswerContent =
+    //         this.missionModel.wqbAnswerContent;
+    //     this.widget.missionModel.wqbAnswerRichContentUrl =
+    //         this.missionModel.wqbAnswerRichContentUrl;
+    //     break;
+    // }
+    missionModel =
+        MissionModel.fromJson(this.widget.missionModel.toJson());
+    // onResult?.call(wqbMissionModel);
+    Future.delayed(Duration(seconds: 1), () {
+      updateUi();
+      saveModeEnum = SaveModeEnum.normal;
+    });
+  }
+
+  void setRichContentUrl(String url) {
+        this.missionModel.noteRichContentUrl = url;
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     this.missionModel.wqbWrongQuestionRichContentUrl = url;
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     this.missionModel.wqbAnswerRichContentUrl = url;
+    //     break;
+    // }
+    updateUi();
+  }
+
+  List<CheckButtonStateModel> getWQBEditTypeModelList() {
+    List<CheckButtonStateModel> list = [];
+    // if (this.widget.wqbSceneEnum == WQBWrongQuestBookSceneEnum.knowledge_point) {
+    // if (!TextUtil.isEmpty(this.missionModel.message)) {
+      list.add(CheckButtonStateModel(
+          code: "plain_text",
+          title: getI18NKey().plain_text,
+          isCheck: true));
+    // }
+      if ((this.missionModel.noteSmallUrls?.length ?? 0) > 0) {
+        list.add(CheckButtonStateModel(
+            code: "image", title: getI18NKey().image, isCheck: false));
+      }
+      if ((this.missionModel.noteRecordUrls?.length ?? 0) > 0) {
+        list.add(CheckButtonStateModel(
+            code: "record", title: getI18NKey().record, isCheck: false));
+      }
+
+      if (!TextUtil.isEmpty(this.missionModel.noteRichContentUrl)) {
+        list.add(CheckButtonStateModel(
+            code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
+      }
+    // } else if (this.widget.wqbSceneEnum ==
+    //     WQBWrongQuestBookSceneEnum.question_wrong_question) {
+    //   if ((this.missionModel.noteSmallUrls?.length ?? 0) > 0) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "image", title: getI18NKey().image, isCheck: true));
+    //   }
+    //   if ((this.missionModel.noteRecordUrls?.length ?? 0) > 0) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "record", title: getI18NKey().record, isCheck: false));
+    //   }
+    //   if (!TextUtil.isEmpty(this.missionModel.message)) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "plain_text",
+    //         title: getI18NKey().plain_text,
+    //         isCheck: false));
+    //   }
+    //   if (!TextUtil.isEmpty(
+    //       this.missionModel.noteRichContentUrl)) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
+    //   }
+    // } else {
+    //   if ((this.missionModel.noteSmallUrls?.length ?? 0) > 0) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "image", title: getI18NKey().image, isCheck: true));
+    //   }
+    //   if ((this.missionModel.noteRecordUrls?.length ?? 0) > 0) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "record", title: getI18NKey().record, isCheck: false));
+    //   }
+    //   if (!TextUtil.isEmpty(this.missionModel.message)) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "plain_text",
+    //         title: getI18NKey().plain_text,
+    //         isCheck: false));
+    //   }
+    //   if (!TextUtil.isEmpty(this.missionModel.noteRichContentUrl)) {
+    //     list.add(CheckButtonStateModel(
+    //         code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
+    //   }
+    // }
+    if (list.length > 0) {
+      list[0].isCheck = true;
+    }
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~length:${list.length}");
+    return list;
+  }
+
+  int getCurIndex() {
+    for (int i = 0; i < blackButtonListForReading.length; i++) {
+      if (blackButtonListForReading[i].isCheck) {
+        return i;
+      }
+    }
+    return 0;
+    // if (this.widget.wqbSceneEnum == WQBSceneEnum.knowledge_point) {
+    //   return this.wqbMissionModel.wqbTypeKnowledgePoint;
+    // } else if (this.widget.wqbSceneEnum ==
+    //     WQBSceneEnum.question_wrong_question) {
+    //   return this.wqbMissionModel.wqbTypeWrongQuestion;
+    // } else {
+    //   return this.wqbMissionModel.wqbTypeAnswer;
+    // }
+  }
+
+  WQBEditModeEnum getEditModeEnum() {
+    // if (this.saveModeEnum == SaveModeEnum.normal) {
+    //   if (this.widget.wqbSceneEnum == WQBWrongQuestBookSceneEnum.knowledge_point) {
+    //     if ((this.missionModel.noteSmallUrls?.length ?? 0) > 0) {
+    //       return WQBEditModeEnum.image;
+    //     }
+    //     if ((this.missionModel.noteRecordUrls?.length ?? 0) > 0) {
+    //       return WQBEditModeEnum.record;
+    //     }
+    //     if (!TextUtil.isEmpty(this.missionModel.message)) {
+    //       return WQBEditModeEnum.plain_text;
+    //     }
+    //     if (!TextUtil.isEmpty(
+    //         this.missionModel.noteRichContentUrl)) {
+    //       return WQBEditModeEnum.rich_text;
+    //     }
+    //   } else if (this.widget.wqbSceneEnum ==
+    //       WQBWrongQuestBookSceneEnum.question_wrong_question) {
+    //     if ((this.missionModel.wqbWrongQuestionSmallUrls?.length ?? 0) > 0) {
+    //       return WQBEditModeEnum.image;
+    //     }
+    //     if (this.missionModel.wqbWrongQuestionRecordUrls.length > 0) {
+    //       return WQBEditModeEnum.record;
+    //     }
+    //     if (!TextUtil.isEmpty(this.missionModel.wqbWrongQuestionContent)) {
+    //       return WQBEditModeEnum.plain_text;
+    //     }
+    //     if (!TextUtil.isEmpty(
+    //         this.missionModel.wqbWrongQuestionRichContentUrl)) {
+    //       return WQBEditModeEnum.rich_text;
+    //     }
+    //   } else {
+    //     if ((this.missionModel.wqbAnswerSmallUrls?.length ?? 0) > 0) {
+    //       return WQBEditModeEnum.image;
+    //     }
+    //     if (this.missionModel.wqbAnswerRecordUrls.length > 0) {
+    //       return WQBEditModeEnum.record;
+    //     }
+    //     if (!TextUtil.isEmpty(this.missionModel.wqbAnswerContent)) {
+    //       return WQBEditModeEnum.plain_text;
+    //     }
+    //     if (!TextUtil.isEmpty(this.missionModel.wqbAnswerRichContentUrl)) {
+    //       return WQBEditModeEnum.rich_text;
+    //     }
+    //   }
+    // } else {
+    //   if (this.widget.wqbSceneEnum == WQBWrongQuestBookSceneEnum.knowledge_point) {
+    //     if (this.missionModel.wqbTypeKnowledgePoint == 0) {
+    //       return WQBEditModeEnum.image;
+    //     } else if (this.missionModel.wqbTypeKnowledgePoint == 1) {
+    //       return WQBEditModeEnum.record;
+    //     } else if (this.missionModel.wqbTypeKnowledgePoint == 2) {
+    //       return WQBEditModeEnum.plain_text;
+    //     } else if (this.missionModel.wqbTypeKnowledgePoint == 3) {
+    //       return WQBEditModeEnum.rich_text;
+    //     }
+    //   } else if (this.widget.wqbSceneEnum ==
+    //       WQBWrongQuestBookSceneEnum.question_wrong_question) {
+    //     if (this.missionModel.wqbTypeWrongQuestion == 0) {
+    //       return WQBEditModeEnum.image;
+    //     } else if (this.missionModel.wqbTypeWrongQuestion == 1) {
+    //       return WQBEditModeEnum.record;
+    //     } else if (this.missionModel.wqbTypeWrongQuestion == 2) {
+    //       return WQBEditModeEnum.plain_text;
+    //     } else if (this.missionModel.wqbTypeWrongQuestion == 3) {
+    //       return WQBEditModeEnum.rich_text;
+    //     }
+    //   } else {
+    //     if (this.missionModel.wqbTypeAnswer == 0) {
+    //       return WQBEditModeEnum.image;
+    //     } else if (this.missionModel.wqbTypeAnswer == 1) {
+    //       return WQBEditModeEnum.record;
+    //     } else if (this.missionModel.wqbTypeAnswer == 2) {
+    //       return WQBEditModeEnum.plain_text;
+    //     } else if (this.missionModel.wqbTypeAnswer == 3) {
+    //       return WQBEditModeEnum.rich_text;
+    //     }
+    //   }
+    // }
+    return WQBEditModeEnum.plain_text;
+  }
+
+  /**
+   * 这个应该用不上 因为默认展示第一个了
+   */
+  // 0 图片 1 录音 2 纯文本 3 富文本
+  void setEditType() {
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+        if (this.editModeEnum == WQBEditModeEnum.image) {
+          this.missionModel.notePoint = 0;
+        } else if (this.editModeEnum == WQBEditModeEnum.record) {
+          this.missionModel.notePoint = 1;
+        } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
+          this.missionModel.notePoint = 2;
+        } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
+          this.missionModel.notePoint = 3;
+        }
+        // break;
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     if (this.editModeEnum == WQBEditModeEnum.image) {
+    //       this.missionModel.wqbTypeWrongQuestion = 0;
+    //     } else if (this.editModeEnum == WQBEditModeEnum.record) {
+    //       this.missionModel.wqbTypeWrongQuestion = 1;
+    //     } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
+    //       this.missionModel.wqbTypeWrongQuestion = 2;
+    //     } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
+    //       this.missionModel.wqbTypeWrongQuestion = 3;
+    //     }
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     if (this.editModeEnum == WQBEditModeEnum.image) {
+    //       this.missionModel.wqbTypeAnswer = 0;
+    //     } else if (this.editModeEnum == WQBEditModeEnum.record) {
+    //       this.missionModel.wqbTypeAnswer = 1;
+    //     } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
+    //       this.missionModel.wqbTypeAnswer = 2;
+    //     } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
+    //       this.missionModel.wqbTypeAnswer = 3;
+    //     }
+    //     break;
+    // }
+  }
+
+  List<String> getSmallImageList() {
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+        return this.missionModel.noteSmallUrls ?? [];
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     return this.missionModel.noteSmallUrls ?? [];
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     return this.missionModel.noteSmallUrls ?? [];
+    // }
+    // return [];
+  }
+
+  List<String> getOriginalImageList() {
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+        return this.missionModel.noteOriginUrls ?? [];
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     return this.missionModel.noteOriginUrls ?? [];
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     return this.missionModel.noteOriginUrls ?? [];
+    // }
+    // return [];
+  }
+
+  List<String> getBigImageList() {
+        return this.missionModel.noteBigUrls ?? [];
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     return this.missionModel.wqbWrongQuestionBigUrls ?? [];
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     return this.missionModel.wqbAnswerBigUrls ?? [];
+    // }
+    return [];
+  }
+
+  void setImageList(
+      {required List<String> smallImageList,
+      required List<String> originalImageList,
+      required List<String> bigImageList}) {
+        this.missionModel.noteSmallUrls = smallImageList;
+        this.missionModel.noteBigUrls = bigImageList;
+        this.missionModel.noteOriginUrls = originalImageList;
+    // switch (this.widget.wqbSceneEnum) {
+    //   case WQBWrongQuestBookSceneEnum.knowledge_point:
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.question_wrong_question:
+    //     this.missionModel.wqbWrongQuestionSmallUrls = smallImageList;
+    //     this.missionModel.wqbWrongQuestionBigUrls = bigImageList;
+    //     this.missionModel.wqbWrongQuestionOriginUrls = originalImageList;
+    //     break;
+    //   case WQBWrongQuestBookSceneEnum.correct_answer:
+    //     this.missionModel.wqbAnswerSmallUrls = smallImageList;
+    //     this.missionModel.wqbAnswerBigUrls = bigImageList;
+    //     this.missionModel.wqbAnswerOriginUrls = originalImageList;
+    //     break;
+    // }
+    updateUi();
+  }
+
+  Widget getWidget() {
+
+    print(
+        "editModeEnum:${this.editModeEnum}, editTypeEnum:${this.saveModeEnum}, smallImageList:${this.getSmallImageList().length}, bigImageList:${this.getBigImageList().length}, originalImageList:${this.getOriginalImageList().length}");
+    if (this.editModeEnum == WQBEditModeEnum.image) {
+      return this.saveModeEnum == SaveModeEnum.normal
+          ? ImagesWrapperWidget(
+              isEditable: false,
+              listSmallImages: this.getSmallImageList(),
+              listBigImages: this.getBigImageList(),
+              listOriginImages: this.getOriginalImageList(),
+              onChange: (listOriginImages, listSmallImages, listBigImages) {
+                this.setImageList(
+                    smallImageList: listSmallImages,
+                    originalImageList: listOriginImages,
+                    bigImageList: listBigImages);
+              },
+            )
+          : ImagesWrapperWidget(
+              isEditable: true,
+              listSmallImages: this.getSmallImageList(),
+              listBigImages: this.getBigImageList(),
+              listOriginImages: this.getOriginalImageList(),
+              onChange: (listOriginImages, listSmallImages, listBigImages) {
+                this.setImageList(
+                    smallImageList: listSmallImages,
+                    originalImageList: listOriginImages,
+                    bigImageList: listBigImages);
+              },
+            );
+    } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
+      return NoteWidget(missionModel: this.missionModel, circleTitle: '', priority: 0);
+      // return WQPlainTextWidget(
+      //   missionModel: this.missionModel,
+      //   editTypeEnum: saveModeEnum,
+      //   wqbSceneEnum: WQBWrongQuestBookSceneEnum.none,
+      // );
+    } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
+      return Container(
+        child: this.saveModeEnum == SaveModeEnum.normal
+            ? WQBReadOnlyPage(
+                ossUrl: getRichContentUrl(),
+                richTextModeEnum: RichTextModeEnum.note,
+              )
+            : WQBRichEditorPage(
+                key: localKeyWQBRichEditorPageState,
+                url: getRichContentUrl(),
+                onOkListener: (data) {
+                  setRichContentUrl(data['url']);
+                },
+                richTextModeEnum: RichTextModeEnum.note,
+              ),
+      );
+    } else if (this.editModeEnum == WQBEditModeEnum.record) {
+      return WQBAudioRecordListWidget(
+        missionModel: this.missionModel,
+        saveModeEnum: saveModeEnum,
+        wqbSceneEnum: WQBWrongQuestBookSceneEnum.none,
+      );
+    }
+    return EmptyWidget();
+  }
+}

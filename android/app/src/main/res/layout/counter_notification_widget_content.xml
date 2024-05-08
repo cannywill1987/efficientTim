@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativelayout_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_circle_logo" />
+
+    <LinearLayout
+        android:id="@+id/linearlayout_play"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
+            android:visibility="gone"
+            android:src="@drawable/ic_play"/>
+        <ImageButton
+            android:id="@+id/btn_stop"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:padding="6dp"
+            android:visibility="gone"
+            android:background="@drawable/ic_stop"/>
+
+        <ImageButton
+            android:id="@+id/btn_pause"
+            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ic_pause"/>
+        <ImageButton
+            android:id="@+id/btn_finish"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ic_correct"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textview_title"
+        style="@style/TextAppearance.Compat.Notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_toLeftOf="@id/linearlayout_play"
+        android:layout_toRightOf="@id/imageview"
+        android:singleLine="true"
+        android:text="开始专注"
+        android:textAlignment="textStart"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        style="@style/TextAppearance.Compat.Notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_title"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/imageview"
+        android:singleLine="true"
+        android:text="12:00"
+        android:textAlignment="textStart"
+        android:textColor="#fff" />
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_toLeftOf="@id/linearlayout_play"
+        android:layout_toRightOf="@id/subtitle"
+        android:layout_alignTop="@id/subtitle"
+        android:layout_marginLeft="10dp"
+        >
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_circle_logo"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/main_app_name"
+        android:textColor="#fff" />
+    </LinearLayout>
+</RelativeLayout>

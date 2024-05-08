@@ -1,0 +1,65 @@
+//
+//  CustomStatusBarWidget.swift
+//  Runner
+//
+//  Created by 林智彬 on 2022/1/28.
+//
+
+import Cocoa
+
+class CustomStatusBarWidget2: NSView {
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame:frameRect);
+        Bundle.main.loadNibNamed(NSNib.Name("CustomStatusBarWidget"), owner: self, topLevelObjects: nil)
+        let contentFrame = NSMakeRect(0, 0, frame.size.width, frame.size.height)
+        self.view.frame = contentFrame
+        self.addSubview(self.view)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder);
+//        setup();
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    //or customized constructor/ init
+    init(frame frameRect: NSRect, otherInfo:Int) {
+        super.init(frame:frameRect);
+        // other code
+    }
+    
+    func setup(frame frameRect: NSRect) {
+        Bundle.main.loadNibNamed(NSNib.Name("CustomStatusBarWidget"), owner: self, topLevelObjects: nil)
+        let contentFrame = NSMakeRect(0, 0, frame.size.width, frame.size.height)
+        self.view.frame = contentFrame
+        self.addSubview(self.view)
+        
+        
+//        let myView: CustomStatusBarWidget? = CustomStatusBarWidget.createFromNib()
+//        if myView != nil {
+//            addSubview(myView!)
+//        }
+            
+        
+        //        Bundle.loadNibNamed(<#T##self: Bundle##Bundle#>)
+        //        Bundle.main.loadNibNamed("CustomStatusBarWidget", owner: self, topLevelObjects: nil);
+    }
+    
+    
+    
+    //    override init(frame frameRect: NSRect) {
+    //        let customStatusBarWidget:CustomStatusBarWidget = NSBundle.main.loadNibNamed("CustomStatusBarWidget", owner: self, topLevelObjects: nil);
+    //        return customStatusBarWidget;
+    //    }
+    
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        
+        // Drawing code here.
+    }
+    
+}

@@ -1,0 +1,66 @@
+/* 
+ Localizable.strings
+ Runner
+ 
+ Created by 林智彬 on 2023/8/27.
+ 
+ */
+"title" = "TickTick AI";
+"from" = "De";
+"to" = "À";
+"time" = "Temps";
+"repeat" = "Répéter";
+"disableApp" = "Sélectionnez Verrouiller l'application";
+"selectApp" = "Sélectionner une application";
+"app" = "Application";
+"category" = "Catégorie";
+"create" = "Créer";
+"delete" = "Supprimer";
+"update" = "Mettre à jour";
+"Sun" = "Dim";
+"Mon" = "Lun";
+"Tue" = "Mar";
+"Wed" = "Mer";
+"Thu" = "Jeu";
+"Fri" = "Ven";
+"Sat" = "Sam";
+"edit" = "Éditer";
+"app" = "Applications";
+"categories" = "Catégories";
+"locascreen_start" = "Le plan de verrouillage de l'écran commence";
+"locascreen_start_in_five_minute" = "Le plan de verrouillage de l'écran commencera dans cinq minutes";
+"scheduled_task_has_ended" = "La tâche planifiée est terminée";
+"back" = "Retour";
+"lock_app_desc" = "Si vous souhaitez fermer, veuillez ouvrir le bureau de gestion du temps pour fermer";
+"confirm" = "Confirmer";
+"cancel" = "Annuler";
+"today" = "Aujourd'hui";
+"Quadrant" = "Quadrant ToDo";
+"sunday" = "Dim.";
+"monday" = "Lun.";
+"tuesday" = "Mar.";
+"wednesday" = "Mer.";
+"thursday" = "Jeu.";
+"friday" = "Ven.";
+"saturday" = "Sam.";
+"january" = "Janv.";
+"february" = "Févr.";
+"march" = "Mars";
+"april" = "Avr.";
+"may" = "Mai";
+"june" = "Juin";
+"july" = "Juil.";
+"august" = "Août";
+"september" = "Sept.";
+"october" = "Oct.";
+"november" = "Nov.";
+"december" = "Déc.";
+"note1" = "Note 1";
+"note2" = "Note 2";
+"note3" = "Note 3";
+"note4" = "Note 4";
+"note5" = "Note 5";
+"note6" = "Note 6";
+"note7" = "Note 7";
+"note_desc" = "Le contenu de la note peut être défini dans l'application.";
+

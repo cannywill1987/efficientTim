@@ -1,0 +1,297 @@
+import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
+
+import '../../../config/CONSTANTS.dart';
+import '../../../config/ColorsConfig.dart';
+import '../../../models/EndTimeMissionModel.dart';
+import '../../../models/MissionModel.dart';
+import '../../../util/DeviceInfoManagement.dart';
+import '../../../util/TextUtil.dart';
+import '../models/Countdown.dart';
+import 'CountDownTextWidget.dart';
+
+class CountdownItem extends StatefulWidget {
+  final EndTimeMissionModel missionModel;
+  int cpt = 0;
+  Function onTapFinishListener;
+  Function onTapUnFinishListener;
+  Function onTapEditListener;
+  Function onTapDeleteListener;
+  Function onTapListener;
+  CountdownItem({required this.missionModel, required this.cpt, required this.onTapListener, required this.onTapFinishListener, required this.onTapUnFinishListener, required this.onTapEditListener, required this.onTapDeleteListener});
+
+  @override
+  _CountdownItemState createState() => _CountdownItemState();
+}
+
+class _CountdownItemState extends State<CountdownItem> {
+  // Timer? _timer;
+  Duration? _remainingTime;
+  bool isHover = false;
+  ImageProvider? imageProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _remainingTime = Utility.getDateTimeFromTimeStamp(widget.missionModel.end_time ?? 0).difference(DateTime.now());
+    // _startTimer();
+  }
+
+  @override
+  void dispose() {
+    // _timer?.cancel();
+    super.dispose();
+  }
+
+  // void _startTimer() {
+  //   // _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+  //     setState(() {
+  //       _remainingTime = widget.countdown.targetTime.difference(DateTime.now());
+  //     });
+  //   // });
+  // }
+
+
+  @override
+  void didUpdateWidget(CountdownItem oldWidget) {
+    if(this.widget.cpt != oldWidget.cpt) {
+      _remainingTime = Utility.getDateTimeFromTimeStamp(widget.missionModel.end_time ?? 0).difference(DateTime.now());
+    }
+  }
+
+  String _formatRemainingTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitDays = twoDigits(duration.inDays);
+    String twoDigitHours = twoDigits(duration.inHours.remainder(24));
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return getI18NKey().count_down(twoDigitDays, twoDigitHours, twoDigitMinutes, twoDigitSeconds);
+    // return '$twoDigitDays天$twoDigitHours时$twoDigitMinutes分$twoDigitSeconds秒';
+  }
+
+  List<Widget> getUnfinishIconSlideActions(EndTimeMissionModel _missionModel) {
+    return <Widget>[
+      IconSlideAction(
+        caption: getI18NKey().edit,
+        color: Colors.lightGreen,
+        foregroundColor: Colors.white,
+        icon: Icons.edit,
+        onTap: () {
+          if (this.widget.onTapEditListener != null)
+            this.widget.onTapEditListener!(_missionModel);
+        },
+      ),
+      IconSlideAction(
+        caption: getI18NKey().delete,
+        foregroundColor: Colors.white,
+        color: Colors.red,
+        icon: Icons.delete,
+        onTap: () {
+          if (this.widget.onTapDeleteListener != null)
+            this.widget.onTapDeleteListener!(_missionModel);
+        },
+      ),
+    ];
+  }
+
+  List<Widget> getFinishIconSlideActions(EndTimeMissionModel _missionModel) {
+    return <Widget>[
+      IconSlideAction(
+        caption: getI18NKey().delete,
+        foregroundColor: Colors.white,
+        color: Colors.red,
+        icon: Icons.delete,
+        onTap: () {
+          if (this.widget.onTapDeleteListener != null)
+            this.widget.onTapDeleteListener!(_missionModel);
+        },
+      ),
+    ];
+  }
+
+  List<PopupMenuEntry<String>> getUnfinishedPopupList(
+      EndTimeMissionModel _missionModel) {
+    return <PopupMenuEntry<String>>[
+      PopupMenuItem<String>(
+        value: 'edit',
+        onTap: () {
+          //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
+          Future.delayed(Duration(milliseconds: 100), () {
+            this.widget.onTapEditListener!(_missionModel);
+          });
+        },
+        child: Text(getI18NKey().edit,
+            style: TextStyle(color: Colors.green, fontSize: 15)),
+      ),
+      PopupMenuItem<String>(
+        //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
+        value: 'delete',
+        onTap: () {
+          Future.delayed(Duration(milliseconds: 100), () {
+            this.widget.onTapDeleteListener!(_missionModel);
+          });
+        },
+        child: Text(
+          getI18NKey().delete,
+          style: TextStyle(color: ColorsConfig.red, fontSize: 15),
+        ),
+      ),
+    ];
+  }
+
+  List<PopupMenuEntry<String>> getFinishedPopupList(
+      EndTimeMissionModel _missionModel) {
+    return <PopupMenuEntry<String>>[
+      PopupMenuItem<String>(
+        //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
+        value: 'delete',
+        onTap: () {
+          Future.delayed(Duration(milliseconds: 100), () {
+            this.widget.onTapDeleteListener!(_missionModel);
+          });
+        },
+        child: Text(
+          getI18NKey().delete,
+          style: TextStyle(color: ColorsConfig.red, fontSize: 15),
+        ),
+      ),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ListTile child = ListTile(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(widget.missionModel.title ?? ""),
+          CountDownTextWidget(end_time: this.widget.missionModel.end_time ?? 0, fontSize: 14, color: 0xff404040, onTapFinishListener: () {
+            if(mounted) {
+              setState(() {
+
+              });
+            }
+          },),
+          // if ((_remainingTime?.inMilliseconds ?? 0) > 0 )
+          //   Text(_formatRemainingTime(_remainingTime!)),
+        ],
+      ),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(DateFormat('yyyy.MM.dd HH:mm EEEE').format(Utility.getDateTimeFromTimeStamp(widget.missionModel.end_time ?? 0))),
+          Text((_remainingTime?.inMilliseconds ?? 0) > 0 ?getI18NKey().counting : getI18NKey().finished),
+        ],
+      ),
+    );
+
+    return Slidable(
+        enabled: DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize(),
+        actionPane: SlidableDrawerActionPane(),
+        actionExtentRatio: 0.15,
+        secondaryActions: this.widget.missionModel.isFinished == false
+            ? getUnfinishIconSlideActions(this.widget.missionModel)
+            : getFinishIconSlideActions(this.widget.missionModel),
+        child: InkWell(
+            onTap: () {
+              if (this.widget.onTapListener != null) {
+                this.widget.onTapListener!(this.widget.missionModel);
+              }
+            },
+            child: MouseRegion(
+                onEnter: (_) {
+                  setState(() {
+                    this.isHover = true;
+                  });
+                },
+                onHover: (_) {},
+                onExit: (_) {
+                  setState(() {
+                    this.isHover = false;
+                  });
+                },
+                child: Container(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  margin: EdgeInsets.only(
+                      bottom: 2,
+                      left: CONSTANTS.missionPageMargin,
+                      right: CONSTANTS.missionPageMargin),
+                  decoration: new BoxDecoration(
+                    image: imageProvider == null
+                        ? null
+                        : DecorationImage(
+                        image: imageProvider!,
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            Colors.white, BlendMode.colorBurn)),
+                    color: Colors.white,
+                    border: new Border.all(
+                        width: 1.0, color: ThemeManager.getInstance().getBackgroundColor(defaultColor: new Color(0xfff0f0f0))),
+                    borderRadius:
+                    const BorderRadius.all(const Radius.circular(0.0)),
+                  ),
+                  child: Stack(
+                    children: [
+                      TextUtil.isEmpty(this.widget.missionModel.background_url)
+                          ? SizedBox.shrink()
+                          : CachedNetworkImage(
+                          imageUrl: Utility.filterHttpUrl(this.widget.missionModel.background_url ?? '', prefix: "oss"),
+                          imageBuilder: (context, imageProviderTmp) {
+                            Future.delayed(Duration(seconds: 0), () {
+                              imageProvider = imageProviderTmp;
+                              // setState(() {});
+                            });
+                            return Container();
+                          }),
+                      Container(
+                        color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Color(0xb0ffffff), alpha: TextUtil.isEmpty(this.widget.missionModel.background_url) ? 255 : 150),
+                        padding: EdgeInsets.only(top: 6, bottom: 6),
+                        alignment: Alignment.centerLeft,
+                        child: Stack(children: [
+                          child,
+                          // Column(
+                          //   children: [
+                          //     Row(
+                          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //       children: childrenRow,
+                          //     ),
+                          //   ],
+                          // ),
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: (this.isHover == true)
+                                  ? PopupMenuButton<String>(
+                                tooltip: '',
+                                padding:
+                                EdgeInsets.only(left: 18, bottom: 20),
+                                // offset: Offset(130, 30),
+                                iconSize: 14,
+                                icon: Icon(
+                                  Icons.more_vert,
+                                  color: ThemeManager.getInstance().getIconColor(),
+                                ),
+                                onCanceled: () {},
+                                itemBuilder: (context) {
+                                  // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
+                                  if (this.widget.missionModel.isFinished == false) {
+                                    return getUnfinishedPopupList(
+                                        this.widget.missionModel);
+                                  } else {
+                                    return getFinishedPopupList(
+                                        this.widget.missionModel);
+                                  }
+                                },
+                              )
+                                  : SizedBox.shrink()),
+                        ]),
+                      ),
+                    ],
+                  ),
+                ))));
+  }
+}

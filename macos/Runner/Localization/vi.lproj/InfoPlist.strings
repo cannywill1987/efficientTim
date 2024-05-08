@@ -1,0 +1,9 @@
+/*
+  InfoPlist.strings
+  Runner
+
+  Created by 林智彬 on 2022/4/10.
+ 参考:https://www.youtube.com/watch?v=e-T_8jZTrv0
+*/
+
+"CFBundleDisplayName" = "Timerbell todo";

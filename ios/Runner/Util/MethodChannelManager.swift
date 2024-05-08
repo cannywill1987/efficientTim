@@ -1,0 +1,455 @@
+////
+////  MethodChannelManager.swift
+////  Runner
+////
+////  Created by 林智彬 on 2022/1/29.
+////
+//
+import Foundation
+import Flutter
+
+class MethodChannelManager {
+    static let instance:MethodChannelManager = MethodChannelManager()
+    var channel:FlutterMethodChannel?;
+    var curCounterStatus: Int?
+    
+    static func shareInstance(flutterViewController: FlutterViewController?) -> MethodChannelManager {
+        if (instance.channel == nil) {
+            let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            instance.channel = FlutterMethodChannel(name: "com.efficienttime.counter",
+                                                    binaryMessenger: flutterViewController!.binaryMessenger)
+            instance.channel?.setMethodCallHandler(instance.handleMethodChannel);
+        }
+        return instance;
+    }
+    //
+    //    init() {
+    //    }
+    //
+    public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        print("method:" + call.method);
+        switch call.method {
+        case "pushToTimeline":
+            if #available(iOS 15.0, *) {
+                //                    Utility.navigateToViewController(controller: TimelineListViewController());
+                navigateToTimelineViewController()
+            } else {
+                // Fallback on earlier versions
+            };
+            break;
+        case "shareToWechat":
+            let titleWechat: String = (call.arguments as! [[String: Any]])[0]["title"] as! String;
+            let subtitle: String = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
+            let toWhere: Int = (call.arguments as! [[String: Any]])[0]["toWhere"] as! Int;
+            //                let id: String = (call.arguments as! [[String: Any]])[0]["id"] as! String;
+            let urlWechat: String = (call.arguments as! [[String: Any]])[0]["url"] as! String;
+            
+            let mIconUrlWechat: String = (call.arguments as! [[String: Any]])[0]["iconUrl"] as! String;
+            
+            let subtitleWechat: String = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
+            Utility.shareToWechat(towhere: toWhere, shareurl: urlWechat, title: titleWechat, description: subtitle, iconUrl: mIconUrlWechat, imageData: "");
+            break;
+        case "shareToQQ":
+            let mIconUrl: String = (call.arguments as! [[String: Any]])[0]["iconUrl"] as! String;
+            let url: String = (call.arguments as! [[String: Any]])[0]["url"] as! String;
+            let subtitle: String = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
+            let title: String = (call.arguments as! [[String: Any]])[0]["title"] as! String;
+            let isOn: Bool = (call.arguments as! [[String: Any]])[0]["isOn"] as! Bool;
+            //                static func shareToQQ(title: String, subtitle: String, url: String, iconUrl: String, isOn: Bool) -> TencentOAuth {
+            Utility.shareToQQ(title: title, subtitle: subtitle, url: url, iconUrl: mIconUrl, isOn: isOn);
+            break;
+        case "storeMyCalendarMissionList": //创建任务日志任务
+            let list = (call.arguments as! [[String: Any]]);
+            var listMissionModels:[MissionModelList] = [];
+            //                for index in 0...((call.arguments as AnyObject).length ?? 0) {
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    let time:Int = item["time"] as! Int;
+                    let lunar:String = item["lunar"] as? String ?? "";
+                    
+                    let datas:[[String: Any]] = item["data"] as? [[String: Any]] ?? [];
+                    let count = datas.count;
+                    var listMissionModel: [MissionModel] = []
+                    //time四毫秒时间戳
+                    let currentTime = Int(Date().timeIntervalSince1970)
+                    //50天时间范围
+                    let tenDaysInSeconds = 50 * 24 * 60 * 60 * 1000
+                    if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
+                        
+                        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
+                        print("date:\(date) count:\(count)")
+                        if count > 0 {
+                            for index2 in 0...count - 1 {
+                                let item2 = datas[index2]
+                                let title:String = item2["title"] as? String ?? "";
+                                
+                                //                            let percent:Double = item2["percent"] as? Double ?? 0;
+                                let color: Int = item2["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                                let isFinished: Bool = item2["isFinished"] as? Bool ?? false;
+                                
+                                //                        let isDelayed:Bool = item["isDelayed"] as! Bool;
+                                //                                                let isFinished:Bool = item["isFinished"] as! Bool;
+                                //                                                let title:String = item["title"] as! String;
+                                let background_url:String? = item["background_url"] as? String;
+                                let end_time:Int = item["end_time"] as? Int ?? 0;
+                                let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                                let missionData = MissionModel(title: title, lunar: lunar, background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: false, color: color)
+                                
+                                
+                                listMissionModel.append(missionData)
+                            }
+                        }
+                        listMissionModels.append(MissionModelList(time: time, lunar: lunar,listMissionModel: listMissionModel))
+                    }
+                }
+            }
+            if #available(iOS 14.0, *) {
+                let primaryData:MyCalendarMissionStoreData = MyCalendarMissionStoreData(missionData: MyCalendarMissionData(listMissionModelList: listMissionModels))
+                Task {
+                    await primaryData.encodeData();
+                }
+            } else {
+                // Fallback on earlier versions
+            };
+            break;
+        case "storeFlomoMissionList": //创建今天任务
+            let list = (call.arguments as! [[String: Any]]);
+            var listMissionModels:[FlomoMissionModelList] = [];
+            //                for index in 0...((call.arguments as AnyObject).length ?? 0) {
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    let time:Int = item["time"] as! Int;
+                    let datas:[[String: Any]] = item["data"] as? [[String: Any]] ?? [];
+                    let count = datas.count - 1;
+                    var listFlomoMissionModel: [FlomoMissionModel] = []
+                    if(count > 0) {
+                        for index2 in 0...count {
+                            let item2 = datas[index2]
+                            let title:String = item2["title"] as? String ?? "";
+                            let percent:Double = item2["percent"] as? Double ?? 0;
+                            let color: Int = item2["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                            let isFinished: Bool = item2["isFinished"] as? Bool ?? false;
+                            listFlomoMissionModel.append(FlomoMissionModel(title: title, color: color, isFinished: isFinished, percent: percent))
+                        }
+                    }
+                    listMissionModels.append(FlomoMissionModelList(time: time, listMissionModel: listFlomoMissionModel))
+                }
+            }
+            if #available(iOS 14.0, *) {
+                let primaryData:FlomoMissionStoreData = FlomoMissionStoreData(missionData: FlomoMissionData(listFlomoMissionModelList: listMissionModels))
+                Task {
+                    await primaryData.encodeData();
+                }
+            } else {
+                // Fallback on earlier versions
+            };
+            break;
+        case "storeWQBNoteMissionData":
+            let key = (call.arguments as! [[String: Any]])[0]["key"] as! String;
+            let content = (call.arguments as! [[String: Any]])[0]["content"] as! String;
+            let subtitle = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
+            
+            let color = (call.arguments as! [[String: Any]])[0]["color"] as! Int;
+            let priorityStatus = (call.arguments as! [[String: Any]])[0]["priorityStatus"] as? Int ?? 0;
+            let order_index = (call.arguments as! [[String: Any]])[0]["order_index"] as? Int ?? -1;
+//                let subtitle = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
+            let missionModel = WQBMissionModel(key: key, content: content, subtitle: subtitle, priorityStatus: priorityStatus, color: color);
+            if #available(iOS 14.0, *) {
+                let missionStoreData:WQBMissionStoreData
+                    missionStoreData  = WQBMissionStoreData(missionData: missionModel)
+                Task {
+                    if order_index == 1 {
+                        await missionStoreData.encodeData();
+                    } else if order_index == 2 {
+                        await missionStoreData.encodeData2();
+                    } else if order_index == 3 {
+                        await missionStoreData.encodeData3();
+                    }  else if order_index == 4 {
+                        await missionStoreData.encodeData4();
+                    } else if order_index == 5 {
+                        await missionStoreData.encodeData5();
+                    } else if order_index == 6 {
+                        await missionStoreData.encodeData6();
+                    } else if order_index == 7 {
+                        await missionStoreData.encodeData7();
+                    }
+                }
+            } else {
+                // Fallback on earlier versions
+            };
+            break;
+        case "storeMissionDataList":
+            
+            
+            let title1 = (call.arguments as! [[String: Any]])[0]["title"] as! String;
+            let title2 = (call.arguments as! [[String: Any]])[1]["title"] as! String;
+            let title3 = (call.arguments as! [[String: Any]])[2]["title"] as! String;
+            let title4 = (call.arguments as! [[String: Any]])[3]["title"] as! String;
+            
+            let array1:NSArray = (call.arguments as! [[String: Any]])[0]["datas"] as! NSArray;
+            let array2:NSArray = (call.arguments as! [[String: Any]])[1]["datas"] as! NSArray;
+            let array3:NSArray = (call.arguments as! [[String: Any]])[2]["datas"] as! NSArray;
+            let array4:NSArray = (call.arguments as! [[String: Any]])[3]["datas"] as! NSArray;
+            
+            //                let title1 = (call.arguments as! [[String: Any]])[0]["datas"] as! NSArray;
+            //                (call.arguments as! [[String: Any]])[3]["datas"]
+            //                (call.arguments as! [[String: Any]])[0]["title"] as! String
+            
+            let storeData = StoreData(title1: title1 ?? "imp. & urg.", title2: title2 ?? "not imp. & urg.", title3: title3 ?? "imp. & not urg.", title4: title4 ?? "not imp. & not urg.", missionList1: Utility.getMissionModelTitle(array: array1), missionList2: Utility.getMissionModelTitle(array: array2), missionList3: Utility.getMissionModelTitle(array: array3), missionList4: Utility.getMissionModelTitle(array: array4));
+            if #available(iOS 14.0, *) {
+                let primaryData = PrimaryData(simpleData: storeData)
+                Task {
+                    await primaryData.encodeData();
+                }
+            } else {
+                // Fallback on earlier versions
+            };
+            break;
+        case "storeMissionList": //创建今天任务
+            let list = (call.arguments as! [[String: Any]]);
+            var listMissionModels:[MissionModel] = [];
+            //                for index in 0...((call.arguments as AnyObject).length ?? 0) {
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    
+                    let isDelayed:Bool = item["isDelayed"] as! Bool;
+                    let isFinished:Bool = item["isFinished"] as! Bool;
+                    //                    let daily_end_time:Int = item["daily_end_time"] as! Int;
+                    //                    let daily_start_time:Int = item["daily_start_time"] as! Int;
+                    //                    let no_tomotoes_finished:Int = item["no_tomotoes_finished"] as! Int;
+                    //                    let total_tomotoes:Int = item["total_tomotoes"] as! Int;
+                    //                    let repetiveType:Int = item["repetiveType"] as! Int;
+                    //                    let repetiveValue:Int = item["repetiveValue"] as! Int;
+                    //                    let repetiveWeekDay:NSArray = item["repetiveWeekDay"] as! NSArray;
+                    let title:String = item["title"] as! String;
+                    let background_url:String? = item["background_url"] as? String;
+                    //                    let device_id:String = item["device_id"] as! String;
+                    let end_time:Int = item["end_time"] as! Int;
+                    let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                    let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                    //                    let dateStatus:Int = item["dateStatus"] as! Int;
+                    //                    let createdAt:String = item["createdAt"] as! String;
+                    //                    let updatedAt:String = item["updatedAt"] as! String;
+                    let missionData = MissionModel(title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                    listMissionModels.append(missionData);
+                }
+            }
+            if #available(iOS 14.0, *) {
+                let primaryData:MissionStoreData = MissionStoreData(missionData: MissionData(listMissionModel: listMissionModels))
+                Task {
+                    await primaryData.encodeData();
+                }
+            } else {
+                // Fallback on earlier versions
+            };
+            break;
+        case "getLiveActivityData":
+//            if #available(iOS 16.1, *) {
+//                let attributes = LiveActivityManager.shareInstance().activity?.attributes
+//                //                MethodChannelManager.shareInstance(flutterViewController: nil).channel?.invokeMethod("pushToPage", arguments: ["objectId": attributes?.objectId, "lastStartTime": attributes?.currentTimeStamp, "counterStatusEnum": attributes?.counterStatusEnum, "time": attributes?.time])
+//                
+//                result("{\"success\": true, \"data\": {\"objectId\": \"\(attributes?.objectId ?? "")\", \"lastStartTime\": \(attributes?.currentTimeStamp ?? 0), \"counterStatusEnum\": \(attributes?.counterStatusEnum ?? 0), \"time\": \(attributes?.time ?? 0)}}")
+//                
+//            } else {
+//                // Fallback on earlier versions
+//            }
+            break;
+        case "requestReview":
+            Utility.requestReview();
+            break;
+        case "startLiveActivity":
+            //            NotificationCenter.default.post(name: NSNotification.Name( "ACTION_BTN_CLICK") , object: self, userInfo: ["action": "handleStatusBarStopBtn"]);
+//            if #available(iOS 16.1, *) {
+//                //                                LiveActivityManager.shareInstance().startActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
+//            } else {
+//                // Fallback on earlier versions
+//            }
+            break;
+        case "stopLiveActivity":
+//            if #available(iOS 16.1, *) {
+//                LiveActivityManager.shareInstance().stopActivity()
+//            } else {
+//                // Fallback on earlier versions
+//            }
+            break;
+        case "updateLiveActivity":
+//            if #available(iOS 16.1, *) {
+//                //                LiveActivityManager.shareInstance().updateActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
+//            } else {
+//                // Fallback on earlier versions
+//            }
+            break;
+        case "pushListNotificationWithWhen":
+            let list: Array = (call.arguments as! [[String: Any]]);
+            for item in list {
+                //                print(11111);
+                let id:String = item["id"] as! String;
+                let content:String = item["content"] as! String;
+                let title:String = item["title"] as! String;
+                let when:Int = item["when"] as! Int;
+                if #available(iOS 10.0, *){
+                    Utility.pushNotificationWithWhen(when: when, title: title, body: content, userInfo: ["id": "id66", "articleId": 999], action: id);
+                }
+            }
+            break;
+        case "pushListNotificationWithWhen":
+            let list: Array = (call.arguments as! [[String: Any]]);
+            for item in list {
+                //                print(11111);
+                let id:String = item["id"] as! String;
+                let content:String = item["content"] as! String;
+                let title:String = item["title"] as! String;
+                let when:Int = item["when"] as! Int;
+                if #available(iOS 10.0, *){
+                    Utility.pushNotificationWithWhen(when: when, title: title, body: content, userInfo: ["id": "id66", "articleId": 999], action: id);
+                }
+            }
+            print("pushListNotificationWithWhen");
+            break;
+        case "pushNotificationWithWhen":
+            let title: String = (call.arguments as! [[String: Any]])[0]["title"] as! String;
+            let content: String = (call.arguments as! [[String: Any]])[0]["content"] as! String;
+            let when: Int = (call.arguments as! [[String: Any]])[0]["when"] as! Int;
+            let id: String = (call.arguments as! [[String: Any]])[0]["id"] as! String;
+            if #available(iOS 10.0, *){
+                Utility.pushNotificationWithWhen(when: when, title: title, body: content, userInfo: ["id": "id66", "articleId": 999], action: id);
+            }
+            break;
+        case "grantNotificationPermission":
+            Utility.postNotification(action: Params.ACTION_HANDLE_NOTIFICATION_PERMISSION);
+            break;
+        case "shareSdkSubmitPolicyGrantResult":
+            //                                ShareSdkManager.getInstance().submitPolicyGrantResult(true);
+            break;
+        case "preSecVerify":
+            result("{\"success\": true, \"data\": \"\"}");
+            break;
+        case "secVerify":
+            result("{\"success\": true, \"data\": \"\"}");
+            break;
+        case "requestStatusBar":
+            let text: String = (call.arguments as! [[String: Any]])[0]["text"] as! String;
+            let title: String = (call.arguments as! [[String: Any]])[0]["title"] as! String;
+            let status: Int = (call.arguments as! [[String: Any]])[0]["status"] as! Int;
+            let statusString: String = (call.arguments as! [[String: Any]])[0]["statusString"] as! String;
+            let totalTomatees: Int = (call.arguments as! [[String: Any]])[0]["totalTomatees"] as! Int;
+            let focusedDuration: String = (call.arguments as! [[String: Any]])[0]["focusedDuration"] as! String;
+            let bgUrl: String = (call.arguments as! [[String: Any]])[0]["bgUrl"] as! String;
+            let objectId: String = (call.arguments as! [[String: Any]])[0]["objectId"] as! String;
+            let currentTimeStamp = Int(Date().timeIntervalSince1970) // 当前时间戳
+            let numTomatees: Int = (call.arguments as! [[String: Any]])[0]["numTomatees"] as! Int;
+            let time: Int = (call.arguments as! [[String: Any]])[0]["time"] as! Int;
+            let shouldShowRedFocusStatus: Bool = (call.arguments as! [[String: Any]])[0]["shouldShowRedFocusStatus"] as! Bool;
+            let isCountDown: Bool = (call.arguments as! [[String: Any]])[0]["isCountDown"] as! Bool;
+            
+            print("time:" + text + ",status:" + status.description);
+            if (self.curCounterStatus != status){
+                if #available(iOS 16.1, *) {
+//                    LiveActivityManager.shareInstance().updateActivity(
+//                        objectId: objectId,
+//                        currentTimeStamp: currentTimeStamp,
+//                        statusString: statusString,
+//                        totalTomatees: totalTomatees,
+//                        numTomatees: numTomatees,
+//                        focusedDuration: focusedDuration,
+//                        bgUrl: bgUrl,
+//                        title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none)
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                //                (NSApplication.shared.delegate as! AppDelegate).statusItem.menu = Utility.getStatusBarMenus(counterStatusEnum: CounterStatusEnum(rawValue: status))
+            }
+            break;
+        case "openSetting":
+            if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                UIApplication.shared.open(appSettings)
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(appSettings, completionHandler: { (success) in
+                        result("{\"success\": true, \"data\": \(String(success))}");
+                    })
+                }
+            }
+            break;
+        case "isNotificationEnabled":
+            Utility.isNotificationEnabled(cb: {(res:Bool)->Void in
+                //                NSLog("", result);
+                result("{\"success\": true, \"data\": \(String(res))}");
+            }
+            );
+            break;
+        case "cancelAllPendingNotification":
+            Utility.cancelAllPendingNotification();
+            result("{\"success\": true, \"data\": \"\"}");
+            break;
+        case "pushCounterNotification":
+            let title: String = (call.arguments as! [[String: Any]])[0]["title"] as! String;
+            let content: String = (call.arguments as! [[String: Any]])[0]["content"] as! String;
+            let delay: Int = (call.arguments as! [[String: Any]])[0]["delay"] as! Int;
+            let id: String = (call.arguments as! [[String: Any]])[0]["id"] as! String;
+            let extendsParams: String = (call.arguments as! [[String: Any]])[0]["extendsParams"] as! String;
+            if #available(iOS 10.0, *){
+                Utility.showLocalNotificationWithDelay(delay: delay, title: title, body: content, userInfo: ["id": "id66", "articleId": 999], action: id);
+            }
+            break;
+        case "cancelPushCounterNotification":
+            let id: String = (call.arguments as! [[String: Any]])[0]["id"] as! String;
+            if #available(iOS 10.0, *){
+                Utility.cancelNotificationWithAction(action: id);
+            }
+            break;
+        case "getAliyunDeviceId":
+            result(Params.deviceId);
+            break;
+        default:
+            result(FlutterMethodNotImplemented)
+        }
+    }
+    
+    func navigateToTimelineViewController() {
+        // 获取当前的顶层控制器
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            
+            // 创建一个TimelineViewController实例
+            if #available(iOS 15.0, *) {
+                let timelineViewController = UINavigationController(rootViewController: TimelineListViewController())
+                // 在当前的顶层控制器上推送TimelineViewController
+                topController.present(timelineViewController, animated: true, completion: nil)
+            } else {
+                // Fallback on earlier versions
+            };
+            
+        }
+    }
+    //
+    //    @available(iOS 15.0, *)
+    //    func navigateToTimelineViewController(controller: UINavigationController) {
+    //        // 获取当前的顶层控制器
+    //        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+    //            while let presentedViewController = topController.presentedViewController {
+    //                topController = presentedViewController
+    //            }
+    //
+    //            // 创建一个TimelineViewController实例
+    //
+    //
+    //            // 检查topController是否是UINavigationController
+    //            if let navigationController = topController as? UINavigationController {
+    //                // 在当前的顶层控制器上推送TimelineViewController
+    //                navigationController.pushViewController(controller, animated: true)
+    //            } else {
+    //                print("Cannot push. Top controller is not a UINavigationController.")
+    //            }
+    //        }
+    //    }
+    
+    //
+    //
+}
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/counter_notification_widget"
+    android:initialKeyguardLayout="@layout/counter_notification_widget"
+    android:minHeight="56dp"
+    android:minWidth="272dp"
+    android:previewLayout="@layout/counter_notification_widget"
+    android:widgetCategory="home_screen"
+    android:previewImage="@drawable/bg_desktop_widget"
+    android:updatePeriodMillis="86400000">
+</appwidget-provider>
+    <!--    android:widgetCategory="home_screen|searchbox|keyguard"-->

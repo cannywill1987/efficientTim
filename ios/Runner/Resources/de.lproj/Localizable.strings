@@ -1,0 +1,66 @@
+/* 
+ Localizable.strings
+ Runner
+ 
+ Created by 林智彬 on 2023/8/27.
+ 
+ */
+"title" = "TickTick AI";
+"from" = "Von";
+"to" = "Zu";
+"time" = "Zeit";
+"repeat" = "Wiederholen";
+"disableApp" = "Sperren App auswählen";
+"selectApp" = "App auswählen";
+"app" = "App";
+"category" = "Kategorie";
+"create" = "Erstellen";
+"delete" = "Löschen";
+"update" = "Aktualisieren";
+"Sun" = "So";
+"Mon" = "Mo";
+"Tue" = "Di";
+"Wed" = "Mi";
+"Thu" = "Do";
+"Fri" = "Fr";
+"Sat" = "Sa";
+"edit" = "Bearbeiten";
+"app" = "Apps";
+"categories" = "Kategorien";
+"locascreen_start" = "Sperrbildschirmplan beginnt";
+"locascreen_start_in_five_minute" = "Sperrbildschirmplan beginnt in fünf Minuten";
+"scheduled_task_has_ended" = "Geplante Aufgabe ist beendet";
+"back" = "Zurück";
+"lock_app_desc" = "Wenn Sie schließen möchten, öffnen Sie bitte das Zeitmanagementbüro zum Schließen";
+"confirm" = "Bestätigen";
+"cancel" = "Abbrechen";
+"today" = "Heute";
+"Quadrant" = "Quadrant ToDo";
+"sunday" = "So.";
+"monday" = "Mo.";
+"tuesday" = "Di.";
+"wednesday" = "Mi.";
+"thursday" = "Do.";
+"friday" = "Fr.";
+"saturday" = "Sa.";
+"january" = "Jan.";
+"february" = "Feb.";
+"march" = "März";
+"april" = "Apr.";
+"may" = "Mai";
+"june" = "Juni";
+"july" = "Juli";
+"august" = "Aug.";
+"september" = "Sep.";
+"october" = "Okt.";
+"november" = "Nov.";
+"december" = "Dez.";
+"note1" = "Notiz 1";
+"note2" = "Notiz 2";
+"note3" = "Notiz 3";
+"note4" = "Notiz 4";
+"note5" = "Notiz 5";
+"note6" = "Notiz 6";
+"note7" = "Notiz 7";
+"note_desc" = "Der Inhalt der Notiz kann in der App eingestellt werden.";
+

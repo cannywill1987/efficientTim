@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by 林智彬 on 2023/8/28.
+  
+*/
+"today" = "Oggi";
+"clockInToday" = "Timbra oggi";
+"Quadrant" = "Quadrante ToDo";
+"sunday" = "Dom.";
+"monday" = "Lun.";
+"tuesday" = "Mar.";
+"wednesday" = "Mer.";
+"thursday" = "Gio.";
+"friday" = "Ven.";
+"saturday" = "Sab.";
+"january" = "Gen.";
+"february" = "Feb.";
+"march" = "Mar.";
+"april" = "Apr.";
+"may" = "Mag";
+"june" = "Giu.";
+"july" = "Lug.";
+"august" = "Ago.";
+"september" = "Set.";
+"october" = "Ott.";
+"november" = "Nov.";
+"december" = "Dic.";
+"calendar_this_week" = "Calendario Questa Settimana";
+"calendar_this_week_desc" = "";
+"note1" = "Nota 1";
+"note2" = "Nota 2";
+"note3" = "Nota 3";
+"note4" = "Nota 4";
+"note5" = "Nota 5";
+"note6" = "Nota 6";
+"note7" = "Nota 7";
+"note_desc" = "Il contenuto della nota può essere impostato nell'app.";
+

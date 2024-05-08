@@ -1,0 +1,4 @@
+storePassword=linzhibin2003
+keyPassword=linzhibin2003
+keyAlias=sign
+storeFile=key/sign.jks

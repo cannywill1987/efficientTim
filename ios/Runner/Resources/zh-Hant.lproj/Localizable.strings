@@ -1,0 +1,67 @@
+/* 
+ Localizable.strings
+ Runner
+ 
+ Created by 林智彬 on 2023/8/27.
+ 
+ */
+"title" = "時間管理局ToDo";
+"from" = "從";
+"to" = "到";
+"time" = "時間";
+"repeat" = "重複";
+"disableApp" = "選擇鎖定應用";
+"selectApp" = "選擇應用";
+"app" = "應用";
+"category" = "分類";
+"create" = "創建";
+"delete" = "刪除";
+"update" = "更新";
+"Sun" = "日";
+"Mon" = "一";
+"Tue" = "二";
+"Wed" = "三";
+"Thu" = "四";
+"Fri" = "五";
+"Sat" = "六";
+"edit" = "編輯";
+"app" = "應用";
+"categories" = "分類";
+"locascreen_start" = "鎖屏計劃開始";
+"locascreen_start_in_five_minute" = "您的鎖屏計劃即將開始";
+"scheduled_task_has_ended" = "定時任務已經結束";
+"back" = "返回";
+"lock_app_desc" = "若想關閉請打開時間管理局關閉";
+"confirm" = "確定";
+"cancel" = "取消";
+"today" = "今天";
+"Quadrant" = "四象限";
+"sunday" = "周日";
+"monday" = "周一";
+"tuesday" = "周二";
+"wednesday" = "周三";
+"thursday" = "周四";
+"friday" = "周五";
+"saturday" = "周六";
+"january" = "一月";
+"february" = "二月";
+"march" = "三月";
+"april" = "四月";
+"may" = "五月";
+"june" = "六月";
+"july" = "七月";
+"august" = "八月";
+"september" = "九月";
+"october" = "十月";
+"november" = "十一月";
+"december" = "十二月";
+"note1" = "便簽1";
+"note2" = "便簽2";
+"note3" = "便簽3";
+"note4" = "便簽4";
+"note5" = "便簽5";
+"note6" = "便簽6";
+"note7" = "便簽7";
+"note_desc" = "在app中的便簽中可以設置該便簽內容";
+
+

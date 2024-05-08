@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
+
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
+
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="$FLUTTER_BASE_HREF">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="A new Flutter project.">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="timehello">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <script src="i18n.js"></script>
+    <style>
+          #loading {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 999;
+        }
+
+        .loading-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+            width: 100px;
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 10px;
+          border-radius: 4px;
+          text-align: center;
+        }
+
+        #loading-image {
+          width: 45px;
+          height: 45px;
+          background-color: red;
+          background: url(./ic_tomato_white.png);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          animation: spin 1.5s linear infinite ;
+          margin-bottom: 5px;
+        }
+
+        @keyframes spin {
+          0% {
+          width: 45px;
+        }
+        50% {
+          width: 0px;
+        }
+        100% {
+          width: 45px;
+        }
+
+          /* from {
+            width: 100%;
+          }
+          to {
+            width: 0;
+          } */
+        }
+
+        #loading-title {
+          color: white;
+        }
+
+    </style>
+    <script src="index.js?ts=<?=time()?>"></script>
+    <!-- <script>
+      alert("hello");
+    </script> -->
+    <title>timehello</title>
+    <link rel="manifest" href="manifest.json">
+
+    <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+</head>
+<body>
+<div id="loading" style="display: none;">
+    <div class="loading-content">
+        <div id="loading-image" alt="loading"></div>
+        <div id="loading-title"></div>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', function(ev) {
+    setTimeout(() => {
+        preload()
+    }, 2000);
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        }
+      }).then(function(engineInitializer) {
+        return engineInitializer.initializeEngine();
+      }).then(function(appRunner) {
+        dismiss();
+        return appRunner.runApp();
+      });
+    });
+
+</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLS41GtdPpHDxoZJCnApkgsEKhZTsKOEc",
+    authDomain: "timerbell-3a4af.firebaseapp.com",
+    projectId: "timerbell-3a4af",
+    storageBucket: "timerbell-3a4af.appspot.com",
+    messagingSenderId: "163911111516",
+    appId: "1:163911111516:web:923505a4455e284c256799",
+    measurementId: "G-E90E28526T"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</body>
+<!-- 预加载字体文件 -->
+<!--<link rel="preload" href="/assets/fonts/MaterialIcons-Regular.otf" as="font" type="font/otf" crossorigin>-->
+<!--<link rel="preload" href="/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf" as="font" type="font/ttf" crossorigin>-->
+<!--<link rel="preload" href="/assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf" as="font" type="font/ttf" crossorigin>-->
+<!--<link rel="preload" href="/assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf" as="font" type="font/ttf" crossorigin>-->
+<!--<link rel="preload" href="/assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf" as="font" type="font/ttf" crossorigin>-->
+<!--<link rel="preload" href="/assets/packages/u_credit_card/fonts/OCR-A-regular.ttf" as="font" type="font/ttf" crossorigin>-->
+
+<!--&lt;!&ndash; 预加载CSS文件 &ndash;&gt;-->
+<!--<link rel="preload" href="/assets/packages/fluttertoast/assets/toastify.css" as="style">-->
+
+<!--&lt;!&ndash; 预加载JavaScript文件 &ndash;&gt;-->
+<!--<link rel="preload" href="/assets/packages/fluttertoast/assets/toastify.js" as="script">-->
+<!--<link rel="preload" href="/assets/packages/wakelock_web/assets/no_sleep.js" as="script">-->
+</html>

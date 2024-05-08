@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by 林智彬 on 2023/8/28.
+  
+*/
+"today" = "今日";
+"clockInToday" = "今日のタイムカード";
+"Quadrant" = "四象限ToDo";
+"sunday" = "日曜日";
+"monday" = "月曜日";
+"tuesday" = "火曜日";
+"wednesday" = "水曜日";
+"thursday" = "木曜日";
+"friday" = "金曜日";
+"saturday" = "土曜日";
+"january" = "1月";
+"february" = "2月";
+"march" = "3月";
+"april" = "4月";
+"may" = "5月";
+"june" = "6月";
+"july" = "7月";
+"august" = "8月";
+"september" = "9月";
+"october" = "10月";
+"november" = "11月";
+"december" = "12月";
+"calendar_this_week" = "今週のカレンダー";
+"calendar_this_week_desc" = "";
+"note1" = "メモ1";
+"note2" = "メモ2";
+"note3" = "メモ3";
+"note4" = "メモ4";
+"note5" = "メモ5";
+"note6" = "メモ6";
+"note7" = "メモ7";
+"note_desc" = "アプリでメモの内容を設定できます。";
+

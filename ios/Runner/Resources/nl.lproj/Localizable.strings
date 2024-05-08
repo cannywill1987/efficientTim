@@ -1,0 +1,65 @@
+/* 
+ Localizable.strings
+ Runner
+ 
+ Created by 林智彬 on 2023/8/27.
+ 
+ */
+"title" = "TickTick AI";
+"from" = "Van";
+"to" = "Naar";
+"time" = "Tijd";
+"repeat" = "Herhaal";
+"disableApp" = "Selecteer App Blokkeren";
+"selectApp" = "Selecteer App";
+"app" = "App";
+"category" = "Categorie";
+"create" = "Creëer";
+"delete" = "Verwijder";
+"update" = "Bijwerken";
+"Sun" = "Zon";
+"Mon" = "Maan";
+"Tue" = "Din";
+"Wed" = "Woe";
+"Thu" = "Don";
+"Fri" = "Vrij";
+"Sat" = "Zat";
+"edit" = "Bewerk";
+"app" = "Apps";
+"categories" = "Categorieën";
+"locascreen_start" = "Vergrendelscherm plan start";
+"locascreen_start_in_five_minute" = "Vergrendelscherm plan start over vijf minuten";
+"scheduled_task_has_ended" = "Geplande taak is beëindigd";
+"back" = "Terug";
+"lock_app_desc" = "Als u wilt sluiten, open dan het tijdbeheerbureau om te sluiten";
+"confirm" = "Bevestigen";
+"cancel" = "Annuleren";
+"today" = "Vandaag";
+"Quadrant" = "Quadrant ToDo";
+"sunday" = "Zon.";
+"monday" = "Maan.";
+"tuesday" = "Din.";
+"wednesday" = "Woe.";
+"thursday" = "Don.";
+"friday" = "Vrij.";
+"saturday" = "Zat.";
+"january" = "Jan.";
+"february" = "Feb.";
+"march" = "Mrt.";
+"april" = "Apr.";
+"may" = "Mei";
+"june" = "Jun.";
+"july" = "Jul.";
+"august" = "Aug.";
+"september" = "Sep.";
+"october" = "Okt.";
+"november" = "Nov.";
+"december" = "Dec.";
+"note1" = "Notitie 1";
+"note2" = "Notitie 2";
+"note3" = "Notitie 3";
+"note4" = "Notitie 4";
+"note5" = "Notitie 5";
+"note6" = "Notitie 6";
+"note7" = "Notitie 7";
+"note_desc" = "De inhoud van de notitie kan in de app worden ingesteld.";

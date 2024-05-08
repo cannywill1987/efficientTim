@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by 林智彬 on 2023/8/28.
+  
+*/
+"today" = "Hôm nay";
+"clockInToday" = "Chấm công hôm nay";
+"Quadrant" = "Quadrant Cần làm";
+"sunday" = "CN.";
+"monday" = "T2.";
+"tuesday" = "T3.";
+"wednesday" = "T4.";
+"thursday" = "T5.";
+"friday" = "T6.";
+"saturday" = "T7.";
+"january" = "Tháng 1.";
+"february" = "Tháng 2.";
+"march" = "Tháng 3.";
+"april" = "Tháng 4.";
+"may" = "Tháng 5";
+"june" = "Tháng 6.";
+"july" = "Tháng 7.";
+"august" = "Tháng 8.";
+"september" = "Tháng 9.";
+"october" = "Tháng 10.";
+"november" = "Tháng 11.";
+"december" = "Tháng 12.";
+"calendar_this_week" = "Lịch Tuần này";
+"calendar_this_week_desc" = "";
+"note1" = "Ghi chú 1";
+"note2" = "Ghi chú 2";
+"note3" = "Ghi chú 3";
+"note4" = "Ghi chú 4";
+"note5" = "Ghi chú 5";
+"note6" = "Ghi chú 6";
+"note7" = "Ghi chú 7";
+"note_desc" = "Nội dung của ghi chú có thể được thiết lập trong ứng dụng.";
+
