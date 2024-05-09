@@ -65,7 +65,7 @@ class GPTRoleGridViewPageState extends BaseWidgetState<GPTRoleGridViewPage> {
             child: CustomScrollView(
               slivers: [SliverGrid(
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  // crossAxisCount: 2,
+                  // crossAxisCount: 21,
                   maxCrossAxisExtent: 200, // 固定宽度
                   childAspectRatio: 2.5, // 宽高比
                   mainAxisSpacing: 10.0, // 主轴间距
