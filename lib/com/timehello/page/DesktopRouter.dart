@@ -228,7 +228,7 @@ Widget desktopRightRouter(String page, Map data) {
         missionModel: data['missionModel'],
       ));
     case 'ChatGptPage':
-      return getContainer(const ChatGptPage(
+      return getContainer(ChatGptPage(
         key: ValueKey("ejzifjf123zefzef"),
       ));
     default:

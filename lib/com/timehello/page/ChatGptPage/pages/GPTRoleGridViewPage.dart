@@ -1,13 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/beans/ResourceDeliveryInfoBean.dart';
+import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/SearchBarWidget.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/libs/mongodb/response/MongoDbSaved.dart';
+import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
+import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
+import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
+import '../../../models/ChatGptMessageModel.dart';
+
 class GPTRoleGridViewPage extends BaseWidget {
-  GPTRoleGridViewPage({Key? key}) : super(key: key);
+  Function onClickCreated;
+  GPTRoleGridViewPage({Key? key, required this.onClickCreated}) : super(key: key);
 
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
@@ -64,8 +75,30 @@ class GPTRoleGridViewPageState extends BaseWidgetState<GPTRoleGridViewPage> {
                       (BuildContext context, int index) {
                         ResourceDeliveryInfoBean? item  = deliveryList?[index];
                         // return Text("123", style: TextStyle(color: Color(0xffff8800)),);
-                    return GPTRoleGridViewItem(
-                      bean: item,
+                    return GestureDetector(
+                      onTap: () {
+                        DialogManagement.getInstance().showGPTInputDialog(title: item?.resourceTitle ?? "", content: item?.resourceContent ?? "",okCallback: (text) async {
+                          ChatGptFolderModel chatGptFolderModel = ChatGptFolderModel();
+                          chatGptFolderModel.title = text;
+                          MongoDbSaved? res = await MongoApisManager.getInstance().insertChatGptFolderModel(chatGptFolderModel: chatGptFolderModel);
+                          ChatGptMessageModel chatGptMessageModel = ChatGptMessageModel();
+                          chatGptMessageModel.text = text;
+                          chatGptMessageModel.folderTitle = text;
+                          chatGptMessageModel.countryCode = DeviceInfoManagement.getCountryCode();
+                          chatGptMessageModel.fid = res?.objectId;
+                          chatGptMessageModel.avatar = LoginManager.getInstance().userBean.avatar;
+                          chatGptMessageModel.username = LoginManager.getInstance().userBean.username;
+                          await MongoApisManager.getInstance()
+                              .insertChatGptMessageModel(chatGptMessageModel: chatGptMessageModel);
+                          context.read<Env>().curChatGptFolderModel = chatGptFolderModel;
+                          widget.onClickCreated(text);
+                          // item?.resourceTitle = text;
+                          // updateUI();
+                        });
+                      },
+                      child: GPTRoleGridViewItem(
+                        bean: item,
+                      ),
                     );
                   },
                   childCount: deliveryList.length,

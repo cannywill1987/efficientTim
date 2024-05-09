@@ -1,4 +1,5 @@
 {
+  "please_input_first_gpt_sentence": "请输入您想问的问题",
   "browser_not_support_multiline": "The browser does not support multiline input. For a better experience, you can download the client.",
   "module_filtering_setting": "Module Filtering Setting",
   "create_mission": "Create Mission",

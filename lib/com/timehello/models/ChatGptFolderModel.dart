@@ -20,6 +20,8 @@ class ChatGptFolderModel extends MongoDbObject{
   int? create_time;
   int color = 0;
   int? tagColor;
+  @JsonKey(ignore: true)
+  bool? isCurrentSelected = false;
 
   ChatGptFolderModel();
 

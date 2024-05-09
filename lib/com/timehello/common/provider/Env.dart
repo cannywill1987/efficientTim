@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/SettingModel.dart';
 import 'package:time_hello/com/timehello/models/UserInfoModel.dart';
@@ -25,6 +26,8 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
   Map? _routerRightSideData;
 
   FolderModel? _curFolderSelected;
+
+  ChatGptFolderModel? _curChatGptFolderModel;
 
   int _curFolderStatus = 0; //0:正常 1:编辑 2:移动
 
@@ -113,6 +116,13 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
 
   set curFolderSelected(FolderModel value) {
     _curFolderSelected = value;
+    notifyListeners();
+  }
+
+  ChatGptFolderModel get curChatGptFolderModel => _curChatGptFolderModel ?? ChatGptFolderModel();
+
+  set curChatGptFolderModel(ChatGptFolderModel value) {
+    _curChatGptFolderModel = value;
     notifyListeners();
   }
 

@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `请输入您想问的问题`
+  String get please_input_first_gpt_sentence {
+    return Intl.message(
+      '请输入您想问的问题',
+      name: 'please_input_first_gpt_sentence',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `The browser does not support multiline input. For a better experience, you can download the client.`
   String get browser_not_support_multiline {
     return Intl.message(

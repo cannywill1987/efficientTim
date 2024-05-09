@@ -1,3 +1,8 @@
+enum PageGPTFromEnum {
+  RightBarPage,
+  AIHelperPage
+}
+
 enum WrapModeEnum {
   scroll,
   wrap

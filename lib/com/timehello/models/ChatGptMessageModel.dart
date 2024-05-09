@@ -11,6 +11,7 @@ part 'ChatGptMessageModel.g.dart';
 @JsonSerializable()
 class ChatGptMessageModel extends MongoDbObject{
 
+  // 这个是ChatGptFolderModel的object id
   String? fid = "";
 
   int? modelType = 0; // 0 - 消息 1 - 文件夹
@@ -21,6 +22,7 @@ class ChatGptMessageModel extends MongoDbObject{
 
   String? folderTitle = ''; //modelType为1时 文件夹标题
 
+  // 这个 _objectId 是ChatGptMessageModel的id 主要用于用侧侧边栏
   String? folder_objectId = ''; //modelType为1时 文件夹id modelType为0也有值 1 没有值 但是为了显示 需要把_objectId也索引
 
   String? function_call;

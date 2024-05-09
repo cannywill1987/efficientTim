@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTFoldersPage/GPTFoldersPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTRoleGridViewPage.dart';
 import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/WQBMissionPage.dart';
@@ -61,9 +62,11 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
       ),
       body: Stack(
         children: [
-          WQBMissionPage(key: ValueKey('MissionPage21312'), onTapNavMenuListener: () {
-            // _scaffoldKey.currentState?.openDrawer();
-          },),
+          ChatGptPage(pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,)
+
+          // WQBMissionPage(key: ValueKey('MissionPage21312'), onTapNavMenuListener: () {
+          //   // _scaffoldKey.currentState?.openDrawer();
+          // },),
           // Align(
           //   alignment: Utility.isHandsetBySize() == true
           //       ? Alignment(0.0, 0.75)
@@ -94,8 +97,8 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
             // Container(
             //     width: 300, child: WQBMissionPage(key: ValueKey("12121"))),
             // Expanded(child:  WQBMissionPage(key: ValueKey("12121"))),
-
-            Expanded(child: GPTRoleGridViewPage())
+            Expanded(child: ChatGptPage(pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,)),
+            // Expanded(child: GPTRoleGridViewPage())
             // Expanded(child:  WrongQuestionBookPage(key: ValueKey("12121"), wqbMissionModel: WQBMissionModel(), isEditable: false,))
           ],
         ),
@@ -119,20 +122,4 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
     );
   }
 
-  int getInitIndex() {
-    WQBModeEnum modeEnum = context.read<GlobalStateEnv>().wqbModeEnum;
-    switch(modeEnum) {
-      case WQBModeEnum.wrong_question_book:
-        return 1;
-      case WQBModeEnum.card:
-        return 2;
-      case WQBModeEnum.note:
-        return 3;
-      case WQBModeEnum.memorandum:
-        return 4;
-      default:
-        return 0;
-    }
-    WQBModeEnum.values;
-  }
 }

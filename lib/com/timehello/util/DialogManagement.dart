@@ -6,6 +6,7 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:time_hello/com/timehello/components/CheckContainer.dart';
 import 'package:time_hello/com/timehello/components/CustomCheckBox.dart';
+import 'package:time_hello/com/timehello/components/CustomMultiInputWidget.dart';
 import 'package:time_hello/com/timehello/components/PriorityMissionListWidget.dart';
 import 'package:time_hello/com/timehello/components/SelectBgDialog.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
@@ -705,6 +706,66 @@ class DialogManagement {
             ),
           );
         });
+  }
+
+  Future<bool> showGPTInputDialog({Function? okCallback, String? title, String? content}) async {
+    GlobalKey<CustomMultiInputWidgetState> customMultiInputWidgetStateGlobalKey =
+        GlobalKey();
+    // if (TextUtil.isEmpty(folderId) == true) {
+    //   return true;
+    // }
+    bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
+        Utility.getGlobalContext(),
+        cancelText: getI18NKey().cancel, okCallback: () {
+      //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
+      okCallback?.call(customMultiInputWidgetStateGlobalKey.currentState?.getText());
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), true);
+      return;
+      // }
+    }, cancelCallback: () {
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), false);
+      return;
+    },
+        okText: getI18NKey().confirm,
+        child: Container(
+          width: 400,
+          child: Column(
+            children: [
+              Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 80),
+              SizedBox(
+                height: 20,
+              ),
+              if(!TextUtil.isEmpty(title))
+              Text(
+                title!,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: ThemeManager.getInstance().getTextColor()),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              if(!TextUtil.isEmpty(content))
+              Text(
+                content ?? "",
+                style: TextStyle(fontSize: 14, color: Color(0xff999999)),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomMultiInputWidget(
+                key: customMultiInputWidgetStateGlobalKey,
+              ),
+            ],
+          ),
+        ));
+    if (result == null) {
+      return true;
+    } else {
+      return result;
+    }
   }
 
   ButtonBar getButtonWidget(Function? cancelCallback, String? cancelTitle,

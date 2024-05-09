@@ -1076,6 +1076,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_content": MessageLookupByLibrary.simpleMessage("请输入内容"),
         "please_input_correct_password":
             MessageLookupByLibrary.simpleMessage("请输入正确密码"),
+        "please_input_first_gpt_sentence":
+            MessageLookupByLibrary.simpleMessage("请输入您想问的问题"),
         "please_input_folder_password": m84,
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("请输入任务标题"),
