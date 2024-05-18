@@ -487,6 +487,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createMission": MessageLookupByLibrary.simpleMessage("创建清单"),
         "createSuccess": MessageLookupByLibrary.simpleMessage("创建成功"),
         "createTag": MessageLookupByLibrary.simpleMessage("创建标签"),
+        "create_chat": MessageLookupByLibrary.simpleMessage("创建会话"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("创建文件夹"),
         "create_mission": MessageLookupByLibrary.simpleMessage("创建任务"),
         "create_mission_by_content":
@@ -692,8 +693,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "go_to_setting": MessageLookupByLibrary.simpleMessage("去设置"),
         "google_login": MessageLookupByLibrary.simpleMessage("谷歌登录"),
         "gpt_role": m45,
-        "gpt_system_msg_forbidden":
-            MessageLookupByLibrary.simpleMessage("不得討論政治，道德，文化，歷史，宗教信仰相關事件和人物"),
+        "gpt_system_msg_forbidden": MessageLookupByLibrary.simpleMessage(
+            "不得討論地理，政治，道德，文化，歷史，宗教信仰相關事件和人物"),
         "gpt_token_expired": MessageLookupByLibrary.simpleMessage(
             "您的token已经过期，请加微信号 cannywill 申请gpt访问权限"),
         "grid": MessageLookupByLibrary.simpleMessage("分类"),
@@ -804,6 +805,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "lock_app_setting": MessageLookupByLibrary.simpleMessage("锁定App设置"),
         "lock_app_setting_description":
             MessageLookupByLibrary.simpleMessage("锁定App能帮助您更好的专注，从而不被不必要的应用打扰"),
+        "lock_screen_auto_password_setting":
+            MessageLookupByLibrary.simpleMessage("锁屏密码开机自启动设置"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage("app锁支持锁屏密码设置"),
+        "lock_screen_password_setting":
+            MessageLookupByLibrary.simpleMessage("锁屏密码设置"),
         "login": MessageLookupByLibrary.simpleMessage("登录"),
         "loginContent": MessageLookupByLibrary.simpleMessage("新用户将自动创建账号"),
         "loginFirst": MessageLookupByLibrary.simpleMessage("请先登录"),
@@ -1068,6 +1075,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "play": MessageLookupByLibrary.simpleMessage("播放"),
         "pleaseInputTitle": MessageLookupByLibrary.simpleMessage("请输入标题"),
         "pleaseSelectColor": MessageLookupByLibrary.simpleMessage("请选择颜色"),
+        "please_confirm_your_password":
+            MessageLookupByLibrary.simpleMessage("请确认密码"),
+        "please_create_ur_password":
+            MessageLookupByLibrary.simpleMessage("请创建您的密码"),
+        "please_enter_ur_password":
+            MessageLookupByLibrary.simpleMessage("请输入您的密码"),
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("请输入问题"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage("请完成短信密码验证"),
@@ -1185,6 +1198,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveValue": MessageLookupByLibrary.simpleMessage("重复日期"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("重复星期"),
         "reply": MessageLookupByLibrary.simpleMessage("回"),
+        "report2": MessageLookupByLibrary.simpleMessage("举报"),
         "request_error_try_again":
             MessageLookupByLibrary.simpleMessage("请求出错，请重试"),
         "request_fail": MessageLookupByLibrary.simpleMessage("请求失败"),

@@ -194,21 +194,21 @@ class _SettingPermissionPageWidgetState<T>
           uncheckIcon: Icon(Icons.check_box_outline_blank),
         ),
       ),
-      SettingMenuItem(
-        title: getI18NKey().is_push_setting,
-        description: getI18NKey().is_push_setting_detail,
-        onTapListener: (data) async {
-          this.onClick('onClickAlipushOn', data);
-          // await onClickAlipushOn(context);
-        },
-        // icon: Icon(Icons.music_note_outlined,
-        //     color: ColorsConfig.gray_a3_icon),
-        rightPartContainer: CheckImage(
-          checked: this.aliPushOn ?? false,
-          checkIcon: Icon(Icons.check_box),
-          uncheckIcon: Icon(Icons.check_box_outline_blank),
-        ),
-      ),
+      // SettingMenuItem(
+      //   title: getI18NKey().is_push_setting,
+      //   description: getI18NKey().is_push_setting_detail,
+      //   onTapListener: (data) async {
+      //     this.onClick('onClickAlipushOn', data);
+      //     // await onClickAlipushOn(context);
+      //   },
+      //   // icon: Icon(Icons.music_note_outlined,
+      //   //     color: ColorsConfig.gray_a3_icon),
+      //   rightPartContainer: CheckImage(
+      //     checked: this.aliPushOn ?? false,
+      //     checkIcon: Icon(Icons.check_box),
+      //     uncheckIcon: Icon(Icons.check_box_outline_blank),
+      //   ),
+      // ),
       SettingMenuItem(
           title: getI18NKey().unregister_account,
           onTapListener: (data) {

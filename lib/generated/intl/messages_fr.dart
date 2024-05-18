@@ -579,6 +579,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createSuccess":
             MessageLookupByLibrary.simpleMessage("créé avec succès"),
         "createTag": MessageLookupByLibrary.simpleMessage("créer des tags"),
+        "create_chat":
+            MessageLookupByLibrary.simpleMessage("Créer une discussion"),
         "create_folder_desc":
             MessageLookupByLibrary.simpleMessage("Créer un dossier"),
         "create_mission":
@@ -988,6 +990,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Paramètres de verrouillage des applications"),
         "lock_app_setting_description": MessageLookupByLibrary.simpleMessage(
             "Le verrouillage des applications peut vous aider à mieux vous concentrer en n\'étant pas dérangé par des applications inutiles."),
+        "lock_screen_auto_password_setting": MessageLookupByLibrary.simpleMessage(
+            "Paramètres de démarrage automatique du mot de passe de l\'écran de verrouillage"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage(
+                "Paramètres de mot de passe automatique pour le verrouillage d\'application"),
+        "lock_screen_password_setting": MessageLookupByLibrary.simpleMessage(
+            "Paramètres du mot de passe de l\'écran de verrouillage"),
         "login": MessageLookupByLibrary.simpleMessage("Se connecter"),
         "loginContent": MessageLookupByLibrary.simpleMessage(
             "Les comptes seront automatiquement créés pour les nouveaux utilisateurs"),
@@ -1299,6 +1308,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veuillez entrer un titre"),
         "pleaseSelectColor": MessageLookupByLibrary.simpleMessage(
             "veuillez choisir une couleur"),
+        "please_confirm_your_password": MessageLookupByLibrary.simpleMessage(
+            "Veuillez confirmer votre mot de passe"),
+        "please_create_ur_password": MessageLookupByLibrary.simpleMessage(
+            "Veuillez créer votre mot de passe"),
+        "please_enter_ur_password": MessageLookupByLibrary.simpleMessage(
+            "Veuillez entrer votre mot de passe"),
         "please_enter_your_question": MessageLookupByLibrary.simpleMessage(
             "veuillez entrer votre question"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage(
@@ -1309,6 +1324,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veuillez entrer le contenu"),
         "please_input_correct_password": MessageLookupByLibrary.simpleMessage(
             "veuillez entrer le mot de passe correct"),
+        "please_input_first_gpt_sentence": MessageLookupByLibrary.simpleMessage(
+            "Veuillez saisir votre question"),
         "please_input_folder_password": m84,
         "please_input_mission_title": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le titre de la mission"),
@@ -1447,6 +1464,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveWeekDay":
             MessageLookupByLibrary.simpleMessage("Jours répétitifs"),
         "reply": MessageLookupByLibrary.simpleMessage("répondre"),
+        "report2": MessageLookupByLibrary.simpleMessage("Signaler"),
         "request_error_try_again": MessageLookupByLibrary.simpleMessage(
             "erreur de demande, veuillez réessayer"),
         "request_fail":

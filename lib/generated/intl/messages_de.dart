@@ -578,6 +578,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createSuccess":
             MessageLookupByLibrary.simpleMessage("erfolgreich erstellt"),
         "createTag": MessageLookupByLibrary.simpleMessage("Tags erstellen"),
+        "create_chat": MessageLookupByLibrary.simpleMessage("Chat erstellen"),
         "create_folder_desc":
             MessageLookupByLibrary.simpleMessage("Ordner erstellen"),
         "create_mission":
@@ -980,6 +981,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("App-Sperreinstellungen"),
         "lock_app_setting_description": MessageLookupByLibrary.simpleMessage(
             "Das Sperren von Apps kann Ihnen helfen, sich besser zu konzentrieren, indem Sie nicht von unnötigen Anwendungen gestört werden."),
+        "lock_screen_auto_password_setting":
+            MessageLookupByLibrary.simpleMessage(
+                "Einstellungen für automatische Passwortsperre beim Start"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage(
+                "App-Sperre unterstützt die Einstellung von Bildschirmsperren-Passwörtern"),
+        "lock_screen_password_setting": MessageLookupByLibrary.simpleMessage(
+            "Einstellungen für Bildschirmsperre-Passwort"),
         "login": MessageLookupByLibrary.simpleMessage("Anmelden"),
         "loginContent": MessageLookupByLibrary.simpleMessage(
             "Konten werden für neue Benutzer automatisch erstellt"),
@@ -1291,6 +1300,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte geben Sie einen Titel ein"),
         "pleaseSelectColor":
             MessageLookupByLibrary.simpleMessage("bitte wählen Sie eine Farbe"),
+        "please_confirm_your_password": MessageLookupByLibrary.simpleMessage(
+            "Bitte bestätigen Sie Ihr Passwort"),
+        "please_create_ur_password": MessageLookupByLibrary.simpleMessage(
+            "Bitte erstellen Sie Ihr Passwort"),
+        "please_enter_ur_password": MessageLookupByLibrary.simpleMessage(
+            "Bitte geben Sie Ihr Passwort ein"),
         "please_enter_your_question": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie Ihre Frage ein"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage(
@@ -1301,6 +1316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bitte Inhalt eingeben"),
         "please_input_correct_password": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie das korrekte Passwort ein"),
+        "please_input_first_gpt_sentence": MessageLookupByLibrary.simpleMessage(
+            "Bitte geben Sie Ihre Frage ein"),
         "please_input_folder_password": m84,
         "please_input_mission_title": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie den Missionstitel ein"),
@@ -1442,6 +1459,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveWeekDay":
             MessageLookupByLibrary.simpleMessage("Wiederholungstage"),
         "reply": MessageLookupByLibrary.simpleMessage("Antworten"),
+        "report2": MessageLookupByLibrary.simpleMessage("Bericht"),
         "request_error_try_again": MessageLookupByLibrary.simpleMessage(
             "Anforderungsfehler, bitte versuchen Sie es erneut"),
         "request_fail":

@@ -1,4 +1,13 @@
 {
+  "lock_screen_auto_password_setting_for_applock": "앱 잠금 화면 자동 비밀번호 설정 지원",
+  "lock_screen_auto_password_setting": "잠금 화면 자동 비밀번호 설정",
+  "please_confirm_your_password": "비밀번호를 확인하세요",
+  "lock_screen_password_setting": "잠금 화면 비밀번호 설정",
+  "please_create_ur_password": "비밀번호를 생성하세요",
+"please_enter_ur_password": "비밀번호를 입력하세요",
+  "report2": "신고",
+  "create_chat": "채팅 생성",
+  "please_input_first_gpt_sentence": "질문을 입력하세요",
   "browser_not_support_multiline": "브라우저에서는 여러 줄 입력을 지원하지 않습니다. 더 나은 경험을 위해 클라이언트를 다운로드할 수 있습니다.",
   "module_filtering_setting": "모듈 필터링 설정",
   "create_mission": "임무 생성",

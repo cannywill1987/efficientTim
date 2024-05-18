@@ -27,8 +27,12 @@
 "edit" = "編集";
 "app" = "アプリ";
 "categories" = "カテゴリ";
+"lock_screen_notification" = "ロック画面通知-";
 "locascreen_start" = "ロック画面計画開始";
-"locascreen_start_in_five_minute" = "あなたのロック画面計画が間もなく始まります";
+"locascreen_start_in_five_minute" = "ロック画面計画が間もなく開始します";
+"please_prepare" = "準備をしてください";
+"locascreen_will_end" = "ロック画面計画が終了します";
+"locascreen_has_end" = "ロック画面計画が終了しました";
 "scheduled_task_has_ended" = "スケジュールされたタスクが終了しました";
 "back" = "戻る";
 "lock_app_desc" = "閉じるには時間管理局を開いてください";

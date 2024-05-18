@@ -22,8 +22,6 @@ class FilterMenuSettingPageState
     extends BaseWidgetState<FilterMenuSettingPage> {
   List<CheckButtonStateModel> list = CONSTANTS.getCheckButtonStateModelList();
 
-
-
   @override
   Widget baseBuild(BuildContext context) {
     // TODO: implement build
@@ -70,19 +68,20 @@ class FilterMenuSettingPageState
         SettingManager.getSyncInstance().setIsListingTodayOn(value);
         break;
       case "do_it_now":
-    SettingManager.getSyncInstance().setIsListingDoItNowOn(value);
+        SettingManager.getSyncInstance().setIsListingDoItNowOn(value);
         // SettingManager.getSyncInstance().isListingDoItNowOn = value;
         break;
       case "tomorrow":
-    SettingManager.getSyncInstance().setIsListingTomorrowOn(value);
+        SettingManager.getSyncInstance().setIsListingTomorrowOn(value);
         // SettingManager.getSyncInstance().isListingTomorrowOn = value;
         break;
       case "this_week":
-    SettingManager.getSyncInstance().setIsListingLatest7DaysOn(value);
+        SettingManager.getSyncInstance().setIsListingLatest7DaysOn(value);
         // SettingManager.getSyncInstance().isListingLatest7DaysOn = value;
         break;
       case "all_unfinished_missions":
-        SettingManager.getSyncInstance().setIsListingAllUnfinishedMIssion(value);
+        SettingManager.getSyncInstance()
+            .setIsListingAllUnfinishedMIssion(value);
         // SettingManager.getSyncInstance().isListingAllUnfinishedMIssion = value;
         break;
       case "todo_listing_mission":
@@ -94,11 +93,14 @@ class FilterMenuSettingPageState
         // SettingManager.getSyncInstance().isListingFragmentOn = value;
         break;
       case "all_finished_missions":
-    SettingManager.getSyncInstance().setIsListingFinishedOn(value);
+        SettingManager.getSyncInstance().setIsListingFinishedOn(value);
         break;
-        case "all_missions":
-    SettingManager.getSyncInstance().setIsListingAllOn(value);
-          break;
+      case "all_missions":
+        SettingManager.getSyncInstance().setIsListingAllOn(value);
+        break;
+      case 'AIHelper':
+        SettingManager.getSyncInstance().setIsAIHelperPageOn(value);
+        break;
     }
     updateUI();
   }

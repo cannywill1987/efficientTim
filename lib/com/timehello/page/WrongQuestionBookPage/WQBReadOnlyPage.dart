@@ -39,7 +39,9 @@ class WQBReadOnlyPage extends BaseWidget {
      this.timelineMissionModel,
     this.ossUrl,
     this.showEditButton
-  }); // @override
+  }) {
+    print("1111");
+  } // @override
   // _WQBReadOnlyPageState createState() => _WQBReadOnlyPageState();
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {

@@ -191,95 +191,90 @@ class DialogManagement {
     return await showDialog<bool>(
         context: context,
         barrierDismissible: barrierDismissible,
+        traversalEdgeBehavior: TraversalEdgeBehavior.parentScope,
         builder: (BuildContext context) {
           // if (dialogContent == null) {
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        margin: EdgeInsets.all(20),
-                        padding: EdgeInsets.all(20),
-                        constraints: BoxConstraints(
-                          maxWidth: 500,
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    margin: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(20),
+                    constraints: BoxConstraints(
+                      maxWidth: 500,
+                    ),
+                    decoration: StylesConfig.getDecoration(
+                      radius: 12,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          title ?? "",
+                          style: TextStyle(
+                              fontSize: 16,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.bold),
                         ),
-                        decoration: StylesConfig.getDecoration(
-                          radius: 12,
+                        SizedBox(
+                          height: 10,
                         ),
-                        child: Column(
+                        child ?? SizedBox.shrink(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: ThemeManager.getInstance().getLineColor(),
+                        ),
+                        Row(
                           children: [
-                            Text(
-                              title ?? "",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            child ?? SizedBox.shrink(),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            Expanded(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      if (cancelCallback != null) {
+                                        cancelCallback();
+                                      }
+                                    },
+                                    child: Text(
+                                        cancelText ?? getI18NKey().refuse,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            decoration: TextDecoration.none,
+                                            color: Color(0xffbbbbbb),
+                                            fontSize: 15)))),
                             Container(
-                              width: double.infinity,
-                              height: 1,
-                              color: ThemeManager.getInstance().getLineColor(),
+                              width: 1,
+                              height: 40,
+                              color:
+                                  ThemeManager.getInstance().getLineColor(),
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          if (cancelCallback != null) {
-                                            cancelCallback();
-                                          }
-                                        },
-                                        child: Text(
-                                            cancelText ?? getI18NKey().refuse,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                decoration: TextDecoration.none,
-                                                color: Color(0xffbbbbbb),
-                                                fontSize: 15)))),
-                                Container(
-                                  width: 1,
-                                  height: 40,
-                                  color:
-                                      ThemeManager.getInstance().getLineColor(),
-                                ),
-                                Expanded(
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          if (okCallback != null) {
-                                            okCallback();
-                                          }
-                                        },
-                                        child: Text(
-                                          okText ?? getI18NKey().agree,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              decoration: TextDecoration.none,
-                                              color: ThemeManager.getInstance()
-                                                  .getTextColor(
-                                                      defaultColor: ThemeManager
-                                                              .getInstance()
-                                                          .getDefautThemeColor()),
-                                              fontSize: 15),
-                                        )))
-                              ],
-                            )
+                            Expanded(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      if (okCallback != null) {
+                                        okCallback();
+                                      }
+                                    },
+                                    child: Text(
+                                      okText ?? getI18NKey().agree,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          decoration: TextDecoration.none,
+                                          color: ThemeManager.getInstance()
+                                              .getTextColor(
+                                                  defaultColor: ThemeManager
+                                                          .getInstance()
+                                                      .getDefautThemeColor()),
+                                          fontSize: 15),
+                                    )))
                           ],
-                        ))
-                  ],
-                ),
-              ),
-            ],
+                        )
+                      ],
+                    ))
+              ],
+            ),
           );
         });
   }
@@ -481,7 +476,7 @@ class DialogManagement {
     // if (Utility.isMacOS() == true) {
     //   CounterMethodChannelManager.getInstance().requestReview();
     // } else if (Utility.isIOS() == true) {
-    if(Params.channelEnum != ChannelEnum.vivo) {
+    if (Params.channelEnum != ChannelEnum.vivo) {
       bool hasRating = await CloudSharepreferenceManagement.getInstance()
           .getBool(ShareprefrenceKeys.hasRating, false);
       if (hasRating == false) {
@@ -533,14 +528,9 @@ class DialogManagement {
                         title: d.comment,
                         content: d.comment,
                         username:
-                        LoginManager
-                            .getInstance()
-                            .getUserBean()
-                            .username,
-                        avatar: LoginManager
-                            .getInstance()
-                            .getUserBean()
-                            .avatar);
+                            LoginManager.getInstance().getUserBean().username,
+                        avatar:
+                            LoginManager.getInstance().getUserBean().avatar);
                   }
                   if (d.rating >= 4) {
                     if (Utility.isIOS() == true || Utility.isMacOS() == true) {
@@ -708,9 +698,10 @@ class DialogManagement {
         });
   }
 
-  Future<bool> showGPTInputDialog({Function? okCallback, String? title, String? content}) async {
-    GlobalKey<CustomMultiInputWidgetState> customMultiInputWidgetStateGlobalKey =
-        GlobalKey();
+  Future<bool> showGPTInputDialog(
+      {Function? okCallback, String? title, String? content}) async {
+    GlobalKey<CustomMultiInputWidgetState>
+        customMultiInputWidgetStateGlobalKey = GlobalKey();
     // if (TextUtil.isEmpty(folderId) == true) {
     //   return true;
     // }
@@ -718,7 +709,8 @@ class DialogManagement {
         Utility.getGlobalContext(),
         cancelText: getI18NKey().cancel, okCallback: () {
       //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
-      okCallback?.call(customMultiInputWidgetStateGlobalKey.currentState?.getText());
+      okCallback
+          ?.call(customMultiInputWidgetStateGlobalKey.currentState?.getText());
       DialogManagement.getInstance()
           .hideDialog(Utility.getGlobalContext(), true);
       return;
@@ -737,21 +729,24 @@ class DialogManagement {
               SizedBox(
                 height: 20,
               ),
-              if(!TextUtil.isEmpty(title))
-              Text(
-                title!,
-                style: TextStyle(
-                    fontSize: 18,
-                    color: ThemeManager.getInstance().getTextColor()),
-              ),
+              if (!TextUtil.isEmpty(title))
+                Text(
+                  title!,
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: ThemeManager.getInstance().getTextColor()),
+                ),
               SizedBox(
                 height: 10,
               ),
-              if(!TextUtil.isEmpty(content))
-              Text(
-                content ?? "",
-                style: TextStyle(fontSize: 14, color: Color(0xff999999)),
-              ),
+              if (!TextUtil.isEmpty(content))
+                Container(
+                  constraints: BoxConstraints(maxHeight: 200),
+                  child: Text(
+                    content ?? "",
+                    style: TextStyle(fontSize: 14, color: Color(0xff999999)),
+                  ),
+                ),
               SizedBox(
                 height: 20,
               ),

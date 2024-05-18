@@ -1,4 +1,13 @@
 {
+  "lock_screen_auto_password_setting_for_applock": "Paramètres de mot de passe automatique pour le verrouillage d'application",
+  "lock_screen_auto_password_setting": "Paramètres de démarrage automatique du mot de passe de l'écran de verrouillage",
+  "please_confirm_your_password": "Veuillez confirmer votre mot de passe",
+  "lock_screen_password_setting": "Paramètres du mot de passe de l'écran de verrouillage",
+  "please_create_ur_password": "Veuillez créer votre mot de passe",
+"please_enter_ur_password": "Veuillez entrer votre mot de passe",
+  "report2": "Signaler",
+  "create_chat": "Créer une discussion",
+  "please_input_first_gpt_sentence": "Veuillez saisir votre question",
   "browser_not_support_multiline": "Le navigateur ne prend pas en charge l'entrée multiligne. Pour une meilleure expérience, vous pouvez télécharger le client.",
   "module_filtering_setting": "Paramètre de filtrage du module",
   "create_mission": "Créer une mission",

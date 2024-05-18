@@ -50,10 +50,90 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `请输入您想问的问题`
+  /// `App lock supports lock screen password settings`
+  String get lock_screen_auto_password_setting_for_applock {
+    return Intl.message(
+      'App lock supports lock screen password settings',
+      name: 'lock_screen_auto_password_setting_for_applock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock Screen Auto-Password Setting`
+  String get lock_screen_auto_password_setting {
+    return Intl.message(
+      'Lock Screen Auto-Password Setting',
+      name: 'lock_screen_auto_password_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm your password`
+  String get please_confirm_your_password {
+    return Intl.message(
+      'Please confirm your password',
+      name: 'please_confirm_your_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock Screen Password Setting`
+  String get lock_screen_password_setting {
+    return Intl.message(
+      'Lock Screen Password Setting',
+      name: 'lock_screen_password_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please create your password`
+  String get please_create_ur_password {
+    return Intl.message(
+      'please create your password',
+      name: 'please_create_ur_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please enter your password`
+  String get please_enter_ur_password {
+    return Intl.message(
+      'please enter your password',
+      name: 'please_enter_ur_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report`
+  String get report2 {
+    return Intl.message(
+      'Report',
+      name: 'report2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Chat`
+  String get create_chat {
+    return Intl.message(
+      'Create Chat',
+      name: 'create_chat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input your question`
   String get please_input_first_gpt_sentence {
     return Intl.message(
-      '请输入您想问的问题',
+      'Please input your question',
       name: 'please_input_first_gpt_sentence',
       desc: '',
       args: [],

@@ -267,11 +267,13 @@ class MyModel: ObservableObject {
                 //now在intervalStart和intervalEnd之间
                 let hourNow = now.hour ?? 0
                 let minuteNow = now.minute ?? 0
-                let hourStart = intervalStart.hour ?? 0
+                var hourStart = intervalStart.hour ?? 0
                 let minuteStart = intervalStart.minute ?? 0
                 let hourEnd = intervalEnd.hour ?? 0
                 let minuteEnd = intervalEnd.minute ?? 0
-                
+                if hourStart == 24 {
+                    hourStart = 0
+                }
                 if (hourNow > hourStart || (hourNow == hourStart && minuteNow >= minuteStart)) && (hourNow < hourEnd || (hourNow == hourEnd && minuteNow <= minuteEnd)) {
                     // now is between intervalStart and intervalEnd
 //                    NotificationManager.shared.requestNotificationCreate(

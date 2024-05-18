@@ -27,9 +27,13 @@
 "edit" = "Bewerk";
 "app" = "Apps";
 "categories" = "Categorieën";
-"locascreen_start" = "Vergrendelscherm plan start";
-"locascreen_start_in_five_minute" = "Vergrendelscherm plan start over vijf minuten";
-"scheduled_task_has_ended" = "Geplande taak is beëindigd";
+"lock_screen_notification" = "Melding van vergrendelscherm planning -";
+"locascreen_start" = "Vergrendelscherm planning begint";
+"locascreen_start_in_five_minute" = "Uw vergrendelscherm planning begint over vijf minuten";
+"please_prepare" = "Gelieve u voor te bereiden";
+"locascreen_will_end" = "Vergrendelscherm planning zal spoedig eindigen";
+"locascreen_has_end" = "Vergrendelscherm planning is geëindigd";
+"scheduled_task_has_ended" = "Geplande taak is geëindigd";
 "back" = "Terug";
 "lock_app_desc" = "Als u wilt sluiten, open dan het tijdbeheerbureau om te sluiten";
 "confirm" = "Bevestigen";

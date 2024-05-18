@@ -20,6 +20,7 @@ import 'package:time_hello/com/timehello/page/ForgetPasswordPage/ForgetPasswordP
 import 'package:time_hello/com/timehello/page/loginPage/components/GuideViewPageWidget.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginUtil.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -34,8 +35,8 @@ import 'components/Guide2Widget.dart';
 
 class LoginPage extends BaseWidget {
   final JumpModeEnum jumpMode;
-
-  const LoginPage({this.jumpMode = JumpModeEnum.pushMode});
+  final PageFromEnum pageFrom;
+  const LoginPage({this.pageFrom: PageFromEnum.Default, this.jumpMode = JumpModeEnum.pushMode});
 
   @override
   BaseWidgetState<BaseWidget> getState() {
@@ -417,6 +418,10 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   @override
   void loginSuccess({UserBean? loginInfoModel}) async {
     // TODO: implement loginSuccess
+    if(this.widget.pageFrom == PageFromEnum.ScreenLockPage) {
+      SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.default9DigitPasswords, content: "");
+      // ScreenLockManager.getInstance().dismiss();
+    }
     await LoginManager.getInstance()
         .handleLoginSuccess(context, jumpMode: this.widget.jumpMode);
   }

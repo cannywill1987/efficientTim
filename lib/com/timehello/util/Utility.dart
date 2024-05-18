@@ -39,6 +39,7 @@ import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/models/BarModel.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
+import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
 import 'package:time_hello/com/timehello/models/ChatGptMessageModelWithExtraData.dart';
 import 'package:time_hello/com/timehello/models/DateTimeModel.dart';
 import 'package:time_hello/com/timehello/models/EventCollectionModel.dart';
@@ -1678,6 +1679,15 @@ class Utility {
     context.read<Env>().wqbRouterMainContainerData = data;
   }
 
+  static pushGPTDesktopMainContainerNavigator(
+      BuildContext context, ChatGptFolderModel data) {
+    // if (data == null) {
+    //   data = {};
+    // }
+    // data['page'] = page;
+    context.read<Env>().curChatGptFolderModel = data;
+  }
+
   static pushCreditDetailDesktopMainContainerNavigator(
       BuildContext context, String page, Map data) {
     if (data == null) {
@@ -3142,6 +3152,13 @@ class Utility {
 
   static DateTime getLocalDateTimeFromUTCTimestamp(int timestamp) {
     return DateTime.fromMillisecondsSinceEpoch(timestamp).toLocal();
+  }
+
+  static String getPromptsText({required String prompts, required String text}) {
+    if(prompts.indexOf("{{text}}") == -1) {
+      return prompts + "-" + text;
+    }
+    return prompts.replaceAll("{{text}}", text);
   }
 
   static List<Map<String, dynamic>> getJsonFromGpt(String txt) {

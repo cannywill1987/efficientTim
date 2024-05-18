@@ -94,6 +94,9 @@ class ModuleFilterMenuSettingPageState
       case "StatisticPage":
         SettingManager.getSyncInstance().setIsStatisticPageOn(value);
         break;
+        case "AIHelper":
+        SettingManager.getSyncInstance().setIsAIHelperPageOn(value);
+          break;
 
     }
     updateUI();
@@ -125,6 +128,8 @@ class ModuleFilterMenuSettingPageState
         return SettingManager.getSyncInstance().isStatisticPageOn;
       case "SettingPage":
         return SettingManager.getSyncInstance().isSettingPageOn;
+      case "AIHelper":
+        return SettingManager.getSyncInstance().isAIHelperPageOn;
     }
     return 1;
   }

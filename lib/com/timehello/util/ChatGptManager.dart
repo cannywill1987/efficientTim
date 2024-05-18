@@ -11,6 +11,7 @@ import 'package:time_hello/com/timehello/components/GPTCreateMissionWidget.dart'
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
+import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
 import 'package:time_hello/com/timehello/models/ChatGptMessageModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
@@ -220,6 +221,7 @@ class ChatGptManager {
   Future<ChatGptMessageModel?> sendMessages(
       {required String systemMessage,
       String? scene,
+        ChatGptFolderModel? chatGptFolderModel,
       required List<Map<String, String>> messages}) async {
     this.userSettingDefaultSystemMessage =
         await CloudSharepreferenceManagement.getInstance()
@@ -270,6 +272,7 @@ class ChatGptManager {
           resMap?['function_call']?['name'] ?? "";
       chatGptMessageModel.countryCode = DeviceInfoManagement.getCountryCode();
       chatGptMessageModel.uid = LoginManager.getInstance().userBean.uid;
+      chatGptMessageModel.fid = chatGptFolderModel?.objectId ?? "";
       chatGptMessageModel.username = getI18NKey().chatgpt;
       //判断如果arguments是map则直接负值，如果是list数组则改成{datas: list}
       Map? args = null;
@@ -297,6 +300,7 @@ class ChatGptManager {
       chatGptMessageModel.id = conversationId;
       chatGptMessageModel.conversationId = conversationId;
       chatGptMessageModel.text = text;
+      chatGptMessageModel.fid = chatGptFolderModel?.objectId ?? "";
       chatGptMessageModel.isUser = false;
       chatGptMessageModel.detailUsagePromptToken = prompt_tokens;
       chatGptMessageModel.detailUsageCompletionToken = completion_tokens;

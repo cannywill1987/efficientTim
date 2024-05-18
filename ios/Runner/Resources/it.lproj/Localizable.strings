@@ -27,9 +27,13 @@
 "edit" = "Modifica";
 "app" = "App";
 "categories" = "Categorie";
-"locascreen_start" = "Inizia il piano di blocco dello schermo";
-"locascreen_start_in_five_minute" = "Il piano di blocco dello schermo inizierà tra cinque minuti";
-"scheduled_task_has_ended" = "Il compito pianificato è terminato";
+"lock_screen_notification" = "Notifica di blocco schermo -";
+"locascreen_start" = "Inizio del piano di blocco schermo";
+"locascreen_start_in_five_minute" = "Il tuo piano di blocco schermo inizierà tra cinque minuti";
+"please_prepare" = "Si prega di prepararsi";
+"locascreen_will_end" = "Il piano di blocco schermo sta per terminare";
+"locascreen_has_end" = "Il piano di blocco schermo è terminato";
+"scheduled_task_has_ended" = "Il compito programmato è terminato";
 "back" = "Indietro";
 "lock_app_desc" = "Se vuoi chiudere, apri l'ufficio di gestione del tempo per chiudere";
 "confirm" = "Conferma";

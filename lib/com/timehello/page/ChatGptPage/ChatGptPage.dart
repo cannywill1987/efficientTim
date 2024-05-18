@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/GPTCreateMissionWidget.dart';
 import 'package:time_hello/com/timehello/components/IconButtonListWidget.dart';
@@ -14,6 +15,7 @@ import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/response/MongoDbSaved.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/table/MongoDbObject.dart';
+import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
 import 'package:time_hello/com/timehello/models/ChatGptMessageModel.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
@@ -45,9 +47,14 @@ import 'components/ChatGptListView.dart';
 class ChatGptPage extends BaseWidget {
   PageGPTFromEnum pageGPTFromEnum = PageGPTFromEnum.RightBarPage;
   String fid = "";
-  ChatGptPage({Key? key,String fid = "", PageGPTFromEnum pageGPTFromEnum = PageGPTFromEnum.RightBarPage}) : super(key: key) {
+
+  ChatGptPage(
+      {Key? key,
+      String fid = "",
+      PageGPTFromEnum pageGPTFromEnum = PageGPTFromEnum.RightBarPage})
+      : super(key: key) {
     this.fid = fid;
-    this.pageGPTFromEnum =  pageGPTFromEnum;
+    this.pageGPTFromEnum = pageGPTFromEnum;
   }
 
   @override
@@ -69,9 +76,10 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
   ChatGptMessageModel? chatGptMessageModelCurSelected;
   OnStreamResponseListener? onStreamResponseListener;
   CheckButtonStateModel? curCheckButtonStateModel;
-  List<CheckButtonStateModel> listCheckButtonStateModel = CONSTANTS.getChatGptMessageButtonList(defaultVal: 0);
+  List<CheckButtonStateModel> listCheckButtonStateModel =
+      CONSTANTS.getChatGptMessageButtonList(defaultVal: 0);
   GlobalKey<ChatInputWidgetState> chatInputWidgetStateGlobalKey = GlobalKey();
-
+  ChatGptFolderModel? _curChatGptFolderModel;
 
   ChatGptPageWidgetState() {}
 
@@ -118,10 +126,8 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
   }
 
   void requestDatas({bool shouldUpdateUI = false}) async {
-    if(this.widget.pageGPTFromEnum == PageGPTFromEnum.RightBarPage) {
-      if (MongoApisManager
-          .getInstance()
-          .hasLoadedChatGptMessageModel) {
+    if (this.widget.pageGPTFromEnum == PageGPTFromEnum.RightBarPage) {
+      if (MongoApisManager.getInstance().hasLoadedChatGptMessageModel) {
         if (chatGptMessageModelCurSelected == null) {
           chatGptMessageModelCurSelected =
               MongoApisManager.getInstance().getCurChatGptMessageModel();
@@ -146,9 +152,34 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
         }
       }
     } else {
-
+      if(!TextUtil.isEmpty(_curChatGptFolderModel?.objectId)) {
+        this.listChatGptMessageModels = MongoApisManager.getInstance()
+            .getChatGptMessageModelListByObjectId(
+            _curChatGptFolderModel?.objectId ?? "");
+      } else {
+        this.listChatGptMessageModels = [];
+      }
     }
     // toBottom();
+  }
+
+
+  /**
+   * AIHelperPage创建文件夹 没消息才创建
+   */
+  Future<void> createFolder(String text) async {
+    if(this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage && this.listChatGptMessageModels.length == 0) {
+      ChatGptFolderModel chatGptFolderModel = ChatGptFolderModel();
+      chatGptFolderModel.title = text;
+      // text = Utility.getPromptsText(text:text, prompts: item?.resourceContent ?? "");
+      // chatGptFolderModel.prompt = item?.resourceContent;
+      // chatGptFolderModel.promptTitle = item?.resourceTitle;
+      MongoDbSaved? res = await MongoApisManager.getInstance().insertChatGptFolderModel(chatGptFolderModel: chatGptFolderModel);
+      chatGptFolderModel.objectId = res?.objectId ?? "";
+      this._curChatGptFolderModel = chatGptFolderModel;
+      context.read<Env>().curChatGptFolderModel = chatGptFolderModel;
+    }
+    return;
   }
 
   void toBottom() {
@@ -174,81 +205,97 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
   baseBuild(BuildContext context) {
     // TODO: implement baseBuild
     // this.list = context.read<GlobalStateEnv>().listChatGptMessageModel;
-    return Selector<GlobalStateEnv, List<ChatGptMessageModel>>(
-        selector: (_, env) => env.listChatGptMessageModel,
-        builder: (_, listChatGptMessageModel, __) {
-          // this.list = listChatGptMessageModel;
-          requestDatas();
-          return Column(
-            children: [
-              CustomMarquee(
-                bean: MarqueInfo.marqueGPTPage,
-              ),
-              ChatGptHeaderWidget(
-                key: ValueKey("ejzifizejf"),
-                onTapListener: (CheckButtonStateModel model) async {
-                  switch (model.code) {
-                    case 'chat':
-                      showPage(page: ChatGptPageEnum.chatGptPage);
-                      break;
-                    case 'more':
-                      showPage(page: ChatGptPageEnum.morePage);
-                      break;
-                    case 'previous_chat':
-                      showPage(page: ChatGptPageEnum.historyPage);
-                      break;
-                    case 'new_chat':
-                      // ChatGptMessageModel? chatGptMessageModelCurSelected =
-                      //     MongoApisManager.getInstance()
-                      //         .getCurChatGptMessageModel();
-                      //如果当前选中的是文件夹在编辑中 且没有内容为空 就不需要重新创建一个空的ChatGptMessageModel 直接打开页面就好了
-                      // if (chatGptMessageModelCurSelected != null &&
-                      //     TextUtil.isEmpty(
-                      //             chatGptMessageModelCurSelected.folderTitle) ==
-                      //         true) {
-                      //   this.chatGptMessageModelCurSelected = chatGptMessageModelCurSelected;
-                      // } else {
-                      await createEmptyChatGptMessageModel();
-                      // }
-                      showPage(page: ChatGptPageEnum.chatGptPage);
-                      break;
-                    case 'close':
-                      if (this.chatGptPageEnum == ChatGptPageEnum.chatGptPage ||
-                          this.chatGptPageEnum == ChatGptPageEnum.morePage) {
-                        Utility.popupDesktopRightNavigator(context);
-                      } else {
-                        showPage(page: ChatGptPageEnum.chatGptPage);
-                      }
-                      break;
-                  }
-                },
-                chatGptPageEnum: this.chatGptPageEnum,
-              ),
-              (this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage && listChatGptMessageModels.length == 0) ? Expanded(child: GPTRoleGridViewPage(onClickCreated: (text) {
-
-              },))
-              :
-              getPageBody(),
-              if (this.chatGptPageEnum == ChatGptPageEnum.chatGptPage)
-                ChatInputWidget(
-                  key:chatInputWidgetStateGlobalKey,
-                    listSuggest: curCheckButtonStateModel?.list ?? [],
-                    headerWidget: IconButtonListWidget(
-                      wrapMode: WrapModeEnum.wrap,
-                      initIndex: 0,
-                      list: listCheckButtonStateModel,
-                      onTapListener: (obj) {
-                        curCheckButtonStateModel = listCheckButtonStateModel[obj['index']];
-                        chatInputWidgetStateGlobalKey.currentState?.refresh();
-                        updateUI();
-                      },
+    return Selector<Env, ChatGptFolderModel>(
+        selector: (_, env) => env.curChatGptFolderModel,
+        builder: (_, curChatGptFolderModel, __) {
+          //PageGPTFromEnum.RightBarPage 不用 主要用于ai助手
+          _curChatGptFolderModel = curChatGptFolderModel;
+          return Selector<GlobalStateEnv, List<ChatGptMessageModel>>(
+              selector: (_, env) => env.listChatGptMessageModel,
+              builder: (_, listChatGptMessageModel, __) {
+                // this.list = listChatGptMessageModel;
+                requestDatas();
+                return Column(
+                  children: [
+                    CustomMarquee(
+                      bean: MarqueInfo.marqueGPTPage,
                     ),
-                    onClickSendMsg: (val) {
-                      this.onClickSendMsg(val);
-                    }),
-
-            ],
-          );
+                    if(this.widget.pageGPTFromEnum == PageGPTFromEnum.RightBarPage)
+                    ChatGptHeaderWidget(
+                      key: ValueKey("ejzifizejf"),
+                      onTapListener: (CheckButtonStateModel model) async {
+                        switch (model.code) {
+                          case 'chat':
+                            showPage(page: ChatGptPageEnum.chatGptPage);
+                            break;
+                          case 'more':
+                            showPage(page: ChatGptPageEnum.morePage);
+                            break;
+                          case 'previous_chat':
+                            showPage(page: ChatGptPageEnum.historyPage);
+                            break;
+                          case 'new_chat':
+                            // ChatGptMessageModel? chatGptMessageModelCurSelected =
+                            //     MongoApisManager.getInstance()
+                            //         .getCurChatGptMessageModel();
+                            //如果当前选中的是文件夹在编辑中 且没有内容为空 就不需要重新创建一个空的ChatGptMessageModel 直接打开页面就好了
+                            // if (chatGptMessageModelCurSelected != null &&
+                            //     TextUtil.isEmpty(
+                            //             chatGptMessageModelCurSelected.folderTitle) ==
+                            //         true) {
+                            //   this.chatGptMessageModelCurSelected = chatGptMessageModelCurSelected;
+                            // } else {
+                            await createEmptyChatGptMessageModel();
+                            // }
+                            showPage(page: ChatGptPageEnum.chatGptPage);
+                            break;
+                          case 'close':
+                            if (this.chatGptPageEnum ==
+                                    ChatGptPageEnum.chatGptPage ||
+                                this.chatGptPageEnum ==
+                                    ChatGptPageEnum.morePage) {
+                              Utility.popupDesktopRightNavigator(context);
+                            } else {
+                              showPage(page: ChatGptPageEnum.chatGptPage);
+                            }
+                            break;
+                        }
+                      },
+                      chatGptPageEnum: this.chatGptPageEnum,
+                    ),
+                    (this.widget.pageGPTFromEnum ==
+                                PageGPTFromEnum.AIHelperPage &&
+                            listChatGptMessageModels.length == 0)
+                        ? Expanded(
+                            child: GPTRoleGridViewPage(
+                            onClickCreated: (text, ChatGptFolderModel chatGptFolderModel) {
+                              this._curChatGptFolderModel = chatGptFolderModel;
+                              onClickSendMsg(text);
+                            },
+                          ))
+                        : getPageBody(),
+                    if (this.chatGptPageEnum == ChatGptPageEnum.chatGptPage)
+                      ChatInputWidget(
+                          key: chatInputWidgetStateGlobalKey,
+                          listSuggest: curCheckButtonStateModel?.list ?? [],
+                          headerWidget: this.widget.pageGPTFromEnum == PageGPTFromEnum.RightBarPage ? IconButtonListWidget(
+                            wrapMode: WrapModeEnum.wrap,
+                            initIndex: 0,
+                            list: listCheckButtonStateModel,
+                            onTapListener: (obj) {
+                              curCheckButtonStateModel =
+                                  listCheckButtonStateModel[obj['index']];
+                              chatInputWidgetStateGlobalKey.currentState
+                                  ?.refresh();
+                              updateUI();
+                            },
+                          ) : SizedBox.shrink(),
+                          onClickSendMsg: (val) {
+                            this.onClickSendMsg(val);
+                          }),
+                  ],
+                );
+              });
         });
   }
 
@@ -260,6 +307,7 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     chatGptMessageModel.text = "";
     chatGptMessageModel.modelType = 1;
     chatGptMessageModel.username =
+        chatGptMessageModel.fid = _curChatGptFolderModel?.objectId;
         LoginManager.getInstance().getUserBean().username;
     chatGptMessageModel.avatar =
         LoginManager.getInstance().getUserBean().avatar;
@@ -328,10 +376,11 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
         chatGptMessageModelChatGptRedisCache:
             this.chatGptMessageModelRedisCache,
         isLoading: this.isLoading2,
-        datas: this.listChatGptMessageModels, onTapCreateMissionListener: (chatGptMessageModelGpt ) {
-        ChatGptManager.getInstance()
-            .showCreateMissionDialog(context, chatGptMessageModelGpt);
-      },
+        datas: this.listChatGptMessageModels,
+        onTapCreateMissionListener: (chatGptMessageModelGpt) {
+          ChatGptManager.getInstance()
+              .showCreateMissionDialog(context, chatGptMessageModelGpt);
+        },
       ),
     );
   }
@@ -381,13 +430,13 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
    * 从消息列表中选择最后6条数据
    */
   List<Map<String, String>> getChatMessageList(
-      {int maxLines = 6, required String latestMessage}) {
+      {int maxLines = 4, required String latestMessage}) {
     List<Map<String, String>> list = [];
     int cpt = 0;
     List<String> listText = [];
     bool hasCallback = false;
     List<ChatGptMessageModel> listChatGptMessageModels = [];
-    for (int i = this.listChatGptMessageModels.length - 1; i > 0; i--) {
+    for (int i = this.listChatGptMessageModels.length - 1; i >= 0; i--) {
       ChatGptMessageModel chatGptMessageModelGpt =
           this.listChatGptMessageModels[i];
       if (!TextUtil.isEmpty(chatGptMessageModelGpt.function_call) &&
@@ -399,12 +448,13 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     }
     if (hasCallback == false) {
       listChatGptMessageModels = listChatGptMessageModels.reversed.toList();
-      for (int i = listChatGptMessageModels.length - 1; i > 0; i--) {
+      for (int i = listChatGptMessageModels.length - 1; i >= 0; i--) {
         ChatGptMessageModel chatGptMessageModelGpt =
             listChatGptMessageModels[i];
         bool isUser = chatGptMessageModelGpt.isUser ?? true;
         String text = chatGptMessageModelGpt.text ?? "";
-        if (TextUtil.isEmpty(text) || listText.contains(text)) {
+    // || listText.contains(text)
+        if (TextUtil.isEmpty(text)) {
           continue;
         }
         cpt++;
@@ -430,14 +480,17 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
       Utility.showToast(context: context, msg: getI18NKey().comment_not_empty);
       return;
     }
+    await createFolder(value);
     // Map lastParentId = getLastParentMessageId();
     this.isLoading2 = 0;
     ChatGptMessageModel chatGptMessageModel = ChatGptMessageModel();
     chatGptMessageModel.isUser = true;
+    chatGptMessageModel.fid = _curChatGptFolderModel?.objectId;
     chatGptMessageModel.text = value;
     //更新标题
     this.updateFolderTitle(value);
     chatGptMessageModel.folder_objectId = this.folderIdForRightBar;
+    chatGptMessageModel.fid = _curChatGptFolderModel?.objectId;
     chatGptMessageModel.username =
         LoginManager.getInstance().getUserBean().username;
     chatGptMessageModel.avatar =
@@ -464,8 +517,9 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     try {
       chatGptMessageModelGpt = await ChatGptManager.getInstance().sendMessages(
         scene: curCheckButtonStateModel?.code,
-        systemMessage: CONSTANTS
-            .getSystemMessage(getI18NKey().gpt_role(getI18NKey().app_name)),
+          chatGptFolderModel: _curChatGptFolderModel,
+        systemMessage:  CONSTANTS
+            .getSystemMessage(this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage ? "" : getI18NKey().gpt_role(getI18NKey().app_name)),
         messages: getChatMessageList(latestMessage: value),
       );
     } catch (e) {
@@ -479,7 +533,7 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
       chatGptMessageModelGpt = this.chatGptMessageModelRedisCache;
     }
     chatGptMessageModelGpt?.folder_objectId = this.folderIdForRightBar;
-
+    chatGptMessageModel.fid = _curChatGptFolderModel?.objectId;
     await MongoApisManager.getInstance()
         .insertChatGptMessageModel(chatGptMessageModel: chatGptMessageModelGpt);
     // this.chatGptMessageModelRedisCache = ChatGptMessageModel();
@@ -493,14 +547,13 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
    * 如果是function_call的话就处理
    */
   void handleFuncCallResult(ChatGptMessageModel? chatGptMessageModelGpt) {
-      if (chatGptMessageModelGpt?.chatModeEnum == ChatModeEnum.statistic.index) {
+    if (chatGptMessageModelGpt?.chatModeEnum == ChatModeEnum.statistic.index) {
       ChatGptManager.getInstance()
           .openStatsPage(context, chatGptMessageModel: chatGptMessageModelGpt);
-    } else if(chatGptMessageModelGpt?.chatModeEnum == ChatModeEnum.create_missions.index) {
-        ChatGptManager.getInstance()
-            .showCreateMissionDialog(context, chatGptMessageModelGpt);
+    } else if (chatGptMessageModelGpt?.chatModeEnum ==
+        ChatModeEnum.create_missions.index) {
+      ChatGptManager.getInstance()
+          .showCreateMissionDialog(context, chatGptMessageModelGpt);
     }
   }
-
-
 }

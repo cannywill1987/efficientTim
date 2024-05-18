@@ -1,7 +1,7 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 // import 'package:flutter_facebook_auth_platform_interface/flutter_facebook_auth_platform_interface.dart' as FBinterface;
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -64,29 +64,92 @@ class FirebaseManager {
       //   version: "v15.0",
       // );
     }
+  }
 
+  verifyEmail({required String oobCode}) async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    try {
+      await _auth.checkActionCode(oobCode);
+      await _auth.applyActionCode(oobCode);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Email verified successfully')),
+      // );
+    } catch (e) {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Error verifying email: $e')),
+      // );
+    }
+  }
+
+  /**
+   * https://firebase.google.cn/docs/auth/flutter/email-link-auth?hl=zh-cn
+   * https://firebase.google.cn/docs/auth/flutter/passing-state-in-email-actions?hl=zh-cn
+   * 参考
+   */
+  signInGmail({required String email, required String password}) async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    await userCredential.user?.sendEmailVerification();
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(content: Text('Verification email sent to ${_emailController.text}')),
+    // );
+    //111
+    // var acs = ActionCodeSettings(
+    //     // URL you want to redirect back to. The domain (www.example.com) for this
+    //     // URL must be whitelisted in the Firebase Console.
+    //     url: 'https://www.example.com/finishSignUp?cartId=1234',
+    //     // This must be true
+    //     handleCodeInApp: true,
+    //     iOSBundleId: 'com.example.ios',
+    //     androidPackageName: 'com.example.android',
+    //     // installIfNotAvailable
+    //     androidInstallApp: true,
+    //     // minimumVersion
+    //     androidMinimumVersion: '12');
+    //
+    // var emailAuth = '258843056@qq.com';
+    // FirebaseAuth.instance
+    //     .sendSignInLinkToEmail(email: emailAuth, actionCodeSettings: acs)
+    //     .catchError(
+    //         (onError) => print('Error sending email verification $onError'))
+    //     .then((value) => print('Successfully sent email verification'));
+   //222
+    // final user = FirebaseAuth.instance.currentUser;
+    //
+    // final actionCodeSettings = ActionCodeSettings(
+    //   url: "http://www.example.com/verify?email=${user?.email}",
+    //   iOSBundleId: "com.example.ios",
+    //   androidPackageName: "com.example.android",
+    // );
+    //
+    // await user?.sendEmailVerification(actionCodeSettings);
   }
 
   // Future<UserCredential> signInWithGoogle() async {
   Future<Map> signInWithGoogle() async {
     // Trigger the authentication flow
     try {
-
       final GoogleSignInAccount? googleUser = await GoogleSignIn(
         scopes: <String>[
           'email',
           // 'https://www.googleapis.com/auth/contacts.readonly',
-        ],).signIn();
+        ],
+      ).signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
       // GoogleAuthProvider.credential()
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      UserCredential userCredential =  await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       print(userCredential.user?.displayName ?? '');
       // User? user = FirebaseAuth.instance.currentUser;
       String email = userCredential.user?.email ?? "";
@@ -101,14 +164,13 @@ class FirebaseManager {
         // "id": id,
         // "avatar": photoUrl
       };
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     return {};
     // Once signed in, return the UserCredential
     // return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
 
   // Future<void> _signInWithTwitter() async {
   //   TwitterAuthProvider twitterProvider = TwitterAuthProvider();
@@ -120,11 +182,10 @@ class FirebaseManager {
   //   // }
   // }
 
-
   /**
    * https://timerbell-3a4af.firebaseapp.com/__/auth/handler
    */
-  Future<Map> signInWithApple() async  {
+  Future<Map> signInWithApple() async {
     final appleProvider = AppleAuthProvider();
     appleProvider.addScope('email');
 
@@ -133,8 +194,8 @@ class FirebaseManager {
     //   await auth.signInWithPopup(appleProvider);
     // } else {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithProvider(appleProvider);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithProvider(appleProvider);
 
       String email = userCredential.user?.email ?? "";
       String displayName = userCredential.user?.displayName ?? "";
@@ -145,13 +206,12 @@ class FirebaseManager {
         // "id": id,
         // "avatar": photoUrl
       };
-    } catch(e) {
+    } catch (e) {
       print(e);
       return {};
     }
     // }
   }
-
 
   // Future<UserCredential> signInWithFacebook() async {
   // Future<Map> signInWithFacebook() async {

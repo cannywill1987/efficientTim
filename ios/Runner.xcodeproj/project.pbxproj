@@ -116,6 +116,10 @@
 		DF53ECC1284E4E2200A342A7 /* AliyunEmasServices-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF53ECC0284E4E2200A342A7 /* AliyunEmasServices-Info.plist */; };
 		DF59D54C2BDA084B0096C58F /* 180.png in Resources */ = {isa = PBXBuildFile; fileRef = DF59D54B2BDA084A0096C58F /* 180.png */; };
 		DF59D54D2BDA23100096C58F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF86A3052ACD46DB006D3F87 /* Localizable.strings */; };
+		DF5F2C2F2BF248740006FCC4 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF81CA9E2BB303BE00E2842E /* ManagedSettings.framework */; };
+		DF5F2C302BF248740006FCC4 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF81CAA02BB303BE00E2842E /* ManagedSettingsUI.framework */; };
+		DF5F2C332BF248740006FCC4 /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F2C322BF248740006FCC4 /* ShieldConfigurationExtension.swift */; };
+		DF5F2C382BF248740006FCC4 /* ShieldConfigurationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5F2C2E2BF248740006FCC4 /* ShieldConfigurationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DF61B47A29E903CF00C13F3A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF61B47929E903CF00C13F3A /* Color.swift */; };
 		DF7ADE8D2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7ADE8C2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework */; };
 		DF7ADE912A54193500BBCD90 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7ADE8F2A54193500BBCD90 /* TencentOpenAPI.framework */; };
@@ -199,6 +203,7 @@
 		DF86A3842ACD504D006D3F87 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A30D2ACD46DB006D3F87 /* Color+Extension.swift */; };
 		DF86A3852ACD505F006D3F87 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF86A3052ACD46DB006D3F87 /* Localizable.strings */; };
 		DF86A3862ACD50DD006D3F87 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DF2ACD440A006D3F87 /* FlomoMissionModel.swift */; };
+		DF8CE52E2BF22F3D00308AE1 /* img.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8CE52D2BF22F3D00308AE1 /* img.xcassets */; };
 		DFBF30ED2869D1810091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
 		DFC181212BBAC35100B60D77 /* MyDeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFC181182BBAC35000B60D77 /* MyDeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DFC181292BBAC3EC00B60D77 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC181282BBAC3EC00B60D77 /* MyModel.swift */; };
@@ -288,6 +293,13 @@
 			remoteGlobalIDString = DF39E19C2AECDC1800BDE323;
 			remoteInfo = Note7WidgetExtension;
 		};
+		DF5F2C362BF248740006FCC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF5F2C2D2BF248740006FCC4;
+			remoteInfo = ShieldConfigurationExtension;
+		};
 		DF86A2FB2ACD443F006D3F87 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
@@ -353,6 +365,7 @@
 				DF39E1AA2AECDC1900BDE323 /* Note7WidgetExtension.appex in Embed Foundation Extensions */,
 				DF39E1302AEBD3BC00BDE323 /* Note2WidgetExtension.appex in Embed Foundation Extensions */,
 				DF39E17C2AECDBA800BDE323 /* Note5WidgetExtension.appex in Embed Foundation Extensions */,
+				DF5F2C382BF248740006FCC4 /* ShieldConfigurationExtension.appex in Embed Foundation Extensions */,
 				DFC181212BBAC35100B60D77 /* MyDeviceActivityMonitorExtension.appex in Embed Foundation Extensions */,
 				DF86A37D2ACD5033006D3F87 /* ClockInExtension.appex in Embed Foundation Extensions */,
 				DF86A3332ACD4C16006D3F87 /* TodayMissionListViewExtension.appex in Embed Foundation Extensions */,
@@ -445,6 +458,10 @@
 		DF53ECBF284E498800A342A7 /* RunnerProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerProfile.entitlements; sourceTree = "<group>"; };
 		DF53ECC0284E4E2200A342A7 /* AliyunEmasServices-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AliyunEmasServices-Info.plist"; sourceTree = "<group>"; };
 		DF59D54B2BDA084A0096C58F /* 180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 180.png; path = Runner/Assets.xcassets/AppIcon.appiconset/180.png; sourceTree = SOURCE_ROOT; };
+		DF5F2C2E2BF248740006FCC4 /* ShieldConfigurationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShieldConfigurationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5F2C322BF248740006FCC4 /* ShieldConfigurationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldConfigurationExtension.swift; sourceTree = "<group>"; };
+		DF5F2C342BF248740006FCC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5F2C352BF248740006FCC4 /* ShieldConfigurationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfigurationExtension.entitlements; sourceTree = "<group>"; };
 		DF61B47929E903CF00C13F3A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DF7ADE8C2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "WechatOpenSDK-XCFramework.xcframework"; sourceTree = "<group>"; };
 		DF7ADE8F2A54193500BBCD90 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
@@ -521,6 +538,7 @@
 		DF86A37A2ACD5033006D3F87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF86A3822ACD503A006D3F87 /* ClockInExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClockInExtension.entitlements; sourceTree = "<group>"; };
 		DF86A3872ACD99D7006D3F87 /* IslandExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IslandExtension.entitlements; sourceTree = "<group>"; };
+		DF8CE52D2BF22F3D00308AE1 /* img.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = img.xcassets; sourceTree = "<group>"; };
 		DFBAFB2D2B1D9E8F00DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		DFBAFB2E2B1D9E8F00DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DFBAFB2F2B1D9E9000DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -673,6 +691,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF5F2C2B2BF248740006FCC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5F2C2F2BF248740006FCC4 /* ManagedSettings.framework in Frameworks */,
+				DF5F2C302BF248740006FCC4 /* ManagedSettingsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF86A2ED2ACD443E006D3F87 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -781,6 +808,7 @@
 				DFC1811A2BBAC35100B60D77 /* MyDeviceActivityMonitorExtension */,
 				DFC181492BBAD37500B60D77 /* MyDeviceShieldActionExtension */,
 				DFC181932BBFDF4000B60D77 /* testMonitor */,
+				DF5F2C312BF248740006FCC4 /* ShieldConfigurationExtension */,
 				97C146EF1CF9000F007C117D /* Products */,
 				CA737BD360CAF83EA1DCD290 /* Pods */,
 				AC9A889261B95059F86EF856 /* Frameworks */,
@@ -806,6 +834,7 @@
 				DF39E19D2AECDC1800BDE323 /* Note7WidgetExtension.appex */,
 				DFC181182BBAC35000B60D77 /* MyDeviceActivityMonitorExtension.appex */,
 				DFC181472BBAD37500B60D77 /* MyDeviceShieldActionExtension.appex */,
+				DF5F2C2E2BF248740006FCC4 /* ShieldConfigurationExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -972,6 +1001,16 @@
 				DF39E1A72AECDC1900BDE323 /* Info.plist */,
 			);
 			path = Note7Widget;
+			sourceTree = "<group>";
+		};
+		DF5F2C312BF248740006FCC4 /* ShieldConfigurationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F2C322BF248740006FCC4 /* ShieldConfigurationExtension.swift */,
+				DF5F2C342BF248740006FCC4 /* Info.plist */,
+				DF5F2C352BF248740006FCC4 /* ShieldConfigurationExtension.entitlements */,
+			);
+			path = ShieldConfigurationExtension;
 			sourceTree = "<group>";
 		};
 		DF7ADE7B2A53ADAF00BBCD90 /* Recovered References */ = {
@@ -1160,6 +1199,7 @@
 				DFC1814A2BBAD37500B60D77 /* ShieldActionExtension.swift */,
 				DFC1814C2BBAD37500B60D77 /* Info.plist */,
 				DFC1814D2BBAD37500B60D77 /* MyDeviceShieldActionExtension.entitlements */,
+				DF8CE52D2BF22F3D00308AE1 /* img.xcassets */,
 			);
 			path = MyDeviceShieldActionExtension;
 			sourceTree = "<group>";
@@ -1265,6 +1305,7 @@
 				DF39E1A92AECDC1900BDE323 /* PBXTargetDependency */,
 				DFC181202BBAC35100B60D77 /* PBXTargetDependency */,
 				DFC1814F2BBAD37500B60D77 /* PBXTargetDependency */,
+				DF5F2C372BF248740006FCC4 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -1388,6 +1429,23 @@
 			name = Note7WidgetExtension;
 			productName = Note7WidgetExtension;
 			productReference = DF39E19D2AECDC1800BDE323 /* Note7WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF5F2C2D2BF248740006FCC4 /* ShieldConfigurationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF5F2C3C2BF248740006FCC4 /* Build configuration list for PBXNativeTarget "ShieldConfigurationExtension" */;
+			buildPhases = (
+				DF5F2C2A2BF248740006FCC4 /* Sources */,
+				DF5F2C2B2BF248740006FCC4 /* Frameworks */,
+				DF5F2C2C2BF248740006FCC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShieldConfigurationExtension;
+			productName = ShieldConfigurationExtension;
+			productReference = DF5F2C2E2BF248740006FCC4 /* ShieldConfigurationExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		DF86A2EF2ACD443E006D3F87 /* MyCalendarWidgetExtension */ = {
@@ -1544,6 +1602,9 @@
 					DF39E19C2AECDC1800BDE323 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
+					DF5F2C2D2BF248740006FCC4 = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					DF86A2EF2ACD443E006D3F87 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -1603,6 +1664,7 @@
 				DF39E19C2AECDC1800BDE323 /* Note7WidgetExtension */,
 				DFC181172BBAC35000B60D77 /* MyDeviceActivityMonitorExtension */,
 				DFC181462BBAD37500B60D77 /* MyDeviceShieldActionExtension */,
+				DF5F2C2D2BF248740006FCC4 /* ShieldConfigurationExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1691,6 +1753,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF5F2C2C2BF248740006FCC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF86A2EE2ACD443E006D3F87 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1738,6 +1807,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8CE52E2BF22F3D00308AE1 /* img.xcassets in Resources */,
 				DF59D54C2BDA084B0096C58F /* 180.png in Resources */,
 				DF59D54D2BDA23100096C58F /* Localizable.strings in Resources */,
 			);
@@ -2004,6 +2074,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF5F2C2A2BF248740006FCC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5F2C332BF248740006FCC4 /* ShieldConfigurationExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF86A2EC2ACD443E006D3F87 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2123,6 +2201,11 @@
 			isa = PBXTargetDependency;
 			target = DF39E19C2AECDC1800BDE323 /* Note7WidgetExtension */;
 			targetProxy = DF39E1A82AECDC1900BDE323 /* PBXContainerItemProxy */;
+		};
+		DF5F2C372BF248740006FCC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF5F2C2D2BF248740006FCC4 /* ShieldConfigurationExtension */;
+			targetProxy = DF5F2C362BF248740006FCC4 /* PBXContainerItemProxy */;
 		};
 		DF86A2FC2ACD443F006D3F87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3729,6 +3812,123 @@
 			};
 			name = Profile;
 		};
+		DF5F2C392BF248740006FCC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShieldConfigurationExtension/ShieldConfigurationExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShieldConfigurationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShieldConfigurationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timespeed.timehello.ShieldConfigurationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF5F2C3A2BF248740006FCC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShieldConfigurationExtension/ShieldConfigurationExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShieldConfigurationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShieldConfigurationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timespeed.timehello.ShieldConfigurationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DF5F2C3B2BF248740006FCC4 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShieldConfigurationExtension/ShieldConfigurationExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShieldConfigurationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShieldConfigurationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timespeed.timehello.ShieldConfigurationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
 		DF86A2FF2ACD443F006D3F87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4637,6 +4837,16 @@
 				DF39E1AC2AECDC1900BDE323 /* Debug */,
 				DF39E1AD2AECDC1900BDE323 /* Release */,
 				DF39E1AE2AECDC1900BDE323 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF5F2C3C2BF248740006FCC4 /* Build configuration list for PBXNativeTarget "ShieldConfigurationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5F2C392BF248740006FCC4 /* Debug */,
+				DF5F2C3A2BF248740006FCC4 /* Release */,
+				DF5F2C3B2BF248740006FCC4 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

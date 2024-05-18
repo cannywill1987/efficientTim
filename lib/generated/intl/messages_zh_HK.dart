@@ -488,6 +488,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createMission": MessageLookupByLibrary.simpleMessage("創建清單"),
         "createSuccess": MessageLookupByLibrary.simpleMessage("創建成功"),
         "createTag": MessageLookupByLibrary.simpleMessage("創建標籤"),
+        "create_chat": MessageLookupByLibrary.simpleMessage("創建會話"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("創建文件夾"),
         "create_mission": MessageLookupByLibrary.simpleMessage("創建任務"),
         "create_mission_by_content":
@@ -805,6 +806,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "lock_app_setting": MessageLookupByLibrary.simpleMessage("鎖定App設置"),
         "lock_app_setting_description":
             MessageLookupByLibrary.simpleMessage("鎖定App能幫助您更好的專注，從而不被不必要的應用打擾"),
+        "lock_screen_auto_password_setting":
+            MessageLookupByLibrary.simpleMessage("鎖屏密碼開機自啟動設置"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage("app鎖支持鎖屏密碼設置"),
+        "lock_screen_password_setting":
+            MessageLookupByLibrary.simpleMessage("鎖屏密碼設置"),
         "login": MessageLookupByLibrary.simpleMessage("登錄"),
         "loginContent": MessageLookupByLibrary.simpleMessage("新用戶將自動創建賬號"),
         "loginFirst": MessageLookupByLibrary.simpleMessage("請先登錄"),
@@ -1069,6 +1076,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "play": MessageLookupByLibrary.simpleMessage("播放"),
         "pleaseInputTitle": MessageLookupByLibrary.simpleMessage("請輸入標題"),
         "pleaseSelectColor": MessageLookupByLibrary.simpleMessage("請選擇顏色"),
+        "please_confirm_your_password":
+            MessageLookupByLibrary.simpleMessage("請確認您的密碼"),
+        "please_create_ur_password":
+            MessageLookupByLibrary.simpleMessage("請創建您的密碼"),
+        "please_enter_ur_password":
+            MessageLookupByLibrary.simpleMessage("請輸入您的密碼"),
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("請輸入問題"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage("請完成短信密碼驗證"),
@@ -1077,6 +1090,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_content": MessageLookupByLibrary.simpleMessage("請輸入內容"),
         "please_input_correct_password":
             MessageLookupByLibrary.simpleMessage("請輸入正確密碼"),
+        "please_input_first_gpt_sentence":
+            MessageLookupByLibrary.simpleMessage("請輸入您想問的問題"),
         "please_input_folder_password": m84,
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("請輸入任務標題"),
@@ -1184,6 +1199,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveValue": MessageLookupByLibrary.simpleMessage("重複日期"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("重複星期"),
         "reply": MessageLookupByLibrary.simpleMessage("回"),
+        "report2": MessageLookupByLibrary.simpleMessage("舉報"),
         "request_error_try_again":
             MessageLookupByLibrary.simpleMessage("請求出錯，請重試"),
         "request_fail": MessageLookupByLibrary.simpleMessage("請求失敗"),

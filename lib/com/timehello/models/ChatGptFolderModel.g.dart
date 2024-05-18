@@ -17,7 +17,7 @@ ChatGptFolderModel _$ChatGptFolderModelFromJson(Map<String, dynamic> json) =>
       ..uid = json['uid'] as String?
       ..update_time = json['update_time'] as int?
       ..create_time = json['create_time'] as int?
-      ..color = json['color'] as int
+      ..color = json['color'] as int?
       ..tagColor = json['tagColor'] as int?;
 
 Map<String, dynamic> _$ChatGptFolderModelToJson(ChatGptFolderModel instance) =>

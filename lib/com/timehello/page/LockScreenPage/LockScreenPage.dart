@@ -3,6 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:time_hello/com/timehello/page/loginPage/LoginPage.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
+import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../../r.dart';
@@ -56,7 +60,17 @@ class LockScreenPageState extends BaseWidgetState<LockScreenPage> {
               SizedBox(height: 20,),
               InkWell(
                 onTap: () {
-                  CounterMethodChannelManager.getInstance().requestPushToTimeline();
+                  if(!LoginManager.getInstance().isLogin2()) {
+                    Utility.pushNavigator(context, LoginPage());
+                    return;
+                  }
+                  if(LoginManager.getInstance().isLogin2() && SharePreferenceUtil.getSyncInstance().getDefault9DigitPasswordsNeedShowWhenLoginAppLock() == true && ScreenLockManager.getInstance().hasPassword()) {
+                    ScreenLockManager.getInstance().showPasword(onUnlocked: () {
+                      CounterMethodChannelManager.getInstance().requestPushToTimeline();
+                    });
+                  } else {
+                    CounterMethodChannelManager.getInstance().requestPushToTimeline();
+                  }
                 },
                 child: Container(
                   width: 200,

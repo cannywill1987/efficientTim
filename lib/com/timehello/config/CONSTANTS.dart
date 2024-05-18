@@ -1193,13 +1193,22 @@ class CONSTANTS {
   /**
    * 自动切换
    */
-  static List<CheckButtonStateModel> getOnAndOffButtonList(
+  static List<CheckButtonStateModel> getManualOnAndOffButtonList(
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(title: getI18NKey().manual, isCheck: false));
     list.add(CheckButtonStateModel(title: getI18NKey().auto, isCheck: true));
     return list;
   }
+
+  static List<CheckButtonStateModel> getOnAndOffButtonList(
+      {bool? hasAll = false}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(title: getI18NKey().off, isCheck: true));
+    list.add(CheckButtonStateModel(title: getI18NKey().on, isCheck: false));
+    return list;
+  }
+
 
   /**
    * SettingItemDetail页面的自动切换
@@ -2113,7 +2122,7 @@ class CONSTANTS {
     if (Utility.isIOS()) {
       list.add({
         'sceneCode': 'LockScreenPage',
-        'icon': Utility.getSVGPicture(R.assetsImgIcLockscreen, size: 20),
+        'icon': Utility.getSVGPicture(R.assetsImgIcLockscreenView, size: 20),
         'iconChecked':
             Utility.getSVGPicture(R.assetsImgIcLockscreenSelected, size: 20),
         'title': getI18NKey().lock_app
@@ -4045,6 +4054,15 @@ class CONSTANTS {
           size: 20,
           color: ThemeManager.getInstance().getIconColor(),
         ),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "AIHelper",
+        value: 3,
+        title: getI18NKey().ai_helper,
+        color: 0xff404040,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: size),
         content: "",
         isCheck: false));
 

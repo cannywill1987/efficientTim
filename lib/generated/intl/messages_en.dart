@@ -556,6 +556,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createSuccess":
             MessageLookupByLibrary.simpleMessage("created successfully"),
         "createTag": MessageLookupByLibrary.simpleMessage("create tags"),
+        "create_chat": MessageLookupByLibrary.simpleMessage("Create Chat"),
         "create_folder_desc":
             MessageLookupByLibrary.simpleMessage("Create Folder"),
         "create_mission":
@@ -944,6 +945,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lock Apps Setting"),
         "lock_app_setting_description": MessageLookupByLibrary.simpleMessage(
             "Locking apps can help you focus better by not being disturbed by unnecessary applications."),
+        "lock_screen_auto_password_setting":
+            MessageLookupByLibrary.simpleMessage(
+                "Lock Screen Auto-Password Setting"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage(
+                "App lock supports lock screen password settings"),
+        "lock_screen_password_setting": MessageLookupByLibrary.simpleMessage(
+            "Lock Screen Password Setting"),
         "login": MessageLookupByLibrary.simpleMessage("Log in"),
         "loginContent": MessageLookupByLibrary.simpleMessage(
             "Accounts will be automatically created for new users"),
@@ -1244,6 +1253,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter a title"),
         "pleaseSelectColor":
             MessageLookupByLibrary.simpleMessage("please choose a color"),
+        "please_confirm_your_password": MessageLookupByLibrary.simpleMessage(
+            "Please confirm your password"),
+        "please_create_ur_password":
+            MessageLookupByLibrary.simpleMessage("please create your password"),
+        "please_enter_ur_password":
+            MessageLookupByLibrary.simpleMessage("please enter your password"),
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("please enter your questing"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage(
@@ -1255,7 +1270,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_correct_password": MessageLookupByLibrary.simpleMessage(
             "please input correct password"),
         "please_input_first_gpt_sentence":
-            MessageLookupByLibrary.simpleMessage("请输入您想问的问题"),
+            MessageLookupByLibrary.simpleMessage("Please input your question"),
         "please_input_folder_password": m84,
         "please_input_mission_title": MessageLookupByLibrary.simpleMessage(
             "Please input the mission title"),
@@ -1388,6 +1403,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveWeekDay":
             MessageLookupByLibrary.simpleMessage("Repeative Days"),
         "reply": MessageLookupByLibrary.simpleMessage("reply"),
+        "report2": MessageLookupByLibrary.simpleMessage("Report"),
         "request_error_try_again": MessageLookupByLibrary.simpleMessage(
             "request error, please try again"),
         "request_fail": MessageLookupByLibrary.simpleMessage("request fail"),

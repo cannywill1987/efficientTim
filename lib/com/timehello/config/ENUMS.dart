@@ -211,6 +211,7 @@ enum LoginTypeEnum {
 
 
 enum PageFromEnum {
+  ScreenLockPage,
   MissionDetailPage,
   Normal,
   MinePage,
@@ -218,6 +219,7 @@ enum PageFromEnum {
   MobileMinePage,
   PresentDialog, //从对话框展示
   others, create,
+  Default
 }
 
 enum MissionOrderEnum {

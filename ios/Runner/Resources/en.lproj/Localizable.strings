@@ -27,8 +27,12 @@
 "edit" = "Edit";
 "app" = "Apps";
 "categories" = "Categories";
-"locascreen_start" = "Lock screen plan starts";
-"locascreen_start_in_five_minute" = "Lock screen plan will starts in five minutes";
+"lock_screen_notification" = "Lock Screen Schedule Notification -";
+"locascreen_start" = "Lock Screen Schedule Starts";
+"locascreen_start_in_five_minute" = "Your Lock Screen Schedule will start in five minutes";
+"please_prepare" = "Please prepare";
+"locascreen_will_end" = "Lock Screen Schedule will end soon";
+"locascreen_has_end" = "Lock Screen Schedule has ended";
 "scheduled_task_has_ended" = "Scheduled task has ended";
 "back" = "back";
 "lock_app_desc" = "If you want to close, please open the time management bureau to close";

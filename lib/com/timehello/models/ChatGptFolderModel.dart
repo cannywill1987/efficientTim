@@ -16,9 +16,11 @@ class ChatGptFolderModel extends MongoDbObject{
   String? uid;
   @JsonKey(ignore: true)
   bool? isHover = false;
+  // 是否收藏
+  bool? isCollect = false;
   int? update_time;
   int? create_time;
-  int color = 0;
+  int? color = 0;
   int? tagColor;
   @JsonKey(ignore: true)
   bool? isCurrentSelected = false;

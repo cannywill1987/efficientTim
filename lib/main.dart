@@ -25,6 +25,7 @@ import 'package:time_hello/com/timehello/util/FirebaseManager.dart';
 import 'package:time_hello/com/timehello/util/HtmlUtility.dart';
 import 'package:time_hello/com/timehello/util/NumTimesAppOpenManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -193,6 +194,7 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     //   EasyLoadingManager.getInstance().showLoading();
     // }
 
+
     HtmlUtility.dismissLoading();
     try {
       //app 生命周期
@@ -287,7 +289,7 @@ class _MyAppState extends BaseWidgetState<MyApp> {
       light: ThemeManager.getInstance().getLightThemeData(),
       dark: ThemeManager.getInstance().getDarkThemeData(),
       initial: ThemeManager.getInstance().getThemeMode(),
-      builder: (lightTheme, darkTheme) => MaterialApp(
+      builder: (lightTheme, darkTheme) =>   MaterialApp(
         theme:
             ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
                 ? lightTheme

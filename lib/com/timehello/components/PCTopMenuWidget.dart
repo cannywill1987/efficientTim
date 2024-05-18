@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../../../r.dart';
@@ -92,6 +93,19 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             ConsumeMoneyButtonWidget(
               onTapListener: (obj) {},
             ),
+            InkWell(
+              onTap: () {
+                ScreenLockManager.getInstance().showPasword();
+                // if(ABTestSetting.isOpenAiOn == true)
+                //   Utility.openRightSideDesktopNavigator(
+                //       context, 'ChatGptPage', {});
+              },
+              child: Utility.getSVGPicture(R.assetsImgIcUnlockscreen,
+                  size: 18
+                  // , color: ThemeManager.getInstance().getDefautThemeColor()
+              ),
+            ),
+            SizedBox(width: 10,),
             if(ABTestSetting.isOpenAiOn == true)
             InkWell(
               onTap: () {
@@ -100,7 +114,7 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
                     context, 'ChatGptPage', {});
               },
               child: Utility.getSVGPicture(R.assetsImgIcRightPanel,
-                  size: 20, color: ThemeManager.getInstance().getDefautThemeColor()),
+                  size: 26, color: ThemeManager.getInstance().getDefautThemeColor()),
             ),
           ],
         ),

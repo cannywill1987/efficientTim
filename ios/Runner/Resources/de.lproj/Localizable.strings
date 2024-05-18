@@ -27,8 +27,12 @@
 "edit" = "Bearbeiten";
 "app" = "Apps";
 "categories" = "Kategorien";
+"lock_screen_notification" = "Benachrichtigung über Sperrbildschirmplan -";
 "locascreen_start" = "Sperrbildschirmplan beginnt";
-"locascreen_start_in_five_minute" = "Sperrbildschirmplan beginnt in fünf Minuten";
+"locascreen_start_in_five_minute" = "Ihr Sperrbildschirmplan beginnt in fünf Minuten";
+"please_prepare" = "Bitte bereiten Sie sich vor";
+"locascreen_will_end" = "Sperrbildschirmplan wird bald enden";
+"locascreen_has_end" = "Sperrbildschirmplan ist beendet";
 "scheduled_task_has_ended" = "Geplante Aufgabe ist beendet";
 "back" = "Zurück";
 "lock_app_desc" = "Wenn Sie schließen möchten, öffnen Sie bitte das Zeitmanagementbüro zum Schließen";

@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
     <key>CLIENT_ID</key>
-    <string>163911111516-gloh29m5f32vobruebkuevck16hd4mv3.apps.googleusercontent.com</string>
+    <string>166934775586-igg1jq8854aconbcs09lu9i6bm602mm9.apps.googleusercontent.com</string>
     <key>REVERSED_CLIENT_ID</key>
-    <string>com.googleusercontent.apps.163911111516-gloh29m5f32vobruebkuevck16hd4mv3</string>
-    <key>ANDROID_CLIENT_ID</key>
-    <string>163911111516-8vgn1632c9m0q67hmu0eboriogsn3hn4.apps.googleusercontent.com</string>
+    <string>com.googleusercontent.apps.166934775586-igg1jq8854aconbcs09lu9i6bm602mm9</string>
     <key>API_KEY</key>
-    <string>AIzaSyAy6Leuu8G_uAVOtWgB5ZGPj47G4xts8oM</string>
+    <string>AIzaSyCHZUeeehu-jMSjVX9XpGvRuOSS-jLCAHc</string>
     <key>GCM_SENDER_ID</key>
-    <string>163911111516</string>
+    <string>166934775586</string>
     <key>PLIST_VERSION</key>
     <string>1</string>
     <key>BUNDLE_ID</key>
-    <string>com.timespeed.timehello</string>
+    <string>com.moonrainbowsoft.time.flutterTimeHello</string>
     <key>PROJECT_ID</key>
-    <string>timerbell-3a4af</string>
+    <string>timerbell-macos</string>
     <key>STORAGE_BUCKET</key>
-    <string>timerbell-3a4af.appspot.com</string>
+    <string>timerbell-macos.appspot.com</string>
     <key>IS_ADS_ENABLED</key>
     <false></false>
     <key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
     <key>IS_SIGNIN_ENABLED</key>
     <true></true>
     <key>GOOGLE_APP_ID</key>
-    <string>1:163911111516:ios:0704eba5fd312cfb256799</string>
+    <string>1:166934775586:ios:cc82f221b70cbda562c77b</string>
 </dict>
 </plist>

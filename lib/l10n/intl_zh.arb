@@ -1,4 +1,13 @@
 {
+  "lock_screen_auto_password_setting_for_applock": "app锁支持锁屏密码设置",
+  "please_confirm_your_password": "请确认密码",
+  "lock_screen_password_setting": "锁屏密码设置",
+  "lock_screen_auto_password_setting": "锁屏密码开机自启动设置",
+  "please_create_ur_password": "请创建您的密码",
+  "please_enter_ur_password": "请输入您的密码",
+  "report2": "举报",
+  "create_chat": "创建会话",
+
   "please_input_first_gpt_sentence": "请输入您想问的问题",
   "browser_not_support_multiline": "浏览器不支持多行输入,若想更好的体验，可以下载客户端",
   "module_filtering_setting": "模块过滤设置",
@@ -414,7 +423,7 @@
   "chatgpt_desc_huawei":"任何您的问题在这里都会找到答案",
   "gpt_token_expired":"您的token已经过期，请加微信号 cannywill 申请gpt访问权限",
   "max_words":"不能超过{max}字符",
-  "gpt_system_msg_forbidden":"不得討論政治，道德，文化，歷史，宗教信仰相關事件和人物",
+  "gpt_system_msg_forbidden":"不得討論地理，政治，道德，文化，歷史，宗教信仰相關事件和人物",
   "voice_guide":"请用手机自带的语音输入法输入即可",
   "try_again":"请求超时或失败,请重新尝试",
   "newline":"换行:{newline}",

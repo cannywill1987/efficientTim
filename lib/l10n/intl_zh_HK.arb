@@ -1,4 +1,13 @@
 {
+  "lock_screen_auto_password_setting_for_applock": "app鎖支持鎖屏密碼設置",
+  "lock_screen_auto_password_setting": "鎖屏密碼開機自啟動設置",
+  "please_confirm_your_password": "請確認您的密碼",
+  "lock_screen_password_setting": "鎖屏密碼設置",
+  "please_create_ur_password": "請創建您的密碼",
+"please_enter_ur_password": "請輸入您的密碼",
+  "report2": "舉報",
+  "create_chat": "創建會話",
+  "please_input_first_gpt_sentence": "請輸入您想問的問題",
   "browser_not_support_multiline": "瀏覽器不支持多行輸入，若想更好的體驗，可以下載客戶端",
   "module_filtering_setting": "模組過濾設定",
   "create_mission": "創建任務",

@@ -1,4 +1,13 @@
 {
+  "lock_screen_auto_password_setting_for_applock": "アプリロックのためのロック画面自動パスワード設定",
+  "lock_screen_auto_password_setting": "ロック画面の自動パスワード設定",
+  "please_confirm_your_password": "パスワードを確認してください",
+  "lock_screen_password_setting": "ロック画面のパスワード設定",
+  "please_create_ur_password": "パスワードを作成してください",
+"please_enter_ur_password": "パスワードを入力してください",
+  "report2": "報告する",
+  "create_chat": "チャットを作成",
+  "please_input_first_gpt_sentence": "質問を入力してください",
   "browser_not_support_multiline": "ブラウザは複数行の入力をサポートしていません。より良い体験のために、クライアントをダウンロードすることができます。",
   "module_filtering_setting": "モジュールフィルタリング設定",
   "create_mission": "タスクを作成する",

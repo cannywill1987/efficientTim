@@ -1,4 +1,13 @@
 {
+  "lock_screen_auto_password_setting_for_applock": "App-Sperre unterstützt die Einstellung von Bildschirmsperren-Passwörtern",
+  "lock_screen_auto_password_setting": "Einstellungen für automatische Passwortsperre beim Start",
+  "please_confirm_your_password": "Bitte bestätigen Sie Ihr Passwort",
+  "lock_screen_password_setting": "Einstellungen für Bildschirmsperre-Passwort",
+  "please_create_ur_password": "Bitte erstellen Sie Ihr Passwort",
+"please_enter_ur_password": "Bitte geben Sie Ihr Passwort ein",
+  "report2": "Bericht",
+  "create_chat": "Chat erstellen",
+  "please_input_first_gpt_sentence": "Bitte geben Sie Ihre Frage ein",
   "browser_not_support_multiline": "Der Browser unterstützt keine Mehrzeileneingabe. Für ein besseres Erlebnis können Sie die Client-Software herunterladen.",
   "module_filtering_setting": "Module-Filtereinstellungen",
   "create_mission": "Aufgabe erstellen",

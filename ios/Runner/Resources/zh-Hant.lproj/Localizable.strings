@@ -27,8 +27,12 @@
 "edit" = "編輯";
 "app" = "應用";
 "categories" = "分類";
+"lock_screen_notification" = "鎖屏計劃通知-";
 "locascreen_start" = "鎖屏計劃開始";
 "locascreen_start_in_five_minute" = "您的鎖屏計劃即將開始";
+"please_prepare" = "請做好準備";
+"locascreen_will_end" = "鎖屏計劃將要結束";
+"locascreen_has_end" = "鎖屏計劃已經結束";
 "scheduled_task_has_ended" = "定時任務已經結束";
 "back" = "返回";
 "lock_app_desc" = "若想關閉請打開時間管理局關閉";

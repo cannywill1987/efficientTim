@@ -510,6 +510,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createMission": MessageLookupByLibrary.simpleMessage("목록 생성"),
         "createSuccess": MessageLookupByLibrary.simpleMessage("생성 성공"),
         "createTag": MessageLookupByLibrary.simpleMessage("태그 생성"),
+        "create_chat": MessageLookupByLibrary.simpleMessage("채팅 생성"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("폴더 생성"),
         "create_mission": MessageLookupByLibrary.simpleMessage("임무 생성"),
         "create_mission_by_content":
@@ -848,6 +849,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "lock_app_setting": MessageLookupByLibrary.simpleMessage("앱 잠금 설정"),
         "lock_app_setting_description": MessageLookupByLibrary.simpleMessage(
             "앱 잠금은 불필요한 앱에 의해 방해받지 않고 집중하는 데 도움이 됩니다"),
+        "lock_screen_auto_password_setting":
+            MessageLookupByLibrary.simpleMessage("잠금 화면 자동 비밀번호 설정"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage("앱 잠금 화면 자동 비밀번호 설정 지원"),
+        "lock_screen_password_setting":
+            MessageLookupByLibrary.simpleMessage("잠금 화면 비밀번호 설정"),
         "login": MessageLookupByLibrary.simpleMessage("로그인"),
         "loginContent":
             MessageLookupByLibrary.simpleMessage("새로운 사용자는 자동으로 계정이 생성됩니다"),
@@ -1124,6 +1131,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "play": MessageLookupByLibrary.simpleMessage("재생"),
         "pleaseInputTitle": MessageLookupByLibrary.simpleMessage("제목을 입력해주세요"),
         "pleaseSelectColor": MessageLookupByLibrary.simpleMessage("색상을 선택해주세요"),
+        "please_confirm_your_password":
+            MessageLookupByLibrary.simpleMessage("비밀번호를 확인하세요"),
+        "please_create_ur_password":
+            MessageLookupByLibrary.simpleMessage("비밀번호를 생성하세요"),
+        "please_enter_ur_password":
+            MessageLookupByLibrary.simpleMessage("비밀번호를 입력하세요"),
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("질문을 입력하세요"),
         "please_finish_msn":
@@ -1134,6 +1147,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("내용을 입력하세요"),
         "please_input_correct_password":
             MessageLookupByLibrary.simpleMessage("올바른 비밀번호를 입력해 주세요"),
+        "please_input_first_gpt_sentence":
+            MessageLookupByLibrary.simpleMessage("질문을 입력하세요"),
         "please_input_folder_password": m84,
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("미션 제목을 입력해 주세요"),
@@ -1243,6 +1258,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveValue": MessageLookupByLibrary.simpleMessage("반복 날짜"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("반복 요일"),
         "reply": MessageLookupByLibrary.simpleMessage("답장"),
+        "report2": MessageLookupByLibrary.simpleMessage("신고"),
         "request_error_try_again":
             MessageLookupByLibrary.simpleMessage("요청 오류, 다시 시도해주세요"),
         "request_fail": MessageLookupByLibrary.simpleMessage("요청 실패"),

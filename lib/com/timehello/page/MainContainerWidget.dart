@@ -9,6 +9,8 @@ import 'package:time_hello/com/timehello/page/MobileTabBarHome.dart';
 import 'package:time_hello/com/timehello/page/PCMainHomePage.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
+import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -64,6 +66,7 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
     //   );
     // });
   }
+
 
   //ios销毁时
   void initIOSLiveActivity() {
@@ -172,6 +175,9 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
 
   componentDidMount() {
     initData();
+    if(LoginManager.getInstance().isLogin2() && SharePreferenceUtil.getSyncInstance().getDefault9DigitPasswordsNeedShowWhenLogin() == true && ScreenLockManager.getInstance().hasPassword()) {
+      ScreenLockManager.getInstance().showPasword();
+    }
     if(ABTestSetting.isOpenAiOn == true && Utility.isAndroid() == true && Utility.isIOS()) {
       Utility.openRightSideDesktopNavigator(
           context, 'ChatGptPage', {});

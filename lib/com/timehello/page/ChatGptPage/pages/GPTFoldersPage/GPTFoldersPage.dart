@@ -12,11 +12,14 @@ import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/libs/mongodb/response/MongoDbSaved.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
+import 'package:time_hello/com/timehello/models/ChatGptMessageModel.dart';
 import 'package:time_hello/com/timehello/page/createFolderPage/WQBCreateFolderPage.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../../../common/provider/Env.dart';
 import '../../../../common/provider/GlobalStateEnv.dart';
 import '../../../../components/CustomMarquee.dart';
 import '../../../../models/ChatGptFolderModel.dart';
@@ -71,28 +74,29 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
         onClickCreateFolder();
         break;
       case 'onClickMissionPage': //跳转任务页
-        if (data.iconType == 5 && Utility.isHandsetBySize() == false) {
-          //PC端跳转到日程
-          Utility.pushWQBDesktopMainContainerNavigator(
-              context, "WQBMissionPage", {});
-        } else if (data.iconType == 5 && Utility.isHandsetBySize() == true) {
-          Utility.showCurTab(
-              context, CONSTANTS.getCurPage(PageEnum.CalendarPage), {});
-          // Utility.pushNavigator(context,
-          //     new CalendarPage());
-        } else {
-          //打开mission页
-          onClickMissionPage(data, data.iconType);
-        }
+        Utility.pushGPTDesktopMainContainerNavigator(
+            context,  data);
+        // if (data.iconType == 5 && Utility.isHandsetBySize() == false) {
+        //   //PC端跳转到日程
+        //
+        // } else if (data.iconType == 5 && Utility.isHandsetBySize() == true) {
+        //   Utility.showCurTab(
+        //       context, CONSTANTS.getCurPage(PageEnum.CalendarPage), {});
+        //   // Utility.pushNavigator(context,
+        //   //     new CalendarPage());
+        // } else {
+        //   //打开mission页
+        //   onClickMissionPage(data, data.iconType);
+        // }
         this.widget.onTapItemListener.call();
         break;
       case 'onClickDeleteItem': //删除item
         //创建任务
         await onClickDeleteItem(data);
         break;
-      case 'onClickEditItem': //编辑item
-        onClickEditItem(data);
-        break;
+      // case 'onClickEditItem': //编辑item
+      //   onClickEditItem(data);
+      //   break;
       case 'onTapCreateTagListener': //创建tag
         onTapCreateTagListener();
         break;
@@ -103,17 +107,18 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
   }
 
   void onClickPCMore(data) {
-    SelectDateDialogUtil.show(context,
-        title: data.folderModelWithExtraData.title,
-        content: '',
-        list: CONSTANTS.getPCFolderListEditDialogModels(),
-        onTapListener: (dataSheetDataModel) {
-      if (dataSheetDataModel.scene == 'edit') {
-        this.onClick('onClickEditItem', data);
-      } else if (dataSheetDataModel.scene == 'delete') {
-        this.onClick('onClickDeleteItem', data);
-      }
-    });
+    this.onClick('onClickDeleteItem', data);
+    // SelectDateDialogUtil.show(context,
+    //     title: data.folderModelWithExtraData.title,
+    //     content: '',
+    //     list: CONSTANTS.getPCFolderListEditDialogModels(),
+    //     onTapListener: (dataSheetDataModel) {
+    //   if (dataSheetDataModel.scene == 'edit') {
+    //     this.onClick('onClickEditItem', data);
+    //   } else if (dataSheetDataModel.scene == 'delete') {
+    //
+    //   }
+    // });
   }
 
   void onTapCreateTagListener() {
@@ -127,65 +132,33 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
         ));
   }
 
-  void onClickEditItem(WQBFolderModelWithExtraData data) {
-    Utility.openPagePCAndMobile(Utility.getGlobalContext(), child:  new WQBCreateFolderPage(
-      pageEnum: PageModeEnum.edit,
-      folderModel: data.folderModel,
-    ));
-  }
+  // void onClickEditItem(WQBFolderModelWithExtraData data) {
+  //   Utility.openPagePCAndMobile(Utility.getGlobalContext(), child:  new WQBCreateFolderPage(
+  //     pageEnum: PageModeEnum.edit,
+  //     folderModel: data.folderModel,
+  //   ));
+  // }
 
   Future onClickDeleteItem(data) async {
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey(context).delete,
-        message: getI18NKey(context).confirmToDelete,
-        okLabel: getI18NKey(context).confirm,
-        cancelLabel: getI18NKey(context).cancel,
-        onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await Future.wait([
-        MongoApisManager.getInstance()
-            .delete_ChatGptFolderModel(data.folderModelWithExtraData.objectId),
-        // MongoApisManager.getInstance()
-        //     .batchdelete_MissionModel(folder_id: data.folderModel.objectId),
-        // MongoApisManager.getInstance()
-        //     .delete_CourseModel(data.folderModel.courseModelId)
-      ]);
-
-    }
-  }
-
-  // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
-  void onClickMissionPage(data, folderStatus) {
-    Utility.pushWQBDesktopMainContainerNavigator(
-        context, 'WQBMissionPage', {'data': data, 'folderStatus': folderStatus});
-    // if (Utility.isHandsetBySize()) {
-    //   // if (this.widget.onTapListener != null) {
-    //   //   this.widget.onTapListener!(
-    //   //       {"folderModel": data, "folderStatus": folderStatus});
-    //   //   // this.widget.onTapListener(
-    //   //   //     {"folderModel": data, "folderStatus": folderStatus});
-    //   // }
-    //   // Utility.pushNavigator(context,
-    //   //     new MissionPage(folderModel: data, folderStatus: folderStatus));
-    // } else {
-    //   // Utility.pushDesktopNavigator(
-    //   //     context, 'MissionPage', {'data': data, 'folderStatus': folderStatus});
-    // }
+    await MongoApisManager.getInstance()
+        .delete_ChatGptFolderModel(data.objectId, false);
+    List<ChatGptMessageModel> listChatGptMessageModels = MongoApisManager.getInstance()
+        .getChatGptMessageModelListByObjectId(
+        data.folderModelWithExtraData.objectId ?? "");
+    await MongoApisManager.getInstance().batchDelete_ChatGptMessageModel(listParam: listChatGptMessageModels);
+    this.onClickCreateFolder();
   }
 
   void onClickCreateFolder() {
-    WQBFolderModel folderModel = WQBFolderModel();
-    folderModel.tag = 1; //1-circle 2-tag
-    folderModel.color = CONSTANTS.getColors()[0].color;
-    Utility.openPagePCAndMobile(context,
-        child: new WQBCreateFolderPage(
-          pageEnum: PageModeEnum.create,
-          folderModel: folderModel,
-        ));
+    context.read<Env>().curChatGptFolderModel = null;
+    // WQBFolderModel folderModel = WQBFolderModel();
+    // folderModel.tag = 1; //1-circle 2-tag
+    // folderModel.color = CONSTANTS.getColors()[0].color;
+    // Utility.openPagePCAndMobile(context,
+    //     child: new WQBCreateFolderPage(
+    //       pageEnum: PageModeEnum.create,
+    //       folderModel: folderModel,
+    //     ));
     // if (Utility.isHandsetBySize()) {
     //   Utility.pushNavigator(
     //       context,
@@ -205,26 +178,31 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
     // TODO: implement baseBuild
     // final value = context.read<Counter>().increment();
 
-    _folderModelList = context.read<GlobalStateEnv>().listChatGptFolderModel;
+    // _folderModelList = context.read<GlobalStateEnv>().listChatGptFolderModel;
     // CONSTANTS.wqbFolderModelList = _folderModelList;
-    return Scaffold(
-        key: ValueKey('Scaffold112114'),
-        body: Container(
-            key: ValueKey('Contain2er111114'),
-            color: ThemeManager.getInstance().getLeftMenuColor(defaultColor: ThemeManager.getInstance().getLightDefaultThemeColor()),
-            child: Column(
-              children: [
-                // CustomMarquee(
-                //   key: ValueKey('cu2stom_marquee_1'),
-                //   bean: MarqueInfo.marqueFolderpage,
-                //   paddingTop: 0,
-                // ),
-                Expanded(key: ValueKey('e2xpanded_1'), child: getMenuList()),
-                screenType == ScreenType.Handset
-                    ? SizedBox.shrink()
-                    : getItem(context)
-              ],
-            )));
+    return Selector<GlobalStateEnv, List<ChatGptFolderModel>>(
+        selector: (_, globalStateEnv) => globalStateEnv.listChatGptFolderModel,
+        builder: (_, folderModelList, __) {
+          _folderModelList = folderModelList;
+          requestDatas();
+          return Scaffold(
+              key: ValueKey('Scaffold112114'),
+              body: Container(
+                  key: ValueKey('Contain2er111114'),
+                  color: ThemeManager.getInstance().getLeftMenuColor(defaultColor: ThemeManager.getInstance().getLightDefaultThemeColor()),
+                  child: Column(
+                    children: [
+                      // CustomMarquee(
+                      //   key: ValueKey('cu2stom_marquee_1'),
+                      //   bean: MarqueInfo.marqueFolderpage,
+                      //   paddingTop: 0,
+                      // ),
+                      Expanded(key: ValueKey('e2xpanded_1'), child: getMenuList()),
+                      getItem(context)
+                    ],
+                  )));
+        });
+
   }
 
   Widget getMenuList() {
@@ -240,12 +218,12 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
               datas: this._folderModelList,
               calendarModel: calendarModel ?? CalendarModel(),
               onTapListener: (data) {
-                if (data.type == 3) {
-                  //创建页面
-                  this.onClick('onClickCreateFolder', data);
-                } else {
+                // if (data.type == 3) {
+                //   //创建页面
+                //   this.onClick('onClickCreateFolder', data);
+                // } else {
                   this.onClick('onClickMissionPage', data);
-                }
+                // }
               },
               onTapShareListener: (data) async {},
               onTapDeleteListener: (data) async {
@@ -258,10 +236,10 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
               },
               onTapEditListener: (data) {
                 // 如果pc右侧有MissionDetailPage则隐藏
-                if (!Utility.isHandsetBySize()) {
-                  Utility.popupDesktopRightNavigator(context);
-                }
-                this.onClick('onClickEditItem', data);
+                // if (!Utility.isHandsetBySize()) {
+                //   Utility.popupDesktopRightNavigator(context);
+                // }
+                // this.onClick('onClickEditItem', data);
               },
               onTapCreateTagListener: (data) {
                 // 如果pc右侧有MissionDetailPage则隐藏
@@ -297,8 +275,9 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
   }
 
   requestDatas({bool shouldRefresh = false}) async {
-    List<WQBFolderModel> datas = await MongoApisManager.getInstance()
-        .queryWhereEqual_WQBFolderModel(shouldRefresh: shouldRefresh);
+    // List<WQBFolderModel> datas = await MongoApisManager.getInstance()
+    //     .queryWhereEqual_WQBFolderModel(shouldRefresh: shouldRefresh);
+    if(shouldRefresh)
     setState(() {});
   }
 
@@ -320,7 +299,7 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
       ),
       Expanded(
           key: ValueKey('Expa2ndwqed14'),
-          child: Text(_folderModelWithExtraData.folderModel.title ?? "",
+          child: Text(getI18NKey().create_chat,
               key: ValueKey('T2extwq14'),
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -331,37 +310,6 @@ class _GPTFoldersPageWidgetState<T> extends BaseWidgetState<GPTFoldersPage> {
                       : ColorsConfig.gray_40))),
           flex: 3),
     ];
-    children.addAll([
-      Wrap(
-        key: ValueKey('Wrap2114'),
-        children: [
-          IconButton(
-              key: ValueKey('IconB2utton1114'),
-              icon: Icon(
-                key: ValueKey('Ico2n1114'),
-                Icons.local_offer,
-                color: ThemeManager.getInstance().getIconColor(defaultColor: ColorsConfig.create_folder),
-                size: 22,
-              ),
-              onPressed: () {
-                this.onClick('onTapCreateTagListener', {});
-              }),
-          IconButton(
-              key: ValueKey('IconB2utton111412'),
-              icon: Icon(
-                key: ValueKey('Ico2n11114'),
-                Icons.create_new_folder,
-                color: ThemeManager.getInstance().getIconColor(defaultColor: ColorsConfig.create_folder),
-                size: 22,
-              ),
-              onPressed: () {}),
-          SizedBox(
-            key: ValueKey('SizedB2ox1112114'),
-            width: 10,
-          ),
-        ],
-      )
-    ]);
     return InkWell(
         key: ValueKey('InkWel2l_1'),
         onTap: () {

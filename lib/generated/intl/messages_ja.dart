@@ -504,6 +504,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createMission": MessageLookupByLibrary.simpleMessage("リストを作成"),
         "createSuccess": MessageLookupByLibrary.simpleMessage("作成成功"),
         "createTag": MessageLookupByLibrary.simpleMessage("タグを作成"),
+        "create_chat": MessageLookupByLibrary.simpleMessage("チャットを作成"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("フォルダを作成する"),
         "create_mission": MessageLookupByLibrary.simpleMessage("タスクを作成する"),
         "create_mission_by_content": MessageLookupByLibrary.simpleMessage(
@@ -840,6 +841,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "lock_app_setting": MessageLookupByLibrary.simpleMessage("アプリのロック設定"),
         "lock_app_setting_description": MessageLookupByLibrary.simpleMessage(
             "アプリをロックすると、不必要なアプリの邪魔を受けずに集中するのに役立ちます"),
+        "lock_screen_auto_password_setting":
+            MessageLookupByLibrary.simpleMessage("ロック画面の自動パスワード設定"),
+        "lock_screen_auto_password_setting_for_applock":
+            MessageLookupByLibrary.simpleMessage("アプリロックのためのロック画面自動パスワード設定"),
+        "lock_screen_password_setting":
+            MessageLookupByLibrary.simpleMessage("ロック画面のパスワード設定"),
         "login": MessageLookupByLibrary.simpleMessage("ログイン"),
         "loginContent":
             MessageLookupByLibrary.simpleMessage("新規ユーザーは自動的にアカウントが作成されます"),
@@ -1122,6 +1129,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseInputTitle":
             MessageLookupByLibrary.simpleMessage("タイトルを入力してください"),
         "pleaseSelectColor": MessageLookupByLibrary.simpleMessage("色を選択してください"),
+        "please_confirm_your_password":
+            MessageLookupByLibrary.simpleMessage("パスワードを確認してください"),
+        "please_create_ur_password":
+            MessageLookupByLibrary.simpleMessage("パスワードを作成してください"),
+        "please_enter_ur_password":
+            MessageLookupByLibrary.simpleMessage("パスワードを入力してください"),
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("質問を入力してください"),
         "please_finish_msn":
@@ -1132,6 +1145,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("内容を入力してください"),
         "please_input_correct_password":
             MessageLookupByLibrary.simpleMessage("正しいパスワードを入力してください"),
+        "please_input_first_gpt_sentence":
+            MessageLookupByLibrary.simpleMessage("質問を入力してください"),
         "please_input_folder_password": m84,
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("タスクのタイトルを入力してください"),
@@ -1246,6 +1261,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveValue": MessageLookupByLibrary.simpleMessage("繰り返しの日付"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("繰り返しの曜日"),
         "reply": MessageLookupByLibrary.simpleMessage("返信"),
+        "report2": MessageLookupByLibrary.simpleMessage("報告する"),
         "request_error_try_again":
             MessageLookupByLibrary.simpleMessage("リクエストエラー、再試行してください"),
         "request_fail": MessageLookupByLibrary.simpleMessage("リクエスト失敗"),

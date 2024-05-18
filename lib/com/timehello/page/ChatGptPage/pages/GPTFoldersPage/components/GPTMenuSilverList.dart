@@ -75,12 +75,12 @@ class GPTMenuSilverList extends StatefulWidget {
 
 class GPTMenuSilverListState extends State<GPTMenuSilverList> {
   double iconSize = 18;
-  String curSelectedTitle = "";
+  String curSelectedObjectId = "";
 
   @override
   void initState() {
     if(this.widget._datas.length > 0) {
-      this.curSelectedTitle = this.widget._datas?[0].title ?? "";
+      this.curSelectedObjectId = this.widget._datas?[0].title ?? "";
     }
   } // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单
 
@@ -128,12 +128,13 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(_chatGptFolderModel.title ?? "",
+                  maxLines: 1,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,
                       color: ThemeManager.getInstance().isDark()
-                          ? ColorsConfig.create_folder
+                          ? ColorsConfig.white
                           : ColorsConfig.gray_40)),
             ],
           ),
@@ -149,6 +150,77 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
           child: getInnerItemWithoutContainer(
               _chatGptFolderModel, children));
     } else {
+
+      children.addAll([
+        Wrap(
+          children: [
+            // _chatGptFolderModel.isHover == false
+            //     ? Wrap(
+            //   children: [
+            //     SizedBox(
+            //       width: 10,
+            //     ),
+            //         // Container(
+            //         // padding: EdgeInsets.symmetric(
+            //         //     horizontal: 8, vertical: 4),
+            //         // decoration: BoxDecoration(
+            //         //     color: ThemeManager.getInstance().getDefautThemeColor(),
+            //         //     borderRadius: BorderRadius.only(
+            //         //         topLeft: Radius.circular(20),
+            //         //         topRight: Radius.circular(20),
+            //         //         bottomRight: Radius.circular(20),
+            //         //         bottomLeft: Radius.circular(2))),
+            //         // child: Text(
+            //         //     "11111111111111", //右侧分钟
+            //         //     textAlign: TextAlign.right,
+            //         //     style: TextStyle(
+            //         //         fontSize: 12, color: ColorsConfig.white)))
+            //   ],
+            // )
+            //     : SizedBox.shrink(),
+            Offstage(
+                offstage: _chatGptFolderModel.isHover == false,
+                child: InkWell(
+                    child: PopupMenuButton<String>(
+                      tooltip: '',
+                      offset: Offset(-70, 10), //弹出的popup便宜位置
+                      onSelected: (String val) {
+                        if (val == 'edit') {
+                          this.widget.onTapEditListener!(_chatGptFolderModel);
+                        } else if (val == 'delete') {
+                          this
+                              .widget
+                              .onTapDeleteListener!(_chatGptFolderModel);
+                        } else if (val == 'share') {
+                          this
+                              .widget
+                              .onTapShareListener!(_chatGptFolderModel);
+                        }
+                      },
+                      itemBuilder: (context) {
+                        // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
+                        // !TextUtil.isEmpty(_folderModelWithExtraData
+                        //     .folderModel.courseModelId) &&
+                          return get2PopupList();
+                      },
+                    )
+                  // IconButton(
+                  //   onPressed: () {
+                  //     this.widget?.onTapMoreListener(_folderModelWithExtraData);
+                  //   },
+                  //   icon: Icon(
+                  //     Icons.more_horiz,
+                  //     size: 20,
+                  //   ),
+                  // ),
+                )),
+            SizedBox(
+              width: 10,
+            ),
+          ],
+          crossAxisAlignment: WrapCrossAlignment.center,
+        )
+      ]);
       //PC
       return MouseRegion(
           onEnter: (_) {
@@ -200,10 +272,10 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
 
   List<PopupMenuEntry<String>> get2PopupList() {
     return <PopupMenuEntry<String>>[
-      PopupMenuItem<String>(
-        value: 'edit',
-        child: Text(getI18NKey().edit, style: TextStyle(fontSize: 15)),
-      ),
+      // PopupMenuItem<String>(
+      //   value: 'edit',
+      //   child: Text(getI18NKey().edit, style: TextStyle(fontSize: 15)),
+      // ),
       PopupMenuItem<String>(
         value: 'delete',
         child: Text(
@@ -247,8 +319,8 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
     return InkWell(
         onTap: () {
           if (this.widget.onTapListener != null) {
-            this.curSelectedTitle =
-                _folderModel.title ?? "";
+            this.curSelectedObjectId =
+                _folderModel.objectId ?? "";
             this
                 .widget
                 .onTapListener!(_folderModel); //点击item
@@ -260,8 +332,8 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
         child: Container(
           height: 46,
           decoration: (Utility.isHandsetBySize() == false &&
-                  this.curSelectedTitle ==
-                      _folderModel.title)
+                  this.curSelectedObjectId ==
+                      _folderModel.objectId)
               ? BoxDecoration(
                   border: Border(
                       right: BorderSide(width: 5, color: ThemeManager.getInstance().getDefautThemeColor())))

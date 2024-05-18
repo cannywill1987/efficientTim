@@ -20,6 +20,7 @@ import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/GetResourceDeliveryManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -310,13 +311,59 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
                   child:
                       Utility.getSVGPicture(R.assetsImgIcPresent, size: 15))),
       SettingMenuItem(
+          title: getI18NKey().lock_screen_auto_password_setting_for_applock,
+          onTapListener: (data) {
+            ScreenLockManager.getInstance().resetPassword();
+          },
+          rightPartContainer: BlackCheckButtonListWidget(
+            initIndex: SharePreferenceUtil.getSyncInstance().getDefault9DigitPasswordsNeedShowWhenLoginAppLock()
+                ? 1
+                : 0,
+            list: CONSTANTS.getOnAndOffButtonList(),
+            onTapListener: (obj) {
+              if(!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
+                ScreenLockManager.getInstance().createPassword(shouldShow: true);
+              }
+              SharePreferenceUtil.getSyncInstance().setDefault9DigitPasswordsNeedShowWhenLoginAppLock(
+                  isOn: !SharePreferenceUtil.getSyncInstance()
+                      .getDefault9DigitPasswordsNeedShowWhenLoginAppLock());
+              updateUI();
+            },
+          ),
+          icon: Container(
+              padding: EdgeInsets.only(right: 10),
+              child: Utility.getSVGPicture(R.assetsImgIcLockscreenView, size: 15))),
+      SettingMenuItem(
+          title: getI18NKey().lock_screen_auto_password_setting,
+          onTapListener: (data) {
+            ScreenLockManager.getInstance().resetPassword();
+          },
+          rightPartContainer: BlackCheckButtonListWidget(
+            initIndex: SharePreferenceUtil.getSyncInstance().getDefault9DigitPasswordsNeedShowWhenLogin()
+                ? 1
+                : 0,
+            list: CONSTANTS.getOnAndOffButtonList(),
+            onTapListener: (obj) {
+              if(!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
+                ScreenLockManager.getInstance().createPassword(shouldShow: true);
+              }
+              SharePreferenceUtil.getSyncInstance().setDefault9DigitPasswordsNeedShowWhenLogin(
+                  isOn: !SharePreferenceUtil.getSyncInstance()
+                      .getDefault9DigitPasswordsNeedShowWhenLogin());
+              updateUI();
+            },
+          ),
+          icon: Container(
+              padding: EdgeInsets.only(right: 10),
+              child: Utility.getSVGPicture(R.assetsImgIcUnlockscreen, size: 15))),
+      SettingMenuItem(
           title: getI18NKey().rest_completed_auto_start_play,
           onTapListener: (data) {},
           rightPartContainer: BlackCheckButtonListWidget(
             initIndex: SharePreferenceUtil.getSyncInstance().getLoopOnRelaxing()
                 ? 1
                 : 0,
-            list: CONSTANTS.getOnAndOffButtonList(),
+            list: CONSTANTS.getManualOnAndOffButtonList(),
             onTapListener: (obj) {
               SharePreferenceUtil.getSyncInstance().setLoopOnRelaxing(
                   isOn: !SharePreferenceUtil.getSyncInstance()
@@ -333,7 +380,7 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
             initIndex: SharePreferenceUtil.getSyncInstance().getLoopOnFocusing()
                 ? 1
                 : 0,
-            list: CONSTANTS.getOnAndOffButtonList(),
+            list: CONSTANTS.getManualOnAndOffButtonList(),
             onTapListener: (obj) {
               SharePreferenceUtil.getSyncInstance().setLoopOnFocusing(
                   isOn: !SharePreferenceUtil.getSyncInstance()

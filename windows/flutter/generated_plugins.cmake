@@ -13,6 +13,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   permission_handler_windows
   platform_device_id_windows
   record_windows
+  system_tray
   url_launcher_windows
 )
 

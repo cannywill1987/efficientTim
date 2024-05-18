@@ -121,7 +121,7 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
 
   ChatGptFolderModel get curChatGptFolderModel => _curChatGptFolderModel ?? ChatGptFolderModel();
 
-  set curChatGptFolderModel(ChatGptFolderModel value) {
+  set curChatGptFolderModel(ChatGptFolderModel? value) {
     _curChatGptFolderModel = value;
     notifyListeners();
   }

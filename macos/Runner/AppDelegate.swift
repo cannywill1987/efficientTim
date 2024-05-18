@@ -1,7 +1,7 @@
 import Cocoa
 import FlutterMacOS
 import UserNotifications
-//import Firebase
+import Firebase
 
 @NSApplicationMain
 class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserNotificationCenterDelegate {
@@ -48,9 +48,9 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
         NSUserNotificationCenter.default.delegate = self ;
         
         NotificationCenter.default.addObserver(self, selector: #selector(initNotification(_:)), name:Notification.Name(Params.ACTION_HANDLE_NOTIFICATION_PERMISSION), object: nil)
-//        if FirebaseApp.app() == nil  {
-//            FirebaseApp.configure()
-//        }
+        if FirebaseApp.app() == nil  {
+            FirebaseApp.configure()
+        }
         
         resetBadge()
 //        incrementBadge()

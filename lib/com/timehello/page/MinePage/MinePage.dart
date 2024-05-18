@@ -4,12 +4,8 @@ import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_review/in_app_review.dart';
-
-// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
-import 'package:time_hello/com/timehello/components/GPTCreateMissionWidget.dart';
 import 'package:time_hello/com/timehello/components/GridMenuItem.dart';
 import 'package:time_hello/com/timehello/components/LoginAvatarWidget.dart';
 import 'package:time_hello/com/timehello/components/PCLeftMenuBarWidget.dart';
@@ -18,32 +14,24 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
-import 'package:time_hello/com/timehello/models/FlomoMissionModel.dart';
-import 'package:time_hello/com/timehello/models/FolderModel.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
+import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/FlomoPage/FlomoPage.dart';
-import 'package:time_hello/com/timehello/page/FlomoPage/components/ClockInSentenceDialog.dart';
 import 'package:time_hello/com/timehello/page/LockScreenPage/LockScreenPage.dart';
 import 'package:time_hello/com/timehello/page/SettingPage/pages/FilterMenuSettingPage.dart';
 import 'package:time_hello/com/timehello/page/ThemePage/ThemePage.dart';
-import 'package:time_hello/com/timehello/page/WebviewPage/WebviewPage.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
-import 'package:time_hello/com/timehello/util/ChatGptManager.dart';
-import 'package:time_hello/com/timehello/util/CryptoManager.dart';
+import 'package:time_hello/com/timehello/util/CloudSharepreferenceManagement.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/JumpNavigator.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
-import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
-import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
-import 'package:time_hello/generated/intl/messages_de.dart';
+import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 
 import '../../../../r.dart';
 import '../../beans/BaseBean.dart';
-import '../../beans/ResourceLocationInfoBean.dart';
-import '../../beans/UserBean.dart';
 import '../../common/database/apis/MongoApisManager.dart';
 import '../../common/httpclient/HttpManager.dart';
 import '../../common/provider/GlobalStateEnv.dart';
@@ -243,7 +231,22 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用2",
           onTapListener: () async {
-            Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
+            ScreenLockManager.getInstance().showPasword();
+            // screenLockCreate(
+            //   context: context,
+            //   onConfirmed: (value) {
+            //     CloudSharepreferenceManagement.getInstance().setString(ShareprefrenceKeys.default9DigitPasswords, value);
+            //     // print(value)
+            //   }, // store new passcode somewhere here
+            // );
+            //
+            // screenLock(
+            //   context: context,
+            //   correctString: '1234',
+            //   canCancel: false,
+            // );
+
+            // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
             // Utility.pushNavigator(
             //     context,
             //     WebviewPage(
@@ -415,7 +418,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         }));
     if (Utility.isIOS()) {
       list.add(GridMenuItem(
-          icon: Utility.getSVGPicture(R.assetsImgIcLockscreenSelected,
+          icon: Utility.getSVGPicture(R.assetsImgIcLockscreenView,
               size: iconSize),
           title: getI18NKey().lock_app_setting,
           onTapListener: () {
@@ -475,7 +478,15 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-
+    list.add(GridMenuItem(
+        icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
+        title: getI18NKey().ai_helper,
+        // subtitle: getI18NKey().cloud_sync_content,
+        onTapListener: () async {
+          // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
+          // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
+          Utility.pushNavigator(context, const GPTContainer());
+        }));
     // list.add(GridMenuItem(
     //     icon: Utility.getSVGPicture(R.assetsImgIcCreditCard, size: iconSize),
     //     title: getI18NKey().credit_bag,
@@ -555,6 +566,9 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
           Utility.pushNavigator(context, const WQBContainer());
         }));
+
+
+
     List<Row> listRows = [];
     //根据numGridItems 生成行数 numGridItems是代表几列
     for (int i = 0; i < list.length; i++) {

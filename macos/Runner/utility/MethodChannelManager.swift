@@ -46,7 +46,7 @@ class MethodChannelManager {
                     //                    WindowUtility.setMinSize(window: window!, width: 300, height: 150);
                 } else {
                     //                    if(window != nil) {
-                    //                        WindowUtility.setMinSize(window: window!, width: 1000, height: 800);
+//                                            WindowUtility.setMinSize(window: window!, width: 1000, height: 800);
                     //                    }
                 }
                 break;

@@ -255,6 +255,7 @@ class MongoApisManager {
         queryWhereEqual_TimelineMissionModel();
         queryWhereEqual_EndTimeMissionModel();
         queryWhereEqual_CourseModel();
+        queryWhereEqual_ChatGptFolderModel();
         // perf.stop();
         // queryWhereEqual_folderModel(); //初始化listFolderModel
         // queryWhereEqual_missionData();
@@ -269,7 +270,7 @@ class MongoApisManager {
   }
 
 
-  Future delete_ChatGptFolderModel([String? objectId, Function? callback]) async {
+  Future delete_ChatGptFolderModel([String? objectId, bool shouldQueryModel = false, Function? callback]) async {
     if (LoginManager.isLogin() == false) {
       Utility.showToast(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
@@ -282,7 +283,13 @@ class MongoApisManager {
     ChatGptFolderModel chatGptFolderModel = ChatGptFolderModel();
     chatGptFolderModel.objectId = objectId;
     MongoDbHandled bmobHandled = await chatGptFolderModel.delete();
-    await queryWhereEqual_ChatGptFolderModel(shouldRefresh: true);
+    if(shouldQueryModel == true) {
+      await queryWhereEqual_ChatGptFolderModel(shouldRefresh: true);
+    } else {
+      this.listChatGptFolderModel.removeWhere((element) => element.objectId == objectId);
+      context?.read<GlobalStateEnv>().listChatGptFolderModel = listChatGptFolderModel;
+    }
+    // await queryWhereEqual_ChatGptFolderModel(shouldRefresh: true);
 
     if (callback != null) {
       callback(bmobHandled);
@@ -2623,12 +2630,12 @@ class MongoApisManager {
       // if (element.create_time == null) element.create_time = 0;
     });
     this.hasLoadedChatGptFolderModel = true;
-    this.listChatGptFolderModel = listChatGptFolderModel;
+    this.listChatGptFolderModel = listChatGptFolderModel.reversed.toList();
     if (callback != null) {
       callback(listChatGptFolderModel);
     }
-    context?.read<GlobalStateEnv>().listChatGptFolderModel = listChatGptFolderModel;
-    return listChatGptFolderModel;
+    context?.read<GlobalStateEnv>().listChatGptFolderModel = this.listChatGptFolderModel;
+    return this.listChatGptFolderModel;
   }
 
   Future<List<BillModel>> queryWhereEqual_billModel(
@@ -5175,6 +5182,23 @@ class MongoApisManager {
     }
   }
 
+  /**
+   * ai助手用
+   */
+  List<ChatGptMessageModel> getChatGptMessageModelListByObjectId(
+      String fid) {
+    List<ChatGptMessageModel> list = [];
+    this.listChatGptMessageModel.forEach((element) {
+      if (element.fid == fid) {
+        list.add(element);
+      }
+    });
+    return list;
+  }
+
+  /**
+   * 侧边栏用
+   */
   List<ChatGptMessageModel> getChatGptMessageModelListByFolderId(
       String folderId) {
     List<ChatGptMessageModel> list = [];

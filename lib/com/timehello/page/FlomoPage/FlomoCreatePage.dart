@@ -428,10 +428,10 @@ class FlomoCreatePageState extends BaseWidgetState<FlomoCreatePage> {
                       ? 1
                       : 0,
                   backgroundColor: ThemeManager.getInstance().getDefautThemeColor(),
-                  list: CONSTANTS.getOnAndOffButtonList(),
+                  list: CONSTANTS.getManualOnAndOffButtonList(),
                   onTapListener: (obj) {
                     this.widget.flomoMissionModel?.is_alert_on =
-                        CONSTANTS.getOnAndOffButtonList()[obj].isCheck;
+                        CONSTANTS.getManualOnAndOffButtonList()[obj].isCheck;
                   },
                 ),
                 // Icon(

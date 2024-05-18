@@ -41,6 +41,7 @@ class SettingManager {
   int isLockScreenPageOn = 1;
   int isStatisticPageOn = 1;
   int isSettingPageOn = 1;
+  int isAIHelperPageOn = 1;
 
 
 
@@ -88,6 +89,7 @@ class SettingManager {
           isLockScreenPageOn = settingModel.isLockScreenPageOn ?? 1;
           isStatisticPageOn = settingModel.isStatisticPageOn ?? 1;
           isSettingPageOn = settingModel.isSettingPageOn ?? 1;
+          isAIHelperPageOn = settingModel.isAIHelperPageOn ?? 1;
 
         } catch(e) {
           print(e);
@@ -118,12 +120,18 @@ class SettingManager {
     settingModel.isLockScreenPageOn = isLockScreenPageOn;
     settingModel.isStatisticPageOn = isStatisticPageOn;
     settingModel.isSettingPageOn = isSettingPageOn;
+    settingModel.isAIHelperPageOn = isAIHelperPageOn;
 
 
 
     String s = jsonEncode(settingModel.toJson());
     SharePreferenceUtil.getSyncInstance().setString(key:ShareprefrenceKeys.SettingModelKey , content: s);
     Utility.getGlobalContext()?.read<Env>().settingModel = settingModel;
+  }
+
+  setIsAIHelperPageOn(int value) {
+    isAIHelperPageOn = value;
+    updateSettingModel();
   }
 
   /**

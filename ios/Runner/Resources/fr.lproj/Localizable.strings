@@ -27,9 +27,13 @@
 "edit" = "Éditer";
 "app" = "Applications";
 "categories" = "Catégories";
-"locascreen_start" = "Le plan de verrouillage de l'écran commence";
-"locascreen_start_in_five_minute" = "Le plan de verrouillage de l'écran commencera dans cinq minutes";
-"scheduled_task_has_ended" = "La tâche planifiée est terminée";
+"lock_screen_notification" = "Notification de verrouillage d'écran -";
+"locascreen_start" = "Début du plan de verrouillage d'écran";
+"locascreen_start_in_five_minute" = "Votre plan de verrouillage d'écran va commencer dans cinq minutes";
+"please_prepare" = "Veuillez vous préparer";
+"locascreen_will_end" = "Le plan de verrouillage d'écran va se terminer";
+"locascreen_has_end" = "Le plan de verrouillage d'écran est terminé";
+"scheduled_task_has_ended" = "La tâche programmée est terminée";
 "back" = "Retour";
 "lock_app_desc" = "Si vous souhaitez fermer, veuillez ouvrir le bureau de gestion du temps pour fermer";
 "confirm" = "Confirmer";

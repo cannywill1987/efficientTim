@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
+import 'package:time_hello/com/timehello/page/FeedbackPage/FeedbackPage.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 
@@ -16,6 +17,7 @@ class ChatInputWidget extends StatefulWidget {
   List<GptSuggestionBean>? listSuggest;
   bool isLoading;
   String? placeholder;
+
   ChatInputWidget(
       {Key? key,
       this.listSuggest,
@@ -36,6 +38,7 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
   TextEditingController inputController = TextEditingController();
   String value = "";
   FocusNode? _contentFocusNode = FocusNode();
+
   // SuggestionsController controller;
   late SuggestionsController<GptSuggestionBean> suggestionsController;
 
@@ -120,7 +123,7 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                               ),
                             ),
                             Expanded(
-                              child:TypeAheadField<GptSuggestionBean>(
+                              child: TypeAheadField<GptSuggestionBean>(
                                 // controller: controller,
                                 suggestionsController: suggestionsController,
                                 hideOnEmpty: true,
@@ -144,14 +147,15 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                   );
                                 },
                                 suggestionsCallback: (search) {
-                                  if(TextUtil.isEmpty(search)){
+                                  if (TextUtil.isEmpty(search)) {
                                     return this.widget.listSuggest;
                                   }
                                   List<GptSuggestionBean> listReturns = [];
-                                  for (var item in this.widget.listSuggest ?? []) {
+                                  for (var item
+                                      in this.widget.listSuggest ?? []) {
                                     if (item.suggestion
-                                        ?.toLowerCase()
-                                        .contains(search.toLowerCase()) ==
+                                            ?.toLowerCase()
+                                            .contains(search.toLowerCase()) ==
                                         true) {
                                       listReturns.add(item);
                                     }
@@ -166,12 +170,17 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                     constraints: BoxConstraints(
                                       maxHeight: 200.0, // 设置TextField的最大高度
                                     ),
-                                    child:TextField(
+                                    child: TextField(
                                       // expands: true,
                                       keyboardType: TextInputType.multiline,
-                                      minLines: DeviceInfoManagement.isWEB() ? 1 :null,
+                                      minLines: DeviceInfoManagement.isWEB()
+                                          ? 1
+                                          : null,
 
-                                      maxLines:DeviceInfoManagement.isWEB() ? 1 :null, // 允许TextField高度自适应内容，直到达到最大高度限制
+                                      maxLines: DeviceInfoManagement.isWEB()
+                                          ? 1
+                                          : null,
+                                      // 允许TextField高度自适应内容，直到达到最大高度限制
                                       // decoration: InputDecoration(
                                       //   hintText: 'Enter multiple lines here',
                                       //   border: OutlineInputBorder(),
@@ -186,9 +195,8 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                       textInputAction: TextInputAction.done,
                                       onSubmitted: (val) {
                                         // callback for regular enter key press
-                                        this
-                                            .widget
-                                            .onClickSendMsg(inputController.text);
+                                        this.widget.onClickSendMsg(
+                                            inputController.text);
                                         inputController.text = '';
                                       },
                                       onEditingComplete: () {
@@ -202,9 +210,9 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                               TextEditingValue(
                                             text: inputController.text + '\n',
                                             selection: TextSelection.collapsed(
-                                                offset:
-                                                    inputController.text.length +
-                                                        1),
+                                                offset: inputController
+                                                        .text.length +
+                                                    1),
                                           );
                                         } else {
                                           // trigger the callback for regular enter key press
@@ -220,8 +228,8 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                             getI18NKey()
                                                 .please_enter_your_question,
                                         border: InputBorder.none,
-                                        contentPadding:
-                                            EdgeInsets.symmetric(horizontal: 10),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 10),
                                       ),
                                     ),
                                   );
@@ -270,12 +278,26 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
           ),
           Utility.isHandsetBySize()
               ? SizedBox.shrink()
-              : Container(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    getI18NKey().newline(CONSTANTS.getNewLineText()),
-                    style: TextStyle(color: Color(0xffa0a0a0), fontSize: 12),
-                  ))
+              : Row(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text(
+                          getI18NKey().newline(CONSTANTS.getNewLineText()),
+                          style:
+                              TextStyle(color: Color(0xffa0a0a0), fontSize: 12),
+                        )),
+                    SizedBox(width: 10,),
+                    InkWell(
+                        onTap: () {
+                          Utility.pushNavigator(context, FeedbackPage());
+                        },
+                        child: Text(
+                          getI18NKey().report2,
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                        ))
+                  ],
+                )
         ],
       ),
     );

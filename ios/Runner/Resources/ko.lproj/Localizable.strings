@@ -27,9 +27,13 @@
 "edit" = "편집";
 "app" = "앱";
 "categories" = "카테고리";
+"lock_screen_notification" = "잠금 화면 계획 알림-";
 "locascreen_start" = "잠금 화면 계획 시작";
 "locascreen_start_in_five_minute" = "잠금 화면 계획이 곧 시작됩니다";
-"scheduled_task_has_ended" = "예약된 작업이 종료되었습니다";
+"please_prepare" = "준비해 주세요";
+"locascreen_will_end" = "잠금 화면 계획이 곧 종료됩니다";
+"locascreen_has_end" = "잠금 화면 계획이 종료되었습니다";
+"scheduled_task_has_ended" = "예정된 작업이 종료되었습니다";
 "back" = "뒤로";
 "lock_app_desc" = "닫으려면 시간 관리국을 열어주세요";
 "confirm" = "확인";

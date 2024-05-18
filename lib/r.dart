@@ -31,6 +31,8 @@ class R {
   static final String assetsImgAvatar31 = 'assets/img/avatar31.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar25.svg)
   static final String assetsImgAvatar25 = 'assets/img/avatar25.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_lock_screen.svg)
+  static final String assetsImgIcLockScreen = 'assets/img/ic_lock_screen.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_huaqi_bank.png)
   static final String assetsImgIcHuaqiBank = 'assets/img/ic_huaqi_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/avatar19.svg)
@@ -317,6 +319,8 @@ class R {
   static final String assetsImgIcAll = 'assets/img/ic_all.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_guangda_bank.png)
   static final String assetsImgIcGuangdaBank = 'assets/img/ic_guangda_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_lockscreen_view.svg)
+  static final String assetsImgIcLockscreenView = 'assets/img/ic_lockscreen_view.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_logo_orange.png)
   static final String assetsImgIcLogoOrange = 'assets/img/ic_logo_orange.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_card_new_black.svg)
@@ -465,6 +469,8 @@ class R {
   static final String assetsImgAvatar11 = 'assets/img/avatar11.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_android.svg)
   static final String assetsImgIcAndroid = 'assets/img/ic_android.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_unlockscreen.svg)
+  static final String assetsImgIcUnlockscreen = 'assets/img/ic_unlockscreen.svg';
   /// ![](http://127.0.0.1:123/assets/img/iOS.svg)
   static final String assetsImgIOS = 'assets/img/iOS.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_record_finish.svg)

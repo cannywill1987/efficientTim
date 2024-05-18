@@ -27,7 +27,7 @@ class Params {
   static BuildContext? curContext;
   static ResourceDeliveryInfoBean? updateInfoDeliveryInfoBean; //用于判断更新信息展示更新对话框
   static List<ResourceLocationInfoBean>? gamePagesResourceLocationInfoBeanList; //游戏中心游戏列表
-  // static final int version = '1.0.0';
+  // static final int version = '1.0.0';bl
 
   static final int REQUEST_TIMEOUT = 40000;
   static final int CONNECT_TIMEOUT = 40000;
@@ -169,6 +169,9 @@ class Apis {
 
 //Shareprefrence的key
 class ShareprefrenceKeys {
+  static String default9DigitPasswordsNeedShowWhenLoginAppLock = "efzfsace";
+  static String default9DigitPasswordsNeedShowWhenLogin = "eififizsifizefizefijzefceizf";
+  static String default9DigitPasswords = "eififizsifizefizefij";
   static String defaultPasswordKey = "wjeifjeidsqw";
   static String defaultThemeColor = "defaultThemeColor";
   static String themeMode = "themeMode";

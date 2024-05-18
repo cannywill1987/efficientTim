@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
 import 'package:time_hello/com/timehello/beans/UserBean.dart';
+import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/models/MusicModel.dart';
 // import 'dart:convert' as convert;
 
@@ -125,6 +126,24 @@ class SharePreferenceUtil {
   void setLoopOnRelaxing({isOn: false}) {
     if(mSharedPreferences != null) {
       mSharedPreferences?.setBool('LoopOnRelaxing', isOn);
+    }
+  }
+  bool getDefault9DigitPasswordsNeedShowWhenLogin() {
+    return mSharedPreferences?.getBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLogin) ?? true;
+  }
+
+  void setDefault9DigitPasswordsNeedShowWhenLogin({isOn: false}) {
+    if(mSharedPreferences != null) {
+      mSharedPreferences?.setBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLogin, isOn);
+    }
+  }
+  bool getDefault9DigitPasswordsNeedShowWhenLoginAppLock() {
+    return mSharedPreferences?.getBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLoginAppLock) ?? true;
+  }
+
+  void setDefault9DigitPasswordsNeedShowWhenLoginAppLock({isOn: false}) {
+    if(mSharedPreferences != null) {
+      mSharedPreferences?.setBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLoginAppLock, isOn);
     }
   }
 
