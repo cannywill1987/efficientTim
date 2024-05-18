@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/libs/flutter_screen_lock/src/functions.dart';
 import 'package:time_hello/com/timehello/page/loginPage/LoginPage.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';

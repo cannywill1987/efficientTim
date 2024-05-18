@@ -2,7 +2,7 @@ import 'dart:async';
 
 // import 'package:appflowy_editor/appflowy_editor.dart';
 // import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,11 +21,9 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/UnregisterPage/UnregisterPage.dart';
 import 'package:time_hello/com/timehello/page/splashPage/SplashPage.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
-import 'package:time_hello/com/timehello/util/FirebaseManager.dart';
 import 'package:time_hello/com/timehello/util/HtmlUtility.dart';
 import 'package:time_hello/com/timehello/util/NumTimesAppOpenManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
-import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -49,7 +47,7 @@ import 'com/timehello/util/NotificationManager.dart';
 import 'com/timehello/util/SharePreferenceUtil.dart';
 import 'com/timehello/util/TickTimeManager.dart';
 import 'generated/l10n.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -63,10 +61,21 @@ void main() async {
   } catch (e) {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
-  if(!Utility.isXiaoMi()) {
-    await FirebaseManager.initialized();
-  }
-
+  // if (DeviceInfoManagement.isWEB() == false) {
+  //   await Firebase.initializeApp(
+  //     name: "TimerBell",
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  //   );
+  // } else {
+  //   await Firebase.initializeApp(
+  //     options: FirebaseOptions(
+  //       apiKey: "xxx",
+  //       appId: "xxx",
+  //       messagingSenderId: "xxx",
+  //       projectId: "xxx",
+  //     ),
+  //   );
+  // }
   // runZoned(() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => MissionDetailEnv()),
@@ -97,10 +106,6 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
   // print('1111111111111 initThirdparty');
   //初始化如果依赖sharePreference
   if (PrivacyProtocolManager.getInstance().isProtocolAgreed(context) == true) {
-    if(Utility.isXiaoMi()) {
-      await FirebaseManager.initialized();
-    }
-
     NotificationManager.getInstance()?.init();
     MongoDb.initMasterKey(
         Params.mBaseUrl + "/api",
@@ -194,13 +199,12 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     //   EasyLoadingManager.getInstance().showLoading();
     // }
 
-
     HtmlUtility.dismissLoading();
     try {
       //app 生命周期
       SystemChannels.lifecycle.setMessageHandler((msg) async {
         switch (msg) {
-          // 从后台切换到前台，界面可见
+        // 从后台切换到前台，界面可见
           case "AppLifecycleState.resumed":
             break;
 // 界面不可见，后台运行中
@@ -265,9 +269,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
   }
 
   List<NavigatorObserver> getObservers() {
-    if (DeviceInfoManagement.isWEB() == false) {
-      return [AnalyticsEventsManager.getInstance().observer];
-    }
+    // if (DeviceInfoManagement.isWEB() == false) {
+    //   return [AnalyticsEventsManager.getInstance().observer];
+    // }
     return [];
   }
 
@@ -289,11 +293,11 @@ class _MyAppState extends BaseWidgetState<MyApp> {
       light: ThemeManager.getInstance().getLightThemeData(),
       dark: ThemeManager.getInstance().getDarkThemeData(),
       initial: ThemeManager.getInstance().getThemeMode(),
-      builder: (lightTheme, darkTheme) =>   MaterialApp(
+      builder: (lightTheme, darkTheme) => MaterialApp(
         theme:
-            ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
-                ? lightTheme
-                : darkTheme,
+        ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
+            ? lightTheme
+            : darkTheme,
         // theme: ThemeManager.getInstance().getThemeData(),
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,

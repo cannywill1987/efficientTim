@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 // import 'package:progress_dialog/progress_dialog.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
@@ -174,105 +174,105 @@ class AutoUpdateManager {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     if (DeviceInfoManagement.isAndroid() == true &&
         androidInfo.version.sdkInt! <= 28) {
-      final status = await Permission.storage.status;
-      if (status != PermissionStatus.granted) {
-        final result = await Permission.storage.request();
-        if (result == PermissionStatus.granted) {
-          return true;
-        }
-      } else {
-        return true;
-      }
+      // final status = await Permission.storage.status;
+      // if (status != PermissionStatus.granted) {
+      //   final result = await Permission.storage.request();
+      //   if (result == PermissionStatus.granted) {
+      //     return true;
+      //   }
+      // } else {
+      //   return true;
+      // }
     } else {
       return true;
     }
     return false;
   }
-  //
-  // /// 执行更新操作
-  // _doUpdate(BuildContext context) async {
-  //   Navigator.pop(context);
-  //   _executeDownload(context);
-  // }
-  //
-  // /// 下载最新apk包
-  // Future<void> _executeDownload(BuildContext context) async {
-  //   // pr = new ProgressDialog(
-  //   //   context,
-  //   //   type: ProgressDialogType.Download,
-  //   //   isDismissible: true,
-  //   //   showLogs: true,
-  //   // );
-  //   // pr?.style(message: getI18NKey().ready_to_download + '...');
-  //   // if (!pr!.isShowing()) {
-  //   //   pr?.show();
-  //   // }
-  //
-  //   final path = await _apkLocalPath;
-  //   if (File(appPath + "/" + apkName).existsSync() == false) {
-  //     // await FlutterDownloader.enqueue(
-  //     //     url: Params.updateInfoDeliveryInfoBean?.resourcePictureUrl ?? '',
-  //     //     savedDir: path,
-  //     //     fileName: apkName,
-  //     //     showNotification: true,
-  //     //     openFileFromNotification: true);
-  //   } else {
-  //     _installApk();
-  //   }
-  // }
-  //
-  // /// 下载进度回调函数
-  // @pragma('vm:entry-point')
-  // static void _downLoadCallback(
-  //   //   String id, DownloadTaskStatus status, int progress) {
-  //   // final SendPort? send =
-  //   //     IsolateNameServer.lookupPortByName('downloader_send_port');
-  //   // send?.send([id, status, progress]);
-  // }
-  //
-  // /// 更新下载进度框
-  // _updateDownLoadInfo(dynamic data) {
-  //   // DownloadTaskStatus status = data[1];
-  //   // int progress = data[2];
-  //   // print('progress:${progress}');
-  //   // if (status == DownloadTaskStatus.running) {
-  //   //   pr?.update(
-  //   //       progress: double.parse(progress.toString()),
-  //   //       message: getI18NKey().downloading_please_wait);
-  //   // }
-  //   // if (status == DownloadTaskStatus.failed) {
-  //   //   if (pr!.isShowing()) {
-  //   //     pr!.hide();
-  //   //   }
-  //   // }
-  //   //
-  //   // if (status == DownloadTaskStatus.complete) {
-  //   //   if (pr!.isShowing()) {
-  //   //     pr!.hide();
-  //   //   }
-  //   //   _installApk();
-  //   // }
-  // }
-  //
-  // /// 安装apk
-  // Future<Null> _installApk() async {
-  //   await OpenFile.open(appPath + '/' + apkName);
-  // }
-  //
-  // /// 获取apk存储位置
-  // Future<String> get _apkLocalPath async {
-  //   final directory = await getExternalStorageDirectory();
-  //   String path = directory!.path + Platform.pathSeparator + 'Download';
-  //   ;
-  //   final savedDir = Directory(path);
-  //   bool hasExisted = await savedDir.exists();
-  //   if (!hasExisted) {
-  //     await savedDir.create();
-  //   }
-  //   appPath = path;
-  //   // this.setState((){
-  //   //   appPath = path;
-  //   // });
-  //   return path;
-  // }
+//
+// /// 执行更新操作
+// _doUpdate(BuildContext context) async {
+//   Navigator.pop(context);
+//   _executeDownload(context);
+// }
+//
+// /// 下载最新apk包
+// Future<void> _executeDownload(BuildContext context) async {
+//   // pr = new ProgressDialog(
+//   //   context,
+//   //   type: ProgressDialogType.Download,
+//   //   isDismissible: true,
+//   //   showLogs: true,
+//   // );
+//   // pr?.style(message: getI18NKey().ready_to_download + '...');
+//   // if (!pr!.isShowing()) {
+//   //   pr?.show();
+//   // }
+//
+//   final path = await _apkLocalPath;
+//   if (File(appPath + "/" + apkName).existsSync() == false) {
+//     // await FlutterDownloader.enqueue(
+//     //     url: Params.updateInfoDeliveryInfoBean?.resourcePictureUrl ?? '',
+//     //     savedDir: path,
+//     //     fileName: apkName,
+//     //     showNotification: true,
+//     //     openFileFromNotification: true);
+//   } else {
+//     _installApk();
+//   }
+// }
+//
+// /// 下载进度回调函数
+// @pragma('vm:entry-point')
+// static void _downLoadCallback(
+//   //   String id, DownloadTaskStatus status, int progress) {
+//   // final SendPort? send =
+//   //     IsolateNameServer.lookupPortByName('downloader_send_port');
+//   // send?.send([id, status, progress]);
+// }
+//
+// /// 更新下载进度框
+// _updateDownLoadInfo(dynamic data) {
+//   // DownloadTaskStatus status = data[1];
+//   // int progress = data[2];
+//   // print('progress:${progress}');
+//   // if (status == DownloadTaskStatus.running) {
+//   //   pr?.update(
+//   //       progress: double.parse(progress.toString()),
+//   //       message: getI18NKey().downloading_please_wait);
+//   // }
+//   // if (status == DownloadTaskStatus.failed) {
+//   //   if (pr!.isShowing()) {
+//   //     pr!.hide();
+//   //   }
+//   // }
+//   //
+//   // if (status == DownloadTaskStatus.complete) {
+//   //   if (pr!.isShowing()) {
+//   //     pr!.hide();
+//   //   }
+//   //   _installApk();
+//   // }
+// }
+//
+// /// 安装apk
+// Future<Null> _installApk() async {
+//   await OpenFile.open(appPath + '/' + apkName);
+// }
+//
+// /// 获取apk存储位置
+// Future<String> get _apkLocalPath async {
+//   final directory = await getExternalStorageDirectory();
+//   String path = directory!.path + Platform.pathSeparator + 'Download';
+//   ;
+//   final savedDir = Directory(path);
+//   bool hasExisted = await savedDir.exists();
+//   if (!hasExisted) {
+//     await savedDir.create();
+//   }
+//   appPath = path;
+//   // this.setState((){
+//   //   appPath = path;
+//   // });
+//   return path;
+// }
 }

@@ -29,10 +29,10 @@ import 'dart:convert';
 
 class CounterMethodChannelManager {
   static const MethodChannel _channel =
-      const MethodChannel('com.efficienttime.counter');
+  const MethodChannel('com.efficienttime.counter');
   static CounterMethodChannelManager? _instance;
   List<OnMethodChannelResponseListener> onMethodChannelResponseLisntenerList =
-      [];
+  [];
 
   static CounterMethodChannelManager getInstance() {
     if (_instance == null) {
@@ -55,52 +55,52 @@ class CounterMethodChannelManager {
 
   Future<bool> shareToQQ(
       {String title = "",
-      String subtitle = "",
-      String iconUrl = "",
-      String url = ""}) async {
+        String subtitle = "",
+        String iconUrl = "",
+        String url = ""}) async {
     return (await _channel.invokeMethod<bool>('shareToQQ', [
-          {
-            "title": title,
-            "subtitle": subtitle,
-            "url": url,
-            "iconUrl": iconUrl,
-            "isOn": true,
-          }
-        ])) ??
+      {
+        "title": title,
+        "subtitle": subtitle,
+        "url": url,
+        "iconUrl": iconUrl,
+        "isOn": true,
+      }
+    ])) ??
         false;
   }
 
   Future<bool> shareToWeChat(
       {String title = "",
-      String subtitle = "",
-      int toWhere = 0,
-      String iconUrl = "",
-      String url = "",
-      bool isOn = false}) async {
+        String subtitle = "",
+        int toWhere = 0,
+        String iconUrl = "",
+        String url = "",
+        bool isOn = false}) async {
     return (await _channel.invokeMethod<bool>('shareToWechat', [
-          {
-            "title": title,
-            "subtitle": subtitle,
-            "url": url,
-            "iconUrl": iconUrl,
-            "toWhere": toWhere,
-            "isOn": isOn
-          }
-        ])) ??
+      {
+        "title": title,
+        "subtitle": subtitle,
+        "url": url,
+        "iconUrl": iconUrl,
+        "toWhere": toWhere,
+        "isOn": isOn
+      }
+    ])) ??
         false;
   }
 
   triggerOnMethodChannelResponseListener(String method, Map arguments) {
     for (int i = 0; i < this.onMethodChannelResponseLisntenerList.length; i++) {
       OnMethodChannelResponseListener f =
-          this.onMethodChannelResponseLisntenerList[i];
+      this.onMethodChannelResponseLisntenerList[i];
       f(method, arguments, _channel);
     }
   }
 
   addOnRequestFinishListener(
       {required OnMethodChannelResponseListener
-          onMethodChannelResponseLisntener}) {
+      onMethodChannelResponseLisntener}) {
     this
         .onMethodChannelResponseLisntenerList
         .add(onMethodChannelResponseLisntener);
@@ -108,7 +108,7 @@ class CounterMethodChannelManager {
 
   removeOnRequestFinishListener(
       {required OnMethodChannelResponseListener
-          onMethodChannelResponseListener}) {
+      onMethodChannelResponseListener}) {
     this
         .onMethodChannelResponseLisntenerList
         .remove(onMethodChannelResponseListener);
@@ -126,7 +126,7 @@ class CounterMethodChannelManager {
   Future<BaseBean> getLiveActivityData({Function? result}) async {
     if (Utility.isIOS() == true || Utility.isMacOS() == true) {
       String res =
-          (await _channel.invokeMethod<String>('getLiveActivityData') ?? "");
+      (await _channel.invokeMethod<String>('getLiveActivityData') ?? "");
       BaseBean bean = BaseBean.fromJson(jsonDecode(res));
       if (result != null) {
         result(bean);
@@ -134,7 +134,7 @@ class CounterMethodChannelManager {
       return bean;
     } else {
       BaseBean bean =
-          BaseBean(message: "", success: false, code: "", data: null);
+      BaseBean(message: "", success: false, code: "", data: null);
       if (result != null) {
         result(bean);
       }
@@ -232,8 +232,8 @@ class CounterMethodChannelManager {
           List<Map> listMissionModel = [];
           if (element.missionModelList.length > 0) {
             List<MissionModel> datasMissionModel =
-                Utility.filterMissionModelByFinishedState(
-                    list: element.missionModelList, isFinished: false);
+            Utility.filterMissionModelByFinishedState(
+                list: element.missionModelList, isFinished: false);
             datasMissionModel.forEach((MissionModel model) {
               FolderModel? folderModel = Utility.getFolderModelByObjId(model.folder_id ?? "");
               model.color = folderModel?.color ?? 0xffff8800;
@@ -252,7 +252,7 @@ class CounterMethodChannelManager {
       });
       if (listTmp.length > 0) {
         return (await _channel.invokeMethod<bool>(
-                'storeMyCalendarMissionList', listTmp)) ??
+            'storeMyCalendarMissionList', listTmp)) ??
             false;
       }
     } catch (e) {
@@ -275,8 +275,8 @@ class CounterMethodChannelManager {
         List<Map> listFlomoMissionModel = [];
         if (element.flomoMissionModelList.length > 0) {
           List<FlomoMissionModel> datasFlomoMissionModel =
-              Utility.filterFlomoMissionModelByFinishedState(
-                  list: element.flomoMissionModelList, isFinished: false);
+          Utility.filterFlomoMissionModelByFinishedState(
+              list: element.flomoMissionModelList, isFinished: false);
           datasFlomoMissionModel.forEach((FlomoMissionModel model) {
             Map item = model.toJson();
             item["percent"] = Utility.getPercentOfNumClocksIn(
@@ -292,7 +292,7 @@ class CounterMethodChannelManager {
       });
       if (listTmp.length > 0) {
         return (await _channel.invokeMethod<bool>(
-                'storeFlomoMissionList', listTmp)) ??
+            'storeFlomoMissionList', listTmp)) ??
             false;
       }
     } catch (e) {
@@ -308,10 +308,10 @@ class CounterMethodChannelManager {
     try {
       List<Map> listTmp = [];
       List<Map> listModellistMap =
-          parseMissionModelList2(listMissionModels: list);
+      parseMissionModelList2(listMissionModels: list);
       if (listModellistMap.length > 0) {
         return (await _channel.invokeMethod<bool>(
-                'storeMissionList', listModellistMap)) ??
+            'storeMissionList', listModellistMap)) ??
             false;
       }
     } catch (e) {
@@ -370,7 +370,7 @@ class CounterMethodChannelManager {
         listTmp.add(map);
       });
       return (await _channel.invokeMethod<bool>(
-              'storeMissionDataList', listTmp)) ??
+          'storeMissionDataList', listTmp)) ??
           false;
     } catch (e) {
       Utility.print(e);
@@ -420,7 +420,7 @@ class CounterMethodChannelManager {
   Future<bool> requestStatusBar(CounterModelRequest focusRequest) async {
     try {
       return (await _channel.invokeMethod<bool>(
-              'requestStatusBar', [focusRequest.toJson()])) ??
+          'requestStatusBar', [focusRequest.toJson()])) ??
           false;
     } catch (e) {}
     return false;
@@ -434,7 +434,7 @@ class CounterMethodChannelManager {
       return BaseBean.fromJson(jsonDecode(res));
     } else {
       bool isNotificationOn =
-          await PermissionManager.getInstance().isNotificationOn();
+      true;
       return BaseBean(
           message: "", success: true, code: "", data: isNotificationOn);
     }
@@ -463,7 +463,7 @@ class CounterMethodChannelManager {
   Future<BaseBean> cancelAllPendingNotification({Function? result}) async {
     try {
       String res = (await _channel
-              .invokeMethod<String>('cancelAllPendingNotification')) ??
+          .invokeMethod<String>('cancelAllPendingNotification')) ??
           "";
       return BaseBean.fromJson(jsonDecode(res));
     } catch (e) {}
@@ -604,21 +604,21 @@ class CounterMethodChannelManager {
 
   Future<bool> requestPushNotificationWithDelay(
       {String title = "",
-      String content = "",
-      int delay = 0,
-      String extendsParams = "",
-      String id = ""}) async {
+        String content = "",
+        int delay = 0,
+        String extendsParams = "",
+        String id = ""}) async {
     // if(DeviceInfoManagement.getInstance()?.isIOS() == true || DeviceInfoManagement.getInstance()?.isMacOs()) {
     // {title, content, delay, extendsParams}
     return (await _channel.invokeMethod<bool>('pushCounterNotification', [
-          {
-            "title": title,
-            "content": content,
-            "delay": delay,
-            "extendsParams": extendsParams,
-            "id": id
-          }
-        ])) ??
+      {
+        "title": title,
+        "content": content,
+        "delay": delay,
+        "extendsParams": extendsParams,
+        "id": id
+      }
+    ])) ??
         false;
     // }
   }
@@ -643,7 +643,7 @@ class CounterMethodChannelManager {
     for (int i = 0; i < length; i++) {
       PushDataModel map = pushDataModelList.list[i];
       DateTime dateTime =
-          Utility.getDateTimeFromTimeStamp(map.whenMilliseconds);
+      Utility.getDateTimeFromTimeStamp(map.whenMilliseconds);
       // String idExt = dateTime.year + dateTime.month + dateTime.day + dateTime.hour + dateTime.minute;
       //必须要加这个判断 否则以前设置的通知也会响起来
       if (map.whenMilliseconds > Utility.getTimeStampToday()) {
@@ -667,8 +667,8 @@ class CounterMethodChannelManager {
       return val1['when'] > val2['when']
           ? 1
           : val1['when'] < val2['when']
-              ? -1
-              : 0;
+          ? -1
+          : 0;
     });
     // return (await _channel.invokeMethod<bool>(
     //     'pushListNotificationWithWhen', pushDataModelList.list.sublist(0, 100)));
@@ -698,30 +698,30 @@ class CounterMethodChannelManager {
    */
   Future<bool> pushNotificationWithWhen(
       {String title = '',
-      String content = '',
-      String summaryText = '', //android才有， 右上角的标题
-      int whenMilliseconds = 0,
-      String id = ''}) async {
+        String content = '',
+        String summaryText = '', //android才有， 右上角的标题
+        int whenMilliseconds = 0,
+        String id = ''}) async {
     try {
 
-    DateTime dateTime = Utility.getDateTimeFromTimeStamp(whenMilliseconds);
-    String idTmp = id + (whenMilliseconds ~/ 1000).toString();
-    // if (idTmp.length > 10) {
-    //   idTmp = idTmp.substring(0, 10);
-    // }
-    return (await _channel.invokeMethod<bool>('pushNotificationWithWhen', [
-          {
-            "title": title + "-" + dateTime.toString(),
-            "content": content,
-            "summaryText": summaryText ?? "",
-            "when": whenMilliseconds ~/ 1000,
-            "id": id,
-            // "action": action ?? Params.ACTION_COUNTER_PUSH_NOTIFICATION
-          }
-        ])) ??
-        false;
+      DateTime dateTime = Utility.getDateTimeFromTimeStamp(whenMilliseconds);
+      String idTmp = id + (whenMilliseconds ~/ 1000).toString();
+      // if (idTmp.length > 10) {
+      //   idTmp = idTmp.substring(0, 10);
+      // }
+      return (await _channel.invokeMethod<bool>('pushNotificationWithWhen', [
+        {
+          "title": title + "-" + dateTime.toString(),
+          "content": content,
+          "summaryText": summaryText ?? "",
+          "when": whenMilliseconds ~/ 1000,
+          "id": id,
+          // "action": action ?? Params.ACTION_COUNTER_PUSH_NOTIFICATION
+        }
+      ])) ??
+          false;
     } catch(e) {
-        return false;
+      return false;
     }
     // }
   }
@@ -730,8 +730,8 @@ class CounterMethodChannelManager {
     // if(DeviceInfoManagement.getInstance()?.isIOS() == true || DeviceInfoManagement.getInstance()?.isMacOs()) {
     // {title, content, delay, extendsParams}
     return (await _channel.invokeMethod<bool>('cancelPushCounterNotification', [
-          {"action": id, 'id': id}
-        ])) ??
+      {"action": id, 'id': id}
+    ])) ??
         false;
     // }
   }
@@ -753,8 +753,8 @@ class CounterMethodChannelManager {
 
   Future<bool> startLiveActivity() async {
     try {
-    return (await _channel.invokeMethod<bool>('startLiveActivity', [])) ??
-        false;
+      return (await _channel.invokeMethod<bool>('startLiveActivity', [])) ??
+          false;
     } catch(e) {
       return false;
     }
@@ -827,17 +827,17 @@ class CounterModelRequest {
   });
 
   Map toJson() => {
-        'objectId': objectId,
-        'statusString': statusString,
-        'bgUrl': bgUrl,
-        'numTomatees': numTomatees,
-        'totalTomatees': totalTomatees,
-        'focusedDuration': focusedDuration,
-        'isCountDown': isCountDown,
-        'time': time,
-        'title': title,
-        'shouldShowRedFocusStatus': shouldShowRedFocusStatus,
-        'status': status,
-        'text': text,
-      };
+    'objectId': objectId,
+    'statusString': statusString,
+    'bgUrl': bgUrl,
+    'numTomatees': numTomatees,
+    'totalTomatees': totalTomatees,
+    'focusedDuration': focusedDuration,
+    'isCountDown': isCountDown,
+    'time': time,
+    'title': title,
+    'shouldShowRedFocusStatus': shouldShowRedFocusStatus,
+    'status': status,
+    'text': text,
+  };
 }

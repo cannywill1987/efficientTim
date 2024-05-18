@@ -33,7 +33,7 @@ import 'components/record.dart';
 class RecordPage2 extends BaseWidget {
   final RichTextModeEnum richTextModeEnum;
   final bool? shouldShowTitle;
-   final void Function(String title, String path, String localPath,int duration, int fileSize)? onSubmit;
+  final void Function(String title, String path, String localPath,int duration, int fileSize)? onSubmit;
   const RecordPage2({required this.shouldShowTitle, required this.richTextModeEnum, required this.onSubmit,});
 
   @override
@@ -60,34 +60,34 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
     return Center(
       child: showPlayer
           ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: AudioPlayerWidget(
-                source: audioPath!,
-                onDelete: () {
-
-                  setState(() => showPlayer = false);
-                }, hintText: null, onSubmit: (String title) {
-                  this.title = title;
-                  // if(this.widget.richTextModeEnum == RichTextModeEnum.getUrl) {
-                  //   this.widget.onSubmit?.call(title, this.audioPath ?? "", this.duration);
-                  // } else {
-                    requestFinish(
-                        duration: this.duration, path: this.audioPath ?? "");
-                  // }
-              }, shouldShowTitle: this.widget.shouldShowTitle == true || this.widget.richTextModeEnum == RichTextModeEnum.diary, onCancel: () { Utility.popupPagePCAndMobile(context); },
-              ),
-            )
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        // child: AudioPlayerWidget(
+        //   source: audioPath!,
+        //   onDelete: () {
+        //
+        //     setState(() => showPlayer = false);
+        //   }, hintText: null, onSubmit: (String title) {
+        //     this.title = title;
+        //     // if(this.widget.richTextModeEnum == RichTextModeEnum.getUrl) {
+        //     //   this.widget.onSubmit?.call(title, this.audioPath ?? "", this.duration);
+        //     // } else {
+        //       requestFinish(
+        //           duration: this.duration, path: this.audioPath ?? "");
+        //     // }
+        // }, shouldShowTitle: this.widget.shouldShowTitle == true || this.widget.richTextModeEnum == RichTextModeEnum.diary, onCancel: () { Utility.popupPagePCAndMobile(context); },
+        // ),
+      )
           : _AudioRecorder(
-              onStop: (path, duration) {
-                // if (kDebugMode) print('Recorded file path: $path');
-                setState(() {
-                  this.duration = duration;
-                  audioPath = path;
-                  showPlayer = true;
-                });
-              },
-              richTextModeEnum: this.widget.richTextModeEnum,
-            ),
+        onStop: (path, duration) {
+          // if (kDebugMode) print('Recorded file path: $path');
+          setState(() {
+            this.duration = duration;
+            audioPath = path;
+            showPlayer = true;
+          });
+        },
+        richTextModeEnum: this.widget.richTextModeEnum,
+      ),
     );
 
     //   _AudioRecorder(onStop: (String path) {

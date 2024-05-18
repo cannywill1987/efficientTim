@@ -4136,7 +4136,10 @@ class Utility {
         onError: (Exception exception) =>
             print('_loadFile => exception $exception'));
     final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$title.$extension');
+    var uri = new Uri.file('${dir.path}/$title.$extension');
+    final file = File(uri.toFilePath(windows: DeviceInfoManagement.isWindows()));
+    // await file.writeAsBytes(bytes
+    // final file = File('${dir.path}/$title.$extension');
     await file.writeAsBytes(bytes);
     if (await file.exists()) return file.path;
     return null;

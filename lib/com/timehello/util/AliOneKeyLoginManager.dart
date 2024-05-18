@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -181,7 +181,7 @@ class AliOneKeyLoginManager {
     /// 初始化前需要须对插件进行监听
     await AliAuth.initSdk(
         Utility.isAndroid() ? getFullPortVideoConfig() : getIOSFullPortVideoConfig()
-        // getDialogConfig()
+      // getDialogConfig()
     );
     // AliAuth.openPage(pageRoute)
     AliAuth.login();
@@ -352,8 +352,8 @@ class AliOneKeyLoginManager {
     };
     CustomView customReturnBtn = CustomView.fromJson(configMap);
     return AliAuthModel(androidSk, iosSk,
-        isDebug: Params.isDebug,
-        isDelay: false,
+      isDebug: Params.isDebug,
+      isDelay: false,
       pageType: PageType.dialogPort,
       privacyOffsetX: -1,
       statusBarColor: "#026ED2",
