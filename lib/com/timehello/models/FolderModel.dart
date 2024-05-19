@@ -41,6 +41,8 @@ class FolderModel extends MongoDbObject {
   int? iconType =
       0; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单
   List<String>? groupModelObjectIdOrderList = []; //用于groumodel objectId的排序
+  String? folderTeamWorkId; // 群id 用于添加文件夹共享
+  String? introText; // 群id 用于添加文件夹共享
   List? otherUids = []; //用于私有模式别的用户加入
   List? otherUserInfo = []; //用于私有模式别的用户加入
   bool? isOtherUserEditable =

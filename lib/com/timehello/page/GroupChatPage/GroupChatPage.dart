@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 
-class GroupChatPage extends StatefulWidget {
+class GroupChatPage extends BaseWidget {
+
+  const GroupChatPage({Key? key}) : super(key: key);
+
   @override
   _GroupChatPageState createState() => _GroupChatPageState();
+
+  @override
+  BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
+    // TODO: implement getState
+    return _GroupChatPageState();
+  }
 }
 
-class _GroupChatPageState extends State<GroupChatPage> {
+class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
   @override
-  Widget build(BuildContext context) {
+  Widget baseBuild(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('群聊'),
-      ),
       body: Column(
         children: [
           _buildAnnouncement(),

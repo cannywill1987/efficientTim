@@ -163,11 +163,197 @@ class CreateShareFolderPageWidget
       child: SingleChildScrollView(
         child: Column(
           children: [
+            InkWell(
+              onTap: () {
+                DialogManagement.getInstance().showSelectBgDialog(context,
+                    list: ResourceInfo.missionItemBackgroundLocationInfoBean
+                            ?.deliveryList ??
+                        [], onTapListener: (String imgUrl) {
+                  setState(() {
+                    this.backgroundUrl = imgUrl;
+                    this.widget.courseModel?.backgroundUrl = imgUrl;
+                  });
+                  DialogManagement.getInstance().hideDialog(context);
+                });
+              },
+              child: Container(
+                height: 150,
+                child: Stack(
+                  children: [
+                    // 网络加载的图片
+                    Container(
+                      height: 150,
+                      width: double.infinity,
+                      child: CachedNetworkImage(
+                        imageUrl: Utility.filterHttpUrl(backgroundUrl ?? '', prefix: "oss"),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
+                    Positioned(
+                      top: 18,
+                      left: 18,
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: IconButton(
+                          onPressed: () {
+                            print('关闭');
+                            Utility.popupPagePCAndMobile(context);
+                          },
+                          icon: Icon(
+                            Icons.close, // 设置为关闭图标
+                            size: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 18,
+                      right: 18,
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: IconButton(
+                          onPressed: () {
+                            // print('更换背景');
+                            this.onClickSave();
+                          },
+                          icon: Icon(
+                            Icons.check, // 更改为打钩图标
+                            size: 20,
+                            color: Colors.green, // 设置图标颜色为绿色
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.white,
+                                  Colors.white.withOpacity(0),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: avatarWidth * 2 / 6,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AvatarWidget(
+                                  width: 45,
+                                  avatar: LoginManager.getInstance()
+                                      .userBean
+                                      .avatar)
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+            ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: TextField(
+                      controller: controllerTitle,
+                      maxLength: 200,
+                      onChanged: (String title) async {
+                        this.widget.courseModel?.title = title;
+                      },
+                      style: TextStyle(
+                        color: Color(0xFF404040),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '标题',
+                        hintStyle: TextStyle(
+                          color: Color(0xFF999999),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                        onTap: () {
+                          LoginManager.getInstance().hasUserName(
+                              context: context,
+                              callback: () {
+                                setState(() {});
+                                // Utility.pushToGame(context: context, bean: res);
+                              });
+                        },
+                        child: Text(
+                          TextUtil.isEmpty(
+                                  LoginManager.getInstance().userBean.username)
+                              ? getI18NKey().please_input_your_username
+                              : "--" +
+                                  LoginManager.getInstance().userBean.username,
+                          style: TextStyle(
+                              color: TextUtil.isEmpty(LoginManager.getInstance()
+                                      .userBean
+                                      .username)
+                                  ? ColorsConfig.red
+                                  : Color(0xff404040)),
+                        )),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -364,6 +550,28 @@ class CreateShareFolderPageWidget
                                         width: 1,
                                         color: Color(0xFF999999),
                                       ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        getI18NKey().yuan,
+                                        style: TextStyle(
+                                            color: Color(0xff404040),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      // Icon(
+                                      //   Icons.star,
+                                      //   size: 12,
+                                      //   color: Colors.yellow,
+                                      // ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 10,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -371,6 +579,183 @@ class CreateShareFolderPageWidget
                             ),
                           ),
                         ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    getI18NKey().author_intro,
+                    style: TextStyle(
+                      color: Color(0xFF404040),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFF5F5F5),
+                        borderRadius: BorderRadius.circular(6)),
+                    child: TextField(
+                      controller: controllerAuthorIntro,
+                      maxLines: 3000,
+                      keyboardType: TextInputType.multiline,
+                      textAlign: TextAlign.left,
+                      onChanged: (String authorIntro) async {
+                        this.widget.courseModel?.authorIntro = authorIntro;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: InputBorder.none,
+                        fillColor: Colors.transparent,
+                        hintText:
+                            getI18NKey().author_presentation_content,
+                        hintStyle: TextStyle(
+                          color: Color(0xFF999999),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Text(
+                  //   '作者简介内容xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 作者简介内容xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 作者简介内容xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 作者简介内容xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                  //   style: TextStyle(
+                  //     color: Color(0xFF999999),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    getI18NKey().course_intro,
+                    style: TextStyle(
+                      color: Color(0xFF404040),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFF5F5F5),
+                        borderRadius: BorderRadius.circular(6)),
+                    child: TextField(
+                      controller: controllerCourseIntro,
+                      maxLines: 3000,
+                      keyboardType: TextInputType.multiline,
+                      textAlign: TextAlign.left,
+                      onChanged: (String courseIntro) async {
+                        this.widget.courseModel?.courseIntro = courseIntro;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: InputBorder.none,
+                        fillColor: Colors.transparent,
+                        hintText:
+                            getI18NKey().course_introduction,
+                        hintStyle: TextStyle(
+                          color: Color(0xFF999999),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (Utility.isHandsetBySize() == true) {
+                        Future.delayed(Duration(milliseconds: 100), () {
+                          Utility.pushNavigator(
+                              context,
+                              RichEditorPage(
+                                  onOkListener: (url, timelineMissionModelObjectId, numberNoteWords) {
+                                    this.widget.courseModel?.courseDetailPlan =
+                                        url;
+                                    setState(() {});
+                                    print(url);
+                                  },
+                                  richTextModeEnum: RichTextModeEnum.getUrl));
+                        });
+                      } else {
+                        Future.delayed(Duration(milliseconds: 100), () {
+                          DialogManagement.getInstance().showPCCustomDialog(
+                              context: context,
+                              widget: RichEditorPage(
+                                  onOkListener: (url, timelineMissionModelObjectId, numberNoteWords) {
+                                    this.widget.courseModel?.courseDetailPlan =
+                                        url;
+                                    setState(() {});
+                                    print(url);
+                                  },
+                                  richTextModeEnum: RichTextModeEnum.getUrl));
+                        });
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    getI18NKey().detailed_training_plan,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    this.widget.courseModel?.courseDetailPlan ??
+                                        getI18NKey()
+                                            .detailed_training_plan_desc,
+                                    style: TextStyle(
+                                        color: Color(0xff999999),
+                                        fontSize: 13,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              getI18NKey().detailed_training_plan_optional,
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ImagesWrapperWidget(
+                    listBigImages: this.widget.courseModel?.imageBigUrls,
+                    listSmallImages: this.widget.courseModel?.imageSmallUrls,
+                    listOriginImages: this.widget.courseModel?.imageOriginUrls,
+                    onChange:
+                        (listOriginImages, listSmallImages, listBigImages) {
+                      this.widget.courseModel?.imageSmallUrls = listSmallImages;
+                      this.widget.courseModel?.imageBigUrls = listBigImages;
+                      this.widget.courseModel?.imageOriginUrls =
+                          listOriginImages;
+                    },
+                  ),
                 ],
               ),
             ),

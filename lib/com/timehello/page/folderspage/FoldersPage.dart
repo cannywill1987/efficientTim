@@ -465,6 +465,8 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             {"folderModel": data, "folderStatus": folderStatus});
       }
     } else {
+      Utility.openRightSideDesktopNavigator(
+          context, 'GroupChatPage', {});
       Utility.pushCurFolderModel(context,
           folderModel: data, folderStatus: folderStatus);
       Utility.pushDesktopNavigator(

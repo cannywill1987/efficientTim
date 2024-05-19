@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/CountDownListViewPage/CountDownListViewPage.dart';
 import 'package:time_hello/com/timehello/page/CoursePage/CoursePage.dart';
 import 'package:time_hello/com/timehello/page/CreditCardManagementPage/pages/CreditCardContainer.dart';
+import 'package:time_hello/com/timehello/page/GroupChatPage/GroupChatPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/CalendarPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementContainer.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
@@ -229,6 +230,10 @@ Widget desktopRightRouter(String page, Map data) {
       ));
     case 'ChatGptPage':
       return getContainer(ChatGptPage(
+        key: ValueKey("ejzifjf123zefzef"),
+      ));
+    case 'GroupChatPage':
+      return getContainer(GroupChatPage(
         key: ValueKey("ejzifjf123zefzef"),
       ));
     default:
