@@ -43,8 +43,9 @@ class FolderModel extends MongoDbObject {
   List<String>? groupModelObjectIdOrderList = []; //用于groumodel objectId的排序
   String? folderTeamWorkId; // 群id 用于添加文件夹共享
   String? introText; // 群id 用于添加文件夹共享
+  String? groupChatPassword; // 群密码
   List? otherUids = []; //用于私有模式别的用户加入
-  List? otherUserInfo = []; //用于私有模式别的用户加入
+  List? otherUserInfo = []; //用于私有模式别的用户加入 {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username}
   bool? isOtherUserEditable =
       false; //isSharring = 1 时才用上 因为这时otherUids也是可以共同编辑 folderModel的状态的
   int? isSharing = 0; //0 未分享中 1 之后分享中 - 1 免费开放 需要id 2 私有 - 需要搜索 3 销售（只针对国内）

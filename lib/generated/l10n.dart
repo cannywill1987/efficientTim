@@ -50,6 +50,156 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `share`
+  String get share {
+    return Intl.message(
+      'share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `谁可以查看/编辑文件`
+  String get who_can_view_or_edit {
+    return Intl.message(
+      '谁可以查看/编辑文件',
+      name: 'who_can_view_or_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `仅我自己`
+  String get only_me {
+    return Intl.message(
+      '仅我自己',
+      name: 'only_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `仅我分享的好友`
+  String get only_share_with_friends {
+    return Intl.message(
+      '仅我分享的好友',
+      name: 'only_share_with_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `可查看`
+  String get view_only {
+    return Intl.message(
+      '可查看',
+      name: 'view_only',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `可编辑`
+  String get can_edit {
+    return Intl.message(
+      '可编辑',
+      name: 'can_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `所有人可查看`
+  String get everyone_can_view {
+    return Intl.message(
+      '所有人可查看',
+      name: 'everyone_can_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `所有人可编辑`
+  String get everyone_can_edit {
+    return Intl.message(
+      '所有人可编辑',
+      name: 'everyone_can_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `高级权限：可设置禁止复制、批注等`
+  String get advanced_permissions {
+    return Intl.message(
+      '高级权限：可设置禁止复制、批注等',
+      name: 'advanced_permissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `分享到`
+  String get share_to {
+    return Intl.message(
+      '分享到',
+      name: 'share_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QQ好友`
+  String get qq_friends {
+    return Intl.message(
+      'QQ好友',
+      name: 'qq_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `微信好友`
+  String get wechat_friends {
+    return Intl.message(
+      '微信好友',
+      name: 'wechat_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `复制链接`
+  String get copy_link {
+    return Intl.message(
+      '复制链接',
+      name: 'copy_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `生成图片`
+  String get generate_image {
+    return Intl.message(
+      '生成图片',
+      name: 'generate_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `生成二维码`
+  String get generate_qr_code {
+    return Intl.message(
+      '生成二维码',
+      name: 'generate_qr_code',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `App lock supports lock screen password settings`
   String get lock_screen_auto_password_setting_for_applock {
     return Intl.message(
@@ -4364,16 +4514,6 @@ class S {
     return Intl.message(
       'Detailed Training Plan',
       name: 'detailed_training_plan',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `share`
-  String get share {
-    return Intl.message(
-      'share',
-      name: 'share',
       desc: '',
       args: [],
     );

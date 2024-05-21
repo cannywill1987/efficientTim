@@ -15,6 +15,8 @@ import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannel
 import 'package:time_hello/com/timehello/models/FlomoMissionModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupChatSharingWidget.dart';
+import 'package:time_hello/com/timehello/page/GroupChatPage/components/SearchFriendGroupWidget.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../../../main.dart';
@@ -247,8 +249,7 @@ class DialogManagement {
                             Container(
                               width: 1,
                               height: 40,
-                              color:
-                                  ThemeManager.getInstance().getLineColor(),
+                              color: ThemeManager.getInstance().getLineColor(),
                             ),
                             Expanded(
                                 child: GestureDetector(
@@ -696,6 +697,212 @@ class DialogManagement {
             ),
           );
         });
+  }
+
+  Future<bool> showGroupChatSharingWidgetDialog(
+      {required FolderModel folderModel, Function? okCallback}) async {
+    bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
+        Utility.getGlobalContext(),
+        cancelText: getI18NKey().cancel, okCallback: () {
+      //校验密码是否正确
+      //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
+      // 得到当前密码
+      okCallback?.call();
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), true);
+      return;
+      // }
+    }, cancelCallback: () {
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), false);
+      return;
+    },
+        okText: getI18NKey().confirm,
+        child: Container(
+          width: 400,
+          child: Column(
+            children: [
+              GroupChatSharingWidget()
+            ],
+          ),
+        ));
+    if (result == null) {
+      return true;
+    } else {
+      return result;
+    }
+  }
+
+  /**
+   * true表示可以执行 false表示不可以执行
+   */
+  Future<bool> showSearchFriendGroupWidget(
+      {folderId = "", Function? okCallback}) async {
+    GlobalKey<SearchFriendGroupWidgetState>? passwordWidgetStateGlobalKey =
+        GlobalKey();
+    FolderModel? folderModel =
+        MongoApisManager.getInstance().queryfolderModelWithFolderId(folderId);
+    Future.delayed(Duration(milliseconds: 500), () {
+      if (folderModel == null) {
+        return;
+      }
+    });
+    bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
+        Utility.getGlobalContext(),
+        cancelText: getI18NKey().cancel, okCallback: () {
+      //校验密码是否正确
+      //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
+      // 得到当前密码
+      String password =
+          passwordWidgetStateGlobalKey?.currentState?.getOriginPassword() ?? "";
+      okCallback?.call(password);
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), true);
+      return;
+      // }
+    }, cancelCallback: () {
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), false);
+      return;
+    },
+        okText: getI18NKey().confirm,
+        child: Container(
+          width: 400,
+          child: Column(
+            children: [
+              Utility.getSVGPicture(R.assetsImgIcSecure, size: 80),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                getI18NKey()
+                    .please_input_folder_password(folderModel?.title ?? ""),
+                style: TextStyle(
+                    fontSize: 18,
+                    color: ThemeManager.getInstance().getTextColor()),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                getI18NKey().local_password_desc,
+                style: TextStyle(fontSize: 14, color: Color(0xff999999)),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SearchFriendGroupWidget(
+                key: passwordWidgetStateGlobalKey,
+              ),
+            ],
+          ),
+        ));
+    if (result == null) {
+      return true;
+    } else {
+      return result;
+    }
+  }
+
+  Future<bool> showMultiInputDialog(
+      {Function? okCallback,
+      String? title,
+      String? content,
+      String? hint}) async {
+    String text = "";
+    // GlobalKey<CustomMultiInputWidgetState>
+    // customMultiInputWidgetStateGlobalKey = GlobalKey();
+    // if (TextUtil.isEmpty(folderId) == true) {
+    //   return true;
+    // }
+    bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
+        Utility.getGlobalContext(),
+        cancelText: getI18NKey().cancel, okCallback: () {
+      //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
+      okCallback?.call(text);
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), true);
+      return;
+      // }
+    }, cancelCallback: () {
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), false);
+      return;
+    },
+        okText: getI18NKey().confirm,
+        child: Container(
+          width: 400,
+          child: Column(
+            children: [
+              // Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 80),
+              // SizedBox(
+              //   height: 20,
+              // ),
+              if (!TextUtil.isEmpty(title))
+                Text(
+                  title!,
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: ThemeManager.getInstance().getTextColor()),
+                ),
+              SizedBox(
+                height: 10,
+              ),
+              if (!TextUtil.isEmpty(content))
+                Container(
+                  constraints: BoxConstraints(maxHeight: 200),
+                  child: Text(
+                    content ?? "",
+                    style: TextStyle(fontSize: 14, color: Color(0xff999999)),
+                  ),
+                ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 200,
+                child: TextField(
+                  onChanged: (val) {
+                    text = val;
+                  },
+                  onSubmitted: (val) {
+                    text = val;
+                    okCallback?.call(text);
+                  },
+                  // controller: _originPasswordController,
+                  //多行
+                  maxLines: 100,
+                  //左上角
+                  textAlign: TextAlign.start,
+                  maxLength: 1000,
+                  decoration: InputDecoration(
+                    filled: true,
+                    suffixIcon: Align(
+                      alignment: Alignment.centerRight,
+                      widthFactor: 1.0,
+                    ),
+                    fillColor:
+                        ThemeManager.getInstance().getInputDecorationColor(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: hint ?? "",
+                    hintStyle: TextStyle(
+                        color: ThemeManager.getInstance()
+                            .getInputPlaceholderColor(),
+                        fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
+    if (result == null) {
+      return true;
+    } else {
+      return result;
+    }
   }
 
   Future<bool> showGPTInputDialog(

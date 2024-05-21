@@ -6034,6 +6034,17 @@ class Utility {
     }
   }
 
+  /**
+   * 生成 000000 ~ 9999999 字符串
+   */
+  static String getGroupId({int numDigit = 6}) {
+    String groupId = '';
+    for (int i = 0; i < numDigit; i++) {
+      groupId += Utility.getRandomString(from: 0, max: 9, pureInt: 1).toString();
+    }
+    return groupId;
+  }
+
   //
   // static List<ChatGptMessageModel> getChatGptMessageModelListByFolderId(
   //     List<ChatGptMessageModel> listParam, String folderId) {

@@ -143,6 +143,7 @@ class LoginManager {
       //获取用户信息
       UserInfoManager.getSyncInstance().init();
       await Future.wait([MongoApisManager.getInstance().batchUpdate_MissionModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_FolderModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_StatsModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_TimelineMissionModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_PresentModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_FlomoMissionModel(shouldRefresh: false)]);
+      MongoApisManager.getInstance().batchUpdate_folderModelWithGroupId();
       MongoApisManager.getInstance().reset();
       await MongoApisManager.getInstance().init(); //跨手机登录等需要重新同步数据
       Utility.pushDesktopMainContainerNavigator(context, "StatisticPage", {});

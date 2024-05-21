@@ -17,6 +17,7 @@ import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/StatisticPage.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 
+import '../util/AnalyticsEventsManager.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
 import 'FlomoPage/FlomoPCContainerPage.dart';
 import 'FourQuadrant/FourQuadrantPage.dart';
@@ -76,6 +77,7 @@ Widget buildBodyFunction([String? page]) {
   return Selector<Env, SettingModel>(
       selector: (_, env) => env.settingModel ?? SettingModel(),
       builder: (_, settingModel, __) {
+        reportEvent(page);
         // i++;
         return Stack(
           children: <Widget>[
@@ -154,6 +156,50 @@ Widget buildBodyFunction([String? page]) {
           ],
         );
       });
+}
+
+void reportEvent(String? page) {
+   switch (page) {
+    case "StatisticPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_analysis","description": "分析",});
+      break;
+    case "WQBContainer":
+      break;
+    case "TomatoPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_focus_god","description": "番茄钟",});
+      break;
+    case "ClockInPCPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_punch_card","description": "打卡",});
+      break;
+    case "CalendarContainerPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_calendar","description": "日历",});
+      break;
+    case "FourQuadrantPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_four_quadrants","description": "四象限",});
+      break;
+    case "AIHelper":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_ai_assistant","description": "AI助手",});
+      break;
+    case "TimelinePage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_timeline","description": "时间轴",});
+      break;
+    case "TimeManagementPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_time_management","description": "时间管理",});
+      break;
+    case "CoursePage":
+      break;
+    case "GamePage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_training","description": "训练",});
+      break;
+    case "LockScreenPage":
+      break;
+    case "SettingPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_settings","description": "设置",});
+      break;
+    case "CountDownListViewPage":
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_reversal_timing","description": "倒计时",});
+      break;
+  }
 }
 
 //

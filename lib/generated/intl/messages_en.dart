@@ -315,6 +315,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_username": MessageLookupByLibrary.simpleMessage("add username"),
         "addsuccess":
             MessageLookupByLibrary.simpleMessage("Added successfully"),
+        "advanced_permissions":
+            MessageLookupByLibrary.simpleMessage("高级权限：可设置禁止复制、批注等"),
         "agree": MessageLookupByLibrary.simpleMessage("agree"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI Create"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI Helper"),
@@ -405,6 +407,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "calendar2": MessageLookupByLibrary.simpleMessage("Calendar"),
         "camera_permission_description": MessageLookupByLibrary.simpleMessage(
             "In order to use the camera function, you need to authorize the camera permission"),
+        "can_edit": MessageLookupByLibrary.simpleMessage("可编辑"),
         "can_not_be_empty": MessageLookupByLibrary.simpleMessage(
             "The input box cannot be empty"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -533,6 +536,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Continuous Days"),
         "continuously": MessageLookupByLibrary.simpleMessage("Continuing"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
+        "copy_link": MessageLookupByLibrary.simpleMessage("复制链接"),
         "copy_qq": MessageLookupByLibrary.simpleMessage("Join facebook"),
         "copy_qq_success": MessageLookupByLibrary.simpleMessage(""),
         "copy_sub_title": MessageLookupByLibrary.simpleMessage(
@@ -698,6 +702,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter the amount"),
         "event": MessageLookupByLibrary.simpleMessage("event"),
         "everyDayOnce": m37,
+        "everyone_can_edit": MessageLookupByLibrary.simpleMessage("所有人可编辑"),
+        "everyone_can_view": MessageLookupByLibrary.simpleMessage("所有人可查看"),
         "examination":
             MessageLookupByLibrary.simpleMessage("Examination error"),
         "example_demo_hint": MessageLookupByLibrary.simpleMessage(
@@ -798,6 +804,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "game2_ranking_text": m43,
         "game_input_waiting":
             MessageLookupByLibrary.simpleMessage("Waiting for timing"),
+        "generate_image": MessageLookupByLibrary.simpleMessage("生成图片"),
+        "generate_qr_code": MessageLookupByLibrary.simpleMessage("生成二维码"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("Kind tips"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Click for authentication code"),
@@ -1206,6 +1214,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "one_month": MessageLookupByLibrary.simpleMessage("One month"),
         "one_year": MessageLookupByLibrary.simpleMessage("One year"),
         "ongoing": MessageLookupByLibrary.simpleMessage("processing"),
+        "only_me": MessageLookupByLibrary.simpleMessage("仅我自己"),
+        "only_share_with_friends":
+            MessageLookupByLibrary.simpleMessage("仅我分享的好友"),
         "optional": MessageLookupByLibrary.simpleMessage("optional"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(optional)"),
@@ -1344,6 +1355,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "publish": MessageLookupByLibrary.simpleMessage("Publish"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("Pure mode"),
         "push_counter_status_notification": m89,
+        "qq_friends": MessageLookupByLibrary.simpleMessage("QQ好友"),
         "qq_share": MessageLookupByLibrary.simpleMessage("QQ share"),
         "question_mistake":
             MessageLookupByLibrary.simpleMessage("Question/Mistake"),
@@ -1502,6 +1514,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_success":
             MessageLookupByLibrary.simpleMessage("successfully set"),
         "share": MessageLookupByLibrary.simpleMessage("share"),
+        "share_to": MessageLookupByLibrary.simpleMessage("分享到"),
         "sharing_course":
             MessageLookupByLibrary.simpleMessage("sharing course"),
         "six_hours": MessageLookupByLibrary.simpleMessage("Six hours"),
@@ -1689,6 +1702,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "version_num": m108,
         "vertical": MessageLookupByLibrary.simpleMessage("Portrait"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
+        "view_only": MessageLookupByLibrary.simpleMessage("可查看"),
         "visible": MessageLookupByLibrary.simpleMessage("visible"),
         "voice": MessageLookupByLibrary.simpleMessage("voice"),
         "voice_diary": MessageLookupByLibrary.simpleMessage("voice diary"),
@@ -1699,6 +1713,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "web_desc": MessageLookupByLibrary.simpleMessage(
             "Open https://www.timerbell.com in a browser to use the same function anywhere"),
         "wechat": MessageLookupByLibrary.simpleMessage("WeChat"),
+        "wechat_friends": MessageLookupByLibrary.simpleMessage("微信好友"),
         "wechat_share": MessageLookupByLibrary.simpleMessage("Wechat share"),
         "wednesday": MessageLookupByLibrary.simpleMessage("Wed"),
         "wednesdayShort": MessageLookupByLibrary.simpleMessage("Wed"),
@@ -1713,6 +1728,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcome_to_time_department": m109,
         "whether_to_repeat":
             MessageLookupByLibrary.simpleMessage("Whether to repeat or not"),
+        "who_can_view_or_edit":
+            MessageLookupByLibrary.simpleMessage("谁可以查看/编辑文件"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage(
             "Total time to complete (minutes)"),
         "write_a_title": MessageLookupByLibrary.simpleMessage("Write a title?"),

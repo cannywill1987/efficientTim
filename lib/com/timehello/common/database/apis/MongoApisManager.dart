@@ -246,6 +246,7 @@ class MongoApisManager {
         } catch (e) {
           print(e);
         }
+        batchUpdate_folderModelWithGroupId();
         queryWhereEqual_ChatGptMessageModel();
         queryWhereEqual_WQBMissionModel();
         queryWhereEqual_WQBFolderModel();
@@ -414,6 +415,36 @@ class MongoApisManager {
       // await queryWhereEqual_missionDataByOtherUser(folder_id: fo)
       // }
     }
+  }
+
+  Future<List<FolderModel>?> requestFolderModelByGroup(
+      {required String folderTeamWorkId,  String? groupChatPassword, int isSharing = 0, callback}) async {
+    List<MongoDbQuery<FolderModel>> list = [];
+
+    MongoDbQuery<FolderModel> commonQuery = MongoDbQuery();
+    MongoDbQuery<FolderModel> query1 = MongoDbQuery();
+    query1.addWhereEqualTo("folderTeamWorkId", folderTeamWorkId);
+    list.add(query1);
+    if(TextUtil.isEmpty(groupChatPassword) == false) {
+      MongoDbQuery<FolderModel> query2 = MongoDbQuery();
+      list.add(query2..addWhereEqualTo("groupChatPassword", groupChatPassword ?? ""));
+    }
+    if(isSharing == 1 || isSharing == 2 || isSharing == 3) {
+      //0 未分享中 1 之后分享中 - 1 免费开放 需要id 2 私有 - 需要搜索 3 销售（只针对国内）
+      MongoDbQuery<FolderModel> query3 = MongoDbQuery();
+      list.add(query3..addWhereEqualTo("isSharing", isSharing));
+    }
+
+    commonQuery.and(list);
+
+    List<dynamic> data = await commonQuery.queryObjects();
+    List<FolderModel> listTmp =
+    data.map((i) => FolderModel.fromJson(i)).toList();
+    if (callback != null) {
+      callback(listTmp);
+    }
+    return listTmp;
+
   }
 
   Future<FolderModel?> requestFolderModelByFolderId(
@@ -3568,6 +3599,9 @@ class MongoApisManager {
       FolderModel folderModel = FolderModel();
       folderModel.layoutType = layoutType;
       // folderModel.id = id;
+      if(tag == 1) {
+        folderModel.folderTeamWorkId = Utility.getGroupId();
+      }
       folderModel.cryptoVersion = cryptoVersion;
       folderModel.title = title;
       folderModel.description = description;
@@ -4357,6 +4391,26 @@ class MongoApisManager {
       print("请先新增一条数据");
       // showError(context, "请先新增一条数据");
     }
+  }
+
+  /**
+   * 用于更新群id
+   * 主要是以前folderTeamWorkId没有值的时候
+   */
+   batchUpdate_folderModelWithGroupId() async {
+    List<FolderModel> listFolderModel = this.listFolderModels;
+    List<FolderModel> listFolderModelTmp = [];
+    listFolderModel.forEach((element) {
+      if (element.tag == 1 && TextUtil.isEmpty(element.folderTeamWorkId)) {
+        element.folderTeamWorkId = Utility.getGroupId();
+        listFolderModelTmp.add(element);
+      }
+    });
+    if(listFolderModelTmp.length > 0) {
+      return batchUpdate_folderModelWithParams(
+          listFolderModel: listFolderModelTmp);
+    }
+
   }
 
   Future<List> batchUpdate_folderModelWithParams(

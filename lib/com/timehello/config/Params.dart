@@ -6,7 +6,7 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.uat; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static String curVersion = '3.5.0';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';

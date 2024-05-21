@@ -6,6 +6,7 @@ import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnChangeListener.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -262,6 +263,7 @@ class BottomBarState extends State<BottomBar> {
                           children: [
                             CustomPopupWidget(
                               onSelected: (v) {
+                                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_date_type","description": "任务时间类型",});
                                 if (this.widget.onTapDateListener != null) {
                                   this.widget.onTapDateListener?.call(v.value);
                                 }
@@ -377,6 +379,7 @@ class BottomBarState extends State<BottomBar> {
             style: TextStyle(color: Colors.red),
           ),
           onTap: () {
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_create_button","description": "创建",});
             if (this.widget.onTapFinishListener != null) {
               this.widget.onTapFinishListener!();
             }
@@ -419,6 +422,7 @@ class BottomBarState extends State<BottomBar> {
         this.setState(() {
           this.end_time = model?.datetime?.millisecondsSinceEpoch; //计划到期日
         });
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_end_time","description": "完成时间",});
         if (this.widget.onTapEndTimeListener != null) {
           this.widget.onTapEndTimeListener!(data: this.end_time);
         }
@@ -460,6 +464,7 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_task_duration","description": "任务价值",});
         if (LoginManager.getInstance().userBean.valuePerHour == null ||
             LoginManager.getInstance().userBean.valuePerHour == 0) {
           OverlayManagement.getInstance().openSelectMoneyPerHourOfMeOverlay(
@@ -537,6 +542,8 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_repeative","description": "重复",});
+
         SelectDatePeriodDialogUtil.show(context, okCallBack:
             (valueMiddleSelected, valueRightSelected, listCheckModels) {
           this.repetiveValue = valueMiddleSelected; //更新值
@@ -686,6 +693,7 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_start_time","description": "开始时间",});
         if (this.time_mode == 1) {
           DateTimeModel? model =
               await Utility.showDateTimePickerDialog(context);
@@ -730,6 +738,7 @@ class BottomBarState extends State<BottomBar> {
   Widget getPriorityWidget() {
     return CustomPopupWidget(
       onSelected: (v) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_priority","description": "优先级",});
         if (this.widget.onTapPriorityListener != null) {
           this.widget.onTapPriorityListener?.call(v.value);
         }
@@ -742,6 +751,7 @@ class BottomBarState extends State<BottomBar> {
   CustomTagFolderModelSelectPopupWidget getTagNameWidget() {
     return CustomTagFolderModelSelectPopupWidget(
       onSelected: (v) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_tags","description": "标签",});
         if (this.widget.onTapTagListener != null) {
           this.widget.onTapTagListener!(v);
         }
@@ -802,6 +812,7 @@ class BottomBarState extends State<BottomBar> {
   Widget getCircleFolderModelWidget() {
     return CustomFolderModelSelectPopupWidget(
       onSelected: (v) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_select_list","description": "选择清单",});
         if (this.widget.onTapCircleListener != null) {
           this.widget.onTapCircleListener?.call(v);
         }

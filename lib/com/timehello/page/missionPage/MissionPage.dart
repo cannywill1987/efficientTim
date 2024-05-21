@@ -20,6 +20,7 @@ import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MissionGridView.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MultiSelectHandleWidget.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
@@ -1089,6 +1090,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   },
                   onClickSearchListener: (bool res) {
                     this.isSearchBarVisible = res;
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_search","description": "搜索",});
                     updateUI();
                   },
                 ),
@@ -1182,6 +1184,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 ),
                 InkWell(
                   onTap: () {
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_guide","description": "导出",});
                     TextEditingController textEditingController =
                         TextEditingController();
                     String s = Utility.getContentFromMissionList(
@@ -1225,8 +1228,10 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       CheckButtonStateModel item =
                           listCheckButtonStateModel![obj];
                       if (item.code == "list") {
+                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_list_view","description": "列表",});
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.list;
                       } else if (item.code == "grid") {
+                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_classify","description": "分类",});
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.grid;
                       }
                       SharePreferenceUtil.getSyncInstance().setInt(
@@ -1295,6 +1300,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       .getTextColor(defaultColor: Colors.red))),
         ),
         onSelected: (String val) {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_order","description": "排序", "message": val});
           if (val == 'order_by_list') {
             this.missionOrderEnum = MissionOrderEnum.orderByWords;
           } else if (val == 'order_by_time') {

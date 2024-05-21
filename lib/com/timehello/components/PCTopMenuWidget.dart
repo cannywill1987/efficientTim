@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
@@ -40,44 +41,55 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             SizedBox(
               width: 10,
             ),
-            LoginManager.getInstance().getUserBean().totalFocusTimeRanking !=
-                        null &&
-                    LoginManager.getInstance()
-                            .getUserBean()
-                            .totalFocusTimeRanking! >=
-                        0
+            LoginManager
+                .getInstance()
+                .getUserBean()
+                .totalFocusTimeRanking !=
+                null &&
+                LoginManager
+                    .getInstance()
+                    .getUserBean()
+                    .totalFocusTimeRanking! >=
+                    0
                 ? Wrap(
-                    direction: Axis.vertical,
-                    children: [
-                      Text(
-                        getI18NKey().my_ranking(LoginManager.getInstance()
-                            .getUserBean()
-                            .totalFocusTimeRanking
-                            .toString()),
-                        style: TextStyle(
-                            color: ThemeManager.getInstance()
-                                .getTextColor(defaultColor: Color(0xffa0a0a0)),
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        getI18NKey().total_focus_time +
-                            Utility.formatHourAndMin(LoginManager.getInstance()
-                                    ?.getUserBean()
-                                    ?.totalFocusTime ??
-                                0),
-                        style: TextStyle(
-                            color: ThemeManager.getInstance()
-                                .getTextColor(defaultColor: Color(0xffa0a0a0)),
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  )
+              direction: Axis.vertical,
+              children: [
+                Text(
+                  getI18NKey().my_ranking(LoginManager
+                      .getInstance()
+                      .getUserBean()
+                      .totalFocusTimeRanking
+                      .toString()),
+                  style: TextStyle(
+                      color: ThemeManager.getInstance()
+                          .getTextColor(defaultColor: Color(0xffa0a0a0)),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  getI18NKey().total_focus_time +
+                      Utility.formatHourAndMin(LoginManager
+                          .getInstance()
+                          ?.getUserBean()
+                          ?.totalFocusTime ??
+                          0),
+                  style: TextStyle(
+                      color: ThemeManager.getInstance()
+                          .getTextColor(defaultColor: Color(0xffa0a0a0)),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            )
                 : SizedBox.shrink(),
-            Expanded(
-              child: Container(),
-            ),
+            Spacer(),
+            if(!Utility.isProductEnv())
+              InkWell(onTap: () {
+                DialogManagement.getInstance().showSearchFriendGroupWidget();
+              }, child: Text("测试"),),
+            // Expanded(
+            //   child: Container(),
+            // ),
             DownloadListwidget(
               shouldShowWinAndAndroid: !(Utility.isIOS() || Utility.isMacOS()),
             ),
@@ -102,20 +114,21 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
               },
               child: Utility.getSVGPicture(R.assetsImgIcUnlockscreen,
                   size: 18
-                  // , color: ThemeManager.getInstance().getDefautThemeColor()
+                // , color: ThemeManager.getInstance().getDefautThemeColor()
               ),
             ),
             SizedBox(width: 10,),
             if(ABTestSetting.isOpenAiOn == true)
-            InkWell(
-              onTap: () {
-                if(ABTestSetting.isOpenAiOn == true)
-                Utility.openRightSideDesktopNavigator(
-                    context, 'ChatGptPage', {});
-              },
-              child: Utility.getSVGPicture(R.assetsImgIcRightPanel,
-                  size: 26, color: ThemeManager.getInstance().getDefautThemeColor()),
-            ),
+              InkWell(
+                onTap: () {
+                  if (ABTestSetting.isOpenAiOn == true)
+                    Utility.openRightSideDesktopNavigator(
+                        context, 'ChatGptPage', {});
+                },
+                child: Utility.getSVGPicture(R.assetsImgIcRightPanel,
+                    size: 26,
+                    color: ThemeManager.getInstance().getDefautThemeColor()),
+              ),
           ],
         ),
       ),
