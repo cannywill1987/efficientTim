@@ -710,7 +710,8 @@ class DialogManagement {
     bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
         Utility.getGlobalContext(),
         padding: EdgeInsets.symmetric(horizontal: 10),
-        margin: ,
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        shouldShowButtons: false,
         cancelText: getI18NKey().cancel, okCallback: () {
       //校验密码是否正确
       //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
