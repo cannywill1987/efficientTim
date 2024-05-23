@@ -51,7 +51,7 @@ class CustomCircleWidget extends StatelessWidget {
           ),
           onSelected: (String result) {
             if (LoginManager.isLogin() == false) {
-              Utility.showToast(msg: getI18NKey().loginFirst);
+              Utility.showToastMsg(msg: getI18NKey().loginFirst);
               LoginManager.getInstance()
                   .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
               return null;

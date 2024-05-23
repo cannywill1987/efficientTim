@@ -140,7 +140,7 @@ class _Games4UnitGridViewPageWidgetState<T>
         updateUI();
       }
     } else {
-      Utility.showToast(msg: response.message);
+      Utility.showToastMsg(msg: response.message);
     }
   }
 

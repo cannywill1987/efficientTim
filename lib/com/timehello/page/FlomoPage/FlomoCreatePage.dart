@@ -107,7 +107,7 @@ class FlomoCreatePageState extends BaseWidgetState<FlomoCreatePage> {
 
   Future<void> onClickSave() async {
     if (TextUtil.isEmpty(this.widget.flomoMissionModel?.title) == true) {
-      Utility.showToast(msg: getI18NKey().pleaseInputTitle);
+      Utility.showToastMsg(msg: getI18NKey().pleaseInputTitle);
       return;
     }
     Params.shouldRefreshPushModelList = true;
@@ -121,12 +121,12 @@ class FlomoCreatePageState extends BaseWidgetState<FlomoCreatePage> {
         }
       }
       if (isAllFalse == true) {
-        Utility.showToast(msg: getI18NKey().please_select_at_least_one_option_in_repeat_cycle);
+        Utility.showToastMsg(msg: getI18NKey().please_select_at_least_one_option_in_repeat_cycle);
         return;
       }
     }
     if (this.widget.flomoMissionModel?.end_time == null) {
-      Utility.showToast(msg: getI18NKey().please_select_content(getI18NKey().end_time));
+      Utility.showToastMsg(msg: getI18NKey().please_select_content(getI18NKey().end_time));
       return;
     }
     if (flomoRepeatModeEnum == FlomoRepeatModeEnum.byEbbinghaus &&

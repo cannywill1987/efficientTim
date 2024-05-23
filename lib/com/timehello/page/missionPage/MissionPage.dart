@@ -179,7 +179,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         },
       )
     ];
-    if (ABTestSetting.isOpenAiOn)
+    if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
       this.rightNavChildren = [
         IconButton(
             onPressed: () {
@@ -266,11 +266,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         break;
       case 'onClickSubmit': //添加Mission
         if (this._numberTomatoes == 0) {
-          Utility.showToast(msg: getI18NKey().alertMessage1);
+          Utility.showToastMsg(msg: getI18NKey().alertMessage1);
           return;
         }
         if (TextUtil.isEmpty(this._title) == true) {
-          Utility.showToast(msg: getI18NKey().alertMessage2);
+          Utility.showToastMsg(msg: getI18NKey().alertMessage2);
           return;
         }
         onClickSubmit(this._title);
@@ -400,7 +400,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
   Future onClickEditTitle(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -410,7 +410,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
       if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-        Utility.showToast(
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
@@ -418,7 +418,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       await MongoApisManager.getInstance()
           .update_MissionModel(missionModel: data);
       requestDatas();
-      Utility.showToast(context: context, msg: getI18NKey().update_success);
+      Utility.showToastMsg(context: context, msg: getI18NKey().update_success);
       DialogManagement.getInstance().hideDialog(context);
     }, cancelCallBack: () {
       DialogManagement.getInstance().hideDialog(context);
@@ -427,7 +427,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
   Future onClickUnFinishListener(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -454,7 +454,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
   Future onTapDoItNow(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -466,7 +466,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    */
   Future onClickFinishItem(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -488,7 +488,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
   Future<void> onClickFinishMission(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -524,7 +524,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    */
   Future onClickDeleteItem(data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -553,7 +553,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    */
   void onClickSubmit(data) async {
     if (isRequesting == true) {
-      Utility.showToast(msg: getI18NKey().requesting_please_wait);
+      Utility.showToastMsg(msg: getI18NKey().requesting_please_wait);
       return;
     }
     this._missionModel?.title = data.toString();
@@ -593,7 +593,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
     if (Utility.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -604,7 +604,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         callback: (res) async {
           isRequesting = false;
           if (res != null) {
-            Utility.showToast(msg: getI18NKey().addsuccess);
+            Utility.showToastMsg(msg: getI18NKey().addsuccess);
           }
           this.requestDatas();
           eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
@@ -817,7 +817,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       textEditingController.text = s;
                       updateUI();
                     }, export: (data) {
-                      Utility.showToast(
+                      Utility.showToastMsg(
                           context: context,
                           msg: getI18NKey().offer_next_version);
                     });
@@ -1204,7 +1204,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       textEditingController.text = s;
                       updateUI();
                     }, export: (data) {
-                      Utility.showToast(
+                      Utility.showToastMsg(
                           context: context,
                           msg: getI18NKey().offer_next_version);
                     });

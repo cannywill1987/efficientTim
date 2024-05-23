@@ -39,7 +39,7 @@ class MoneyManager {
       {required BuildContext context, required int localMoney,bool shouldShowToast = true}) async {
     //消费
     if (shouldShowToast == true && localMoney.abs() > MoneyManager.getInstance().getLocalMoney()) {
-      Utility.showToast(context: context, msg: getI18NKey().money_not_enough_toast);
+      Utility.showToastMsg(context: context, msg: getI18NKey().money_not_enough_toast);
       return mMoneyManager;
     }
     BaseBean response = await HttpManager.getInstance().doPostRequest(
@@ -52,12 +52,12 @@ class MoneyManager {
       eventBus.fire(EventFn(Params.ACTION_UPDATE_MONEY, {}));
       //用于消费提示
       if(localMoney < 0) {
-        Utility.showToast(msg: getI18NKey().consume_success);
+        Utility.showToastMsg(msg: getI18NKey().consume_success);
       }
     } else {
       //用于消费提示
       if(localMoney < 0) {
-        Utility.showToast(msg: getI18NKey().consume_failure);
+        Utility.showToastMsg(msg: getI18NKey().consume_failure);
       }
     }
     return mMoneyManager;

@@ -874,12 +874,12 @@ class CounterManagement {
       eventBus.fire(EventFn(Params.ACTION_UPDATE_TOTAL_FOCUS_TIME, {}));
       //用于消费提示
       if (value < 0) {
-        Utility.showToast(msg: getI18NKey().consume_success);
+        Utility.showToastMsg(msg: getI18NKey().consume_success);
       }
     } else {
       //用于消费提示
       if (value < 0) {
-        Utility.showToast(msg: getI18NKey().consume_failure);
+        Utility.showToastMsg(msg: getI18NKey().consume_failure);
       }
     }
   }

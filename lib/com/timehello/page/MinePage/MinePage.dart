@@ -478,15 +478,17 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-    list.add(GridMenuItem(
-        icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
-        title: getI18NKey().ai_helper,
-        // subtitle: getI18NKey().cloud_sync_content,
-        onTapListener: () async {
-          // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
-          // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
-          Utility.pushNavigator(context, const GPTContainer());
-        }));
+    if(Utility.isHuaWei() == false) {
+      list.add(GridMenuItem(
+          icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
+          title: getI18NKey().ai_helper,
+          // subtitle: getI18NKey().cloud_sync_content,
+          onTapListener: () async {
+            // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
+            // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
+            Utility.pushNavigator(context, const GPTContainer());
+          }));
+    }
     // list.add(GridMenuItem(
     //     icon: Utility.getSVGPicture(R.assetsImgIcCreditCard, size: iconSize),
     //     title: getI18NKey().credit_bag,
@@ -649,7 +651,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             Utility.openExternalWebView(url: Urls.facebook);
           } else {
             Utility.copyToClipboard("563144208", shouldShowToast: false);
-            Utility.showToast(
+            Utility.showToastMsg(
                 context: context, msg: getI18NKey().copy_qq_success);
           }
         }));

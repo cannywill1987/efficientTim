@@ -151,7 +151,7 @@ class RegisterStep1State extends State<RegisterStep1> {
           controller: textController1,
           onSubmitted: (v) {
             if(TextUtil.isEmpty(this.mobile)) {
-              Utility.showToast(msg: getI18NKey().input_mobile);
+              Utility.showToastMsg(msg: getI18NKey().input_mobile);
               return;
             }
             if (this.widget.onTapListener != null) {

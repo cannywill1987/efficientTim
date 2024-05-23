@@ -108,7 +108,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    */
   Future onClickFinishItem(MissionModel data) async {
     if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
 
@@ -129,7 +129,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
 
   Future<void> onClickFinishMission(MissionModel data) async {
     if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
 
@@ -166,7 +166,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
 
   Future onClickEditTitle(MissionModel data) async {
     if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     DialogManagement.getInstance().showEditTitleDialog(
@@ -175,7 +175,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
         initVal: data.title, okCallBack: (String value) async {
       data.title = value;
       if(Utility.isFolderModelEnabled(folderId: data.folder_id, uid: LoginManager.getInstance().userBean.uid ?? "") == false) {
-        Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+        Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
       await MongoApisManager.getInstance()
@@ -184,7 +184,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
       await MongoApisManager.getInstance()
           .update_MissionModel(missionModel: data);
       this.widget.onRefresh();
-      Utility.showToast(context: context, msg: getI18NKey().update_success);
+      Utility.showToastMsg(context: context, msg: getI18NKey().update_success);
       DialogManagement.getInstance().hideDialog(context);
     }, cancelCallBack: () {
       DialogManagement.getInstance().hideDialog(context);
@@ -193,7 +193,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
 
   void requestMongoDbUpdateData({MissionModel? missionModel}) async {
     if(Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) == false) {
-      Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     await MongoApisManager.getInstance()
@@ -211,7 +211,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    */
   void onClickMissionStart(MissionModel data) async {
     if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     FolderModel? folderModel = await MongoApisManager.getInstance()
@@ -252,7 +252,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    */
   Future onClickDeleteItem(data) async {
     if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     OkCancelResult result = await showOkCancelAlertDialog(

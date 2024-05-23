@@ -508,13 +508,13 @@ class HttpTask extends Observable {
     }
     if (shouldShowToast == true &&
         CONSTANTS.getErrorMessage(baseBean.code).isEmpty == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context ?? Utility.getGlobalContext(),
           msg: CONSTANTS.getErrorMessage(baseBean.code));
     } else if (shouldShowToast == true &&
         baseBean.success == false &&
         baseBean.message?.isEmpty == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context ?? Utility.getGlobalContext(),
           msg: baseBean.message);
     }
@@ -601,13 +601,13 @@ class HttpTask extends Observable {
     }
     if (shouldShowToast == true &&
         CONSTANTS.getErrorMessage(baseBean.code).isEmpty == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context ?? Utility.getGlobalContext(),
           msg: CONSTANTS.getErrorMessage(baseBean.code));
     } else if (shouldShowToast == true &&
         baseBean.success == false &&
         baseBean.message?.isEmpty == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context ?? Utility.getGlobalContext(),
           msg: baseBean.message);
     }

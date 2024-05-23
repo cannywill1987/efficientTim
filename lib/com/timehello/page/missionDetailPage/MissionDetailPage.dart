@@ -315,7 +315,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
    */
   Future onClickFinishItem(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -347,7 +347,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
 
   Future<void> onClickFinishMission(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -427,7 +427,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   void requestMongoDbUpdateData() async {
     if (Utility.isFolderModelEnabled(folderId: this.missionModel.folder_id) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -837,14 +837,14 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
                   this.bgMode =
                       SharePreferenceUtil.getSyncInstance().getBgMode();
                   if (index == 0) {
-                    Utility.showToast(
+                    Utility.showToastMsg(
                         context: context,
                         msg: getI18NKey().background_change_auto_prompt_off);
                     SharePreferenceUtil.getSyncInstance().setString(
                         key: ShareprefrenceKeys.pcBackground,
                         content: bgKey.currentState?.getCurBackground() ?? "");
                   } else if (index == 1) {
-                    Utility.showToast(
+                    Utility.showToastMsg(
                         context: context,
                         msg: getI18NKey().background_change_auto_prompt_on);
                     SharePreferenceUtil.getSyncInstance().setString(

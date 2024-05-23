@@ -102,7 +102,7 @@ class _WQBCreateFolderPageState<T> extends BaseWidgetState<WQBCreateFolderPage> 
           // }
           resetForm();
           eventBus.fire(EventFn(Params.ACTION_UPDATE_WQB_FOLDER_PAGE, {}));
-          Utility.showToast(msg: getI18NKey().updateSuccess);
+          Utility.showToastMsg(msg: getI18NKey().updateSuccess);
           Utility.popupPagePCAndMobile(context);
         });
   }
@@ -124,7 +124,7 @@ class _WQBCreateFolderPageState<T> extends BaseWidgetState<WQBCreateFolderPage> 
             }
             resetForm();
             eventBus.fire(EventFn(Params.ACTION_UPDATE_WQB_FOLDER_PAGE, {}));
-            Utility.showToast(msg: getI18NKey().createSuccess);
+            Utility.showToastMsg(msg: getI18NKey().createSuccess);
             Utility.popupPagePCAndMobile(context);
         });
   }
@@ -241,11 +241,11 @@ class _WQBCreateFolderPageState<T> extends BaseWidgetState<WQBCreateFolderPage> 
                   ),
                   onPressed: () {
                     if (TextUtil.isEmpty(this.widget.folderModel.title)) {
-                      Utility.showToast(msg: getI18NKey().pleaseInputTitle);
+                      Utility.showToastMsg(msg: getI18NKey().pleaseInputTitle);
                       return;
                     }
                     if (this.widget.folderModel.color <= 0) {
-                      Utility.showToast(msg: getI18NKey().pleaseSelectColor);
+                      Utility.showToastMsg(msg: getI18NKey().pleaseSelectColor);
                       return;
                     }
                     if (this.widget.pageEnum == PageModeEnum.create) {

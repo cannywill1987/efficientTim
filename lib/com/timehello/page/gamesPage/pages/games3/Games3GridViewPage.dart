@@ -144,7 +144,7 @@ class _Games3GridViewPageWidgetState<T>
         updateUI();
       }
     } else {
-      Utility.showToast(msg: response.message);
+      Utility.showToastMsg(msg: response.message);
     }
   }
 }

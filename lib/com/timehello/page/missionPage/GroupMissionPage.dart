@@ -303,7 +303,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
 
   Future onClickUnFinishListener(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -370,7 +370,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
    */
   Future onClickFinishItem(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -392,7 +392,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
 
   Future<void> onClickFinishMission(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -429,7 +429,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
    */
   Future onClickDeleteItem(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -493,7 +493,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
         callback: (res) async {
           isRequesting = false;
           if (res != null) {
-            Utility.showToast(msg: getI18NKey().addsuccess);
+            Utility.showToastMsg(msg: getI18NKey().addsuccess);
             eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
             eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
             updateUI();
@@ -1150,14 +1150,14 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
           scrollDirection: Axis.horizontal,
           onReorder: (oldIndex, newIndex) {
             if (oldIndex == 0 || newIndex == 0) {
-              Utility.showToast(
+              Utility.showToastMsg(
                   context: context,
                   msg: getI18NKey().unorder_group_not_order_toast);
               return;
             }
             if (oldIndex == this.widget.listGroupModels.length - 1 ||
                 newIndex == this.widget.listGroupModels.length - 1) {
-              Utility.showToast(
+              Utility.showToastMsg(
                   context: context, msg: getI18NKey().add_group_cannot_reorder);
               return;
             }

@@ -150,7 +150,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionDetailMissionPa
 
   Future<void> onClickFinishMission(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }

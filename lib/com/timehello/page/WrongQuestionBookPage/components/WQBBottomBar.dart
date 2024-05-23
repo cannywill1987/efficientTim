@@ -314,7 +314,7 @@ class WQBBottomBarState extends State<WQBBottomBar> {
       ),
       onTap: () async {
         if (this.daily_start_time == null) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: context,
               msg: getI18NKey().please_select_daily_start_time);
           return;
@@ -327,7 +327,7 @@ class WQBBottomBarState extends State<WQBBottomBar> {
         int endTime =
             timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
         if (endTime < (this.daily_start_time ?? 0)) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: context,
               msg: getI18NKey().end_time_cannot_before_start_time);
           this.daily_end_time = null;
@@ -379,7 +379,7 @@ class WQBBottomBarState extends State<WQBBottomBar> {
             timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
         if (this.daily_end_time != null) {
           if ((this?.daily_end_time ?? 0) < startTime) {
-            Utility.showToast(
+            Utility.showToastMsg(
                 context: context,
                 msg: getI18NKey().end_time_cannot_before_start_time);
             this.daily_end_time = null;

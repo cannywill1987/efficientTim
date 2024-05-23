@@ -273,7 +273,7 @@ class MongoApisManager {
 
   Future delete_ChatGptFolderModel([String? objectId, bool shouldQueryModel = false, Function? callback]) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       return null;
@@ -303,7 +303,7 @@ class MongoApisManager {
   // 删除 CourseModel
   Future delete_CourseModel([String? objectId, Function? callback]) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -418,10 +418,13 @@ class MongoApisManager {
   }
 
   Future<List<FolderModel>?> requestFolderModelByGroup(
-      {required String folderTeamWorkId,  String? groupChatPassword, int isSharing = 0, callback}) async {
+      {required String folderTeamWorkId,  String? groupChatPassword, required List<int> isSharingList, callback}) async {
     List<MongoDbQuery<FolderModel>> list = [];
+    List<MongoDbQuery<FolderModel>> listOr = [];
 
     MongoDbQuery<FolderModel> commonQuery = MongoDbQuery();
+    MongoDbQuery<FolderModel> commonQueryAnd = MongoDbQuery();
+    MongoDbQuery<FolderModel> commonQueryOr = MongoDbQuery();
     MongoDbQuery<FolderModel> query1 = MongoDbQuery();
     query1.addWhereEqualTo("folderTeamWorkId", folderTeamWorkId);
     list.add(query1);
@@ -429,13 +432,20 @@ class MongoApisManager {
       MongoDbQuery<FolderModel> query2 = MongoDbQuery();
       list.add(query2..addWhereEqualTo("groupChatPassword", groupChatPassword ?? ""));
     }
-    if(isSharing == 1 || isSharing == 2 || isSharing == 3) {
-      //0 未分享中 1 之后分享中 - 1 免费开放 需要id 2 私有 - 需要搜索 3 销售（只针对国内）
+    isSharingList.forEach((element) {
       MongoDbQuery<FolderModel> query3 = MongoDbQuery();
-      list.add(query3..addWhereEqualTo("isSharing", isSharing));
-    }
-
+      listOr.add(query3..addWhereEqualTo("isSharing", element));
+    });
+    commonQueryOr.or(listOr);
+    list.add(commonQueryOr);
     commonQuery.and(list);
+    // if(isSharing == 1 || isSharing == 2 || isSharing == 3) {
+    //   //0 未分享中 仅仅我自己 1 之后分享中 - 1 私有 - 需要搜索 仅仅好友 2 所有人可查看 3 所有人可编辑
+    //   MongoDbQuery<FolderModel> query3 = MongoDbQuery();
+    //   list.add(query3..addWhereEqualTo("isSharing", isSharing));
+    // }
+
+    // commonQuery.and(list);
 
     List<dynamic> data = await commonQuery.queryObjects();
     List<FolderModel> listTmp =
@@ -444,7 +454,6 @@ class MongoApisManager {
       callback(listTmp);
     }
     return listTmp;
-
   }
 
   Future<FolderModel?> requestFolderModelByFolderId(
@@ -675,7 +684,7 @@ class MongoApisManager {
     try {
       //没登录且deviceId为空， 提示去登录
       if (LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         return null;
@@ -2906,7 +2915,7 @@ class MongoApisManager {
             Utility.getFilterDateTimeFromTimeStamp(
                     DateTime.now().millisecondsSinceEpoch ?? 0, true)
                 .millisecondsSinceEpoch) {
-      Utility.showToast(msg: getI18NKey().time_not_arrive_cannot_clcokin);
+      Utility.showToastMsg(msg: getI18NKey().time_not_arrive_cannot_clcokin);
       return;
     }
     // String ymd = Utility.getYMDToday();
@@ -2994,7 +3003,7 @@ class MongoApisManager {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3030,7 +3039,7 @@ class MongoApisManager {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3069,7 +3078,7 @@ class MongoApisManager {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3204,7 +3213,7 @@ class MongoApisManager {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3243,7 +3252,7 @@ class MongoApisManager {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3282,7 +3291,7 @@ class MongoApisManager {
     MongoDbSaved? bmobSaved;
     try {
       if (LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3320,7 +3329,7 @@ class MongoApisManager {
     MongoDbSaved? bmobSaved;
     try {
       if (LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -3495,7 +3504,7 @@ class MongoApisManager {
     try {
       //没登录且deviceId为空， 提示去登录
       if (LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         return null;
@@ -3591,7 +3600,7 @@ class MongoApisManager {
     try {
       //没登录且deviceId为空， 提示去登录
       if (LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         return null;
@@ -3908,13 +3917,13 @@ class MongoApisManager {
   bool validMissionModel({MissionModel? missionModel}) {
     if (missionModel?.time_mode == 1 &&
         (missionModel?.start_time == null || missionModel?.start_time == 0)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           msg: getI18NKey().please_input_xxx_name(getI18NKey().start_time));
       return false;
     }
     if (missionModel?.time_mode == 1 &&
         (missionModel?.end_time == null || missionModel?.end_time == 0)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           msg: getI18NKey().please_input_xxx_name(getI18NKey().end_time));
       return false;
     }
@@ -3936,7 +3945,7 @@ class MongoApisManager {
                 folderId: missionModel.folder_id ?? "",
                 uid: LoginManager.getInstance().userBean.uid ?? "") ==
             false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return null;
     }
@@ -4916,7 +4925,7 @@ class MongoApisManager {
       tomato_duration,
       Function? callback}) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -4964,7 +4973,7 @@ class MongoApisManager {
 
   delete_WQBMissionModel({currentObjectId, Function? callback}) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       return null;
@@ -5009,7 +5018,7 @@ class MongoApisManager {
       tomato_duration,
       Function? callback}) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       return null;
@@ -5139,7 +5148,7 @@ class MongoApisManager {
   Future<MongoDbHandled?> delete_WQBFolderModel(
       {currentObjectId, Function? callback}) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -5169,7 +5178,7 @@ class MongoApisManager {
   Future<MongoDbHandled?> delete_FolderModel(
       {currentObjectId, Function? callback}) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
@@ -5204,7 +5213,7 @@ class MongoApisManager {
       Function? callback}) async {
     try {
       if (LoginManager.isLogin() == false) {
-        Utility.showToast(msg: getI18NKey().loginFirst);
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
         LoginManager.getInstance()
             .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
         return null;
@@ -5303,7 +5312,7 @@ class MongoApisManager {
       bool shouldUpdate = true,
       Function? callback}) async {
     if (LoginManager.isLogin() == false) {
-      Utility.showToast(msg: getI18NKey().loginFirst);
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
       return null;
     }
     try {

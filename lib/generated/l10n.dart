@@ -50,6 +50,36 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `输入清单号码,搜索清单`
+  String get join_group_code_desc {
+    return Intl.message(
+      '输入清单号码,搜索清单',
+      name: 'join_group_code_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `输入清单号码`
+  String get join_group_code {
+    return Intl.message(
+      '输入清单号码',
+      name: 'join_group_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已经是该组组员`
+  String get already_in_group {
+    return Intl.message(
+      '已经是该组组员',
+      name: 'already_in_group',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `share`
   String get share {
     return Intl.message(

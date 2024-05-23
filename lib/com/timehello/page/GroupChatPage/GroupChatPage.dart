@@ -57,7 +57,7 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
                                             this.folderModel ?? FolderModel());
                                 updateUI();
                               } else {
-                                Utility.showToast(msg: "内容不能为空");
+                                Utility.showToastMsg(msg: "内容不能为空");
                               }
                             });
                       },

@@ -251,7 +251,7 @@ class _SettingPermissionPageWidgetState<T>
         this.aliPushOn = SharePreferenceUtil.getSyncInstance().getAlipushOn();
         updateUI();
       } else {
-        Utility.showToast(context: context, msg: getI18NKey().setting_fail);
+        Utility.showToastMsg(context: context, msg: getI18NKey().setting_fail);
       }
     } else if (this.aliPushOn == true) {
       BaseBean baseBean =
@@ -261,7 +261,7 @@ class _SettingPermissionPageWidgetState<T>
         this.aliPushOn = SharePreferenceUtil.getSyncInstance().getAlipushOn();
         updateUI();
       } else {
-        Utility.showToast(context: context, msg: getI18NKey().setting_fail);
+        Utility.showToastMsg(context: context, msg: getI18NKey().setting_fail);
       }
     }
   }

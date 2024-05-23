@@ -343,6 +343,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("already exists at this time"),
         "already_in_course":
             MessageLookupByLibrary.simpleMessage("Participated in the course"),
+        "already_in_group": MessageLookupByLibrary.simpleMessage("已经是该组组员"),
         "already_persisted":
             MessageLookupByLibrary.simpleMessage("Already Persisted"),
         "amount": MessageLookupByLibrary.simpleMessage("Amount"),
@@ -900,6 +901,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "jan_to_dec_desc": MessageLookupByLibrary.simpleMessage(
             "Create a group from January to December"),
         "join_days": MessageLookupByLibrary.simpleMessage("Join Days"),
+        "join_group_code": MessageLookupByLibrary.simpleMessage("输入清单号码"),
+        "join_group_code_desc":
+            MessageLookupByLibrary.simpleMessage("输入清单号码,搜索清单"),
         "jul": MessageLookupByLibrary.simpleMessage("Jul"),
         "julFull": MessageLookupByLibrary.simpleMessage("July"),
         "jump_next_group":

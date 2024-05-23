@@ -404,7 +404,7 @@ class CreateAIChatGptMissionPageState
         updateUI();
         // getAppointmentDetails(listMissionModel);
       } catch (e) {
-        Utility.showToast(msg: getI18NKey().request_error_try_again);
+        Utility.showToastMsg(msg: getI18NKey().request_error_try_again);
         print(e);
       } finally {
         this.isLoading = false;
@@ -748,7 +748,7 @@ class CreateAIChatGptMissionPageState
         if (Utility.isFolderModelEnabled(
                 folderId: missionModel?.folder_id ?? "") ==
             false) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
           return;
         }

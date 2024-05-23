@@ -68,16 +68,16 @@ class PasswordWidgetState extends State<PasswordWidget> {
     String password = this.getPassword1() ?? "";
     String passwordConfirm = this.getPassword2() ?? "";
     if (password.length < 6) {
-      Utility.showToast(msg: getI18NKey().input_6_digit_password);
+      Utility.showToastMsg(msg: getI18NKey().input_6_digit_password);
       return false;
     }
     if (passwordConfirm.length < 6) {
-      Utility.showToast(msg: getI18NKey().input_6_digit_password);
+      Utility.showToastMsg(msg: getI18NKey().input_6_digit_password);
       return false;
     }
 
     if (password != passwordConfirm) {
-      Utility.showToast(msg: getI18NKey().encrypt_password_not_match);
+      Utility.showToastMsg(msg: getI18NKey().encrypt_password_not_match);
       return false;
     }
     return true;

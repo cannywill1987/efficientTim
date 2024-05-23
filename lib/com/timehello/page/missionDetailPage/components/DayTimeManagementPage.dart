@@ -371,7 +371,7 @@ class DayTimeManagementPageState extends State<DayTimeManagementPage> {
         }
         if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
             false) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
           return;
         }
@@ -412,7 +412,7 @@ class DayTimeManagementPageState extends State<DayTimeManagementPage> {
         }
         if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
             false) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
           return;
         }

@@ -619,7 +619,7 @@ class BottomBarState extends State<BottomBar> {
           DateTimeModel? model = await Utility.showDateTimePickerDialog(
               context);
           if ((model?.datetime?.millisecondsSinceEpoch ?? 0) < (this.start_time ?? 0)) {
-            Utility.showToast(
+            Utility.showToastMsg(
                 context: context,
                 msg: getI18NKey().end_time_cannot_before_start_time);
             this.end_time = null;
@@ -642,7 +642,7 @@ class BottomBarState extends State<BottomBar> {
           if (startTime != null && endTime != null) {
             bool isBefore = (startTime > endTime);
             if (isBefore) {
-              Utility.showToast(
+              Utility.showToastMsg(
                   msg: getI18NKey().end_time_cannot_before_start_time);
               return;
             }
@@ -714,7 +714,7 @@ class BottomBarState extends State<BottomBar> {
           if (startTime != null && endTime != null) {
             bool isBefore = (startTime > endTime);
             if (isBefore) {
-              Utility.showToast(
+              Utility.showToastMsg(
                   msg: getI18NKey().end_time_cannot_before_start_time);
               return;
             }

@@ -185,8 +185,11 @@ class DialogManagement {
       {String? title,
       Widget? child,
       barrierDismissible: true,
+        shouldShowButtons: true,
       String? okText,
       String? cancelText,
+        EdgeInsets? margin,
+        EdgeInsets? padding,
       int color: 0xff61c37d,
       Function? okCallback,
       Function? cancelCallback}) async {
@@ -201,8 +204,8 @@ class DialogManagement {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.all(20),
+                    margin: margin??EdgeInsets.all(20),
+                    padding: padding?? EdgeInsets.all(20),
                     constraints: BoxConstraints(
                       maxWidth: 500,
                     ),
@@ -222,14 +225,17 @@ class DialogManagement {
                           height: 10,
                         ),
                         child ?? SizedBox.shrink(),
+                        if(shouldShowButtons == true)
                         SizedBox(
                           height: 10,
                         ),
+                        if(shouldShowButtons == true)
                         Container(
                           width: double.infinity,
                           height: 1,
                           color: ThemeManager.getInstance().getLineColor(),
                         ),
+                        if(shouldShowButtons == true)
                         Row(
                           children: [
                             Expanded(
@@ -508,7 +514,7 @@ class DialogManagement {
                     "eventType": EVENTNAME.rating_add_qq,
                     "message": "",
                   });
-                  Utility.showToast(
+                  Utility.showToastMsg(
                       context: context, msg: getI18NKey().copy_qq_success);
                 },
                 onSubmitted: (d) async {
@@ -703,6 +709,8 @@ class DialogManagement {
       {required FolderModel folderModel, Function? okCallback}) async {
     bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
         Utility.getGlobalContext(),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        margin: ,
         cancelText: getI18NKey().cancel, okCallback: () {
       //校验密码是否正确
       //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
@@ -722,7 +730,7 @@ class DialogManagement {
           width: 400,
           child: Column(
             children: [
-              GroupChatSharingWidget()
+              GroupChatSharingWidget(folderModel: folderModel,)
             ],
           ),
         ));
@@ -769,14 +777,21 @@ class DialogManagement {
         child: Container(
           width: 400,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Utility.getSVGPicture(R.assetsImgIcSecure, size: 80),
-              SizedBox(
-                height: 20,
+              Align(
+                alignment: Alignment.centerRight,
+                child: CloseButton(
+                  onPressed: () {
+                    Navigator.of(Utility.getGlobalContext()).pop();
+                  },
+                ),
               ),
+              // Utility.getSVGPicture(R.assetsImgIcSecure, size: 80),
               Text(
                 getI18NKey()
-                    .please_input_folder_password(folderModel?.title ?? ""),
+                    .join_group_code,
                 style: TextStyle(
                     fontSize: 18,
                     color: ThemeManager.getInstance().getTextColor()),
@@ -785,14 +800,14 @@ class DialogManagement {
                 height: 10,
               ),
               Text(
-                getI18NKey().local_password_desc,
+                getI18NKey().join_group_code_desc,
                 style: TextStyle(fontSize: 14, color: Color(0xff999999)),
               ),
               SizedBox(
                 height: 20,
               ),
               SearchFriendGroupWidget(
-                key: passwordWidgetStateGlobalKey,
+                key: passwordWidgetStateGlobalKey!,
               ),
             ],
           ),

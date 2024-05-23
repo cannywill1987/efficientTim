@@ -44,16 +44,16 @@ class ListingSecurityWidget extends StatelessWidget {
           int isPasswordCorrect = CryptoManager.getInstance()
               .isPasswordCorrectForFolderModel(folderId: this.folder_id);
           if (isPasswordCorrect == 0 && shouldShowRedDot == true) {
-            Utility.showToast(msg: getI18NKey().input_correct_password);
+            Utility.showToastMsg(msg: getI18NKey().input_correct_password);
             //   CryptoManager.getInstance().showPasswordDialog(folderId: this.folder_id);
             await showPasswordDialog();
           } else {
             //没有任务
             if(isPasswordCorrect == 2) {
-              Utility.showToast(msg: getI18NKey().no_mission_desc);
+              Utility.showToastMsg(msg: getI18NKey().no_mission_desc);
             }
             else {
-              Utility.showToast(msg: getI18NKey().password_correct_desc);
+              Utility.showToastMsg(msg: getI18NKey().password_correct_desc);
             }
           }
         },

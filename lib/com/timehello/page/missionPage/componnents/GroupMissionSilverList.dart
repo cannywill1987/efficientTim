@@ -239,11 +239,11 @@ class MissionSilverState extends State<GroupMissionSilverList> {
                 // this.isReodering = true;
                 // this.resetIsReoderingMapping();
                 if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
-                  Utility.showToast(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 if (this.widget._datasMissionModelUnfinished?.length == index) {
-                  Utility.showToast(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 isReodering = true;
@@ -264,7 +264,7 @@ class MissionSilverState extends State<GroupMissionSilverList> {
               onReorder: (oldIndex, newIndex) {
                 if (((this.widget._datasMissionModelUnfinished?.length ?? 0) ==
                     oldIndex)) {
-                  Utility.showToast(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
 
@@ -274,11 +274,11 @@ class MissionSilverState extends State<GroupMissionSilverList> {
                 // }
                 if (this.widget._datasMissionModelUnfinished?.length ==
                     oldIndex) {
-                  Utility.showToast(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
-                  Utility.showToast(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 setState(() {
@@ -355,7 +355,7 @@ class MissionSilverState extends State<GroupMissionSilverList> {
           setState(() {});
           ;
         }, export: (data) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: context, msg: getI18NKey().offer_next_version);
         });
       },

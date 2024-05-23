@@ -77,7 +77,7 @@ class GptChatInputWidgetState extends State<GptChatInputWidget> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Utility.showToast(
+                                    Utility.showToastMsg(
                                         context: context,
                                         msg: getI18NKey().voice_guide);
                                   },
@@ -163,7 +163,7 @@ class GptChatInputWidgetState extends State<GptChatInputWidget> {
                     InkWell(
                       onTap: () {
                         if (this.widget.isLoading == true) {
-                          Utility.showToast(
+                          Utility.showToastMsg(
                               msg: getI18NKey().requesting_please_wait);
                           return;
                         }

@@ -245,7 +245,7 @@ class LoginUtil implements Observer {
       LoginManager.getInstance().setUserBean(userBean);
       UserInfoManager.getSyncInstance().init();
       if (shouldShowToast == true) {
-        Utility.showToast(msg: getI18NKey().login_success);
+        Utility.showToastMsg(msg: getI18NKey().login_success);
       }
       if (this.loginResult != null) {
         loginResult?.loginSuccess(

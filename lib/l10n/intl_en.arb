@@ -1,4 +1,7 @@
 {
+  "join_group_code_desc": "输入清单号码,搜索清单",
+  "join_group_code": "输入清单号码",
+  "already_in_group": "已经是该组组员",
   "share": "分享",
   "who_can_view_or_edit": "谁可以查看/编辑文件",
   "only_me": "仅我自己",

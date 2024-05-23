@@ -163,7 +163,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
         if (isPasswordCorrect == 0) {
           passwordWidgetStateGlobalKey?.currentState
               ?.setIsVisibleForOriginPassword(true);
-          Utility.showToast(msg: getI18NKey().digit_password_incorrect);
+          Utility.showToastMsg(msg: getI18NKey().digit_password_incorrect);
           return;
         }
       } else {
@@ -177,7 +177,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
             .isPasswordCorrectForPassword(
                 folderId: objectId, password: originPassword);
         if (isPasswordCorrect == false) {
-          Utility.showToast(msg: getI18NKey().digit_password_incorrect);
+          Utility.showToastMsg(msg: getI18NKey().digit_password_incorrect);
           return;
         }
       }
@@ -244,7 +244,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
           }
           resetForm();
           // eventBus.fire(EventFn(Params.ACTION_UPDATE_FOLDER_PAGE, {}));
-          Utility.showToast(msg: getI18NKey().updateSuccess);
+          Utility.showToastMsg(msg: getI18NKey().updateSuccess);
         });
   }
 
@@ -319,7 +319,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
     }
     resetForm();
     eventBus.fire(EventFn(Params.ACTION_UPDATE_FOLDER_PAGE, {}));
-    Utility.showToast(msg: getI18NKey().createSuccess);
+    Utility.showToastMsg(msg: getI18NKey().createSuccess);
   }
 
   //customized, pdpa, gtd, four_season, jan_to_dec, micro_mastery
@@ -430,7 +430,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
         if (startTime != null && endTime != null) {
           bool isBefore = (startTime > endTime);
           if (isBefore) {
-            Utility.showToast(
+            Utility.showToastMsg(
                 msg: getI18NKey().end_time_cannot_before_start_time);
             return;
           }
@@ -493,7 +493,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
             if (startTime != null && endTime != null) {
               bool isBefore = (startTime > endTime);
               if (isBefore) {
-                Utility.showToast(
+                Utility.showToastMsg(
                     msg: getI18NKey().end_time_cannot_before_start_time);
                 return;
               }
@@ -959,11 +959,11 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
             child: InkWell(
               onTap: () {
                 if (TextUtil.isEmpty(this.widget.folderModel.title)) {
-                  Utility.showToast(msg: getI18NKey().pleaseInputTitle);
+                  Utility.showToastMsg(msg: getI18NKey().pleaseInputTitle);
                   return;
                 }
                 if (this.widget.folderModel.color <= 0) {
-                  Utility.showToast(msg: getI18NKey().pleaseSelectColor);
+                  Utility.showToastMsg(msg: getI18NKey().pleaseSelectColor);
                   return;
                 }
                 if (this.widget.pageEnum == PageModeEnum.create) {

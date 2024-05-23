@@ -70,37 +70,37 @@ class GroupInfoPageState extends State<GroupInfoPage> {
               ],
             ),
             SizedBox(height: 20),
-            if(this.widget.folderModel.uid == LoginManager.getInstance().userBean.uid)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('可搜索'),
-                BlackCheckButtonListWidget(
-                  initIndex: this.widget.folderModel.isSharing == 3
-                      ? 1
-                      : 0,
-                  list: CONSTANTS.getOnAndOffButtonList(),
-                  onTapListener: (obj) async {
-                    if(obj == 1) {
-                      this.widget.folderModel.isSharing = 3;
-                    } else {
-                      this.widget.folderModel.isSharing = 0;
-                    }
-                    await MongoApisManager.getInstance().update_FolderModelWithFM(folderModel: this.widget.folderModel);
-                    setState(() {
-
-                    });
-                    // if(!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
-                    //   ScreenLockManager.getInstance().createPassword(shouldShow: true);
-                    // }
-                  },
-                )
-                // Text(
-                //   '设置群聊备注',
-                //   style: TextStyle(color: Colors.blue),
-                // ),
-              ],
-            ),
+            // if(this.widget.folderModel.uid == LoginManager.getInstance().userBean.uid)
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text('可搜索'),
+            //     BlackCheckButtonListWidget(
+            //       initIndex: this.widget.folderModel.isSharing == 3
+            //           ? 1
+            //           : 0,
+            //       list: CONSTANTS.getOnAndOffButtonList(),
+            //       onTapListener: (obj) async {
+            //         if(obj == 1) {
+            //           this.widget.folderModel.isSharing = 3;
+            //         } else {
+            //           this.widget.folderModel.isSharing = 0;
+            //         }
+            //         await MongoApisManager.getInstance().update_FolderModelWithFM(folderModel: this.widget.folderModel);
+            //         setState(() {
+            //
+            //         });
+            //         // if(!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
+            //         //   ScreenLockManager.getInstance().createPassword(shouldShow: true);
+            //         // }
+            //       },
+            //     )
+            //     // Text(
+            //     //   '设置群聊备注',
+            //     //   style: TextStyle(color: Colors.blue),
+            //     // ),
+            //   ],
+            // ),
             // SizedBox(height: 20),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,

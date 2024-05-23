@@ -210,7 +210,7 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
         title: getI18NKey().insert_event,
         initVal: "", okCallBack: (String value) async {
       if (value.isEmpty) {
-        Utility.showToast(
+        Utility.showToastMsg(
             context: context, msg: getI18NKey().content_cannot_be_empty);
         return;
       }
@@ -223,7 +223,7 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
                   eventType: "insert_manually",
                   timelineMessage: value));
       if (res != null) {
-        Utility.showToast(context: context, msg: getI18NKey().insert_success);
+        Utility.showToastMsg(context: context, msg: getI18NKey().insert_success);
         DialogManagement.getInstance().hideDialog(context);
       }
     }, cancelCallBack: () {

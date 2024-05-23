@@ -168,7 +168,7 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
   @override
   didUpdateWidget(MainContainerWidget oldWidget) {
     if (Params.env == EnvEnum.dev) {
-      Utility.showToast(msg: "更新成功");
+      Utility.showToastMsg(msg: "更新成功");
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -224,7 +224,7 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
   showUpdateToast() {
     if (Params.env == EnvEnum.dev) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        Utility.showToast(msg: "编译完成");
+        Utility.showToastMsg(msg: "编译完成");
       });
     }
   }

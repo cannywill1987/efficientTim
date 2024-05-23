@@ -430,7 +430,7 @@ class _Games3PageWidgetState<T> extends BaseWidgetState<Games3Page>
         updateUI();
       }
     } else {
-      Utility.showToast(msg: response.message);
+      Utility.showToastMsg(msg: response.message);
     }
   }
 }

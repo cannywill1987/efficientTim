@@ -218,7 +218,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
 
   Future onClickEditTitle(WQBMissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -228,7 +228,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
       if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-        Utility.showToast(
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
@@ -236,7 +236,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
       await MongoApisManager.getInstance()
           .update_WQBMissionModel(missionModel: data);
       requestDatas();
-      Utility.showToast(context: context, msg: getI18NKey().update_success);
+      Utility.showToastMsg(context: context, msg: getI18NKey().update_success);
       DialogManagement.getInstance().hideDialog(context);
     }, cancelCallBack: () {
       DialogManagement.getInstance().hideDialog(context);
@@ -248,7 +248,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
    */
   Future onClickFinishItem(WQBMissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -279,7 +279,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
    */
   Future onClickDeleteItem(data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }

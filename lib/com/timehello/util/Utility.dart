@@ -118,6 +118,7 @@ import 'package:file_selector/file_selector.dart';
 
 // import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_compression/image_compression.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 typedef void OnError(Exception exception);
 
@@ -1159,7 +1160,7 @@ class Utility {
         paint);
   }
 
-  static showToast(
+  static showToastMsg(
       {msg: '',
       BuildContext? context,
       // toastLength: Toast.LENGTH_SHORT,
@@ -1202,6 +1203,11 @@ class Utility {
       } catch (e) {}
     } else {
       try {
+        // showToast(msg,
+        //     context: context,
+        //     axis: Axis.horizontal,
+        //     alignment: Alignment.center,
+        //     position: StyledToastPosition.bottom);
         ScaffoldMessenger.of(
                 Params.curContext ?? context ?? Utility.getGlobalContext())
             .showSnackBar(
@@ -1343,7 +1349,7 @@ class Utility {
       Function finishCallback) async {
     if (Utility.isFolderModelEnabled(folderId: missionModel.folder_id) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -6386,7 +6392,7 @@ class Utility {
             uid: LoginManager.getInstance().userBean.uid ?? "",
             list: listMissionModel) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -8416,7 +8422,7 @@ class Utility {
   static void copyToClipboard(String text, {bool shouldShowToast = true}) {
     FlutterClipboard.copy(text).then((value) {
       if (shouldShowToast == true) {
-        Utility.showToast(
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(),
             msg: getI18NKey().successfully_copied_to_clipboard);
       }

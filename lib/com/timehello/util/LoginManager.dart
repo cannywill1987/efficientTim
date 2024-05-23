@@ -57,18 +57,18 @@ class LoginManager {
     } else {
       if (TextUtil.isEmpty(LoginManager.getInstance().getUserBean().username) ==
           true) {
-        Utility.showToast(msg: getI18NKey().need_update_username);
+        Utility.showToastMsg(msg: getI18NKey().need_update_username);
         Utility.pushNavigator(
             Utility.getGlobalContext(), new SettingUserInfoPage(),
             callback: (res) {
           if (TextUtil.isEmpty(
                   LoginManager.getInstance().getUserBean().username) ==
               false) {
-            Utility.showToast(msg: getI18NKey().setting_success);
+            Utility.showToastMsg(msg: getI18NKey().setting_success);
             callback();
           } else {
             //用户名未设置成功
-            Utility.showToast(msg: getI18NKey().setting_fail);
+            Utility.showToastMsg(msg: getI18NKey().setting_fail);
           }
           // this.requestDatas();
         });
@@ -216,20 +216,20 @@ class LoginManager {
     String phoneNum = EditFormat.getNoblanKString(mobile ?? "");
     String psd = password ?? "";
     if (TextUtil.isEmpty(mobile.toString())) {
-      Utility.showToast(msg: getI18NKey().input_mobile);
+      Utility.showToastMsg(msg: getI18NKey().input_mobile);
       return mLoginManager!;
     }
     if (EditFormat.getNoblanKString(mobile ?? "").length < 11) {
-      Utility.showToast(msg: getI18NKey().input_correct_mobile);
+      Utility.showToastMsg(msg: getI18NKey().input_correct_mobile);
       return mLoginManager!;
     }
     if (TextUtil.isEmpty(password.toString()) || (password?.length ?? 0)< 6) {
-      Utility.showToast(msg: getI18NKey().password_at_least_6);
+      Utility.showToastMsg(msg: getI18NKey().password_at_least_6);
       return mLoginManager!;
     }
 
     if (TextUtil.isEmpty(password.toString())) {
-      Utility.showToast(msg: getI18NKey().password_not_empty);
+      Utility.showToastMsg(msg: getI18NKey().password_not_empty);
       return mLoginManager!;
     }
 

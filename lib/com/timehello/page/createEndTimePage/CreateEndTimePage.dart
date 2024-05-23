@@ -116,7 +116,7 @@ class _CreateEndTimePageState extends BaseWidgetState<CreateEndTimePage> {
 
   Future<void> requestSaveData() async {
     if (TextUtil.isEmpty(this.widget.missionModel.title) == true) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_the_mission_title);
       return;
     }
@@ -128,23 +128,23 @@ class _CreateEndTimePageState extends BaseWidgetState<CreateEndTimePage> {
         await MongoApisManager.getInstance()
             .insertEndTimeMissionModel(missionModel: this.widget.missionModel);
         EasyLoadingManager.getInstance().hideLoading();
-        Utility.showToast(context: context, msg: getI18NKey().createSuccess);
+        Utility.showToastMsg(context: context, msg: getI18NKey().createSuccess);
         //todo 敢做这个没用了 因为用env了
         //mobile端返回上一页
         Utility.popupPagePCAndMobile(context);
       } catch (e) {
-        Utility.showToast(context: context, msg: getI18NKey().network_error);
+        Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
       }
     } else { //更新
       try {
         await MongoApisManager.getInstance()
             .update_EndTimeMissionModel(missionModel: this.widget.missionModel);
-        Utility.showToast(context: context, msg: getI18NKey().update_success);
+        Utility.showToastMsg(context: context, msg: getI18NKey().update_success);
         //todo 敢做这个没用了 因为用env了
         //mobile端返回上一页
         Utility.popupPagePCAndMobile(context);
       } catch (e) {
-        Utility.showToast(context: context, msg: getI18NKey().network_error);
+        Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
       }
     }
   }

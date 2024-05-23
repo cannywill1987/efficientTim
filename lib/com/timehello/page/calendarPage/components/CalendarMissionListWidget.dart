@@ -474,7 +474,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
    */
   Future onClickDeleteItem(data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -503,7 +503,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
    */
   Future onClickFinishItem(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -525,7 +525,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
 
   Future<void> onClickFinishMission(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -558,7 +558,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
 
   Future onTapDoItNow(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -567,7 +567,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
 
   Future onClickUnFinishListener(MissionModel data) async {
     if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -929,7 +929,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
                                                                 textEditingController.text = s;
                                                                 updateUI();
                                                               }, export: (data) {
-                                                                Utility.showToast(
+                                                                Utility.showToastMsg(
                                                                     context: context,
                                                                     msg: getI18NKey().offer_next_version);
                                                               });

@@ -63,7 +63,7 @@ class CreateShareFolderPageWidget
   onClickSave() async {
     this.widget.courseModel?.type = this.curIndex + 1;
     if (TextUtil.isEmpty(this.widget.courseModel?.title)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context,
           msg: getI18NKey().xxx_cannot_be_empty(getI18NKey().title));
       return;
@@ -82,12 +82,12 @@ class CreateShareFolderPageWidget
     // }
     if (this.widget.courseModel?.type == 2 &&
         TextUtil.isEmpty(this.password) == true) {
-      Utility.showToast(context: context, msg: getI18NKey().four_pws);
+      Utility.showToastMsg(context: context, msg: getI18NKey().four_pws);
       return;
     }
 
     if (TextUtil.isEmpty(this.widget.courseModel?.type)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context,
           msg: getI18NKey().xxx_cannot_be_empty(getI18NKey().course_intro));
       return;

@@ -95,7 +95,7 @@ class ConsumeMoneyButtonWidgetState extends State<ConsumeMoneyButtonWidget> {
                   DialogManagement.getInstance().hideDialog(context);
                 });
               } else {
-                Utility.showToast(msg: getI18NKey().money_not_enough_toast);
+                Utility.showToastMsg(msg: getI18NKey().money_not_enough_toast);
               }
             } else if (val == 'select_prize') {
               SelectPresentDialogUtil.show(context,
@@ -105,7 +105,7 @@ class ConsumeMoneyButtonWidgetState extends State<ConsumeMoneyButtonWidget> {
                   isCheckButtonShow: true,
                   okCallBack: (List<PresentModel> list) async {
                 if (list.length == 0) {
-                  Utility.showToast(
+                  Utility.showToastMsg(
                       context: context, msg: getI18NKey().at_least_one_prize);
                   return;
                 }
