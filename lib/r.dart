@@ -563,6 +563,8 @@ class R {
   static final String assetsImgIcMusic = 'assets/img/ic_music.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar03.svg)
   static final String assetsImgAvatar03 = 'assets/img/avatar03.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_add_friend.svg)
+  static final String assetsImgIcAddFriend = 'assets/img/ic_add_friend.svg';
   /// ![](http://127.0.0.1:123/assets/img/unionpay.png)
   static final String assetsImgUnionpay = 'assets/img/unionpay.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_timeline_unclicked.svg)

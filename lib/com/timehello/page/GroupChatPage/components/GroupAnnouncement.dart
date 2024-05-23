@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 class GroupAnnouncement extends StatelessWidget {
   @override
@@ -14,17 +16,31 @@ class GroupAnnouncement extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            '群公告',
+            getI18NKey().group_announcement,
             style: TextStyle(
               fontSize: 16.0,
               color: Colors.black,
             ),
           ),
-          Icon(
-            Icons.chevron_right,
-            color: Colors.grey,
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                getI18NKey().edit,
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: ThemeManager.getInstance().isDark() ? Colors.white : Colors.grey,
+                ),
+              ),
+              SizedBox(width: 2,),
+              Icon(
+                Icons.chevron_right,
+                color: Colors.grey,
+              ),
+            ],
           ),
         ],
       ),

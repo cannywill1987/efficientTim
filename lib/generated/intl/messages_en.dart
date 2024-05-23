@@ -125,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m45(app_name) => "Acting as ${app_name}\'s timekeeper";
 
+  static String m116(id) => "群号:${id}";
+
   static String m46(title) =>
       "Add a task in \"${title}\", press \"Enter\" to save";
 
@@ -300,6 +302,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_group": MessageLookupByLibrary.simpleMessage("Add group"),
         "add_group_cannot_reorder": MessageLookupByLibrary.simpleMessage(
             "Cannot reorder when adding a group"),
+        "add_group_listing": MessageLookupByLibrary.simpleMessage("添加群清单"),
         "add_group_on_the_left":
             MessageLookupByLibrary.simpleMessage("Add Group on the Left"),
         "add_group_on_the_right":
@@ -315,6 +318,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_username": MessageLookupByLibrary.simpleMessage("add username"),
         "addsuccess":
             MessageLookupByLibrary.simpleMessage("Added successfully"),
+        "administrator": MessageLookupByLibrary.simpleMessage("管理员"),
         "advanced_permissions":
             MessageLookupByLibrary.simpleMessage("高级权限：可设置禁止复制、批注等"),
         "agree": MessageLookupByLibrary.simpleMessage("agree"),
@@ -822,6 +826,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gpt_token_expired": MessageLookupByLibrary.simpleMessage(
             "Your token has expired, please add WeChat ID cannywill to apply for GPT access permission."),
         "grid": MessageLookupByLibrary.simpleMessage("Grid"),
+        "group_announcement": MessageLookupByLibrary.simpleMessage("群公告"),
+        "group_id": m116,
         "groupview": MessageLookupByLibrary.simpleMessage("Group view"),
         "gtd": MessageLookupByLibrary.simpleMessage("GTD"),
         "gtd_desc": MessageLookupByLibrary.simpleMessage(
@@ -1521,6 +1527,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_to": MessageLookupByLibrary.simpleMessage("分享到"),
         "sharing_course":
             MessageLookupByLibrary.simpleMessage("sharing course"),
+        "sharing_listing": MessageLookupByLibrary.simpleMessage("共享清单"),
         "six_hours": MessageLookupByLibrary.simpleMessage("Six hours"),
         "six_months": MessageLookupByLibrary.simpleMessage("Six months"),
         "skilled": MessageLookupByLibrary.simpleMessage("skilled"),

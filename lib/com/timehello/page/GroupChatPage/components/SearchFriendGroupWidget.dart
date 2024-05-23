@@ -15,9 +15,9 @@ import '../../../../../r.dart';
 import '../../../common/provider/Env.dart';
 import '../../../models/FolderModel.dart';
 
-
 class SearchFriendGroupWidget extends StatefulWidget {
   double width;
+
   SearchFriendGroupWidget({Key? key, this.width = 200}) : super(key: key);
 
   @override
@@ -33,6 +33,7 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _originPasswordController =
       TextEditingController();
+
   // final TextEditingController _confirmPasswordController =
   //     TextEditingController();
   List<FolderModel> listFolderModels = [];
@@ -44,6 +45,7 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
 
   String pwd = "";
   String group = "";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -55,11 +57,9 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
     return _originPasswordController.text;
   }
 
-
   // String getPassword2() {
   //   return _confirmPasswordController.text;
   // }
-
 
   setOriginPassword(String password) {
     _originPasswordController.text = password;
@@ -67,13 +67,13 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
 
   requestData({required String group, required String pwd}) async {
     this.listFolderModels = await MongoApisManager.getInstance()
-        ?.requestFolderModelByGroup(
-        groupChatPassword: pwd, folderTeamWorkId: group, isSharingList: [2, 3]) ?? [];
-    setState(() {
-
-    });
+            ?.requestFolderModelByGroup(
+                groupChatPassword: pwd,
+                folderTeamWorkId: group,
+                isSharingList: [2, 3]) ??
+        [];
+    setState(() {});
   }
-
 
   // setPassword2(String password) {
   //   _confirmPasswordController.text = password;
@@ -163,67 +163,66 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
           ),
         ),
         SizedBox(height: 20),
-        FolderListView(datas: this.listFolderModels, onTapJoin: (FolderModel folderModelTmp ) async {
-          FolderModel? folderModel = await MongoApisManager.getInstance()
-              .requestFolderModelByFolderId(
-              folder_id: folderModelTmp?.objectId ?? "");
+        FolderListView(
+          datas: this.listFolderModels,
+          onTapJoin: (FolderModel folderModelTmp) async {
+            FolderModel? folderModel = await MongoApisManager.getInstance()
+                .requestFolderModelByFolderId(
+                    folder_id: folderModelTmp?.objectId ?? "");
 
-          if(folderModel != null) {
-          // 添加uid
-          if (folderModel?.otherUids == null) folderModel?.otherUids = [];
-          if(folderModel?.otherUids!.contains(LoginManager.getInstance().userBean.uid) == false) {
-            // folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
-            folderModel?.otherUids?.add(LoginManager
-                .getInstance()
-                .userBean
-                .uid);
-            folderModel?.otherUserInfo?.add({"uid": LoginManager
-                .getInstance()
-                .userBean
-                .uid, "avatar": LoginManager
-                .getInstance()
-                .userBean
-                .avatar, "username": LoginManager
-                .getInstance()
-                .userBean
-                .username, "numTasksDone": 0, "totalDurationFocus": 0});
-            await MongoApisManager.getInstance()
-                .update_FolderModelWithFM(folderModel: folderModel!);
-            context.read<Env>().curFolderSelected = folderModel;
-          }else {
-            Utility.showToastMsg(msg: getI18NKey().already_in_group);
-          }
-            // this.widget.courseModel?.otherUids = folderModel?.otherUids;
-            // this.widget.courseModel?.otherUserInfo = folderModel?.otherUserInfo;
-            //主要目的是更新uid
-            //     ;
-            // List resList = await Future.wait([MongoApisManager.getInstance()
-            //     .update_CourseModel(this.widget.courseModel?.objectId ?? "", courseModel: this.widget.courseModel),
+            if (folderModel != null) {
+              // 添加uid
+              if (folderModel?.otherUids == null) folderModel?.otherUids = [];
+              if (folderModel.uid != LoginManager.getInstance().userBean.uid && folderModel?.otherUids!
+                      .contains(LoginManager.getInstance().userBean.uid) ==
+                  false ) {
+                // folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
+                folderModel?.otherUids
+                    ?.add(LoginManager.getInstance().userBean.uid);
+                folderModel?.otherUserInfo?.add({
+                  "uid": LoginManager.getInstance().userBean.uid,
+                  "avatar": LoginManager.getInstance().userBean.avatar,
+                  "username": LoginManager.getInstance().userBean.username,
+                  "numTasksDone": 0,
+                  "totalDurationFocus": 0
+                });
+                await MongoApisManager.getInstance()
+                    .update_FolderModelWithFM(folderModel: folderModel!);
+                context.read<Env>().curFolderSelected = folderModel;
+              } else {
+                Utility.showToastMsg(msg: getI18NKey().already_in_group);
+              }
+              // this.widget.courseModel?.otherUids = folderModel?.otherUids;
+              // this.widget.courseModel?.otherUserInfo = folderModel?.otherUserInfo;
+              //主要目的是更新uid
+              //     ;
+              // List resList = await Future.wait([MongoApisManager.getInstance()
+              //     .update_CourseModel(this.widget.courseModel?.objectId ?? "", courseModel: this.widget.courseModel),
+              //
+              // ]);
+            }
+
+            // // 添加uid
+            // if (folderModel?.otherUids == null) folderModel?.otherUids = [];
+            // if(folderModel?.otherUids!.contains(LoginManager.getInstance().userBean.uid) == false) {
+            //   folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
+            //   folderModel?.otherUids?.add(LoginManager.getInstance().userBean.uid);
+            //   folderModel?.otherUserInfo?.add({"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username});
             //
-            // ]);
-          }
-
-          // // 添加uid
-          // if (folderModel?.otherUids == null) folderModel?.otherUids = [];
-          // if(folderModel?.otherUids!.contains(LoginManager.getInstance().userBean.uid) == false) {
-          //   folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
-          //   folderModel?.otherUids?.add(LoginManager.getInstance().userBean.uid);
-          //   folderModel?.otherUserInfo?.add({"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username});
-          //
-          //   this.widget.courseModel?.otherUids = folderModel?.otherUids;
-          //   this.widget.courseModel?.otherUserInfo = folderModel?.otherUserInfo;
-          //   //主要目的是更新uid
-          //       ;
-          //   List resList = await Future.wait([MongoApisManager.getInstance()
-          //       .update_CourseModel(this.widget.courseModel?.objectId ?? "", courseModel: this.widget.courseModel),
-          //     MongoApisManager.getInstance()
-          //         .update_FolderModelWithFM(folderModel: folderModel)
-          //   ]);
-          // } else {
-          //   Utility.showToast(msg: getI18NKey().already_in_course);
-          // }
-
-        },),
+            //   this.widget.courseModel?.otherUids = folderModel?.otherUids;
+            //   this.widget.courseModel?.otherUserInfo = folderModel?.otherUserInfo;
+            //   //主要目的是更新uid
+            //       ;
+            //   List resList = await Future.wait([MongoApisManager.getInstance()
+            //       .update_CourseModel(this.widget.courseModel?.objectId ?? "", courseModel: this.widget.courseModel),
+            //     MongoApisManager.getInstance()
+            //         .update_FolderModelWithFM(folderModel: folderModel)
+            //   ]);
+            // } else {
+            //   Utility.showToast(msg: getI18NKey().already_in_course);
+            // }
+          },
+        ),
         // Container(
         //   height: height,
         //   width: this.widget.width,
@@ -273,5 +272,4 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
       ],
     );
   }
-
 }

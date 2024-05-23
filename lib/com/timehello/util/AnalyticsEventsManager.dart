@@ -31,17 +31,21 @@ class AnalyticsEventsManager {
   }
 
   Future<void> sendAnalyticsEventMap(Map data) async {
-    String sceneType = data['sceneType'];
-    String eventType = data['eventType'];
-    String message = data['message'];
-    await analytics.logEvent(
-      name: sceneType + '_' + eventType,
-      parameters: <String, dynamic>{
-        'sceneType': sceneType,
-        'eventType': eventType,
-        'message': message,
-      },
-    );
+    try {
+      String sceneType = data['sceneType'] ?? "";
+      String eventType = data['eventType'] ?? "";
+      String message = data['message'] ?? "";
+      await analytics.logEvent(
+        name: sceneType + '_' + eventType,
+        parameters: <String, dynamic>{
+          'sceneType': sceneType,
+          'eventType': eventType,
+          'message': message,
+        },
+      );
+    } catch(e) {
+      print(e);
+    }
   }
 
   Future<void> sendAnalyticsEvent({name}) async {

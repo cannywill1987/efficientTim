@@ -1705,6 +1705,12 @@ class CONSTANTS {
         uncheckIcon: Utility.getSVGPicture(R.assetsImgIcFolder, size: size),
         title: getI18NKey().folder,
         isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        code: 'group',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
+        title: getI18NKey().add_group_listing,
+        isCheck: defaultVal == 1));
     return list;
   }
 

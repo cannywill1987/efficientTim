@@ -50,6 +50,56 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `添加群清单`
+  String get add_group_listing {
+    return Intl.message(
+      '添加群清单',
+      name: 'add_group_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `共享清单`
+  String get sharing_listing {
+    return Intl.message(
+      '共享清单',
+      name: 'sharing_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `群公告`
+  String get group_announcement {
+    return Intl.message(
+      '群公告',
+      name: 'group_announcement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `管理员`
+  String get administrator {
+    return Intl.message(
+      '管理员',
+      name: 'administrator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `群号:{id}`
+  String group_id(Object id) {
+    return Intl.message(
+      '群号:$id',
+      name: 'group_id',
+      desc: '',
+      args: [id],
+    );
+  }
+
   /// `输入清单号码,搜索清单`
   String get join_group_code_desc {
     return Intl.message(

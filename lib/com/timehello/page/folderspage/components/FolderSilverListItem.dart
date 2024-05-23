@@ -141,8 +141,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                   folderModelWithExtraData.folderModel.uid ==
                       LoginManager.getInstance().userBean.uid
                       ? getI18NKey()
-                      .my(getCourseSubtitle(folderModelWithExtraData))
-                      : getCourseSubtitle(folderModelWithExtraData),
+                      .my(getSharingSubtitle(folderModelWithExtraData))
+                      : getSharingSubtitle(folderModelWithExtraData),
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
@@ -333,10 +333,10 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
     }
   }
 
-  String getCourseSubtitle(FolderModelWithExtraData _folderModelWithExtraData) {
+  String getSharingSubtitle(FolderModelWithExtraData _folderModelWithExtraData) {
     return _folderModelWithExtraData.folderModel.isSharing == 1
-        ? getI18NKey().public_course
-        : getI18NKey().sharing_course;
+        ? getI18NKey().sharing_listing
+        : getI18NKey().sharing_listing;
   }
 
   List<Widget> getSlideActions(

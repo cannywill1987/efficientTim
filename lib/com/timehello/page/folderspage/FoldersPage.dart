@@ -155,6 +155,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       case 'onClickCreateFolder':
         onClickCreateFolder();
         break;
+      case 'onClickAddGroup':
+        onClickAddGroup();
+        break;
       case 'onClickMissionPage': //跳转任务页
         this.curSelectedTitle = data.title;
         if (data.iconType == 5 && Utility.isHandsetBySize() == false) {
@@ -513,6 +516,10 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  onClickAddGroup() {
+    DialogManagement.getInstance().showSearchFriendGroupWidget();
+  }
+
   void onClickCreateFolder() {
     this.isAddingFolder = true;
     // FolderModel folderModel = FolderModel();
@@ -630,6 +637,8 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                     this.onClick('onClickCreateFolder', {});
                     // this.onClick?.call('folder');
                     break;
+                  case 'group':
+                    this.onClick("onClickAddGroup", {});
                 }
               },
               list: CONSTANTS.getFolderButtonList(),

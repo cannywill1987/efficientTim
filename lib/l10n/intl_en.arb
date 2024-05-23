@@ -1,4 +1,9 @@
 {
+  "add_group_listing": "添加群清单",
+  "sharing_listing": "共享清单",
+  "group_announcement": "群公告",
+  "administrator": "管理员",
+  "group_id": "群号:{id}",
   "join_group_code_desc": "输入清单号码,搜索清单",
   "join_group_code": "输入清单号码",
   "already_in_group": "已经是该组组员",
