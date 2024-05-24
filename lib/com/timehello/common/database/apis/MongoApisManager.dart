@@ -17,6 +17,7 @@ import 'package:time_hello/com/timehello/models/StatsModel.dart';
 import 'package:time_hello/com/timehello/models/User.dart';
 import 'package:time_hello/com/timehello/models/UserInfoModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/CryptoManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
@@ -3941,7 +3942,7 @@ class MongoApisManager {
       bool shouldQueryMissionModel = true,
       Function? callback}) async {
     if (shouldCheckPermission == true &&
-        Utility.isFolderModelEnabled(
+        ChatGroupManager.isFolderModelEnabled(
                 folderId: missionModel.folder_id ?? "",
                 uid: LoginManager.getInstance().userBean.uid ?? "") ==
             false) {

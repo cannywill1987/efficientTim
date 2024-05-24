@@ -731,7 +731,7 @@ class DialogManagement {
           width: 400,
           child: Column(
             children: [
-              GroupChatSharingWidget(folderModel: folderModel,)
+              GroupChatPermissionSharingWidget(folderModel: folderModel,)
             ],
           ),
         ));

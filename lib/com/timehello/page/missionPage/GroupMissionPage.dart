@@ -12,6 +12,7 @@ import 'package:time_hello/com/timehello/models/GroupModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/TimelineMissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -276,8 +277,12 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
     if (currentIndex < listGroupModels.length - 1 &&
         missionModel.objectId != null) {
       GroupModel nextGroupModel = listGroupModels[currentIndex + 1];
+      // nextGroupModel.missionModelObjectIdOrderList?.removeWhere((element) => element == missionModel.objectId!);
       nextGroupModel.missionModelObjectIdOrderList?.add(missionModel.objectId!);
+      nextGroupModel.missionModelObjectIdOrderList = Utility.removeDuplicates(nextGroupModel.missionModelObjectIdOrderList ?? []);
+      // nextGroupModel.missionModelList?.removeWhere((element) => element == missionModel!);
       nextGroupModel.missionModelList?.add(missionModel);
+      nextGroupModel.missionModelList = Utility.removeDuplicates(nextGroupModel.missionModelList ?? []);
       missionModel.group_id = nextGroupModel.objectId;
       await Future.wait([
         MongoApisManager.getInstance().update_MissionModel(
@@ -289,6 +294,8 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
       });
     }
   }
+
+
 
   // onTapMultiSelectListener(data) async {
   //   if (data == null) {
@@ -302,7 +309,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
   // }
 
   Future onClickUnFinishListener(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -369,7 +376,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -391,7 +398,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -428,7 +435,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;

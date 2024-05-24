@@ -15,6 +15,7 @@ import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
@@ -465,7 +466,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             missionModel?.start_time = startDateTime.millisecondsSinceEpoch;
             missionModel?.end_time = endDateTime.millisecondsSinceEpoch;
           }
-          if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+          if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
               false) {
             Utility.showToastMsg(
                 context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -508,7 +509,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             missionModel?.end_time =
                 appointment.endTime?.millisecondsSinceEpoch;
           }
-          if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+          if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
               false) {
             Utility.showToastMsg(
                 context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);

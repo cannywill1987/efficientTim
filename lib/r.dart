@@ -5,6 +5,8 @@ class R {
   static final String assetsImgIcZhongguoBank = 'assets/img/ic_zhongguo_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_eye_slash.svg)
   static final String assetsImgIcEyeSlash = 'assets/img/ic_eye_slash.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_total_check.svg)
+  static final String assetsImgIcTotalCheck = 'assets/img/ic_total_check.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_objective.svg)
   static final String assetsImgIcObjective = 'assets/img/ic_objective.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar18.svg)
@@ -567,6 +569,8 @@ class R {
   static final String assetsImgIcAddFriend = 'assets/img/ic_add_friend.svg';
   /// ![](http://127.0.0.1:123/assets/img/unionpay.png)
   static final String assetsImgUnionpay = 'assets/img/unionpay.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_focus_duration.svg)
+  static final String assetsImgIcFocusDuration = 'assets/img/ic_focus_duration.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_timeline_unclicked.svg)
   static final String assetsImgIcTimelineUnclicked = 'assets/img/ic_timeline_unclicked.svg';
   /// ![](http://127.0.0.1:123/assets/img/bg_tomato.png)

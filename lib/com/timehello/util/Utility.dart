@@ -59,6 +59,7 @@ import 'package:time_hello/com/timehello/page/MobileTabBarHome.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/pages/games1/Games1Page.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/pages/games4/Games4GridViewPage.dart';
 import 'package:time_hello/com/timehello/util/AutoUpdateManager.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/NotificationManager.dart';
@@ -159,6 +160,21 @@ class Utility {
     }
   }
 
+  //帮我实现一个数组顺序不变 数组去重
+  static List<T> removeDuplicates<T>(List<T> list) {
+    List<T> uniqueList = [];
+    Set<T> seen = {};
+
+    for (T element in list) {
+      if (!seen.contains(element)) {
+        seen.add(element);
+        uniqueList.add(element);
+      }
+    }
+
+    return uniqueList;
+  }
+
   /**
    * 是否是我的folderModel 用于判断是否删除本身folder或者说是删除FolderModel的otherUids
    */
@@ -173,42 +189,26 @@ class Utility {
       return true;
     }
   }
+  //
+  // /**
+  //  * folderModel是否可编辑
+  //  */
+  // static isFolderModelEnabled({String? folderId, String uid = ""}) {
+  //   if (TextUtil.isEmpty(uid)) {
+  //     uid = LoginManager.getInstance().userBean.uid ?? "";
+  //   }
+  //   FolderModel? folderModel =
+  //       MongoApisManager.getInstance().getFolderModelByFolderId(folderId ?? "");
+  //   print(
+  //       "folderId:${folderId} ${folderModel?.isSharing} isOtherUserEditable:${folderModel?.isOtherUserEditable} uid:${folderModel?.otherUids?.contains(uid)}");
+  //   if (folderModel?.isSharing == 2 &&
+  //       folderModel?.isOtherUserEditable == false) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-  /**
-   * folderModel是否可编辑
-   */
-  static isFolderModelEnabled({String? folderId, String uid = ""}) {
-    if (TextUtil.isEmpty(uid)) {
-      uid = LoginManager.getInstance().userBean.uid ?? "";
-    }
-    FolderModel? folderModel =
-        MongoApisManager.getInstance().getFolderModelByFolderId(folderId ?? "");
-    print(
-        "folderId:${folderId} ${folderModel?.isSharing} isOtherUserEditable:${folderModel?.isOtherUserEditable} uid:${folderModel?.otherUids?.contains(uid)}");
-    if (folderModel?.isSharing == 2 &&
-        folderModel?.isOtherUserEditable == false) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /**
-   *
-   */
-  static isFolderModelEnabledForMissionList(
-      {required List<MissionModel> list, String uid = ""}) {
-    for (int i = 0; i < list.length; i++) {
-      MissionModel missionModel = list[i];
-      if (missionModel is MissionModel) {
-        if (isFolderModelEnabled(folderId: missionModel.folder_id, uid: uid) ==
-            false) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
 
   static setScreenOrientationHorizontal() {
     SystemChrome.setPreferredOrientations([
@@ -1347,7 +1347,7 @@ class Utility {
       int? timestampCurrent,
       FolderModel? folderModel,
       Function finishCallback) async {
-    if (Utility.isFolderModelEnabled(folderId: missionModel.folder_id) ==
+    if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel.folder_id) ==
         false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -6388,7 +6388,7 @@ class Utility {
       {Function? onTapFinish}) {
     GlobalKey<MissionPickPeriodDialogWidgetState>
         MissionPickPeriodDialogWidgetStateGlobalKey = GlobalKey();
-    if (Utility.isFolderModelEnabledForMissionList(
+    if (ChatGroupManager.isFolderModelEnabledForMissionList(
             uid: LoginManager.getInstance().userBean.uid ?? "",
             list: listMissionModel) ==
         false) {

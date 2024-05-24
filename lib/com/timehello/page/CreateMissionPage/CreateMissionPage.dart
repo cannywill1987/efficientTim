@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/models/DateTimeModel.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -194,7 +195,7 @@ class _CreateMissionPageWidgetState<T>
   }
 
   Future<void> requestSaveData() async {
-    if (Utility.isFolderModelEnabled(
+    if (ChatGroupManager.isFolderModelEnabled(
             folderId: this?.widget?.missionModel?.folder_id) ==
         false) {
       Utility.showToastMsg(

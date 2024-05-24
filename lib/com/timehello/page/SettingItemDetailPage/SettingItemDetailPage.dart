@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/NavigatorManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
@@ -221,7 +222,7 @@ class _SettingItemDetailPageWidgetState<T>
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
         Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
@@ -289,7 +290,7 @@ class _SettingItemDetailPageWidgetState<T>
     if ((this.widget.missionModel?.alert_time ?? 0) > 0) {
       Params.shouldRefreshPushModelList = true;
     }
-    if (Utility.isFolderModelEnabled(
+    if (ChatGroupManager.isFolderModelEnabled(
             folderId: this.widget.missionModel?.folder_id ?? "") ==
         false) {
       Utility.showToastMsg(
@@ -1376,7 +1377,7 @@ class _SettingItemDetailPageWidgetState<T>
   }
 
   onClickUnfinishItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -1392,7 +1393,7 @@ class _SettingItemDetailPageWidgetState<T>
    * 点击完成任务
    */
   Future onClickFinishItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;

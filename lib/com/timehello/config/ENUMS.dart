@@ -1,3 +1,17 @@
+enum CorrectStatusEnum {
+  normal,
+  success,
+  correct,
+  wrong
+}
+
+enum OnlineStatusEnum {
+  offline,
+  online,
+  focusing,
+  relaxing,
+}
+
 enum PageGPTFromEnum {
   RightBarPage,
   AIHelperPage

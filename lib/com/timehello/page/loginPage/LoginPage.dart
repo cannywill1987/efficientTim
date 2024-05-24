@@ -315,6 +315,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                     ],
                   ),
                 )),
+                if(Utility.isHandsetBySize() == false)
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);

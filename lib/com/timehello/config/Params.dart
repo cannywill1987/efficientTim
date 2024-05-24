@@ -6,7 +6,7 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.uat; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static String curVersion = '3.5.0';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
@@ -63,6 +63,7 @@ class Params {
   static String ACTION_UPDATE_TOTAL_FOCUS_TIME = 'ACTION_UPDATE_TOTAL_FOCUS_TIME';
   static String ACTION_UPDATE_SCREEN_SIZE = 'ACTION_UPDATE_SCREEN_SIZE';
   static String ACTION_UPDATE_STATISTIC = 'ACTION_UPDATE_STATISTIC'; //更新统计
+  static String AES_LISTING_GROUP_PWD = "ArvinIsSoGentgfe"; // 清单群密码
   static String AES_PWD = "ArvinIsSoGentrye";
   static String AES_IV = "AJEJIFEIWJFISJIF";
   static String AES_MY_MISSION_PASSWORD = "ArvinIsSoGefwqws";

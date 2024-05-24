@@ -15,6 +15,7 @@ import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/NavigatorManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
@@ -709,7 +710,7 @@ class CreateAIChatGptMissionPageState
         missionModel?.daily_end_time = endTime;
         missionModel?.daily_start_time = startTime;
 
-        // if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+        // if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
         //     false) {
         //   Utility.showToast(
         //       context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -745,7 +746,7 @@ class CreateAIChatGptMissionPageState
           missionModel?.end_time = (draggingTime?.millisecondsSinceEpoch ?? 0);
         }
 
-        if (Utility.isFolderModelEnabled(
+        if (ChatGroupManager.isFolderModelEnabled(
                 folderId: missionModel?.folder_id ?? "") ==
             false) {
           Utility.showToastMsg(

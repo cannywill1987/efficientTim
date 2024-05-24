@@ -66,7 +66,7 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
                 SliverToBoxAdapter(child: _buildAnnouncement()),
                 SliverToBoxAdapter(child: _buildSearch()),
                 GroupChatFriendsSliverList(
-                  friends: this.folderModel?.otherUserInfo ?? [],
+                  userInfoBeans: this.folderModel?.otherUserInfoBean ?? [],
                   onFriendTap: () {},
                 )
               ],

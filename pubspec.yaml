@@ -260,6 +260,7 @@ flutter:
     - assets/img/ic_course_train.svg
     - assets/img/ic_zhongguo_bank.png
     - assets/img/ic_eye_slash.svg
+    - assets/img/ic_total_check.svg
     - assets/img/ic_objective.svg
     - assets/img/avatar18.svg
     - assets/img/avatar24.svg
@@ -541,6 +542,7 @@ flutter:
     - assets/img/avatar03.svg
     - assets/img/ic_add_friend.svg
     - assets/img/unionpay.png
+    - assets/img/ic_focus_duration.svg
     - assets/img/ic_timeline_unclicked.svg
     - assets/img/bg_tomato.png
     - assets/img/ic_record_play.svg

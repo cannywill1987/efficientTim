@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MissionGridView.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MultiSelectHandleWidget.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
@@ -399,7 +400,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   // }
 
   Future onClickEditTitle(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -409,7 +410,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
         Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
@@ -426,7 +427,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future onClickUnFinishListener(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -453,7 +454,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future onTapDoItNow(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -465,7 +466,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -487,7 +488,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -523,7 +524,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -591,7 +592,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     this._missionModel.repetiveWeekDay =
         bottomBarStateKey?.currentState?.repetiveWeekDay;
 
-    if (Utility.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
+    if (ChatGroupManager.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
         false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);

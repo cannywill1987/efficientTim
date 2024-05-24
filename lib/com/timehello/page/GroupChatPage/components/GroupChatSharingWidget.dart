@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/components/CheckImage.dart';
+import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
+import 'package:time_hello/r.dart';
 
-class GroupChatSharingWidget extends StatefulWidget {
+import '../../../config/Params.dart';
+
+class GroupChatPermissionSharingWidget extends StatefulWidget {
   FolderModel? folderModel;
 
-  GroupChatSharingWidget({this.folderModel});
+  GroupChatPermissionSharingWidget({this.folderModel});
 
   @override
-  _GroupChatSharingWidgetState createState() => _GroupChatSharingWidgetState();
+  _GroupChatPermissionSharingWidgetState createState() =>
+      _GroupChatPermissionSharingWidgetState();
 }
 
-class _GroupChatSharingWidgetState extends State<GroupChatSharingWidget> {
+class _GroupChatPermissionSharingWidgetState
+    extends State<GroupChatPermissionSharingWidget> {
   String curRadioIndex = 'only_share_with_friends';
   String curEditableRadioIndex = 'can_visible';
   bool _canEdit = false;
+  bool checkedPasswordOrigin = false;
+  CorrectStatusEnum correctStatusEnum = CorrectStatusEnum.normal;
+
+  final TextEditingController _originPasswordController =
+      TextEditingController();
 
   //0 未分享中 仅仅我自己 1 之后分享中 - 1 私有 - 需要搜索 仅仅好友 2 所有人可查看 3 所有人可编辑
   onClickRadio(String val) {
@@ -41,6 +56,19 @@ class _GroupChatSharingWidgetState extends State<GroupChatSharingWidget> {
         shouldQueryMissionModel: false,
         folderModel: this.widget.folderModel ?? FolderModel());
     setState(() {});
+  }
+
+  onPasswordChange(val) async {
+    if (val.length == 6) {
+      String pwdEncrypt =
+          Utility.encryptCTRAES(val, Params.AES_LISTING_GROUP_PWD);
+      // String s = Utility.decryptCTRAES(pwdEncrypt, Params.AES_LISTING_GROUP_PWD);
+      this.widget.folderModel?.groupChatPassword = pwdEncrypt;
+      await MongoApisManager.getInstance()?.update_FolderModelWithFM(
+          shouldQueryMissionModel: false,
+          folderModel: this.widget.folderModel ?? FolderModel());
+      this.correctStatusEnum = CorrectStatusEnum.success;
+    }
   }
 
   onClickRadioShareMyFriends(String val) {
@@ -137,6 +165,77 @@ class _GroupChatSharingWidgetState extends State<GroupChatSharingWidget> {
           SizedBox(height: 20),
           Text('高级权限：可设置禁止复制、批注等', style: TextStyle(fontSize: 16)),
           SizedBox(height: 20),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('设置6位数密码'),
+                    getPwdStatusText(),
+                  ],
+                ),
+              ),
+              Container(
+                width: 160,
+                height: 60,
+                child: TextField(
+                  controller: _originPasswordController,
+                  obscureText: !this.checkedPasswordOrigin,
+                  maxLength: 6,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    filled: true,
+                    suffixIcon: Align(
+                      alignment: Alignment.centerRight,
+                      widthFactor: 1.0,
+                      child: CheckImage(
+                        //显示隐藏密码的眼睛
+                        onTapListener: (isChecked) {
+                          checkedPasswordOrigin = !isChecked;
+                          setState(() {});
+                        },
+                        checked: checkedPasswordOrigin,
+                        autoCheck: true,
+                        checkIcon: Utility.getSVGPicture(R.assetsImgIcEyeSlash,
+                            size: 20),
+                        uncheckIcon: Utility.getSVGPicture(
+                            R.assetsImgIcEyeClose,
+                            size: 20),
+                      ),
+                    ),
+                    fillColor:
+                        ThemeManager.getInstance().getInputDecorationColor(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: getI18NKey().please_origin_password,
+                    hintStyle: TextStyle(
+                        color: ThemeManager.getInstance()
+                            .getInputPlaceholderColor(),
+                        fontSize: 12),
+                  ),
+                  onChanged: (value) async {
+                    if (value.length == 6) {
+                      correctStatusEnum = CorrectStatusEnum.correct;
+                      await onPasswordChange(value);
+                    } else {
+                      correctStatusEnum = CorrectStatusEnum.wrong;
+                    }
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
           Text('分享到',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
@@ -184,6 +283,26 @@ class _GroupChatSharingWidgetState extends State<GroupChatSharingWidget> {
         ],
       ),
     );
+  }
+
+  Widget getPwdStatusText() {
+    if (correctStatusEnum == CorrectStatusEnum.normal) {
+      return SizedBox.shrink();
+    } else if (correctStatusEnum == CorrectStatusEnum.correct) {
+      return Text(
+        '密码正确',
+        style: TextStyle(color: Colors.green),
+      );
+    } else if (correctStatusEnum == CorrectStatusEnum.wrong) {
+      return Text('请输入6位数密码',
+          style: TextStyle(color: Colors.red, fontSize: 12));
+    } else if (correctStatusEnum == CorrectStatusEnum.success) {
+      return Text(
+        '密码设置成功',
+        style: TextStyle(color: Colors.green),
+      );
+    }
+    return Text('分享文件时需要输入密码');
   }
 
   Widget getOnlyFriendsWidget() {

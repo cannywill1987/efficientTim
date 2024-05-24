@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -107,7 +108,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -128,7 +129,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -165,7 +166,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   }
 
   Future onClickEditTitle(MissionModel data) async {
-    if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -174,7 +175,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
       data.title = value;
-      if(Utility.isFolderModelEnabled(folderId: data.folder_id, uid: LoginManager.getInstance().userBean.uid ?? "") == false) {
+      if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id, uid: LoginManager.getInstance().userBean.uid ?? "") == false) {
         Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
@@ -192,7 +193,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   }
 
   void requestMongoDbUpdateData({MissionModel? missionModel}) async {
-    if(Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) == false) {
+    if(ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) == false) {
       Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -210,7 +211,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 跳转到任务详情页MissionPage开始任务
    */
   void onClickMissionStart(MissionModel data) async {
-    if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -251,7 +252,7 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if(Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
       Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
