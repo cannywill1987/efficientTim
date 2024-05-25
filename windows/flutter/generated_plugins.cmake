@@ -7,8 +7,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   file_saver
   file_selector_windows
-  just_audio_windows
+  firebase_auth
+  firebase_core
   pasteboard
+  permission_handler_windows
   platform_device_id_windows
   record_windows
   system_tray
