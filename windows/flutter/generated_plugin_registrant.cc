@@ -13,7 +13,6 @@
 #include <firebase_auth/firebase_auth_plugin_c_api.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <pasteboard/pasteboard_plugin.h>
-#include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <platform_device_id_windows/platform_device_id_windows_plugin.h>
 #include <record_windows/record_windows_plugin_c_api.h>
 #include <system_tray/system_tray_plugin.h>
@@ -34,8 +33,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
   PasteboardPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("PasteboardPlugin"));
-  PermissionHandlerWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   PlatformDeviceIdWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("PlatformDeviceIdWindowsPlugin"));
   RecordWindowsPluginCApiRegisterWithRegistrar(

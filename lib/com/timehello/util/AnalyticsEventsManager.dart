@@ -1,10 +1,10 @@
-// import 'package:firebase_analytics/firebase_analytics.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
 class AnalyticsEventsManager {
-  // static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  // FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   static AnalyticsEventsManager? instance;
 
   static getInstance() {

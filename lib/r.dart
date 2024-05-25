@@ -135,6 +135,8 @@ class R {
   static final String assetsImgIcAddColumnRight = 'assets/img/ic_add_column_right.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_add_favorable_bank.png)
   static final String assetsImgIcAddFavorableBank = 'assets/img/ic_add_favorable_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_add_friend.svg)
+  static final String assetsImgIcAddFriend = 'assets/img/ic_add_friend.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_ai_helper.svg)
   static final String assetsImgIcAiHelper = 'assets/img/ic_ai_helper.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_ai_service.svg)
@@ -301,6 +303,8 @@ class R {
   static final String assetsImgIcFlower = 'assets/img/ic_flower.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_focus.svg)
   static final String assetsImgIcFocus = 'assets/img/ic_focus.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_focus_duration.svg)
+  static final String assetsImgIcFocusDuration = 'assets/img/ic_focus_duration.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_focus_orange.svg)
   static final String assetsImgIcFocusOrange = 'assets/img/ic_focus_orange.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_focus_target.svg)
@@ -565,6 +569,8 @@ class R {
   static final String assetsImgIcTomatoWhite2 = 'assets/img/ic_tomato_white2.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_tomorrow.svg)
   static final String assetsImgIcTomorrow = 'assets/img/ic_tomorrow.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_total_check.svg)
+  static final String assetsImgIcTotalCheck = 'assets/img/ic_total_check.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_unfinish_missions.svg)
   static final String assetsImgIcUnfinishMissions = 'assets/img/ic_unfinish_missions.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_unlockscreen.svg)

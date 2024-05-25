@@ -10,7 +10,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
   pasteboard
-  permission_handler_windows
   platform_device_id_windows
   record_windows
   system_tray

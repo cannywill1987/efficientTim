@@ -3,6 +3,7 @@ import 'dart:async';
 // import 'package:appflowy_editor/appflowy_editor.dart';
 // import 'package:appflowy_editor/appflowy_editor.dart';
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,21 +62,33 @@ void main() async {
   } catch (e) {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
-  // if (DeviceInfoManagement.isWEB() == false) {
-  //   await Firebase.initializeApp(
-  //     name: "TimerBell",
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // } else {
-  //   await Firebase.initializeApp(
-  //     options: FirebaseOptions(
-  //       apiKey: "xxx",
-  //       appId: "xxx",
-  //       messagingSenderId: "xxx",
-  //       projectId: "xxx",
-  //     ),
-  //   );
-  // }
+  if (DeviceInfoManagement.isWEB() == false) {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "xxx",
+        appId: "xxx",
+        messagingSenderId: "xxx",
+        projectId: "xxx",
+      ),
+    );
+    // await Firebase.initializeApp(
+    //   name: "TimerBell",
+    //   // options: DefaultFirebaseOptions.currentPlatform,
+    // );
+    // await Firebase.initializeApp(
+    //   name: "TimerBell",
+    //   options: DefaultFirebaseOptions.currentPlatform,
+    // );
+  } else {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "xxx",
+        appId: "xxx",
+        messagingSenderId: "xxx",
+        projectId: "xxx",
+      ),
+    );
+  }
   // runZoned(() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => MissionDetailEnv()),
