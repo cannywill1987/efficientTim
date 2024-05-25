@@ -27,6 +27,7 @@ import 'package:time_hello/com/timehello/page/SettingItemDetailPage/SettingItemD
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementPage.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/GridMissionSilverList.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/pages/FolderSummaryPage.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
@@ -473,8 +474,8 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -502,8 +503,8 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -524,8 +525,8 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -557,8 +558,8 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
   }
 
   Future onTapDoItNow(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -566,8 +567,8 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
   }
 
   Future onClickUnFinishListener(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -929,7 +930,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
                                                                 textEditingController.text = s;
                                                                 updateUI();
                                                               }, export: (data) {
-                                                                Utility.showToast(
+                                                                Utility.showToastMsg(
                                                                     context: context,
                                                                     msg: getI18NKey().offer_next_version);
                                                               });

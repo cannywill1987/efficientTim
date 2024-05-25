@@ -101,12 +101,12 @@ class CreateCreditCardPageState extends BaseWidgetState<CreditCardPage> {
             defaultVal: billAmount == 0 ? "" : billAmount.toString(),
             onTapConfirmListener: (val, paymentMethod) {
               if (TextUtil.isEmpty(val)) {
-                Utility.showToast(msg: getI18NKey().please_input_bill_amount);
+                Utility.showToastMsg(msg: getI18NKey().please_input_bill_amount);
                 return;
               }
               double value = double.parse(val);
               if (value <= 0) {
-                Utility.showToast(msg: getI18NKey().please_input_bill_amount);
+                Utility.showToastMsg(msg: getI18NKey().please_input_bill_amount);
                 return;
               }
 
@@ -152,12 +152,12 @@ class CreateCreditCardPageState extends BaseWidgetState<CreditCardPage> {
         .showCustomDialogWithOnlyChild(Utility.getGlobalContext(),
             child: UpdateBillDialogWidget(onTapConfirmListener: (val) {
               if (TextUtil.isEmpty(val)) {
-                Utility.showToast(msg: getI18NKey().please_input_bill_amount);
+                Utility.showToastMsg(msg: getI18NKey().please_input_bill_amount);
                 return;
               }
               double value = double.parse(val);
               if (value <= 0) {
-                Utility.showToast(msg: getI18NKey().please_input_bill_amount);
+                Utility.showToastMsg(msg: getI18NKey().please_input_bill_amount);
                 return;
               }
               Utility.addAndUpdateRepaymentDay(creditModel.repaymentData!,

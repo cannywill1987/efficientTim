@@ -59,6 +59,7 @@ import 'package:time_hello/com/timehello/page/MobileTabBarHome.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/pages/games1/Games1Page.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/pages/games4/Games4GridViewPage.dart';
 import 'package:time_hello/com/timehello/util/AutoUpdateManager.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/NotificationManager.dart';
@@ -118,6 +119,7 @@ import 'package:file_selector/file_selector.dart';
 
 // import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_compression/image_compression.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 typedef void OnError(Exception exception);
 
@@ -158,6 +160,21 @@ class Utility {
     }
   }
 
+  //帮我实现一个数组顺序不变 数组去重
+  static List<T> removeDuplicates<T>(List<T> list) {
+    List<T> uniqueList = [];
+    Set<T> seen = {};
+
+    for (T element in list) {
+      if (!seen.contains(element)) {
+        seen.add(element);
+        uniqueList.add(element);
+      }
+    }
+
+    return uniqueList;
+  }
+
   /**
    * 是否是我的folderModel 用于判断是否删除本身folder或者说是删除FolderModel的otherUids
    */
@@ -172,42 +189,26 @@ class Utility {
       return true;
     }
   }
+  //
+  // /**
+  //  * folderModel是否可编辑
+  //  */
+  // static isFolderModelEnabled({String? folderId, String uid = ""}) {
+  //   if (TextUtil.isEmpty(uid)) {
+  //     uid = LoginManager.getInstance().userBean.uid ?? "";
+  //   }
+  //   FolderModel? folderModel =
+  //       MongoApisManager.getInstance().getFolderModelByFolderId(folderId ?? "");
+  //   print(
+  //       "folderId:${folderId} ${folderModel?.isSharing} isOtherUserEditable:${folderModel?.isOtherUserEditable} uid:${folderModel?.otherUids?.contains(uid)}");
+  //   if (folderModel?.isSharing == 2 &&
+  //       folderModel?.isOtherUserEditable == false) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-  /**
-   * folderModel是否可编辑
-   */
-  static isFolderModelEnabled({String? folderId, String uid = ""}) {
-    if (TextUtil.isEmpty(uid)) {
-      uid = LoginManager.getInstance().userBean.uid ?? "";
-    }
-    FolderModel? folderModel =
-        MongoApisManager.getInstance().getFolderModelByFolderId(folderId ?? "");
-    print(
-        "folderId:${folderId} ${folderModel?.isSharing} isOtherUserEditable:${folderModel?.isOtherUserEditable} uid:${folderModel?.otherUids?.contains(uid)}");
-    if (folderModel?.isSharing == 2 &&
-        folderModel?.isOtherUserEditable == false) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /**
-   *
-   */
-  static isFolderModelEnabledForMissionList(
-      {required List<MissionModel> list, String uid = ""}) {
-    for (int i = 0; i < list.length; i++) {
-      MissionModel missionModel = list[i];
-      if (missionModel is MissionModel) {
-        if (isFolderModelEnabled(folderId: missionModel.folder_id, uid: uid) ==
-            false) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
 
   static setScreenOrientationHorizontal() {
     SystemChrome.setPreferredOrientations([
@@ -1159,7 +1160,7 @@ class Utility {
         paint);
   }
 
-  static showToast(
+  static showToastMsg(
       {msg: '',
       BuildContext? context,
       // toastLength: Toast.LENGTH_SHORT,
@@ -1202,6 +1203,11 @@ class Utility {
       } catch (e) {}
     } else {
       try {
+        // showToast(msg,
+        //     context: context,
+        //     axis: Axis.horizontal,
+        //     alignment: Alignment.center,
+        //     position: StyledToastPosition.bottom);
         ScaffoldMessenger.of(
                 Params.curContext ?? context ?? Utility.getGlobalContext())
             .showSnackBar(
@@ -1341,9 +1347,9 @@ class Utility {
       int? timestampCurrent,
       FolderModel? folderModel,
       Function finishCallback) async {
-    if (Utility.isFolderModelEnabled(folderId: missionModel.folder_id) ==
+    if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel.folder_id) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -6037,6 +6043,17 @@ class Utility {
     }
   }
 
+  /**
+   * 生成 000000 ~ 9999999 字符串
+   */
+  static String getGroupId({int numDigit = 6}) {
+    String groupId = '';
+    for (int i = 0; i < numDigit; i++) {
+      groupId += Utility.getRandomString(from: 0, max: 9, pureInt: 1).toString();
+    }
+    return groupId;
+  }
+
   //
   // static List<ChatGptMessageModel> getChatGptMessageModelListByFolderId(
   //     List<ChatGptMessageModel> listParam, String folderId) {
@@ -6374,11 +6391,11 @@ class Utility {
       {Function? onTapFinish}) {
     GlobalKey<MissionPickPeriodDialogWidgetState>
         MissionPickPeriodDialogWidgetStateGlobalKey = GlobalKey();
-    if (Utility.isFolderModelEnabledForMissionList(
+    if (ChatGroupManager.isFolderModelEnabledForMissionList(
             uid: LoginManager.getInstance().userBean.uid ?? "",
             list: listMissionModel) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -8408,7 +8425,7 @@ class Utility {
   static void copyToClipboard(String text, {bool shouldShowToast = true}) {
     FlutterClipboard.copy(text).then((value) {
       if (shouldShowToast == true) {
-        Utility.showToast(
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(),
             msg: getI18NKey().successfully_copied_to_clipboard);
       }

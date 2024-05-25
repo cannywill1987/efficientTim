@@ -13,6 +13,7 @@ import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/WrongQuestionBookPage.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
@@ -217,8 +218,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
 
 
   Future onClickEditTitle(WQBMissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -227,8 +228,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-        Utility.showToast(
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
@@ -236,7 +237,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
       await MongoApisManager.getInstance()
           .update_WQBMissionModel(missionModel: data);
       requestDatas();
-      Utility.showToast(context: context, msg: getI18NKey().update_success);
+      Utility.showToastMsg(context: context, msg: getI18NKey().update_success);
       DialogManagement.getInstance().hideDialog(context);
     }, cancelCallBack: () {
       DialogManagement.getInstance().hideDialog(context);
@@ -247,8 +248,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(WQBMissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -278,8 +279,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<WQBMissionPage> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }

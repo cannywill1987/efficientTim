@@ -63,6 +63,7 @@ class Params {
   static String ACTION_UPDATE_TOTAL_FOCUS_TIME = 'ACTION_UPDATE_TOTAL_FOCUS_TIME';
   static String ACTION_UPDATE_SCREEN_SIZE = 'ACTION_UPDATE_SCREEN_SIZE';
   static String ACTION_UPDATE_STATISTIC = 'ACTION_UPDATE_STATISTIC'; //更新统计
+  static String AES_LISTING_GROUP_PWD = "ArvinIsSoGentgfe"; // 清单群密码
   static String AES_PWD = "ArvinIsSoGentrye";
   static String AES_IV = "AJEJIFEIWJFISJIF";
   static String AES_MY_MISSION_PASSWORD = "ArvinIsSoGefwqws";

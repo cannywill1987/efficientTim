@@ -73,7 +73,7 @@ class MineHeaderWidget extends StatelessWidget {
       onTap: () {
         if (model.deliveryName == 'chatGPT') {
           if (LoginManager.isLogin() == false) {
-            Utility.showToast(msg: getI18NKey().loginFirst);
+            Utility.showToastMsg(msg: getI18NKey().loginFirst);
             LoginManager.getInstance()
                 .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
             return null;
@@ -81,7 +81,7 @@ class MineHeaderWidget extends StatelessWidget {
           Utility.pushNavigator(context, ChatGptPage());
         } else if (model.deliveryName == 'training') {
           if (LoginManager.isLogin() == false) {
-            Utility.showToast(msg: getI18NKey().loginFirst);
+            Utility.showToastMsg(msg: getI18NKey().loginFirst);
             LoginManager.getInstance()
                 .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
             return null;

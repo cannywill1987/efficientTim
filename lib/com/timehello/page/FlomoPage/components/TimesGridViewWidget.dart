@@ -136,7 +136,7 @@ class _TimesGridViewWidgetState extends State<TimesGridViewWidget> {
               int startTime =
                   timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
               if(this.widget.datas.indexOf(startTime) != -1) {
-                Utility.showToast(msg:getI18NKey().already_exists_at_this_time, context: context);
+                Utility.showToastMsg(msg:getI18NKey().already_exists_at_this_time, context: context);
                 return;
               }
               this.widget.datas.add(startTime);

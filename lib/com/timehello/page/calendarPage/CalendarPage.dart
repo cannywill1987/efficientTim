@@ -216,7 +216,7 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
         return index;
       }
     }
-    Utility.showToast(msg: getI18NKey().dateOutOfLimit, type: 'error');
+    Utility.showToastMsg(msg: getI18NKey().dateOutOfLimit, type: 'error');
     return -1;
   }
 

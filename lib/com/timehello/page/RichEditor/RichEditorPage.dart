@@ -162,7 +162,7 @@ class _RichEditorPageState extends BaseWidgetState<RichEditorPage> {
           String res = jsonEncode(_controller?.document.toDelta().toJson());
           String plainText = _controller?.document.toPlainText() ?? "";
           if (plainText.isEmpty) {
-            Utility.showToast(
+            Utility.showToastMsg(
                 context: Utility.getGlobalContext(),
                 msg: getI18NKey().content_cannot_be_empty);
             return;
@@ -216,11 +216,11 @@ class _RichEditorPageState extends BaseWidgetState<RichEditorPage> {
               EasyLoadingManager.getInstance().dismiss();
               if (res != null) {
                 eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: Utility.getGlobalContext(),
                     msg: getI18NKey().add_successfully);
               } else {
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: Utility.getGlobalContext(),
                     msg: getI18NKey().add_fail);
               }
@@ -236,11 +236,11 @@ class _RichEditorPageState extends BaseWidgetState<RichEditorPage> {
               EasyLoadingManager.getInstance().dismiss();
               if (res.success == true) {
                 eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: Utility.getGlobalContext(),
                     msg: getI18NKey().edit_successfully);
               } else {
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: Utility.getGlobalContext(),
                     msg: getI18NKey().edit_fail);
               }

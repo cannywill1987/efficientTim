@@ -2,6 +2,8 @@
  * 文件列表也
  */
 import 'package:json_annotation/json_annotation.dart';
+import 'package:time_hello/com/timehello/beans/UserInfoBean.dart';
+import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 
@@ -41,16 +43,37 @@ class FolderModel extends MongoDbObject {
   int? iconType =
       0; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单
   List<String>? groupModelObjectIdOrderList = []; //用于groumodel objectId的排序
+  String? folderTeamWorkId; // 群id 用于添加文件夹共享
+  String? introText; // 群id 用于添加文件夹共享
+  String? groupChatPassword; // 群密码
   List? otherUids = []; //用于私有模式别的用户加入
-  List? otherUserInfo = []; //用于私有模式别的用户加入
+  List? _otherUserInfo = []; //用于私有模式别的用户加入 {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username, "numTomatoesFcoused":0,"numTasksDone": 0, "totalDurationFocus": 0, "onlineStatus": 0}
+  @JsonKey(ignore: true)
+  List<UserInfoBean>? otherUserInfoBean = []; //用于私有模式别的用户加入
   bool? isOtherUserEditable =
       false; //isSharring = 1 时才用上 因为这时otherUids也是可以共同编辑 folderModel的状态的
-  int? isSharing = 0; //0 未分享中 1 之后分享中 - 1 免费开放 需要id 2 私有 - 需要搜索 3 销售（只针对国内）
+  int? isSharing = 0;  //0 未分享中 仅仅我自己 1 之后分享中 - 1 私有 - 需要搜索 仅仅好友 2 所有人可查看 3 所有人可编辑
   int? folderStatus = 0; //0 未归档 1 归档
   int? cryptoVersion = -1; // -1代表没有设置加密 0代表设置了加密版本
   // bool? isFoldedForFolder = false; //是否折叠 如果tag是3
   List<String>? folderModelObjectIdOrderList =
       []; //当folderModel代表文件夹时 用于folderModel objectId的排序
+
+  set otherUserInfo(List? value) {
+    _otherUserInfo = value;
+    otherUserInfoBean = [];
+    _otherUserInfo?.forEach((element) {
+      UserInfoBean userInfoBean = UserInfoBean.fromJson(element);
+      userInfoBean.onlineStatusEnum = OnlineStatusEnum.values[userInfoBean.onlineStatus ?? 0];
+      otherUserInfoBean?.add(userInfoBean);
+    });
+    // otherUserInfoBean = value;
+  }
+
+  List? get otherUserInfo {
+    return _otherUserInfo;
+  }
+
   @JsonKey(ignore: true)
   bool? _isFoldedForFolderCached = false; //是否折叠 如果tag是3
 

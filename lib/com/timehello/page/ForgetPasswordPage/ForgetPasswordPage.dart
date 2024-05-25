@@ -76,17 +76,17 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
 
   onClickResetPassword() {
     if (TextUtil.isEmpty(this.mobile)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_mobile_no);
       return;
     }
     if (TextUtil.isEmpty(this.password)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_password);
       return;
     }
     if (TextUtil.isEmpty(this._msn)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().inputSmsVerificationCode);
       return;
     }
@@ -333,7 +333,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         context: context,
         callback: (BaseBean response, String scene, bool isFromCache) {
       if (response.success == true) {
-        Utility.showToast(context: context, msg: getI18NKey().reset_pwd_successful);
+        Utility.showToastMsg(context: context, msg: getI18NKey().reset_pwd_successful);
         Future.delayed(Duration(seconds: 3), () => {
           Utility.popNavigator(context, {"mobile": this.mobileDecrypted})
         });
@@ -485,7 +485,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
   @override
   void loginFail(Map errorMsg, {LoginMode? loginMode}) {
     // TODO: implement loginFail
-    Utility.showToast(msg: errorMsg);
+    Utility.showToastMsg(msg: errorMsg);
   }
 
   @override
@@ -501,7 +501,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     if (response.success) {
       if (scene == Apis.login) {}
     } else {
-      Utility.showToast(msg: response.message);
+      Utility.showToastMsg(msg: response.message);
     }
   }
 }

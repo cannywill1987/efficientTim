@@ -77,12 +77,12 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
 
   onClickLogin() {
     if (TextUtil.isEmpty(this.mobile)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_mobile_no);
       return;
     }
     if (TextUtil.isEmpty(this.password)) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_password);
       return;
     }
@@ -315,6 +315,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                     ],
                   ),
                 )),
+                if(Utility.isHandsetBySize() == false)
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -412,7 +413,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   @override
   void loginFail(Map errorMsg, {LoginMode? loginMode}) {
     // TODO: implement loginFail
-    Utility.showToast(msg: errorMsg);
+    Utility.showToastMsg(msg: errorMsg);
   }
 
   @override
@@ -432,7 +433,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
     if (response.success) {
       if (scene == Apis.login) {}
     } else {
-      Utility.showToast(msg: response.message);
+      Utility.showToastMsg(msg: response.message);
     }
   }
 }

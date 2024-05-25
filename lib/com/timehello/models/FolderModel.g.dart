@@ -37,8 +37,10 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) => FolderModel()
       (json['groupModelObjectIdOrderList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList()
+  ..folderTeamWorkId = json['folderTeamWorkId'] as String?
+  ..introText = json['introText'] as String?
+  ..groupChatPassword = json['groupChatPassword'] as String?
   ..otherUids = json['otherUids'] as List<dynamic>?
-  ..otherUserInfo = json['otherUserInfo'] as List<dynamic>?
   ..isOtherUserEditable = json['isOtherUserEditable'] as bool?
   ..isSharing = json['isSharing'] as int?
   ..folderStatus = json['folderStatus'] as int?
@@ -46,7 +48,8 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) => FolderModel()
   ..folderModelObjectIdOrderList =
       (json['folderModelObjectIdOrderList'] as List<dynamic>?)
           ?.map((e) => e as String)
-          .toList();
+          .toList()
+  ..otherUserInfo = json['otherUserInfo'] as List<dynamic>?;
 
 Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
     <String, dynamic>{
@@ -77,11 +80,14 @@ Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
       'type': instance.type,
       'iconType': instance.iconType,
       'groupModelObjectIdOrderList': instance.groupModelObjectIdOrderList,
+      'folderTeamWorkId': instance.folderTeamWorkId,
+      'introText': instance.introText,
+      'groupChatPassword': instance.groupChatPassword,
       'otherUids': instance.otherUids,
-      'otherUserInfo': instance.otherUserInfo,
       'isOtherUserEditable': instance.isOtherUserEditable,
       'isSharing': instance.isSharing,
       'folderStatus': instance.folderStatus,
       'cryptoVersion': instance.cryptoVersion,
       'folderModelObjectIdOrderList': instance.folderModelObjectIdOrderList,
+      'otherUserInfo': instance.otherUserInfo,
     };

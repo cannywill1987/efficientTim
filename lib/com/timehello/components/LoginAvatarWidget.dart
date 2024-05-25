@@ -61,7 +61,7 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
             callback: (BaseBean response, String scene, bool isFromCache) {
           if (response.success == true) {
             eventBus.fire(EventFn(Params.ACTION_UPDATE_USERINFO_AVATAR, {}));
-            Utility.showToast(msg: getI18NKey().update_success);
+            Utility.showToastMsg(msg: getI18NKey().update_success);
             LoginManager.getInstance()
                 .setUserBean(UserBean.fromJson(response.data));
             if (this.onAvatarUpdatedComplete != null) {
@@ -91,7 +91,7 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
                   isRequesting = false;
           if (response.success == true) {
             eventBus.fire(EventFn(Params.ACTION_UPDATE_USERINFO_AVATAR, {}));
-            Utility.showToast(msg: getI18NKey().update_success);
+            Utility.showToastMsg(msg: getI18NKey().update_success);
             LoginManager.getInstance()
                 .setUserBean(UserBean.fromJson(response.data));
             DialogManagement.getInstance().hideDialog(context);
@@ -101,7 +101,7 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
           }
         });
       } else {
-        Utility.showToast(msg: getI18NKey().pc_not_available);
+        Utility.showToastMsg(msg: getI18NKey().pc_not_available);
       }
     }
   }

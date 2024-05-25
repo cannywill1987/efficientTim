@@ -92,7 +92,7 @@ class GptMorePageState extends BaseWidgetState<GptMorePage> {
               //   // hintText: getI18NKey().please_input_content),
               onChanged: (val) {
                 if (val.length > 200 && Utility.isProductEnv() == true) {
-                  Utility.showToast(msg: getI18NKey().max_input_num(200));
+                  Utility.showToastMsg(msg: getI18NKey().max_input_num(200));
                   return;
                 }
                 this.systemMessage = val;

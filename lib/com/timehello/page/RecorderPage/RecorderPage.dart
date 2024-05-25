@@ -382,7 +382,7 @@ class _RecordPageState extends State<RecordPage> with TickerProviderStateMixin {
     EasyLoadingManager.getInstance().dismiss();
     if (resMongoDbSave != null) {
       eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(),
           msg: getI18NKey().add_successfully);
       if (Utility.isHandsetBySize()) {
@@ -392,7 +392,7 @@ class _RecordPageState extends State<RecordPage> with TickerProviderStateMixin {
         DialogManagement.getInstance().hideDialog(this.context);
       }
     } else {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().add_fail);
     }
   }

@@ -221,6 +221,9 @@ class $AssetsImgGen {
   AssetGenImage get icAddFavorableBank =>
       const AssetGenImage('assets/img/ic_add_favorable_bank.png');
 
+  /// File path: assets/img/ic_add_friend.svg
+  String get icAddFriend => 'assets/img/ic_add_friend.svg';
+
   /// File path: assets/img/ic_addlink.svg
   String get icAddlink => 'assets/img/ic_addlink.svg';
 
@@ -493,6 +496,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_focus.svg
   String get icFocus => 'assets/img/ic_focus.svg';
 
+  /// File path: assets/img/ic_focus_duration.svg
+  String get icFocusDuration => 'assets/img/ic_focus_duration.svg';
+
   /// File path: assets/img/ic_focus_orange.svg
   String get icFocusOrange => 'assets/img/ic_focus_orange.svg';
 
@@ -619,11 +625,17 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_listing.svg
   String get icListing => 'assets/img/ic_listing.svg';
 
+  /// File path: assets/img/ic_lock_screen.svg
+  String get icLockScreen => 'assets/img/ic_lock_screen.svg';
+
   /// File path: assets/img/ic_lockscreen.svg
   String get icLockscreen => 'assets/img/ic_lockscreen.svg';
 
   /// File path: assets/img/ic_lockscreen_selected.svg
   String get icLockscreenSelected => 'assets/img/ic_lockscreen_selected.svg';
+
+  /// File path: assets/img/ic_lockscreen_view.svg
+  String get icLockscreenView => 'assets/img/ic_lockscreen_view.svg';
 
   /// File path: assets/img/ic_logo_orange.png
   AssetGenImage get icLogoOrange =>
@@ -913,8 +925,14 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_tomorrow.svg
   String get icTomorrow => 'assets/img/ic_tomorrow.svg';
 
+  /// File path: assets/img/ic_total_check.svg
+  String get icTotalCheck => 'assets/img/ic_total_check.svg';
+
   /// File path: assets/img/ic_unfinish_missions.svg
   String get icUnfinishMissions => 'assets/img/ic_unfinish_missions.svg';
+
+  /// File path: assets/img/ic_unlockscreen.svg
+  String get icUnlockscreen => 'assets/img/ic_unlockscreen.svg';
 
   /// File path: assets/img/ic_unselect_bank.png
   AssetGenImage get icUnselectBank =>
@@ -1097,6 +1115,7 @@ class $AssetsImgGen {
         icAddColumnLeft,
         icAddColumnRight,
         icAddFavorableBank,
+        icAddFriend,
         icAddlink,
         icAddnote,
         icAiHelper,
@@ -1182,6 +1201,7 @@ class $AssetsImgGen {
         icFinishedWhite,
         icFlower,
         icFocus,
+        icFocusDuration,
         icFocusOrange,
         icFocusTarget,
         icFocusTraining,
@@ -1219,8 +1239,10 @@ class $AssetsImgGen {
         icLightningBlack,
         icLightningWhite,
         icListing,
+        icLockScreen,
         icLockscreen,
         icLockscreenSelected,
+        icLockscreenView,
         icLogoOrange,
         icLogoRed,
         icLoudspeaker,
@@ -1312,7 +1334,9 @@ class $AssetsImgGen {
         icTomatoWhite,
         icTomatoWhite2,
         icTomorrow,
+        icTotalCheck,
         icUnfinishMissions,
+        icUnlockscreen,
         icUnselectBank,
         icUsaYuntongBank,
         icViewColumn,

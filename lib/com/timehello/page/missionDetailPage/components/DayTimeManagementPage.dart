@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
@@ -369,9 +370,9 @@ class DayTimeManagementPageState extends State<DayTimeManagementPage> {
           missionModel?.start_time = startDateTime.millisecondsSinceEpoch;
           missionModel?.end_time = endDateTime.millisecondsSinceEpoch;
         }
-        if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+        if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
             false) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
           return;
         }
@@ -410,9 +411,9 @@ class DayTimeManagementPageState extends State<DayTimeManagementPage> {
               appointment.startTime?.millisecondsSinceEpoch;
           missionModel?.end_time = appointment.endTime?.millisecondsSinceEpoch;
         }
-        if (Utility.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+        if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
             false) {
-          Utility.showToast(
+          Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
           return;
         }

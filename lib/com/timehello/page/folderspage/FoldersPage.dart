@@ -22,6 +22,7 @@ import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/page/createFolderPage/CreateFolderPage.dart';
 import 'package:time_hello/com/timehello/page/folderspage/components/FolderSilverList.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/pages/SummaryPage.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/CloudSharepreferenceManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -154,6 +155,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       case 'onClickCreateFolder':
         onClickCreateFolder();
         break;
+      case 'onClickAddGroup':
+        onClickAddGroup();
+        break;
       case 'onClickMissionPage': //跳转任务页
         this.curSelectedTitle = data.title;
         if (data.iconType == 5 && Utility.isHandsetBySize() == false) {
@@ -285,7 +289,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 2; //1-normal 2-tag 3-circle
     folderModel.color = CONSTANTS.getColors()[0].color;
-
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_tag","description": "创建标签",});
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
@@ -457,6 +461,44 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
 
   // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
   void onClickMissionPage(data, folderStatus) {
+    // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单
+    switch(data.iconType) {
+      case 1:  // 今天
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_today","description": "今天",});
+        break;
+      case 2: // 明天
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_tomorrow","description": "明天",});
+        break;
+      case 3: // 本周
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_recent_days","description": "最近几天",});
+        break;
+      case 4: // 所有未完成任务
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_all_pending_tasks","description": "所有未完成任务",});
+        break;
+      case 5: // 日程
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_schedule","description": "日程",});
+        break;
+      case 6: // 已完成
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_completed","description": "已完成",});
+        break;
+      case 7: //  创建清单
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_listing","description": "创建清单",});
+        break;
+      case 8: // 其他
+        break;
+      case 9: // 现在做 Do it now
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_current_tasks","description": "现在做",});
+        break;
+      case 10: //所有任务
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_all_tasks","description": "所有任务",});
+        break;
+      case 12: // 待定任务
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_proxy_list","description": "代办清单",});
+        break;
+      case 13: // 碎片清单
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_fragment_list","description": "碎片清单",});
+        break;
+    }
     if (Utility.isHandsetBySize()) {
       Utility.pushCurFolderModel(context,
           folderModel: data, folderStatus: folderStatus);
@@ -465,11 +507,17 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             {"folderModel": data, "folderStatus": folderStatus});
       }
     } else {
+      Utility.openRightSideDesktopNavigator(
+          context, 'GroupChatPage', {});
       Utility.pushCurFolderModel(context,
           folderModel: data, folderStatus: folderStatus);
       Utility.pushDesktopNavigator(
           context, 'MissionPage', {'data': data, 'folderStatus': folderStatus});
     }
+  }
+
+  onClickAddGroup() {
+    DialogManagement.getInstance().showSearchFriendGroupWidget();
   }
 
   void onClickCreateFolder() {
@@ -501,7 +549,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 1; //1-circle 2-tag
     folderModel.color = CONSTANTS.getColors()[0].color;
-
+    if(folderModel.tag == 1) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_listing","description": "创建清单",});
+    }
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
@@ -587,6 +637,8 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                     this.onClick('onClickCreateFolder', {});
                     // this.onClick?.call('folder');
                     break;
+                  case 'group':
+                    this.onClick("onClickAddGroup", {});
                 }
               },
               list: CONSTANTS.getFolderButtonList(),

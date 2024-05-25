@@ -170,7 +170,7 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
     EasyLoadingManager.getInstance().dismiss();
     if (resMongoDbSave != null) {
       eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(),
           msg: getI18NKey().add_successfully);
       // this.widget.onSubmit?.call(title ?? "", this.audioPath ?? "", this.duration);
@@ -182,7 +182,7 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
       }
       Utility.popupPagePCAndMobile(context);
     } else {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().add_fail);
     }
   }

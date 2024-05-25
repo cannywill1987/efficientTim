@@ -23,6 +23,7 @@ import '../../../config/Params.dart';
 import '../../../models/EventFn.dart';
 import '../../../models/FolderModel.dart';
 import '../../../models/SheetDataModel.dart';
+import '../../../util/AnalyticsEventsManager.dart';
 
 class HeaderStatsAndInputWidget extends StatefulWidget {
   List _datas = [];
@@ -316,6 +317,9 @@ class HeaderInputState extends State<HeaderInputWidget> {
                 onChanged: (text) {
                   // inputController.clear();
                   _value = text;
+                  if(_value?.length == 1) {
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_add_task_input","description": "添加任务输入框",});
+                  }
                   if (this.widget.onChangeListener != null)
                     this.widget.onChangeListener!(text, numTomatoes);
                   print(text);

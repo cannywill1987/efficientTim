@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/models/SessionMissionModel.dart';
 import 'package:time_hello/com/timehello/page/missionDetailPage/components/MissionDetailMissionSilverList.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/BottomBar.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/HeaderStatsAndInputWidget.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -149,8 +150,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionDetailMissionPa
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }

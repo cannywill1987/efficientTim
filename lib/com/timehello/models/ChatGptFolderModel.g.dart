@@ -15,6 +15,7 @@ ChatGptFolderModel _$ChatGptFolderModelFromJson(Map<String, dynamic> json) =>
       ..promptTitle = json['promptTitle'] as String?
       ..prompt = json['prompt'] as String?
       ..uid = json['uid'] as String?
+      ..isCollect = json['isCollect'] as bool?
       ..update_time = json['update_time'] as int?
       ..create_time = json['create_time'] as int?
       ..color = json['color'] as int?
@@ -29,6 +30,7 @@ Map<String, dynamic> _$ChatGptFolderModelToJson(ChatGptFolderModel instance) =>
       'promptTitle': instance.promptTitle,
       'prompt': instance.prompt,
       'uid': instance.uid,
+      'isCollect': instance.isCollect,
       'update_time': instance.update_time,
       'create_time': instance.create_time,
       'color': instance.color,

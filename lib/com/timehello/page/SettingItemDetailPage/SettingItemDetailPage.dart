@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/NavigatorManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
@@ -207,7 +208,7 @@ class _SettingItemDetailPageWidgetState<T>
           .delete_MissionModel(currentObjectId: data.objectId);
       eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
       eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
-      Utility.showToast(context: context, msg: getI18NKey().delete_success);
+      Utility.showToastMsg(context: context, msg: getI18NKey().delete_success);
       if (Utility.isHandsetBySize() == true) {
         Navigator.of(context).pop();
       } else {
@@ -221,8 +222,8 @@ class _SettingItemDetailPageWidgetState<T>
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-        Utility.showToast(
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
@@ -289,10 +290,10 @@ class _SettingItemDetailPageWidgetState<T>
     if ((this.widget.missionModel?.alert_time ?? 0) > 0) {
       Params.shouldRefreshPushModelList = true;
     }
-    if (Utility.isFolderModelEnabled(
+    if (ChatGroupManager.isFolderModelEnabled(
             folderId: this.widget.missionModel?.folder_id ?? "") ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return null;
     }
@@ -304,7 +305,7 @@ class _SettingItemDetailPageWidgetState<T>
       eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
       eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
     } else {
-      Utility.showToast(context: context, msg: getI18NKey().network_error);
+      Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
     }
     return mongoDbUpdated;
   }
@@ -777,7 +778,7 @@ class _SettingItemDetailPageWidgetState<T>
               if (this.widget.missionModel?.daily_end_time != null) {
                 if ((this.widget.missionModel?.daily_end_time ?? 0) <
                     startTime) {
-                  Utility.showToast(
+                  Utility.showToastMsg(
                       context: context,
                       msg: getI18NKey().end_time_cannot_before_start_time);
                   this.widget.missionModel?.daily_end_time = null;
@@ -839,7 +840,7 @@ class _SettingItemDetailPageWidgetState<T>
           onTapListener: (data) async {
             if (this.widget.missionModel.time_mode == 1) {
               if (this.widget.missionModel?.start_time == null) {
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: context,
                     msg: getI18NKey().please_select_daily_start_time);
                 return;
@@ -848,7 +849,7 @@ class _SettingItemDetailPageWidgetState<T>
                   await Utility.showDateTimePickerDialog(context);
               if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
                   (this.widget.missionModel?.start_time ?? 0)) {
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: context,
                     msg: getI18NKey().end_time_cannot_before_start_time);
                 this.widget.missionModel?.end_time = null;
@@ -861,7 +862,7 @@ class _SettingItemDetailPageWidgetState<T>
               });
             } else {
               if (this.widget.missionModel?.daily_start_time == null) {
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: context,
                     msg: getI18NKey().please_select_daily_start_time);
                 return;
@@ -874,7 +875,7 @@ class _SettingItemDetailPageWidgetState<T>
               int endTime = timeOfDay.hour * 60 * 60 * 1000 +
                   timeOfDay.minute * 60 * 1000;
               if (endTime < (this.widget.missionModel?.daily_start_time ?? 0)) {
-                Utility.showToast(
+                Utility.showToastMsg(
                     context: context,
                     msg: getI18NKey().end_time_cannot_before_start_time);
                 this.widget.missionModel?.daily_end_time = null;
@@ -1376,8 +1377,8 @@ class _SettingItemDetailPageWidgetState<T>
   }
 
   onClickUnfinishItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -1392,8 +1393,8 @@ class _SettingItemDetailPageWidgetState<T>
    * 点击完成任务
    */
   Future onClickFinishItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }

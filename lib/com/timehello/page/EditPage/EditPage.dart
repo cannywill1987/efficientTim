@@ -103,7 +103,7 @@ class _EditPageWidgetState<T> extends BaseWidgetState<EditPage> {
                       ),
                       onPressed: () {
                         if (TextUtil.isEmpty(this.text)) {
-                          Utility.showToast(msg: getI18NKey().can_not_be_empty);
+                          Utility.showToastMsg(msg: getI18NKey().can_not_be_empty);
                           return;
                         }
                         Utility.popNavigator(context, this.text);

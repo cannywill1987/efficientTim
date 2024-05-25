@@ -189,7 +189,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
   @override
   void loginFail(Map errorMsg, {LoginMode? loginMode}) {
     // TODO: implement loginFail
-    Utility.showToast(msg: errorMsg);
+    Utility.showToastMsg(msg: errorMsg);
   }
 
   @override
@@ -214,7 +214,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
       }
     } else {
       //用户已经存在 返回上一页 注入手机号
-      Utility.showToast(msg: response.message);
+      Utility.showToastMsg(msg: response.message);
       if (response.code == '0000D2DE') {
         Utility.popNavigator(context, {"mobile": _mobileDecrypted});
       }

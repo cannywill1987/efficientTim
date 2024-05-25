@@ -32,7 +32,7 @@ class DownloadListwidget extends StatelessWidget {
                         title: "Mac",
                         okCallBack: (text) {
                           Utility.popNavigator(context);
-                          Utility.showToast(msg: getI18NKey().copy_success);
+                          Utility.showToastMsg(msg: getI18NKey().copy_success);
                           Utility.copyToClipboard(getI18NKey().tomatoClock);
                         },
                         cancelCallBack: () {
@@ -45,7 +45,7 @@ class DownloadListwidget extends StatelessWidget {
                         title: "Mac",
                         okCallBack: (text) {
                           Utility.popNavigator(context);
-                          Utility.showToast(msg: getI18NKey().copy_success);
+                          Utility.showToastMsg(msg: getI18NKey().copy_success);
                           Utility.copyToClipboard(getI18NKey().app_name);
                         },
                         cancelCallBack: () {
@@ -71,7 +71,7 @@ class DownloadListwidget extends StatelessWidget {
                       title: "Iphone",
                       okCallBack: (text) {
                         Utility.popNavigator(context);
-                        Utility.showToast(msg: getI18NKey().copy_success);
+                        Utility.showToastMsg(msg: getI18NKey().copy_success);
                         Utility.copyToClipboard(getI18NKey().app_name);
                       },
                       cancelCallBack: () {
@@ -95,7 +95,7 @@ class DownloadListwidget extends StatelessWidget {
                       title: "Windows",
                       okCallBack: (text) {
                         Utility.popNavigator(context);
-                        Utility.showToast(msg: getI18NKey().copy_success);
+                        Utility.showToastMsg(msg: getI18NKey().copy_success);
                         Utility.copyToClipboard("https://timehello.oss-cn-hongkong.aliyuncs.com/app/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86%E5%B1%80ToDo.exe");
                       },
                       cancelCallBack: () {
@@ -119,7 +119,7 @@ class DownloadListwidget extends StatelessWidget {
                       title: "Android",
                       okCallBack: (text) {
                         Utility.popNavigator(context);
-                        Utility.showToast(msg: getI18NKey().copy_success);
+                        Utility.showToastMsg(msg: getI18NKey().copy_success);
                         Utility.copyToClipboard(getI18NKey().app_name);
                       },
                       cancelCallBack: () {
@@ -141,7 +141,7 @@ class DownloadListwidget extends StatelessWidget {
                       title: "web",
                       okCallBack: (text) {
                         Utility.popNavigator(context);
-                        Utility.showToast(msg: getI18NKey().copy_success);
+                        Utility.showToastMsg(msg: getI18NKey().copy_success);
                         Utility.copyToClipboard("https://www.timerbell.com");
                       },
                       cancelCallBack: () {

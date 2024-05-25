@@ -30,6 +30,24 @@ class AnalyticsEventsManager {
     // });
   }
 
+  Future<void> sendAnalyticsEventMap(Map data) async {
+    try {
+      String sceneType = data['sceneType'] ?? "";
+      String eventType = data['eventType'] ?? "";
+      String message = data['message'] ?? "";
+      await analytics.logEvent(
+        name: sceneType + '_' + eventType,
+        parameters: <String, dynamic>{
+          'sceneType': sceneType,
+          'eventType': eventType,
+          'message': message,
+        },
+      );
+    } catch(e) {
+      print(e);
+    }
+  }
+
   Future<void> sendAnalyticsEvent({name}) async {
     // Only strings and numbers (longs & doubles for android, ints and doubles for iOS) are supported for GA custom event parameters:
     // https://firebase.google.com/docs/reference/ios/firebaseanalytics/api/reference/Classes/FIRAnalytics#+logeventwithname:parameters:

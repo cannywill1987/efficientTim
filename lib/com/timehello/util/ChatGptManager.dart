@@ -101,6 +101,18 @@ class ChatGptManager {
     //   }, title: getI18NKey().preview,
     // );
   }
+  // {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username, "numTomatoesFcoused":0,"numTasksDone": 0, "totalDurationFocus": 0, "onlineStatus": 0}
+  // String getNumTomatoesFcoused({required Map userInfo}) {
+  //   return userInfo['numTomatoesFcoused'].toString() ?? "0";
+  // }
+  //
+  // String getUserName({required Map userInfo}) {
+  //   return userInfo['username'].toString() ?? "";
+  // }
+  //
+  // String getUserName({required Map userInfo}) {
+  //   return userInfo['username'].toString() ?? "";
+  // }
 
   /**
    * 从服务器缓存获取聊天信息

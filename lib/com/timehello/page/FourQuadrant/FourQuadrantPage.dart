@@ -301,7 +301,7 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
                               textEditingController.text = s;
                               updateUI();
                             }, export: (data) {
-                              Utility.showToast(
+                              Utility.showToastMsg(
                                   context: context,
                                   msg: getI18NKey().offer_next_version);
                             });

@@ -87,13 +87,13 @@ class SelectShareFolderPageState extends BaseWidgetState<SelectShareFolderPage> 
   onClickGetShareData() async {
     //密码登录 是否是自己创建的
     if (this.widget.courseModel?.uid == LoginManager.getInstance().userBean.uid) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context, msg: getI18NKey().your_created_class);
       return;
     }
       if ((this.widget.courseModel?.type ?? 0) == 2 &&
           this.widget.courseModel?.password != password) {
-        Utility.showToast(
+        Utility.showToastMsg(
             context: context, msg: getI18NKey().please_input_correct_password);
         return;
       }
@@ -106,7 +106,7 @@ class SelectShareFolderPageState extends BaseWidgetState<SelectShareFolderPage> 
             .requestFolderModelByFolderId(
                 folder_id: this.widget.courseModel?.courseFid ?? "");
         if(folderModel == null) {
-          Utility.showToast(msg: getI18NKey().request_fail);
+          Utility.showToastMsg(msg: getI18NKey().request_fail);
           EasyLoadingManager.getInstance().hideLoading();
           return;
         }
@@ -127,20 +127,20 @@ class SelectShareFolderPageState extends BaseWidgetState<SelectShareFolderPage> 
                 .update_FolderModelWithFM(folderModel: folderModel)
           ]);
         } else {
-          Utility.showToast(msg: getI18NKey().already_in_course);
+          Utility.showToastMsg(msg: getI18NKey().already_in_course);
         }
       } else {
         // 类型 - 1 免费开放 需要id 3 销售（只针对国内）
         if (await MongoApisManager.getInstance()
             .isCourseModelIdExist(this.widget.courseModel?.objectId ?? "")) {
-          Utility.showToast(context: context, msg: getI18NKey().already_exist);
+          Utility.showToastMsg(context: context, msg: getI18NKey().already_exist);
           return;
         }
 
         await MongoApisManager.getInstance().insertCourseIntoUser(
             this.widget.courseModel?.objectId ?? "", this.widget.courseModel?.courseFid ?? "");
       }
-      Utility.showToast(
+      Utility.showToastMsg(
           context: context,
           msg: getI18NKey()
               .get_train_plan_successful(this.widget.courseModel?.title ?? ""));

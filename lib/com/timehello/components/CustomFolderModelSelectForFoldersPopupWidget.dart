@@ -120,7 +120,7 @@ class CustomFolderModelSelectForFoldersPopupWidgetState
               },
               okCallback: () async {
             if(TextUtil.isEmpty(createFolderTitle)){
-              Utility.showToast(msg: getI18NKey().xxx_cannot_be_empty(getI18NKey().folder_name));
+              Utility.showToastMsg(msg: getI18NKey().xxx_cannot_be_empty(getI18NKey().folder_name));
               return;
             }
                 FolderModel folderModel = FolderModel();
@@ -132,7 +132,7 @@ class CustomFolderModelSelectForFoldersPopupWidgetState
                   DialogManagement.getInstance().hideDialog(context);
                   requestData();
                 } else {
-                  Utility.showToast(msg: getI18NKey().request_fail);
+                  Utility.showToastMsg(msg: getI18NKey().request_fail);
                 }
               },
               title: getI18NKey().create_folder_desc,

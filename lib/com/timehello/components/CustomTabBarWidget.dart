@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/WeekendCheckModel.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
@@ -51,6 +52,11 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
   }
 
   void setChecked(int index) {
+    if(index == 0) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
+    } else if(index == 1) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_time_period","description": "时间段",});
+    }
     this.resetList();
     this.list[index].isCheck = true;
     setState(() {
@@ -64,6 +70,13 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     //   }
     // });
     // print(list);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
   }
 
   void updateUI() {

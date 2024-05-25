@@ -20,6 +20,8 @@ import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MissionGridView.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MultiSelectHandleWidget.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
@@ -178,7 +180,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         },
       )
     ];
-    if (ABTestSetting.isOpenAiOn)
+    if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
       this.rightNavChildren = [
         IconButton(
             onPressed: () {
@@ -265,11 +267,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         break;
       case 'onClickSubmit': //添加Mission
         if (this._numberTomatoes == 0) {
-          Utility.showToast(msg: getI18NKey().alertMessage1);
+          Utility.showToastMsg(msg: getI18NKey().alertMessage1);
           return;
         }
         if (TextUtil.isEmpty(this._title) == true) {
-          Utility.showToast(msg: getI18NKey().alertMessage2);
+          Utility.showToastMsg(msg: getI18NKey().alertMessage2);
           return;
         }
         onClickSubmit(this._title);
@@ -398,8 +400,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   // }
 
   Future onClickEditTitle(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -408,8 +410,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-        Utility.showToast(
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+        Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
@@ -417,7 +419,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       await MongoApisManager.getInstance()
           .update_MissionModel(missionModel: data);
       requestDatas();
-      Utility.showToast(context: context, msg: getI18NKey().update_success);
+      Utility.showToastMsg(context: context, msg: getI18NKey().update_success);
       DialogManagement.getInstance().hideDialog(context);
     }, cancelCallBack: () {
       DialogManagement.getInstance().hideDialog(context);
@@ -425,8 +427,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future onClickUnFinishListener(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -452,8 +454,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future onTapDoItNow(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -464,8 +466,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -486,8 +488,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -522,8 +524,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if (Utility.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToast(
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -552,7 +554,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    */
   void onClickSubmit(data) async {
     if (isRequesting == true) {
-      Utility.showToast(msg: getI18NKey().requesting_please_wait);
+      Utility.showToastMsg(msg: getI18NKey().requesting_please_wait);
       return;
     }
     this._missionModel?.title = data.toString();
@@ -590,9 +592,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     this._missionModel.repetiveWeekDay =
         bottomBarStateKey?.currentState?.repetiveWeekDay;
 
-    if (Utility.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
+    if (ChatGroupManager.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
         false) {
-      Utility.showToast(
+      Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
@@ -603,7 +605,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         callback: (res) async {
           isRequesting = false;
           if (res != null) {
-            Utility.showToast(msg: getI18NKey().addsuccess);
+            Utility.showToastMsg(msg: getI18NKey().addsuccess);
           }
           this.requestDatas();
           eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
@@ -816,7 +818,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       textEditingController.text = s;
                       updateUI();
                     }, export: (data) {
-                      Utility.showToast(
+                      Utility.showToastMsg(
                           context: context,
                           msg: getI18NKey().offer_next_version);
                     });
@@ -1089,6 +1091,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   },
                   onClickSearchListener: (bool res) {
                     this.isSearchBarVisible = res;
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_search","description": "搜索",});
                     updateUI();
                   },
                 ),
@@ -1182,6 +1185,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 ),
                 InkWell(
                   onTap: () {
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_guide","description": "导出",});
                     TextEditingController textEditingController =
                         TextEditingController();
                     String s = Utility.getContentFromMissionList(
@@ -1201,7 +1205,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       textEditingController.text = s;
                       updateUI();
                     }, export: (data) {
-                      Utility.showToast(
+                      Utility.showToastMsg(
                           context: context,
                           msg: getI18NKey().offer_next_version);
                     });
@@ -1225,8 +1229,10 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       CheckButtonStateModel item =
                           listCheckButtonStateModel![obj];
                       if (item.code == "list") {
+                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_list_view","description": "列表",});
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.list;
                       } else if (item.code == "grid") {
+                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_classify","description": "分类",});
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.grid;
                       }
                       SharePreferenceUtil.getSyncInstance().setInt(
@@ -1295,6 +1301,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       .getTextColor(defaultColor: Colors.red))),
         ),
         onSelected: (String val) {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_order","description": "排序", "message": val});
           if (val == 'order_by_list') {
             this.missionOrderEnum = MissionOrderEnum.orderByWords;
           } else if (val == 'order_by_time') {

@@ -110,7 +110,7 @@ class _CreatePresentPageState<T> extends BaseWidgetState<CreatePresentPage> {
           // }
           resetForm();
           eventBus.fire(EventFn(Params.ACTION_UPDATE_FOLDER_PAGE, {}));
-          Utility.showToast(msg: getI18NKey().updateSuccess);
+          Utility.showToastMsg(msg: getI18NKey().updateSuccess);
           Utility.popupPagePCAndMobile(context);
           this.widget.callback?.call();
         });
@@ -131,7 +131,7 @@ class _CreatePresentPageState<T> extends BaseWidgetState<CreatePresentPage> {
           // }
           resetForm();
           eventBus.fire(EventFn(Params.ACTION_UPDATE_FOLDER_PAGE, {}));
-          Utility.showToast(msg: getI18NKey().createSuccess);
+          Utility.showToastMsg(msg: getI18NKey().createSuccess);
           Utility.popupPagePCAndMobile(context);
           this.widget.callback?.call();
         });
@@ -224,7 +224,7 @@ class _CreatePresentPageState<T> extends BaseWidgetState<CreatePresentPage> {
                     ),
                     onPressed: () {
                       if (TextUtil.isEmpty(this.widget.presentModel.title)) {
-                        Utility.showToast(msg: getI18NKey().pleaseInputTitle);
+                        Utility.showToastMsg(msg: getI18NKey().pleaseInputTitle);
                         return;
                       }
                       // if (this.widget.presentModel.color <= 0) {

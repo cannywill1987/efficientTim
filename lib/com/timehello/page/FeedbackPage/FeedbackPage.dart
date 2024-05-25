@@ -163,7 +163,7 @@ class _FeedbackPageWidgetState<T> extends BaseWidgetState<FeedbackPage> {
 
   void onClickComment(String value) async {
     if (TextUtil.isEmpty(value)) {
-      Utility.showToast(context: context, msg: getI18NKey().comment_not_empty);
+      Utility.showToastMsg(context: context, msg: getI18NKey().comment_not_empty);
       return;
     }
     await MongoApisManager.getInstance().insertCommentModel(
