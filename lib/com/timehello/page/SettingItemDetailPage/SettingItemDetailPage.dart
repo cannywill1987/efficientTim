@@ -23,6 +23,7 @@ import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/NavigatorManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -133,6 +134,15 @@ class _SettingItemDetailPageWidgetState<T>
   // }
 
   void onClick(type, data) async {
+    if (
+    ChatGroupManager.isFolderModelEnabled(
+        folderId: this.widget.missionModel.folder_id ?? "",
+        uid: LoginManager.getInstance().userBean.uid ?? "") ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
     switch (type) {
       case 'onClickMissionDetail': //跳转到任务详情页MissionPage开始任务
         onClickMissionStart(data);
@@ -622,9 +632,27 @@ class _SettingItemDetailPageWidgetState<T>
                       TagsGridViewWidget(
                         datas: this.folderModelTags,
                         onTapAddTagListener: (data) {
+                          if (
+                          ChatGroupManager.isFolderModelEnabled(
+                              folderId: this.widget.missionModel.folder_id ?? "",
+                              uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                              false) {
+                            Utility.showToastMsg(
+                                context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                            return null;
+                          }
                           this.onClick('onTapTagListener', data);
                         },
                         onTapDeleteTagListener: (data) {
+                          if (
+                              ChatGroupManager.isFolderModelEnabled(
+                                  folderId: this.widget.missionModel.folder_id ?? "",
+                                  uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                                  false) {
+                            Utility.showToastMsg(
+                                context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                            return null;
+                          }
                           List<String> tagNamesList =
                               this.widget.missionModel?.tagNames?.split(',') ??
                                   [];
@@ -757,6 +785,15 @@ class _SettingItemDetailPageWidgetState<T>
               : getI18NKey().daily_start_time,
           subTitle: "(${getI18NKey().optional})",
           onTapListener: (data) async {
+            if (
+            ChatGroupManager.isFolderModelEnabled(
+                folderId: this.widget.missionModel.folder_id ?? "",
+                uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                false) {
+              Utility.showToastMsg(
+                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+              return null;
+            }
             DateTimeModel model;
             if (this.widget.missionModel.time_mode == 1) {
               DateTimeModel? model =
@@ -838,6 +875,15 @@ class _SettingItemDetailPageWidgetState<T>
               ? ""
               : "(${getI18NKey().optional})",
           onTapListener: (data) async {
+            if (
+            ChatGroupManager.isFolderModelEnabled(
+                folderId: this.widget.missionModel.folder_id ?? "",
+                uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                false) {
+              Utility.showToastMsg(
+                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+              return null;
+            }
             if (this.widget.missionModel.time_mode == 1) {
               if (this.widget.missionModel?.start_time == null) {
                 Utility.showToastMsg(
@@ -1007,6 +1053,15 @@ class _SettingItemDetailPageWidgetState<T>
           : MenuItem2(
               title: getI18NKey().deadLine,
               onTapListener: (data) async {
+                if (
+                ChatGroupManager.isFolderModelEnabled(
+                    folderId: this.widget.missionModel.folder_id ?? "",
+                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                    false) {
+                  Utility.showToastMsg(
+                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  return null;
+                }
                 DateTimeModel? model = await Utility.showDatePickerDialog(
                     context, this.widget.missionModel?.end_time ?? 0);
                 this.setState(() {
@@ -1051,6 +1106,15 @@ class _SettingItemDetailPageWidgetState<T>
               title: getI18NKey().alert,
               subTitle: "(${getI18NKey().optional})",
               onTapListener: (data) async {
+                if (
+                ChatGroupManager.isFolderModelEnabled(
+                    folderId: this.widget.missionModel.folder_id ?? "",
+                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                    false) {
+                  Utility.showToastMsg(
+                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  return null;
+                }
                 //没有权限提醒设置权限
                 DateTimeModel? model;
                 TimeOfDay? timeOfDay;
@@ -1117,6 +1181,15 @@ class _SettingItemDetailPageWidgetState<T>
               title: getI18NKey().repetive,
               subTitle: "(${getI18NKey().optional})",
               onTapListener: (data) {
+                if (
+                ChatGroupManager.isFolderModelEnabled(
+                    folderId: this.widget.missionModel.folder_id ?? "",
+                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                    false) {
+                  Utility.showToastMsg(
+                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  return null;
+                }
                 SelectDatePeriodDialogUtil.show(context, okCallBack:
                     (valueMiddleSelected, valueRightSelected, listCheckModels) {
                   this.isNeedUpdateBmob = true;

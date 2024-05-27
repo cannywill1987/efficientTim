@@ -45,6 +45,7 @@ import '../../models/CheckButtonStateModel.dart';
 import '../../models/SessionMissionModel.dart';
 import '../../models/TimelineMissionModel.dart';
 import '../../util/DialogManagement.dart';
+import '../../util/LoginManager.dart';
 import '../CreateMissionPage/CreateMissionPage.dart';
 import '../RichEditor/RichEditorPage.dart';
 import '../SettingItemDetailPage/SettingItemDetailPage.dart';
@@ -591,7 +592,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     this._missionModel.alert_time = bottomBarStateKey?.currentState?.alert_time;
     this._missionModel.repetiveWeekDay =
         bottomBarStateKey?.currentState?.repetiveWeekDay;
-
+    this._missionModel.repetiveWeekDay =
+        bottomBarStateKey?.currentState?.repetiveWeekDay;
+this._missionModel.uid = LoginManager.getInstance().userBean.uid;
     if (ChatGroupManager.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
         false) {
       Utility.showToastMsg(

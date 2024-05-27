@@ -25,6 +25,9 @@ class FolderModel extends MongoDbObject {
   String? device_id; //设备id 用于没用登录时的搜索
   int? number;
   String? uid;
+  Map<String, dynamic>? _userInfo; // 管理员信息 用于私有模式别的用户加入
+  @JsonKey(ignore: true)
+  UserInfoBean? userInfoBean; // 管理员信息 用于私有模式别的用户加入
   String? noteUrl; //笔记url
   String? timelineNoteObjectId; //笔记objectId
   int? numberNoteWords; //笔记字数
@@ -58,6 +61,15 @@ class FolderModel extends MongoDbObject {
   // bool? isFoldedForFolder = false; //是否折叠 如果tag是3
   List<String>? folderModelObjectIdOrderList =
       []; //当folderModel代表文件夹时 用于folderModel objectId的排序
+
+  set userInfo(Map<String, dynamic>? value) {
+    _userInfo = value;
+    userInfoBean = UserInfoBean.fromJson(value ?? {});
+  }
+
+  Map<String, dynamic>? get userInfo {
+    return _userInfo;
+  }
 
   set otherUserInfo(List? value) {
     _otherUserInfo = value;

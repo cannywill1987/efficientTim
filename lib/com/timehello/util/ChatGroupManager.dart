@@ -24,6 +24,36 @@ class ChatGroupManager {
   // factory ChatGroupManager() => _instance;
   // ChatGroupManager._internal();
 
+  static isMyFolder({required FolderModel folderModel}) {
+    if (folderModel.uid == LoginManager.getInstance().userBean.uid) {
+      return true;
+    }
+    return false;
+  }
+  //是否已经在群清单
+  static isInTheFolder({required FolderModel folderModel, String uid = ""}) {
+    if (TextUtil.isEmpty(uid)) {
+      uid = LoginManager.getInstance().userBean.uid ?? "";
+    }
+    if(folderModel.otherUids != null && folderModel.otherUids!.contains(uid)) {
+      return true;
+    } else {
+      return false;
+    }
+    // folderModel.otherUids?.forEach((element) {
+    //   if (element == uid) {
+    //     return true;
+    //   }
+    // });
+    // if (folderModel.uid == uid) {
+    //   return true;
+    // }
+    // if (folderModel.otherUids != null && folderModel.otherUids!.contains(uid)) {
+    //   return true;
+    // }
+    // return false;
+  }
+
   /**
    *
    */
@@ -58,11 +88,22 @@ class ChatGroupManager {
     print(
         "folderId:${folderId} ${folderModel?.isSharing} isOtherUserEditable:${folderModel?.isOtherUserEditable} uid:${folderModel?.otherUids?.contains(uid)}");
     //0 未分享中 仅仅我自己 1 之后分享中 - 1 私有 - 需要搜索 仅仅好友 2 所有人可查看 3 所有人可编辑
-    if (!(folderModel?.isSharing == 1 && folderModel?.isOtherUserEditable == true) || folderModel?.isSharing == 3) {
-      return false;
-    } else {
+    if ((folderModel?.isSharing == 1 && folderModel?.isOtherUserEditable == true) || folderModel?.isSharing == 3) {
       return true;
+    } else {
+      return false;
     }
+  }
+
+  // 0-创建者 1-管理员 2-普通用户
+  static UserInfoBean getUserInfoBean({required int role}) {
+    UserInfoBean userInfoBean = UserInfoBean();
+    userInfoBean.username = LoginManager.getInstance().userBean.username;
+    userInfoBean.avatar = LoginManager.getInstance().userBean.avatar;
+    userInfoBean.uid = LoginManager.getInstance().userBean.uid;
+    userInfoBean.role = role;
+    userInfoBean.onlineStatus = 1;
+    return userInfoBean;
   }
 
   bool hasPassword({required FolderModel folderModel}) {

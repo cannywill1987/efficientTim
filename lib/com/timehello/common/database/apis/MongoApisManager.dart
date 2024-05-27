@@ -73,6 +73,7 @@ class MongoApisManager {
   bool hasLoadedStatsModels = false;
   bool hasInit = false;
   List<CourseModel> listCourseModel = [];
+  List<FolderModel> listSharingFolderModel = [];
   List<FlomoMissionModel> listFlomoMissionModel = [];
 
   /**
@@ -113,6 +114,7 @@ class MongoApisManager {
       listPresentModel = [];
       listEventCollectionModel = [];
       listChatGptMessageModel = [];
+      listSharingFolderModel = [];
       Utility.getGlobalContext().read<GlobalStateEnv>().listCourseModel =
           this.listCourseModel;
       Utility.getGlobalContext().read<GlobalStateEnv>().listFlomoMissionModel =
@@ -235,11 +237,11 @@ class MongoApisManager {
           await Future.wait([
             queryWhereEqual_folderModel(), //初始化listFolderModel
             queryWhereEqual_groupModel(),
-            queryWhereEqual_missionData(),
             queryWhereEqual_FlomoMissionModel(),
             queryWhereEqual_sharePreferenceModel()
             // queryWhereEqual_creditModel()
           ]).then((value) {
+            queryWhereEqual_missionData();
             Utility.reinitBottomCounter();
             // eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
             // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
@@ -1557,7 +1559,9 @@ class MongoApisManager {
 
     this.hasLoadedMissionModels = true;
     MongoDbQuery<MissionModel> query = MongoDbQuery();
+    MongoDbQuery<MissionModel> queryOr = MongoDbQuery();
     MongoDbQuery<MissionModel> queryUid = MongoDbQuery();
+    MongoDbQuery<MissionModel> queryAll = MongoDbQuery();
     MongoDbQuery<MissionModel> queryUidAndDeviceId = MongoDbQuery();
 
     MongoDbQuery<MissionModel>? query1, query2, query3, query4, query5, query6;
@@ -1576,6 +1580,18 @@ class MongoApisManager {
     list2.add(queryDeviceId);
 
     queryUidAndDeviceId.or(list2);
+    List<MongoDbQuery<MissionModel>> listSharingFolderModel = [];
+    if(this.listSharingFolderModel != null) {
+      this.listSharingFolderModel.forEach((element) {
+        if(element.objectId != null) {
+          MongoDbQuery<MissionModel> querySharingFolderModel = MongoDbQuery();
+          querySharingFolderModel.addWhereEqualTo(
+              "folder_id", element.objectId!);
+          listSharingFolderModel.add(querySharingFolderModel);
+        }
+      });
+    }
+    queryOr.or(listSharingFolderModel);
 
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
@@ -1610,13 +1626,18 @@ class MongoApisManager {
     if (query5 != null) list.add(query5);
     if (query6 != null) list.add(query6);
     if (query2 != null) list.add(query2);
+    // if (queryOr != null) list.add(queryOr);
+    // if(listSharingFolderModel.length > 0) {
+    //   list.addAll(listSharingFolderModel);
+    // }
     query.and(list);
-    query.skip = 0;
-    query.limit = 100000;
+    queryAll.or([query, queryOr]);
+    queryAll.skip = 0;
+    queryAll.limit = 100000;
     // BmobAcl bmobAcl = BmobAcl();
     // bmobAcl.addRoleReadAccess(user.getObjectId(), true);
     // query.addWhereEqualTo("title", "博客标题");
-    List<dynamic> data = await query.queryObjects();
+    List<dynamic> data = await queryAll.queryObjects();
     // Utility.print(data.toString());
     List<MissionModel> missionModels = [];
     missionModels = data.map((i) {
@@ -2477,6 +2498,7 @@ class MongoApisManager {
     this.hasLoadedFolderModels = true;
     // folderModelList = await CryptoManager.getInstance().batchDecryptFolderModels(folderModelList);
     this.listFolderModels = folderModelList;
+    this.listSharingFolderModel = Utility.getFolderIdsForSharing123OtherUser(this.listFolderModels ?? []);
     Utility.getGlobalContext().read<GlobalStateEnv>().listFolderModels =
         folderModelList;
     // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
@@ -3011,14 +3033,17 @@ class MongoApisManager {
         // });
         return null;
       }
-      FolderModel missionModelTmp = folderModel ?? FolderModel();
-      missionModelTmp.uid =
+      FolderModel folderModelTmp = folderModel ?? FolderModel();
+      folderModelTmp.uid =
           TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
               ? ''
               : LoginManager.getInstance().getUserBean().uid;
-      missionModelTmp.device_id = this.device_id;
-
-      MongoDbSaved? bmobSaved = await missionModelTmp.save();
+      folderModelTmp.device_id = this.device_id;
+//如果foldermodel没添加管理员，补充下
+      if(folderModelTmp.userInfoBean == null && folderModelTmp.uid == LoginManager.getInstance().userBean.uid) {
+        folderModelTmp.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+      }
+      MongoDbSaved? bmobSaved = await folderModelTmp.save();
       await queryWhereEqual_folderModel(shouldRefresh: true);
       String message =
           "创建一条数据成功：${bmobSaved?.objectId} - ${bmobSaved?.createdAt}";
@@ -3212,6 +3237,15 @@ class MongoApisManager {
   Future<MongoDbSaved?> insertGroupModelModel(
       {required GroupModel groupModel, Function? callback}) async {
     try {
+      if (
+      ChatGroupManager.isFolderModelEnabled(
+          folderId: groupModel.folder_id ?? "",
+          uid: LoginManager.getInstance().userBean.uid ?? "") ==
+          false) {
+        Utility.showToastMsg(
+            context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+        return null;
+      }
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
         Utility.showToastMsg(msg: getI18NKey().loginFirst);
@@ -4112,6 +4146,15 @@ class MongoApisManager {
       {GroupModel? groupModel,
       bool shouldQueryMissionModel = true,
       Function? callback}) async {
+    if (
+    ChatGroupManager.isFolderModelEnabled(
+        folderId: groupModel?.folder_id ?? "",
+        uid: LoginManager.getInstance().userBean.uid ?? "") ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
     GroupModel billModelTmp = groupModel ?? GroupModel();
     MongoDbUpdated bmobUpdated = await billModelTmp.update();
     if (shouldQueryMissionModel == true) {
@@ -4198,6 +4241,19 @@ class MongoApisManager {
       {required FolderModel folderModel,
       bool shouldQueryMissionModel = true,
       Function? callback}) async {
+    if (
+    ChatGroupManager.isFolderModelEnabled(
+        folderId: folderModel.objectId ?? "",
+        uid: LoginManager.getInstance().userBean.uid ?? "") ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
+    //如果foldermodel没添加管理员，补充下
+    if(folderModel.userInfoBean == null && folderModel.uid == LoginManager.getInstance().userBean.uid) {
+      folderModel.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+    }
     FolderModel folderModelTmp = folderModel ?? FolderModel();
     MongoDbUpdated bmobUpdated = await folderModelTmp.update();
     if (shouldQueryMissionModel == true) {
@@ -4341,6 +4397,10 @@ class MongoApisManager {
           TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
               ? ''
               : LoginManager.getInstance().getUserBean().uid;
+      //如果foldermodel没添加管理员，补充下
+      if(folderModel.userInfoBean == null && folderModel.uid == LoginManager.getInstance().userBean.uid) {
+        folderModel.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+      }
       // folderModel.update_time = Utility.getTimeStamp();
       MongoDbUpdated bmobUpdated = await folderModel.update();
       await queryWhereEqual_folderModel(shouldRefresh: shouldRefresh);
@@ -5095,6 +5155,15 @@ class MongoApisManager {
     if (currentObjectId != null) {
       GroupModel groupModel = GroupModel();
       groupModel.objectId = currentObjectId;
+      if (
+      ChatGroupManager.isFolderModelEnabled(
+          folderId: groupModel.folder_id ?? "",
+          uid: LoginManager.getInstance().userBean.uid ?? "") ==
+          false) {
+        Utility.showToastMsg(
+            context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+        return null;
+      }
       MongoDbHandled bmobHandled = await groupModel.delete();
       await queryWhereEqual_groupModel(shouldRefresh: true);
       if (callback != null) {

@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:time_hello/com/timehello/components/CheckContainer.dart';
 import 'package:time_hello/com/timehello/components/CustomCheckBox.dart';
 import 'package:time_hello/com/timehello/components/CustomMultiInputWidget.dart';
+import 'package:time_hello/com/timehello/components/PasswordWidget.dart';
 import 'package:time_hello/com/timehello/components/PriorityMissionListWidget.dart';
 import 'package:time_hello/com/timehello/components/SelectBgDialog.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
@@ -15,7 +16,6 @@ import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannel
 import 'package:time_hello/com/timehello/models/FlomoMissionModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
-import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupChatSharingWidget.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/SearchFriendGroupWidget.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
@@ -40,6 +40,7 @@ import '../config/Params.dart';
 import '../interface/OnTapListener.dart';
 import '../models/CheckButtonStateModel.dart';
 import '../page/FlomoPage/components/FlomoRatingDialog.dart';
+import '../page/GroupChatPage/components/GroupChatPermissionSharingWidget.dart';
 import '../page/missionDetailPage/MissionDetailPage.dart';
 import 'CloudSharepreferenceManagement.dart';
 import 'EventCollection.dart';
@@ -185,11 +186,11 @@ class DialogManagement {
       {String? title,
       Widget? child,
       barrierDismissible: true,
-        shouldShowButtons: true,
+      shouldShowButtons: true,
       String? okText,
       String? cancelText,
-        EdgeInsets? margin,
-        EdgeInsets? padding,
+      EdgeInsets? margin,
+      EdgeInsets? padding,
       int color: 0xff61c37d,
       Function? okCallback,
       Function? cancelCallback}) async {
@@ -204,8 +205,8 @@ class DialogManagement {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: margin??EdgeInsets.all(20),
-                    padding: padding?? EdgeInsets.all(20),
+                    margin: margin ?? EdgeInsets.all(20),
+                    padding: padding ?? EdgeInsets.all(20),
                     constraints: BoxConstraints(
                       maxWidth: 500,
                     ),
@@ -225,59 +226,60 @@ class DialogManagement {
                           height: 10,
                         ),
                         child ?? SizedBox.shrink(),
-                        if(shouldShowButtons == true)
-                        SizedBox(
-                          height: 10,
-                        ),
-                        if(shouldShowButtons == true)
-                        Container(
-                          width: double.infinity,
-                          height: 1,
-                          color: ThemeManager.getInstance().getLineColor(),
-                        ),
-                        if(shouldShowButtons == true)
-                        Row(
-                          children: [
-                            Expanded(
-                                child: GestureDetector(
-                                    onTap: () {
-                                      if (cancelCallback != null) {
-                                        cancelCallback();
-                                      }
-                                    },
-                                    child: Text(
-                                        cancelText ?? getI18NKey().refuse,
+                        if (shouldShowButtons == true)
+                          SizedBox(
+                            height: 10,
+                          ),
+                        if (shouldShowButtons == true)
+                          Container(
+                            width: double.infinity,
+                            height: 1,
+                            color: ThemeManager.getInstance().getLineColor(),
+                          ),
+                        if (shouldShowButtons == true)
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        if (cancelCallback != null) {
+                                          cancelCallback();
+                                        }
+                                      },
+                                      child: Text(
+                                          cancelText ?? getI18NKey().refuse,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              decoration: TextDecoration.none,
+                                              color: Color(0xffbbbbbb),
+                                              fontSize: 15)))),
+                              Container(
+                                width: 1,
+                                height: 40,
+                                color:
+                                    ThemeManager.getInstance().getLineColor(),
+                              ),
+                              Expanded(
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        if (okCallback != null) {
+                                          okCallback();
+                                        }
+                                      },
+                                      child: Text(
+                                        okText ?? getI18NKey().agree,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             decoration: TextDecoration.none,
-                                            color: Color(0xffbbbbbb),
-                                            fontSize: 15)))),
-                            Container(
-                              width: 1,
-                              height: 40,
-                              color: ThemeManager.getInstance().getLineColor(),
-                            ),
-                            Expanded(
-                                child: GestureDetector(
-                                    onTap: () {
-                                      if (okCallback != null) {
-                                        okCallback();
-                                      }
-                                    },
-                                    child: Text(
-                                      okText ?? getI18NKey().agree,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          decoration: TextDecoration.none,
-                                          color: ThemeManager.getInstance()
-                                              .getTextColor(
-                                                  defaultColor: ThemeManager
-                                                          .getInstance()
-                                                      .getDefautThemeColor()),
-                                          fontSize: 15),
-                                    )))
-                          ],
-                        )
+                                            color: ThemeManager.getInstance()
+                                                .getTextColor(
+                                                    defaultColor: ThemeManager
+                                                            .getInstance()
+                                                        .getDefautThemeColor()),
+                                            fontSize: 15),
+                                      )))
+                            ],
+                          )
                       ],
                     ))
               ],
@@ -731,7 +733,69 @@ class DialogManagement {
           width: 400,
           child: Column(
             children: [
-              GroupChatPermissionSharingWidget(folderModel: folderModel,)
+              GroupChatPermissionSharingWidget(
+                folderModel: folderModel,
+              )
+            ],
+          ),
+        ));
+    if (result == null) {
+      return true;
+    } else {
+      return result;
+    }
+  }
+
+  Future<bool> showPasswordDialog({String? title, Function? okCallback}) async {
+    GlobalKey<PasswordWidgetState>? passwordWidgetStateGlobalKey = GlobalKey();
+    // OverlayManagement.getInstance().show
+    bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
+        Utility.getGlobalContext(),
+        cancelText: getI18NKey().cancel, okCallback: () {
+      // if (okCallback != null) {
+      //校验密码是否正确
+      bool res =
+          passwordWidgetStateGlobalKey?.currentState?.checkPassword() ?? false;
+      //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
+      if (!res) {
+        // DialogManagement.getInstance()
+        //     .hideDialog(Utility.getGlobalContext(), false);
+        return;
+      }
+      // 得到当前密码
+      String password =
+          passwordWidgetStateGlobalKey?.currentState?.getOriginPassword() ?? "";
+      // this.setDigitPassword(folderId: folderId, password: password);
+      okCallback?.call(password);
+
+      return;
+      // }
+    }, cancelCallback: () {
+      DialogManagement.getInstance()
+          .hideDialog(Utility.getGlobalContext(), false);
+      return;
+    },
+        okText: getI18NKey().confirm,
+        child: Container(
+          width: 400,
+          child: Column(
+            children: [
+              // Utility.getSVGPicture(R.assetsImgIcSecure, size: 80),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                getI18NKey().please_input_folder_password(title ?? ""),
+                style: TextStyle(
+                    fontSize: 18,
+                    color: ThemeManager.getInstance().getTextColor()),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              PasswordWidget(
+                key: passwordWidgetStateGlobalKey,
+              ),
             ],
           ),
         ));
@@ -758,6 +822,9 @@ class DialogManagement {
     });
     bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
         Utility.getGlobalContext(),
+        shouldShowButtons: false,
+        margin: EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0),
+        padding: EdgeInsets.only(top: 0, bottom: 10, left: 10, right: 10),
         cancelText: getI18NKey().cancel, okCallback: () {
       //校验密码是否正确
       //密码不正确 应该弹出toast checkPassword 已经弹出了 所以没必要在弹出一遍
@@ -780,6 +847,7 @@ class DialogManagement {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
                 alignment: Alignment.centerRight,
@@ -791,8 +859,7 @@ class DialogManagement {
               ),
               // Utility.getSVGPicture(R.assetsImgIcSecure, size: 80),
               Text(
-                getI18NKey()
-                    .join_group_code,
+                getI18NKey().join_group_code,
                 style: TextStyle(
                     fontSize: 18,
                     color: ThemeManager.getInstance().getTextColor()),

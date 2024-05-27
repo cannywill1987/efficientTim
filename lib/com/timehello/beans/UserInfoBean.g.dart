@@ -14,7 +14,7 @@ UserInfoBean _$UserInfoBeanFromJson(Map<String, dynamic> json) => UserInfoBean(
       numTasksDone: json['numTasksDone'] as int? ?? 0,
       totalDurationFocus: json['totalDurationFocus'] as int? ?? 0,
       onlineStatus: json['onlineStatus'] as int? ?? 0,
-    );
+    )..role = json['role'] as int?;
 
 Map<String, dynamic> _$UserInfoBeanToJson(UserInfoBean instance) =>
     <String, dynamic>{
@@ -25,4 +25,5 @@ Map<String, dynamic> _$UserInfoBeanToJson(UserInfoBean instance) =>
       'numTasksDone': instance.numTasksDone,
       'totalDurationFocus': instance.totalDurationFocus,
       'onlineStatus': instance.onlineStatus,
+      'role': instance.role,
     };

@@ -49,6 +49,7 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) => FolderModel()
       (json['folderModelObjectIdOrderList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList()
+  ..userInfo = json['userInfo'] as Map<String, dynamic>?
   ..otherUserInfo = json['otherUserInfo'] as List<dynamic>?;
 
 Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
@@ -89,5 +90,6 @@ Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
       'folderStatus': instance.folderStatus,
       'cryptoVersion': instance.cryptoVersion,
       'folderModelObjectIdOrderList': instance.folderModelObjectIdOrderList,
+      'userInfo': instance.userInfo,
       'otherUserInfo': instance.otherUserInfo,
     };

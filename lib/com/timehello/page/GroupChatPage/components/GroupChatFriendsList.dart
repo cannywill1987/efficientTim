@@ -27,18 +27,18 @@ class GroupChatFriendsSliverList extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          if (index == 0) {
-            // 管理员
-            UserInfoBean userInfoBean = UserInfoBean();
-            userInfoBean.username = LoginManager.getInstance().userBean.username;
-            userInfoBean.avatar = LoginManager.getInstance().userBean.avatar;
-            userInfoBean.uid = LoginManager.getInstance().userBean.uid;
-            return getItem(userInfoBean);
-          } else {
+          // if (index == 0) {
+          //   // 管理员
+          //   UserInfoBean userInfoBean = UserInfoBean();
+          //   userInfoBean.username = LoginManager.getInstance().userBean.username;
+          //   userInfoBean.avatar = LoginManager.getInstance().userBean.avatar;
+          //   userInfoBean.uid = LoginManager.getInstance().userBean.uid;
+          //   return getItem(userInfoBean);
+          // } else {
             // 普通用户
-            final UserInfoBean userInfoBean = userInfoBeans[index - 1];
+            final UserInfoBean userInfoBean = userInfoBeans[index];
             return getItem(userInfoBean);
-          }
+          // }
         },
         childCount: userInfoBeans.length + 1,
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/PasswordWidget.dart';
+import 'package:time_hello/com/timehello/components/TwoPasswordWidget.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
@@ -79,7 +80,7 @@ class CryptoManager {
         return Future.value(true);
       } else {
 //密码不正确弹出密码框
-        bool res = await this.showPasswordDialog(folderId: folderId);
+        bool res = await this.showTwoPasswordDialog(folderId: folderId);
         // 密码设置成功返回true
         return res;
       }
@@ -178,8 +179,8 @@ class CryptoManager {
   /**
    * true表示可以执行 false表示不可以执行
    */
-  Future<bool> showPasswordDialog({folderId = "", Function? okCallback}) async {
-    GlobalKey<PasswordWidgetState>? passwordWidgetStateGlobalKey = GlobalKey();
+  Future<bool> showTwoPasswordDialog({folderId = "", Function? okCallback}) async {
+    GlobalKey<TwoPasswordWidgetState>? passwordWidgetStateGlobalKey = GlobalKey();
     if (TextUtil.isEmpty(folderId) == true) {
       return true;
     }
@@ -251,7 +252,7 @@ class CryptoManager {
               SizedBox(
                 height: 20,
               ),
-              PasswordWidget(
+              TwoPasswordWidget(
                 key: passwordWidgetStateGlobalKey,
               ),
             ],

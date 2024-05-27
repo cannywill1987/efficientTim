@@ -21,6 +21,7 @@ import '../../../../r.dart';
 import '../../components/DescriptionWidget.dart';
 import '../../components/IconButtonListWidget.dart';
 import '../../components/PasswordWidget.dart';
+import '../../components/TwoPasswordWidget.dart';
 import '../../config/ColorsConfig.dart';
 import '../../libs/mongodb/response/MongoDbSaved.dart';
 import '../../models/DateTimeModel.dart';
@@ -66,7 +67,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
   List<GroupModel> listGroupModel = [];
   String method = "customized";
   ScrollController scrollController = ScrollController();
-  GlobalKey<PasswordWidgetState>? passwordWidgetStateGlobalKey = GlobalKey();
+  GlobalKey<TwoPasswordWidgetState>? passwordWidgetStateGlobalKey = GlobalKey();
   String oldPasswordForUpdate = "";
   int oldCryptoVersion = -1; // -1代表没有设置加密 0代表设置了加密版本
   double fontSize = 13;
@@ -765,7 +766,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
                             (this.widget.folderModel.tag == 1 &&
                                 (this.widget.folderModel.cryptoVersion ?? -1) >=
                                     0)),
-                        child: PasswordWidget(
+                        child: TwoPasswordWidget(
                           key: passwordWidgetStateGlobalKey,
                         ),
                       ),

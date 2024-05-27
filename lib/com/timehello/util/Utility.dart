@@ -159,6 +159,20 @@ class Utility {
       }
     }
   }
+//0 未分享中 仅仅我自己 1 之后分享中 - 1 私有 - 需要搜索 仅仅好友 2 所有人可查看 3 所有人可编辑
+  /**
+   * 获取folderModel的分享状态 1 2 3
+   * 别的用户的uid
+   */
+  static List<FolderModel> getFolderIdsForSharing123OtherUser(List<FolderModel> list) {
+    List<FolderModel> listTmp = [];
+    list.forEach((element) {
+      if((element.isSharing == 3 || element.isSharing == 2 || element.isSharing == 1) && (element.uid != LoginManager.getInstance().userBean.uid)) {
+        listTmp.add(element);
+      }
+    });
+    return listTmp;
+  }
 
   //帮我实现一个数组顺序不变 数组去重
   static List<T> removeDuplicates<T>(List<T> list) {
