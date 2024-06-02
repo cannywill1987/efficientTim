@@ -121,6 +121,10 @@ class R {
   static final String assetsImgAvatar22 = 'assets/img/avatar22.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_privacy.svg)
   static final String assetsImgIcPrivacy = 'assets/img/ic_privacy.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_remove_user.svg)
+  static final String assetsImgIcRemoveUser = 'assets/img/ic_remove_user.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_normal_worker.svg)
+  static final String assetsImgIcNormalWorker = 'assets/img/ic_normal_worker.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_qq.svg)
   static final String assetsImgIcQq = 'assets/img/ic_qq.svg';
   /// ![](http://127.0.0.1:123/assets/img/return_btn.png)
@@ -269,6 +273,8 @@ class R {
   static final String assetsImgIcEmoji2Unselected = 'assets/img/ic_emoji2_unselected.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_tag.svg)
   static final String assetsImgIcTag = 'assets/img/ic_tag.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_admin.svg)
+  static final String assetsImgIcAdmin = 'assets/img/ic_admin.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_master_bank.png)
   static final String assetsImgIcMasterBank = 'assets/img/ic_master_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_previous.png)

@@ -287,173 +287,73 @@ class HeaderInputState extends State<HeaderInputWidget> {
     // TODO: implement build
     return Container(
       color: ThemeManager.getInstance().getInputThemeColor(),
-      child: Stack(
-        key: ValueKey('Stack4'),
-        children: [
-          Focus(
-              key: ValueKey('Focus11322'),
-              onKey: (FocusNode node, RawKeyEvent event) {
-                //新版本textfield已经支持 Textfield onSubmitted的enter方法
-                if (event.data.physicalKey == PhysicalKeyboardKey.arrowUp) {
-                  if (this.widget.onTapUpListener != null) {
-                    this.widget.onTapUpListener!();
-                  }
-                  if (inputNumberGlobalKey.currentState != null)
-                    incrementFunc(this);
-                } else if (event.data.physicalKey ==
-                    PhysicalKeyboardKey.arrowDown) {
-                  if (this.widget.onTapDownListener != null) {
-                    this.widget.onTapDownListener!();
-                  }
-                  if (inputNumberGlobalKey.currentState != null)
-                    decrementFunc(this);
-                }
-                return KeyEventResult.ignored;
-              },
-              child: TextField(
-                key: ValueKey('TextField4'),
-                focusNode: _contentFocusNode,
-                controller: inputController,
-                onChanged: (text) {
-                  // inputController.clear();
-                  _value = text;
-                  if(_value?.length == 1) {
-                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_add_task_input","description": "添加任务输入框",});
-                  }
-                  if (this.widget.onChangeListener != null)
-                    this.widget.onChangeListener!(text, numTomatoes);
-                  print(text);
-                },
-                onSubmitted: (String value) {
-                  if (this.widget.onSubmitListener != null) {
-                    this.widget.onSubmitListener!({
-                      "inputContent": value,
-                      "folderModel": curFolderModel,
-                      "numTomatoes": this.numTomatoes
-                    });
-                  }
+      child: Focus(
+          key: ValueKey('Focus11322'),
+          onKey: (FocusNode node, RawKeyEvent event) {
+            //新版本textfield已经支持 Textfield onSubmitted的enter方法
+            if (event.data.physicalKey == PhysicalKeyboardKey.arrowUp) {
+              if (this.widget.onTapUpListener != null) {
+                this.widget.onTapUpListener!();
+              }
+              if (inputNumberGlobalKey.currentState != null)
+                incrementFunc(this);
+            } else if (event.data.physicalKey ==
+                PhysicalKeyboardKey.arrowDown) {
+              if (this.widget.onTapDownListener != null) {
+                this.widget.onTapDownListener!();
+              }
+              if (inputNumberGlobalKey.currentState != null)
+                decrementFunc(this);
+            }
+            return KeyEventResult.ignored;
+          },
+          child: TextField(
+            key: ValueKey('TextField4'),
+            focusNode: _contentFocusNode,
+            controller: inputController,
+            onChanged: (text) {
+              // inputController.clear();
+              _value = text;
+              if(_value?.length == 1) {
+                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_add_task_input","description": "添加任务输入框",});
+              }
+              if (this.widget.onChangeListener != null)
+                this.widget.onChangeListener!(text, numTomatoes);
+              print(text);
+            },
+            onSubmitted: (String value) {
+              if (this.widget.onSubmitListener != null) {
+                this.widget.onSubmitListener!({
+                  "inputContent": value,
+                  "folderModel": curFolderModel,
+                  "numTomatoes": this.numTomatoes
+                });
+              }
 
-                  print(value);
-                },
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    decorationColor: Colors.lightGreen,
-                    color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)),
-                    fontWeight: FontWeight.w500),
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.only(left: 60, right: 75, top: 0, bottom: 0),
-                  counterStyle:
-                      TextStyle(color: Colors.transparent, fontSize: 0),
-                  //背景颜色，必须结合filled: true,才有效
-                  // hoverColor: Colors.white,
-                  // focusColor: Colors.white,
-                  filled: true,
-                  //重点，必须设置为true，fillColor才有效
-                  // border: OutlineInputBorder(),
-                  // prefixIcon: Icon(
-                  //   Icons.search,
-                  //   color: Color(0xffd5d5d5),
-                  // ),
-                  prefixIcon: Icon(
-                    Icons.add,
-                    color: ThemeManager.getInstance().getInputPlaceholderColor(
-                        defaultColor: Color(0xffd5d5d5),
-                        defaultDarkColor:
-                            TextUtil.isEmpty(this.inputController?.text)
-                                ? Color(0xff575757)
-                                : Colors.white),
-                  ),
-                  // prefixIconColor: Color(0xffd5d5d5),
-                  border: _outlineInputBorder,
-                  prefixIconColor: ThemeManager.getInstance()
-                      .getIconColor(defaultColor: Color(0xffd5d5d5)),
-                  floatingLabelStyle: TextStyle(
-                      color: ThemeManager.getInstance()
-                          .getIconColor(),
-                      fontSize: 14),
-                  labelStyle: TextStyle(
-                      color: ThemeManager.getInstance()
-                          .getInputPlaceholderColor(
-                              defaultColor: Color(0xffd5d5d5),
-                              defaultDarkColor:
-                                  TextUtil.isEmpty(this.inputController?.text)
-                                      ? Color(0xff575757)
-                                      : Colors.white),
-                      fontSize: 14),
-                  //边框，一般下面的几个边框一起设置
-                  //keyboardType: TextInputType.number, //键盘类型
-                  //obscureText: true,//密码模式
-                  //背景颜色，必须结合filled: true,才有效
-                  hoverColor: ThemeManager.getInstance().getCardBackgroundColor(
-                      defaultColor: Colors.white,
-                      ),
-                  focusColor: ThemeManager.getInstance().getInputThemeColor(
-                      defaultColor: Colors.white,
-                      defaultDarkColor:
-                          ThemeManager.getInstance().getBackgroundColor()),
-                  //右边距是为了放置番茄计数器
-                  fillColor: ThemeManager.getInstance()
-                      .getInputThemeColor(defaultColor: Colors.white),
-                  focusedBorder: _outlineInputBorder,
-                  enabledBorder: _outlineInputBorder,
-                  disabledBorder: _outlineInputBorder,
-                  focusedErrorBorder: _outlineInputBorder,
-                  errorBorder: _outlineInputBorder,
-                  // labelStyle:
-                  //     TextStyle(color: Color(0x00000000), fontSize: 14),
-                  // labelText: getI18NKey().search,
-
-                  labelText: Utility.isHandsetBySize()
-                      ? getI18NKey().addMissions2
-                      : curFolderModel == null
-                          ? getI18NKey().missionPageInputHolder
-                          : getI18NKey().header_input_placeholder_with_title(
-                              curFolderModel?.title ?? ""),
-                ),
-                // decoration: InputDecoration(
-                //     counterStyle: TextStyle(color: Colors.black),
-                //     contentPadding: EdgeInsets.only(left: 60, right: 75),
-                //     //右边距是为了放置番茄计数器
-                //     fillColor: Colors.white,
-                //     //背景颜色，必须结合filled: true,才有效
-                //     hoverColor: Colors.white,
-                //     focusColor: Colors.white,
-                //     filled: true,
-                //     //重点，必须设置为true，fillColor才有效
-                //     // border: OutlineInputBorder(),
-                //     prefixIcon: Icon(
-                //       Icons.add,
-                //       color: Color(0xffd5d5d5),
-                //     ),
-                //     prefixIconColor: Color(0xffd5d5d5),
-                //     floatingLabelStyle:
-                //         TextStyle(color: Color(0xffff0000), fontSize: 14),
-                //     labelStyle:
-                //         TextStyle(color: Color(0xffd5d5d5), fontSize: 14),
-                //     // border: _outlineInputBorder,
-                //     // //边框，一般下面的几个边框一起设置
-                //     // //keyboardType: TextInputType.number, //键盘类型
-                //     // //obscureText: true,//密码模式
-                //     // focusedBorder: _outlineInputBorder,
-                //     // enabledBorder: _outlineInputBorder,
-                //     // disabledBorder: _outlineInputBorder,
-                //     // focusedErrorBorder: _outlineInputBorder,
-                //     // errorBorder: _outlineInputBorder,
-                //     labelText: Utility.isHandsetBySize()
-                //         ? getI18NKey().addMissions2
-                //         : curFolderModel == null
-                //             ? getI18NKey().missionPageInputHolder
-                //             : getI18NKey().header_input_placeholder_with_title(
-                //                 curFolderModel?.title ?? ""),
-                //     helperText: ''),
-              )),
-          Positioned(
-              key: ValueKey('Positioned4'),
-              top: 10,
-              right: 5,
-              child: Row(
+              print(value);
+            },
+            style: TextStyle(
+                fontFamily: 'Montserrat',
+                decorationColor: Colors.lightGreen,
+                color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)),
+                fontWeight: FontWeight.w500),
+            textInputAction: TextInputAction.done,
+            decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.only(left: 60, right: 75, top: 0, bottom: 0),
+              counterStyle:
+                  TextStyle(color: Colors.transparent, fontSize: 0),
+              //背景颜色，必须结合filled: true,才有效
+              // hoverColor: Colors.white,
+              // focusColor: Colors.white,
+              filled: true,
+              //重点，必须设置为true，fillColor才有效
+              // border: OutlineInputBorder(),
+              // prefixIcon: Icon(
+              //   Icons.search,
+              //   color: Color(0xffd5d5d5),
+              // ),
+              suffixIcon: Row(
                   key: ValueKey('Row4'),
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -472,87 +372,178 @@ class HeaderInputState extends State<HeaderInputWidget> {
                     ),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                            key: ValueKey('Sizedbox12'),
-                            width: 3,
-                          )
+                      key: ValueKey('Sizedbox12'),
+                      width: 3,
+                    )
                         : SizedBox(
-                            key: ValueKey('Positioned21'),
-                            width: 15,
-                          ),
+                      key: ValueKey('Positioned21'),
+                      width: 15,
+                    ),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                            key: ValueKey('Positioned22'),
-                            width: 0,
-                          )
+                      key: ValueKey('Positioned22'),
+                      width: 0,
+                    )
                         : Container(
-                            key: ValueKey('container7'),
-                            width: 1,
-                            height: 25,
-                            color: ColorsConfig.dividerLine,
-                          ),
+                      key: ValueKey('container7'),
+                      width: 1,
+                      height: 25,
+                      color: ColorsConfig.dividerLine,
+                    ),
                     Utility.isHandsetBySize()
                         ? SizedBox.shrink()
                         : Container(
-                            key: ValueKey('container6'),
-                            margin: EdgeInsets.only(right: 0, left: 5),
-                            child: PopupMenuButton<String>(
-                              tooltip: '',
-                              padding: EdgeInsets.all(0.0),
-                              child: Container(
-                                key: ValueKey('container11'),
-                                width: 25,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                    color: ThemeManager.getInstance().getColor(
-                                        defaultColor: Colors.white,
-                                        defaultDarkColor:
-                                            ThemeManager.getInstance()
-                                                .getBackgroundColor()),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8))),
-                                child: MissionIcon(
-                                  key: ValueKey('container4'),
-                                  folderModel: curFolderModel,
-                                  iconSize: 12,
-                                ),
-                              ),
-                              onSelected: (String indexParam) {
-                                int index = int.parse(indexParam);
-                                if (index == -1) {
-                                  this.curFolderModel = null;
-                                } else {
-                                  this.curFolderModel =
-                                      listFolderModels?[index];
-                                }
-                                setState(() {});
-                              },
-                              itemBuilder: (context) {
-                                // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
-                                return getPopupMenuList();
-                              },
-                            )),
-                    Utility.isHandsetBySize()
-                        ? SizedBox(
-                            key: ValueKey('SizedBox41'),
-                            width: 0,
-                          )
-                        : SizedBox(
-                            key: ValueKey('SizedBox42'),
-                            width: 0,
+                        key: ValueKey('container6'),
+                        margin: EdgeInsets.only(right: 0, left: 5),
+                        child: PopupMenuButton<String>(
+                          tooltip: '',
+                          padding: EdgeInsets.all(0.0),
+                          child: Container(
+                            key: ValueKey('container11'),
+                            width: 25,
+                            height: 25,
+                            decoration: BoxDecoration(
+                                color: ThemeManager.getInstance().getColor(
+                                    defaultColor: Colors.white,
+                                    defaultDarkColor:
+                                    ThemeManager.getInstance()
+                                        .getBackgroundColor()),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(8))),
+                            child: MissionIcon(
+                              key: ValueKey('container4'),
+                              folderModel: curFolderModel,
+                              iconSize: 12,
+                            ),
                           ),
+                          onSelected: (String indexParam) {
+                            int index = int.parse(indexParam);
+                            if (index == -1) {
+                              this.curFolderModel = null;
+                            } else {
+                              this.curFolderModel =
+                              listFolderModels?[index];
+                            }
+                            setState(() {});
+                          },
+                          itemBuilder: (context) {
+                            // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
+                            return getPopupMenuList();
+                          },
+                        )),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                            key: ValueKey('SizedBox414'),
-                            width: 0,
-                          )
+                      key: ValueKey('SizedBox41'),
+                      width: 0,
+                    )
+                        : SizedBox(
+                      key: ValueKey('SizedBox42'),
+                      width: 0,
+                    ),
+                    Utility.isHandsetBySize()
+                        ? SizedBox(
+                      key: ValueKey('SizedBox414'),
+                      width: 0,
+                    )
                         : Icon(
-                            key: ValueKey('Icon41'),
-                            Icons.navigate_next,
-                            color: Color(0xff9a9a9a),
-                          )
-                  ]))
-        ],
-      ),
+                      key: ValueKey('Icon41'),
+                      Icons.navigate_next,
+                      color: Color(0xff9a9a9a),
+                    )
+                  ]),
+              prefixIcon: Icon(
+                Icons.add,
+                color: ThemeManager.getInstance().getInputPlaceholderColor(
+                    defaultColor: Color(0xffd5d5d5),
+                    defaultDarkColor:
+                        TextUtil.isEmpty(this.inputController?.text)
+                            ? Color(0xff575757)
+                            : Colors.white),
+              ),
+              // prefixIconColor: Color(0xffd5d5d5),
+              border: _outlineInputBorder,
+              prefixIconColor: ThemeManager.getInstance()
+                  .getIconColor(defaultColor: Color(0xffd5d5d5)),
+              floatingLabelStyle: TextStyle(
+                  color: ThemeManager.getInstance()
+                      .getIconColor(),
+                  fontSize: 14),
+              labelStyle: TextStyle(
+                  color: ThemeManager.getInstance()
+                      .getInputPlaceholderColor(
+                          defaultColor: Color(0xffd5d5d5),
+                          defaultDarkColor:
+                              TextUtil.isEmpty(this.inputController?.text)
+                                  ? Color(0xff575757)
+                                  : Colors.white),
+                  fontSize: 14),
+              //边框，一般下面的几个边框一起设置
+              //keyboardType: TextInputType.number, //键盘类型
+              //obscureText: true,//密码模式
+              //背景颜色，必须结合filled: true,才有效
+              hoverColor: ThemeManager.getInstance().getCardBackgroundColor(
+                  defaultColor: Colors.white,
+                  ),
+              focusColor: ThemeManager.getInstance().getInputThemeColor(
+                  defaultColor: Colors.white,
+                  defaultDarkColor:
+                      ThemeManager.getInstance().getBackgroundColor()),
+              //右边距是为了放置番茄计数器
+              fillColor: ThemeManager.getInstance()
+                  .getInputThemeColor(defaultColor: Colors.white),
+              focusedBorder: _outlineInputBorder,
+              enabledBorder: _outlineInputBorder,
+              disabledBorder: _outlineInputBorder,
+              focusedErrorBorder: _outlineInputBorder,
+              errorBorder: _outlineInputBorder,
+              // labelStyle:
+              //     TextStyle(color: Color(0x00000000), fontSize: 14),
+              // labelText: getI18NKey().search,
+
+              labelText: Utility.isHandsetBySize()
+                  ? getI18NKey().addMissions2
+                  : curFolderModel == null
+                      ? getI18NKey().missionPageInputHolder
+                      : getI18NKey().header_input_placeholder_with_title(
+                          curFolderModel?.title ?? ""),
+            ),
+            // decoration: InputDecoration(
+            //     counterStyle: TextStyle(color: Colors.black),
+            //     contentPadding: EdgeInsets.only(left: 60, right: 75),
+            //     //右边距是为了放置番茄计数器
+            //     fillColor: Colors.white,
+            //     //背景颜色，必须结合filled: true,才有效
+            //     hoverColor: Colors.white,
+            //     focusColor: Colors.white,
+            //     filled: true,
+            //     //重点，必须设置为true，fillColor才有效
+            //     // border: OutlineInputBorder(),
+            //     prefixIcon: Icon(
+            //       Icons.add,
+            //       color: Color(0xffd5d5d5),
+            //     ),
+            //     prefixIconColor: Color(0xffd5d5d5),
+            //     floatingLabelStyle:
+            //         TextStyle(color: Color(0xffff0000), fontSize: 14),
+            //     labelStyle:
+            //         TextStyle(color: Color(0xffd5d5d5), fontSize: 14),
+            //     // border: _outlineInputBorder,
+            //     // //边框，一般下面的几个边框一起设置
+            //     // //keyboardType: TextInputType.number, //键盘类型
+            //     // //obscureText: true,//密码模式
+            //     // focusedBorder: _outlineInputBorder,
+            //     // enabledBorder: _outlineInputBorder,
+            //     // disabledBorder: _outlineInputBorder,
+            //     // focusedErrorBorder: _outlineInputBorder,
+            //     // errorBorder: _outlineInputBorder,
+            //     labelText: Utility.isHandsetBySize()
+            //         ? getI18NKey().addMissions2
+            //         : curFolderModel == null
+            //             ? getI18NKey().missionPageInputHolder
+            //             : getI18NKey().header_input_placeholder_with_title(
+            //                 curFolderModel?.title ?? ""),
+            //     helperText: ''),
+          )),
     );
   }
 

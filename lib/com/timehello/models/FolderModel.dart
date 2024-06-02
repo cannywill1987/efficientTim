@@ -49,6 +49,12 @@ class FolderModel extends MongoDbObject {
   String? folderTeamWorkId; // 群id 用于添加文件夹共享
   String? introText; // 群id 用于添加文件夹共享
   String? groupChatPassword; // 群密码
+
+  // List? adminUids = []; //管理员
+  // List? _adminUserInfo = []; //用于私有模式别的用户加入 {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username, "numTomatoesFcoused":0,"numTasksDone": 0, "totalDurationFocus": 0, "onlineStatus": 0}
+  // @JsonKey(ignore: true)
+  // List<UserInfoBean>? adminUserInfoBean = []; //用于私有模式别的用户加入
+
   List? otherUids = []; //用于私有模式别的用户加入
   List? _otherUserInfo = []; //用于私有模式别的用户加入 {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username, "numTomatoesFcoused":0,"numTasksDone": 0, "totalDurationFocus": 0, "onlineStatus": 0}
   @JsonKey(ignore: true)
@@ -65,11 +71,28 @@ class FolderModel extends MongoDbObject {
   set userInfo(Map<String, dynamic>? value) {
     _userInfo = value;
     userInfoBean = UserInfoBean.fromJson(value ?? {});
+    userInfoBean?.onlineStatusEnum =
+        OnlineStatusEnum.values[userInfoBean?.onlineStatus ?? 0];
   }
 
   Map<String, dynamic>? get userInfo {
     return _userInfo;
   }
+
+  // set adminUserInfo(List? value) {
+  //   _adminUserInfo = value;
+  //   adminUserInfoBean = [];
+  //   _adminUserInfo?.forEach((element) {
+  //     UserInfoBean userInfoBean = UserInfoBean.fromJson(element);
+  //     userInfoBean.onlineStatusEnum = OnlineStatusEnum.values[userInfoBean.onlineStatus ?? 0];
+  //     adminUserInfoBean?.add(userInfoBean);
+  //   });
+  //   // adminUserInfoBean = value;
+  // }
+  //
+  // List? get adminUserInfo {
+  //   return _adminUserInfo;
+  // }
 
   set otherUserInfo(List? value) {
     _otherUserInfo = value;

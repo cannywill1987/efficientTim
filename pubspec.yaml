@@ -318,6 +318,8 @@ flutter:
     - assets/img/avatar36.svg
     - assets/img/avatar22.svg
     - assets/img/ic_privacy.svg
+    - assets/img/ic_remove_user.svg
+    - assets/img/ic_normal_worker.svg
     - assets/img/ic_qq.svg
     - assets/img/return_btn.png
     - assets/img/ic_folder.svg
@@ -392,6 +394,7 @@ flutter:
     - assets/img/ic_encrypt.svg
     - assets/img/ic_emoji2_unselected.png
     - assets/img/ic_tag.svg
+    - assets/img/ic_admin.svg
     - assets/img/ic_master_bank.png
     - assets/img/ic_previous.png
     - assets/img/ic_record_recording.svg

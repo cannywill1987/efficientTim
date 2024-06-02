@@ -707,6 +707,7 @@ class CounterManagement {
   }
 
   void stopRelaxing() {
+    SharePreferenceUtil.getSyncInstance().incTomatoLongDurationCurCounter();
     if (this.curTimeF == 0) {
       //表示自动暂停才播放音乐
       AudioPlayUtil.getInstance()?.stop();

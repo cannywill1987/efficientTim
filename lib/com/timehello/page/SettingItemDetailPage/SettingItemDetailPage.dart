@@ -1091,7 +1091,9 @@ class _SettingItemDetailPageWidgetState<T>
                     onPressed: () {
                       this.isNeedUpdateBmob = true;
                       this.widget.missionModel?.end_time =
-                          Utility.getTimeStampToday();
+                          null;
+                      // this.widget.missionModel?.end_time =
+                      //     Utility.getTimeStampToday();
                       // this.widget.missionModel.end_time = 0;
                       this.updateUI();
                     },

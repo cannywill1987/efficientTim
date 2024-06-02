@@ -50,6 +50,326 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `密码错误`
+  String get password_incorrect {
+    return Intl.message(
+      '密码错误',
+      name: 'password_incorrect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Content cannot be empty`
+  String get content_cannot_be_empty {
+    return Intl.message(
+      'Content cannot be empty',
+      name: 'content_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `解散本群`
+  String get dismiss_group {
+    return Intl.message(
+      '解散本群',
+      name: 'dismiss_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `退群`
+  String get leave_group {
+    return Intl.message(
+      '退群',
+      name: 'leave_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `谁可以查看/编辑文件`
+  String get who_can_view_edit_files {
+    return Intl.message(
+      '谁可以查看/编辑文件',
+      name: 'who_can_view_edit_files',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `仅我自己`
+  String get only_me {
+    return Intl.message(
+      '仅我自己',
+      name: 'only_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `所有人可查看`
+  String get everyone_can_view {
+    return Intl.message(
+      '所有人可查看',
+      name: 'everyone_can_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `所有人可编辑`
+  String get everyone_can_edit {
+    return Intl.message(
+      '所有人可编辑',
+      name: 'everyone_can_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设置密码，加入清单群的用户需要输入密码`
+  String get set_password_for_group {
+    return Intl.message(
+      '设置密码，加入清单群的用户需要输入密码',
+      name: 'set_password_for_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设置6位数密码`
+  String get set_6_digit_password {
+    return Intl.message(
+      '设置6位数密码',
+      name: 'set_6_digit_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码正确`
+  String get password_correct {
+    return Intl.message(
+      '密码正确',
+      name: 'password_correct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请输入6位数密码`
+  String get please_enter_6_digit_password {
+    return Intl.message(
+      '请输入6位数密码',
+      name: 'please_enter_6_digit_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码设置成功`
+  String get password_set_success {
+    return Intl.message(
+      '密码设置成功',
+      name: 'password_set_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `分享文件时需要输入密码`
+  String get password_required_for_sharing {
+    return Intl.message(
+      '分享文件时需要输入密码',
+      name: 'password_required_for_sharing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `仅我分享的好友`
+  String get only_share_with_friends {
+    return Intl.message(
+      '仅我分享的好友',
+      name: 'only_share_with_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `可查看`
+  String get can_view {
+    return Intl.message(
+      '可查看',
+      name: 'can_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `可编辑`
+  String get can_edit {
+    return Intl.message(
+      '可编辑',
+      name: 'can_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `分享到`
+  String get share_to {
+    return Intl.message(
+      '分享到',
+      name: 'share_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `复制链接`
+  String get copy_link {
+    return Intl.message(
+      '复制链接',
+      name: 'copy_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `生成图片`
+  String get generate_image {
+    return Intl.message(
+      '生成图片',
+      name: 'generate_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `生成二维码`
+  String get generate_qr_code {
+    return Intl.message(
+      '生成二维码',
+      name: 'generate_qr_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `管理员`
+  String get administrator {
+    return Intl.message(
+      '管理员',
+      name: 'administrator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `离线`
+  String get offline {
+    return Intl.message(
+      '离线',
+      name: 'offline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `在线`
+  String get online {
+    return Intl.message(
+      '在线',
+      name: 'online',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `in focus`
+  String get focusing {
+    return Intl.message(
+      'in focus',
+      name: 'focusing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `休息中`
+  String get relaxing {
+    return Intl.message(
+      '休息中',
+      name: 'relaxing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `不能操作自己`
+  String get cannot_handle_myself {
+    return Intl.message(
+      '不能操作自己',
+      name: 'cannot_handle_myself',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `长时间休息时长`
+  String get long_rest_duration {
+    return Intl.message(
+      '长时间休息时长',
+      name: 'long_rest_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `长时间休息间隔`
+  String get long_rest_interval {
+    return Intl.message(
+      '长时间休息间隔',
+      name: 'long_rest_interval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `移除用户`
+  String get remove_user {
+    return Intl.message(
+      '移除用户',
+      name: 'remove_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `取消管理员`
+  String get cancel_setting_administrator {
+    return Intl.message(
+      '取消管理员',
+      name: 'cancel_setting_administrator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设置成管理员`
+  String get setting_administrator {
+    return Intl.message(
+      '设置成管理员',
+      name: 'setting_administrator',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `添加群清单`
   String get add_group_listing {
     return Intl.message(
@@ -75,16 +395,6 @@ class S {
     return Intl.message(
       '群公告',
       name: 'group_announcement',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `管理员`
-  String get administrator {
-    return Intl.message(
-      '管理员',
-      name: 'administrator',
       desc: '',
       args: [],
     );
@@ -150,26 +460,6 @@ class S {
     );
   }
 
-  /// `仅我自己`
-  String get only_me {
-    return Intl.message(
-      '仅我自己',
-      name: 'only_me',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `仅我分享的好友`
-  String get only_share_with_friends {
-    return Intl.message(
-      '仅我分享的好友',
-      name: 'only_share_with_friends',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `可查看`
   String get view_only {
     return Intl.message(
@@ -180,51 +470,11 @@ class S {
     );
   }
 
-  /// `可编辑`
-  String get can_edit {
-    return Intl.message(
-      '可编辑',
-      name: 'can_edit',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `所有人可查看`
-  String get everyone_can_view {
-    return Intl.message(
-      '所有人可查看',
-      name: 'everyone_can_view',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `所有人可编辑`
-  String get everyone_can_edit {
-    return Intl.message(
-      '所有人可编辑',
-      name: 'everyone_can_edit',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `高级权限：可设置禁止复制、批注等`
   String get advanced_permissions {
     return Intl.message(
       '高级权限：可设置禁止复制、批注等',
       name: 'advanced_permissions',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `分享到`
-  String get share_to {
-    return Intl.message(
-      '分享到',
-      name: 'share_to',
       desc: '',
       args: [],
     );
@@ -245,36 +495,6 @@ class S {
     return Intl.message(
       '微信好友',
       name: 'wechat_friends',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `复制链接`
-  String get copy_link {
-    return Intl.message(
-      '复制链接',
-      name: 'copy_link',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `生成图片`
-  String get generate_image {
-    return Intl.message(
-      '生成图片',
-      name: 'generate_image',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `生成二维码`
-  String get generate_qr_code {
-    return Intl.message(
-      '生成二维码',
-      name: 'generate_qr_code',
       desc: '',
       args: [],
     );
@@ -5791,16 +6011,6 @@ class S {
     );
   }
 
-  /// `Content cannot be empty`
-  String get content_cannot_be_empty {
-    return Intl.message(
-      'Content cannot be empty',
-      name: 'content_cannot_be_empty',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `detail`
   String get see {
     return Intl.message(
@@ -8975,16 +9185,6 @@ class S {
       name: 'notificationTxt',
       desc: '',
       args: [title, min, secs],
-    );
-  }
-
-  /// `in focus`
-  String get focusing {
-    return Intl.message(
-      'in focus',
-      name: 'focusing',
-      desc: '',
-      args: [],
     );
   }
 

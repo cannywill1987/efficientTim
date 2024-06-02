@@ -186,7 +186,7 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
                         .hideDialog(Utility.getGlobalContext(), true);
                     await addUser(folderModel, context);
                   } else {
-                    Utility.showToastMsg(msg: "密码错误");
+                    Utility.showToastMsg(msg: getI18NKey().password_incorrect);
                   }
                 });
               } else {
@@ -293,8 +293,9 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
         "totalDurationFocus": 0
       });
       await MongoApisManager.getInstance()
-          .update_FolderModelWithFM(folderModel: folderModel!);
+          .update_FolderModelWithFM(folderModel: folderModel!, shouldCheckPermission: false, shouldQueryMissionModel: true);
       context.read<Env>().curFolderSelected = folderModel;
+      DialogManagement.getInstance().hideDialog(context);
     } else {
       Utility.showToastMsg(msg: getI18NKey().already_in_group);
     }

@@ -415,8 +415,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_edit": MessageLookupByLibrary.simpleMessage("可编辑"),
         "can_not_be_empty": MessageLookupByLibrary.simpleMessage(
             "The input box cannot be empty"),
+        "can_view": MessageLookupByLibrary.simpleMessage("可查看"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancel_finish": MessageLookupByLibrary.simpleMessage("Cancel Finish"),
+        "cancel_setting_administrator":
+            MessageLookupByLibrary.simpleMessage("取消管理员"),
+        "cannot_handle_myself": MessageLookupByLibrary.simpleMessage("不能操作自己"),
         "cannot_reorder_for_group": MessageLookupByLibrary.simpleMessage(
             "Cannot Reorder for Ungrouped"),
         "capture_a_photo":
@@ -655,6 +659,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("diary"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("Numeric password incorrect"),
+        "dismiss_group": MessageLookupByLibrary.simpleMessage("解散本群"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("Do it now"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again":
@@ -923,6 +928,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "landscape": MessageLookupByLibrary.simpleMessage("Landscape"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("last week"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
+        "leave_group": MessageLookupByLibrary.simpleMessage("退群"),
         "level1_num_10":
             MessageLookupByLibrary.simpleMessage("Difficulty 1: 10 words"),
         "level1_show_words": MessageLookupByLibrary.simpleMessage(
@@ -979,6 +985,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_success":
             MessageLookupByLibrary.simpleMessage("login successful"),
         "logout": MessageLookupByLibrary.simpleMessage("sign out"),
+        "long_rest_duration": MessageLookupByLibrary.simpleMessage("长时间休息时长"),
+        "long_rest_interval": MessageLookupByLibrary.simpleMessage("长时间休息间隔"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("Loop Setting"),
         "lottery": MessageLookupByLibrary.simpleMessage("lottery"),
         "manual": MessageLookupByLibrary.simpleMessage("Manual"),
@@ -1218,12 +1226,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "off": MessageLookupByLibrary.simpleMessage("OFF"),
         "offer_next_version":
             MessageLookupByLibrary.simpleMessage("offer next version"),
+        "offline": MessageLookupByLibrary.simpleMessage("离线"),
         "on": MessageLookupByLibrary.simpleMessage("ON"),
         "one_hour": MessageLookupByLibrary.simpleMessage("One hour"),
         "one_key_login": MessageLookupByLibrary.simpleMessage("Login"),
         "one_month": MessageLookupByLibrary.simpleMessage("One month"),
         "one_year": MessageLookupByLibrary.simpleMessage("One year"),
         "ongoing": MessageLookupByLibrary.simpleMessage("processing"),
+        "online": MessageLookupByLibrary.simpleMessage("在线"),
         "only_me": MessageLookupByLibrary.simpleMessage("仅我自己"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("仅我分享的好友"),
@@ -1251,10 +1261,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("password can not be blank"),
         "password_at_least_6": MessageLookupByLibrary.simpleMessage(
             "Password must be at least 6 characters"),
+        "password_correct": MessageLookupByLibrary.simpleMessage("密码正确"),
         "password_correct_desc": MessageLookupByLibrary.simpleMessage(
             "The local password is correct, you can directly create tasks"),
+        "password_incorrect": MessageLookupByLibrary.simpleMessage("密码错误"),
         "password_not_empty": MessageLookupByLibrary.simpleMessage(
             "Password cannot be empty, please enter the password!"),
+        "password_required_for_sharing":
+            MessageLookupByLibrary.simpleMessage("分享文件时需要输入密码"),
+        "password_set_success": MessageLookupByLibrary.simpleMessage("密码设置成功"),
         "pause": MessageLookupByLibrary.simpleMessage("pause"),
         "pc_not_available": MessageLookupByLibrary.simpleMessage(
             "MAC or PC cannot support this function temporarily, please use mobile phone to operate"),
@@ -1278,6 +1293,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please confirm your password"),
         "please_create_ur_password":
             MessageLookupByLibrary.simpleMessage("please create your password"),
+        "please_enter_6_digit_password":
+            MessageLookupByLibrary.simpleMessage("请输入6位数密码"),
         "please_enter_ur_password":
             MessageLookupByLibrary.simpleMessage("please enter your password"),
         "please_enter_your_question":
@@ -1398,10 +1415,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter your mobile phone number to complete the registration, and you can enjoy an efficient life"),
         "registerStep2": MessageLookupByLibrary.simpleMessage(
             "Please enter your mobile phone number to complete the registration, and you can enjoy an efficient life"),
+        "relaxing": MessageLookupByLibrary.simpleMessage("休息中"),
         "remarks_optional":
             MessageLookupByLibrary.simpleMessage("Remarks (optional)"),
         "remind": MessageLookupByLibrary.simpleMessage("hint"),
         "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
+        "remove_user": MessageLookupByLibrary.simpleMessage("移除用户"),
         "rename": MessageLookupByLibrary.simpleMessage("Rename"),
         "repaid": MessageLookupByLibrary.simpleMessage("Repaid"),
         "repayment": MessageLookupByLibrary.simpleMessage("Repayment"),
@@ -1517,9 +1536,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "send_again": MessageLookupByLibrary.simpleMessage("send again"),
         "sep": MessageLookupByLibrary.simpleMessage("Sep"),
         "sepFull": MessageLookupByLibrary.simpleMessage("September"),
+        "set_6_digit_password": MessageLookupByLibrary.simpleMessage("设置6位数密码"),
+        "set_password_for_group":
+            MessageLookupByLibrary.simpleMessage("设置密码，加入清单群的用户需要输入密码"),
         "set_to_desktop_widget":
             MessageLookupByLibrary.simpleMessage("Set to desktop widget"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "setting_administrator": MessageLookupByLibrary.simpleMessage("设置成管理员"),
         "setting_fail": MessageLookupByLibrary.simpleMessage("Setup failed"),
         "setting_success":
             MessageLookupByLibrary.simpleMessage("successfully set"),
@@ -1739,6 +1762,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcome_to_time_department": m109,
         "whether_to_repeat":
             MessageLookupByLibrary.simpleMessage("Whether to repeat or not"),
+        "who_can_view_edit_files":
+            MessageLookupByLibrary.simpleMessage("谁可以查看/编辑文件"),
         "who_can_view_or_edit":
             MessageLookupByLibrary.simpleMessage("谁可以查看/编辑文件"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage(

@@ -956,8 +956,9 @@ class _CreateMissionPageWidgetState<T>
                           size: 20, color: ColorsConfig.gray_cc_cancel),
                       onPressed: () {
                         this.isNeedUpdateBmob = true;
-                        this.widget.missionModel.end_time =
-                            Utility.getTimeStampToday();
+                        this.widget.missionModel.end_time = null;
+                        // this.widget.missionModel.end_time =
+                        //     Utility.getTimeStampToday();
                         // this.widget.missionModel.end_time = 0;
                         this.updateUI();
                       },

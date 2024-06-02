@@ -14,7 +14,6 @@ import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTRoleGridViewPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GptChatHistoryPage.dart';
 import 'package:time_hello/com/timehello/page/CreateAIChatGptMissionPage/CreateAIChatGptMissionPage.dart';
-import 'package:time_hello/com/timehello/page/GroupChatPage/GroupChatPage.dart';
 import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
 import 'package:time_hello/com/timehello/page/folderspage/FoldersPage.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';

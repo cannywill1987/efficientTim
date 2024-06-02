@@ -1032,7 +1032,6 @@
 		DF81CA682BB2FD5500E2842E /* ObservableObject */ = {
 			isa = PBXGroup;
 			children = (
-				DF81CA662BB2FD5500E2842E /* KeySettings.swift */,
 				DF81CA672BB2FD5500E2842E /* UserSettings.swift */,
 			);
 			path = ObservableObject;
@@ -1110,6 +1109,7 @@
 				DF86A2DF2ACD440A006D3F87 /* FlomoMissionModel.swift */,
 				DF86A2E02ACD440A006D3F87 /* MainModel.swift */,
 				DF86A2E12ACD440A006D3F87 /* TimelineItem.swift */,
+				DF81CA662BB2FD5500E2842E /* KeySettings.swift */,
 				DFEB26CA2ADF7D71004FBB7E /* WQBMissionData.swift */,
 				DFC181282BBAC3EC00B60D77 /* MyModel.swift */,
 			);

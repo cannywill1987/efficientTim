@@ -1209,7 +1209,6 @@ class CONSTANTS {
     return list;
   }
 
-
   /**
    * SettingItemDetail页面的自动切换
    */
@@ -1347,6 +1346,68 @@ class CONSTANTS {
         content: "",
         isCheck: false));
 
+    return list;
+  }
+
+  /**
+   * 创建者角色的下拉框
+   */
+  static List<CheckButtonStateModel> getCreatorCheckList(
+      {bool isAdministrator = false, bool isSlide = false})  {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        code: isAdministrator ? "cancel_setting_administrator" : "setting_administrator",
+        value: 0,
+        color: isAdministrator ? Colors.blue.value : Colors.green.value,
+        title: isAdministrator
+            ? getI18NKey().cancel_setting_administrator
+            : getI18NKey().setting_administrator,
+        // color: Colors.green.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAdmin, size: 16, color: isSlide ? Colors.white : Colors.blue),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 0,
+        title: getI18NKey().remove_user,
+        color: Colors.red.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser, size: 16, color: isSlide ? Colors.white : Colors.red),
+        content: "",
+        isCheck: false));
+    return list;
+  }
+
+  /**
+   * 管理员角色的下拉框
+   */
+  static List<CheckButtonStateModel> getAdministratorCheckList(
+      {bool isAdministrator = false, bool isSlide = false}) {
+    List<CheckButtonStateModel> list = [];
+
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 0,
+        title: getI18NKey().remove_user,
+        color: Colors.red.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser, size: 16, color: isSlide ? Colors.white : Colors.red),
+        content: "",
+        isCheck: false));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getAdminsCheckList(
+      {bool isAdministrator = false, bool isSlide = false}) {
+    List<CheckButtonStateModel> list = [];
+
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 0,
+        title: getI18NKey().setting_administrator,
+        color: Colors.green.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser, size: 16, color: isSlide ? Colors.white : Colors.green),
+        content: "",
+        isCheck: false));
     return list;
   }
 
@@ -2185,8 +2246,7 @@ class CONSTANTS {
       list.add({
         'sceneCode': 'AIHelper',
         'icon': Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
-        'iconChecked':
-        Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
+        'iconChecked': Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
         'title': getI18NKey().ai_helper
       });
     if (settingModel.isSettingPageOn == 1)
@@ -4095,7 +4155,7 @@ class CONSTANTS {
         value: 9,
         title: getI18NKey().do_it_now,
         color: 0xff404040,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcToday, size: size),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcInstantly, size: size),
         content: "",
         isCheck: false));
     list.add(CheckButtonStateModel(
@@ -5123,7 +5183,7 @@ class CONSTANTS {
     } else if (Utility.isWindows()) {
       return "ctrl+enter";
     } else {
-      if(DeviceInfoManagement.isWEB()) {
+      if (DeviceInfoManagement.isWEB()) {
         return getI18NKey().browser_not_support_multiline;
       }
       return "";
