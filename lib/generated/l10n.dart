@@ -50,10 +50,30 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `密码错误`
+  /// `Copy the link and share it with your friends, so they can join the group list by the group code {code}`
+  String copy_link_description(Object code) {
+    return Intl.message(
+      'Copy the link and share it with your friends, so they can join the group list by the group code $code',
+      name: 'copy_link_description',
+      desc: '',
+      args: [code],
+    );
+  }
+
+  /// `The group list number for {app_name} is {code}. Download {app_name}, enter the group list number, and you can work with your partners.`
+  String share_the_link(Object app_name, Object code) {
+    return Intl.message(
+      'The group list number for $app_name is $code. Download $app_name, enter the group list number, and you can work with your partners.',
+      name: 'share_the_link',
+      desc: '',
+      args: [app_name, code],
+    );
+  }
+
+  /// `Password is incorrect`
   String get password_incorrect {
     return Intl.message(
-      '密码错误',
+      'Password is incorrect',
       name: 'password_incorrect',
       desc: '',
       args: [],
@@ -70,220 +90,220 @@ class S {
     );
   }
 
-  /// `解散本群`
+  /// `Dismiss the group`
   String get dismiss_group {
     return Intl.message(
-      '解散本群',
+      'Dismiss the group',
       name: 'dismiss_group',
       desc: '',
       args: [],
     );
   }
 
-  /// `退群`
+  /// `Leave the group`
   String get leave_group {
     return Intl.message(
-      '退群',
+      'Leave the group',
       name: 'leave_group',
       desc: '',
       args: [],
     );
   }
 
-  /// `谁可以查看/编辑文件`
+  /// `Who can view/edit files`
   String get who_can_view_edit_files {
     return Intl.message(
-      '谁可以查看/编辑文件',
+      'Who can view/edit files',
       name: 'who_can_view_edit_files',
       desc: '',
       args: [],
     );
   }
 
-  /// `仅我自己`
+  /// `Only me`
   String get only_me {
     return Intl.message(
-      '仅我自己',
+      'Only me',
       name: 'only_me',
       desc: '',
       args: [],
     );
   }
 
-  /// `所有人可查看`
+  /// `Everyone can view`
   String get everyone_can_view {
     return Intl.message(
-      '所有人可查看',
+      'Everyone can view',
       name: 'everyone_can_view',
       desc: '',
       args: [],
     );
   }
 
-  /// `所有人可编辑`
+  /// `Everyone can edit`
   String get everyone_can_edit {
     return Intl.message(
-      '所有人可编辑',
+      'Everyone can edit',
       name: 'everyone_can_edit',
       desc: '',
       args: [],
     );
   }
 
-  /// `设置密码，加入清单群的用户需要输入密码`
+  /// `Set a password for the group. Users need to enter the password to join the group list.`
   String get set_password_for_group {
     return Intl.message(
-      '设置密码，加入清单群的用户需要输入密码',
+      'Set a password for the group. Users need to enter the password to join the group list.',
       name: 'set_password_for_group',
       desc: '',
       args: [],
     );
   }
 
-  /// `设置6位数密码`
+  /// `Set a 6-digit password`
   String get set_6_digit_password {
     return Intl.message(
-      '设置6位数密码',
+      'Set a 6-digit password',
       name: 'set_6_digit_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `密码正确`
+  /// `Password is correct`
   String get password_correct {
     return Intl.message(
-      '密码正确',
+      'Password is correct',
       name: 'password_correct',
       desc: '',
       args: [],
     );
   }
 
-  /// `请输入6位数密码`
+  /// `Please enter a 6-digit password`
   String get please_enter_6_digit_password {
     return Intl.message(
-      '请输入6位数密码',
+      'Please enter a 6-digit password',
       name: 'please_enter_6_digit_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `密码设置成功`
+  /// `Password set successfully`
   String get password_set_success {
     return Intl.message(
-      '密码设置成功',
+      'Password set successfully',
       name: 'password_set_success',
       desc: '',
       args: [],
     );
   }
 
-  /// `分享文件时需要输入密码`
+  /// `Password required for sharing files`
   String get password_required_for_sharing {
     return Intl.message(
-      '分享文件时需要输入密码',
+      'Password required for sharing files',
       name: 'password_required_for_sharing',
       desc: '',
       args: [],
     );
   }
 
-  /// `仅我分享的好友`
+  /// `Only share with friends`
   String get only_share_with_friends {
     return Intl.message(
-      '仅我分享的好友',
+      'Only share with friends',
       name: 'only_share_with_friends',
       desc: '',
       args: [],
     );
   }
 
-  /// `可查看`
+  /// `Can view`
   String get can_view {
     return Intl.message(
-      '可查看',
+      'Can view',
       name: 'can_view',
       desc: '',
       args: [],
     );
   }
 
-  /// `可编辑`
+  /// `Can edit`
   String get can_edit {
     return Intl.message(
-      '可编辑',
+      'Can edit',
       name: 'can_edit',
       desc: '',
       args: [],
     );
   }
 
-  /// `分享到`
+  /// `Share to`
   String get share_to {
     return Intl.message(
-      '分享到',
+      'Share to',
       name: 'share_to',
       desc: '',
       args: [],
     );
   }
 
-  /// `复制链接`
+  /// `Copy link`
   String get copy_link {
     return Intl.message(
-      '复制链接',
+      'Copy link',
       name: 'copy_link',
       desc: '',
       args: [],
     );
   }
 
-  /// `生成图片`
+  /// `Generate image`
   String get generate_image {
     return Intl.message(
-      '生成图片',
+      'Generate image',
       name: 'generate_image',
       desc: '',
       args: [],
     );
   }
 
-  /// `生成二维码`
+  /// `Generate QR code`
   String get generate_qr_code {
     return Intl.message(
-      '生成二维码',
+      'Generate QR code',
       name: 'generate_qr_code',
       desc: '',
       args: [],
     );
   }
 
-  /// `管理员`
+  /// `Administrator`
   String get administrator {
     return Intl.message(
-      '管理员',
+      'Administrator',
       name: 'administrator',
       desc: '',
       args: [],
     );
   }
 
-  /// `离线`
+  /// `Offline`
   String get offline {
     return Intl.message(
-      '离线',
+      'Offline',
       name: 'offline',
       desc: '',
       args: [],
     );
   }
 
-  /// `在线`
+  /// `Online`
   String get online {
     return Intl.message(
-      '在线',
+      'Online',
       name: 'online',
       desc: '',
       args: [],
@@ -300,140 +320,140 @@ class S {
     );
   }
 
-  /// `休息中`
+  /// `Relaxing`
   String get relaxing {
     return Intl.message(
-      '休息中',
+      'Relaxing',
       name: 'relaxing',
       desc: '',
       args: [],
     );
   }
 
-  /// `不能操作自己`
+  /// `Cannot handle myself`
   String get cannot_handle_myself {
     return Intl.message(
-      '不能操作自己',
+      'Cannot handle myself',
       name: 'cannot_handle_myself',
       desc: '',
       args: [],
     );
   }
 
-  /// `长时间休息时长`
+  /// `Long rest duration`
   String get long_rest_duration {
     return Intl.message(
-      '长时间休息时长',
+      'Long rest duration',
       name: 'long_rest_duration',
       desc: '',
       args: [],
     );
   }
 
-  /// `长时间休息间隔`
+  /// `Long rest interval`
   String get long_rest_interval {
     return Intl.message(
-      '长时间休息间隔',
+      'Long rest interval',
       name: 'long_rest_interval',
       desc: '',
       args: [],
     );
   }
 
-  /// `移除用户`
+  /// `Remove user`
   String get remove_user {
     return Intl.message(
-      '移除用户',
+      'Remove user',
       name: 'remove_user',
       desc: '',
       args: [],
     );
   }
 
-  /// `取消管理员`
+  /// `Cancel administrator`
   String get cancel_setting_administrator {
     return Intl.message(
-      '取消管理员',
+      'Cancel administrator',
       name: 'cancel_setting_administrator',
       desc: '',
       args: [],
     );
   }
 
-  /// `设置成管理员`
+  /// `Set as administrator`
   String get setting_administrator {
     return Intl.message(
-      '设置成管理员',
+      'Set as administrator',
       name: 'setting_administrator',
       desc: '',
       args: [],
     );
   }
 
-  /// `添加群清单`
+  /// `Add group listing`
   String get add_group_listing {
     return Intl.message(
-      '添加群清单',
+      'Add group listing',
       name: 'add_group_listing',
       desc: '',
       args: [],
     );
   }
 
-  /// `共享清单`
+  /// `Sharing listing`
   String get sharing_listing {
     return Intl.message(
-      '共享清单',
+      'Sharing listing',
       name: 'sharing_listing',
       desc: '',
       args: [],
     );
   }
 
-  /// `群公告`
+  /// `Group announcement`
   String get group_announcement {
     return Intl.message(
-      '群公告',
+      'Group announcement',
       name: 'group_announcement',
       desc: '',
       args: [],
     );
   }
 
-  /// `群号:{id}`
+  /// `Group ID: {id}`
   String group_id(Object id) {
     return Intl.message(
-      '群号:$id',
+      'Group ID: $id',
       name: 'group_id',
       desc: '',
       args: [id],
     );
   }
 
-  /// `输入清单号码,搜索清单`
+  /// `Enter the list number to search the list`
   String get join_group_code_desc {
     return Intl.message(
-      '输入清单号码,搜索清单',
+      'Enter the list number to search the list',
       name: 'join_group_code_desc',
       desc: '',
       args: [],
     );
   }
 
-  /// `输入清单号码`
+  /// `Enter the list number`
   String get join_group_code {
     return Intl.message(
-      '输入清单号码',
+      'Enter the list number',
       name: 'join_group_code',
       desc: '',
       args: [],
     );
   }
 
-  /// `已经是该组组员`
+  /// `Already in the group`
   String get already_in_group {
     return Intl.message(
-      '已经是该组组员',
+      'Already in the group',
       name: 'already_in_group',
       desc: '',
       args: [],
@@ -450,50 +470,50 @@ class S {
     );
   }
 
-  /// `谁可以查看/编辑文件`
+  /// `Who can view/edit files`
   String get who_can_view_or_edit {
     return Intl.message(
-      '谁可以查看/编辑文件',
+      'Who can view/edit files',
       name: 'who_can_view_or_edit',
       desc: '',
       args: [],
     );
   }
 
-  /// `可查看`
+  /// `View only`
   String get view_only {
     return Intl.message(
-      '可查看',
+      'View only',
       name: 'view_only',
       desc: '',
       args: [],
     );
   }
 
-  /// `高级权限：可设置禁止复制、批注等`
+  /// `Advanced permissions: can set restrictions on copying, commenting, etc.`
   String get advanced_permissions {
     return Intl.message(
-      '高级权限：可设置禁止复制、批注等',
+      'Advanced permissions: can set restrictions on copying, commenting, etc.',
       name: 'advanced_permissions',
       desc: '',
       args: [],
     );
   }
 
-  /// `QQ好友`
+  /// `QQ friends`
   String get qq_friends {
     return Intl.message(
-      'QQ好友',
+      'QQ friends',
       name: 'qq_friends',
       desc: '',
       args: [],
     );
   }
 
-  /// `微信好友`
+  /// `WeChat friends`
   String get wechat_friends {
     return Intl.message(
-      '微信好友',
+      'WeChat friends',
       name: 'wechat_friends',
       desc: '',
       args: [],

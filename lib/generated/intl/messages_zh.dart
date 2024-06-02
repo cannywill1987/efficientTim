@@ -56,215 +56,222 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m16(money, present) => "消费「${money}」金额购买了「${present}」";
 
-  static String m17(day, hour, mins, secs) => "${day}天 ${hour}:${mins}:${secs}";
+  static String m17(code) => "复制链接并分享给好友，他们可以通过群号${code}加入群清单";
 
-  static String m18(hour, mins, secs) => "${hour}:${mins}:${secs}";
+  static String m18(day, hour, mins, secs) => "${day}天 ${hour}:${mins}:${secs}";
 
-  static String m19(mins, secs) => "${mins}:${secs}";
+  static String m19(hour, mins, secs) => "${hour}:${mins}:${secs}";
 
-  static String m20(times, total, title) => "打卡${times}/${total}次 \'${title}\'";
+  static String m20(mins, secs) => "${mins}:${secs}";
 
-  static String m21(listing, title) => "在清单「${listing}」,创建了打卡任务「${title}」";
+  static String m21(times, total, title) => "打卡${times}/${total}次 \'${title}\'";
 
-  static String m22(title) => "创建了打卡任务「${title}」";
+  static String m22(listing, title) => "在清单「${listing}」,创建了打卡任务「${title}」";
 
-  static String m23(title) => "创建清单「${title}」";
+  static String m23(title) => "创建了打卡任务「${title}」";
 
-  static String m24(listing, title) => "在清单「${listing}」,创建了任务「${title}」";
+  static String m24(title) => "创建清单「${title}」";
 
-  static String m25(title) => "创建了任务「${title}」";
+  static String m25(listing, title) => "在清单「${listing}」,创建了任务「${title}」";
 
-  static String m26(title) => "创建标签「${title}」";
+  static String m26(title) => "创建了任务「${title}」";
 
-  static String m27(Folder) => "创建${Folder}";
+  static String m27(title) => "创建标签「${title}」";
 
-  static String m28(tone) => "目前的铃声:${tone}";
+  static String m28(Folder) => "创建${Folder}";
 
-  static String m29(date1, date2) => "${date1}至${date2}";
+  static String m29(tone) => "目前的铃声:${tone}";
 
-  static String m30(month, day) => "${month}月${day}日";
+  static String m30(date1, date2) => "${date1}至${date2}";
 
-  static String m31(month, day, hour, mins) =>
+  static String m31(month, day) => "${month}月${day}日";
+
+  static String m32(month, day, hour, mins) =>
       "${month}月${day}日,${hour}:${mins}";
 
-  static String m32(money) => "${money}天前";
+  static String m33(money) => "${money}天前";
 
-  static String m33(money) => "${money}天后";
+  static String m34(money) => "${money}天后";
 
-  static String m34(title) => "删除打卡任务 \'${title}\'";
+  static String m35(title) => "删除打卡任务 \'${title}\'";
 
-  static String m35(note) => "桌面组件${note}";
+  static String m36(note) => "桌面组件${note}";
 
-  static String m36(title) => "编辑标题「${title}」";
+  static String m37(title) => "编辑标题「${title}」";
 
-  static String m37(n) => "每天${n}次";
+  static String m38(n) => "每天${n}次";
 
-  static String m38(title, time, num) =>
+  static String m39(title, time, num) =>
       "专注中离开了app,专注任务「${title}」,专注了${time},赚取了${num}虚拟币";
 
-  static String m39(title) => "完成任务「${title}」";
+  static String m40(title) => "完成任务「${title}」";
 
-  static String m40(value) => "时长:${value}";
+  static String m41(value) => "时长:${value}";
 
-  static String m41(value) => "数量:${value}";
+  static String m42(value) => "数量:${value}";
 
-  static String m42(duraiton) => "完成用时${duraiton}秒";
+  static String m43(duraiton) => "完成用时${duraiton}秒";
 
-  static String m43(correct, error, percent) =>
+  static String m44(correct, error, percent) =>
       "答对${correct}个,答错${error}个,准确率${percent}";
 
-  static String m44(name) => "成功获取${name}到本地，可以开始您的训练";
+  static String m45(name) => "成功获取${name}到本地，可以开始您的训练";
 
-  static String m45(app_name) => "充当 ${app_name} 时间管家";
+  static String m46(app_name) => "充当 ${app_name} 时间管家";
 
-  static String m46(title) => "在\"${title}\"中添加一个任务，按「回车」键保存";
+  static String m47(id) => "群号:${id}";
 
-  static String m47(hour, min) => "${hour}时${min}分";
+  static String m48(title) => "在\"${title}\"中添加一个任务，按「回车」键保存";
 
-  static String m48(hour, min, sec) => "${hour}时${min}分${sec}秒";
+  static String m49(hour, min) => "${hour}时${min}分";
 
-  static String m49(num) => "最多输入${num}个字符";
+  static String m50(hour, min, sec) => "${hour}时${min}分${sec}秒";
 
-  static String m50(max) => "不能超过${max}字符";
+  static String m51(num) => "最多输入${num}个字符";
 
-  static String m51(time) => "最大录制时间:${time}";
+  static String m52(max) => "不能超过${max}字符";
 
-  static String m52(min, sec) => "${min}分${sec}秒";
+  static String m53(time) => "最大录制时间:${time}";
 
-  static String m53(year, month, day, weekday) =>
+  static String m54(min, sec) => "${min}分${sec}秒";
+
+  static String m55(year, month, day, weekday) =>
       "${year}年${month}月${day}日,${weekday}";
 
-  static String m54(month, day, year) => "${year}年${month}月${day}日";
+  static String m56(month, day, year) => "${year}年${month}月${day}日";
 
-  static String m55(month, year) => "${year}年${month}月";
+  static String m57(month, year) => "${year}年${month}月";
 
-  static String m56(year, month, day, hour, min, weekday) =>
+  static String m58(year, month, day, hour, min, weekday) =>
       "${year}年${month}月${day}日 ${hour}:${min},${weekday}";
 
-  static String m57(missionTitle) => "${missionTitle}任务进行中，确认停止吗";
+  static String m59(missionTitle) => "${missionTitle}任务进行中，确认停止吗";
 
-  static String m58(name) => "「${name}」任务提醒";
+  static String m60(name) => "「${name}」任务提醒";
 
-  static String m59(name) => "「${name}」打卡任务提醒";
+  static String m61(name) => "「${name}」打卡任务提醒";
 
-  static String m60(submission, mission) =>
+  static String m62(submission, mission) =>
       "任务${mission}下的子任务${submission}开始了，请做好准备";
 
-  static String m61(title) => "任务\"${title}\"";
+  static String m63(title) => "任务\"${title}\"";
 
-  static String m62(value) => "请先设置您每小时价值${value}\$/小时";
+  static String m64(value) => "请先设置您每小时价值${value}\$/小时";
 
-  static String m63(title) => "修改清单标题为「${title}」";
+  static String m65(title) => "修改清单标题为「${title}」";
 
-  static String m64(title) => "修改标签为「${title}」";
+  static String m66(title) => "修改标签为「${title}」";
 
-  static String m65(month, day, weekday) => "${month}月${day}日 ${weekday}";
+  static String m67(month, day, weekday) => "${month}月${day}日 ${weekday}";
 
-  static String m66(month) => "${month}月打卡率";
+  static String m68(month) => "${month}月打卡率";
 
-  static String m67(month) => "${month}月打卡日志";
+  static String m69(month) => "${month}月打卡日志";
 
-  static String m68(course) => "我的${course}";
+  static String m70(course) => "我的${course}";
 
-  static String m69(ranking) => "第${ranking}名";
+  static String m71(ranking) => "第${ranking}名";
 
-  static String m70(ranking) => "我的本次排名是第${ranking}名";
+  static String m72(ranking) => "我的本次排名是第${ranking}名";
 
-  static String m71(days) => "逾期${days}天";
+  static String m73(days) => "逾期${days}天";
 
-  static String m72(newline) => "换行:${newline}";
+  static String m74(newline) => "换行:${newline}";
 
-  static String m73(title, min, secs) => "${title}(剩余时间:${min}:${secs}）";
+  static String m75(title, min, secs) => "${title}(剩余时间:${min}:${secs}）";
 
-  static String m74(value, hour, mins) =>
+  static String m76(value, hour, mins) =>
       "您今天有${value}个任务需要完成，预估需要${hour}小时${mins}分钟";
 
-  static String m75(n, hour, mins) => "有${n}个任务延期,预估需要需要${hour}小时${mins}分钟";
+  static String m77(n, hour, mins) => "有${n}个任务延期,预估需要需要${hour}小时${mins}分钟";
 
-  static String m76(days) => "${days}天";
+  static String m78(days) => "${days}天";
 
-  static String m77(num) => "${num}分钟";
+  static String m79(num) => "${num}分钟";
 
-  static String m78(num, total) => "清单${num}/${total}";
+  static String m80(num, total) => "清单${num}/${total}";
 
-  static String m79(num, total) => "${num}/${total}";
+  static String m81(num, total) => "${num}/${total}";
 
-  static String m80(num) => "${num}个任务";
+  static String m82(num) => "${num}个任务";
 
-  static String m81(num) => "${num}次";
+  static String m83(num) => "${num}次";
 
-  static String m82(num) => "${num}个";
+  static String m84(num) => "${num}个";
 
-  static String m83(number) => "${number}个奖品";
+  static String m85(number) => "${number}个奖品";
 
-  static String m84(name) => "请输入清单「${name}」的密码";
+  static String m86(name) => "请输入清单「${name}」的密码";
 
-  static String m85(xxx) => "请输入${xxx}";
+  static String m87(xxx) => "请输入${xxx}";
 
-  static String m86(name) => "请在应用市场搜索\"${name}\"";
+  static String m88(name) => "请在应用市场搜索\"${name}\"";
 
-  static String m87(content) => "请选择${content}";
+  static String m89(content) => "请选择${content}";
 
-  static String m88(present) => "${present}需要花费多少币";
+  static String m90(present) => "${present}需要花费多少币";
 
-  static String m89(missionFinished, missionToDo, duration) =>
+  static String m91(missionFinished, missionToDo, duration) =>
       "${missionFinished}完成,请开始${missionToDo},${missionToDo}时长:${duration}";
 
-  static String m90(total) => "有${total}循环";
+  static String m92(total) => "有${total}循环";
 
-  static String m91(value) => "时长:${value}";
+  static String m93(value) => "时长:${value}";
 
-  static String m92(value) => "数量:${value}";
+  static String m94(value) => "数量:${value}";
 
-  static String m93(role, time, content, timestampFormat1, timestampFormat2,
+  static String m95(role, time, content, timestampFormat1, timestampFormat2,
           timestampFormat3) =>
       "我想让你扮演一个${role}, 您需要规划下以下内容,时间是${time},${content}，并返回json objects数组, 返回JSON Objects\njson每个字段key值和解释如下\nString? title = \'\'; //标题 必填 \nint? total_tomotoes; //直接算出结果 完成番茄的数量 (daily_end_time - daily_start_time)/tomato_duration \nint? tomato_duration = 1500000;  //直接算出结果 值永远为为 25 * 60 * 1000毫秒，代表一个番茄专注25分钟 \nString? end_time; //直接算出结果 ${timestampFormat1}格式 结束时间 必填 \nint? priorityStatus; //3 无优先级  2 低优先级 1 中优先级 0 高优先级 必填 \nString? daily_start_time; //直接算出结果 ${timestampFormat2}格式 任务开始时间   \nString? daily_end_time; //直接算出结果 ${timestampFormat3}格式 任务结束时间 \nString? message; //任务提醒 \n注意:不能为null, key:value中的value直接给结果,每个任务的daily_start_time和daily_end_time时间不能重叠 \ntitle需要标题描述清楚，不需要别的解释,每个任务至少间隔5分钟\n 只返回 数组为根的json字符串 如[object,object,](注意:不讨论政治历史)";
 
-  static String m94(title) => "开始专注任务「${title}」";
+  static String m96(app_name, code) =>
+      "${app_name}的群清单号码为${code}，下载${app_name}添加群清单输入即可和伙伴一起工作";
 
-  static String m95(title) => "开始休息「${title}」";
+  static String m97(title) => "开始专注任务「${title}」";
 
-  static String m96(title, time, num) =>
+  static String m98(title) => "开始休息「${title}」";
+
+  static String m99(title, time, num) =>
       "停止专注任务「${title}」,专注了${time},赚取了${num}虚拟币";
 
-  static String m97(title) => "停止休息「${title}」";
+  static String m100(title) => "停止休息「${title}」";
 
-  static String m98(money) => "${money}前";
+  static String m101(money) => "${money}前";
 
-  static String m99(money) => "${money}后";
+  static String m102(money) => "${money}后";
 
-  static String m100(date) => "${date}数据";
+  static String m103(date) => "${date}数据";
 
-  static String m101(trainee) =>
+  static String m104(trainee) =>
       "请注意，请根据实际情况量力而行，如果对${trainee}回复不满意，可以和${trainee}沟通给他更详细的命令来帮助您规划时间";
 
-  static String m102(trainee) => "${trainee}的建议";
+  static String m105(trainee) => "${trainee}的建议";
 
-  static String m103(time) => "上次更新时间:${time}";
+  static String m106(time) => "上次更新时间:${time}";
 
-  static String m104(listing, title) => "在清单「${listing}」,更新了任务「${title}」";
+  static String m107(listing, title) => "在清单「${listing}」,更新了任务「${title}」";
 
-  static String m105(title) => "更新了任务「${title}」";
+  static String m108(title) => "更新了任务「${title}」";
 
-  static String m106(value) => "价值:${value}";
+  static String m109(value) => "价值:${value}";
 
-  static String m107(value) => "${value}\$/小时";
+  static String m110(value) => "${value}\$/小时";
 
-  static String m108(version) => "当前版本${version}";
+  static String m111(version) => "当前版本${version}";
 
-  static String m109(appName) => "欢迎来到\"${appName}\"";
+  static String m112(appName) => "欢迎来到\"${appName}\"";
 
-  static String m110(diary) => "写了日记「${diary}」";
+  static String m113(diary) => "写了日记「${diary}」";
 
-  static String m111(diary) => "写了笔记「${diary}」";
+  static String m114(diary) => "写了笔记「${diary}」";
 
-  static String m112(text) => "${text}不能为空";
+  static String m115(text) => "${text}不能为空";
 
-  static String m113(month, year) => "${year}${month}";
+  static String m116(month, year) => "${year}${month}";
 
-  static String m114(name) => "您定的打卡任务「${name}」开始了。请来打卡吧";
+  static String m117(name) => "您定的打卡任务「${name}」开始了。请来打卡吧";
 
-  static String m115(name) => "您定的任务「${name}」通知已经开始了。请做好准备";
+  static String m118(name) => "您定的任务「${name}」通知已经开始了。请做好准备";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -282,6 +289,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_group": MessageLookupByLibrary.simpleMessage("添加分组"),
         "add_group_cannot_reorder":
             MessageLookupByLibrary.simpleMessage("添加分组不能分组"),
+        "add_group_listing": MessageLookupByLibrary.simpleMessage("添加群清单"),
         "add_group_on_the_left":
             MessageLookupByLibrary.simpleMessage("在左侧添加分组"),
         "add_group_on_the_right":
@@ -296,6 +304,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_task": MessageLookupByLibrary.simpleMessage("添加任务"),
         "add_username": MessageLookupByLibrary.simpleMessage("添加用户名"),
         "addsuccess": MessageLookupByLibrary.simpleMessage("添加成功"),
+        "administrator": MessageLookupByLibrary.simpleMessage("管理员"),
+        "advanced_permissions":
+            MessageLookupByLibrary.simpleMessage("高级权限：可设置禁止复制、批注等"),
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI创建"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI助手"),
@@ -315,6 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_exists_at_this_time":
             MessageLookupByLibrary.simpleMessage("已经存在该时间"),
         "already_in_course": MessageLookupByLibrary.simpleMessage("已经参与课程"),
+        "already_in_group": MessageLookupByLibrary.simpleMessage("已经是该组组员"),
         "already_persisted": MessageLookupByLibrary.simpleMessage("已经坚持"),
         "amount": MessageLookupByLibrary.simpleMessage("金额"),
         "analyse": MessageLookupByLibrary.simpleMessage("分析"),
@@ -370,8 +382,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "calendar2": MessageLookupByLibrary.simpleMessage("日历"),
         "camera_permission_description":
             MessageLookupByLibrary.simpleMessage("做笔记有可能需要拍照功能，介时需要您授权相机权限"),
+        "can_edit": MessageLookupByLibrary.simpleMessage("可编辑"),
         "can_not_be_empty": MessageLookupByLibrary.simpleMessage("输入框不能为空"),
+        "can_view": MessageLookupByLibrary.simpleMessage("可查看"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "cancel_setting_administrator":
+            MessageLookupByLibrary.simpleMessage("取消管理员"),
+        "cannot_handle_myself": MessageLookupByLibrary.simpleMessage("不能操作自己"),
         "capture_a_photo": MessageLookupByLibrary.simpleMessage("拍照"),
         "capture_a_video": MessageLookupByLibrary.simpleMessage("录制视频"),
         "card": MessageLookupByLibrary.simpleMessage("卡片"),
@@ -466,6 +483,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_days": MessageLookupByLibrary.simpleMessage("已连续天数"),
         "continuously": MessageLookupByLibrary.simpleMessage("坚持中"),
         "copy": MessageLookupByLibrary.simpleMessage("复制"),
+        "copy_link": MessageLookupByLibrary.simpleMessage("复制链接"),
+        "copy_link_description": m17,
         "copy_qq":
             MessageLookupByLibrary.simpleMessage("点击复制qq群号(563144208)加入官方qq群"),
         "copy_qq_success":
@@ -474,9 +493,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("可以及时得到新版本信息和反馈您想要的新功能"),
         "copy_success": MessageLookupByLibrary.simpleMessage("复制成功"),
         "correct_answer": MessageLookupByLibrary.simpleMessage("正解"),
-        "count_down": m17,
-        "count_down2": m18,
-        "count_down3": m19,
+        "count_down": m18,
+        "count_down2": m19,
+        "count_down3": m20,
         "count_down_text": MessageLookupByLibrary.simpleMessage("倒计时"),
         "counting": MessageLookupByLibrary.simpleMessage("计时中"),
         "course": MessageLookupByLibrary.simpleMessage("课程"),
@@ -498,23 +517,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_mission_title": MessageLookupByLibrary.simpleMessage("给我图表"),
         "create_mission_title_content":
             MessageLookupByLibrary.simpleMessage("给我图表\n时间:"),
-        "create_name_flomo_mission": m20,
-        "create_name_flomomission": m21,
-        "create_name_flomomission2": m22,
-        "create_name_listing": m23,
-        "create_name_mission": m24,
-        "create_name_mission2": m25,
-        "create_name_tag": m26,
+        "create_name_flomo_mission": m21,
+        "create_name_flomomission": m22,
+        "create_name_flomomission2": m23,
+        "create_name_listing": m24,
+        "create_name_mission": m25,
+        "create_name_mission2": m26,
+        "create_name_tag": m27,
         "create_present": MessageLookupByLibrary.simpleMessage("创建奖励"),
         "create_success": MessageLookupByLibrary.simpleMessage("创建成功"),
         "create_time": MessageLookupByLibrary.simpleMessage("创建时间"),
-        "create_xxx": m27,
+        "create_xxx": m28,
         "creating_date": MessageLookupByLibrary.simpleMessage("创建日期"),
         "credit_bag": MessageLookupByLibrary.simpleMessage("卡包"),
         "credit_limit": MessageLookupByLibrary.simpleMessage("信用额度"),
         "curAnalytics": MessageLookupByLibrary.simpleMessage("实时数据"),
         "curTimeF": MessageLookupByLibrary.simpleMessage("开始时间"),
-        "currentRingTone": m28,
+        "currentRingTone": m29,
         "current_amount": MessageLookupByLibrary.simpleMessage("本期金额"),
         "custom": MessageLookupByLibrary.simpleMessage("自定义"),
         "customize": MessageLookupByLibrary.simpleMessage("自定义"),
@@ -527,9 +546,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "data_analyse_desc":
             MessageLookupByLibrary.simpleMessage("实时数据分析，帮助您更好地了解自己"),
         "date": MessageLookupByLibrary.simpleMessage("日期"),
-        "date1_to_date2": m29,
-        "dateFromMonth": m30,
-        "dateFromMonthToMins": m31,
+        "date1_to_date2": m30,
+        "dateFromMonth": m31,
+        "dateFromMonthToMins": m32,
         "dateOutOfLimit": MessageLookupByLibrary.simpleMessage("您选择的日期超出了范围"),
         "day": MessageLookupByLibrary.simpleMessage("日"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage("天时分秒"),
@@ -537,8 +556,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "days_after_bill_day": MessageLookupByLibrary.simpleMessage("天后到账单日"),
         "days_after_repayment_day":
             MessageLookupByLibrary.simpleMessage("天后到还款日"),
-        "days_ago": m32,
-        "days_later": m33,
+        "days_ago": m33,
+        "days_later": m34,
         "de": MessageLookupByLibrary.simpleMessage("的"),
         "deadLine": MessageLookupByLibrary.simpleMessage("到期日"),
         "dec": MessageLookupByLibrary.simpleMessage("十二月"),
@@ -547,10 +566,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultFocusDuration": MessageLookupByLibrary.simpleMessage("默认专注时长"),
         "delay_mission": MessageLookupByLibrary.simpleMessage("延期任务"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
-        "delete_flomo_mission": m34,
+        "delete_flomo_mission": m35,
         "delete_success": MessageLookupByLibrary.simpleMessage("删除成功"),
         "desc_consume": MessageLookupByLibrary.simpleMessage("消费描述"),
-        "desktop_widget_with_note_n": m35,
+        "desktop_widget_with_note_n": m36,
         "detailed_training_plan":
             MessageLookupByLibrary.simpleMessage("课程详细训练计划"),
         "detailed_training_plan_desc":
@@ -562,6 +581,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("日记"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("数字密码错误"),
+        "dismiss_group": MessageLookupByLibrary.simpleMessage("解散本群"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("现在做"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("不再提示"),
@@ -574,7 +594,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_sharing": MessageLookupByLibrary.simpleMessage("编辑分享"),
         "edit_successfully":
             MessageLookupByLibrary.simpleMessage("成功编辑,请在时间轴查看"),
-        "edit_title": m36,
+        "edit_title": m37,
         "editing": MessageLookupByLibrary.simpleMessage("编辑中"),
         "emailCannotBeNull": MessageLookupByLibrary.simpleMessage("邮箱不能为空"),
         "encourage_yourself":
@@ -603,11 +623,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterRealName": MessageLookupByLibrary.simpleMessage("请输入真实姓名"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("请输入金额"),
         "event": MessageLookupByLibrary.simpleMessage("事件"),
-        "everyDayOnce": m37,
+        "everyDayOnce": m38,
+        "everyone_can_edit": MessageLookupByLibrary.simpleMessage("所有人可编辑"),
+        "everyone_can_view": MessageLookupByLibrary.simpleMessage("所有人可查看"),
         "examination": MessageLookupByLibrary.simpleMessage("审题错误"),
         "example_demo_hint": MessageLookupByLibrary.simpleMessage(
             "例如：\"总是用项目符号描述，永远不要使用xxx，总是用英语回答问题\""),
-        "exist_app_focusing_mission_name": m38,
+        "exist_app_focusing_mission_name": m39,
         "export": MessageLookupByLibrary.simpleMessage("导出"),
         "export_data": MessageLookupByLibrary.simpleMessage("导出数据"),
         "export_excel": MessageLookupByLibrary.simpleMessage("导出Excel"),
@@ -618,7 +640,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "find_new_version": MessageLookupByLibrary.simpleMessage("发现新版本"),
         "finish": MessageLookupByLibrary.simpleMessage("完成"),
         "finish_level": MessageLookupByLibrary.simpleMessage("完成度:"),
-        "finish_mission_name": m39,
+        "finish_mission_name": m40,
         "finish_time": MessageLookupByLibrary.simpleMessage("完成时间"),
         "finished": MessageLookupByLibrary.simpleMessage("完成"),
         "focus": MessageLookupByLibrary.simpleMessage("专注"),
@@ -630,10 +652,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_duration": MessageLookupByLibrary.simpleMessage("专注时长"),
         "focus_duration_distribution":
             MessageLookupByLibrary.simpleMessage("专注时长分布"),
-        "focus_duration_with_value": m40,
+        "focus_duration_with_value": m41,
         "focus_finished_ringtone":
             MessageLookupByLibrary.simpleMessage("专注结束铃声"),
-        "focus_numbers_with_value": m41,
+        "focus_numbers_with_value": m42,
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("专注时间段分布"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("专注设置"),
@@ -683,21 +705,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "fridayShort": MessageLookupByLibrary.simpleMessage("五"),
         "front_card": MessageLookupByLibrary.simpleMessage("正面卡片"),
         "gallery": MessageLookupByLibrary.simpleMessage("相簿"),
-        "game1_time_usage": m42,
-        "game2_ranking_text": m43,
+        "game1_time_usage": m43,
+        "game2_ranking_text": m44,
         "game_input_waiting": MessageLookupByLibrary.simpleMessage("计时等待中"),
+        "generate_image": MessageLookupByLibrary.simpleMessage("生成图片"),
+        "generate_qr_code": MessageLookupByLibrary.simpleMessage("生成二维码"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("温馨提示"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("点击获取验证码"),
-        "get_train_plan_successful": m44,
+        "get_train_plan_successful": m45,
         "get_training_plan": MessageLookupByLibrary.simpleMessage("获取训练方案"),
         "go_to_setting": MessageLookupByLibrary.simpleMessage("去设置"),
         "google_login": MessageLookupByLibrary.simpleMessage("谷歌登录"),
-        "gpt_role": m45,
+        "gpt_role": m46,
         "gpt_system_msg_forbidden": MessageLookupByLibrary.simpleMessage(
             "不得討論地理，政治，道德，文化，歷史，宗教信仰相關事件和人物"),
         "gpt_token_expired": MessageLookupByLibrary.simpleMessage(
             "您的token已经过期，请加微信号 cannywill 申请gpt访问权限"),
         "grid": MessageLookupByLibrary.simpleMessage("分类"),
+        "group_announcement": MessageLookupByLibrary.simpleMessage("群公告"),
+        "group_id": m47,
         "groupview": MessageLookupByLibrary.simpleMessage("分组视图"),
         "gtd": MessageLookupByLibrary.simpleMessage("GTD"),
         "gtd_desc": MessageLookupByLibrary.simpleMessage(
@@ -717,7 +743,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "habit_clockin_desc":
             MessageLookupByLibrary.simpleMessage("21天养成一个习惯，艾宾浩斯长期记住所学知识"),
         "hasLogined": MessageLookupByLibrary.simpleMessage("已经登录"),
-        "header_input_placeholder_with_title": m46,
+        "header_input_placeholder_with_title": m48,
         "heavy": MessageLookupByLibrary.simpleMessage("重"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "hidden": MessageLookupByLibrary.simpleMessage("隐藏"),
@@ -725,8 +751,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "history_event": MessageLookupByLibrary.simpleMessage("历史事件"),
         "hour": MessageLookupByLibrary.simpleMessage("小时"),
         "hour3": MessageLookupByLibrary.simpleMessage("时"),
-        "hourAndMin": m47,
-        "hourAndMinAndSec": m48,
+        "hourAndMin": m49,
+        "hourAndMinAndSec": m50,
         "i_consume": MessageLookupByLibrary.simpleMessage("我要花"),
         "i_know": MessageLookupByLibrary.simpleMessage("我知道了"),
         "icon": MessageLookupByLibrary.simpleMessage("图标"),
@@ -762,6 +788,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "jan_to_dec_desc":
             MessageLookupByLibrary.simpleMessage("创建一年从一月到十二月的分组"),
         "join_days": MessageLookupByLibrary.simpleMessage("加入天数"),
+        "join_group_code": MessageLookupByLibrary.simpleMessage("输入清单号码"),
+        "join_group_code_desc":
+            MessageLookupByLibrary.simpleMessage("输入清单号码,搜索清单"),
         "jul": MessageLookupByLibrary.simpleMessage("七月"),
         "julFull": MessageLookupByLibrary.simpleMessage("七月"),
         "jump_next_group": MessageLookupByLibrary.simpleMessage("移动到下一组"),
@@ -772,6 +801,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "landscape": MessageLookupByLibrary.simpleMessage("横屏"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("上周"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("近7天"),
+        "leave_group": MessageLookupByLibrary.simpleMessage("退群"),
         "level1_num_10": MessageLookupByLibrary.simpleMessage("难度1:10个单词"),
         "level1_show_words": MessageLookupByLibrary.simpleMessage("难度1:边听边看"),
         "level2_hide_leftpart_words":
@@ -816,6 +846,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginFirst": MessageLookupByLibrary.simpleMessage("请先登录"),
         "login_success": MessageLookupByLibrary.simpleMessage("登录成功"),
         "logout": MessageLookupByLibrary.simpleMessage("退出登录"),
+        "long_rest_duration": MessageLookupByLibrary.simpleMessage("长时间休息时长"),
+        "long_rest_interval": MessageLookupByLibrary.simpleMessage("长时间休息间隔"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("循环设置"),
         "lottery": MessageLookupByLibrary.simpleMessage("抽奖"),
         "manual": MessageLookupByLibrary.simpleMessage("手动"),
@@ -827,9 +859,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "mastering_the_situation": MessageLookupByLibrary.simpleMessage("掌握情况"),
         "max_5m_files_size":
             MessageLookupByLibrary.simpleMessage("文件大小超过5MB，请选择较小的文件。"),
-        "max_input_num": m49,
-        "max_words": m50,
-        "maximum_recording_time": m51,
+        "max_input_num": m51,
+        "max_words": m52,
+        "maximum_recording_time": m53,
         "may": MessageLookupByLibrary.simpleMessage("五月"),
         "mayFull": MessageLookupByLibrary.simpleMessage("五月"),
         "me": MessageLookupByLibrary.simpleMessage("我"),
@@ -850,7 +882,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "microphone_permission_description":
             MessageLookupByLibrary.simpleMessage("做笔记有需要录音功能，介时需要您授权麦克风权限"),
         "min3": MessageLookupByLibrary.simpleMessage("分"),
-        "minAndSec": m52,
+        "minAndSec": m54,
         "min_en": MessageLookupByLibrary.simpleMessage("min"),
         "mine": MessageLookupByLibrary.simpleMessage("我的"),
         "mins": MessageLookupByLibrary.simpleMessage("分"),
@@ -859,27 +891,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "miss_clockin": MessageLookupByLibrary.simpleMessage("缺卡"),
         "mission": MessageLookupByLibrary.simpleMessage("清单"),
         "missionCompleted": MessageLookupByLibrary.simpleMessage("完成任务"),
-        "missionModelDate": m53,
-        "missionModelDate2": m54,
-        "missionModelDate3": m55,
-        "missionModelDate4": m56,
+        "missionModelDate": m55,
+        "missionModelDate2": m56,
+        "missionModelDate3": m57,
+        "missionModelDate4": m58,
         "missionNums": MessageLookupByLibrary.simpleMessage("任务数"),
         "missionPageInputHolder":
             MessageLookupByLibrary.simpleMessage("添加任务...(按「回车」键保存)"),
-        "missionRunningAlert": m57,
+        "missionRunningAlert": m59,
         "missionToBeComplete": MessageLookupByLibrary.simpleMessage("待完成任务"),
-        "mission_alert_with_name": m58,
-        "mission_clocks_in_with_name": m59,
+        "mission_alert_with_name": m60,
+        "mission_clocks_in_with_name": m61,
         "mission_evaluation_value":
             MessageLookupByLibrary.simpleMessage("该任务评估价值(\$)"),
         "mission_setting": MessageLookupByLibrary.simpleMessage("任务设置"),
-        "mission_submission_started": m60,
-        "mission_title": m61,
+        "mission_submission_started": m62,
+        "mission_title": m63,
         "mission_value": MessageLookupByLibrary.simpleMessage("任务价值"),
-        "mission_value_toast": m62,
+        "mission_value_toast": m64,
         "missioncompleted": MessageLookupByLibrary.simpleMessage("已完成任务"),
-        "modify_name_listing": m63,
-        "modify_name_tag": m64,
+        "modify_name_listing": m65,
+        "modify_name_tag": m66,
         "module_filtering_setting":
             MessageLookupByLibrary.simpleMessage("模块过滤设置"),
         "monday": MessageLookupByLibrary.simpleMessage("周一"),
@@ -888,9 +920,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("钱不够,请去完成更多专注任务来赚钱吧"),
         "money_per_hour": MessageLookupByLibrary.simpleMessage("每小时的工作价值(\$)"),
         "month": MessageLookupByLibrary.simpleMessage("月"),
-        "monthDay": m65,
-        "month_clockin_rate": m66,
-        "month_clockin_record": m67,
+        "monthDay": m67,
+        "month_clockin_rate": m68,
+        "month_clockin_record": m69,
         "month_duration_completed":
             MessageLookupByLibrary.simpleMessage("本月专注总时长(分钟)"),
         "month_mission_completed":
@@ -906,12 +938,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "四象限，分类，列表，分组，时间轴，日程，甘特图，日历多种视图满足您各种的需求"),
         "music": MessageLookupByLibrary.simpleMessage("音乐"),
-        "my": m68,
+        "my": m70,
         "my_answer": MessageLookupByLibrary.simpleMessage("我的"),
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage("我每小时工作价值"),
-        "my_ranking": m69,
-        "my_ranking_this_time": m70,
-        "n_days_overdue": m71,
+        "my_ranking": m71,
+        "my_ranking_this_time": m72,
+        "n_days_overdue": m73,
         "name": MessageLookupByLibrary.simpleMessage("姓名"),
         "need_notification_permission_content":
             MessageLookupByLibrary.simpleMessage("需要通知权限打开才能使用这个功能"),
@@ -919,7 +951,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "network_error": MessageLookupByLibrary.simpleMessage(
             "Network error (if multiple attempts fail, please log in again)"),
         "new_card": MessageLookupByLibrary.simpleMessage("新卡"),
-        "newline": m72,
+        "newline": m74,
         "nextMission": MessageLookupByLibrary.simpleMessage("下个任务:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("下一步"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("下周"),
@@ -1003,11 +1035,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "追求进步，从今天开始。打开「时间管理局ToDo」，实现你的计划。"),
         "notification9": MessageLookupByLibrary.simpleMessage(
             "时间宝贵，珍惜每一分钟。使用「时间管理局ToDo」，让时间更有价值。"),
-        "notificationTxt": m73,
+        "notificationTxt": m75,
         "notification_more":
             MessageLookupByLibrary.simpleMessage("来定制您的明天工作内容吧"),
-        "notification_num_mission_to_finish": m74,
-        "notification_num_mission_to_finish_delay": m75,
+        "notification_num_mission_to_finish": m76,
+        "notification_num_mission_to_finish_delay": m77,
         "notification_setting": MessageLookupByLibrary.simpleMessage("推送设置"),
         "notification_setting_content":
             MessageLookupByLibrary.simpleMessage("打开推送将会帮助您知道任务完成或开始状态"),
@@ -1015,27 +1047,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "nov": MessageLookupByLibrary.simpleMessage("十一月"),
         "novFull": MessageLookupByLibrary.simpleMessage("十一月"),
         "now": MessageLookupByLibrary.simpleMessage("现在"),
-        "num_days": m76,
+        "num_days": m78,
         "num_lives": MessageLookupByLibrary.simpleMessage("生命值:"),
-        "num_mins": m77,
-        "num_mission_total": m78,
-        "num_of_total": m79,
-        "num_tasks": m80,
+        "num_mins": m79,
+        "num_mission_total": m80,
+        "num_of_total": m81,
+        "num_tasks": m82,
         "num_tasks_finished": MessageLookupByLibrary.simpleMessage("完成计划数"),
-        "num_times": m81,
-        "num_unit": m82,
-        "number_present": m83,
+        "num_times": m83,
+        "num_unit": m84,
+        "number_present": m85,
         "objective": MessageLookupByLibrary.simpleMessage("目的"),
         "oct": MessageLookupByLibrary.simpleMessage("十月"),
         "octFull": MessageLookupByLibrary.simpleMessage("十月"),
         "off": MessageLookupByLibrary.simpleMessage("关闭"),
         "offer_next_version": MessageLookupByLibrary.simpleMessage("下个版本提供"),
+        "offline": MessageLookupByLibrary.simpleMessage("离线"),
         "on": MessageLookupByLibrary.simpleMessage("打开"),
         "one_hour": MessageLookupByLibrary.simpleMessage("1小时"),
         "one_key_login": MessageLookupByLibrary.simpleMessage("一键登录"),
         "one_month": MessageLookupByLibrary.simpleMessage("一个月"),
         "one_year": MessageLookupByLibrary.simpleMessage("一年"),
         "ongoing": MessageLookupByLibrary.simpleMessage("进行中"),
+        "online": MessageLookupByLibrary.simpleMessage("在线"),
+        "only_me": MessageLookupByLibrary.simpleMessage("仅我自己"),
+        "only_share_with_friends":
+            MessageLookupByLibrary.simpleMessage("仅我分享的好友"),
         "optional": MessageLookupByLibrary.simpleMessage("可选"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(可选)"),
@@ -1055,10 +1092,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("密码"),
         "passwordNotEmpty": MessageLookupByLibrary.simpleMessage("密码不能为空"),
         "password_at_least_6": MessageLookupByLibrary.simpleMessage("密码至少6位"),
+        "password_correct": MessageLookupByLibrary.simpleMessage("密码正确"),
         "password_correct_desc":
             MessageLookupByLibrary.simpleMessage("本地密码正确，可以直接创建任务"),
+        "password_incorrect": MessageLookupByLibrary.simpleMessage("密码错误"),
         "password_not_empty":
             MessageLookupByLibrary.simpleMessage("密码不能为空，请输入密码！"),
+        "password_required_for_sharing":
+            MessageLookupByLibrary.simpleMessage("分享文件时需要输入密码"),
+        "password_set_success": MessageLookupByLibrary.simpleMessage("密码设置成功"),
         "pause": MessageLookupByLibrary.simpleMessage("暂停"),
         "pc_not_available":
             MessageLookupByLibrary.simpleMessage("MAC或PC暂时无法支持该功能，请用手机操作"),
@@ -1079,6 +1121,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请确认密码"),
         "please_create_ur_password":
             MessageLookupByLibrary.simpleMessage("请创建您的密码"),
+        "please_enter_6_digit_password":
+            MessageLookupByLibrary.simpleMessage("请输入6位数密码"),
         "please_enter_ur_password":
             MessageLookupByLibrary.simpleMessage("请输入您的密码"),
         "please_enter_your_question":
@@ -1091,7 +1135,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入正确密码"),
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("请输入您想问的问题"),
-        "please_input_folder_password": m84,
+        "please_input_folder_password": m86,
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("请输入任务标题"),
         "please_input_mobile_no":
@@ -1100,15 +1144,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_the_mission_title":
             MessageLookupByLibrary.simpleMessage("请输入任务标题"),
         "please_input_title": MessageLookupByLibrary.simpleMessage("请输入标题"),
-        "please_input_xxx_name": m85,
+        "please_input_xxx_name": m87,
         "please_input_your_username":
             MessageLookupByLibrary.simpleMessage("请先设置用户名"),
         "please_origin_password":
             MessageLookupByLibrary.simpleMessage("请输入原始密码"),
-        "please_seaarch_on_app_store": m86,
+        "please_seaarch_on_app_store": m88,
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage("请至少在重复周期选择一个选项"),
-        "please_select_content": m87,
+        "please_select_content": m89,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("请先选择开始时间"),
         "please_select_date": MessageLookupByLibrary.simpleMessage("请选择搜索日期"),
@@ -1122,7 +1166,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_visible2": MessageLookupByLibrary.simpleMessage("显示"),
         "postpone": MessageLookupByLibrary.simpleMessage("顺延到今天"),
         "practice": MessageLookupByLibrary.simpleMessage("训练"),
-        "present_value_dialog": m88,
+        "present_value_dialog": m90,
         "preview": MessageLookupByLibrary.simpleMessage("预览"),
         "previewTime": MessageLookupByLibrary.simpleMessage("预计时间"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("预计番茄数"),
@@ -1151,7 +1195,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "public_course": MessageLookupByLibrary.simpleMessage("开放训练计划"),
         "publish": MessageLookupByLibrary.simpleMessage("发布"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("纯净"),
-        "push_counter_status_notification": m89,
+        "push_counter_status_notification": m91,
+        "qq_friends": MessageLookupByLibrary.simpleMessage("QQ好友"),
         "qq_share": MessageLookupByLibrary.simpleMessage("qq分享"),
         "question_mistake": MessageLookupByLibrary.simpleMessage("题目/错题"),
         "question_wrong_question":
@@ -1177,9 +1222,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入手机号完成注册，即可享受高效生活"),
         "registerStep2":
             MessageLookupByLibrary.simpleMessage("请输入手机号完成注册，即可享受高效生活"),
+        "relaxing": MessageLookupByLibrary.simpleMessage("休息中"),
         "remarks_optional": MessageLookupByLibrary.simpleMessage("备注(可不填写)"),
         "remind": MessageLookupByLibrary.simpleMessage("提示"),
         "reminder": MessageLookupByLibrary.simpleMessage("提醒"),
+        "remove_user": MessageLookupByLibrary.simpleMessage("移除用户"),
         "rename": MessageLookupByLibrary.simpleMessage("重命名"),
         "repaid": MessageLookupByLibrary.simpleMessage("已还款"),
         "repayment": MessageLookupByLibrary.simpleMessage("还款"),
@@ -1192,7 +1239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("按天"),
         "repeative2": MessageLookupByLibrary.simpleMessage("按周"),
         "repeative3": MessageLookupByLibrary.simpleMessage("艾宾浩斯"),
-        "repeative_content": m90,
+        "repeative_content": m92,
         "repetive": MessageLookupByLibrary.simpleMessage("重复"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("是否重复"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("重复日期"),
@@ -1212,8 +1259,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rest_completed_auto_start_play":
             MessageLookupByLibrary.simpleMessage("休息完成自动开启播放"),
         "rest_duration": MessageLookupByLibrary.simpleMessage("休息时长"),
-        "rest_focus_duration_with_value": m91,
-        "rest_focus_numbers_with_value": m92,
+        "rest_focus_duration_with_value": m93,
+        "rest_focus_numbers_with_value": m94,
         "resting": MessageLookupByLibrary.simpleMessage("休息中"),
         "restingFinished": MessageLookupByLibrary.simpleMessage("休息完成"),
         "resting_music": MessageLookupByLibrary.simpleMessage("休息中音乐"),
@@ -1223,7 +1270,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "retry": MessageLookupByLibrary.simpleMessage("重试"),
         "rich_text": MessageLookupByLibrary.simpleMessage("富文本"),
         "rmb": MessageLookupByLibrary.simpleMessage("币"),
-        "role_chatgpt_msg": m93,
+        "role_chatgpt_msg": m95,
         "role_message_placehodler":
             MessageLookupByLibrary.simpleMessage("请输入工作计划(请描述清楚大概时间，工作内容等)"),
         "role_prompts_chatgpt_msg": MessageLookupByLibrary.simpleMessage(
@@ -1275,13 +1322,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "send_again": MessageLookupByLibrary.simpleMessage("重新发送"),
         "sep": MessageLookupByLibrary.simpleMessage("九月"),
         "sepFull": MessageLookupByLibrary.simpleMessage("九月"),
+        "set_6_digit_password": MessageLookupByLibrary.simpleMessage("设置6位数密码"),
+        "set_password_for_group":
+            MessageLookupByLibrary.simpleMessage("设置密码，加入清单群的用户需要输入密码"),
         "set_to_desktop_widget":
             MessageLookupByLibrary.simpleMessage("设置到桌面组件"),
         "setting": MessageLookupByLibrary.simpleMessage("设置"),
+        "setting_administrator": MessageLookupByLibrary.simpleMessage("设置成管理员"),
         "setting_fail": MessageLookupByLibrary.simpleMessage("设置失败"),
         "setting_success": MessageLookupByLibrary.simpleMessage("设置成功"),
         "share": MessageLookupByLibrary.simpleMessage("分享"),
+        "share_the_link": m96,
+        "share_to": MessageLookupByLibrary.simpleMessage("分享到"),
         "sharing_course": MessageLookupByLibrary.simpleMessage("共享课程"),
+        "sharing_listing": MessageLookupByLibrary.simpleMessage("共享清单"),
         "six_hours": MessageLookupByLibrary.simpleMessage("6小时"),
         "six_months": MessageLookupByLibrary.simpleMessage("六个月"),
         "skilled": MessageLookupByLibrary.simpleMessage("熟练"),
@@ -1292,16 +1346,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "startResting": MessageLookupByLibrary.simpleMessage("开始休息"),
         "start_date": MessageLookupByLibrary.simpleMessage("起始日期"),
         "start_focus": MessageLookupByLibrary.simpleMessage("开始专注"),
-        "start_focusing_mission_name": m94,
-        "start_resting_name": m95,
+        "start_focusing_mission_name": m97,
+        "start_resting_name": m98,
         "start_time": MessageLookupByLibrary.simpleMessage("开始时间"),
         "status_complete": MessageLookupByLibrary.simpleMessage("处理完毕"),
         "status_developping": MessageLookupByLibrary.simpleMessage("开发中"),
         "status_handling": MessageLookupByLibrary.simpleMessage("处理中"),
         "status_waiting": MessageLookupByLibrary.simpleMessage("等待处理中"),
         "stop": MessageLookupByLibrary.simpleMessage("停止"),
-        "stop_focusing_mission_name": m96,
-        "stop_resting_mission_name": m97,
+        "stop_focusing_mission_name": m99,
+        "stop_resting_mission_name": m100,
         "sub_task_add_newline":
             MessageLookupByLibrary.simpleMessage("子任务-点换行新增&保存"),
         "submit": MessageLookupByLibrary.simpleMessage("提交"),
@@ -1337,9 +1391,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "thursday": MessageLookupByLibrary.simpleMessage("周四"),
         "thursdayShort": MessageLookupByLibrary.simpleMessage("四"),
         "time": MessageLookupByLibrary.simpleMessage("时间"),
-        "time_ago": m98,
+        "time_ago": m101,
         "time_finished": MessageLookupByLibrary.simpleMessage("专注时间"),
-        "time_later": m99,
+        "time_later": m102,
         "time_management": MessageLookupByLibrary.simpleMessage("时间管理"),
         "time_not_arrive_cannot_clcokin":
             MessageLookupByLibrary.simpleMessage("时间没到，不可以打卡"),
@@ -1352,7 +1406,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tipsAlertTone": MessageLookupByLibrary.simpleMessage("提示铃声"),
         "title": MessageLookupByLibrary.simpleMessage("标题"),
         "title_consume": MessageLookupByLibrary.simpleMessage("消费金额"),
-        "title_data": m100,
+        "title_data": m103,
         "today": MessageLookupByLibrary.simpleMessage("今天"),
         "today_data": MessageLookupByLibrary.simpleMessage("今日数据"),
         "today_duration_completed":
@@ -1382,8 +1436,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "total_focus_time": MessageLookupByLibrary.simpleMessage("专注时间"),
         "total_tasks_count": MessageLookupByLibrary.simpleMessage("任务总数(番茄数)"),
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("番茄总数"),
-        "trainee_advice_notice": m101,
-        "trainee_give_your_advice": m102,
+        "trainee_advice_notice": m104,
+        "trainee_give_your_advice": m105,
         "training_plan_edit": MessageLookupByLibrary.simpleMessage("点击编辑"),
         "transaction": MessageLookupByLibrary.simpleMessage("理财"),
         "try_again": MessageLookupByLibrary.simpleMessage("请求超时或失败,请重新尝试"),
@@ -1418,9 +1472,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_bill": MessageLookupByLibrary.simpleMessage("更新账单"),
         "update_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("更新信用卡账单"),
-        "update_last_time": m103,
-        "update_name_mission": m104,
-        "update_name_mission2": m105,
+        "update_last_time": m106,
+        "update_name_mission": m107,
+        "update_name_mission2": m108,
         "update_now": MessageLookupByLibrary.simpleMessage("立即更新"),
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
         "update_time_last_time": MessageLookupByLibrary.simpleMessage("最新更新时间"),
@@ -1428,11 +1482,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_privacy_protocol_title":
             MessageLookupByLibrary.simpleMessage("用户隐私协议"),
         "username": MessageLookupByLibrary.simpleMessage("用户名"),
-        "value": m106,
-        "value_per_hour": m107,
-        "version_num": m108,
+        "value": m109,
+        "value_per_hour": m110,
+        "version_num": m111,
         "vertical": MessageLookupByLibrary.simpleMessage("竖屏"),
         "view": MessageLookupByLibrary.simpleMessage("视图"),
+        "view_only": MessageLookupByLibrary.simpleMessage("可查看"),
         "visible": MessageLookupByLibrary.simpleMessage("显示"),
         "voice": MessageLookupByLibrary.simpleMessage("语音"),
         "voice_diary": MessageLookupByLibrary.simpleMessage("语音日记"),
@@ -1442,6 +1497,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "web_desc": MessageLookupByLibrary.simpleMessage(
             "浏览器打开https://www.timerbell.com即可任何地方使用同样功能"),
         "wechat": MessageLookupByLibrary.simpleMessage("微信"),
+        "wechat_friends": MessageLookupByLibrary.simpleMessage("微信好友"),
         "wechat_share": MessageLookupByLibrary.simpleMessage("微信分享"),
         "wednesday": MessageLookupByLibrary.simpleMessage("周三"),
         "wednesdayShort": MessageLookupByLibrary.simpleMessage("三"),
@@ -1453,8 +1509,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "week_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("本周完成番茄数"),
         "welcome": MessageLookupByLibrary.simpleMessage("welcome"),
-        "welcome_to_time_department": m109,
+        "welcome_to_time_department": m112,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage("是否重复"),
+        "who_can_view_edit_files":
+            MessageLookupByLibrary.simpleMessage("谁可以查看/编辑文件"),
+        "who_can_view_or_edit":
+            MessageLookupByLibrary.simpleMessage("谁可以查看/编辑文件"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage("完成总时长(分钟)"),
         "write_a_title": MessageLookupByLibrary.simpleMessage("写标题?"),
         "write_diary": MessageLookupByLibrary.simpleMessage("写日记"),
@@ -1468,22 +1528,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrong_question_knowledge_points":
             MessageLookupByLibrary.simpleMessage("错题知识点"),
         "wrong_thinking": MessageLookupByLibrary.simpleMessage("思路错误"),
-        "wrote_a_diary": m110,
-        "wrote_a_note": m111,
-        "xxx_cannot_be_empty": m112,
+        "wrote_a_diary": m113,
+        "wrote_a_note": m114,
+        "xxx_cannot_be_empty": m115,
         "year": MessageLookupByLibrary.simpleMessage("年"),
         "year_duration_completed":
             MessageLookupByLibrary.simpleMessage("今年专注总时长(分钟)"),
         "year_mission_completed":
             MessageLookupByLibrary.simpleMessage("今年完成的任务数"),
-        "year_month": m113,
+        "year_month": m116,
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今年完成番茄数"),
         "yes": MessageLookupByLibrary.simpleMessage("是"),
-        "your_clockin_mission_with_name_has_begun": m114,
+        "your_clockin_mission_with_name_has_begun": m117,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("这是您自己创建的课程"),
-        "your_mission_with_name_has_begun": m115,
+        "your_mission_with_name_has_begun": m118,
         "your_time_prof": MessageLookupByLibrary.simpleMessage("您随身的时间管家"),
         "yuan": MessageLookupByLibrary.simpleMessage("元")
       };

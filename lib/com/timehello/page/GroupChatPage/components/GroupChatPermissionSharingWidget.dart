@@ -285,21 +285,26 @@ class _GroupChatPermissionSharingWidgetState
           Text(getI18NKey().share_to,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
+          Text(getI18NKey().copy_link_description(this.widget.folderModel?.folderTeamWorkId ?? ""),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.chat),
+                icon: Icon(Icons.link),
                 onPressed: () {
                   // QQ好友分享逻辑
+                  Utility.copyToClipboard(
+                      getI18NKey().share_the_link(getI18NKey().app_name,
+                          this.widget.folderModel?.folderTeamWorkId ?? ""));
                 },
               ),
-              IconButton(
-                icon: Icon(Icons.wechat),
-                onPressed: () {
-                  // 微信好友分享逻辑
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(Icons.wechat),
+              //   onPressed: () {
+              //     // 微信好友分享逻辑
+              //   },
+              // ),
             ],
           ),
           SizedBox(height: 20),
@@ -309,21 +314,24 @@ class _GroupChatPermissionSharingWidgetState
               ElevatedButton(
                 onPressed: () {
                   // 复制链接逻辑
+                  Utility.copyToClipboard(
+                      getI18NKey().share_the_link(getI18NKey().app_name,
+                          this.widget.folderModel?.folderTeamWorkId ?? ""));
                 },
-                child: Text('复制链接'),
+                child: Text(getI18NKey().copy_link),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // 生成图片逻辑
-                },
-                child: Text(getI18NKey().generate_image),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // 生成二维码逻辑
-                },
-                child: Text(getI18NKey().generate_qr_code),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // 生成图片逻辑
+              //   },
+              //   child: Text(getI18NKey().generate_image),
+              // ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // 生成二维码逻辑
+              //   },
+              //   child: Text(getI18NKey().generate_qr_code),
+              // ),
             ],
           ),
         ],
