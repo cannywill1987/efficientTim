@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
@@ -109,8 +110,8 @@ class _GroupChatFriendsSliverListItemState
     if ((DeviceInfoManagement.isMoible() == true ||
         DeviceInfoManagement.isWebMobileBySize())) {
       return Slidable(
-          enabled: !ChatGroupManager.isMe(userInfoBean: this.widget.userInfoBean)  && ChatGroupManager.isGroupManager(
-              folderModel: this.widget.folderModel),
+          enabled: !(ChatGroupManager.isCreatorForUserBean(folderModel: this.widget.folderModel, userBean: this.widget.userInfoBean) || (ChatGroupManager.isMe(userInfoBean: this.widget.userInfoBean)) || (ChatGroupManager.isGroupManager(
+              folderModel: this.widget.folderModel))),
           actionPane: SlidableDrawerActionPane(),
           actionExtentRatio: 0.15,
           secondaryActions: this.getSlideActions(this.widget.folderModel),
@@ -150,18 +151,21 @@ class _GroupChatFriendsSliverListItemState
           // icon: data.checkIcon ,
           onTap: () async {
             if (data.code == 'cancel_setting_administrator') {
+              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_unset_admin","description": "取消设置管理员",});
               await ChatGroupManager.setRoleForUserBean(
                   folderModel: this.widget.folderModel,
                   userBean: this.widget.userInfoBean,
                   role: 2);
               this.widget.onTapCancelAdministrator(folderModel);
             } else if (data.code == 'setting_administrator') {
+              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_set_admin","description": "设置管理员",});
               await ChatGroupManager.setRoleForUserBean(
                   folderModel: this.widget.folderModel,
                   userBean: this.widget.userInfoBean,
                   role: 1);
               this.widget.onTapSetAdministrator(folderModel);
             } else if (data.code == 'delete') {
+              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_delete_user","description": "删除用户",});
               await ChatGroupManager.removeUserFromGroup(folderModel: this.widget.folderModel, userBean: this.widget.userInfoBean);
               this.widget.onTapDeleteUser(folderModel);
             }
@@ -263,8 +267,8 @@ class _GroupChatFriendsSliverListItemState
             ],
           ),
         ),
-        !ChatGroupManager.isMe(userInfoBean: this.widget.userInfoBean)  && ChatGroupManager.isGroupManager(
-            folderModel: this.widget.folderModel) && this.isHover == false
+        ChatGroupManager.isCreatorForUserBean(folderModel: this.widget.folderModel, userBean: this.widget.userInfoBean) || (ChatGroupManager.isMe(userInfoBean: this.widget.userInfoBean)) || (ChatGroupManager.isGroupManager(
+            folderModel: this.widget.folderModel) && this.isHover == false)
             ? SizedBox.shrink()
             : Positioned(
                 right: 10,
@@ -280,7 +284,7 @@ class _GroupChatFriendsSliverListItemState
                       }
                       switch (val.code) {
                         case 'cancel_setting_administrator':
-
+                          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_unset_admin","description": "取消设置管理员",});
                           ChatGroupManager.setRoleForUserBean(
                               folderModel: this.widget.folderModel,
                               userBean: userInfoBean,
@@ -289,6 +293,7 @@ class _GroupChatFriendsSliverListItemState
                           // await ChatGroupManager.cancelSettingAdministrator(folderModel: this.widget.folderModel, userInfoBean: userInfoBean);
                           break;
                         case 'setting_administrator':
+                          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_set_admin","description": "设置管理员",});
                           ChatGroupManager.setRoleForUserBean(
                               folderModel: this.widget.folderModel,
                               userBean: userInfoBean,
@@ -297,32 +302,12 @@ class _GroupChatFriendsSliverListItemState
                           // await ChatGroupManager.settingAdministrator(folderModel: this.widget.folderModel, userInfoBean: userInfoBean);
                           break;
                         case 'delete':
+                          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_delete_user","description": "删除用户",});
                           ChatGroupManager.removeUserFromGroup(folderModel: this.widget.folderModel, userBean: userInfoBean);
                           this.widget.onTapDeleteUser(this.widget.folderModel);
                           // await ChatGroupManager.deleteUserFromGroup(folderModel: this.widget.folderModel, userInfoBean: userInfoBean);
                           break;
                       }
-                      // switch (val.code) {
-                      // case 'update':
-                      // this.onTapUpdateListener.call(creditCardModel);
-                      // // onTapUpdateCreditCard(creditCardModel: creditCardModel);
-                      // break;
-                      // case 'repayment_instantly': //立即还款
-                      // break;
-                      // case 'update_bill': //更新账单
-                      // this.onTapUpdateBillListener.call(creditCardModel);
-                      // // onTapShowUpdateBillDialogWidget(creditModel: creditCardModel);
-                      // break;
-                      // case 'mark_repayment_amount':
-                      // this.onTapRepaymentListener.call(creditCardModel);
-                      // // onTapRepaymentDialogWidget(creditCardModel);
-                      // break;
-                      // case 'delete':
-                      // this.onTapDeleteListener.call(creditCardModel);
-                      // // onTapDeleteCreditModel(creditCardModel);
-                      // break;
-                      // }
-                      // updateUI();
                     },
                     // list: CONSTANTS.getCreatorCheckList(),
                     list: getSlideDatas(folderModel, false),

@@ -173,6 +173,10 @@ class ChatGroupManager {
     return false;
   }
 
+  static bool isCreatorForUserBean({required FolderModel folderModel,required UserInfoBean userBean}) {
+    return folderModel.uid == userBean.uid;
+  }
+
   static setRoleForUserBean({required FolderModel folderModel, required UserInfoBean userBean, required int role}) async {
     // if (folderModel.otherUserInfoBean != null) {
     //   folderModel.otherUserInfoBean?.forEach((element) {

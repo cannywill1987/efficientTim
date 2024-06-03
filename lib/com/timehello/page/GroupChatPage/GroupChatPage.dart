@@ -6,6 +6,7 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupAnnouncement.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupChatFriendsList.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupInfoPage.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/ChatGptManager.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
@@ -45,11 +46,13 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
                   child: GroupInfoWidget(
                     folderModel: this.folderModel!,
                     onTapShare: () {
+                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_share","description": "分享",});
                       DialogManagement.getInstance()
                           .showGroupChatSharingWidgetDialog(
                               folderModel: this.folderModel!);
                     },
                     onTapQuit: () {
+                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_leave_group","description": "退群",});
                       ChatGroupManager.exitGroup(folderModel: this.folderModel);
                       Utility.popupDesktopRightNavigator(context);
                       // DialogManagement.getInstance().showAlertDialog(
@@ -73,6 +76,7 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
               SliverToBoxAdapter(
                 child: InkWell(
                     onTap: () {
+                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_edit_announcement","description": "编辑公告",});
                       DialogManagement.getInstance().showMultiInputDialog(
                           title: getI18NKey().group_announcement,
                           okCallback: (val) async {
@@ -174,6 +178,7 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
   }
 
   Widget _buildSearch() {
+    bool hasSearch = false;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
@@ -181,6 +186,10 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
         height: 32,
         child: TextField(
           onChanged: (val) {
+            if(hasSearch == false) {
+              hasSearch = true;
+              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_search_bar","description": "搜索栏",});
+            }
             this.curSearchWords = val;
             updateUI();
           },

@@ -4,6 +4,7 @@ import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.d
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
@@ -48,18 +49,22 @@ class _GroupChatPermissionSharingWidgetState
     }
     switch (val) {
       case 'only_me': // 仅我自己
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_view_edit_permission_self","description": "仅我自己",});
         this.widget.folderModel?.isSharing = 0;
         this.widget.folderModel?.isOtherUserEditable = false;
         break;
       case 'only_share_with_friends': // 仅我分享的好友
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_view_edit_permission_friends","description": "仅我分享的好友",});
         this.widget.folderModel?.isSharing = 1;
         this.widget.folderModel?.isOtherUserEditable = _canEdit;
         break;
       case 'everyone_can_view': // 所有人可查看
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_view_edit_permission_all_view","description": "所有人可查看",});
         this.widget.folderModel?.isSharing = 2;
         this.widget.folderModel?.isOtherUserEditable = false;
         break;
       case 'everyone_can_edit': // 所有人可编辑
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_view_edit_permission_all_edit","description": "所有人可编辑",});
         this.widget.folderModel?.isSharing = 3;
         this.widget.folderModel?.isOtherUserEditable = true;
         break;
@@ -293,6 +298,7 @@ class _GroupChatPermissionSharingWidgetState
               IconButton(
                 icon: Icon(Icons.link),
                 onPressed: () {
+                  AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_copy_link","description": "复制链接",});
                   // QQ好友分享逻辑
                   Utility.copyToClipboard(
                       getI18NKey().share_the_link(getI18NKey().app_name,
@@ -313,6 +319,7 @@ class _GroupChatPermissionSharingWidgetState
             children: <Widget>[
               ElevatedButton(
                 onPressed: () {
+                  AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_copy_link","description": "复制链接",});
                   // 复制链接逻辑
                   Utility.copyToClipboard(
                       getI18NKey().share_the_link(getI18NKey().app_name,
