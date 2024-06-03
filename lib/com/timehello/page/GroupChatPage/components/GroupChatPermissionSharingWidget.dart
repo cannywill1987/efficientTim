@@ -301,7 +301,7 @@ class _GroupChatPermissionSharingWidgetState
                   AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_copy_link","description": "复制链接",});
                   // QQ好友分享逻辑
                   Utility.copyToClipboard(
-                      getI18NKey().share_the_link(getI18NKey().app_name,
+                      getI18NKey().share_the_link(this.widget.folderModel?.title ?? "", getI18NKey().app_name,
                           this.widget.folderModel?.folderTeamWorkId ?? ""));
                 },
               ),
@@ -322,7 +322,7 @@ class _GroupChatPermissionSharingWidgetState
                   AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_copy_link","description": "复制链接",});
                   // 复制链接逻辑
                   Utility.copyToClipboard(
-                      getI18NKey().share_the_link(getI18NKey().app_name,
+                      getI18NKey().share_the_link(this.widget.folderModel?.title ?? "", getI18NKey().app_name,
                           this.widget.folderModel?.folderTeamWorkId ?? ""));
                 },
                 child: Text(getI18NKey().copy_link),

@@ -2,7 +2,7 @@
   "focus_switch_title":"新任务重新计时",
   "focus_switch_desc":"专注中切换任务是否重启计数器",
   "copy_link_description": "复制链接并分享给好友，他们可以通过群号{code}加入群清单",
-  "share_the_link": "{app_name}的群清单号码为{code}，下载{app_name}添加群清单输入即可和伙伴一起工作",
+  "share_the_link": "{listing_name}的群清单号码为{code}，下载{app_name}添加群清单输入即可和伙伴一起工作",
   "password_incorrect": "密码错误",
   "content_cannot_be_empty": "内容不能为空",
   "dismiss_group": "解散本群",

@@ -80,13 +80,13 @@ class S {
     );
   }
 
-  /// `The group list number for {app_name} is {code}. Download {app_name}, enter the group list number, and you can work with your partners.`
-  String share_the_link(Object app_name, Object code) {
+  /// `The group list number for {listing_name} is {code}. Download {app_name}, enter the group list number, and you can work with your partners.`
+  String share_the_link(Object listing_name, Object code, Object app_name) {
     return Intl.message(
-      'The group list number for $app_name is $code. Download $app_name, enter the group list number, and you can work with your partners.',
+      'The group list number for $listing_name is $code. Download $app_name, enter the group list number, and you can work with your partners.',
       name: 'share_the_link',
       desc: '',
-      args: [app_name, code],
+      args: [listing_name, code, app_name],
     );
   }
 

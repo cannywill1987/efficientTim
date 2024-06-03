@@ -2,7 +2,7 @@
   "focus_switch_title":"新しいタスクがタイマーをリセットします",
   "focus_switch_desc":"フォーカス中にタスクを切り替えるとタイマーはリセットされますか",
   "copy_link_description": "リンクをコピーして友達と共有し、友達がグループリストに参加できるようにしてください。グループコードは{code}です",
-  "share_the_link": "{app_name}のグループリスト番号は{code}です。{app_name}をダウンロードし、グループリスト番号を入力すると、パートナーと一緒に作業できます。",
+  "share_the_link": "{listing_name}のグループリスト番号は{code}です。{app_name}をダウンロードし、グループリスト番号を入力すると、パートナーと一緒に作業できます。",
   "password_incorrect": "パスワードが間違っています",
   "content_cannot_be_empty": "内容は空にできません",
   "dismiss_group": "グループを解散する",

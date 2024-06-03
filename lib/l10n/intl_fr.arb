@@ -2,7 +2,7 @@
   "focus_switch_title":"Nouvelle Tâche Réinitialise le Chronomètre",
   "focus_switch_desc":"Le changement de tâche pendant la concentration réinitialise-t-il le chronomètre?",
   "copy_link_description": "Copiez le lien et partagez-le avec vos amis, afin qu'ils puissent rejoindre la liste de groupe par le code de groupe {code}",
-  "share_the_link": "Le numéro de la liste de groupe pour {app_name} est {code}. Téléchargez {app_name}, entrez le numéro de la liste de groupe, et vous pourrez travailler avec vos partenaires.",
+  "share_the_link": "Le numéro de la liste de groupe pour {listing_name} est {code}. Téléchargez {app_name}, entrez le numéro de la liste de groupe, et vous pourrez travailler avec vos partenaires.",
   "password_incorrect": "Mot de passe incorrect",
   "content_cannot_be_empty": "Le contenu ne peut pas être vide",
   "dismiss_group": "Dissoudre le groupe",

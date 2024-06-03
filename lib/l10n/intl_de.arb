@@ -2,7 +2,7 @@
   "focus_switch_title":"Neue Aufgabe Setzt Timer Zurück",
   "focus_switch_desc":"Setzt das Wechseln der Aufgaben während des Fokus den Timer zurück?",
   "copy_link_description": "Kopieren Sie den Link und teilen Sie ihn mit Ihren Freunden, damit sie der Gruppenliste beitreten können, indem sie den Gruppencode {code} eingeben",
-  "share_the_link": "Die Gruppennummer für {app_name} ist {code}. Laden Sie {app_name} herunter, geben Sie die Gruppennummer ein und Sie können mit Ihren Partnern arbeiten.",
+  "share_the_link": "Die Gruppennummer für {listing_name} ist {code}. Laden Sie {app_name} herunter, geben Sie die Gruppennummer ein und Sie können mit Ihren Partnern arbeiten.",
   "password_incorrect": "Passwort ist falsch",
   "content_cannot_be_empty": "Inhalt darf nicht leer sein",
   "dismiss_group": "Gruppe auflösen",
