@@ -475,7 +475,9 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
     if (this.pageEnum == PageEnum.Normal) {
       if (counterManagement.missionModel?.objectId !=
           this.missionModel.objectId) {
-        counterManagement.reset();
+        // counterManagement.missionModel?.objectId 表示第一次开始计时
+        if(counterManagement.missionModel?.objectId == null || SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+          counterManagement.reset();
         counterManagement.init(
           counterEnum: this.counterEnum,
           missionModel: this.missionModel,
@@ -484,6 +486,9 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
         );
         // CounterManagement.getInstance()!.startTimer();
         CounterManagement.getInstance().nextStatus(false);
+        } else {
+          counterManagement.set(missionModel: this.missionModel, folderModel: this.folderModel);
+        }
       }
     } else {
       //liveactivity过来

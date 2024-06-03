@@ -694,6 +694,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("집중 시간 분포"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("집중 설정"),
+        "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
+            "집중하는 동안 작업을 전환하면 타이머가 재설정됩니까"),
+        "focus_switch_title":
+            MessageLookupByLibrary.simpleMessage("새 작업이 타이머를 재설정합니다"),
         "focus_timer": MessageLookupByLibrary.simpleMessage("집중 타이머"),
         "focus_timer_desc":
             MessageLookupByLibrary.simpleMessage("다양한 배경음으로 몰입 상태에 들어갈 수 있습니다"),

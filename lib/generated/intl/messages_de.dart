@@ -796,6 +796,10 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Konzentration auf Zeitperiodenverteilung"),
         "focus_setting":
             MessageLookupByLibrary.simpleMessage("Fokuseinstellungen"),
+        "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
+            "Setzt das Wechseln der Aufgaben während des Fokus den Timer zurück?"),
+        "focus_switch_title": MessageLookupByLibrary.simpleMessage(
+            "Neue Aufgabe Setzt Timer Zurück"),
         "focus_timer": MessageLookupByLibrary.simpleMessage("Fokus-Timer"),
         "focus_timer_desc": MessageLookupByLibrary.simpleMessage(
             "Mehrere Hintergrundgeräusche für eine tiefe Konzentration"),

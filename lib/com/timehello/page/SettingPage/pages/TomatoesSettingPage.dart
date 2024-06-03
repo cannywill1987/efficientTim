@@ -185,15 +185,21 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
             .toInt();
 
     int tomatoRestTime =
-        (SharePreferenceUtil.getSyncInstance().getTomatoRestTime() / 1000 / 60)
+        (SharePreferenceUtil.getSyncInstance().getTomatoRestTime2() / 1000 / 60)
             .toInt();
 
     int tomatoLongDurationRestTime =
-    (SharePreferenceUtil.getSyncInstance().getTomatoLongDurationRestTime() / 1000 / 60)
-        .toInt();
+        (SharePreferenceUtil.getSyncInstance().getTomatoLongDurationRestTime() /
+                1000 /
+                60)
+            .toInt();
 
-    int getTomatoLongDurationInterval =(SharePreferenceUtil.getSyncInstance().getTomatoLongDurationInterval())
-        .toInt();
+    bool switchTitle =
+        SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle();
+
+    int getTomatoLongDurationInterval =
+        (SharePreferenceUtil.getSyncInstance().getTomatoLongDurationInterval())
+            .toInt();
     return Column(children: [
       SectionHeaderWidget(
         title: getI18NKey().tomatoClockSetting,
@@ -324,46 +330,54 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
             ScreenLockManager.getInstance().resetPassword();
           },
           rightPartContainer: BlackCheckButtonListWidget(
-            initIndex: SharePreferenceUtil.getSyncInstance().getDefault9DigitPasswordsNeedShowWhenLoginAppLock()
+            initIndex: SharePreferenceUtil.getSyncInstance()
+                    .getDefault9DigitPasswordsNeedShowWhenLoginAppLock()
                 ? 1
                 : 0,
             list: CONSTANTS.getOnAndOffButtonList(),
             onTapListener: (obj) {
-              if(!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
-                ScreenLockManager.getInstance().createPassword(shouldShow: true);
+              if (!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
+                ScreenLockManager.getInstance()
+                    .createPassword(shouldShow: true);
               }
-              SharePreferenceUtil.getSyncInstance().setDefault9DigitPasswordsNeedShowWhenLoginAppLock(
-                  isOn: !SharePreferenceUtil.getSyncInstance()
-                      .getDefault9DigitPasswordsNeedShowWhenLoginAppLock());
+              SharePreferenceUtil.getSyncInstance()
+                  .setDefault9DigitPasswordsNeedShowWhenLoginAppLock(
+                      isOn: !SharePreferenceUtil.getSyncInstance()
+                          .getDefault9DigitPasswordsNeedShowWhenLoginAppLock());
               updateUI();
             },
           ),
           icon: Container(
               padding: EdgeInsets.only(right: 10),
-              child: Utility.getSVGPicture(R.assetsImgIcLockscreenView, size: 15))),
+              child: Utility.getSVGPicture(R.assetsImgIcLockscreenView,
+                  size: 15))),
       SettingMenuItem(
           title: getI18NKey().lock_screen_auto_password_setting,
           onTapListener: (data) {
             ScreenLockManager.getInstance().resetPassword();
           },
           rightPartContainer: BlackCheckButtonListWidget(
-            initIndex: SharePreferenceUtil.getSyncInstance().getDefault9DigitPasswordsNeedShowWhenLogin()
+            initIndex: SharePreferenceUtil.getSyncInstance()
+                    .getDefault9DigitPasswordsNeedShowWhenLogin()
                 ? 1
                 : 0,
             list: CONSTANTS.getOnAndOffButtonList(),
             onTapListener: (obj) {
-              if(!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
-                ScreenLockManager.getInstance().createPassword(shouldShow: true);
+              if (!ScreenLockManager.getInstance().hasPassword() && obj == 1) {
+                ScreenLockManager.getInstance()
+                    .createPassword(shouldShow: true);
               }
-              SharePreferenceUtil.getSyncInstance().setDefault9DigitPasswordsNeedShowWhenLogin(
-                  isOn: !SharePreferenceUtil.getSyncInstance()
-                      .getDefault9DigitPasswordsNeedShowWhenLogin());
+              SharePreferenceUtil.getSyncInstance()
+                  .setDefault9DigitPasswordsNeedShowWhenLogin(
+                      isOn: !SharePreferenceUtil.getSyncInstance()
+                          .getDefault9DigitPasswordsNeedShowWhenLogin());
               updateUI();
             },
           ),
           icon: Container(
               padding: EdgeInsets.only(right: 10),
-              child: Utility.getSVGPicture(R.assetsImgIcUnlockscreen, size: 15))),
+              child:
+                  Utility.getSVGPicture(R.assetsImgIcUnlockscreen, size: 15))),
       SettingMenuItem(
           title: getI18NKey().rest_completed_auto_start_play,
           onTapListener: (data) {},
@@ -401,6 +415,37 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
           icon: Container(
               padding: EdgeInsets.only(right: 10),
               child: Utility.getSVGPicture(R.assetsImgIcAutorenew, size: 15))),
+      this.widget.pageFrom == PageFromEnum.MissionDetailPage
+          ? SizedBox.shrink()
+          : SettingMenuItem(
+              title: getI18NKey().focus_switch_title,
+              description: getI18NKey().focus_switch_desc,
+              onTapListener: (data) {
+                // SelectMinutesDialogUtil.show(context,
+                //     duration: tomatoLongDurationRestTime,
+                //     title: getI18NKey().long_rest_duration,
+                //     okCallBack: (duration) {
+                //       SharePreferenceUtil.getSyncInstance()
+                //           .setTomatoLongDurationRestTime(duration * 60 * 1000);
+                //       setState(() {});
+                //     });
+              },
+              rightPartContainer: BlackCheckButtonListWidget(
+                initIndex: SharePreferenceUtil.getSyncInstance()
+                        .getSwitchMissionTitle()
+                    ? 1
+                    : 0,
+                list: CONSTANTS.getOnAndOffButtonList(),
+                onTapListener: (obj) {
+                  SharePreferenceUtil.getSyncInstance().setSwitchMissionTitle(
+                      isOn: !SharePreferenceUtil.getSyncInstance()
+                          .getSwitchMissionTitle());
+                  updateUI();
+                },
+              ),
+              icon: Container(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Utility.getSVGPicture(R.assetsImgIcRepeativeOrange, size: 12))),
       this.widget.pageFrom == PageFromEnum.MissionDetailPage
           ? SizedBox.shrink()
           : SettingMenuItem(
@@ -476,91 +521,89 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
       this.widget.pageFrom == PageFromEnum.MissionDetailPage
           ? SizedBox.shrink()
           : SettingMenuItem(
-          title: getI18NKey().long_rest_duration,
-          description: '',
-          onTapListener: (data) {
-            SelectMinutesDialogUtil.show(context,
-                duration: tomatoLongDurationRestTime,
-                title: getI18NKey().defaultFocusDuration,
-                okCallBack: (duration) {
+              title: getI18NKey().long_rest_duration,
+              description: '',
+              onTapListener: (data) {
+                SelectMinutesDialogUtil.show(context,
+                    duration: tomatoLongDurationRestTime,
+                    title: getI18NKey().long_rest_duration,
+                    okCallBack: (duration) {
                   SharePreferenceUtil.getSyncInstance()
                       .setTomatoLongDurationRestTime(duration * 60 * 1000);
                   setState(() {});
                 });
-          },
-          rightPartContainer: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
+              },
+              rightPartContainer: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    tomatoLongDurationRestTime.toString() + getI18NKey().minsSpace,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: ColorsConfig.common_color),
-                  ),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        tomatoLongDurationRestTime.toString() +
+                            getI18NKey().minsSpace,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: ColorsConfig.common_color),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-          icon: Container(
-              padding: EdgeInsets.only(right: 10),
-              child: Utility.getSVGPicture(R.assetsImgIcRest, size: 15))),
-
+              ),
+              icon: Container(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Utility.getSVGPicture(R.assetsImgIcRest, size: 15))),
       this.widget.pageFrom == PageFromEnum.MissionDetailPage
           ? SizedBox.shrink()
           : SettingMenuItem(
-          title: getI18NKey().long_rest_interval,
-          description: '',
-          // onTapListener: (data) {
-          //   SelectMinutesDialogUtil.show(context,
-          //       duration: getTomatoLongDurationInterval,
-          //       title: getI18NKey().defaultFocusDuration,
-          //       okCallBack: (duration) {
-          //         SharePreferenceUtil.getSyncInstance()
-          //             .setTomatoLongDurationInterval(duration * 60 * 1000);
-          //         setState(() {});
-          //       });
-          // },
-          rightPartContainer: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              InputNumber(
-                defaultVal:
-                getTomatoLongDurationInterval ?? 1,
-                onValueChangeListener: (v, duration) {
-                  print("onValueChangeListener");
-                  SharePreferenceUtil.getSyncInstance()
-                      .setTomatoLongDurationInterval(v);
-                  // updateUI();
-                  // this.widget.flomoMissionModel?.daily_num_times = v;
-                  // this.onClick('onClickChangeTomatoesNum',
-                  //     {"count": v, "duration": duration});
-                },
-                unit: getI18NKey().times,
-              )
-              // Wrap(
-              //   crossAxisAlignment: WrapCrossAlignment.center,
-              //   children: [
-              //     Text(
-              //       tomatoLongDurationRestTime.toString() + getI18NKey().minsSpace,
-              //       style: TextStyle(
-              //           fontSize: 15,
-              //           fontWeight: FontWeight.w600,
-              //           color: ColorsConfig.common_color),
-              //     ),
-              //   ],
-              // )
-            ],
-          ),
-          icon: Container(
-              padding: EdgeInsets.only(right: 10),
-              child: Utility.getSVGPicture(R.assetsImgIcRest, size: 15))),
-
+              title: getI18NKey().long_rest_interval,
+              description: '',
+              // onTapListener: (data) {
+              //   SelectMinutesDialogUtil.show(context,
+              //       duration: getTomatoLongDurationInterval,
+              //       title: getI18NKey().defaultFocusDuration,
+              //       okCallBack: (duration) {
+              //         SharePreferenceUtil.getSyncInstance()
+              //             .setTomatoLongDurationInterval(duration * 60 * 1000);
+              //         setState(() {});
+              //       });
+              // },
+              rightPartContainer: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  InputNumber(
+                    defaultVal: getTomatoLongDurationInterval ?? 1,
+                    onValueChangeListener: (v, duration) {
+                      print("onValueChangeListener");
+                      SharePreferenceUtil.getSyncInstance()
+                          .setTomatoLongDurationInterval(v);
+                      // updateUI();
+                      // this.widget.flomoMissionModel?.daily_num_times = v;
+                      // this.onClick('onClickChangeTomatoesNum',
+                      //     {"count": v, "duration": duration});
+                    },
+                    unit: getI18NKey().times,
+                  )
+                  // Wrap(
+                  //   crossAxisAlignment: WrapCrossAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       tomatoLongDurationRestTime.toString() + getI18NKey().minsSpace,
+                  //       style: TextStyle(
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w600,
+                  //           color: ColorsConfig.common_color),
+                  //     ),
+                  //   ],
+                  // )
+                ],
+              ),
+              icon: Container(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Utility.getSVGPicture(R.assetsImgIcRest, size: 15))),
       SettingMenuItem(
           title: getI18NKey().focus_finished_ringtone,
           rightPartContainer: BlackCheckButtonListWidget(

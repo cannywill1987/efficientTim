@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `New Task Resets Timer`
+  String get focus_switch_title {
+    return Intl.message(
+      'New Task Resets Timer',
+      name: 'focus_switch_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Does switching tasks during focus reset the timer?`
+  String get focus_switch_desc {
+    return Intl.message(
+      'Does switching tasks during focus reset the timer?',
+      name: 'focus_switch_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Copy the link and share it with your friends, so they can join the group list by the group code {code}`
   String copy_link_description(Object code) {
     return Intl.message(

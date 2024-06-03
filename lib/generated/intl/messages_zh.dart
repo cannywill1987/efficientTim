@@ -659,6 +659,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("专注时间段分布"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("专注设置"),
+        "focus_switch_desc":
+            MessageLookupByLibrary.simpleMessage("专注中切换任务是否重启计数器"),
+        "focus_switch_title": MessageLookupByLibrary.simpleMessage("新任务重新计时"),
         "focus_timer": MessageLookupByLibrary.simpleMessage("专注计时"),
         "focus_timer_desc": MessageLookupByLibrary.simpleMessage("多个背景音进入忘我境界"),
         "focusing": MessageLookupByLibrary.simpleMessage("专注中"),

@@ -768,6 +768,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Focus on time period distribution"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("Focus Setting"),
+        "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
+            "Does switching tasks during focus reset the timer?"),
+        "focus_switch_title":
+            MessageLookupByLibrary.simpleMessage("New Task Resets Timer"),
         "focus_timer": MessageLookupByLibrary.simpleMessage("Focus Timer"),
         "focus_timer_desc": MessageLookupByLibrary.simpleMessage(
             "Multiple background sounds to enter a state of deep focus"),

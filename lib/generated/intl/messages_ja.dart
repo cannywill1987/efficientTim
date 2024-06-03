@@ -688,6 +688,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("集中時間帯の分布"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("集中設定"),
+        "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
+            "フォーカス中にタスクを切り替えるとタイマーはリセットされますか"),
+        "focus_switch_title":
+            MessageLookupByLibrary.simpleMessage("新しいタスクがタイマーをリセットします"),
         "focus_timer": MessageLookupByLibrary.simpleMessage("集中タイマー"),
         "focus_timer_desc":
             MessageLookupByLibrary.simpleMessage("複数のバックグラウンドミュージックで没我の境地に入る"),

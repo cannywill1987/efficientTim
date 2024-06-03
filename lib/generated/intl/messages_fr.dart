@@ -802,6 +802,10 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Focus on time period distribution"),
         "focus_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de focus"),
+        "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
+            "Le changement de tâche pendant la concentration réinitialise-t-il le chronomètre?"),
+        "focus_switch_title": MessageLookupByLibrary.simpleMessage(
+            "Nouvelle Tâche Réinitialise le Chronomètre"),
         "focus_timer":
             MessageLookupByLibrary.simpleMessage("Minuteur de concentration"),
         "focus_timer_desc": MessageLookupByLibrary.simpleMessage(
