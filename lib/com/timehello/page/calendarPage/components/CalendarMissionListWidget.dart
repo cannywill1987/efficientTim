@@ -444,6 +444,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
+      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
       Utility.showAlertDialog(
           context: context,
           content: getI18NKey().missionRunningAlert(
@@ -458,6 +459,12 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
             //       folderModel: this.folderModel,
             //     ));
           });
+    } else {
+      OverlayManagement.getInstance().openMissionDetailPageOverlay(
+          context: context,
+          missionModel: data,
+          folderModel: folderModel);
+    }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
           context: context, missionModel: data, folderModel: folderModel);

@@ -13,6 +13,7 @@ import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModelWithExtraData.dart';
@@ -181,19 +182,17 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         },
       )
     ];
-    if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
-      this.rightNavChildren = [
-        IconButton(
-            onPressed: () {
-              this.widget.onTapRightNavMenuListener?.call();
-            },
-            icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
-      ];
     this.setKeyboardVisibityListener();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   componentDidMount() {
     this.requestDatas();
+    this.updateRightNavChildren();
     missionOrderEnum =
         SharePreferenceUtil.getSyncInstance().getMissionOrderEnum();
     //监听广播 设置页面过来后用得上 todo 应该加一个action
@@ -205,12 +204,6 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         });
       }
     });
-  }
-
-  //写这里和写initState()里面都差不多，只要在build(BuildContext context)里面的组件使用前赋值就行
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
@@ -401,7 +394,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   // }
 
   Future onClickEditTitle(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -411,7 +405,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+          false) {
         Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
@@ -428,7 +423,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future onClickUnFinishListener(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -455,7 +451,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future onTapDoItNow(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -467,7 +464,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -489,7 +487,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -525,7 +524,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -594,8 +594,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         bottomBarStateKey?.currentState?.repetiveWeekDay;
     this._missionModel.repetiveWeekDay =
         bottomBarStateKey?.currentState?.repetiveWeekDay;
-this._missionModel.uid = LoginManager.getInstance().userBean.uid;
-    if (ChatGroupManager.isFolderModelEnabled(folderId: this._missionModel?.folder_id) ==
+    this._missionModel.uid = LoginManager.getInstance().userBean.uid;
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: this._missionModel?.folder_id) ==
         false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -646,14 +647,11 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
-      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+      if (SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
         Utility.showAlertDialog(
             context: context,
             content: getI18NKey().missionRunningAlert(
-                CounterManagement
-                    .getInstance()
-                    .missionModel
-                    ?.title ?? ""),
+                CounterManagement.getInstance().missionModel?.title ?? ""),
             onConfirm: () {
               OverlayManagement.getInstance().openMissionDetailPageOverlay(
                   context: context,
@@ -662,9 +660,7 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
             });
       } else {
         OverlayManagement.getInstance().openMissionDetailPageOverlay(
-            context: context,
-            missionModel: data,
-            folderModel: folderModel);
+            context: context, missionModel: data, folderModel: folderModel);
       }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
@@ -685,9 +681,41 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
       this._dateStatus =
           null; //切换文件夹时重置 这样Initdata会重新拿this.widget.folderStatus数据初始化
     }
+    this.updateRightNavChildren();
     this._folderModelObjId = this.widget.folderModel?.objectId;
     //todo 这里可以优化 否则会请求几遍 但是通过 this._folderModelObjId == this.widget.folderModel?.objectId有点问题
     this.requestDatas(shouldUpdate: false);
+  }
+
+  void updateRightNavChildren() {
+    // && this.rightNavChildren == null
+    if (this.widget.folderModel?.tag == 1) {
+      // if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
+      this.rightNavChildren = [
+        IconButton(
+            onPressed: () {
+              this.widget.onTapRightNavMenuListener?.call(this.widget.folderModel, false);
+            },
+            icon: Utility.getSVGPicture(
+                R.assetsImgIcListingGroup, size: StylesConfig.sizeGroup))
+      ];
+      updateUI();
+    }
+    // else if(this.rightNavChildren != null && this.widget.folderModel?.tag != 1){
+    //   this.rightNavChildren = null;
+    //   updateUI();
+    // }
+    else if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false) {
+      this.rightNavChildren = [
+        IconButton(
+            onPressed: () {
+              // 第二个参数是不是gpt
+              this.widget.onTapRightNavMenuListener?.call(
+                  this.widget.folderModel, true);
+            },
+            icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
+      ];
+    }
   }
 
   @override
@@ -701,7 +729,6 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
     } else {
       initData(this.widget.folderModel, this.widget.folderStatusDate);
     }
-
     return WillPopScope(
       key: ValueKey('WillPopScope1'),
       onWillPop: () async {
@@ -1100,7 +1127,11 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
                   },
                   onClickSearchListener: (bool res) {
                     this.isSearchBarVisible = res;
-                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_search","description": "搜索",});
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+                      "sceneType": "missionpage",
+                      "eventType": "missionpage_search",
+                      "description": "搜索",
+                    });
                     updateUI();
                   },
                 ),
@@ -1194,7 +1225,11 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
                 ),
                 InkWell(
                   onTap: () {
-                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_guide","description": "导出",});
+                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+                      "sceneType": "missionpage",
+                      "eventType": "missionpage_guide",
+                      "description": "导出",
+                    });
                     TextEditingController textEditingController =
                         TextEditingController();
                     String s = Utility.getContentFromMissionList(
@@ -1238,10 +1273,20 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
                       CheckButtonStateModel item =
                           listCheckButtonStateModel![obj];
                       if (item.code == "list") {
-                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_list_view","description": "列表",});
+                        AnalyticsEventsManager.getInstance()
+                            .sendAnalyticsEventMap({
+                          "sceneType": "missionpage",
+                          "eventType": "missionpage_list_view",
+                          "description": "列表",
+                        });
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.list;
                       } else if (item.code == "grid") {
-                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_classify","description": "分类",});
+                        AnalyticsEventsManager.getInstance()
+                            .sendAnalyticsEventMap({
+                          "sceneType": "missionpage",
+                          "eventType": "missionpage_classify",
+                          "description": "分类",
+                        });
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.grid;
                       }
                       SharePreferenceUtil.getSyncInstance().setInt(
@@ -1310,7 +1355,12 @@ this._missionModel.uid = LoginManager.getInstance().userBean.uid;
                       .getTextColor(defaultColor: Colors.red))),
         ),
         onSelected: (String val) {
-          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_order","description": "排序", "message": val});
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_order",
+            "description": "排序",
+            "message": val
+          });
           if (val == 'order_by_list') {
             this.missionOrderEnum = MissionOrderEnum.orderByWords;
           } else if (val == 'order_by_time') {

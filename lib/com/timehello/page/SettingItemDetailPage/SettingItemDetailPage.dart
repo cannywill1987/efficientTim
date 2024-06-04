@@ -406,7 +406,9 @@ class _SettingItemDetailPageWidgetState<T>
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
-      Utility.showAlertDialog(
+      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+
+        Utility.showAlertDialog(
           context: context,
           content: getI18NKey().missionRunningAlert(
               CounterManagement.getInstance().missionModel?.title ?? ""),
@@ -414,6 +416,12 @@ class _SettingItemDetailPageWidgetState<T>
             OverlayManagement.getInstance().openMissionDetailPageOverlay(
                 context: context, missionModel: data, folderModel: folderModel);
           });
+      } else {
+        OverlayManagement.getInstance().openMissionDetailPageOverlay(
+            context: context,
+            missionModel: data,
+            folderModel: folderModel);
+      }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
           context: context, missionModel: data, folderModel: folderModel);

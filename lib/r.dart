@@ -315,6 +315,8 @@ class R {
   static final String assetsImgIcVoiceDiary = 'assets/img/ic_voice_diary.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_delete_remind.svg)
   static final String assetsImgIcDeleteRemind = 'assets/img/ic_delete_remind.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_listing_group.svg)
+  static final String assetsImgIcListingGroup = 'assets/img/ic_listing_group.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_card_all_black.svg)
   static final String assetsImgIcCardAllBlack = 'assets/img/ic_card_all_black.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_guide_lottie3.json)

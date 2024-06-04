@@ -415,6 +415,7 @@ flutter:
     - assets/img/ic_emoji5_unselected.png
     - assets/img/ic_voice_diary.svg
     - assets/img/ic_delete_remind.svg
+    - assets/img/ic_listing_group.svg
     - assets/img/ic_card_all_black.svg
     - assets/img/ic_guide_lottie3.json
     - assets/img/ic_shanghai_nongshang_bank.png

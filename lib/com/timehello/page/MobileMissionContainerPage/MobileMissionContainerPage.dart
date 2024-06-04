@@ -7,6 +7,7 @@ import 'package:time_hello/com/timehello/util/ScreenUtil.dart';
 import '../../config/CONSTANTS.dart';
 import '../../config/ENUMS.dart';
 import '../../models/FolderModel.dart';
+import '../GroupChatPage/GroupChatPage.dart';
 import '../missionPage/MissionContainerPage.dart';
 
 class MobileMissionContainerPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MobileMissionContainerPageState extends State<MobileMissionContainerPage>
   Function? onTapListener;
   FolderModel? folderModel;
   int folderStatus = 1;
-
+  bool isGpt = true; // true: GPT, false: Chat 右上角按钮
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,8 @@ class _MobileMissionContainerPageState extends State<MobileMissionContainerPage>
       key: _scaffoldKey,
       endDrawer: Drawer(
           width: ScreenUtil.getScreenW(context) * 9 / 10,
-        child: ChatGptPage(),
+        child: this.isGpt ? ChatGptPage() : GroupChatPage(),
+        // child: ChatGptPage(),
       ),
       drawer: Drawer(
           width: ScreenUtil.getScreenW(context) * 9 / 10,
@@ -44,8 +46,15 @@ class _MobileMissionContainerPageState extends State<MobileMissionContainerPage>
 
         }),
       ),
-      body: MissionContainerPage(key: ValueKey('MissionPage21312'), folderModel: folderModel, folderStatusDate: folderStatus, onTapRightNavMenuListener:() {
-        _scaffoldKey.currentState?.openEndDrawer();
+      body: MissionContainerPage(key: ValueKey('MissionPage21312'), folderModel: folderModel, folderStatusDate: folderStatus, onTapRightNavMenuListener:(folderModel, isGpt) {
+        this.isGpt = isGpt;
+        setState(() {
+
+        });
+        Future.delayed(Duration(milliseconds: 100), () {
+          _scaffoldKey.currentState?.openEndDrawer();
+        });
+        // _scaffoldKey.currentState?.openEndDrawer();
       },onTapNavMenuListener: () {
         _scaffoldKey.currentState?.openDrawer();
       },),

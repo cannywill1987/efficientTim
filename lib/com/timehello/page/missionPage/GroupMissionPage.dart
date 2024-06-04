@@ -8,11 +8,13 @@ import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.d
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomBackgroundWidget.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
+import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/GroupModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/TimelineMissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
+import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -95,15 +97,55 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
         },
       )
     ];
-    if(ABTestSetting.isOpenAiOn)
-    this.rightNavChildren = [
-      IconButton(
-          onPressed: () {
-            this.widget.onTapRightNavMenuListener?.call();
-          },
-          icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
-    ];
     // this.setKeyboardVisibityListener();
+  }
+
+  didupdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+this.updateRightNavChildren();
+  }
+
+  void updateRightNavChildren() {
+    // && this.rightNavChildren == null
+    if (this.folderModel?.tag == 1) {
+      // if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
+      this.rightNavChildren = [
+        IconButton(
+            onPressed: () {
+              this.widget.onTapRightNavMenuListener?.call(this.folderModel, false);
+            },
+            icon: Utility.getSVGPicture(
+                R.assetsImgIcListingGroup, size: StylesConfig.sizeGroup))
+      ];
+      updateUI();
+    }
+    // else if(this.rightNavChildren != null){
+    //   this.rightNavChildren = null;
+    //   updateUI();
+    // }
+    else if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false) {
+      this.rightNavChildren = [
+        IconButton(
+            onPressed: () {
+              this.widget.onTapRightNavMenuListener?.call(
+                  this.folderModel, true);
+            },
+            icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
+      ];
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
+  componentDidMount() {
+    // TODO: implement componentDidMount
+    updateRightNavChildren();
+    return super.componentDidMount();
   }
 
   void onClick(type, data) async {
@@ -346,6 +388,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
+      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
       Utility.showAlertDialog(
           context: context,
           content: getI18NKey().missionRunningAlert(
@@ -360,6 +403,12 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
             //       folderModel: this.widget.folderModel,
             //     ));
           });
+      } else {
+        OverlayManagement.getInstance().openMissionDetailPageOverlay(
+            context: context,
+            missionModel: data,
+            folderModel: folderModel);
+      }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
           context: context, missionModel: data, folderModel: folderModel);

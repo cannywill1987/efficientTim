@@ -6416,7 +6416,7 @@ class Utility {
             child: MissionPickPeriodDialogWidget(
                 key: MissionPickPeriodDialogWidgetStateGlobalKey,
                 onChange: (code, isCheck, endTime) {})),
-        title: getI18NKey().target_duration_period, okCallback: () {
+        title: getI18NKey().do_it_now, okCallback: () {
       switch (MissionPickPeriodDialogWidgetStateGlobalKey.currentState?.code) {
         case "30mins":
           Utility.updateBufferTimeOfMissionModelList(

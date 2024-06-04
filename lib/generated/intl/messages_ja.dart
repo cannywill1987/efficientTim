@@ -606,6 +606,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("数字のパスワードが間違っています"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("グループを解散する"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("今すぐやる"),
+        "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
+            "今すぐやるは、今すぐやるべきタスクを意味します。「今すぐやる」を設定すると、カウントダウンが始まります。"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("再度表示しない"),
         "downloading_please_wait":

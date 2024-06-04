@@ -628,7 +628,7 @@ class DialogManagement {
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                      constraints: BoxConstraints(minHeight: 200),
+                      constraints: BoxConstraints(minHeight: 200, maxWidth: 500),
                       margin: Utility.isHandsetBySize()
                           ? EdgeInsets.symmetric(
                               horizontal: 20, vertical: mobileVerticalPadding)
@@ -688,11 +688,11 @@ class DialogManagement {
                           SizedBox(
                             height: 30,
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 1,
-                            color: ColorsConfig.gray_bg,
-                          ),
+                          // Container(
+                          //   width: double.infinity,
+                          //   height: 1,
+                          //   color: ColorsConfig.gray_bg,
+                          // ),
                           if (Utility.isHandsetBySize())
                             getButtonWidget(cancelCallback, cancelTitle,
                                 okTitle, okCallback)

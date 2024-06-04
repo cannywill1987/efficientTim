@@ -1,4 +1,5 @@
 {
+  "do_it_now_desc": "Do it now represents tasks that need to be done immediately. Setting 'Do it now' will initiate a countdown.",
   "focus_switch_title":"New Task Resets Timer",
   "focus_switch_desc":"Does switching tasks during focus reset the timer?",
   "copy_link_description": "Copy the link and share it with your friends, so they can join the group list by the group code {code}",

@@ -1604,7 +1604,6 @@ class MongoApisManager {
         }
       });
     }
-    queryOr.or(listSharingFolderModel);
 
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
@@ -1644,7 +1643,12 @@ class MongoApisManager {
     //   list.addAll(listSharingFolderModel);
     // }
     query.and(list);
-    queryAll.or([query, queryOr]);
+    if(listSharingFolderModel.length > 0) {
+      queryOr.or(listSharingFolderModel);
+      queryAll.or([query, queryOr]);
+    } else {
+      queryAll = query;
+    }
     queryAll.skip = 0;
     queryAll.limit = 100000;
     // BmobAcl bmobAcl = BmobAcl();

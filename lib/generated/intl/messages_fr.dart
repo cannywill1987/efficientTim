@@ -702,6 +702,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dissoudre le groupe"),
         "do_it_now":
             MessageLookupByLibrary.simpleMessage("Faites-le maintenant"),
+        "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
+            "Faire maintenant représente les tâches à effectuer immédiatement. Définir \'Faire maintenant\' déclenchera un compte à rebours"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again":
             MessageLookupByLibrary.simpleMessage("Ne pas rappeler"),

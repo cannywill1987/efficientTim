@@ -672,6 +672,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dismiss_group":
             MessageLookupByLibrary.simpleMessage("Dismiss the group"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("Do it now"),
+        "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
+            "Do it now represents tasks that need to be done immediately. Setting \'Do it now\' will initiate a countdown."),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again":
             MessageLookupByLibrary.simpleMessage("Don\'t remind again"),

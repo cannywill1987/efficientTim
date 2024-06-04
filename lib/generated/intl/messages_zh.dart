@@ -583,6 +583,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("数字密码错误"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("解散本群"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("现在做"),
+        "do_it_now_desc":
+            MessageLookupByLibrary.simpleMessage("现在做代表现在马上做的任务，设置现在做将会有倒计时。"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("不再提示"),
         "downloading_please_wait":

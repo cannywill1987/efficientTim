@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Do it now represents tasks that need to be done immediately. Setting 'Do it now' will initiate a countdown.`
+  String get do_it_now_desc {
+    return Intl.message(
+      'Do it now represents tasks that need to be done immediately. Setting \'Do it now\' will initiate a countdown.',
+      name: 'do_it_now_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `New Task Resets Timer`
   String get focus_switch_title {
     return Intl.message(

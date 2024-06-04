@@ -696,6 +696,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dismiss_group":
             MessageLookupByLibrary.simpleMessage("Gruppe auflösen"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("Mach es jetzt"),
+        "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
+            "Jetzt erledigen steht für Aufgaben, die sofort erledigt werden müssen. Das Setzen von \'Jetzt erledigen\' startet einen Countdown."),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again":
             MessageLookupByLibrary.simpleMessage("Nicht wieder erinnern"),

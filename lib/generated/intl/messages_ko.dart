@@ -612,6 +612,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("숫자 비밀번호가 틀렸습니다"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("그룹 해산"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("지금 하기"),
+        "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
+            "지금 하기란 지금 당장 해야 할 작업을 의미합니다. \'지금 하기\'를 설정하면 카운트다운이 시작됩니다."),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("다시 알리지 않기"),
         "downloading_please_wait":
