@@ -99,15 +99,15 @@ class ListingFilterWidgetState extends State<ListingFilterWidget> {
         });
   }
 
-  void requestData()  {
-    List<FolderModel> list =  MongoApisManager.getInstance()
-        .queryWhereEqual_folderModelWithCircle();
+  void requestData() {
+    List<FolderModel> list =
+        MongoApisManager.getInstance().queryWhereEqual_folderModelWithCircle();
     List<SheetDataModel> listSheetDataModel =
         Utility.getSheetDataModelFromFolderModel(
             list, Icons.fiber_manual_record);
     if (mounted == true) {
-        this.listFolderModels = list;
-        this.listSheetDataModel = listSheetDataModel;
+      this.listFolderModels = list;
+      this.listSheetDataModel = listSheetDataModel;
       // setState(() {
       // });
     }
@@ -131,8 +131,7 @@ class ListingFilterWidgetState extends State<ListingFilterWidget> {
           ),
           Text(
             getI18NKey().select_all,
-            style: TextStyle(
-                fontSize: 15,  fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
           )
         ],
       ),
@@ -153,9 +152,7 @@ class ListingFilterWidgetState extends State<ListingFilterWidget> {
             ),
             Text(
               sheetDataModel.title ?? '',
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             )
           ],
         ),

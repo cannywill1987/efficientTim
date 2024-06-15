@@ -28,6 +28,12 @@ class MissionModel extends MongoDbObject{
   @JsonKey(ignore: true)
   List<SubmissionModel>? _subMissionModels = [];
 
+  @JsonKey(ignore: true)
+  int _localDuration = 0;
+
+  @JsonKey(ignore: true)
+  String? localDurationString;
+
   // @JsonKey(ignore: true)
   // List<SubmissionModel> subMissionModels = [];
 

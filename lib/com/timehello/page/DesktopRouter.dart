@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/CountDownListViewPage/CountDownListViewPage.dart';
 import 'package:time_hello/com/timehello/page/CoursePage/CoursePage.dart';
 import 'package:time_hello/com/timehello/page/CreditCardManagementPage/pages/CreditCardContainer.dart';
+import 'package:time_hello/com/timehello/page/FourQuadrant/FourQuadrantContainer.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/GroupChatPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/CalendarPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementContainer.dart';
@@ -111,7 +112,7 @@ Widget buildBodyFunction([String? page]) {
             //日历页面
             settingModel.isFourQuadrantPageOn != 1 ? SizedBox.shrink() :Offstage(
                 offstage: !(page == 'FourQuadrantPage'),
-                child: const FourQuadrantPage()),
+                child: const FourQuadrantContainer()),
 
             settingModel.isAIHelperPageOn != 1 ? SizedBox.shrink() :Offstage(
                 offstage: !(page == 'AIHelper'),

@@ -6,17 +6,27 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 ///calendar import
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:time_hello/com/timehello/components/CustomTextField.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/appointment.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/calendar_datasource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/calendar_controller.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/resource_view/calendar_resource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/month_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/schedule_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/time_slot_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/view_header_style.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/sfcalendar.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
-import 'package:time_hello/com/timehello/util/WidgetManager.dart';
+import 'package:time_hello/com/timehello/util/WidgetManager2.dart';
 
 import '../../../../../r.dart';
 import '../../../common/database/apis/MongoApisManager.dart';
@@ -216,7 +226,7 @@ class TimeManagementMissionPageState
                           _calendarController,
                           _events,
                           _onViewChanged,
-                          WidgetManager.getAppointmentUIWidget(
+                          WidgetManager2.getAppointmentUIWidget(
                               _calendarController));
                       final double screenHeight =
                           MediaQuery.of(context).size.height;

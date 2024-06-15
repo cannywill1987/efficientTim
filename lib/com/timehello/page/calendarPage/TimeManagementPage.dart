@@ -9,16 +9,29 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 ///calendar import
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+// import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
+import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/appointment.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/calendar_datasource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/calendar_controller.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/resource_view/calendar_resource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/month_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/schedule_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/time_slot_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/view_header_style.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/sfcalendar.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
+import 'package:time_hello/com/timehello/util/WidgetManager2.dart';
 
 import '../../../../r.dart';
 import '../../common/database/apis/MongoApisManager.dart';
@@ -61,8 +74,14 @@ class TimeManagementPageState extends State<TimeManagementPage> {
   TimeManagementPageState();
 
   FolderModel? folderModelSearch;
+  List<MissionModel> listMissionModels = [];
+  List<MissionModel> listMissionModelsThisWeek = [];
   _DataSource _events = _DataSource(<Appointment>[]);
   late CalendarView _currentView;
+  DateTime? startDateTime;
+  DateTime? endDateTime;
+
+  double missionPageWidth = 300;
 
   //时间轴展示的
   final List<CalendarView> _allowedViewsList = <CalendarView>[
@@ -102,117 +121,186 @@ class TimeManagementPageState extends State<TimeManagementPage> {
   selectDate(DateTime dateTime) {
     _calendarController.displayDate = dateTime;
     _calendarController.selectedDate = dateTime;
-
   }
 
   @override
   Widget build(BuildContext context) {
-    CalendarModel calendarModel = context.watch<GlobalStateEnv>().calendarModel;
-    List<DayModel> dayModelList = Utility.filterDaysModels(
-        calendarModel?.dayModelList ?? [], folderModelSearch);
-    _events = _DataSource(getAppointmentDetails(dayModelList));
-    // final Widget calendar = Theme(
-    //
-    //   /// The key set here to maintain the state,
-    //   ///  when we change the parent of the widget
-    //     key: _globalKey,
-    //     // data: model.themeData.copyWith(
-    //     //     colorScheme: model.themeData.colorScheme
-    //     //         .copyWith(secondary: model.backgroundColor)),
-    //     child: _getDragAndDropCalendar(
-    //         _calendarController, _events, _onViewChanged));
-    final Widget calendar = _getDragAndDropCalendar(
-        _calendarController, _events, _onViewChanged, WidgetManager.getAppointmentUIWidget(_calendarController));
-    final double screenHeight = MediaQuery.of(context).size.height;
-    return Selector<CalendarMssionEnv, MissionModel?>(
-        selector: (_, env) => env.curSelectedMissionModel,
-        builder: (_, curSelectedMissionModel, __) {
-          return  Selector<CalendarMssionEnv, FolderModel?>(
-              selector: (_, env) => env.curSelectedFolderModel,
-              builder: (_, curSelectedFolderModel, __) {
-                return  Selector<CalendarMssionEnv, DateTime?>(
-                    selector: (_, env) => env.startDateTime,
-                    builder: (_, startDateTime, __) {
-                      return  Selector<CalendarMssionEnv, DateTime?>(
-                          selector: (_, env) => env.endDateTime,
-                          builder: (_, endDateTime, __) {
-                            return Scaffold(
-                                body: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    if (widget.folderModel == null)
-                                      CustomMarquee(
-                                        bean: MarqueInfo.marqueTimemanagement,
-                                        paddingTop: 0,
-                                      ),
-                                    if (widget.folderModel == null)
-                                      ListingFilterWidget(onTapListener: (data) {
-                                        this.folderModelSearch = data;
-                                        context.read<CalendarMssionEnv>().curSelectedFolderModel = data;
-                                        // context.read<CalendarMssionEnv().curSelectedFolderModel = data;
-                                        setState(() {});
-                                        // this.curSearchingFocusModel = data;
-                                        // this.requestDatas();
-                                      }),
-                                    Expanded(
-                                      child: Stack(
-                                        children: [
-                                          Row(children: <Widget>[
-                                            Expanded(
-                                              child: _calendarController.view == CalendarView.month &&
-                                                  screenHeight < 800
-                                                  ? Scrollbar(
-                                                  thumbVisibility: true,
-                                                  controller: _controller,
-                                                  child: ListView(
-                                                    controller: _controller,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        color: ThemeManager.getInstance()
-                                                            .getBackgroundColor(
-                                                            defaultColor: Colors.white),
-                                                        height: 600,
-                                                        child: calendar,
-                                                      )
-                                                    ],
-                                                  ))
-                                                  : Container(
-                                                  color: ThemeManager.getInstance()
-                                                      .getBackgroundColor(defaultColor: Colors.white),
-                                                  child: calendar),
-                                            )
-                                          ]),
-                                          Positioned(
-                                              bottom: 30,
-                                              right: 20,
-                                              child: CircleWidget(
-                                                onTapListener: (obj) {
-                                                  MissionModel missionModel = MissionModel();
-                                                  missionModel.end_time = CONSTANTS.getDeadLineTme((0) + 1);
-                                                  missionModel.folder_id = this.folderModelSearch?.objectId;
-                                                  if (Utility.isHandsetBySize() == true) {
-                                                    Utility.pushNavigator(context,
-                                                        CreateMissionPage(missionModel: missionModel));
-                                                  } else {
-                                                    DialogManagement.getInstance().showPCCustomDialog(
-                                                        context: context,
-                                                        widget:
-                                                        CreateMissionPage(missionModel: missionModel));
-                                                  }
-                                                },
-                                              )),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ));
-                          });
-                    });
-              });
-        });
+    // CalendarModel calendarModel = context.watch<GlobalStateEnv>().calendarModel;
+    // List<DayModel> dayModelList = Utility.filterDaysModels(
+    //     calendarModel?.dayModelList ?? [], folderModelSearch);
 
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      this.missionPageWidth = constraints.maxWidth;
+      return Selector<CalendarMssionEnv, MissionModel?>(
+          selector: (_, env) => env.curSelectedMissionModel,
+          builder: (_, curSelectedMissionModel, __) {
+            return Selector<CalendarMssionEnv, FolderModel?>(
+                selector: (_, env) => env.curSelectedFolderModel,
+                builder: (_, curSelectedFolderModel, __) {
+                  return Selector<CalendarMssionEnv, DateTime?>(
+                      selector: (_, env) => env.startDateTime,
+                      builder: (_, startDateTime, __) {
+                        return Selector<CalendarMssionEnv, DateTime?>(
+                            selector: (_, env) => env.endDateTime,
+                            builder: (_, endDateTime, __) {
+                              this.startDateTime = startDateTime;
+                              this.endDateTime = endDateTime;
+                              return Selector<GlobalStateEnv, CalendarModel?>(
+                                  selector: (_, env) => env.calendarModel,
+                                  builder: (_, calendarModel, __) {
+                                    List<DayModel> dayModelList =
+                                        Utility.filterDaysModels(
+                                            calendarModel?.dayModelList ?? [],
+                                            folderModelSearch);
+                                    _events = _DataSource(
+                                        getAppointmentDetails(dayModelList));
+                                    final Widget calendar =
+                                        _getDragAndDropCalendar(
+                                            _calendarController,
+                                            _events,
+                                            _onViewChanged,
+                                            WidgetManager2
+                                                .getAppointmentUIWidget(
+                                                    _calendarController));
+                                    final double screenHeight =
+                                        MediaQuery.of(context).size.height;
 
+                                    return Scaffold(
+                                        body: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        if (widget.folderModel == null)
+                                          CustomMarquee(
+                                            bean:
+                                                MarqueInfo.marqueTimemanagement,
+                                            paddingTop: 0,
+                                          ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        TimeRatioComponent(
+
+                                          lastChild: widget.folderModel == null
+                                              ? ListingFilterWidget(
+                                                  onTapListener: (data) {
+                                                  this.folderModelSearch = data;
+                                                  context
+                                                      .read<CalendarMssionEnv>()
+                                                      .curSelectedFolderModel = data;
+                                                  // context.read<CalendarMssionEnv().curSelectedFolderModel = data;
+                                                  setState(() {});
+                                                  // this.curSearchingFocusModel = data;
+                                                  // this.requestDatas();
+                                                })
+                                              : null,
+                                          width: this.missionPageWidth,
+                                          startTime: Utility.getStartDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week),
+                                          endTime: Utility.getEndDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week),
+                                          height: 5,
+                                          // totalTime: 24 * 60 * 60, // 一天的总秒数
+                                          listMissionModels:
+                                              Utility.getMissionModelsForRatio(
+                                                  dayModelList,
+                                                  Utility.getStartDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week),
+                                                  Utility.getEndDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week)),
+                                          // [
+                                          //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
+                                          //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
+                                          //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
+                                          //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
+                                          //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
+                                          // ],
+                                        ),
+                                        SizedBox(height: 5,),
+                                        Expanded(
+                                          child: Stack(
+                                            children: [
+                                              Row(children: <Widget>[
+                                                Expanded(
+                                                  child: _calendarController
+                                                                  .view ==
+                                                              CalendarView
+                                                                  .month &&
+                                                          screenHeight < 800
+                                                      ? Scrollbar(
+                                                          thumbVisibility: true,
+                                                          controller:
+                                                              _controller,
+                                                          child: ListView(
+                                                            controller:
+                                                                _controller,
+                                                            children: <Widget>[
+                                                              Container(
+                                                                color: ThemeManager
+                                                                        .getInstance()
+                                                                    .getBackgroundColor(
+                                                                        defaultColor:
+                                                                            Colors.white),
+                                                                height: 600,
+                                                                child: calendar,
+                                                              )
+                                                            ],
+                                                          ))
+                                                      : Container(
+                                                          color: ThemeManager
+                                                                  .getInstance()
+                                                              .getBackgroundColor(
+                                                                  defaultColor:
+                                                                      Colors
+                                                                          .white),
+                                                          child: calendar),
+                                                )
+                                              ]),
+                                              Positioned(
+                                                  bottom: 30,
+                                                  right: 20,
+                                                  child: CircleWidget(
+                                                    onTapListener: (obj) {
+                                                      MissionModel
+                                                          missionModel =
+                                                          MissionModel();
+                                                      missionModel.end_time =
+                                                          CONSTANTS
+                                                              .getDeadLineTme(
+                                                                  (0) + 1);
+                                                      missionModel.folder_id =
+                                                          this
+                                                              .folderModelSearch
+                                                              ?.objectId;
+                                                      if (Utility
+                                                              .isHandsetBySize() ==
+                                                          true) {
+                                                        Utility.pushNavigator(
+                                                            context,
+                                                            CreateMissionPage(
+                                                                missionModel:
+                                                                    missionModel));
+                                                      } else {
+                                                        DialogManagement
+                                                                .getInstance()
+                                                            .showPCCustomDialog(
+                                                                context:
+                                                                    context,
+                                                                widget: CreateMissionPage(
+                                                                    missionModel:
+                                                                        missionModel));
+                                                      }
+                                                    },
+                                                  )),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ));
+                                  });
+                            });
+                      });
+                });
+          });
+    });
   }
 
   /// Update the current view when the view changed and update the scroll view
@@ -237,14 +325,35 @@ class TimeManagementPageState extends State<TimeManagementPage> {
     });
   }
 
+
+
   /// Creates the required appointment details as a list.
   /// Creates the required appointment details as a list.
   List<Appointment> getAppointmentDetails(List<DayModel> list) {
     final List<Appointment> appointments = <Appointment>[];
     List<MissionModel> listMissionModelsAddedForTimemodeSegment = [];
+    listMissionModels = [];
     for (int i = 0; i < list.length; i++) {
       DayModel dayModel = list[i];
       dayModel.missionModelList.forEach((MissionModel _missionModel) {
+        if (endDateTime == null && startDateTime != null) {
+          endDateTime =
+              Utility.getFilterDateTimeFromDateTime(startDateTime!, true);
+        }
+        if (startDateTime != null && endDateTime != null) {
+          DateTime? curDateTime = dayModel.dateTime;
+          if (curDateTime != null) {
+            if ((curDateTime.isAfter(startDateTime!) ||
+                    curDateTime.isAtSameMomentAs(startDateTime!)) &&
+                (curDateTime.isBefore(endDateTime!) ||
+                    curDateTime.isAtSameMomentAs(endDateTime!))) {
+              listMissionModels.add(_missionModel);
+            }
+          }
+        }
+        if (startDateTime == null && endDateTime == null) {
+          listMissionModels.add(_missionModel);
+        }
         FolderModel? folderModelWithMission;
         if (!TextUtil.isEmpty(_missionModel.folder_id)) {
           List<FolderModel> folderModelList = MongoApisManager.getInstance()!
@@ -263,11 +372,11 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             }
           }
         }
+        if (_missionModel.title == "支持排序") {
+          print("支持排序");
+        }
         late DateTime dateTimeStart;
         late DateTime? dateTimeEnd;
-        if (_missionModel.title == "1111111111222222") {
-          print(1111111);
-        }
         if (_missionModel.time_mode == null || _missionModel.time_mode == 0) {
           if (_missionModel?.daily_start_time == null &&
               _missionModel?.daily_end_time == null &&
@@ -275,7 +384,10 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             if (_missionModel?.end_time != null) {
               //没有重复
               dateTimeStart = Utility.getDateTimeFromTimeStamp(
-                  _missionModel?.start_time ?? 0);
+                  (_missionModel?.start_time == null &&
+                          _missionModel?.end_time != null)
+                      ? (_missionModel!.end_time! - 60 * 60 * 1000)
+                      : _missionModel.start_time ?? 0);
             }
           } else {
             //有重复
@@ -302,8 +414,11 @@ class TimeManagementPageState extends State<TimeManagementPage> {
         } else {
           //时间段模式
           // if (_missionModel?.start_time != null) {
-          dateTimeStart =
-              Utility.getDateTimeFromTimeStamp(_missionModel?.start_time ?? 0);
+          dateTimeStart = Utility.getDateTimeFromTimeStamp(
+              (_missionModel?.start_time == null &&
+                      _missionModel?.end_time != null)
+                  ? (_missionModel!.end_time! - 60 * 60 * 1000)
+                  : _missionModel.start_time ?? 0);
           // }
           // if (_missionModel?.end_time != null) {
           dateTimeEnd =
@@ -466,7 +581,8 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             missionModel?.start_time = startDateTime.millisecondsSinceEpoch;
             missionModel?.end_time = endDateTime.millisecondsSinceEpoch;
           }
-          if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+          if (ChatGroupManager.isFolderModelEnabled(
+                  folderId: missionModel?.folder_id) ==
               false) {
             Utility.showToastMsg(
                 context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -509,7 +625,8 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             missionModel?.end_time =
                 appointment.endTime?.millisecondsSinceEpoch;
           }
-          if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+          if (ChatGroupManager.isFolderModelEnabled(
+                  folderId: missionModel?.folder_id) ==
               false) {
             Utility.showToastMsg(
                 context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);

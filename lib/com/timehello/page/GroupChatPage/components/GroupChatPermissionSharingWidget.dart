@@ -301,8 +301,8 @@ class _GroupChatPermissionSharingWidgetState
                   AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_copy_link","description": "复制链接",});
                   // QQ好友分享逻辑
                   Utility.copyToClipboard(
-                      getI18NKey().share_the_link(this.widget.folderModel?.title ?? "", getI18NKey().app_name,
-                          this.widget.folderModel?.folderTeamWorkId ?? ""));
+                      getI18NKey().share_the_link(this.widget.folderModel?.title ?? "",
+                          this.widget.folderModel?.folderTeamWorkId ?? "", getI18NKey().app_name));
                 },
               ),
               // IconButton(

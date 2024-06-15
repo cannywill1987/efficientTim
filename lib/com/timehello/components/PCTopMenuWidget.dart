@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
@@ -85,7 +86,8 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             Spacer(),
             if(!Utility.isProductEnv())
               InkWell(onTap: () {
-                DialogManagement.getInstance().showSearchFriendGroupWidget();
+                CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
+                // DialogManagement.getInstance().showSearchFriendGroupWidget();
               }, child: Text("测试"),),
             // Expanded(
             //   child: Container(),

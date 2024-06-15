@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
 import 'package:time_hello/com/timehello/components/CustomBlackButton.dart';
 import 'package:time_hello/com/timehello/components/ListingFilterWidget.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
@@ -31,16 +33,16 @@ import 'components/QuadrantWidget.dart';
 import '../../components/SearchBarWidget.dart';
 
 class FourQuadrantPage extends BaseWidget {
-  const FourQuadrantPage();
+  const FourQuadrantPage({Key? key}): super(key: key);
 
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
     // TODO: implement getState
-    return FourQuadrantPageWidget();
+    return FourQuadrantPageState();
   }
 }
 
-class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
+class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
   SessionMissionModel? listSessionMissionModelRed1;
   SessionMissionModel? listSessionMissionModelYellow2;
   SessionMissionModel? listSessionMissionModelBlue3;
@@ -61,6 +63,23 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
   GlobalKey<QuadrantWidgetState> quadrantWidgetGlobalKey3 = GlobalKey();
   GlobalKey<QuadrantWidgetState> quadrantWidgetGlobalKey4 = GlobalKey();
   int curIndex = 1;
+
+  DateTime? startDateTime;
+  DateTime? endDateTime;
+
+
+  selectDate(DateTime? startDateTime, DateTime? endDateTime) {
+    this.startDateTime = startDateTime;
+    this.endDateTime = endDateTime;
+    if(this.startDateTime == null && this.endDateTime == null) {
+      controller?.dateTimePicker = null;
+    } else {
+      controller?.dateTimePicker =
+          PickerDateRange(this.startDateTime, this.endDateTime);
+    }
+    this.requestDatas();
+
+  }
 
   @override
   void initState() {
@@ -314,6 +333,7 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
                         ),
                         ListingFilterWidget(onTapListener: (data) {
                           this.curSearchingFocusModel = data;
+                          context.read<CalendarMssionEnv>().curSelectedFolderModel = data;
                           this.requestDatas();
                         }),
                         SizedBox(
@@ -321,6 +341,7 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
                         ),
 
                         // 右上角Pc端按钮列表
+                        if(Utility.isHandsetBySize())
                         PCButtonListWidget(
                           initIndex: calendarTypeEnum.index,
                           list: pcDateButtonList,

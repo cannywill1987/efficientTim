@@ -50,6 +50,116 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `总共 {num}`
+  String total_maju(Object num) {
+    return Intl.message(
+      '总共 $num',
+      name: 'total_maju',
+      desc: '',
+      args: [num],
+    );
+  }
+
+  /// `{date1}到{date2}`
+  String between_date(Object date1, Object date2) {
+    return Intl.message(
+      '$date1到$date2',
+      name: 'between_date',
+      desc: '',
+      args: [date1, date2],
+    );
+  }
+
+  /// `{date}之后`
+  String after_date(Object date) {
+    return Intl.message(
+      '$date之后',
+      name: 'after_date',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `{date}之前`
+  String before_date(Object date) {
+    return Intl.message(
+      '$date之前',
+      name: 'before_date',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `任务数`
+  String get num_mission {
+    return Intl.message(
+      '任务数',
+      name: 'num_mission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ALL`
+  String get all_maju {
+    return Intl.message(
+      'ALL',
+      name: 'all_maju',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(No project)`
+  String get no_project_parenthese {
+    return Intl.message(
+      '(No project)',
+      name: 'no_project_parenthese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{num}任务/{total}总任务`
+  String num_mission_percent(Object num, Object total) {
+    return Intl.message(
+      '$num任务/$total总任务',
+      name: 'num_mission_percent',
+      desc: '',
+      args: [num, total],
+    );
+  }
+
+  /// `{num}总番茄`
+  String total_tomatoes(Object num) {
+    return Intl.message(
+      '$num总番茄',
+      name: 'total_tomatoes',
+      desc: '',
+      args: [num],
+    );
+  }
+
+  /// `{num}番茄`
+  String num_tomatoes(Object num) {
+    return Intl.message(
+      '$num番茄',
+      name: 'num_tomatoes',
+      desc: '',
+      args: [num],
+    );
+  }
+
+  /// `柳比歇斯时长`
+  String get lyubichs {
+    return Intl.message(
+      '柳比歇斯时长',
+      name: 'lyubichs',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Do it now represents tasks that need to be done immediately. Setting 'Do it now' will initiate a countdown.`
   String get do_it_now_desc {
     return Intl.message(

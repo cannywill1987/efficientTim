@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/ColorsModel.dart';
@@ -13,6 +14,7 @@ import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/MusicModel.dart';
 import 'package:time_hello/com/timehello/beans/ResourceDeliveryInfoBean.dart';
+import 'package:time_hello/com/timehello/models/ProgressFocusModel.dart';
 import 'package:time_hello/com/timehello/models/SelectObjectTypeModel.dart';
 import 'package:time_hello/com/timehello/models/SettingModel.dart';
 import 'package:time_hello/com/timehello/models/SheetDataModel.dart';
@@ -1255,6 +1257,53 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getRatioPopup(
+      {double size = 16,
+      ProgressSortEnum defaultIndex = ProgressSortEnum.Lyubichs}) {
+    List<CheckButtonStateModel> list = [];
+    // const double size = 16;
+    list.add(CheckButtonStateModel(
+        code: "Lyubichs",
+        value: 0,
+        title: getI18NKey().lyubichs,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcLyubichs, size: 20),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.Lyubichs));
+
+    list.add(CheckButtonStateModel(
+        code: "num_mission",
+        value: 0,
+        title: getI18NKey().num_mission,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcTotalCheck, size: 15),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.completeNum));
+
+    list.add(CheckButtonStateModel(
+        code: "four_quadrant",
+        value: 0,
+        title: getI18NKey().four_quadrant,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcFourQuadrant, size: size),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.priority));
+
+    list.add(CheckButtonStateModel(
+        code: "tomato",
+        value: 0,
+        title: getI18NKey().tomato,
+        checkIcon:
+            Utility.getSVGPicture(R.assetsImgIcTomatoChecked, size: size),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.tomato));
+
+    // list[defaultIndex].isCheck = true;
+
+    return list;
+  }
+
   static List<CheckButtonStateModel> getGroupHeaderPopup(
       {bool? hasAll = false, bool isFirst = false, bool isLast = false}) {
     List<CheckButtonStateModel> list = [];
@@ -1353,17 +1402,20 @@ class CONSTANTS {
    * 创建者角色的下拉框
    */
   static List<CheckButtonStateModel> getCreatorCheckList(
-      {bool isAdministrator = false, bool isSlide = false})  {
+      {bool isAdministrator = false, bool isSlide = false}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        code: isAdministrator ? "cancel_setting_administrator" : "setting_administrator",
+        code: isAdministrator
+            ? "cancel_setting_administrator"
+            : "setting_administrator",
         value: 0,
         color: isAdministrator ? Colors.blue.value : Colors.green.value,
         title: isAdministrator
             ? getI18NKey().cancel_setting_administrator
             : getI18NKey().setting_administrator,
         // color: Colors.green.value,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcAdmin, size: 16, color: isSlide ? Colors.white : Colors.blue),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAdmin,
+            size: 16, color: isSlide ? Colors.white : Colors.blue),
         content: "",
         isCheck: false));
 
@@ -1372,7 +1424,8 @@ class CONSTANTS {
         value: 0,
         title: getI18NKey().remove_user,
         color: Colors.red.value,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser, size: 16, color: isSlide ? Colors.white : Colors.red),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser,
+            size: 16, color: isSlide ? Colors.white : Colors.red),
         content: "",
         isCheck: false));
     return list;
@@ -1390,7 +1443,8 @@ class CONSTANTS {
         value: 0,
         title: getI18NKey().remove_user,
         color: Colors.red.value,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser, size: 16, color: isSlide ? Colors.white : Colors.red),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser,
+            size: 16, color: isSlide ? Colors.white : Colors.red),
         content: "",
         isCheck: false));
     return list;
@@ -1405,7 +1459,8 @@ class CONSTANTS {
         value: 0,
         title: getI18NKey().setting_administrator,
         color: Colors.green.value,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser, size: 16, color: isSlide ? Colors.white : Colors.green),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser,
+            size: 16, color: isSlide ? Colors.white : Colors.green),
         content: "",
         isCheck: false));
     return list;
@@ -4360,6 +4415,28 @@ class CONSTANTS {
     return getI18NKey().date1_to_date2(s1, s2);
   }
 
+  static String getSegmentDateString(
+      {DateTime? dateTime1, DateTime? dateTime2}) {
+    if (dateTime1 == null && dateTime2 == null) {
+      return getI18NKey().all_maju;
+    } else if (dateTime1 == null && dateTime2 != null) {
+      return getI18NKey().before_date(CONSTANTS.getAlertDateString(
+          Utility.getDateTimeModelFromTimeStamp(
+              dateTime2.millisecondsSinceEpoch ?? 0)));
+    } else if (dateTime1 != null && dateTime2 == null) {
+      return getI18NKey().after_date(CONSTANTS.getAlertDateString(
+          Utility.getDateTimeModelFromTimeStamp(
+              dateTime1?.millisecondsSinceEpoch ?? 0)));
+    } else {
+      return getI18NKey().between_date(
+          CONSTANTS.getAlertDateString(Utility.getDateTimeModelFromTimeStamp(
+              dateTime1?.millisecondsSinceEpoch ?? 0)),
+          CONSTANTS.getAlertDateString(Utility.getDateTimeModelFromTimeStamp(
+              dateTime2?.millisecondsSinceEpoch ?? 0)));
+    }
+    return "";
+  }
+
   /**
    *
    */
@@ -5198,5 +5275,365 @@ class CONSTANTS {
       }
     }
     return 0;
+  }
+
+  static void sortByPriorityFolderTimeForCompleteNum(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+        DateTime? endDateTime]) {
+    List<MissionModel> listMissionModels = [];
+    List<MissionModel> listMissionModelRed1Complete = [];
+    List<MissionModel> listMissionModelRed1 = [];
+    List<MissionModel> listMissionModelYellow2Complete = [];
+    List<MissionModel> listMissionModelYellow2 = [];
+    List<MissionModel> listMissionModelGreen3Complete = [];
+    List<MissionModel> listMissionModelGreen3 = [];
+    List<MissionModel> listMissionModelBlue4Complete = [];
+    List<MissionModel> listMissionModelBlue4 = [];
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      listMissionModels.addAll(listMissionModel);
+    });
+    listMissionModels.forEach((element) {
+      //3 无优先级  2 低优先级 1 中优先级 0 高优先级
+      if(element.priorityStatus == 0){
+        if(element?.isFinished == true)
+          listMissionModelRed1Complete.add(element);
+        listMissionModelRed1.add(element);
+      }
+      if(element.priorityStatus == 1){
+        if(element?.isFinished == true)
+          listMissionModelYellow2Complete.add(element);
+        listMissionModelYellow2.add(element);
+      }
+      if(element.priorityStatus == 2){
+        if(element?.isFinished == true)
+          listMissionModelGreen3Complete.add(element);
+        listMissionModelGreen3.add(element);
+
+      }
+      if(element.priorityStatus == 3){
+        if(element?.isFinished == true)
+          listMissionModelBlue4Complete.add(element);
+        listMissionModelBlue4.add(element);
+
+
+      }
+    });
+    ProgressFocusModel progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelRed1Complete, listMissionModelRed1);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority1 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(0)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+
+     progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelYellow2Complete, listMissionModelYellow2);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority2 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(1)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+     progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelGreen3Complete, listMissionModelGreen3);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority3 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(2)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+     progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelBlue4Complete, listMissionModelBlue4);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority4 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(3)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+  }
+
+  static void sortByFolderTimeForCompleteNum(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      int color = element?["color"] ?? Utility.getRandomColor();
+      DateTime? dateTimeStart =
+          Utility.getStartDateTimeFromListMissionModels(list: listMissionModel);
+      DateTime? dateTimeEnd =
+          Utility.getEndDateTimeFromListMissionModels(list: listMissionModel);
+      if (startDateTime != null) {
+        dateTimeStart = startDateTime;
+      } else if (endDateTime != null) {
+        dateTimeEnd = endDateTime;
+      } else if (dateTimeStart == null && dateTimeEnd == null) {
+        return;
+      } else if (dateTimeEnd != null) {
+        dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
+      } else {
+        if (dateTimeStart != null) {
+          dateTimeEnd =
+              Utility.getFilterDateTimeFromDateTime(dateTimeStart, true);
+        }
+      }
+      ProgressFocusModel progressFocusModel =
+          Utility.getCompleteNumberWithMissionList(
+              listMissionModel, startDateTime ?? dateTimeStart, endDateTime ?? dateTimeEnd);
+
+      list.add(TimeSegment(
+          label: title +
+              "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+          value: progressFocusModel.currentValue,
+          color: Color(color),
+          totalValue: progressFocusModel.totalValue == 0
+              ? 1
+              : progressFocusModel.totalValue,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static void sortByFolderTimeForTomatoes(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      int color = element?["color"] ?? Utility.getRandomColor();
+      DateTime? dateTimeStart =
+          Utility.getStartDateTimeFromListMissionModels(list: listMissionModel);
+      DateTime? dateTimeEnd =
+          Utility.getEndDateTimeFromListMissionModels(list: listMissionModel);
+      if (startDateTime != null) {
+        dateTimeStart = startDateTime;
+      } else if (endDateTime != null) {
+        dateTimeEnd = endDateTime;
+      } else if (dateTimeStart == null && dateTimeEnd == null) {
+        return;
+      } else if (dateTimeEnd != null) {
+        dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
+      } else {
+        if (dateTimeStart != null) {
+          dateTimeEnd =
+              Utility.getFilterDateTimeFromDateTime(dateTimeStart, true);
+        }
+      }
+      ProgressFocusModel progressFocusModel =
+          Utility.getTomatoesWithMissionList(
+              listMissionModel, dateTimeStart, dateTimeEnd);
+
+      list.add(TimeSegment(
+          label: title +
+              "(${getI18NKey().num_tomatoes(progressFocusModel.currentValue)}/${getI18NKey().num_tomatoes(progressFocusModel.totalValue)})",
+          value: progressFocusModel.currentValue,
+          color: Color(color),
+          totalValue: progressFocusModel.totalValue == 0
+              ? 1
+              : progressFocusModel.totalValue,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static void sortByFolderTimeForLyubichs(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      int color = element?["color"] ?? Utility.getRandomColor();
+      DateTime? dateTimeStart =
+          Utility.getStartDateTimeFromListMissionModels(list: listMissionModel);
+      DateTime? dateTimeEnd =
+          Utility.getEndDateTimeFromListMissionModels(list: listMissionModel);
+      if (startDateTime != null) {
+        dateTimeStart = startDateTime;
+      } else if (endDateTime != null) {
+        dateTimeEnd = endDateTime;
+      } else if (dateTimeStart == null && dateTimeEnd == null) {
+        return;
+      } else if (dateTimeEnd != null) {
+        dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
+      } else {
+        if (dateTimeStart != null) {
+          dateTimeEnd =
+              Utility.getFilterDateTimeFromDateTime(dateTimeStart, true);
+        }
+      }
+      ProgressFocusModel progressFocusModel =
+          Utility.getDurationCalendarModelWithMissionList(
+              listMissionModel, startDateTime ?? dateTimeStart, endDateTime ?? dateTimeEnd);
+
+      list.add(TimeSegment(
+          label: title +
+              "(${Utility.formatTimestampWithoutZeroHM(progressFocusModel.currentValue * 1000)} / ${Utility.formatTimestampWithoutZeroHM(progressFocusModel.totalValue == 0 ? 1 : (progressFocusModel.totalValue * 1000))})",
+          value: progressFocusModel.currentValue,
+          color: Color(color),
+          totalValue: progressFocusModel.totalValue == 0
+              ? 1
+              : progressFocusModel.totalValue,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static void sortByFolderTime(List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel, List<TimeSegment> list) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      FolderTimeModel folderTimeModel =
+          Utility.getFolderTimeModel(listMissionModel);
+      folderTimeModel.folderTitle = title;
+      folderTimeModel.listDatas = listMissionModel;
+      listFolderTimeModel.add(folderTimeModel);
+    });
+    listFolderTimeModel.forEach((element) {
+      int totalTime =
+          ((element.previewTime ?? 0) + (element.finishedTime ?? 0));
+      list.add(TimeSegment(
+          label: element.folderTitle ?? '',
+          value: element.previewTime ?? 0,
+          color: Utility.getRandomColor(),
+          totalValue: totalTime == 0 ? 1 : totalTime,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static List<TimeSegment> parseFolderModelListToTimeSegmentByDateTime(
+      List<MissionModel> data, DateTime dateTimeStart, DateTime dateTimeEnd) {
+    CalendarModel calendarModel =
+        Utility.initCalendarModelWithMissionList(data);
+    List<FolderTimeModel> listFolderTimeModel = [];
+    List<MissionModel> listMissionModel = getMissionModelsFromCalendarModel(
+        calendarModel: calendarModel,
+        dateTimeStart: dateTimeStart,
+        dateTimeEnd: dateTimeEnd);
+    List<Map?> listFolderIds =
+        sortMissionModelListToFolderIds(listMissionModel);
+    List<TimeSegment> listTimeSegment = [];
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      String folderObjectId = element?['folderObjectId'];
+      FolderTimeModel folderTimeModel =
+          Utility.getFolderTimeModel(listMissionModel);
+      folderTimeModel.folderTitle = title;
+      folderTimeModel.folderObjectId = folderObjectId;
+      listFolderTimeModel.add(folderTimeModel);
+    });
+    listFolderTimeModel.forEach((element) {
+      listTimeSegment.add(TimeSegment(
+          label: element.folderTitle ?? '',
+          value: element.previewTime ?? 0,
+          color: Utility.getRandomColor(),
+          totalValue: element.previewTime ?? 0,
+          onTap: () => print("Segment 1 clicked")));
+    });
+    return [];
+  }
+
+  static List<MissionModel> getMissionModelsFromCalendarModel(
+      {required CalendarModel calendarModel,
+      required DateTime dateTimeStart,
+      required DateTime dateTimeEnd}) {
+    List<DayModel> listMissionModels = calendarModel.dayModelList;
+    List<MissionModel> list = [];
+    listMissionModels.forEach((element) {
+      list.addAll(element.missionModelList);
+    });
+    return list;
+  }
+
+  /**
+   * 将任务列表按照folder_id排序 放到listMissionModels中
+   * {"folderObjectId": element?.folder_id, "folderTitle": element?.title, "listMissionModels": []}
+   */
+  static List<Map?> sortMissionModelListToFolderIds(
+    List<MissionModel> listMissionModels,
+  ) {
+    List<String> listFolderObjectId = [];
+
+    List<Map?> list = [];
+
+    listMissionModels.forEach((element) {
+      if (!TextUtil.isEmpty(element.folder_id) &&
+          !listFolderObjectId.contains(element.folder_id)) {
+        listFolderObjectId.add(element.folder_id!);
+      } else {
+        listFolderObjectId.add("");
+      }
+    });
+    // 查询folder列表
+    List<FolderModel?> listFolderModels = MongoApisManager.getInstance()
+        .queryFolderModelListByObjectIdList(listFolderObjectId);
+    // 如果folder_id为空则添加一个空的folder
+    if (listFolderObjectId.contains("")) {
+      listFolderModels.add(FolderModel());
+    }
+    List colorExist = [];
+    listFolderModels.forEach((element) {
+      List<MissionModel> listTmp = [];
+      int color = element?.color != 0
+          ? (element?.color ?? Colors.orange.value)
+          : Colors.orange.value;
+      if (colorExist.contains(color)) {
+        color = Utility.getRandomColor().value;
+      }
+      colorExist.add(color);
+      if (element?.objectId == null) {
+        list.add({
+          "folderObjectId": null,
+          "folderTitle": getI18NKey().no_project_parenthese,
+          "color": color,
+          "listMissionModels": listTmp
+        });
+      } else {
+        list.add({
+          "folderObjectId": element?.objectId,
+          "folderTitle": element?.title,
+          "color": color,
+          "listMissionModels": listTmp
+        });
+      }
+    });
+    listMissionModels.forEach((element) {
+      list.forEach((element2) {
+        if (element.folder_id == element2?['folderObjectId']) {
+          if(element2?['listMissionModels'].contains(element) == false)
+            element2?['listMissionModels'].add(element);
+        }
+      });
+    });
+
+    return list;
   }
 }

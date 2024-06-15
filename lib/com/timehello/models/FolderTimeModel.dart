@@ -1,12 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/table/MongoDbObject.dart';
 
+import 'MissionModel.dart';
+
 /**
  * MissionPage头部时间
  */
 part 'FolderTimeModel.g.dart';
 @JsonSerializable()
 class FolderTimeModel extends MongoDbObject{
+  String? folderTitle;
+  String? folderObjectId;
+  List<MissionModel>? listDatas;
   String previewTimeString = ''; //预计时间 hh:mm
   int? numMissionToFinished; //待完成任务
   int? previewTime; //预计时间
@@ -16,7 +21,8 @@ class FolderTimeModel extends MongoDbObject{
   int? numMissionDelayed = 0; //已完成任务
   int? numTomatoesUnfinished = 0;
   int? numTomatoesFinished = 0;
-  FolderTimeModel({this.numTomatoesUnfinished, this.numMissionDelayed, this.numTomatoesFinished, this.finishedTimeString = '', this.previewTimeString = '', this.previewTime, this.numMissionToFinished, this.finishedTime,
+
+  FolderTimeModel({this.folderObjectId, this.folderTitle, this.numTomatoesUnfinished, this.numMissionDelayed, this.numTomatoesFinished, this.finishedTimeString = '', this.previewTimeString = '', this.previewTime, this.numMissionToFinished, this.finishedTime,
       this.numMissionFinished});
 
   factory FolderTimeModel.fromJson(Map<String, dynamic> json) => _$FolderTimeModelFromJson(json);

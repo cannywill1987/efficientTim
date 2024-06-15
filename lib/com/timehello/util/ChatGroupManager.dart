@@ -83,7 +83,8 @@ class ChatGroupManager {
     FolderModel? folderModel =
     MongoApisManager.getInstance().getFolderModelByFolderId(folderId ?? "");
     // 清单创建本人 默认有权限
-    if(folderModel?.uid == LoginManager.getInstance().userBean.uid) {
+    //foldermodel为空则在今日插入
+    if(folderModel == null || folderModel?.uid == LoginManager.getInstance().userBean.uid) {
       return true;
     }
     print(

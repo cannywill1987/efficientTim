@@ -833,6 +833,236 @@ class MongoApisManager {
     }
     return true;
   }
+  List<MissionModel> queryWhereEqual_missionDataByEndTime2(
+      {int? start_endTime,
+        int? end_endTime,
+        List<MissionModel>? listMissionModels,
+        DateTime? curDayModelDateTime,
+        // int? time_mode,
+        String? fid,
+        bool? isFinished,
+        int? repetiveType = null,
+        callback}) {
+    List<MissionModel> list = [];
+    List<MissionModel> listMissionModelsTmp =
+        listMissionModels ?? this.listMissionModels;
+    for (int i = 0; i < listMissionModelsTmp.length; i++) {
+      MissionModel model = listMissionModelsTmp[i];
+      if (start_endTime != null && end_endTime != null) {
+        if (model.time_mode == 1) {
+          //时间段 判断时间有没有交叉
+          // if (start_endTime != null && model.end_time! >= start_endTime) {
+          //   if (end_endTime != null && model.end_time! <= end_endTime) {
+          bool isIntersect = isIntersectDate1AndDate2(
+              startTime1: start_endTime,
+              endTime1: end_endTime,
+              startTime2: model.start_time,
+              endTime2: model.end_time);
+          if (isIntersect == true) {
+            if (repetiveType == null || model.repetiveType == repetiveType) {
+              if (fid == null || model.folder_id == fid) {
+                if (isFinished == null || model.isFinished == isFinished) {
+                  list.add(model);
+                }
+                // list.add(model);
+                //     }
+                //   }
+              }
+            }
+          }
+        } else {
+          if(model.repetiveType == 1) {
+            int repetiveValue = model.repetiveValue ?? 0;
+            DateTime dateTime = Utility.getYearMonthAndDayDateTimeByTimestamp(
+                model?.end_time ?? 0);
+            if (((dateTime.millisecondsSinceEpoch -
+                (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+                (repetiveValue * 24 * 60 * 60 * 1000) ==
+                0) &&
+                ((model?.end_time == null) ||
+                    ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+                        (model?.end_time ?? 0)))) {
+              // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+                if (repetiveType == null || model.repetiveType == repetiveType) {
+                  if (fid == null || model.folder_id == fid) {
+                    // if(time_mode == null || model.time_mode == time_mode) {
+                    if (isFinished == null || model.isFinished == isFinished) {
+                      list.add(model);
+                    }
+                    // }
+                  }
+                }
+
+            }
+          } else if(model.repetiveType == 2) {
+            int dailyStartTime = model?.daily_start_time ?? 0;
+            int dailyEndTime = model?.daily_end_time ?? 0;
+            Utility.getDateTimeFromTimeStamp(start_endTime);
+            DateTime startDateTime = Utility.getDateTimeFromTimeStamp(DateTime(
+                curDayModelDateTime?.year ?? 0,
+                curDayModelDateTime?.month ?? 0,
+                curDayModelDateTime?.day ?? 0,
+                curDayModelDateTime?.hour ?? 0)
+                .millisecondsSinceEpoch +
+                (dailyStartTime ?? 0));
+            DateTime endDateTime = Utility.getDateTimeFromTimeStamp(DateTime(
+                curDayModelDateTime?.year ?? 0,
+                curDayModelDateTime?.month ?? 0,
+                curDayModelDateTime?.day ?? 0,
+                curDayModelDateTime?.hour ?? 0)
+                .millisecondsSinceEpoch +
+                (dailyEndTime ?? 0));
+            DateTime curModelDateTime = dailyStartTime != 0 ? startDateTime : endDateTime;
+            DateTime dt = Utility.getDateTimeFromTimeStamp(start_endTime);
+            int weekDay = dt.weekday;
+            if(Utility.includeWeekDay(repetiveWeekDay: model?.repetiveWeekDay ?? [], weekDay: weekDay)) {
+
+              if(model.end_time == null || model.end_time == 0 || (model.end_time! >= end_endTime ))
+                if (repetiveType == null || model.repetiveType == repetiveType) {
+                  if (fid == null || model.folder_id == fid) {
+                    if (isFinished == null || model.isFinished == isFinished) {
+                      list.add(model);
+                    }
+                  }
+                }
+            }
+          } else    if(model.repetiveType == 3) {
+            // DateTime dateTimeDayModel = curDayModelDateTime ?? DateTime.now();
+            DateTime dateTimeMissionModel =
+            Utility.getYearMonthAndDayDateTimeByTimestamp(
+                model?.end_time ?? 0);
+
+            int yearMissionModel = dateTimeMissionModel.year;
+            int monthMissionModel = dateTimeMissionModel.month;
+            int dayMissionModel = dateTimeMissionModel.day;
+            int totalMonthDayModel = yearMissionModel * 12 + monthMissionModel;
+
+            int repetiveValueMissionModel = model?.repetiveValue ?? 0;
+            int totalMonthMissionModel = yearMissionModel * 12 + monthMissionModel;
+
+            if ((totalMonthMissionModel - totalMonthDayModel) %
+                (repetiveValueMissionModel) ==
+                0) {
+              DateTime dateTimeDayModel = curDayModelDateTime ?? DateTime.now();
+              int yearDayModel = dateTimeDayModel.year;
+              int monthDayModel = dateTimeDayModel.month;
+              int dayDayModel = dateTimeDayModel.day;
+              int totalMonthDayModel = yearDayModel * 12 + monthDayModel;
+              if ((totalMonthMissionModel - totalMonthDayModel) %
+                  (repetiveValueMissionModel) ==
+                  0) {
+                if (dayMissionModel == dayDayModel) {
+                  if (repetiveType == null ||
+                      model.repetiveType == repetiveType) {
+                    if (fid == null || model.folder_id == fid) {
+                      // if(time_mode == null || model.time_mode == time_mode) {
+                      if (isFinished == null ||
+                          model.isFinished == isFinished) {
+                        list.add(model);
+                      }
+                      // }
+                    }
+                  }
+                }
+              }
+            }
+
+              // if (dayMissionModel == dayDayModel) {
+              //   //~~~~~~~~~~~
+              //   if (((dateTime.millisecondsSinceEpoch -
+              //       (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+              //       (repetiveValue * 24 * 60 * 60 * 1000) ==
+              //       0) &&
+              //       ((model?.end_time == null) ||
+              //           ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+              //               (model?.end_time ?? 0)))) {
+              //     // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+              //     if (repetiveType == null || model.repetiveType == repetiveType) {
+              //       if (fid == null || model.folder_id == fid) {
+              //         // if(time_mode == null || model.time_mode == time_mode) {
+              //         if (isFinished == null || model.isFinished == isFinished) {
+              //           list.add(model);
+              //         }
+              //         // }
+              //       }
+              //     }
+              //
+              //   }
+              //   //~~~~~~~~~~
+              // }
+            // }
+            //
+            // int repetiveValue = model.repetiveValue ?? 0;
+            // DateTime dateTime = Utility.getYearMonthAndDayDateTimeByTimestamp(
+            //     model?.end_time ?? 0);
+            // if (((dateTime.millisecondsSinceEpoch -
+            //     (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+            //     (repetiveValue * 24 * 60 * 60 * 1000) ==
+            //     0) &&
+            //     ((model?.end_time == null) ||
+            //         ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+            //             (model?.end_time ?? 0)))) {
+            //   // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+            //   if (repetiveType == null || model.repetiveType == repetiveType) {
+            //     if (fid == null || model.folder_id == fid) {
+            //       // if(time_mode == null || model.time_mode == time_mode) {
+            //       if (isFinished == null || model.isFinished == isFinished) {
+            //         list.add(model);
+            //       }
+            //       // }
+            //     }
+            //   }
+
+            // }
+          } else{
+            if(start_endTime != null && model.end_time! >= start_endTime) {
+              if (end_endTime != null && model.end_time! <= end_endTime) {
+                // model.ic
+                if (repetiveType == null || model.repetiveType == repetiveType) {
+                  if (fid == null || model.folder_id == fid) {
+                    // if(time_mode == null || model.time_mode == time_mode) {
+                    if (isFinished == null || model.isFinished == isFinished) {
+                      list.add(model);
+                    }
+                    // }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else if (start_endTime != null && end_endTime == null) {
+        if (model.end_time! >= start_endTime) {
+          if (repetiveType == null || model.repetiveType == repetiveType) {
+            if (fid == null || model.folder_id == fid) {
+              // if(time_mode == null || model.time_mode == time_mode) {
+              if (isFinished == null || model.isFinished == isFinished) {
+                list.add(model);
+              }
+              // }
+            }
+          }
+        }
+      } else if (start_endTime == null && end_endTime != null) {
+        if (model.end_time! <= end_endTime) {
+          if (repetiveType == null || model.repetiveType == repetiveType) {
+            if (fid == null || model.folder_id == fid) {
+              if (isFinished == null || model.isFinished == isFinished) {
+                list.add(model);
+              }
+            }
+          }
+        }
+      } else {
+        if (fid == null || model.folder_id == fid) {
+          if (isFinished == null || model.isFinished == isFinished) {
+            list.add(model);
+          }
+        }
+      }
+    }
+    return list;
+  }
 
   /**
    * 等于条件查询

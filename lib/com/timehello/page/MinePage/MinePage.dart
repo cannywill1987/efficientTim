@@ -14,7 +14,7 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
+// import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/FlomoPage/FlomoPage.dart';
 import 'package:time_hello/com/timehello/page/LockScreenPage/LockScreenPage.dart';
 import 'package:time_hello/com/timehello/page/SettingPage/pages/FilterMenuSettingPage.dart';
@@ -478,17 +478,17 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-    if(Utility.isHuaWei() == false) {
-      list.add(GridMenuItem(
-          icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
-          title: getI18NKey().ai_helper,
-          // subtitle: getI18NKey().cloud_sync_content,
-          onTapListener: () async {
-            // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
-            // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
-            Utility.pushNavigator(context, const GPTContainer());
-          }));
-    }
+    // if(Utility.isHuaWei() == false) {
+    //   list.add(GridMenuItem(
+    //       icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
+    //       title: getI18NKey().ai_helper,
+    //       // subtitle: getI18NKey().cloud_sync_content,
+    //       onTapListener: () async {
+    //         // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
+    //         // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
+    //         Utility.pushNavigator(context, const GPTContainer());
+    //       }));
+    // }
     // list.add(GridMenuItem(
     //     icon: Utility.getSVGPicture(R.assetsImgIcCreditCard, size: iconSize),
     //     title: getI18NKey().credit_bag,

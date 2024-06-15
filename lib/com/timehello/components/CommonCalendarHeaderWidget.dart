@@ -256,7 +256,7 @@ class CommonCalendarHeaderWidgetState
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return getMonthSubtitle().isEmpty == true && getYearTitle().isEmpty == true
+    return !Utility.isHandsetBySize() && getMonthSubtitle().isEmpty == true && getYearTitle().isEmpty == true
         ? SizedBox.shrink()
         : Container(
 

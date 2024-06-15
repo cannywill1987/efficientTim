@@ -195,6 +195,11 @@ class CounterMethodChannelManager {
     return "";
   }
 
+  Future scheduleShutdown({required int delaySeconds}) async {
+    await _channel.invokeMethod('scheduleShutdown', {
+    "delaySeconds": delaySeconds});
+  }
+
   Future<String> grantNotificationPermission() async {
     try {
       await _channel.invokeMethod('grantNotificationPermission');

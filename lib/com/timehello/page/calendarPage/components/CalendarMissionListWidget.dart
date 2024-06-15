@@ -765,8 +765,17 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
                                                     onTap: () {
                                                       this.startDateTime = null;
                                                       this.endDateTime = null;
-                                                      context.read<CalendarMssionEnv>().startDateTime = null;
-                                                      context.read<CalendarMssionEnv>().endDateTime = null;
+                                                      if(this.widget.onDateRangeSelected != null) {
+                                                        context
+                                                            .read<
+                                                            CalendarMssionEnv>()
+                                                            .startDateTime =
+                                                        null;
+                                                        context
+                                                            .read<
+                                                            CalendarMssionEnv>()
+                                                            .endDateTime = null;
+                                                      }
                                                       this.widget.onDateRangeSelected?.call(this.startDateTime, this.endDateTime);
                                                     },
                                                     child: Icon(Icons.restart_alt,
@@ -992,7 +1001,7 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
                                                   DateTime dateTime = dates[0] ?? DateTime.now();
                                                   this.startDateTime = dateTime;
                                                   this.endDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59);
-                                                  context.read<CalendarMssionEnv>().startDateTime = startDateTime;
+                                                  context.read<CalendarMssionEnv>().startDateTime = this.startDateTime;
                                                   context.read<CalendarMssionEnv>().endDateTime = this.endDateTime;
                                                 } else if(dates.length == 2) {
                                                   this.startDateTime = dates[0];

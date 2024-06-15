@@ -38,6 +38,9 @@ class MethodChannelManager {
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
             switch call.method {
+            case "scheduleShutdown":
+                Utility.scheduleShutdown(after: 30000);
+                break;
             case "init":
                 let env:Bool = (call.arguments as! [[String: Any]])[0]["env"] as! Bool;
                 //                let env:Bool = item["env"] as! Bool;

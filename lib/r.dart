@@ -519,6 +519,8 @@ class R {
   static final String assetsImgIcFocusTraining = 'assets/img/ic_focus_training.svg';
   /// ![](http://127.0.0.1:123/assets/img/amex.png)
   static final String assetsImgAmex = 'assets/img/amex.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_lyubichs.svg)
+  static final String assetsImgIcLyubichs = 'assets/img/ic_lyubichs.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_brainstorm.svg)
   static final String assetsImgIcBrainstorm = 'assets/img/ic_brainstorm.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_expand_left.svg)

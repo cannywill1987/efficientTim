@@ -9,6 +9,8 @@ import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.d
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/SearchBarWithIconWidget.dart';
+import 'package:time_hello/com/timehello/components/StorageUsageBar.dart';
+import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
@@ -22,6 +24,7 @@ import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MissionGridView.dart';
 import 'package:time_hello/com/timehello/page/missionPage/componnents/MultiSelectHandleWidget.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
+import 'package:time_hello/com/timehello/util/BeanParser.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
@@ -121,6 +124,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   List<CheckButtonStateModel>? listCheckButtonStateModel;
   int folderStatusIsArchived = -1; // -1 未归档 归档 0 未归档 1 归档
   bool isListAndGridVisible = true;
+  double missionPageWidth = 300;
+
+  List<TimeSegment> listTimeSegment = [];
 
   // int
   _MisssionPageWidgetState({folderStatus, folderModel}) {
@@ -694,10 +700,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       this.rightNavChildren = [
         IconButton(
             onPressed: () {
-              this.widget.onTapRightNavMenuListener?.call(this.widget.folderModel, false);
+              this
+                  .widget
+                  .onTapRightNavMenuListener
+                  ?.call(this.widget.folderModel, false);
             },
-            icon: Utility.getSVGPicture(
-                R.assetsImgIcListingGroup, size: StylesConfig.sizeGroup))
+            icon: Utility.getSVGPicture(R.assetsImgIcListingGroup,
+                size: StylesConfig.sizeGroup))
       ];
       updateUI();
     }
@@ -710,8 +719,10 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         IconButton(
             onPressed: () {
               // 第二个参数是不是gpt
-              this.widget.onTapRightNavMenuListener?.call(
-                  this.widget.folderModel, true);
+              this
+                  .widget
+                  .onTapRightNavMenuListener
+                  ?.call(this.widget.folderModel, true);
             },
             icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
       ];
@@ -729,151 +740,160 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     } else {
       initData(this.widget.folderModel, this.widget.folderStatusDate);
     }
-    return WillPopScope(
-      key: ValueKey('WillPopScope1'),
-      onWillPop: () async {
-        if (OverlayManagement.getInstance()
-                .isMissionDetailPageOverlayVisible() ==
-            true) {
-          OverlayManagement.getInstance().removeMissionDetailPageOverlay();
-          return Future.value(false);
-        } else {
-          return Future.value(true);
-        }
-      },
-      child: Stack(key: ValueKey('Stack2'), children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: padding),
-          key: ValueKey('Container1'),
-          color: ThemeManager.getInstance().getBackgroundColor(),
-          child: GestureDetector(
-            key: ValueKey('TextButton1'),
-            onTap: () async {
-              unfocus();
-              await Future.delayed(Duration(milliseconds: 500));
-              Utility.popupDesktopRightNavigator(context);
-            },
-            child: Stack(key: ValueKey('Stack1'), children: [
-              RefreshIndicator(
-                key: ValueKey('RefreshIndicator1'),
-                onRefresh: () async {
-                  Utility.initCalendarModel();
-                  // await this.requestDatas();
-                  //模拟网络请求
-                  //结束刷新
-                  return Future.value(true);
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        this.missionPageWidth = constraints.maxWidth;
+        return WillPopScope(
+          key: ValueKey('WillPopScope1'),
+          onWillPop: () async {
+            if (OverlayManagement.getInstance()
+                    .isMissionDetailPageOverlayVisible() ==
+                true) {
+              OverlayManagement.getInstance().removeMissionDetailPageOverlay();
+              return Future.value(false);
+            } else {
+              return Future.value(true);
+            }
+          },
+          child: Stack(key: ValueKey('Stack2'), children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: padding),
+              key: ValueKey('Container1'),
+              color: ThemeManager.getInstance().getBackgroundColor(),
+              child: GestureDetector(
+                key: ValueKey('TextButton1'),
+                onTap: () async {
+                  unfocus();
+                  await Future.delayed(Duration(milliseconds: 500));
+                  Utility.popupDesktopRightNavigator(context);
                 },
-                child: Container(
-                  key: ValueKey('Container2'),
-                  color: ThemeManager.getInstance().getBackgroundColor(),
-                  child: CustomScrollView(
-                    controller: _scrollController,
-                    key: ValueKey('CustomScrollView1'),
-                    slivers: getSilverListWidget(),
+                child: Stack(key: ValueKey('Stack1'), children: [
+                  RefreshIndicator(
+                    key: ValueKey('RefreshIndicator1'),
+                    onRefresh: () async {
+                      Utility.initCalendarModel();
+                      // await this.requestDatas();
+                      //模拟网络请求
+                      //结束刷新
+                      return Future.value(true);
+                    },
+                    child: Container(
+                      key: ValueKey('Container2'),
+                      color: ThemeManager.getInstance().getBackgroundColor(),
+                      child: CustomScrollView(
+                        controller: _scrollController,
+                        key: ValueKey('CustomScrollView1'),
+                        slivers: getSilverListWidget(),
+                      ),
+                    ),
                   ),
-                ),
+                ]),
               ),
-            ]),
-          ),
-        ),
-        Utility.isHandsetBySize()
-            ? Align(
-                key: ValueKey('Align1'),
-                alignment: Alignment.bottomCenter,
-                child:
-                    getBottomBar(context, isVisible: this._isBottomBarVisible),
-              )
-            : SizedBox.shrink(),
-        this._isBottomBarVisible
-            ? SizedBox.shrink()
-            : Positioned(
-                bottom: 30,
-                right: 20,
-                child: CircleWidget(
-                  onTapListener: (obj) {
-                    MissionModel missionModel = MissionModel();
-                    missionModel.folder_id = this.widget.folderModel?.objectId;
-                    if (this.widget.folderModel?.tag == 2) {
-                      missionModel.tagNames = this.widget.folderModel?.tag == 2
-                          ? this.widget.folderModel?.title
-                          : "";
-                      missionModel.tagIds = this.widget.folderModel?.tag == 2
-                          ? this.widget.folderModel?.objectId
-                          : "";
-                      // missionModel.tagIds = this.widget.folderModel?.tag == 2 ? this.widget.folderModel?.objectId : "";
-                    }
-                    missionModel.folder_id =
-                        this.widget.folderModel?.objectId ?? "";
-                    // missionModel.end_time = this.widget.folderModel?.objectId ?? "";
+            ),
+            Utility.isHandsetBySize()
+                ? Align(
+                    key: ValueKey('Align1'),
+                    alignment: Alignment.bottomCenter,
+                    child: getBottomBar(context,
+                        isVisible: this._isBottomBarVisible),
+                  )
+                : SizedBox.shrink(),
+            this._isBottomBarVisible
+                ? SizedBox.shrink()
+                : Positioned(
+                    bottom: 30,
+                    right: 20,
+                    child: CircleWidget(
+                      onTapListener: (obj) {
+                        MissionModel missionModel = MissionModel();
+                        missionModel.folder_id =
+                            this.widget.folderModel?.objectId;
+                        if (this.widget.folderModel?.tag == 2) {
+                          missionModel.tagNames =
+                              this.widget.folderModel?.tag == 2
+                                  ? this.widget.folderModel?.title
+                                  : "";
+                          missionModel.tagIds =
+                              this.widget.folderModel?.tag == 2
+                                  ? this.widget.folderModel?.objectId
+                                  : "";
+                          // missionModel.tagIds = this.widget.folderModel?.tag == 2 ? this.widget.folderModel?.objectId : "";
+                        }
+                        missionModel.folder_id =
+                            this.widget.folderModel?.objectId ?? "";
+                        // missionModel.end_time = this.widget.folderModel?.objectId ?? "";
 
-                    missionModel.end_time =
-                        CONSTANTS.getDeadLineTme((this._dateStatus ?? 0) + 1);
+                        missionModel.end_time = CONSTANTS
+                            .getDeadLineTme((this._dateStatus ?? 0) + 1);
 
-                    // missionModel. = this.widget.folderModel?.tag == 2 ? this.widget.folderModel?.title : "";
-                    // missionModel.end_time = dayModel.dateTime?.millisecondsSinceEpoch;
-                    if (Utility.isHandsetBySize() == true) {
-                      Utility.pushNavigator(context,
-                          CreateMissionPage(missionModel: missionModel));
-                    } else {
-                      DialogManagement.getInstance().showPCCustomDialog(
-                          context: context,
-                          widget:
+                        // missionModel. = this.widget.folderModel?.tag == 2 ? this.widget.folderModel?.title : "";
+                        // missionModel.end_time = dayModel.dateTime?.millisecondsSinceEpoch;
+                        if (Utility.isHandsetBySize() == true) {
+                          Utility.pushNavigator(context,
                               CreateMissionPage(missionModel: missionModel));
-                    }
-                  },
-                )),
-        this.multiSelectModeEnum == MultiSelectModeEnum.normal
-            ? SizedBox.shrink()
-            : Positioned(
-                bottom: 0,
-                child: MultiSelectHandleWidget(
-                  missionModelList: this.curListMissionModels ?? [],
-                  onClickUpdateTimeDoItNow: (datas) async {
-                    Utility.onClickUpdateTimeDoItNow(context, datas);
-                  },
-                  onClickDelete: (datas) async {
-                    await MongoApisManager.getInstance()
-                        .batchDelete_MissionModel(listParam: datas);
-                  },
-                  onClickExport: (datas) {
-                    TextEditingController textEditingController =
-                        TextEditingController();
-                    String s = Utility.getContentFromMissionList(
-                        datas: datas ?? [],
-                        listCheckButtonModel: CONSTANTS.getExportButtonsList());
-                    textEditingController.text = s;
-                    ExportMissionListDialogUtil.show(context,
-                        textEditingController: textEditingController,
-                        onTapListener: (res) {
-                      List<CheckButtonStateModel> data = res['data'];
-                      MissionOrderEnum missionOrderEnum = res['enum'];
-                      String s = Utility.getContentFromMissionList(
-                          datas: Utility.getMissionModelListAfterOrder(
-                              missionOrderEnum, datas ?? []),
-                          listCheckButtonModel: data);
-                      textEditingController.text = s;
-                      updateUI();
-                    }, export: (data) {
-                      Utility.showToastMsg(
-                          context: context,
-                          msg: getI18NKey().offer_next_version);
-                    });
-                  },
-                  onClickFinish: (datas) async {
-                    await MongoApisManager.getInstance()
-                        ?.batchUpdate_MissionModelWithParams(
-                            listMissionModel: datas);
-                  },
-                  onClickUnFinish: (datas) async {
-                    await MongoApisManager.getInstance()
-                        ?.batchUpdate_MissionModelWithParams(
-                            listMissionModel: datas);
-                  },
-                  onClickClose: (datas) async {
-                    resetMultiSelectModeEnum();
-                  },
-                )),
-      ]),
+                        } else {
+                          DialogManagement.getInstance().showPCCustomDialog(
+                              context: context,
+                              widget: CreateMissionPage(
+                                  missionModel: missionModel));
+                        }
+                      },
+                    )),
+            this.multiSelectModeEnum == MultiSelectModeEnum.normal
+                ? SizedBox.shrink()
+                : Positioned(
+                    bottom: 0,
+                    child: MultiSelectHandleWidget(
+                      missionModelList: this.curListMissionModels ?? [],
+                      onClickUpdateTimeDoItNow: (datas) async {
+                        Utility.onClickUpdateTimeDoItNow(context, datas);
+                      },
+                      onClickDelete: (datas) async {
+                        await MongoApisManager.getInstance()
+                            .batchDelete_MissionModel(listParam: datas);
+                      },
+                      onClickExport: (datas) {
+                        TextEditingController textEditingController =
+                            TextEditingController();
+                        String s = Utility.getContentFromMissionList(
+                            datas: datas ?? [],
+                            listCheckButtonModel:
+                                CONSTANTS.getExportButtonsList());
+                        textEditingController.text = s;
+                        ExportMissionListDialogUtil.show(context,
+                            textEditingController: textEditingController,
+                            onTapListener: (res) {
+                          List<CheckButtonStateModel> data = res['data'];
+                          MissionOrderEnum missionOrderEnum = res['enum'];
+                          String s = Utility.getContentFromMissionList(
+                              datas: Utility.getMissionModelListAfterOrder(
+                                  missionOrderEnum, datas ?? []),
+                              listCheckButtonModel: data);
+                          textEditingController.text = s;
+                          updateUI();
+                        }, export: (data) {
+                          Utility.showToastMsg(
+                              context: context,
+                              msg: getI18NKey().offer_next_version);
+                        });
+                      },
+                      onClickFinish: (datas) async {
+                        await MongoApisManager.getInstance()
+                            ?.batchUpdate_MissionModelWithParams(
+                                listMissionModel: datas);
+                      },
+                      onClickUnFinish: (datas) async {
+                        await MongoApisManager.getInstance()
+                            ?.batchUpdate_MissionModelWithParams(
+                                listMissionModel: datas);
+                      },
+                      onClickClose: (datas) async {
+                        resetMultiSelectModeEnum();
+                      },
+                    )),
+          ]),
+        );
+      },
     );
     ;
   }
@@ -1020,6 +1040,36 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     //CustomScrollView加固定高度 10
     listWidget.add(SliverPadding(padding: EdgeInsets.only(top: 10)));
     // listWidget.add(SliverPadding(padding: EdgeInsets.only(top: 10),));
+    // listWidget.add(SliverToBoxAdapter(
+    //   child: Center(
+    //     child: TimeRatioComponent(
+    //       width: this.missionPageWidth,
+    //       height: 5,
+    //       totalTime: 24 * 60 * 60, // 一天的总秒数
+    //       listMissionModels: this.curListMissionModels ?? [],
+    //       // [
+    //       //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
+    //       //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
+    //       //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
+    //       //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
+    //       //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
+    //       // ],
+    //     ),
+    //   ),
+    // ));
+
+    // listWidget.add(SliverToBoxAdapter(child:       Center(
+    //   child: StorageUsageBar(
+    //     totalStorage: 1400,
+    //     usedStorage: 487.86,
+    //     sections: [
+    //       StorageSection('文稿', Colors.red, 200.0),
+    //       StorageSection('应用程序', Colors.orange, 100.0),
+    //       StorageSection('开发者', Colors.yellow, 50.0),
+    //       StorageSection('其他用户与共享', Colors.green, 20.0),
+    //       StorageSection('正在计算...', Colors.grey, 117.86),
+    //     ],
+    //   ),),));
     listWidget.addAll(
         this.missionDataViewTypeEnum == MissionDataViewTypeEnum.list
             ? this.buildListWidget(
@@ -1703,6 +1753,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           Utility.getMissionModelFinished(datas); //完成的任务
       _missionModelListUnFinished =
           Utility.getMissionModelUnfinished(datas); //未完成任务
+//时间段
+
       if (shouldUpdate == true) {
         if (mounted == true) {
           setState(() {});

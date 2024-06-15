@@ -1,3 +1,15 @@
+enum ProgressSortEnum {
+  Lyubichs, // 柳比歇斯
+  previewTime, // 预估时长排序
+  duration, //时长排序
+  tomato, // 番茄钟排序
+  priority, // 优先级排序
+  tag, // 标签排序
+  completeNum, // 完成任务数排序
+  focusDuration, // 专注时长排序
+
+}
+
 enum CorrectStatusEnum {
   normal,
   success,

@@ -20,280 +20,280 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
-  static String m0(numbers) => "Compléter en lot \'${numbers}\' tâches";
+  static String m1(numbers) => "Compléter en lot \'${numbers}\' tâches";
 
-  static String m1(numbers) => "Supprimer en lot \'${numbers}\' tâches";
+  static String m2(numbers) => "Supprimer en lot \'${numbers}\' tâches";
 
-  static String m2(numbers) => "Incomplet en lot \'${numbers}\' tâches";
+  static String m3(numbers) => "Incomplet en lot \'${numbers}\' tâches";
 
-  static String m3(numbers) => "Mettre à jour en lot \'${numbers}\' tâches";
+  static String m4(numbers) => "Mettre à jour en lot \'${numbers}\' tâches";
 
-  static String m4(numTotatoes, duration, time, minute) =>
+  static String m7(numTotatoes, duration, time, minute) =>
       "Pomodoros estimés: ${numTotatoes} x ${duration} minutes = ${time} heures ${minute} minutes";
 
-  static String m5(times) => "Horodatage continu pendant ${times} jours";
+  static String m8(times) => "Horodatage continu pendant ${times} jours";
 
-  static String m6(n) => "Horodatage total pendant ${n} jours";
+  static String m9(n) => "Horodatage total pendant ${n} jours";
 
-  static String m7(title) => "Terminer la mission d\'horodatage \'${title}\'";
+  static String m10(title) => "Terminer la mission d\'horodatage \'${title}\'";
 
-  static String m8(title, num) =>
+  static String m11(title, num) =>
       "Compléter la tâche de concentration \'${title}\', et obtenir ${num} pièces ";
 
-  static String m9(title, time, num) =>
+  static String m12(title, time, num) =>
       "Compléter une tâche de concentration unique \'${title}\', concentré pendant ${time}, et obtenir ${num} pièces ";
 
-  static String m10(title) => "compléter la mission de repos 「${title}」";
+  static String m13(title) => "compléter la mission de repos 「${title}」";
 
-  static String m11(title) => "compléter la mission de repos 「${title}」";
+  static String m14(title) => "compléter la mission de repos 「${title}」";
 
-  static String m12(name) => "${name}";
+  static String m15(name) => "${name}";
 
-  static String m13(folderName) =>
+  static String m16(folderName) =>
       "Confirmez-vous la suppression du dossier \"${folderName}\"";
 
-  static String m14(folderName) =>
+  static String m17(folderName) =>
       "Voulez-vous supprimer la liste et les sous-tâches associées dans le dossier \"${folderName}\"";
 
-  static String m15(money) => "Consommer「${money}」pièces（entré manuellement）";
+  static String m18(money) => "Consommer「${money}」pièces（entré manuellement）";
 
-  static String m16(money, present) =>
+  static String m19(money, present) =>
       "Consommer ${money} pièces pour acheter un ${present}";
 
-  static String m17(code) =>
+  static String m20(code) =>
       "Copiez le lien et partagez-le avec vos amis, afin qu\'ils puissent rejoindre la liste de groupe par le code de groupe ${code}";
 
-  static String m18(day, hour, mins, secs) =>
+  static String m21(day, hour, mins, secs) =>
       "${day} jours ${hour}:${mins}:${secs}";
 
-  static String m19(hour, mins, secs) => "${hour}:${mins}:${secs}";
+  static String m22(hour, mins, secs) => "${hour}:${mins}:${secs}";
 
-  static String m20(mins, secs) => "${mins}:${secs}";
+  static String m23(mins, secs) => "${mins}:${secs}";
 
-  static String m21(times, total, title) =>
+  static String m24(times, total, title) =>
       "Horodatage pour la ${times}/${total} fois pour \'${title}\'";
 
-  static String m22(listing, title) =>
+  static String m25(listing, title) =>
       "Dans la liste \'${listing}\', a créé une tâche ClockIn \'${title}\'";
 
-  static String m23(title) => "A créé une tâche ClockIn \'${title}\'";
+  static String m26(title) => "A créé une tâche ClockIn \'${title}\'";
 
-  static String m24(title) => "Créer une liste \'${title}\'";
+  static String m27(title) => "Créer une liste \'${title}\'";
 
-  static String m25(listing, title) =>
+  static String m28(listing, title) =>
       "dans la liste \'${listing}\' créer une mission \'${title}\'";
 
-  static String m26(title) => "Créer une mission \'${title}\'";
+  static String m29(title) => "Créer une mission \'${title}\'";
 
-  static String m27(title) => "créer une étiquette \'${title}\'";
+  static String m30(title) => "créer une étiquette \'${title}\'";
 
-  static String m28(Folder) => "Créer ${Folder}";
+  static String m31(Folder) => "Créer ${Folder}";
 
-  static String m29(tone) => "Sonnerie actuelle: ${tone}";
+  static String m32(tone) => "Sonnerie actuelle: ${tone}";
 
-  static String m30(date1, date2) => "${date1} à ${date2}";
+  static String m33(date1, date2) => "${date1} à ${date2}";
 
-  static String m31(month, day) => "${month}/${day}";
+  static String m34(month, day) => "${month}/${day}";
 
-  static String m32(month, day, hour, mins) =>
+  static String m35(month, day, hour, mins) =>
       "${month}/${day},${hour}:${mins}";
 
-  static String m33(money) => "${money} auparavant";
+  static String m36(money) => "${money} auparavant";
 
-  static String m34(money) => "${money} jours plus tard";
+  static String m37(money) => "${money} jours plus tard";
 
-  static String m35(title) => "Supprimer la mission d\'horodatage \'${title}\'";
+  static String m38(title) => "Supprimer la mission d\'horodatage \'${title}\'";
 
-  static String m36(note) => "Widget de bureau${note}";
+  static String m39(note) => "Widget de bureau${note}";
 
-  static String m37(title) => "Modifier le titre \"${title}\"";
+  static String m40(title) => "Modifier le titre \"${title}\"";
 
-  static String m38(n) => "${n} fois par jour";
+  static String m41(n) => "${n} fois par jour";
 
-  static String m39(title, time, num) =>
+  static String m42(title, time, num) =>
       "Quitter l\'application, Mission「${title}」, Durée de concentration ${time}, a fait ${num} pièces";
 
-  static String m40(title) => "Terminer la mission 「${title}」";
+  static String m43(title) => "Terminer la mission 「${title}」";
 
-  static String m41(value) => "Durée:${value}";
+  static String m44(value) => "Durée:${value}";
 
-  static String m42(value) => "N°:${value}";
+  static String m45(value) => "N°:${value}";
 
-  static String m43(duraiton) => "${duraiton} secondes pour terminer";
+  static String m46(duraiton) => "${duraiton} secondes pour terminer";
 
-  static String m44(correct, error, percent) =>
+  static String m47(correct, error, percent) =>
       "${correct} réponses correctes, ${error} réponses incorrectes, taux de précision ${percent}";
 
-  static String m45(name) =>
+  static String m48(name) =>
       "Obtenu avec succès ${name} localement, vous pouvez commencer votre formation.";
 
-  static String m46(app_name) =>
+  static String m49(app_name) =>
       "Agir en tant que concierge du temps pour ${app_name}";
 
-  static String m47(id) => "Numéro de groupe : ${id}";
+  static String m50(id) => "Numéro de groupe : ${id}";
 
-  static String m48(title) =>
+  static String m51(title) =>
       "Ajouter une tâche dans \"${title}\", appuyez sur \"Entrée\" pour sauvegarder";
 
-  static String m49(hour, min) => "${hour} heure ${min} mins";
+  static String m52(hour, min) => "${hour} heure ${min} mins";
 
-  static String m50(hour, min, sec) => "${hour} heure ${min} min ${sec} sec";
+  static String m53(hour, min, sec) => "${hour} heure ${min} min ${sec} sec";
 
-  static String m51(num) => "Entrée maximale de ${num} caractères";
+  static String m54(num) => "Entrée maximale de ${num} caractères";
 
-  static String m52(max) => "Ne peut pas dépasser ${max} caractères";
+  static String m55(max) => "Ne peut pas dépasser ${max} caractères";
 
-  static String m53(time) => "Durée maximale d\'enregistrement : ${time}";
+  static String m56(time) => "Durée maximale d\'enregistrement : ${time}";
 
-  static String m54(min, sec) => "${min} min ${sec} sec";
+  static String m57(min, sec) => "${min} min ${sec} sec";
 
-  static String m55(year, month, day, weekday) =>
+  static String m58(year, month, day, weekday) =>
       "${year}/${month}/${day},${weekday}";
 
-  static String m56(month, day, year) => "${month}/${day}/${year}";
+  static String m59(month, day, year) => "${month}/${day}/${year}";
 
-  static String m57(month, year) => "${month}, ${year}";
+  static String m60(month, year) => "${month}, ${year}";
 
-  static String m58(year, month, day, hour, min, weekday) =>
+  static String m61(year, month, day, hour, min, weekday) =>
       "${year}-${month}-${day} ${hour}:${min},${weekday}";
 
-  static String m59(missionTitle) =>
+  static String m62(missionTitle) =>
       "La mission ${missionTitle} est en cours, êtes-vous sûr de vouloir arrêter?";
 
-  static String m60(name) => "Alerte de mission : ${name}";
+  static String m63(name) => "Alerte de mission : ${name}";
 
-  static String m61(name) => "Rappel de tâche d\'horodatage \'${name}\'";
+  static String m64(name) => "Rappel de tâche d\'horodatage \'${name}\'";
 
-  static String m62(submission, mission) =>
+  static String m65(submission, mission) =>
       "La sous-tâche ${submission} de la mission ${mission} a commencé, veuillez vous préparer";
 
-  static String m63(title) => "Tâche \"${title}\"";
+  static String m66(title) => "Tâche \"${title}\"";
 
-  static String m64(value) =>
+  static String m67(value) =>
       "Veuillez d\'abord définir votre valeur horaire ${value}\$/heure";
 
-  static String m65(title) => "Modifier le titre de la liste en ${title}";
+  static String m68(title) => "Modifier le titre de la liste en ${title}";
 
-  static String m66(title) =>
+  static String m69(title) =>
       "Modifier le titre de l\'étiquette en \'${title}\'";
 
-  static String m67(month, day, weekday) => "${month}/${day},${weekday}";
+  static String m70(month, day, weekday) => "${month}/${day},${weekday}";
 
-  static String m68(month) => "Taux d\'horodatage du mois ${month}";
+  static String m71(month) => "Taux d\'horodatage du mois ${month}";
 
-  static String m69(month) => "Enregistrement d\'horodatage du mois ${month}";
+  static String m72(month) => "Enregistrement d\'horodatage du mois ${month}";
 
-  static String m70(course) => "Mon ${course}";
+  static String m73(course) => "Mon ${course}";
 
-  static String m71(ranking) => "classement : ${ranking}";
+  static String m74(ranking) => "classement : ${ranking}";
 
-  static String m72(ranking) => "Mon classement actuel est ${ranking}";
+  static String m75(ranking) => "Mon classement actuel est ${ranking}";
 
-  static String m73(days) => "En retard de ${days} jours";
+  static String m76(days) => "En retard de ${days} jours";
 
-  static String m74(newline) => "Nouvelle ligne:${newline}";
+  static String m77(newline) => "Nouvelle ligne:${newline}";
 
-  static String m75(title, min, secs) =>
+  static String m78(title, min, secs) =>
       "${title}(temps restant:${min}:${secs}）";
 
-  static String m76(value, hour, mins) =>
+  static String m79(value, hour, mins) =>
       "Aujourd\'hui, vous avez ${value} missions à faire, durée prévue : ${hour} heure ${mins} mins";
 
-  static String m77(n, hour, mins) =>
+  static String m80(n, hour, mins) =>
       "il y a ${n} tâches en retard, durée prévue : ${hour} heure ${mins} mins ";
 
-  static String m78(days) => "${days} jours";
+  static String m81(days) => "${days} jours";
 
-  static String m79(num) => "${num} mins";
+  static String m82(num) => "${num} mins";
 
-  static String m80(num, total) => "Liste ${num}/${total}";
+  static String m84(num, total) => "Liste ${num}/${total}";
 
-  static String m81(num, total) => "${num}/${total}";
+  static String m85(num, total) => "${num}/${total}";
 
-  static String m82(num) => "${num} tasks";
+  static String m86(num) => "${num} tasks";
 
-  static String m83(num) => "${num} fois";
+  static String m87(num) => "${num} fois";
 
-  static String m84(num) => "${num}";
+  static String m89(num) => "${num}";
 
-  static String m85(number) => "${number} prix";
+  static String m90(number) => "${number} prix";
 
-  static String m86(name) =>
+  static String m91(name) =>
       "Veuillez entrer le mot de passe de la liste « ${name} »";
 
-  static String m87(xxx) => "Veuillez entrer ${xxx}";
+  static String m92(xxx) => "Veuillez entrer ${xxx}";
 
-  static String m88(name) =>
+  static String m93(name) =>
       "Veuillez rechercher \"${name}\" dans l\'App Store";
 
-  static String m89(content) => "Veuillez sélectionner ${content}";
+  static String m94(content) => "Veuillez sélectionner ${content}";
 
-  static String m90(present) => "Combien de pièces coûte ${present}";
+  static String m95(present) => "Combien de pièces coûte ${present}";
 
-  static String m91(missionFinished, missionToDo, duration) =>
+  static String m96(missionFinished, missionToDo, duration) =>
       "${missionFinished} terminé, veuillez commencer ${missionToDo}, ${missionToDo} durée : ${duration}";
 
-  static String m92(total) => "${total} Tâche récurrente";
+  static String m97(total) => "${total} Tâche récurrente";
 
-  static String m93(value) => "Durée:${value}";
+  static String m98(value) => "Durée:${value}";
 
-  static String m94(value) => "N°:${value}";
+  static String m99(value) => "N°:${value}";
 
-  static String m95(role, time, content, timestampFormat1, timestampFormat2,
+  static String m100(role, time, content, timestampFormat1, timestampFormat2,
           timestampFormat3) =>
       "Je veux que vous jouiez un ${role}, vous devez planifier le contenu suivant, le temps est ${time}, ${content}, et retourner un tableau d\'objets JSON. Les valeurs clés et les explications de chaque champ dans le JSON sont les suivantes : \nString? title = \'\'; //Le titre est requis \nint? total_tomatoes; //Calculer directement le résultat, le nombre de tomates complétées (daily_end_time - daily_start_time)/tomato_duration \nint? tomato_duration = 1500000;  //Calculer directement le résultat, la valeur est toujours 25 * 60 * 1000 millisecondes, représentant une concentration de tomate de 25 minutes \nString? end_time; //Calculer directement le résultat, l\'heure de fin au format ${timestampFormat1} est requise \nint? priorityStatus; //3 Pas de priorité  2 Faible priorité 1 Priorité moyenne 0 Haute priorité est requise \nString? daily_start_time; //Calculer directement le résultat, l\'heure de début de la tâche au format ${timestampFormat2} \nString? daily_end_time; //Calculer directement le résultat, l\'heure de fin de la tâche au format ${timestampFormat3} \nString? message; //Rappel de tâche \nNote : Ne peut pas être nul, la valeur dans key:value donne directement le résultat, le daily_start_time et le daily_end_time de chaque tâche ne peuvent pas se chevaucher \nLe titre doit être clairement décrit, aucune autre explication n\'est nécessaire, chaque tâche doit être espacée d\'au moins 5 minutes \nNe retournez qu\'une chaîne JSON avec un tableau comme racine, comme [object, object,]";
 
-  static String m96(listing_name, code, app_name) =>
+  static String m101(listing_name, code, app_name) =>
       "Le numéro de la liste de groupe pour ${listing_name} est ${code}. Téléchargez ${app_name}, entrez le numéro de la liste de groupe, et vous pourrez travailler avec vos partenaires.";
 
-  static String m97(title) =>
+  static String m102(title) =>
       "Commencer à se concentrer sur la tâche \'${title}\'";
 
-  static String m98(title) => "commencer la mission de repos 「${title}」";
+  static String m103(title) => "commencer la mission de repos 「${title}」";
 
-  static String m99(title, time, num) =>
+  static String m104(title, time, num) =>
       "Arrêter de se concentrer sur la mission \'${title}\', concentré pendant ${time}, et obtenir ${num} pièces ";
 
-  static String m100(title) => "Arrêter la mission de repos 「${title}」";
+  static String m105(title) => "Arrêter la mission de repos 「${title}」";
 
-  static String m101(money) => "${money} auparavant";
+  static String m106(money) => "${money} auparavant";
 
-  static String m102(money) => "${money} plus tard";
+  static String m107(money) => "${money} plus tard";
 
-  static String m103(date) => "${date}\'s data";
+  static String m108(date) => "${date}\'s data";
 
-  static String m104(trainee) =>
+  static String m111(trainee) =>
       "Veuillez noter, agissez selon votre situation réelle. Si vous n\'êtes pas satisfait de la réponse de ${trainee}, vous pouvez communiquer avec ${trainee} pour donner des commandes plus détaillées pour vous aider à planifier votre temps.";
 
-  static String m105(trainee) => "Conseils de ${trainee}";
+  static String m112(trainee) => "Conseils de ${trainee}";
 
-  static String m106(time) => "Dernière mise à jour : ${time}";
+  static String m113(time) => "Dernière mise à jour : ${time}";
 
-  static String m107(listing, title) =>
+  static String m114(listing, title) =>
       "dans la liste \'${listing}\' mettre à jour une mission \'${title}\'";
 
-  static String m108(title) => "Mettre à jour la mission \'${title}\'";
+  static String m115(title) => "Mettre à jour la mission \'${title}\'";
 
-  static String m109(value) => "valeur:${value}";
+  static String m116(value) => "valeur:${value}";
 
-  static String m110(value) => "${value}\$/heure";
+  static String m117(value) => "${value}\$/heure";
 
-  static String m111(version) => "Version actuelle ${version}";
+  static String m118(version) => "Version actuelle ${version}";
 
-  static String m112(appName) => "Bienvenue à \"${appName}\"";
+  static String m119(appName) => "Bienvenue à \"${appName}\"";
 
-  static String m113(diary) => "a écrit un journal : ${diary}";
+  static String m120(diary) => "a écrit un journal : ${diary}";
 
-  static String m114(diary) => "a écrit une note : ${diary}";
+  static String m121(diary) => "a écrit une note : ${diary}";
 
-  static String m115(text) => "${text} ne peut pas être vide";
+  static String m122(text) => "${text} ne peut pas être vide";
 
-  static String m116(month, year) => "${month},${year}";
+  static String m123(month, year) => "${month},${year}";
 
-  static String m117(name) =>
+  static String m124(name) =>
       "Votre tâche d\'horodatage \'${name}\' a commencé. Veuillez venir et horodater.";
 
-  static String m118(name) =>
+  static String m125(name) =>
       "La mission ${name} a commencé, veuillez vous préparer";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -414,10 +414,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "background_setting": MessageLookupByLibrary.simpleMessage(
             "Paramètres de l\'arrière-plan"),
         "bank": MessageLookupByLibrary.simpleMessage("Banque"),
-        "batch_complete_missions": m0,
-        "batch_delete_missions": m1,
-        "batch_uncomplete_missions": m2,
-        "batch_update_missions": m3,
+        "batch_complete_missions": m1,
+        "batch_delete_missions": m2,
+        "batch_uncomplete_missions": m3,
+        "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("à déterminer"),
         "bill_cleared": MessageLookupByLibrary.simpleMessage("Facture réglée"),
         "bill_day": MessageLookupByLibrary.simpleMessage("Jour de la facture"),
@@ -433,7 +433,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "buy_training_plan": MessageLookupByLibrary.simpleMessage(
             "acheter un plan de formation"),
         "byday": MessageLookupByLibrary.simpleMessage("Jour"),
-        "calculateTomatoesTime": m4,
+        "calculateTomatoesTime": m7,
         "calendar": MessageLookupByLibrary.simpleMessage("Calendrier"),
         "calendar2": MessageLookupByLibrary.simpleMessage("Calendrier"),
         "camera_permission_description": MessageLookupByLibrary.simpleMessage(
@@ -476,8 +476,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "clock_in": MessageLookupByLibrary.simpleMessage("Horodatage"),
         "clock_in_calendar":
             MessageLookupByLibrary.simpleMessage("Calendrier d\'horodatage"),
-        "clockin_n_days_continuously": m5,
-        "clockin_n_days_totally": m6,
+        "clockin_n_days_continuously": m8,
+        "clockin_n_days_totally": m9,
         "close": MessageLookupByLibrary.simpleMessage("Fermer"),
         "close_all_cycle_mission": MessageLookupByLibrary.simpleMessage(
             "Fermer toutes les tâches cycliques"),
@@ -506,16 +506,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "compare_to_tomorrow":
             MessageLookupByLibrary.simpleMessage("Comparé à hier"),
         "complete": MessageLookupByLibrary.simpleMessage("Terminer"),
-        "complete_flomo_mission": m7,
-        "complete_focusing_mission_name": m8,
-        "complete_one_time_focusing_mission_name": m9,
+        "complete_flomo_mission": m10,
+        "complete_focusing_mission_name": m11,
+        "complete_one_time_focusing_mission_name": m12,
         "complete_plan_classification": MessageLookupByLibrary.simpleMessage(
             "Classification des plans terminés"),
-        "complete_resting_mission_name": m10,
-        "complete_resting_name": m11,
+        "complete_resting_mission_name": m13,
+        "complete_resting_name": m14,
         "complete_voice_diary":
             MessageLookupByLibrary.simpleMessage("Terminer le journal vocal"),
-        "complete_voice_diary_with_title": m12,
+        "complete_voice_diary_with_title": m15,
         "complete_voice_note":
             MessageLookupByLibrary.simpleMessage("Terminer la note vocale"),
         "completed": MessageLookupByLibrary.simpleMessage("Terminé"),
@@ -538,10 +538,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Êtes-vous sûr d\'avoir terminé cette tâche?"),
         "confirmToSyncCloudData": MessageLookupByLibrary.simpleMessage(
             "Confirmez-vous la nécessité de la synchronisation cloud (Note : Il est seulement nécessaire d\'utiliser ceci lorsque vous avez connecté deux comptes sur un téléphone, et que vous devez synchroniser les données du numéro de téléphone précédent avec le courant) ?"),
-        "confirm_delete_folder": m13,
+        "confirm_delete_folder": m16,
         "confirm_delete_folder_desc": MessageLookupByLibrary.simpleMessage(
             "Une fois supprimé, cela ne peut pas être restauré"),
-        "confirm_delete_mission_models": m14,
+        "confirm_delete_mission_models": m17,
         "confirm_deletion":
             MessageLookupByLibrary.simpleMessage("Confirmer la suppression"),
         "confirm_unregister":
@@ -551,8 +551,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "consider_it": MessageLookupByLibrary.simpleMessage("y penser"),
         "consume_failure":
             MessageLookupByLibrary.simpleMessage("Échec de la consommation"),
-        "consume_money": m15,
-        "consume_money_buy_present": m16,
+        "consume_money": m18,
+        "consume_money_buy_present": m19,
         "consume_success":
             MessageLookupByLibrary.simpleMessage("consommation réussie"),
         "consump_money":
@@ -575,7 +575,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuously": MessageLookupByLibrary.simpleMessage("Continuellement"),
         "copy": MessageLookupByLibrary.simpleMessage("Copier"),
         "copy_link": MessageLookupByLibrary.simpleMessage("Copier le lien"),
-        "copy_link_description": m17,
+        "copy_link_description": m20,
         "copy_qq": MessageLookupByLibrary.simpleMessage("Rejoindre facebook"),
         "copy_qq_success": MessageLookupByLibrary.simpleMessage(""),
         "copy_sub_title": MessageLookupByLibrary.simpleMessage(
@@ -583,9 +583,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "copy_success": MessageLookupByLibrary.simpleMessage("Copie réussie"),
         "correct_answer":
             MessageLookupByLibrary.simpleMessage("Réponse correcte"),
-        "count_down": m18,
-        "count_down2": m19,
-        "count_down3": m20,
+        "count_down": m21,
+        "count_down2": m22,
+        "count_down3": m23,
         "count_down_text":
             MessageLookupByLibrary.simpleMessage("Compte à rebours"),
         "counting": MessageLookupByLibrary.simpleMessage("comptage"),
@@ -618,20 +618,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Donnez-moi le graphique"),
         "create_mission_title_content": MessageLookupByLibrary.simpleMessage(
             "Donnez-moi le graphique\nTemps:"),
-        "create_name_flomo_mission": m21,
-        "create_name_flomomission": m22,
-        "create_name_flomomission2": m23,
-        "create_name_listing": m24,
-        "create_name_mission": m25,
-        "create_name_mission2": m26,
-        "create_name_tag": m27,
+        "create_name_flomo_mission": m24,
+        "create_name_flomomission": m25,
+        "create_name_flomomission2": m26,
+        "create_name_listing": m27,
+        "create_name_mission": m28,
+        "create_name_mission2": m29,
+        "create_name_tag": m30,
         "create_present":
             MessageLookupByLibrary.simpleMessage("créer des récompenses"),
         "create_success":
             MessageLookupByLibrary.simpleMessage("Création réussie"),
         "create_time":
             MessageLookupByLibrary.simpleMessage("Heure de création"),
-        "create_xxx": m28,
+        "create_xxx": m31,
         "creating_date":
             MessageLookupByLibrary.simpleMessage("Date de création"),
         "credit_bag": MessageLookupByLibrary.simpleMessage("Sac de cartes"),
@@ -639,7 +639,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Limite de crédit"),
         "curAnalytics": MessageLookupByLibrary.simpleMessage("Graphiques"),
         "curTimeF": MessageLookupByLibrary.simpleMessage("Heure de début"),
-        "currentRingTone": m29,
+        "currentRingTone": m32,
         "current_amount":
             MessageLookupByLibrary.simpleMessage("Montant actuel"),
         "custom": MessageLookupByLibrary.simpleMessage("Personnalisé"),
@@ -656,9 +656,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "data_analyse_desc": MessageLookupByLibrary.simpleMessage(
             "Analyse de données en temps réel, pour mieux vous comprendre"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
-        "date1_to_date2": m30,
-        "dateFromMonth": m31,
-        "dateFromMonthToMins": m32,
+        "date1_to_date2": m33,
+        "dateFromMonth": m34,
+        "dateFromMonthToMins": m35,
         "dateOutOfLimit": MessageLookupByLibrary.simpleMessage(
             "La date que vous avez sélectionnée est hors de portée"),
         "day": MessageLookupByLibrary.simpleMessage("jour"),
@@ -669,8 +669,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Jours après le jour de la facture"),
         "days_after_repayment_day": MessageLookupByLibrary.simpleMessage(
             "Jours après le jour de remboursement"),
-        "days_ago": m33,
-        "days_later": m34,
+        "days_ago": m36,
+        "days_later": m37,
         "de": MessageLookupByLibrary.simpleMessage(" de "),
         "deadLine": MessageLookupByLibrary.simpleMessage("Date limite"),
         "dec": MessageLookupByLibrary.simpleMessage("Déc"),
@@ -681,12 +681,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "delay_mission":
             MessageLookupByLibrary.simpleMessage("Retarder la mission"),
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
-        "delete_flomo_mission": m35,
+        "delete_flomo_mission": m38,
         "delete_success":
             MessageLookupByLibrary.simpleMessage("Suppression réussie"),
         "desc_consume": MessageLookupByLibrary.simpleMessage(
             "description de la consommation"),
-        "desktop_widget_with_note_n": m36,
+        "desktop_widget_with_note_n": m39,
         "detailed_training_plan":
             MessageLookupByLibrary.simpleMessage("Plan de formation détaillé"),
         "detailed_training_plan_desc": MessageLookupByLibrary.simpleMessage(
@@ -718,7 +718,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("modifier le partage"),
         "edit_successfully": MessageLookupByLibrary.simpleMessage(
             "édition réussie, peut être consulté dans la page TimeLine"),
-        "edit_title": m37,
+        "edit_title": m40,
         "editing": MessageLookupByLibrary.simpleMessage("Édition"),
         "emailCannotBeNull": MessageLookupByLibrary.simpleMessage(
             "L\'e-mail ne peut pas être vide"),
@@ -755,7 +755,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enter_amount":
             MessageLookupByLibrary.simpleMessage("Veuillez entrer le montant"),
         "event": MessageLookupByLibrary.simpleMessage("événement"),
-        "everyDayOnce": m38,
+        "everyDayOnce": m41,
         "everyone_can_edit":
             MessageLookupByLibrary.simpleMessage("Tout le monde peut éditer"),
         "everyone_can_view":
@@ -763,7 +763,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "examination": MessageLookupByLibrary.simpleMessage("Erreur d\'examen"),
         "example_demo_hint": MessageLookupByLibrary.simpleMessage(
             "p. ex. \"toujours décrire en points, ne jamais utiliser unwrap, toujours donner vos réponses en anglais\""),
-        "exist_app_focusing_mission_name": m39,
+        "exist_app_focusing_mission_name": m42,
         "export": MessageLookupByLibrary.simpleMessage("exporter"),
         "export_data":
             MessageLookupByLibrary.simpleMessage("exporter les données"),
@@ -779,7 +779,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("nouvelle version trouvée"),
         "finish": MessageLookupByLibrary.simpleMessage("Terminer"),
         "finish_level": MessageLookupByLibrary.simpleMessage("Complétude :"),
-        "finish_mission_name": m40,
+        "finish_mission_name": m43,
         "finish_time": MessageLookupByLibrary.simpleMessage("Temps de fin"),
         "finished": MessageLookupByLibrary.simpleMessage("Terminé"),
         "focus": MessageLookupByLibrary.simpleMessage("se concentrer sur"),
@@ -795,10 +795,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Durée de concentration"),
         "focus_duration_distribution":
             MessageLookupByLibrary.simpleMessage("Focus duration distribution"),
-        "focus_duration_with_value": m41,
+        "focus_duration_with_value": m44,
         "focus_finished_ringtone": MessageLookupByLibrary.simpleMessage(
             "sonnerie de fin de concentration"),
-        "focus_numbers_with_value": m42,
+        "focus_numbers_with_value": m45,
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage(
                 "Focus on time period distribution"),
@@ -864,8 +864,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "fridayShort": MessageLookupByLibrary.simpleMessage("Ven"),
         "front_card": MessageLookupByLibrary.simpleMessage("Carte de face"),
         "gallery": MessageLookupByLibrary.simpleMessage("Galerie"),
-        "game1_time_usage": m43,
-        "game2_ranking_text": m44,
+        "game1_time_usage": m46,
+        "game2_ranking_text": m47,
         "game_input_waiting":
             MessageLookupByLibrary.simpleMessage("En attente de timing"),
         "generate_image":
@@ -876,14 +876,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Conseils gentils"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Cliquez pour le code d\'authentification"),
-        "get_train_plan_successful": m45,
+        "get_train_plan_successful": m48,
         "get_training_plan": MessageLookupByLibrary.simpleMessage(
             "obtenir un plan de formation"),
         "go_to_setting":
             MessageLookupByLibrary.simpleMessage("Ouvrir les paramètres"),
         "google_login":
             MessageLookupByLibrary.simpleMessage("Connexion Google"),
-        "gpt_role": m46,
+        "gpt_role": m49,
         "gpt_system_msg_forbidden": MessageLookupByLibrary.simpleMessage(
             "Ne discutez pas de sujets pornographiques ou politiquement sensibles"),
         "gpt_token_expired": MessageLookupByLibrary.simpleMessage(
@@ -891,7 +891,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "grid": MessageLookupByLibrary.simpleMessage("Grille"),
         "group_announcement":
             MessageLookupByLibrary.simpleMessage("Annonce de groupe"),
-        "group_id": m47,
+        "group_id": m50,
         "groupview": MessageLookupByLibrary.simpleMessage("Vue de groupe"),
         "gtd": MessageLookupByLibrary.simpleMessage("GTD"),
         "gtd_desc": MessageLookupByLibrary.simpleMessage(
@@ -920,7 +920,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "habit_clockin_desc": MessageLookupByLibrary.simpleMessage(
             "21 jours pour développer une habitude, Ebbinghaus pour se souvenir à long terme de ce qui est appris"),
         "hasLogined": MessageLookupByLibrary.simpleMessage("déjà connecté"),
-        "header_input_placeholder_with_title": m48,
+        "header_input_placeholder_with_title": m51,
         "heavy": MessageLookupByLibrary.simpleMessage("Lourd"),
         "hello": MessageLookupByLibrary.simpleMessage("Bonjour"),
         "hidden": MessageLookupByLibrary.simpleMessage("caché"),
@@ -930,8 +930,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Événement historique"),
         "hour": MessageLookupByLibrary.simpleMessage("Heure"),
         "hour3": MessageLookupByLibrary.simpleMessage("Heure"),
-        "hourAndMin": m49,
-        "hourAndMinAndSec": m50,
+        "hourAndMin": m52,
+        "hourAndMinAndSec": m53,
         "i_consume": MessageLookupByLibrary.simpleMessage("DÉPENSER"),
         "i_know": MessageLookupByLibrary.simpleMessage("Je sais"),
         "icon": MessageLookupByLibrary.simpleMessage("Icône"),
@@ -1073,9 +1073,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Maîtriser la situation"),
         "max_5m_files_size": MessageLookupByLibrary.simpleMessage(
             "La taille du fichier dépasse 5 Mo, veuillez sélectionner un fichier plus petit."),
-        "max_input_num": m51,
-        "max_words": m52,
-        "maximum_recording_time": m53,
+        "max_input_num": m54,
+        "max_words": m55,
+        "maximum_recording_time": m56,
         "may": MessageLookupByLibrary.simpleMessage("Mai"),
         "mayFull": MessageLookupByLibrary.simpleMessage("Mai"),
         "me": MessageLookupByLibrary.simpleMessage("Moi"),
@@ -1100,7 +1100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "microphone_permission_description": MessageLookupByLibrary.simpleMessage(
             "Pour prendre des notes, vous pourriez avoir besoin de la fonction d\'enregistrement, nous avons donc besoin de votre autorisation pour accéder au microphone"),
         "min3": MessageLookupByLibrary.simpleMessage("Minute"),
-        "minAndSec": m54,
+        "minAndSec": m57,
         "min_en": MessageLookupByLibrary.simpleMessage("min"),
         "mine": MessageLookupByLibrary.simpleMessage("Mien"),
         "mins": MessageLookupByLibrary.simpleMessage("Minute"),
@@ -1110,31 +1110,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "mission": MessageLookupByLibrary.simpleMessage("Liste"),
         "missionCompleted":
             MessageLookupByLibrary.simpleMessage("mission accomplie"),
-        "missionModelDate": m55,
-        "missionModelDate2": m56,
-        "missionModelDate3": m57,
-        "missionModelDate4": m58,
+        "missionModelDate": m58,
+        "missionModelDate2": m59,
+        "missionModelDate3": m60,
+        "missionModelDate4": m61,
         "missionNums": MessageLookupByLibrary.simpleMessage("Nombre de tâches"),
         "missionPageInputHolder": MessageLookupByLibrary.simpleMessage(
             "Ajouter une tâche... (appuyez sur \"Entrée\" pour sauvegarder)"),
-        "missionRunningAlert": m59,
+        "missionRunningAlert": m62,
         "missionToBeComplete":
             MessageLookupByLibrary.simpleMessage("Tâches non terminées"),
-        "mission_alert_with_name": m60,
-        "mission_clocks_in_with_name": m61,
+        "mission_alert_with_name": m63,
+        "mission_clocks_in_with_name": m64,
         "mission_evaluation_value": MessageLookupByLibrary.simpleMessage(
             "Valeur d\'évaluation de la mission(\$)"),
         "mission_setting":
             MessageLookupByLibrary.simpleMessage("Paramétrage de la mission"),
-        "mission_submission_started": m62,
-        "mission_title": m63,
+        "mission_submission_started": m65,
+        "mission_title": m66,
         "mission_value":
             MessageLookupByLibrary.simpleMessage("valeur de la mission"),
-        "mission_value_toast": m64,
+        "mission_value_toast": m67,
         "missioncompleted":
             MessageLookupByLibrary.simpleMessage("Tâches terminées"),
-        "modify_name_listing": m65,
-        "modify_name_tag": m66,
+        "modify_name_listing": m68,
+        "modify_name_tag": m69,
         "module_filtering_setting": MessageLookupByLibrary.simpleMessage(
             "Paramètre de filtrage du module"),
         "monday": MessageLookupByLibrary.simpleMessage("Lun"),
@@ -1144,9 +1144,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "money_per_hour": MessageLookupByLibrary.simpleMessage(
             "Valeur de travail par heure(\$)"),
         "month": MessageLookupByLibrary.simpleMessage("Mois"),
-        "monthDay": m67,
-        "month_clockin_rate": m68,
-        "month_clockin_record": m69,
+        "monthDay": m70,
+        "month_clockin_rate": m71,
+        "month_clockin_record": m72,
         "month_duration_completed":
             MessageLookupByLibrary.simpleMessage("Durée ce mois-ci (minutes)"),
         "month_mission_completed": MessageLookupByLibrary.simpleMessage(
@@ -1165,13 +1165,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "Quadrants, catégories, listes, groupes, chronologies, agendas, diagrammes de Gantt, calendriers, de multiples vues pour répondre à tous vos besoins"),
         "music": MessageLookupByLibrary.simpleMessage("Musique"),
-        "my": m70,
+        "my": m73,
         "my_answer": MessageLookupByLibrary.simpleMessage("ma réponse"),
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage(
             "Ma valeur de travail par heure"),
-        "my_ranking": m71,
-        "my_ranking_this_time": m72,
-        "n_days_overdue": m73,
+        "my_ranking": m74,
+        "my_ranking_this_time": m75,
+        "n_days_overdue": m76,
         "name": MessageLookupByLibrary.simpleMessage("Nom"),
         "need_notification_permission_content":
             MessageLookupByLibrary.simpleMessage(
@@ -1181,7 +1181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "network_error":
             MessageLookupByLibrary.simpleMessage("Erreur de réseau"),
         "new_card": MessageLookupByLibrary.simpleMessage("Nouvelle carte"),
-        "newline": m74,
+        "newline": m77,
         "nextMission": MessageLookupByLibrary.simpleMessage("Prochaine tâche:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("Étape suivante"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("semaine prochaine"),
@@ -1273,11 +1273,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Croyez que vous pouvez et vous êtes à mi-chemin. Utilisez l\'application Pomodoro Focus pour croire en vous-même."),
         "notification9": MessageLookupByLibrary.simpleMessage(
             "La seule façon de faire un grand travail est d\'aimer ce que vous faites. Utilisez l\'application Pomodoro Focus pour profiter du voyage."),
-        "notificationTxt": m75,
+        "notificationTxt": m78,
         "notification_more": MessageLookupByLibrary.simpleMessage(
             "Personnalisez votre contenu de travail pour demain"),
-        "notification_num_mission_to_finish": m76,
-        "notification_num_mission_to_finish_delay": m77,
+        "notification_num_mission_to_finish": m79,
+        "notification_num_mission_to_finish_delay": m80,
         "notification_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de notification"),
         "notification_setting_content": MessageLookupByLibrary.simpleMessage(
@@ -1287,17 +1287,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "nov": MessageLookupByLibrary.simpleMessage("Nov"),
         "novFull": MessageLookupByLibrary.simpleMessage("Novembre"),
         "now": MessageLookupByLibrary.simpleMessage("maintenant"),
-        "num_days": m78,
+        "num_days": m81,
         "num_lives": MessageLookupByLibrary.simpleMessage("valeur de la vie :"),
-        "num_mins": m79,
-        "num_mission_total": m80,
-        "num_of_total": m81,
-        "num_tasks": m82,
+        "num_mins": m82,
+        "num_mission_total": m84,
+        "num_of_total": m85,
+        "num_tasks": m86,
         "num_tasks_finished":
             MessageLookupByLibrary.simpleMessage("Total des tâches terminées"),
-        "num_times": m83,
-        "num_unit": m84,
-        "number_present": m85,
+        "num_times": m87,
+        "num_unit": m89,
+        "number_present": m90,
         "objective": MessageLookupByLibrary.simpleMessage("Objectif"),
         "oct": MessageLookupByLibrary.simpleMessage("Oct"),
         "octFull": MessageLookupByLibrary.simpleMessage("Octobre"),
@@ -1393,7 +1393,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "veuillez entrer le mot de passe correct"),
         "please_input_first_gpt_sentence": MessageLookupByLibrary.simpleMessage(
             "Veuillez saisir votre question"),
-        "please_input_folder_password": m86,
+        "please_input_folder_password": m91,
         "please_input_mission_title": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le titre de la mission"),
         "please_input_mobile_no": MessageLookupByLibrary.simpleMessage(
@@ -1404,16 +1404,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "veuillez entrer le titre de la tâche"),
         "please_input_title":
             MessageLookupByLibrary.simpleMessage("Veuillez entrer un titre"),
-        "please_input_xxx_name": m87,
+        "please_input_xxx_name": m92,
         "please_input_your_username": MessageLookupByLibrary.simpleMessage(
             "Veuillez d\'abord définir le nom d\'utilisateur"),
         "please_origin_password": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le mot de passe original"),
-        "please_seaarch_on_app_store": m88,
+        "please_seaarch_on_app_store": m93,
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage(
                 "Veuillez sélectionner au moins une option dans le cycle de répétition"),
-        "please_select_content": m89,
+        "please_select_content": m94,
         "please_select_daily_start_time": MessageLookupByLibrary.simpleMessage(
             "veuillez sélectionner l\'heure de début"),
         "please_select_date": MessageLookupByLibrary.simpleMessage(
@@ -1431,7 +1431,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "postpone":
             MessageLookupByLibrary.simpleMessage("Reporter à aujourd\'hui"),
         "practice": MessageLookupByLibrary.simpleMessage("Entraînement"),
-        "present_value_dialog": m90,
+        "present_value_dialog": m95,
         "preview": MessageLookupByLibrary.simpleMessage("Aperçu"),
         "previewTime": MessageLookupByLibrary.simpleMessage("Temps estimé"),
         "previewTomatoesNum":
@@ -1469,7 +1469,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Programme de formation"),
         "publish": MessageLookupByLibrary.simpleMessage("Publier"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("Mode pur"),
-        "push_counter_status_notification": m91,
+        "push_counter_status_notification": m96,
         "qq_friends": MessageLookupByLibrary.simpleMessage("Amis QQ"),
         "qq_share": MessageLookupByLibrary.simpleMessage("Partage QQ"),
         "question_mistake":
@@ -1527,7 +1527,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("Quotidien"),
         "repeative2": MessageLookupByLibrary.simpleMessage("Hebdomadaire"),
         "repeative3": MessageLookupByLibrary.simpleMessage("Ebbinghaus"),
-        "repeative_content": m92,
+        "repeative_content": m97,
         "repetive": MessageLookupByLibrary.simpleMessage("Répéter"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("Type répétitif"),
         "repetiveValue":
@@ -1553,8 +1553,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rest_completed_auto_start_play": MessageLookupByLibrary.simpleMessage(
             "Commencer automatiquement à jouer après la fin du repos"),
         "rest_duration": MessageLookupByLibrary.simpleMessage("Temps de repos"),
-        "rest_focus_duration_with_value": m93,
-        "rest_focus_numbers_with_value": m94,
+        "rest_focus_duration_with_value": m98,
+        "rest_focus_numbers_with_value": m99,
         "resting": MessageLookupByLibrary.simpleMessage("en repos"),
         "restingFinished":
             MessageLookupByLibrary.simpleMessage("pause terminée"),
@@ -1566,7 +1566,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "retry": MessageLookupByLibrary.simpleMessage("Réessayer"),
         "rich_text": MessageLookupByLibrary.simpleMessage("Texte enrichi"),
         "rmb": MessageLookupByLibrary.simpleMessage("monnaie"),
-        "role_chatgpt_msg": m95,
+        "role_chatgpt_msg": m100,
         "role_message_placehodler": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le plan de travail (veuillez décrire le temps approximatif, le contenu du travail, etc.)"),
         "role_prompts_chatgpt_msg": MessageLookupByLibrary.simpleMessage(
@@ -1651,7 +1651,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_success":
             MessageLookupByLibrary.simpleMessage("configuration réussie"),
         "share": MessageLookupByLibrary.simpleMessage("partager"),
-        "share_the_link": m96,
+        "share_the_link": m101,
         "share_to": MessageLookupByLibrary.simpleMessage("Partager à"),
         "sharing_course":
             MessageLookupByLibrary.simpleMessage("partage de cours"),
@@ -1673,8 +1673,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "start_date": MessageLookupByLibrary.simpleMessage("Date de début"),
         "start_focus":
             MessageLookupByLibrary.simpleMessage("Commencer à se concentrer"),
-        "start_focusing_mission_name": m97,
-        "start_resting_name": m98,
+        "start_focusing_mission_name": m102,
+        "start_resting_name": m103,
         "start_time": MessageLookupByLibrary.simpleMessage("Heure de début"),
         "status_complete": MessageLookupByLibrary.simpleMessage("traité"),
         "status_developping":
@@ -1684,8 +1684,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "status_waiting":
             MessageLookupByLibrary.simpleMessage("en attente de traitement"),
         "stop": MessageLookupByLibrary.simpleMessage("arrêter"),
-        "stop_focusing_mission_name": m99,
-        "stop_resting_mission_name": m100,
+        "stop_focusing_mission_name": m104,
+        "stop_resting_mission_name": m105,
         "sub_task_add_newline": MessageLookupByLibrary.simpleMessage(
             "Sous-tâche - Ajouter&Mettre à jour en cliquant sur Entrée"),
         "submit": MessageLookupByLibrary.simpleMessage("soumettre"),
@@ -1726,9 +1726,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "thursday": MessageLookupByLibrary.simpleMessage("Jeu"),
         "thursdayShort": MessageLookupByLibrary.simpleMessage("Jeu"),
         "time": MessageLookupByLibrary.simpleMessage("temps"),
-        "time_ago": m101,
+        "time_ago": m106,
         "time_finished": MessageLookupByLibrary.simpleMessage("Heure de fin "),
-        "time_later": m102,
+        "time_later": m107,
         "time_management": MessageLookupByLibrary.simpleMessage("temps"),
         "time_not_arrive_cannot_clcokin": MessageLookupByLibrary.simpleMessage(
             "Le temps n\'est pas arrivé, vous ne pouvez pas horodater"),
@@ -1746,7 +1746,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "title": MessageLookupByLibrary.simpleMessage("Titre"),
         "title_consume":
             MessageLookupByLibrary.simpleMessage("Montant de la consommation"),
-        "title_data": m103,
+        "title_data": m108,
         "today": MessageLookupByLibrary.simpleMessage("Aujourd\'hui"),
         "today_data":
             MessageLookupByLibrary.simpleMessage("Données d\'aujourd\'hui"),
@@ -1793,8 +1793,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "total des tâches (Total des tomates)"),
         "total_tomotoes":
             MessageLookupByLibrary.simpleMessage("Total des tomates"),
-        "trainee_advice_notice": m104,
-        "trainee_give_your_advice": m105,
+        "trainee_advice_notice": m111,
+        "trainee_give_your_advice": m112,
         "training_plan_edit": MessageLookupByLibrary.simpleMessage(
             "Édition du plan de formation"),
         "transaction": MessageLookupByLibrary.simpleMessage("trans."),
@@ -1839,9 +1839,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mettre à jour la facture"),
         "update_credit_card_bill": MessageLookupByLibrary.simpleMessage(
             "Mettre à jour la facture de carte de crédit"),
-        "update_last_time": m106,
-        "update_name_mission": m107,
-        "update_name_mission2": m108,
+        "update_last_time": m113,
+        "update_name_mission": m114,
+        "update_name_mission2": m115,
         "update_now":
             MessageLookupByLibrary.simpleMessage("mettre à jour maintenant"),
         "update_success":
@@ -1853,9 +1853,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_privacy_protocol_title": MessageLookupByLibrary.simpleMessage(
             "Accord de confidentialité de l\'utilisateur"),
         "username": MessageLookupByLibrary.simpleMessage("nom d\'utilisateur"),
-        "value": m109,
-        "value_per_hour": m110,
-        "version_num": m111,
+        "value": m116,
+        "value_per_hour": m117,
+        "version_num": m118,
         "vertical": MessageLookupByLibrary.simpleMessage("Portrait"),
         "view": MessageLookupByLibrary.simpleMessage("Vue"),
         "view_only": MessageLookupByLibrary.simpleMessage("Peut voir"),
@@ -1881,7 +1881,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "week_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Pomodoros terminés cette semaine"),
         "welcome": MessageLookupByLibrary.simpleMessage("bienvenue"),
-        "welcome_to_time_department": m112,
+        "welcome_to_time_department": m119,
         "whether_to_repeat":
             MessageLookupByLibrary.simpleMessage("Faut-il répéter ou non"),
         "who_can_view_edit_files": MessageLookupByLibrary.simpleMessage(
@@ -1906,22 +1906,22 @@ class MessageLookup extends MessageLookupByLibrary {
             "Points de connaissance des questions erronées"),
         "wrong_thinking":
             MessageLookupByLibrary.simpleMessage("Mauvaise pensée"),
-        "wrote_a_diary": m113,
-        "wrote_a_note": m114,
-        "xxx_cannot_be_empty": m115,
+        "wrote_a_diary": m120,
+        "wrote_a_note": m121,
+        "xxx_cannot_be_empty": m122,
         "year": MessageLookupByLibrary.simpleMessage("Année"),
         "year_duration_completed":
             MessageLookupByLibrary.simpleMessage("Durée cette année (minutes)"),
         "year_mission_completed": MessageLookupByLibrary.simpleMessage(
             "Nombre de tâches terminées cette année"),
-        "year_month": m116,
+        "year_month": m123,
         "year_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Le nombre de tomates terminées cette année"),
         "yes": MessageLookupByLibrary.simpleMessage("Oui"),
-        "your_clockin_mission_with_name_has_begun": m117,
+        "your_clockin_mission_with_name_has_begun": m124,
         "your_created_class": MessageLookupByLibrary.simpleMessage(
             "C\'est une classe que vous avez créée vous-même"),
-        "your_mission_with_name_has_begun": m118,
+        "your_mission_with_name_has_begun": m125,
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Votre expert en gestion du temps personnel"),
         "yuan": MessageLookupByLibrary.simpleMessage("RMB")
