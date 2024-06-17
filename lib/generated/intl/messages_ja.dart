@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ja';
 
+  static String m0(date) => "${date}以降";
+
   static String m1(numbers) => "「${numbers}」個のタスクを一括完了しました";
 
   static String m2(numbers) => "「${numbers}」個のタスクを一括削除しました";
@@ -27,6 +29,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(numbers) => "「${numbers}」個のタスクを一括未完了にしました";
 
   static String m4(numbers) => "「${numbers}」個のタスクを一括更新しました";
+
+  static String m5(date) => "${date}以前";
+
+  static String m6(date1, date2) => "${date1}から${date2}まで";
 
   static String m7(numTotatoes, duration, time, minute) =>
       "予想トマト時間:${numTotatoes} x ${duration} 分 = ${time}時間${minute}分";
@@ -194,6 +200,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m82(num) => "${num}分";
 
+  static String m83(num, total) => "${num}ミッション / ${total}総ミッション";
+
   static String m84(num, total) => "リスト${num}/${total}";
 
   static String m85(num, total) => "${num}/${total}";
@@ -201,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m86(num) => "${num}個のタスク";
 
   static String m87(num) => "${num}回";
+
+  static String m88(num) => "${num}トマト";
 
   static String m89(num) => "${num}個";
 
@@ -246,6 +256,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m107(money) => "${money}後";
 
   static String m108(date) => "${date}のデータ";
+
+  static String m109(num) => "合計 ${num}";
+
+  static String m110(num) => "合計 ${num}トマト";
 
   static String m111(trainee) =>
       "注意してください、実際の状況に応じて行動してください。${trainee}の回答に満足していない場合は、${trainee}と詳細な命令を通じて時間を計画するように依頼することができます。";
@@ -313,6 +327,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("管理者"),
         "advanced_permissions": MessageLookupByLibrary.simpleMessage(
             "高度な権限：コピー、コメントなどを禁止することができます"),
+        "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI作成"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AIアシスタント"),
@@ -326,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("すべての未完了ミッション"),
         "all_finished_mission":
             MessageLookupByLibrary.simpleMessage("すべての完了したミッション"),
+        "all_maju": MessageLookupByLibrary.simpleMessage("すべて"),
         "all_mission": MessageLookupByLibrary.simpleMessage("すべてのミッション"),
         "all_pending_repayment": MessageLookupByLibrary.simpleMessage("すべて未返済"),
         "already_delay": MessageLookupByLibrary.simpleMessage("遅延しました"),
@@ -379,6 +395,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_uncomplete_missions": m3,
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("保留中"),
+        "before_date": m5,
+        "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("この期間はすでに返済済み"),
         "bill_day": MessageLookupByLibrary.simpleMessage("請求日"),
         "bill_detail": MessageLookupByLibrary.simpleMessage("請求明細"),
@@ -896,6 +914,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "long_rest_interval": MessageLookupByLibrary.simpleMessage("長時間の休憩間隔"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("ループ設定"),
         "lottery": MessageLookupByLibrary.simpleMessage("抽選"),
+        "lyubichs": MessageLookupByLibrary.simpleMessage("リュビチの期間"),
         "manual": MessageLookupByLibrary.simpleMessage("手動"),
         "manual_create": MessageLookupByLibrary.simpleMessage("手動作成"),
         "mar": MessageLookupByLibrary.simpleMessage("3月"),
@@ -1021,6 +1040,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "タスクがありません。最初にタスクを作成する必要があります"),
         "no_notification_permission_title":
             MessageLookupByLibrary.simpleMessage("通知権限がありません"),
+        "no_project_parenthese":
+            MessageLookupByLibrary.simpleMessage("（プロジェクトなし）"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("ランキングなし"),
         "no_task": MessageLookupByLibrary.simpleMessage("タスクなし"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("不限时"),
@@ -1108,11 +1129,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "num_days": m81,
         "num_lives": MessageLookupByLibrary.simpleMessage("ライフ:"),
         "num_mins": m82,
+        "num_mission": MessageLookupByLibrary.simpleMessage("ミッション数"),
+        "num_mission_percent": m83,
         "num_mission_total": m84,
         "num_of_total": m85,
         "num_tasks": m86,
         "num_tasks_finished": MessageLookupByLibrary.simpleMessage("完了した計画数"),
         "num_times": m87,
+        "num_tomatoes": m88,
         "num_unit": m89,
         "number_present": m90,
         "objective": MessageLookupByLibrary.simpleMessage("目的"),
@@ -1513,8 +1537,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalTimeMinute": MessageLookupByLibrary.simpleMessage("合計時間（分）"),
         "total_focus_duration": MessageLookupByLibrary.simpleMessage("総集中時間"),
         "total_focus_time": MessageLookupByLibrary.simpleMessage("集中時間"),
+        "total_maju": m109,
         "total_tasks_count":
             MessageLookupByLibrary.simpleMessage("タスクの総数（トマト数）"),
+        "total_tomatoes": m110,
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("トマトの総数"),
         "trainee_advice_notice": m111,
         "trainee_give_your_advice": m112,

@@ -11,11 +11,14 @@ import 'package:time_hello/com/timehello/common/httpclient/Observable.dart';
 import 'package:time_hello/com/timehello/components/BackNavigator.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
+import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
 import 'package:time_hello/com/timehello/components/TitleDescWidget.dart';
+import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
+import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/page/ForgetPasswordPage/ForgetPasswordPage.dart';
 import 'package:time_hello/com/timehello/page/loginPage/components/GuideViewPageWidget.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
@@ -28,6 +31,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../../../../../r.dart';
 import '../../components/ThirdPartyLoginWidget.dart';
 import '../../util/DeviceInfoManagement.dart';
+import '../../util/GoogleMailLoginManager.dart';
 import '../../util/ThemeManager.dart';
 import '../registerPage/registerPage.dart';
 import 'components/Guide1Widget.dart';
@@ -36,7 +40,10 @@ import 'components/Guide2Widget.dart';
 class LoginPage extends BaseWidget {
   final JumpModeEnum jumpMode;
   final PageFromEnum pageFrom;
-  const LoginPage({this.pageFrom: PageFromEnum.Default, this.jumpMode = JumpModeEnum.pushMode});
+
+  const LoginPage(
+      {this.pageFrom: PageFromEnum.Default,
+      this.jumpMode = JumpModeEnum.pushMode});
 
   @override
   BaseWidgetState<BaseWidget> getState() {
@@ -48,9 +55,12 @@ class LoginPage extends BaseWidget {
 class _LoginPageState extends BaseWidgetState<LoginPage>
     implements LoginResult, Observer {
   final _formKey = new GlobalKey<FormState>();
-  TextEditingController? textController1;
+  GlobalKey<CustomTabBarWidgetState> tabBarGlobalKey = GlobalKey<CustomTabBarWidgetState>();
+  TextEditingController? textController1Phone;
+  TextEditingController? textController1Email;
   TextEditingController? textController2;
   String? mobile;
+  String? emailEncrypted;
   String? password;
   bool checked = false;
   bool isMobileVisible = false;
@@ -58,6 +68,10 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   String? countryPhoneCode;
   String? number;
   String? completeNumber;
+  List<CheckButtonStateModel> tabList =
+      CONSTANTS.getLoginRegisterTabBarWidget();
+  int curTab = 0;
+  bool isEmailVerifiedValRequest = false;
 
   @override
   void initState() {
@@ -75,22 +89,40 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
     }
   }
 
-  onClickLogin() {
-    if (TextUtil.isEmpty(this.mobile)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().please_input_mobile_no);
-      return;
-    }
+  onClickLogin() async {
     if (TextUtil.isEmpty(this.password)) {
       Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_password);
       return;
     }
-    LoginManager.getInstance()?.requestPasswordLogin(
-        countryPhoneCode: this.countryPhoneCode,
-        mobile: this.mobile!,
-        password: this.password!,
-        onComplete: this);
+    if(this.curTab == 0) {
+      if (TextUtil.isEmpty(this.mobile)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().please_input_mobile_no);
+        return;
+      }
+      LoginManager.getInstance()?.requestPasswordLogin(
+          countryPhoneCode: this.countryPhoneCode,
+          // email: this.email,
+          mobile: this.mobile,
+          password: this.password!,
+          onComplete: this);
+    } else {
+      if (TextUtil.isEmpty(this.emailEncrypted)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().please_input_email);
+        return;
+      }
+      String email = await Utility.decryptCTRAES(this.emailEncrypted ?? "", Params.AES_PWD);
+      LoginManager.getInstance()?.requestPasswordLogin(
+          // countryPhoneCode: this.countryPhoneCode,
+          email: email,
+          // mobile: this.mobile,
+          password: this.password!,
+          onComplete: this);
+    }
+
+
   }
 
   onClickBack() {
@@ -100,7 +132,6 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   void resetForm() {
     _formKey.currentState!.reset();
   }
-
 
   @override
   void dispose() {
@@ -154,12 +185,27 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                   title: getI18NKey().welcome,
                   desc: "",
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Expanded(
                     child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: Utility.isHandsetBySize() ? 30 : 80),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Utility.isHandsetBySize() ? 30 : 80),
                   child: ListView(
                     children: <Widget>[
+                      CustomTabBarWidget(
+                        key: tabBarGlobalKey,
+                        list: tabList,
+                        onCheckedListener: (int index) {
+                          this.curTab = index;
+                          updateUI();
+                        },
+                        fontSize: 14,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       getInputTextField(),
                       SizedBox(
                         height: 10,
@@ -181,8 +227,8 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                             textInputAction: TextInputAction.done,
                             controller: textController2,
                             // obscureText: false,
-                            decoration:
-                            StylesConfig.getInputDecoration(hintText: getI18NKey().password),
+                            decoration: StylesConfig.getInputDecoration(
+                                hintText: getI18NKey().password),
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 color: ThemeManager.getInstance().getTextColor(
@@ -255,19 +301,38 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                               onPressed: () {
                                 Utility.pushNavigator(
                                     context, const RegisterPage(),
+                                    // 从注册页返回的数据
                                     callback: (data) async {
-                                  if (TextUtil.isEmpty(data['mobile']) ==
-                                      true) {
-                                    this.mobile = "";
-                                    return;
+                                      this.curTab = data['curTab'];
+                                      this.tabBarGlobalKey.currentState
+                                          ?.setChecked(data['curTab']);
+                                  if (curTab == 1) {
+                                    if (TextUtil.isEmpty(data['email']) ==
+                                        true) {
+                                      this.emailEncrypted = "";
+                                      return;
+                                    }
+                                    if (data?['email'] != null) {
+                                      this.emailEncrypted = await Utility.encryptCTRAES(
+                                          data['email'], Params.AES_PWD);
+                                      textController1Email = TextEditingController(
+                                          text: data['email']);
+                                    }
+                                    updateUI();
+                                  } else {
+                                    if (TextUtil.isEmpty(data['mobile']) ==
+                                        true) {
+                                      this.mobile = "";
+                                      return;
+                                    }
+                                    if (data?['mobile'] != null) {
+                                      this.mobile = await Utility.encryptCTRAES(
+                                          data['mobile'], Params.AES_PWD);
+                                      textController1Phone = TextEditingController(
+                                          text: data['mobile']);
+                                    }
+                                    updateUI();
                                   }
-                                  if (data?['mobile'] != null) {
-                                    this.mobile = await Utility.encryptCTRAES(
-                                        data['mobile'], Params.AES_PWD);
-                                    textController1 = TextEditingController(
-                                        text: data['mobile']);
-                                  }
-                                  updateUI();
                                 });
                               },
                               child: Text(
@@ -292,7 +357,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                   if (data?['mobile'] != null) {
                                     this.mobile = await Utility.encryptCTRAES(
                                         data['mobile'], Params.AES_PWD);
-                                    textController1 = TextEditingController(
+                                    textController1Phone = TextEditingController(
                                         text: data['mobile']);
                                   }
                                   updateUI();
@@ -315,17 +380,17 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                     ],
                   ),
                 )),
-                if(Utility.isHandsetBySize() == false)
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    getI18NKey().back,
-                    style: TextStyle(
-                        color: ColorsConfig.colorTextField, fontSize: 14),
+                if (Utility.isHandsetBySize() == false)
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      getI18NKey().back,
+                      style: TextStyle(
+                          color: ColorsConfig.colorTextField, fontSize: 14),
+                    ),
                   ),
-                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -334,13 +399,61 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   }
 
   Widget getInputTextField() {
+    if (this.curTab == 0) {
+      return getMobileInputTextField();
+    } else {
+      return getEmailInputTextField();
+    }
+  }
+
+  getEmailInputTextField() {
+    return TextFormField(
+      onChanged: (String text) async {
+        if (TextUtil.isEmpty(text) == true) {
+          this.emailEncrypted = "";
+          return;
+        }
+        this.emailEncrypted = await Utility.encryptCTRAES(text, Params.AES_PWD);
+      },
+      // inputFormatters: [
+      //   // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
+      //   FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
+      // ],
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      controller: textController1Email,
+      // maxLength: 11,
+      obscureText: false,
+      onFieldSubmitted: (e) {
+        this.onClick('onClickLogin', null);
+      },
+      //手机号输入
+      decoration: StylesConfig.getInputDecoration(hintText: getI18NKey().email),
+      style: TextStyle(
+          fontFamily: 'Montserrat',
+          color: ThemeManager.getInstance()
+              .getTextColor(defaultColor: Color(0xff8b97a2)),
+          fontWeight: FontWeight.w500),
+      validator: (value) =>
+          value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
+      onSaved: (value) {
+        if (TextUtil.isEmpty(value) == true) {
+          emailEncrypted = "";
+          return;
+        }
+        emailEncrypted = value!.trim();
+      },
+    );
+  }
+
+  StatefulWidget getMobileInputTextField() {
     if (Utility.isGooglePlay() == true) {
       return IntlPhoneField(
         disableLengthCheck: true,
         searchText: getI18NKey().search_country,
         invalidNumberMessage: getI18NKey().invalid_mobile_number,
         autovalidateMode: AutovalidateMode.disabled,
-        controller: textController1,
+        controller: textController1Phone,
         keyboardType: TextInputType.phone,
         inputFormatters: [
           // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
@@ -351,7 +464,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
         obscureText: false,
         textInputAction: TextInputAction.next,
         decoration:
-        StylesConfig.getInputDecoration(hintText: getI18NKey().phoneNo),
+            StylesConfig.getInputDecoration(hintText: getI18NKey().phoneNo),
         initialCountryCode: DeviceInfoManagement.getCountryCode(),
         onChanged: (phone) async {
           this.countryIOSCode = phone.countryISOCode;
@@ -383,7 +496,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
         ],
         keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
-        controller: textController1,
+        controller: textController1Phone,
         maxLength: 11,
         obscureText: false,
         onFieldSubmitted: (e) {
@@ -391,7 +504,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
         },
         //手机号输入
         decoration:
-        StylesConfig.getInputDecoration(hintText: getI18NKey().phoneNo),
+            StylesConfig.getInputDecoration(hintText: getI18NKey().phoneNo),
         style: TextStyle(
             fontFamily: 'Montserrat',
             color: ThemeManager.getInstance()
@@ -411,16 +524,35 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   }
 
   @override
-  void loginFail(Map errorMsg, {LoginMode? loginMode}) {
+  void loginFail(Map errorMsg, {LoginMode? loginMode}) async {
     // TODO: implement loginFail
-    Utility.showToastMsg(msg: errorMsg);
+    if(this.curTab == 1) {
+      if(errorMsg['code'] == CONSTANTS.CODE_USER_NOT_EXIST) {
+        String email = await Utility.decryptCTRAES(
+            this.emailEncrypted ?? "", Params.AES_PWD);
+        if(isEmailVerifiedValRequest == false) {
+          LoginManager.getInstance().registerByEmail(
+            context: context,
+            email: email,
+            password: this.password,
+          );
+          isEmailVerifiedValRequest = true;
+          Future.delayed(Duration(seconds: 3), () {
+            isEmailVerifiedValRequest = false;
+          });
+        }
+      }
+    } else {
+      Utility.showToastMsg(msg: errorMsg);
+    }
   }
 
   @override
   void loginSuccess({UserBean? loginInfoModel}) async {
     // TODO: implement loginSuccess
-    if(this.widget.pageFrom == PageFromEnum.ScreenLockPage) {
-      SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.default9DigitPasswords, content: "");
+    if (this.widget.pageFrom == PageFromEnum.ScreenLockPage) {
+      SharePreferenceUtil.getSyncInstance().setString(
+          key: ShareprefrenceKeys.default9DigitPasswords, content: "");
       // ScreenLockManager.getInstance().dismiss();
     }
     await LoginManager.getInstance()

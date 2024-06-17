@@ -1,4 +1,8 @@
 {
+  "login_email_to_verifie": "确认邮件已经发送到您的邮箱，请去邮箱登录验证即可用密码登录使用",
+  "please_input_correct_email": "请输入正确的邮箱",
+  "email": "邮箱",
+  "please_input_email": "请输入邮箱",
   "total_maju": "Total {num}",
   "between_date": "From {date1} to {date2}",
   "after_date": "After {date}",
@@ -9,7 +13,7 @@
   "num_mission_percent": "{num} missions / {total} total missions",
   "total_tomatoes": "Total {num} tomatoes",
   "num_tomatoes": "{num} tomatoes",
-  "lyubichs": "Lyubichs duration"
+  "lyubichs": "Lyubichs duration",
   "do_it_now_desc": "Do it now represents tasks that need to be done immediately. Setting 'Do it now' will initiate a countdown.",
   "focus_switch_title":"New Task Resets Timer",
   "focus_switch_desc":"Does switching tasks during focus reset the timer?",

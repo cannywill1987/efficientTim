@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
 import 'package:time_hello/com/timehello/components/TitleDescWidget.dart';
+import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
+import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
@@ -39,12 +42,17 @@ class RegisterStep1State extends State<RegisterStep1> {
   TextEditingController? textController1;
   TextEditingController? textController2;
   String? mobile;
+  String? email;
   String? countryPhoneCode;
+  int curTab = 0;
   // this.countryPhoneCode = phone.countryCode;
   // this.number = phone.number;
   // this.completeNumber = phone.completeNumber;
   String? _password;
   final _formKey = new GlobalKey<FormState>();
+
+  List<CheckButtonStateModel> tabList =
+  CONSTANTS.getLoginRegisterTabBarWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +72,25 @@ class RegisterStep1State extends State<RegisterStep1> {
           shrinkWrap: true,
           children: <Widget>[
             SizedBox(height: 40,),
+
             TitleDescWidget(
               title: getI18NKey().welcome,
               desc: getI18NKey().registerStep1,
             ),
         SizedBox(height: 40,),
-        getTextField(),
+            CustomTabBarWidget(
+              list: tabList,
+              onCheckedListener: (int index) {
+                this.curTab = index;
+                setState(() {
+
+                });
+              },
+              fontSize: 14,
+            ),
+            SizedBox(height: 20,),
+
+            getTextField(),
             // TextFormField(
             //     onChanged: (String data) {
             //       this._mobile = data;
@@ -118,7 +139,7 @@ class RegisterStep1State extends State<RegisterStep1> {
             GestureDetector(
                 onTap: () {
                   if (this.widget.onTapListener != null) {
-                    this.widget.onTapListener!(this.countryPhoneCode, this.mobile);
+                    this.widget.onTapListener!(this.countryPhoneCode, this.mobile, this.email, this.curTab);
                   }
                 },
                 child: new Container(
@@ -142,6 +163,54 @@ class RegisterStep1State extends State<RegisterStep1> {
   }
 
   Widget getTextField() {
+    if (this.curTab == 0) {
+      return getMobileInputTextField();
+    } else {
+      return getEmailInputTextField();
+    }
+  }
+
+  getEmailInputTextField() {
+    return TextFormField(
+      onChanged: (String text) async {
+        if (TextUtil.isEmpty(text) == true) {
+          this.email = "";
+          return;
+        }
+        this.email = await Utility.encryptCTRAES(text, Params.AES_PWD);
+      },
+      // inputFormatters: [
+      //   // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
+      //   FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
+      // ],
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      controller: textController2,
+      // maxLength: 11,
+      obscureText: false,
+      // onFieldSubmitted: (e) {
+      //   this.onClick('onClickLogin', null);
+      // },
+      //手机号输入
+      decoration: StylesConfig.getInputDecoration(hintText: getI18NKey().email),
+      style: TextStyle(
+          fontFamily: 'Montserrat',
+          color: ThemeManager.getInstance()
+              .getTextColor(defaultColor: Color(0xff8b97a2)),
+          fontWeight: FontWeight.w500),
+      validator: (value) =>
+      value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
+      onSaved: (value) {
+        if (TextUtil.isEmpty(value) == true) {
+          email = "";
+          return;
+        }
+        email = value!.trim();
+      },
+    );
+  }
+
+  StatefulWidget getMobileInputTextField() {
     if(Utility.isGooglePlay() == true) {
       return IntlPhoneField(
           disableLengthCheck: true,

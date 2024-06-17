@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
+  static String m0(date) => "Après ${date}";
+
   static String m1(numbers) => "Compléter en lot \'${numbers}\' tâches";
 
   static String m2(numbers) => "Supprimer en lot \'${numbers}\' tâches";
@@ -27,6 +29,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(numbers) => "Incomplet en lot \'${numbers}\' tâches";
 
   static String m4(numbers) => "Mettre à jour en lot \'${numbers}\' tâches";
+
+  static String m5(date) => "Avant ${date}";
+
+  static String m6(date1, date2) => "De ${date1} à ${date2}";
 
   static String m7(numTotatoes, duration, time, minute) =>
       "Pomodoros estimés: ${numTotatoes} x ${duration} minutes = ${time} heures ${minute} minutes";
@@ -206,6 +212,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m82(num) => "${num} mins";
 
+  static String m83(num, total) =>
+      "${num} missions / ${total} missions totales";
+
   static String m84(num, total) => "Liste ${num}/${total}";
 
   static String m85(num, total) => "${num}/${total}";
@@ -213,6 +222,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m86(num) => "${num} tasks";
 
   static String m87(num) => "${num} fois";
+
+  static String m88(num) => "${num} tomates";
 
   static String m89(num) => "${num}";
 
@@ -261,6 +272,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m107(money) => "${money} plus tard";
 
   static String m108(date) => "${date}\'s data";
+
+  static String m109(num) => "Total ${num}";
+
+  static String m110(num) => "Total ${num} tomates";
 
   static String m111(trainee) =>
       "Veuillez noter, agissez selon votre situation réelle. Si vous n\'êtes pas satisfait de la réponse de ${trainee}, vous pouvez communiquer avec ${trainee} pour donner des commandes plus détaillées pour vous aider à planifier votre temps.";
@@ -339,6 +354,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("Administrateur"),
         "advanced_permissions": MessageLookupByLibrary.simpleMessage(
             "Autorisations avancées : peut définir des restrictions sur la copie, les commentaires, etc."),
+        "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("accepter"),
         "ai_create": MessageLookupByLibrary.simpleMessage("Création AI"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("Assistant AI"),
@@ -354,6 +370,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Toutes les tâches non terminées"),
         "all_finished_mission": MessageLookupByLibrary.simpleMessage(
             "Toutes les missions terminées"),
+        "all_maju": MessageLookupByLibrary.simpleMessage("TOUT"),
         "all_mission":
             MessageLookupByLibrary.simpleMessage("Toutes les missions"),
         "all_pending_repayment": MessageLookupByLibrary.simpleMessage(
@@ -419,6 +436,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_uncomplete_missions": m3,
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("à déterminer"),
+        "before_date": m5,
+        "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("Facture réglée"),
         "bill_day": MessageLookupByLibrary.simpleMessage("Jour de la facture"),
         "bill_detail":
@@ -1060,6 +1079,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loop_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de boucle"),
         "lottery": MessageLookupByLibrary.simpleMessage("loterie"),
+        "lyubichs": MessageLookupByLibrary.simpleMessage("Durée de Lyubichs"),
         "manual": MessageLookupByLibrary.simpleMessage("Manuel"),
         "manual_create":
             MessageLookupByLibrary.simpleMessage("Création manuelle"),
@@ -1199,6 +1219,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_notification_permission_title":
             MessageLookupByLibrary.simpleMessage(
                 "Pas de permission de notification"),
+        "no_project_parenthese":
+            MessageLookupByLibrary.simpleMessage("(Aucun projet)"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("no ranking"),
         "no_task": MessageLookupByLibrary.simpleMessage("no task"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("illimité"),
@@ -1290,12 +1312,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "num_days": m81,
         "num_lives": MessageLookupByLibrary.simpleMessage("valeur de la vie :"),
         "num_mins": m82,
+        "num_mission":
+            MessageLookupByLibrary.simpleMessage("Nombre de missions"),
+        "num_mission_percent": m83,
         "num_mission_total": m84,
         "num_of_total": m85,
         "num_tasks": m86,
         "num_tasks_finished":
             MessageLookupByLibrary.simpleMessage("Total des tâches terminées"),
         "num_times": m87,
+        "num_tomatoes": m88,
         "num_unit": m89,
         "number_present": m90,
         "objective": MessageLookupByLibrary.simpleMessage("Objectif"),
@@ -1789,8 +1815,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total focus time"),
         "total_focus_time":
             MessageLookupByLibrary.simpleMessage("durée de concentration"),
+        "total_maju": m109,
         "total_tasks_count": MessageLookupByLibrary.simpleMessage(
             "total des tâches (Total des tomates)"),
+        "total_tomatoes": m110,
         "total_tomotoes":
             MessageLookupByLibrary.simpleMessage("Total des tomates"),
         "trainee_advice_notice": m111,

@@ -49,6 +49,17 @@ const kNavigationRailWidth = 72.0;
 ScreenType screenType = ScreenType.Handset;
 
 class CONSTANTS {
+  static String CODE_CAPTCHA_INCORRECT = "0000CPI";
+  static String CODE_DYNAMIC_CODE_INCORRECT = "0000CDCI";
+  static String CODE_GPT_TOKEN_EXPIRED = "0000FEWF";
+  static String CODE_USER_EXIST = "0000D2DE";
+  static String CODE_USER_NOT_EXIST = "0000AESE";
+  static String CODE_USER_OR_PASSWORD_NOT_CORRECT = "0000AFED";
+  static String CODE_USER_TOKEN_EXPIRED = "0000AFEI";
+  static String CODE_LOGIN_FIRST = "0000JFED";
+  static String CODE_LOCAL_MONEY_NOT_ENOUGH = "0000CDEF";
+  static String CODE_FAIL = "0000VEWF";
+
   static const double missionPageMargin = 0;
   static List<FolderModel> folderModelList = [];
   static List<WQBFolderModel> wqbFolderModelList = [];
@@ -1140,6 +1151,18 @@ class CONSTANTS {
     //     CheckButtonStateModel(title: getI18NKey().super_notebook, isCheck: false));
     list.add(CheckButtonStateModel(
         title: getI18NKey().mission_setting, isCheck: false));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getLoginRegisterTabBarWidget(
+      {bool? hasAll = false}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().phoneNo, isCheck: true));
+    // list.add(
+    //     CheckButtonStateModel(title: getI18NKey().super_notebook, isCheck: false));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().email, isCheck: false));
     return list;
   }
 

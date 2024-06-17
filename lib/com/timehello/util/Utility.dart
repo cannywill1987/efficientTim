@@ -6486,7 +6486,32 @@ class Utility {
   //   return list;
   // }
 
-  static List<MissionModel> getMissionModelsForRatio(List<DayModel> list, DateTime? startDateTime, DateTime? endDateTime) {
+  static List<MissionModel> getMissionModelsForRatioMissionModel(List<MissionModel> list, DateTime? startDateTime, DateTime? endDateTime) {
+    List<MissionModel> listMissionModels = [];
+    for (int i = 0; i < list.length; i++) {
+      MissionModel missionModel = list[i];
+      if (endDateTime == null && startDateTime != null) {
+        endDateTime = Utility.getFilterDateTimeFromDateTime(startDateTime, true);
+      }
+      if (startDateTime != null && endDateTime != null) {
+        DateTime? curDateTime = Utility.getFilterDateTimeFromTimeStamp(missionModel.end_time ?? 0);
+        if (curDateTime != null) {
+          if ((curDateTime.isAfter(startDateTime) || curDateTime.isAtSameMomentAs(startDateTime)) &&
+              (curDateTime.isBefore(endDateTime) || curDateTime.isAtSameMomentAs(endDateTime))) {
+            listMissionModels.add(missionModel);
+          }
+        }
+      }
+      if (startDateTime == null && endDateTime == null) {
+        listMissionModels.add(missionModel);
+      }
+    }
+    return listMissionModels;
+  }
+
+
+
+    static List<MissionModel> getMissionModelsForRatio(List<DayModel> list, DateTime? startDateTime, DateTime? endDateTime) {
     List<MissionModel> listMissionModels = [];
     for (int i = 0; i < list.length; i++) {
       DayModel dayModel = list[i];
@@ -6533,8 +6558,10 @@ class Utility {
     if(startDateTime == null && endDateTime == null) {
       switch (calendarView) {
         case CalendarView.day:
-          return Utility.getFilterDateTimeFromTimeStamp(
-              startDateTime!.millisecondsSinceEpoch);
+          DateTime dateTime = displayDateTime;
+          return DateTime(dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
+          // return Utility.getFilterDateTimeFromTimeStamp(
+          //     startDateTime!.millisecondsSinceEpoch);
         case CalendarView.week:
           //根据displayDateTime得到displayDateTime同一周 周日 00:00 的dateTime 1是monday 7是sunday
           int weekDay = displayDateTime.weekday;
@@ -6543,11 +6570,18 @@ class Utility {
           // DateTime dateTime = displayDateTime.subtract(Duration(days: weekDay - 1));
           // return dateTime;
         case CalendarView.month:
-          return Utility.getFilterDateTimeFromTimeStamp(
-              startDateTime!.millisecondsSinceEpoch);
+          DateTime dateTime = displayDateTime;
+          return DateTime(dateTime.year, dateTime.month, 1, 0, 0, 0, 0, 0);
+
+          // return Utility.getFilterDateTimeFromTimeStamp(
+          //     startDateTime!.millisecondsSinceEpoch);
         case CalendarView.timelineDay:
           return Utility.getFilterDateTimeFromTimeStamp(
               startDateTime!.millisecondsSinceEpoch);
+        case CalendarView.timelineMonth:
+          return startDateTime;
+        default:
+          return startDateTime;
       }
     } else {
       return startDateTime;
@@ -6558,8 +6592,10 @@ class Utility {
     if(startDateTime == null && endDateTime == null) {
       switch (calendarView) {
         case CalendarView.day:
-          return Utility.getFilterDateTimeFromTimeStamp(
-              startDateTime!.millisecondsSinceEpoch);
+          DateTime dateTime = displayDateTime;
+          return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59, 59);
+          // return Utility.getFilterDateTimeFromTimeStamp(
+          //     startDateTime!.millisecondsSinceEpoch);
         case CalendarView.week:
         //根据displayDateTime得到displayDateTime同一周 周六 00:00 的dateTime 1是monday 7是sunday
           int weekDay = displayDateTime.weekday;
@@ -6567,11 +6603,16 @@ class Utility {
           DateTime dateTime = displayDateTime.add(Duration(days: weekDay == 7 ? 6 : 6 - weekDay ));
           return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59, 59);
         case CalendarView.month:
-          return Utility.getFilterDateTimeFromTimeStamp(
-              startDateTime!.millisecondsSinceEpoch);
+          DateTime dateTime = displayDateTime;
+          int daysInMonth = DateTime(dateTime.year, dateTime.month + 1, 0).day;
+          return DateTime(dateTime.year, dateTime.month, daysInMonth, 23, 59, 59, 59, 59);
         case CalendarView.timelineDay:
           return Utility.getFilterDateTimeFromTimeStamp(
               startDateTime!.millisecondsSinceEpoch);
+        case CalendarView.timelineMonth:
+          return endDateTime;
+        default:
+          return endDateTime;
       }
     } else {
       return endDateTime;

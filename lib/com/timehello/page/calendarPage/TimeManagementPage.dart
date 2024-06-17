@@ -182,7 +182,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
                                           height: 5,
                                         ),
                                         TimeRatioComponent(
-
+                                          scene: "TimeManagementPage",
                                           lastChild: widget.folderModel == null
                                               ? ListingFilterWidget(
                                                   onTapListener: (data) {

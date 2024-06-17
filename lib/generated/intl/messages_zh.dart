@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
+  static String m0(date) => "${date}之后";
+
   static String m1(numbers) => "批量完成「${numbers}」个任务";
 
   static String m2(numbers) => "批量删除「${numbers}」个任务";
@@ -27,6 +29,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(numbers) => "批量未完成「${numbers}」个任务";
 
   static String m4(numbers) => "批量更新「${numbers}」个任务";
+
+  static String m5(date) => "${date}之前";
+
+  static String m6(date1, date2) => "${date1}到${date2}";
 
   static String m7(numTotatoes, duration, time, minute) =>
       "预计番茄时间:${numTotatoes} x ${duration} 分钟 = ${time}小时${minute}分钟";
@@ -189,6 +195,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m82(num) => "${num}分钟";
 
+  static String m83(num, total) => "${num}任务/${total}总任务";
+
   static String m84(num, total) => "清单${num}/${total}";
 
   static String m85(num, total) => "${num}/${total}";
@@ -196,6 +204,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m86(num) => "${num}个任务";
 
   static String m87(num) => "${num}次";
+
+  static String m88(num) => "${num}番茄";
 
   static String m89(num) => "${num}个";
 
@@ -241,6 +251,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m107(money) => "${money}后";
 
   static String m108(date) => "${date}数据";
+
+  static String m109(num) => "总共 ${num}";
+
+  static String m110(num) => "${num}总番茄";
 
   static String m111(trainee) =>
       "请注意，请根据实际情况量力而行，如果对${trainee}回复不满意，可以和${trainee}沟通给他更详细的命令来帮助您规划时间";
@@ -307,6 +321,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("管理员"),
         "advanced_permissions":
             MessageLookupByLibrary.simpleMessage("高级权限：可设置禁止复制、批注等"),
+        "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI创建"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI助手"),
@@ -319,6 +334,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allUnfinishedMissions":
             MessageLookupByLibrary.simpleMessage("所有未完成任务"),
         "all_finished_mission": MessageLookupByLibrary.simpleMessage("所有已完成任务"),
+        "all_maju": MessageLookupByLibrary.simpleMessage("ALL"),
         "all_mission": MessageLookupByLibrary.simpleMessage("所有任务"),
         "all_pending_repayment": MessageLookupByLibrary.simpleMessage("全部待还"),
         "already_delay": MessageLookupByLibrary.simpleMessage("已过期"),
@@ -367,6 +383,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_uncomplete_missions": m3,
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("待定"),
+        "before_date": m5,
+        "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("本期已还清"),
         "bill_day": MessageLookupByLibrary.simpleMessage("账单日"),
         "bill_detail": MessageLookupByLibrary.simpleMessage("账单明细"),
@@ -855,6 +873,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "long_rest_interval": MessageLookupByLibrary.simpleMessage("长时间休息间隔"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("循环设置"),
         "lottery": MessageLookupByLibrary.simpleMessage("抽奖"),
+        "lyubichs": MessageLookupByLibrary.simpleMessage("柳比歇斯时长"),
         "manual": MessageLookupByLibrary.simpleMessage("手动"),
         "manual_create": MessageLookupByLibrary.simpleMessage("手动创建"),
         "mar": MessageLookupByLibrary.simpleMessage("三月"),
@@ -971,6 +990,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_mission_desc": MessageLookupByLibrary.simpleMessage("没有任务，需要先创建任务"),
         "no_notification_permission_title":
             MessageLookupByLibrary.simpleMessage("没有通知权限哦"),
+        "no_project_parenthese":
+            MessageLookupByLibrary.simpleMessage("(No project)"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("无排名"),
         "no_task": MessageLookupByLibrary.simpleMessage("无任务"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("不限时"),
@@ -1055,11 +1076,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "num_days": m81,
         "num_lives": MessageLookupByLibrary.simpleMessage("生命值:"),
         "num_mins": m82,
+        "num_mission": MessageLookupByLibrary.simpleMessage("任务数"),
+        "num_mission_percent": m83,
         "num_mission_total": m84,
         "num_of_total": m85,
         "num_tasks": m86,
         "num_tasks_finished": MessageLookupByLibrary.simpleMessage("完成计划数"),
         "num_times": m87,
+        "num_tomatoes": m88,
         "num_unit": m89,
         "number_present": m90,
         "objective": MessageLookupByLibrary.simpleMessage("目的"),
@@ -1439,7 +1463,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalTimeMinute": MessageLookupByLibrary.simpleMessage("总时长(分钟)"),
         "total_focus_duration": MessageLookupByLibrary.simpleMessage("总专注时长"),
         "total_focus_time": MessageLookupByLibrary.simpleMessage("专注时间"),
+        "total_maju": m109,
         "total_tasks_count": MessageLookupByLibrary.simpleMessage("任务总数(番茄数)"),
+        "total_tomatoes": m110,
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("番茄总数"),
         "trainee_advice_notice": m111,
         "trainee_give_your_advice": m112,

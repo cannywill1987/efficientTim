@@ -237,6 +237,7 @@ enum LoginTypeEnum {
 
 
 enum PageFromEnum {
+  RegisterPage,
   ScreenLockPage,
   MissionDetailPage,
   Normal,

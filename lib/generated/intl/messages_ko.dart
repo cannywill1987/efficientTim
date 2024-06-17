@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ko';
 
+  static String m0(date) => "${date} 이후";
+
   static String m1(numbers) => "일괄 완료 \'${numbers}\' 작업";
 
   static String m2(numbers) => "일괄 삭제 \'${numbers}\' 작업";
@@ -27,6 +29,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(numbers) => "일괄 미완료 \'${numbers}\' 작업";
 
   static String m4(numbers) => "일괄 업데이트 \'${numbers}\' 작업";
+
+  static String m5(date) => "${date} 이전";
+
+  static String m6(date1, date2) => "${date1}부터 ${date2}까지";
 
   static String m7(numTotatoes, duration, time, minute) =>
       "예상 토마토 시간:${numTotatoes} x ${duration} 분 = ${time}시간${minute}분";
@@ -196,6 +202,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m82(num) => "${num}분";
 
+  static String m83(num, total) => "${num} 임무 / ${total} 총 임무";
+
   static String m84(num, total) => "목록${num}/${total}";
 
   static String m85(num, total) => "${num}/${total}";
@@ -203,6 +211,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m86(num) => "${num}개의 작업";
 
   static String m87(num) => "${num}회";
+
+  static String m88(num) => "${num} 토마토";
 
   static String m89(num) => "${num}개";
 
@@ -248,6 +258,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m107(money) => "${money} 후";
 
   static String m108(date) => "${date} 데이터";
+
+  static String m109(num) => "총 ${num}";
+
+  static String m110(num) => "총 ${num} 토마토";
 
   static String m111(trainee) =>
       "주의하세요, 실제 상황에 따라 적절하게 행동하세요. ${trainee}의 답변에 만족하지 않는 경우, 더 자세한 명령을 제공하여 ${trainee}에게 시간을 계획하도록 도와줄 수 있습니다.";
@@ -316,6 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("관리자"),
         "advanced_permissions":
             MessageLookupByLibrary.simpleMessage("고급 권한: 복사, 주석 금지 설정 가능"),
+        "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("동의"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI 생성"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI 도우미"),
@@ -331,6 +346,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("모든 미완료 작업"),
         "all_finished_mission":
             MessageLookupByLibrary.simpleMessage("모든 완료된 미션"),
+        "all_maju": MessageLookupByLibrary.simpleMessage("전체"),
         "all_mission": MessageLookupByLibrary.simpleMessage("모든 미션"),
         "all_pending_repayment":
             MessageLookupByLibrary.simpleMessage("모든 보류 중인 상환"),
@@ -384,6 +400,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_uncomplete_missions": m3,
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("보류 중"),
+        "before_date": m5,
+        "between_date": m6,
         "bill_day": MessageLookupByLibrary.simpleMessage("청구일"),
         "bill_detail": MessageLookupByLibrary.simpleMessage("청구서 세부사항"),
         "bill_this_statement":
@@ -905,6 +923,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "long_rest_interval": MessageLookupByLibrary.simpleMessage("긴 휴식 간격"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("루프 설정"),
         "lottery": MessageLookupByLibrary.simpleMessage("추첨"),
+        "lyubichs": MessageLookupByLibrary.simpleMessage("리유비치 기간"),
         "manual": MessageLookupByLibrary.simpleMessage("수동"),
         "manual_create": MessageLookupByLibrary.simpleMessage("수동 생성"),
         "mar": MessageLookupByLibrary.simpleMessage("3월"),
@@ -1027,6 +1046,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("작업이 없습니다, 먼저 작업을 생성해야 합니다"),
         "no_notification_permission_title":
             MessageLookupByLibrary.simpleMessage("알림 권한이 없습니다"),
+        "no_project_parenthese":
+            MessageLookupByLibrary.simpleMessage("(프로젝트 없음)"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("순위 없음"),
         "no_task": MessageLookupByLibrary.simpleMessage("작업 없음"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("시간 제한 없음"),
@@ -1114,11 +1135,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "num_days": m81,
         "num_lives": MessageLookupByLibrary.simpleMessage("생명 값:"),
         "num_mins": m82,
+        "num_mission": MessageLookupByLibrary.simpleMessage("임무 수"),
+        "num_mission_percent": m83,
         "num_mission_total": m84,
         "num_of_total": m85,
         "num_tasks": m86,
         "num_tasks_finished": MessageLookupByLibrary.simpleMessage("완료된 계획 수"),
         "num_times": m87,
+        "num_tomatoes": m88,
         "num_unit": m89,
         "number_present": m90,
         "objective": MessageLookupByLibrary.simpleMessage("목표"),
@@ -1516,8 +1540,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalTimeMinute": MessageLookupByLibrary.simpleMessage("총 시간(분)"),
         "total_focus_duration": MessageLookupByLibrary.simpleMessage("총 집중 시간"),
         "total_focus_time": MessageLookupByLibrary.simpleMessage("집중 시간"),
+        "total_maju": m109,
         "total_tasks_count":
             MessageLookupByLibrary.simpleMessage("전체 작업 수(토마토 수)"),
+        "total_tomatoes": m110,
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("토마토 총 수"),
         "trainee_advice_notice": m111,
         "trainee_give_your_advice": m112,

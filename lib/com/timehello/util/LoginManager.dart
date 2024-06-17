@@ -4,8 +4,10 @@ import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.d
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
 import 'package:time_hello/com/timehello/page/SettingUserInfoPage/SettingUserInfoPage.dart';
+import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/FirebaseManager.dart';
+import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/PermissionManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -39,12 +41,14 @@ class LoginManager {
   }
 
   init() async {
-    userBean = (await SharePreferenceUtil.getAsyncInstance()).getUserBean() ?? UserBean();
+    userBean = (await SharePreferenceUtil.getAsyncInstance()).getUserBean() ??
+        UserBean();
   }
 
   hasLogin() async {}
 
-  hasUserName({required BuildContext context, required Function callback}) async {
+  hasUserName(
+      {required BuildContext context, required Function callback}) async {
     if (isLogin() == false) {
       LoginManager.getInstance().doAliSdkSecVerifyLogin(context);
       // Utility.pushNavigator(
@@ -121,14 +125,32 @@ class LoginManager {
     loginUtil = new LoginUtil();
   }
 
+  registerByEmail({BuildContext? context, String? email, String? password}) {
+    if (TextUtil.isEmpty(email)) {
+      Utility.showToastMsg(msg: getI18NKey().please_input_email);
+      return;
+    }
+    if(!TextUtil.isEmail(email ?? "")) {
+      Utility.showToastMsg(msg: getI18NKey().please_input_correct_email);
+      return;
+    }
+    EasyLoadingManager.getInstance().showLoading();
+    GoogleMailLoginManager.getInstance().signIn(emailEncrypted: email, password: password, callbackSuccess: () {
+      Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
+      EasyLoadingManager.getInstance().hideLoading();
+    });
+  }
+
   LoginManager register(
       {String? mobile,
       String? password,
       String? dynamicCode,
-        String? countryPhoneCode,
+      String? email,
+      String? countryPhoneCode,
       required LoginResult onComplete}) {
     return this.requestPasswordLogin(
         mobile: mobile,
+        email: email,
         password: password,
         countryPhoneCode: countryPhoneCode,
         dynamicCode: dynamicCode,
@@ -142,7 +164,20 @@ class LoginManager {
     try {
       //获取用户信息
       UserInfoManager.getSyncInstance().init();
-      await Future.wait([MongoApisManager.getInstance().batchUpdate_MissionModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_FolderModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_StatsModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_TimelineMissionModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_PresentModel(shouldRefresh: false), MongoApisManager.getInstance().batchUpdate_FlomoMissionModel(shouldRefresh: false)]);
+      await Future.wait([
+        MongoApisManager.getInstance()
+            .batchUpdate_MissionModel(shouldRefresh: false),
+        MongoApisManager.getInstance()
+            .batchUpdate_FolderModel(shouldRefresh: false),
+        MongoApisManager.getInstance()
+            .batchUpdate_StatsModel(shouldRefresh: false),
+        MongoApisManager.getInstance()
+            .batchUpdate_TimelineMissionModel(shouldRefresh: false),
+        MongoApisManager.getInstance()
+            .batchUpdate_PresentModel(shouldRefresh: false),
+        MongoApisManager.getInstance()
+            .batchUpdate_FlomoMissionModel(shouldRefresh: false)
+      ]);
       MongoApisManager.getInstance().batchUpdate_folderModelWithGroupId();
       MongoApisManager.getInstance().reset();
       await MongoApisManager.getInstance().init(); //跨手机登录等需要重新同步数据
@@ -153,7 +188,7 @@ class LoginManager {
       } else {
         Utility.popNavigator(context);
       }
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     EasyLoadingManager.getInstance().hideLoading();
@@ -165,11 +200,9 @@ class LoginManager {
     loginUtil?.doLoginFromSplashScreen();
   }
 
-
   Future<void> doAliSdkSecVerifyLogin(BuildContext context) async {
     loginUtil?.doAliSdkSecVerifyLogin(context);
   }
-
 
   /**
    * sharesdk秒验预登陆
@@ -177,25 +210,29 @@ class LoginManager {
   requestPreVerify({Function? result}) async {
     bool hasExecuted = false;
     Future.delayed(Duration(milliseconds: 3000), () {
-      if(hasExecuted == false) {
-        if (result!=null)
-        result(BaseBean(message: "", success: false, code: ""));
+      if (hasExecuted == false) {
+        if (result != null)
+          result(BaseBean(message: "", success: false, code: ""));
         hasExecuted = true;
       }
     });
     if (LoginManager.hasPrevLogin == false && LoginManager.isLogin() == false) {
-      CounterMethodChannelManager.getInstance().requestPreVerify(result: (BaseBean baseBean) {
+      CounterMethodChannelManager.getInstance().requestPreVerify(
+          result: (BaseBean baseBean) {
         hasExecuted = true;
         if (baseBean.success == true) {
           LoginManager.hasPrevLogin = true;
         }
-        if (result!=null)
-        result(baseBean);
+        if (result != null) result(baseBean);
       });
     } else {
       hasExecuted = true;
-      if (result!=null)
-      result(BaseBean(message: "", success: LoginManager.hasPrevLogin, code: "", data: ""));
+      if (result != null)
+        result(BaseBean(
+            message: "",
+            success: LoginManager.hasPrevLogin,
+            code: "",
+            data: ""));
     }
   }
 
@@ -203,10 +240,10 @@ class LoginManager {
    * 带上dynamicCode表述注册 或者短信登录
    */
   LoginManager requestPasswordLogin(
-      {
-        BuildContext? context,
-        String? countryPhoneCode,
-        String? mobile,
+      {BuildContext? context,
+      String? countryPhoneCode,
+      String? mobile,
+      String? email,
       String? password,
       String? dynamicCode,
       LoginAndRegisterEnum loginAndRegisterEnum = LoginAndRegisterEnum.login,
@@ -215,15 +252,20 @@ class LoginManager {
     mOnComplete = onComplete;
     String phoneNum = EditFormat.getNoblanKString(mobile ?? "");
     String psd = password ?? "";
-    if (TextUtil.isEmpty(mobile.toString())) {
-      Utility.showToastMsg(msg: getI18NKey().input_mobile);
-      return mLoginManager!;
-    }
-    if (EditFormat.getNoblanKString(mobile ?? "").length < 11) {
-      Utility.showToastMsg(msg: getI18NKey().input_correct_mobile);
-      return mLoginManager!;
-    }
-    if (TextUtil.isEmpty(password.toString()) || (password?.length ?? 0)< 6) {
+    String emailStr = EditFormat.getNoblanKString(email ?? "");
+    // if (TextUtil.isEmpty(mobile.toString())) {
+    //   Utility.showToastMsg(msg: getI18NKey().input_mobile);
+    //   return mLoginManager!;
+    // }
+    // if (TextUtil.isEmpty(emailStr)) {
+    //   Utility.showToastMsg(msg: getI18NKey().please_input_email);
+    //   return mLoginManager!;
+    // }
+    // if (EditFormat.getNoblanKString(mobile ?? "").length < 11) {
+    //   Utility.showToastMsg(msg: getI18NKey().input_correct_mobile);
+    //   return mLoginManager!;
+    // }
+    if (TextUtil.isEmpty(password.toString()) || (password?.length ?? 0) < 6) {
       Utility.showToastMsg(msg: getI18NKey().password_at_least_6);
       return mLoginManager!;
     }
@@ -236,14 +278,30 @@ class LoginManager {
     try {
       // psd = RSAUtils.encrypt(psd, false, mActivity);
       if (LoginAndRegisterEnum.login == loginAndRegisterEnum) {
-        loginUtil?.doLogin(countryPhoneCode: countryPhoneCode ?? "",
-            shouldShowLoading: true,
-            phoneNum: phoneNum, password: psd, dynamicCode: dynamicCode ?? "");
-      } else {
-        loginUtil?.doRegister(
-            shouldShowLoading: true,
+        loginUtil?.doLogin(
             countryPhoneCode: countryPhoneCode ?? "",
-            phoneNum: phoneNum, password: psd, dynamicCode: dynamicCode ?? "");
+            email: emailStr,
+            shouldShowLoading: true,
+            phoneNum: phoneNum,
+            password: psd,
+            dynamicCode: dynamicCode ?? "");
+      } else {
+        if (TextUtil.isEmpty(emailStr)) {
+          loginUtil?.doRegister(
+              // email: emailStr,
+              shouldShowLoading: true,
+              countryPhoneCode: countryPhoneCode ?? "",
+              phoneNum: phoneNum,
+              password: psd,
+              dynamicCode: dynamicCode ?? "");
+        } else {
+          loginUtil?.doRegisterWithEmail(
+              shouldShowLoading: true,
+              context: context ?? Utility.getGlobalContext(),
+              email: emailStr,
+              password: psd,
+              loginTypeEnum: LoginTypeEnum.email);
+        }
       }
     } catch (e) {
       print(e);
@@ -253,16 +311,21 @@ class LoginManager {
     return mLoginManager!;
   }
 
-
   thirdPartyLoginWithGoogle(BuildContext context) async {
     //不加这个会有plugin找不到的问题
     // EasyLoadingManager.getInstance().showLoading();
-    if(Utility.isAndroid() == true) {
+    if (Utility.isAndroid() == true) {
       await PermissionManager.getInstance().requestStoragePermission();
     }
     Map map = await FirebaseManager.getInstance().signInWithGoogle();
     // EasyLoadingManager.getInstance().hideLoading();
-    loginUtil?.doRegisterWithEmail(shouldShowLoading: true, context: context, email: map['email'], avatar: map['avatar'], name: map['name'], loginTypeEnum: LoginTypeEnum.google);
+    loginUtil?.doRegisterWithEmail(
+        shouldShowLoading: true,
+        context: context,
+        email: map['email'],
+        avatar: map['avatar'],
+        name: map['name'],
+        loginTypeEnum: LoginTypeEnum.google);
   }
 
   thirdPartyLoginWithApple(BuildContext context) async {
@@ -273,7 +336,13 @@ class LoginManager {
     // }
     Map map = await FirebaseManager.getInstance().signInWithApple();
     print(map);
-    loginUtil?.doRegisterWithEmail(shouldShowLoading: true, context: context, email: map['email'], avatar: map['avatar'], name: map['name'], loginTypeEnum: LoginTypeEnum.google);
+    loginUtil?.doRegisterWithEmail(
+        shouldShowLoading: true,
+        context: context,
+        email: map['email'],
+        avatar: map['avatar'],
+        name: map['name'],
+        loginTypeEnum: LoginTypeEnum.google);
 
     // EasyLoadingManager.getInstance().hideLoading();
     // loginUtil?.doRegisterWithEmail(shouldShowLoading: true, context: context, email: map['email'], avatar: map['avatar'], name: map['name'], loginTypeEnum: LoginTypeEnum.google);

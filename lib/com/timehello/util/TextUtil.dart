@@ -12,6 +12,11 @@ class TextUtil {
     return text == null || text == 'null' || text.isEmpty;
   }
 
+  static bool isEmail(String email) {
+    return RegExp(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$')
+        .hasMatch(email);
+  }
+
   /// 每隔 x位 加 pattern
   static String formatDigitPattern(String text,
       {int digit = 4, String pattern = ' '}) {

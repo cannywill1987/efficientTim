@@ -6,7 +6,7 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.dev; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static String curVersion = '3.5.1';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
@@ -34,7 +34,7 @@ class Params {
   static final int RECEIVE_TIMEOUT = 40000;
 
   static final int RINGTONE_DURATION = 10000;
-  static final String mBaseUrl = env == EnvEnum.dev ? "http://localhost:7001" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
+  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
   static final String mMemberBaseUrl = "";
   static final String MSN_REGISTER_SCENE = "MSN_REGISTER_SCENE";
@@ -115,12 +115,13 @@ class ABTestSetting {
 }
 
 class Urls {
-  static String ratingGuide = "https://www.timerbell.com/views/ratingGuide";
-  static String facebook = "https://www.facebook.com/profile.php?id=100090694350100";
-  static String privacyProtocol = "https://www.timerbell.com/views/protocol/privacyProtocol";
-  static String privacyProtocolOfficial = "https://www.timerbell.com/views/protocol/privacyProtocolOfficial";
-  static String privacyProtocolXiaoMi = "https://www.timerbell.com/views/protocol/privacyProtocolXiaomi";
-  static String privacyProtocolVivo = "https://www.timerbell.com/views/protocol/privacyProtocolVivo";
+  static String isUserExistByEmail = "/api/common/isUserExistByEmail"; // 判断用户是否存在
+  static String ratingGuide = "https://www.timerbell.com/views/ratingGuide"; // 评分引导
+  static String facebook = "https://www.facebook.com/profile.php?id=100090694350100"; // facebook
+  static String privacyProtocol = "https://www.timerbell.com/views/protocol/privacyProtocol"; // 隐私协议
+  static String privacyProtocolOfficial = "https://www.timerbell.com/views/protocol/privacyProtocolOfficial"; // 官方隐私协议
+  static String privacyProtocolXiaoMi = "https://www.timerbell.com/views/protocol/privacyProtocolXiaomi"; // 小米隐私协议
+  static String privacyProtocolVivo = "https://www.timerbell.com/views/protocol/privacyProtocolVivo"; // vivo隐私协议
   static String mgmHomeUrl = Params.mUrl + "/mgm/home";
 }
 

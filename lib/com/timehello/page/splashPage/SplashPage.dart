@@ -16,6 +16,7 @@ import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GptChatHistoryPa
 import 'package:time_hello/com/timehello/page/CreateAIChatGptMissionPage/CreateAIChatGptMissionPage.dart';
 import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
 import 'package:time_hello/com/timehello/page/folderspage/FoldersPage.dart';
+import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
@@ -488,9 +489,10 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, GptChatHistoryPage());
                   // Utility.pushReplacement(context, GPTRoleGridViewPage());
                   // Utility.pushReplacement(context, ChatGptPage());
-
-                  // Utility.pushReplacement(context, GroupChatSharingWidget());
+                  // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: '', password: '',));
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, GroupChatSharingWidget());
+                  // Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, CreateAIChatGptMissionWidget(listMissionModel: [],));
 
                   // Utility.pushReplacement(context, CreateAIChatGptMissionPage());

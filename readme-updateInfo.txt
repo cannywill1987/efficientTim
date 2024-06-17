@@ -1,24 +1,26 @@
 英文
-Full-functional · Refreshing without advertising · Quick start=-Tomato clock, missions todo list, push notification, Feynman learning method, four quadrants, time axis, voice notes
+- Tomato Clock, Lyubich's Duration, Timed Notifications, Feynman Learning Method, Four Quadrants, Timeline, Voice Notes, Voice Diary, Write Diary, Take Notes, Motivational quotes for everyone to make daily work more inspiring, Thousands of Tomato Clock Wallpapers, PC & Mobile Sync, everything is very simple
 
 德文
-=Vollfunktionsfrei · Erfrischend ohne Werbung · Schnellstart=
--Tomato Clock, CHATGPT, Timed Push, Feynman Lernmethode, vier Quadranten, Zeitachse, Sprachnotizen
+- Tomatenuhr, Lyubichs Dauer, zeitgesteuerte Benachrichtigungen, Feynman-Lernmethode, Vier Quadranten, Zeitachse, Sprachnotizen, Sprach-Tagebuch, Tagebuch schreiben, Notizen machen, Motivationszitate für jeden, um die tägliche Arbeit inspirierender zu gestalten, Tausende von Tomatenuhr-Hintergründen, PC & Mobile Synchronisation, alles ist ganz einfach
 
 法文
-= entièrement fonctionnel · rafraîchissant sans publicité · démarrage rapide =
 
-- Horloge tomate, CHATGPT, compte à rebours, liste de tâches à faire, notifications Push, méthode d'apprentissage Feynman, quatre quadrants, Timeline, notes vocales
+- Horloge Tomate, Durée de Lyubich, Notifications programmées, Méthode d'apprentissage Feynman, Quatre Quadrants, Chronologie, Notes vocales, Journal vocal, Écrire un journal, Prendre des notes, Citations de motivation pour chacun afin de rendre le travail quotidien plus inspirant, Des milliers de fonds d'écran d'horloge tomate, Synchronisation PC & Mobile, tout est très simple
 
 繁体
-=全功能免費·清爽無廣告·極速啟動·學霸必備=
--蕃茄鐘，每人勵志名言讓每天工作更有動力，數千張蕃茄鐘桌面，定時推送，費曼學習法，四象限，時間軸，語音筆記，語音日記，寫日記，做筆記，PC&Mobile同步一切都很簡單
--支持四象限工作法
+蕃茄鐘，柳比歇斯時長，定時推送，費曼學習法，四象限，時間軸，語音筆記，語音日記，寫日記，做筆記，每人勵志名言讓每天工作更有動力，數千張蕃茄鐘桌面，PC&Mobile同步一切都很簡單
+支持四象限工作法
+
 
 荷兰文
-=Volledige functie gratis, verfrissend zonder advertenties, snelle start, essentieel voor academische elites=
-Duizenden tomaat klok wallpapers, getimed push, Feynman leermethode, vier kwadranten, tijdlijn, stemnotities, stemdagboek, schrijfdagboek, notities maken, PC&Mobile synchronisatie alles is heel eenvoudig
-Werkmethode met vier kwadranten
+omatenklok, Lyubichs Duur, Getimede Meldingen, Feynman-leermethode, Vier Kwadranten, Tijdlijn, Spraaknotities, Spraakdagboek, Dagboek Schrijven, Aantekeningen Maken, Motiverende Citaten voor Iedereen om het Dagelijkse Werk Inspirerender te Maken, Duizenden Tomatenklok Achtergronden, PC & Mobiele Synchronisatie, alles is heel eenvoudig
+Ondersteunt de Vier Kwadranten Werkmethode
+
+
+韩语
+
+- 토마토 시계, 리유비치 기간, 정시 알림, 파인만 학습법, 사분면, 타임라인, 음성 메모, 음성 일기, 일기 쓰기, 메모하기, 매일의 작업을 더 영감을 주는 것으로 만드는 각자의 동기 부여 명언, 수천 개의 토마토 시계 배경화면, PC 및 모바일 동기화, 모든 것이 매우 간단합니다
 
 简体
 = 全功能免费 · 清爽无广告 · 极速启动 · 学霸必备 =
@@ -26,7 +28,8 @@ Werkmethode met vier kwadranten
 - 支持四象限工作法
 
 日文
--トマト時計、タイミングプッシュ、フェルマン学習法、四象限、時間軸、音声メモ
+
+- トマト時計、リュビチの期間、定時通知、ファインマン学習法、四象限、タイムライン、音声メモ、音声日記、日記を書く、メモを取る、毎日の仕事をより刺激的にするための励ましの名言、数千のトマト時計の壁紙、PC＆モバイル同期、すべてが非常に簡単
 
 意大利文
 =Volledige functie gratis, verfrissend zonder advertenties, snelle start, essentieel voor academische elites=

@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(date) => "${date}之后";
+  static String m0(date) => "After ${date}";
 
   static String m1(numbers) => "Batch complete \'${numbers}\' tasks";
 
@@ -30,9 +30,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(numbers) => "Batch update \'${numbers}\' tasks";
 
-  static String m5(date) => "${date}之前";
+  static String m5(date) => "Before ${date}";
 
-  static String m6(date1, date2) => "${date1}到${date2}";
+  static String m6(date1, date2) => "From ${date1} to ${date2}";
 
   static String m7(numTotatoes, duration, time, minute) =>
       "Estimated Pomodoros: ${numTotatoes} x ${duration} minutes = ${time} hours ${minute} minutes";
@@ -209,7 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m82(num) => "${num} mins";
 
-  static String m83(num, total) => "${num}任务/${total}总任务";
+  static String m83(num, total) => "${num} missions / ${total} total missions";
 
   static String m84(num, total) => "Listing ${num}/${total}";
 
@@ -219,7 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m87(num) => "${num} times";
 
-  static String m88(num) => "${num}番茄";
+  static String m88(num) => "${num} tomatoes";
 
   static String m89(num) => "${num}";
 
@@ -267,9 +267,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m108(date) => "${date}\'s data";
 
-  static String m109(num) => "总共 ${num}";
+  static String m109(num) => "Total ${num}";
 
-  static String m110(num) => "${num}总番茄";
+  static String m110(num) => "Total ${num} tomatoes";
 
   static String m111(trainee) =>
       "Please note, act according to your actual situation. If you are not satisfied with ${trainee}\'s response, you can communicate with ${trainee} to give more detailed commands to help you plan your time.";
@@ -706,6 +706,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "edit successfully, it can be viewed it in TimeLine page"),
         "edit_title": m40,
         "editing": MessageLookupByLibrary.simpleMessage("Editing"),
+        "email": MessageLookupByLibrary.simpleMessage("邮箱"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("E-mail can not be empty"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
@@ -1023,6 +1024,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Accounts will be automatically created for new users"),
         "loginFirst":
             MessageLookupByLibrary.simpleMessage("please log in first"),
+        "login_email_to_verifie": MessageLookupByLibrary.simpleMessage(
+            "确认邮件已经发送到您的邮箱，请去邮箱登录验证即可用密码登录使用"),
         "login_success":
             MessageLookupByLibrary.simpleMessage("login successful"),
         "logout": MessageLookupByLibrary.simpleMessage("sign out"),
@@ -1032,7 +1035,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Long rest interval"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("Loop Setting"),
         "lottery": MessageLookupByLibrary.simpleMessage("lottery"),
-        "lyubichs": MessageLookupByLibrary.simpleMessage("柳比歇斯时长"),
+        "lyubichs": MessageLookupByLibrary.simpleMessage("Lyubichs duration"),
         "manual": MessageLookupByLibrary.simpleMessage("Manual"),
         "manual_create": MessageLookupByLibrary.simpleMessage("Manual Create"),
         "mar": MessageLookupByLibrary.simpleMessage("Mar"),
@@ -1258,7 +1261,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "num_days": m81,
         "num_lives": MessageLookupByLibrary.simpleMessage("life value:"),
         "num_mins": m82,
-        "num_mission": MessageLookupByLibrary.simpleMessage("任务数"),
+        "num_mission":
+            MessageLookupByLibrary.simpleMessage("Number of missions"),
         "num_mission_percent": m83,
         "num_mission_total": m84,
         "num_of_total": m85,
@@ -1357,8 +1361,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter the bill amount"),
         "please_input_content":
             MessageLookupByLibrary.simpleMessage("please input content"),
+        "please_input_correct_email":
+            MessageLookupByLibrary.simpleMessage("请输入正确的邮箱"),
         "please_input_correct_password": MessageLookupByLibrary.simpleMessage(
             "please input correct password"),
+        "please_input_email": MessageLookupByLibrary.simpleMessage("请输入邮箱"),
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("Please input your question"),
         "please_input_folder_password": m91,

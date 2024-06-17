@@ -4,16 +4,19 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:time_hello/com/timehello/beans/BaseBean.dart';
+import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
+import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 
-class AnalyticsEventsManager {
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
-  static AnalyticsEventsManager? instance;
+import '../config/Params.dart';
+
+class GoogleMailLoginManager {
+  static GoogleMailLoginManager? instance;
   Timer? timer;
   bool? isEmailVerifiedVal=false;
   static getInstance() {
     if(instance == null) {
-      instance = AnalyticsEventsManager();
+      instance = GoogleMailLoginManager();
       instance?.init();
     }
     return instance;
@@ -23,25 +26,70 @@ class AnalyticsEventsManager {
     // Firebase.initializeApp();
   }
 
-
-  Future<void> _setDefaultEventParameters() async {
-    await analytics.setDefaultEventParameters(<String, dynamic>{
-      'string': 'string',
-      'int': 42,
-      'long': 12345678910,
-      'double': 42.0,
-      'bool': true.toString(),
-    });
+  unregisterAccount({required String email, required String password}) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      String? email = user?.email;
+      bool isEmailVerified = user?.emailVerified ?? false;
+      await user?.delete();
+    } catch(e) {
+      print(e);
+    }
   }
 
-  Future<void> signIn({required String email, required String password}) async {
+
+  Future<void> login({required String email, required String password, required Function callbackSuccess}) async {
     try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = userCredential.user;
+      String? emailTmp = user?.email;
+      bool isEmailVerified = user?.emailVerified ?? false;
+      print('Signed in: ${userCredential.user}');
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        callbackSuccess();
+        print('Verification email has been sent.');
+      } else {
+        callbackSuccess.call();
+      }
+      print('Signed in: ${userCredential.user}');
+    } on FirebaseAuthException catch (e) {
+      if(e.code == 'email-already-in-use') {
+
+      }
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+    }
+  }
+
+  Future<void> signIn({required String email, required String password, required Function callbackSuccess}) async {
+    // try {
+    //   await FirebaseAuth.instance.currentUser?.reload();
+    // } catch(e) {}
+    try {
+      // await unregisterAccount(email: email, password: password);
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      User? user = userCredential.user;
+      String? emailTmp = user?.email;
+      bool isEmailVerified = user?.emailVerified ?? false;
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        callbackSuccess();
+        print('Verification email has been sent.');
+      }
+
       print('Signed in: ${userCredential.user}');
     } on FirebaseAuthException catch (e) {
+      if(e.code == 'email-already-in-use') {
+        await login(email: email, password: password, callbackSuccess: callbackSuccess);
+
+      }
       print('Failed with error code: ${e.code}');
       print(e.message);
     }
@@ -51,9 +99,9 @@ class AnalyticsEventsManager {
     User? user = FirebaseAuth.instance.currentUser;
 
     this.isEmailVerifiedVal = user?.emailVerified ?? false;
-    if(!(isEmailVerifiedVal ?? false)) {
-      sendVerificationEmail();
-    }
+    // if(!(isEmailVerifiedVal ?? false)) {
+    //   sendVerificationEmail();
+    // }
     return isEmailVerifiedVal ?? false;
   }
 
@@ -64,14 +112,40 @@ class AnalyticsEventsManager {
   Future checkEmailVerified() async {
     await FirebaseAuth.instance.currentUser?.reload();
     isEmailVerifiedVal = FirebaseAuth.instance.currentUser?.emailVerified;
-    if(isEmailVerified == false) {
-      sendVerificationEmail();
+    return isEmailVerifiedVal;
+    // if(isEmailVerified == false) {
+    //   sendVerificationEmail();
+    // }
+  }
+
+  resetPassword({String? email, String? password}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email ?? '');
+      print('Password reset email has been sent.');
+    } on FirebaseAuthException catch(e) {
+      print(e);
     }
   }
 
-  Future checkEmailVerifiedPeriodic() async {
-    timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      if(isEmailVerified()) {
+  Future<bool> isEmailExistFromServer({required String email}) async {
+    try {
+      BaseBean baseBean = await HttpManager.getInstance().doPostRequest(Urls.isUserExistByEmail, params: {"email": email});
+      if(baseBean.code == CONSTANTS.CODE_USER_EXIST) {
+        return true;
+      }
+      return false;
+    } catch(e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future checkEmailVerifiedPeriodic({required Function callSuccess}) async {
+    timer = Timer.periodic(Duration(seconds: 3), (timer) async {
+      bool? isVerified = await checkEmailVerified();
+      print('isVerified: $isVerified');
+      if(isVerified == true) {
+        callSuccess();
         timer.cancel();
       }
     });
@@ -86,52 +160,6 @@ class AnalyticsEventsManager {
     }
   }
 
-  Future<void> sendAnalyticsEventMap(Map data) async {
-    try {
-      String sceneType = data['sceneType'] ?? "";
-      String eventType = data['eventType'] ?? "";
-      String message = data['message'] ?? "";
-      await analytics.logEvent(
-        name: sceneType + '_' + eventType,
-        parameters: <String, dynamic>{
-          'sceneType': sceneType,
-          'eventType': eventType,
-          'message': message,
-        },
-      );
-    } catch(e) {
-      print(e);
-    }
-  }
-
-  Future<void> sendAnalyticsEvent({name}) async {
-    // Only strings and numbers (longs & doubles for android, ints and doubles for iOS) are supported for GA custom event parameters:
-    // https://firebase.google.com/docs/reference/ios/firebaseanalytics/api/reference/Classes/FIRAnalytics#+logeventwithname:parameters:
-    // https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#public-void-logevent-string-name,-bundle-params
-    //部分小米机型打不开
-    try {
-      await analytics.logEvent(
-        name: name,
-        parameters: <String, dynamic>{
-          'event_name': name,
-          // 'int': 42,
-          // 'long': 12345678910,
-          // 'double': 42.0,
-          // // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
-          // // https://developers.google.cn/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
-          // 'bool': true.toString(),
-        },
-      );
-    } catch(e) {
-      print(e);
-    }
-  }
-
-
-// final FirebaseAnalytics _analytics = FirebaseAnalytics();
-
-// FirebaseAnalyticsObserver getAnalyticsObserver() =>
-//     FirebaseAnalyticsObserver(analytics: _analytics);
 }
 
 class DefaultFirebaseOptions {
