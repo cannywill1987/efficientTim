@@ -26,7 +26,6 @@ import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
-import 'package:time_hello/com/timehello/util/WidgetManager2.dart';
 
 import '../../../../../r.dart';
 import '../../../common/database/apis/MongoApisManager.dart';
@@ -48,6 +47,7 @@ import '../../../models/TimelineMissionModel.dart';
 import '../../../util/DialogManagement.dart';
 import '../../../util/TextUtil.dart';
 import '../../../util/Utility.dart';
+import '../../../util/WidgetManager.dart';
 import '../../CreateMissionPage/CreateMissionPage.dart';
 import '../../RichEditor/RichEditorPage.dart';
 import '../../SettingItemDetailPage/SettingItemDetailPage.dart';
@@ -226,7 +226,7 @@ class TimeManagementMissionPageState
                           _calendarController,
                           _events,
                           _onViewChanged,
-                          WidgetManager2.getAppointmentUIWidget(
+                          WidgetManager.getAppointmentUIWidget(
                               _calendarController));
                       final double screenHeight =
                           MediaQuery.of(context).size.height;

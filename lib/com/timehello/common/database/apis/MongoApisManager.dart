@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/MongoDb.dart';
 import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
@@ -3708,6 +3709,11 @@ class MongoApisManager {
       if (callback != null) {
         callback(bmobSaved);
       }
+      int insertMissionCount = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.insertMissionCount, defaultVal: 0);
+      if(insertMissionCount == 3) {
+        DialogManagement.showRatingDialog(Utility.getGlobalContext(), scene: EVENTNAME.INSERT_MISSION);
+      }
+      SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.insertMissionCount, value: insertMissionCount + 1);
       String? objectId = bmobSaved?.objectId;
       if (objectId?.isEmpty == false) {
         // String id = Utility.getObjectIdWithId(objectId ?? "");
@@ -4227,6 +4233,101 @@ class MongoApisManager {
     return true;
   }
 
+  Future<MongoDbSaved?> copy_MissionModel(
+      {required MissionModel missionModel,
+        bool shouldCheckPermission = true,
+        bool shouldQueryMissionModel = true,
+        Function? callback}) async {
+    if (shouldCheckPermission == true &&
+        ChatGroupManager.isFolderModelEnabled(
+            folderId: missionModel.folder_id ?? "",
+            uid: LoginManager.getInstance().userBean.uid ?? "") ==
+            false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
+    missionModel.objectId = null;
+    missionModel.noteSmallUrls = [];
+    missionModel.noteBigUrls = [];
+    missionModel.noteOriginUrls = [];
+    missionModel.noteRichContentUrl = ""; //知识点错题本 如果是富文本就是Url
+    missionModel.noteRecordUrls = []; //录音url
+    missionModel.subMissionModels=[];
+
+    // eventBus.fire(Params.ACTION_UPDATE_SETTING_ITEM_DETAIL, {"objectId": missionModel.objectId});
+    try {
+      MissionModel missionModelTmp = missionModel ?? MissionModel();
+      bool validate = validMissionModel(missionModel: missionModelTmp);
+      if (validate == false) {
+        return null;
+      }
+      MongoDbSaved? mongoDbSaved;
+      mongoDbSaved = await missionModelTmp.save();
+
+      if (shouldQueryMissionModel == true) {
+        await queryWhereEqual_missionData(
+          shouldRefresh: true,
+        ); //更新 missionModels
+      } else {
+        // 更新 missionModels  todo 有问题 没更新
+        for (int i = 0; i < this.listMissionModels.length; i++) {
+          if (this.listMissionModels[i].objectId == missionModelTmp.objectId) {
+            this.listMissionModels[i] = missionModelTmp;
+            print("");
+          }
+        }
+        missionModelTmp.objectId = mongoDbSaved?.objectId;
+        this.listMissionModels.add(missionModelTmp);
+        // context?.read<GlobalStateEnv>().listMissionModels =
+        //     this.listMissionModels;
+        // this.listMissionModels = missionModels;
+      }
+      if (TextUtil.isEmpty(missionModelTmp.folder_id) == true) {
+        MongoDbSaved? res = await MongoApisManager.getInstance()
+            .insertTimelineMissionModel(
+            missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                icon: Icons.check_circle.codePoint,
+                color: Colors.greenAccent.value,
+                missionModel: missionModel,
+                sceneType: "mission",
+                eventType: "copy_mission",
+                timelineMessage: getI18NKey()
+                    .update_name_mission2(missionModel.title ?? "?")));
+      } else {
+        FolderModel? folderModel = MongoApisManager.getInstance()
+            .queryWhereEqualFolderModelByObjectId(
+            objectId: missionModelTmp.folder_id) ??
+            null;
+        MongoDbSaved? res = await MongoApisManager.getInstance()
+            .insertTimelineMissionModel(
+            missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                icon: Icons.check_circle.codePoint,
+                color: Colors.greenAccent.value,
+                missionModel: missionModel,
+                sceneType: "mission",
+                eventType: "copy_mission",
+                timelineMessage: getI18NKey().copy_mission_model(
+                    missionModel.title ?? "")));
+      }
+//如果计数中需要更新missionModel
+//       CounterManagement.getInstance().updateMissionModel(missionModel);
+//       eventBus.fire(EventFn(
+//           Params.ACTION_UPDATE_TIME_MANAGEMENT_PAGE, {"data": missionModelTmp}));
+      // String id = Utility.getObjectIdWithId(missionModelTmp.objectId);
+      // if (callback != null) {
+      //   callback(mongoDbSaved);
+      // }
+        context?.read<GlobalStateEnv>().listMissionModels =
+            this.listMissionModels;
+      Utility.initCalendarModel();
+      // print("修改一条数据成功：${mongoDbSaved.message}");
+      return mongoDbSaved;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
   ///修改一条数据
   Future<MongoDbUpdated?> update_MissionModel(
       {required MissionModel missionModel,

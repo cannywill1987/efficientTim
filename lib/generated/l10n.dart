@@ -50,40 +50,100 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `确认邮件已经发送到您的邮箱，请去邮箱登录验证即可用密码登录使用`
+  /// `Go to Login Page`
+  String get to_login {
+    return Intl.message(
+      'Go to Login Page',
+      name: 'to_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password set successfully, go to login`
+  String get reset_to_login_page {
+    return Intl.message(
+      'Password set successfully, go to login',
+      name: 'reset_to_login_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login/Register`
+  String get login_or_register {
+    return Intl.message(
+      'Login/Register',
+      name: 'login_or_register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset email has been sent to your email`
+  String get reset_password_has_been_sent {
+    return Intl.message(
+      'Password reset email has been sent to your email',
+      name: 'reset_password_has_been_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User exists, you can reset your password`
+  String get user_exist_reset_password {
+    return Intl.message(
+      'User exists, you can reset your password',
+      name: 'user_exist_reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy list '{title}'`
+  String copy_mission_model(Object title) {
+    return Intl.message(
+      'Copy list \'$title\'',
+      name: 'copy_mission_model',
+      desc: '',
+      args: [title],
+    );
+  }
+
+  /// `Confirmation email has been sent to your email, please check your email to verify and login with your password`
   String get login_email_to_verifie {
     return Intl.message(
-      '确认邮件已经发送到您的邮箱，请去邮箱登录验证即可用密码登录使用',
+      'Confirmation email has been sent to your email, please check your email to verify and login with your password',
       name: 'login_email_to_verifie',
       desc: '',
       args: [],
     );
   }
 
-  /// `请输入正确的邮箱`
+  /// `Please enter a valid email`
   String get please_input_correct_email {
     return Intl.message(
-      '请输入正确的邮箱',
+      'Please enter a valid email',
       name: 'please_input_correct_email',
       desc: '',
       args: [],
     );
   }
 
-  /// `邮箱`
+  /// `Email`
   String get email {
     return Intl.message(
-      '邮箱',
+      'Email',
       name: 'email',
       desc: '',
       args: [],
     );
   }
 
-  /// `请输入邮箱`
+  /// `Please enter your email`
   String get please_input_email {
     return Intl.message(
-      '请输入邮箱',
+      'Please enter your email',
       name: 'please_input_email',
       desc: '',
       args: [],

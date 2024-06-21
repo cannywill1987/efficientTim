@@ -29,7 +29,7 @@ class MissionModel extends MongoDbObject{
   List<SubmissionModel>? _subMissionModels = [];
 
   @JsonKey(ignore: true)
-  int _localDuration = 0;
+  int localDuration = 0;
 
   @JsonKey(ignore: true)
   String? localDurationString;

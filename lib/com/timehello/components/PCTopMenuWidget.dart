@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
@@ -86,7 +87,9 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             Spacer(),
             if(!Utility.isProductEnv())
               InkWell(onTap: () {
-                CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
+                DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
+
+                // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
                 // DialogManagement.getInstance().showSearchFriendGroupWidget();
               }, child: Text("测试"),),
             // Expanded(

@@ -7,11 +7,14 @@ import 'package:time_hello/com/timehello/common/httpclient/Oberver.dart';
 import 'package:time_hello/com/timehello/common/httpclient/Observable.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/page/loginPage/LoginPage.dart';
 import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 class RegisterEmailVerificationPage extends BaseWidget {
@@ -31,6 +34,7 @@ class RegisterEmailVerificationPageState extends BaseWidgetState<RegisterEmailVe
   @override
   componentDidMount() {
     // TODO: implement componentDidMount
+    if(this.widget.pageFromEnum == PageFromEnum.RegisterPage) {
     GoogleMailLoginManager.getInstance().checkEmailVerifiedPeriodic(
         callSuccess: () {
           if(TextUtil.isEmpty(this.widget.email) || TextUtil.isEmpty(this.widget.password)) {
@@ -43,6 +47,7 @@ class RegisterEmailVerificationPageState extends BaseWidgetState<RegisterEmailVe
               onComplete: this);
         }
     );
+        }
     return super.componentDidMount();
   }
   @override
@@ -72,7 +77,45 @@ class RegisterEmailVerificationPageState extends BaseWidgetState<RegisterEmailVe
             size: 70, color: Colors.blue,
           ),
           SizedBox(height: 20,),
-          Text(getI18NKey().login_email_to_verifie, style: TextStyle(fontSize: 20, ),),
+          Text(this.widget.pageFromEnum == PageFromEnum.RegisterPage ? getI18NKey().login_email_to_verifie : this.widget.pageFromEnum == PageFromEnum.ForgetPassword ? getI18NKey().reset_password_has_been_sent : "", style: TextStyle(fontSize: 20, ),),
+          SizedBox(height: 30,),
+          if(this.widget.pageFromEnum == PageFromEnum.ForgetPassword)
+          Align(
+              child: InkWell(
+                onTap: () {
+                  Utility.pushReplacement(context, LoginPage());
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(bottom: 30),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: ThemeManager.getInstance().getButtonBorderColor(
+                            defaultColor: ColorsConfig.standardColor,
+                            defaultDarkColor: Colors.white),
+                        width: 1,
+                      ),
+                      color: ThemeManager.getInstance().getButtonBackgroundColor(
+                          defaultColor: ColorsConfig.standardColor,
+                          defaultDarkColor: Colors.white)
+                    // gradient: LinearGradient(
+                    //     colors:
+                    //     ColorsConfig.listColorsOrangeLightToHeavyButton),
+                  ),
+                  width: 260,
+                  height: 45,
+                  child: Text(
+                    getI18NKey().to_login,
+                    style: TextStyle(
+                        color: ThemeManager.getInstance()
+                            .getTextColor(defaultColor: Colors.white),
+                        fontSize: 14),
+                  ),
+                ),
+              )),
+          if(this.widget.pageFromEnum == PageFromEnum.ForgetPassword)
+            Text(getI18NKey().reset_to_login_page, style: TextStyle(fontSize: 14, color: ThemeManager.getInstance().isDark() ? Colors.white : Colors.grey),),
         ],
       ),
     );

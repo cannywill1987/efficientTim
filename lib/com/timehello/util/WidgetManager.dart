@@ -5,8 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
+import 'package:time_hello/com/timehello/components/CustomAppointWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/appointment.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/calendar_controller.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -16,8 +22,6 @@ import '../config/ColorsConfig.dart';
 import '../config/StylesConfig.dart';
 import '../models/FolderModel.dart';
 import '../models/WQBFolderModel.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 /**
  * 公共组件的管理
  */
@@ -79,92 +83,105 @@ class WidgetManager {
     // }
   }
 
-  static Container getCustomAppointWidget(
+  static Widget getCustomAppointWidget(
       CalendarAppointmentDetails details, BuildContext context,
       {CalendarView? calendarView, bool shouldShowCheckBox = true}) {
-    Appointment appointment = details.appointments.first;
-    MissionModel? missionModelCurSelected = context.read<CalendarMssionEnv>().curSelectedMissionModel;
-    MissionModel? missionModel = MongoApisManager.getInstance()
-        .queryWhereEqual_missionDataByObjectId(
-        objectId: appointment.id.toString());
-    FolderModel? folderModel;
-    int priorityColor = CONSTANTS.getPriorityColor(missionModel?.priorityStatus ?? 3);
-    if (missionModel?.folder_id != null) {
-      folderModel = MongoApisManager.getInstance()
-          .queryfolderModelWithFolderId(missionModel?.folder_id ?? "");
-    }
-    return Container(
-      constraints: BoxConstraints(minHeight: 100),
-      decoration: BoxDecoration(
-        color: folderModel?.color != null
-            ? Color(folderModel!.color - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000))
-            : Color(0xffff8800 - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000)),
-        borderRadius: BorderRadius.circular(4),
-        border: missionModelCurSelected == missionModel ? Border.all(
-            color: folderModel?.color != null
-                ? Color(priorityColor ?? folderModel!.color)
-                : Color(priorityColor ?? 0xffff8800),
-            width: 3) : Border(
-            left: BorderSide(
-                color: folderModel?.color != null
-                    ? Color(priorityColor ?? folderModel!.color)
-                    : Color(priorityColor ?? 0xffff8800),
-                width: 3)),
-      ),
-      padding: EdgeInsets.only(left: 4),
-      alignment: calendarView == CalendarView.month
-          ? Alignment.centerLeft
-          : Alignment.topLeft,
-      child: Text.rich(
-        maxLines: calendarView == CalendarView.month ? 1 : null,
-        overflow: calendarView == CalendarView.month ? TextOverflow.ellipsis : null,
-        TextSpan(
-          // text: 'Hello', // default text style
-          children: [
-            if(shouldShowCheckBox)
-              WidgetSpan(
-                  child: Container(
-                    width: 15,
-                    height: 15,
-                    padding: calendarView == CalendarView.month ? null:EdgeInsets.only(top: 1),
-                    child: CheckImage(
-                      width: 15,
-                      height: 15,
-                      isSizeConfigured: true,
-                      onTapListener: (res) {
-                        Utility.onClickFinishItem(
-                            missionModel: missionModel ?? MissionModel(),
-                            folderModel: folderModel ?? null,
-                            timestampCurrent: details.date.millisecondsSinceEpoch,
-                            context: context,
-                            finishCallback: () {
-                              // requestDatas();
-                            });
-                      },
-                      checked: Utility.getIsFinishOfMissionModel(
-                        missionModel: missionModel ?? MissionModel(),
-                        curMonthTimeStamp: details.date.millisecondsSinceEpoch,
-                      ),
-                      checkIcon: Icon(Icons.check_circle,
-                          size: 15, color: ColorsConfig.calendar_green),
-                      uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
-                          color: ColorsConfig.gray_a7, size: 15),
-                    ),
-                  )),
-            TextSpan(
-                text: missionModel?.title ?? "",
-                style: const TextStyle(
-                  color: Color(0xff404040),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                )),
-            ...getTagsWidgetSpan(missionModel ?? MissionModel()),
-            // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
+    // Appointment appointment = details.appointments.first;
+    // // MissionModel? missionModelCurSelected = context.read<CalendarMssionEnv>().curSelectedMissionModel;
+    // MissionModel? missionModel = MongoApisManager.getInstance()
+    //     .queryWhereEqual_missionDataByObjectId(
+    //     objectId: appointment.id.toString());
+    // FolderModel? folderModel;
+    // int priorityColor = CONSTANTS.getPriorityColor(missionModel?.priorityStatus ?? 3);
+    // if (missionModel?.folder_id != null) {
+    //   folderModel = MongoApisManager.getInstance()
+    //       .queryfolderModelWithFolderId(missionModel?.folder_id ?? "");
+    // }
 
+    return CustomAppointmentWidget(
+      details: details,
+      calendarView: calendarView,
+      shouldShowCheckBox: shouldShowCheckBox,
     );
+
+    // return Container(
+    //   constraints: BoxConstraints(minHeight: 100),
+    //   decoration: BoxDecoration(
+    //     color: folderModel?.color != null
+    //         ? Color(folderModel!.color - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000))
+    //         : Color(0xffff8800 - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000)),
+    //     borderRadius: BorderRadius.circular(4),
+    //     border: missionModelCurSelected == missionModel ? Border.all(
+    //         color: folderModel?.color != null
+    //             ? Color(priorityColor ?? folderModel!.color)
+    //             : Color(priorityColor ?? 0xffff8800),
+    //         width: 3) : Border(
+    //         left: BorderSide(
+    //             color: folderModel?.color != null
+    //                 ? Color(priorityColor ?? folderModel!.color)
+    //                 : Color(priorityColor ?? 0xffff8800),
+    //             width: 3)),
+    //   ),
+    //   padding: EdgeInsets.only(left: 4),
+    //   alignment: calendarView == CalendarView.month
+    //       ? Alignment.centerLeft
+    //       : Alignment.topLeft,
+    //   child: Text.rich(
+    //     maxLines: calendarView == CalendarView.month ? 1 : null,
+    //     overflow: calendarView == CalendarView.month ? TextOverflow.ellipsis : null,
+    //     TextSpan(
+    //       // text: 'Hello', // default text style
+    //       children: [
+    //         if(shouldShowCheckBox)
+    //           WidgetSpan(
+    //               child: Container(
+    //                 width: 15,
+    //                 height: 15,
+    //                 padding: calendarView == CalendarView.month ? null:EdgeInsets.only(top: 1),
+    //                 child: CheckImage(
+    //                   width: 15,
+    //                   height: 15,
+    //                   isSizeConfigured: true,
+    //                   onTapListener: (res) {
+    //                     Utility.onClickFinishItem(
+    //                         missionModel: missionModel ?? MissionModel(),
+    //                         folderModel: folderModel ?? null,
+    //                         timestampCurrent: details.date.millisecondsSinceEpoch,
+    //                         context: context,
+    //                         finishCallback: () {
+    //                           // requestDatas();
+    //                         });
+    //                   },
+    //                   checked: Utility.getIsFinishOfMissionModel(
+    //                     missionModel: missionModel ?? MissionModel(),
+    //                     curMonthTimeStamp: details.date.millisecondsSinceEpoch,
+    //                   ),
+    //                   checkIcon: Icon(Icons.check_circle,
+    //                       size: 15, color: ColorsConfig.calendar_green),
+    //                   uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
+    //                       color: ColorsConfig.gray_a7, size: 15),
+    //                 ),
+    //               )),
+    //         TextSpan(
+    //             text: missionModel?.title ?? "",
+    //             style: const TextStyle(
+    //               color: Color(0xff404040),
+    //               fontSize: 12,
+    //               fontWeight: FontWeight.w500,
+    //             )),
+    //         TextSpan(text:!TextUtil.isEmpty(missionModel?.localDurationString) ? "("+(missionModel?.localDurationString ?? "") + ")" : "(1h 00m)",
+    //             style: TextStyle(
+    //               color: Color(0xff404040),
+    //               fontSize: 12,
+    //               fontWeight: FontWeight.w500,
+    //             )),
+    //         ...getTagsWidgetSpan(missionModel ?? MissionModel()),
+    //         // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+    //       ],
+    //     ),
+    //   ),
+    //
+    // );
   }
 
   static double getWidgetWidth(GlobalKey globalKey) {

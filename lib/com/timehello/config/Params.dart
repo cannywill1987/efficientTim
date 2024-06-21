@@ -6,7 +6,7 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.dev; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static String curVersion = '3.5.1';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
@@ -51,6 +51,8 @@ class Params {
   static String ACTION_UPDATE_FOLDER_PAGE = 'ACTION_UPDATE_FOLDER_PAGE';
   static String ACTION_UPDATE_LISTVIEW = 'ACTION_UPDATE_LISTVIEW'; //用于更新Foldertage的silver list,但
   static String ACTION_UPDATE_SETTING_ITEM_DETAIL = 'ACTION_UPDATE_SETTING_ITEM_DETAIL';  //
+  static String ACTION_UPDATE_TIME_MANAGEMENT_PAGE = 'ACTION_UPDATE_TIME_MANAGEMENT_PAGE';  //
+
   static String ACTION_UPDATE_FLOMO_LISTVIEW = 'ACTION_UPDATE_FLOMO_LISTVIEW'; //用于更新Foldertage的silver list,但
 
   static String ACTION_UPDATE_USERINFO_AVATAR = 'ACTION_UPDATE_USERINFO_AVATAR';
@@ -140,6 +142,7 @@ class Apis {
   static String updateValuePerHour = "/api/timehello/updateValuePerHour";
   static String updateLocalMoney = "/api/timehello/updateLocalMoney";
   static String getDynamicCode = "/api/common/getDynamicCode";
+  static String resetPwdByEmail = "/api/timehello/resetPwdByEmail";
   static String unregisterAccount = "/api/common/unregisterAccount";
   static String updateUser = "/api/timehello/updateUser";
   static String resetPwd = "/api/timehello/resetPwd"; //重置密码
@@ -171,6 +174,8 @@ class Apis {
 
 //Shareprefrence的key
 class ShareprefrenceKeys {
+  static String insertMissionCount = "jeifziefizef";
+  static String needResetPassword = "jewijfizfc";
   static String default9DigitPasswordsNeedShowWhenLoginAppLock = "efzfsace";
   static String default9DigitPasswordsNeedShowWhenLogin = "eififizsifizefizefijzefceizf";
   static String default9DigitPasswords = "eififizsifizefizefij";

@@ -45,6 +45,12 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     // setChecked(this.checkIndex ?? 0);
   }
 
+  initState() {
+    setChecked(checkIndex ?? 0);
+    // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
+
+  }
+
   resetList() {
     this.list.forEach((element) {
       element.isCheck = false;
@@ -53,9 +59,9 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
   void setChecked(int index) {
     if(index == 0) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
+      // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
     } else if(index == 1) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_time_period","description": "时间段",});
+      // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_time_period","description": "时间段",});
     }
     this.resetList();
     this.list[index].isCheck = true;
@@ -72,12 +78,11 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     // print(list);
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
 
   void updateUI() {
     setState(() {

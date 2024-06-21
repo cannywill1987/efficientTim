@@ -21,9 +21,10 @@ import '../../../util/ThemeManager.dart';
 class RegisterStep1 extends StatefulWidget {
   Function? onTapListener;
   Function? onChanged;
-
+  int curTab;
   RegisterStep1({
     Key? key,
+    this.curTab = 0,
     Function? onChanged,
     Function? onTapListener,
   }) : super(key: key) {
@@ -34,7 +35,7 @@ class RegisterStep1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new RegisterStep1State();
+    return new RegisterStep1State(curTab:this.curTab);
   }
 }
 
@@ -45,6 +46,7 @@ class RegisterStep1State extends State<RegisterStep1> {
   String? email;
   String? countryPhoneCode;
   int curTab = 0;
+
   // this.countryPhoneCode = phone.countryCode;
   // this.number = phone.number;
   // this.completeNumber = phone.completeNumber;
@@ -52,7 +54,45 @@ class RegisterStep1State extends State<RegisterStep1> {
   final _formKey = new GlobalKey<FormState>();
 
   List<CheckButtonStateModel> tabList =
-  CONSTANTS.getLoginRegisterTabBarWidget();
+      CONSTANTS.getLoginRegisterTabBarWidget();
+
+  RegisterStep1State({required int curTab}) {
+    this.curTab = curTab;
+    textController1 = TextEditingController();
+    textController2 = TextEditingController();
+  }
+
+  // setCurTab(int curTab) {
+  //   this.curTab = curTab;
+  //   setState(() {});
+  // }
+
+  setPhone(String phone) {
+    this.mobile = phone;
+    if (this.widget.onChanged != null) {
+      this.widget.onChanged!(this.countryPhoneCode, this.mobile);
+    }
+    textController1?.text = phone;
+    setState(() {
+
+    });
+  }
+
+  setEmail(String email) {
+    this.email = email;
+    textController2?.text = email;
+    setState(() {
+
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    if (textController1 != null) textController1?.dispose();
+    if (textController2 != null) textController2?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,97 +109,103 @@ class RegisterStep1State extends State<RegisterStep1> {
         child: Container(
             padding: EdgeInsets.only(left: 60, right: 60),
             child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            SizedBox(height: 40,),
-
-            TitleDescWidget(
-              title: getI18NKey().welcome,
-              desc: getI18NKey().registerStep1,
-            ),
-        SizedBox(height: 40,),
-            CustomTabBarWidget(
-              list: tabList,
-              onCheckedListener: (int index) {
-                this.curTab = index;
-                setState(() {
-
-                });
-              },
-              fontSize: 14,
-            ),
-            SizedBox(height: 20,),
-
-            getTextField(),
-            // TextFormField(
-            //     onChanged: (String data) {
-            //       this._mobile = data;
-            //       if (this.widget.onChanged != null) {
-            //         this.widget.onChanged(data);
-            //       }
-            //     },
-            //     inputFormatters: [
-            //       // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
-            //       FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-            //       //数字包括小数
-            //     ],
-            //     keyboardType: TextInputType.phone,
-            //     maxLength: 11,
-            //     controller: textController1,
-            //     obscureText: false,
-            //     decoration: InputDecoration(
-            //         labelText: getI18NKey().phoneNo,
-            //         labelStyle: TextStyle(
-            //             color: Color(0xff8b97a2),
-            //             fontWeight: FontWeight.w500,
-            //             fontFamily: 'Montserrat'),
-            //         enabledBorder: UnderlineInputBorder(
-            //             borderSide: BorderSide(
-            //                 color: ColorsConfig.colorTextField, width: 1),
-            //             borderRadius: BorderRadius.only(
-            //                 topLeft: Radius.circular(4.0),
-            //                 topRight: Radius.circular(4.0))),
-            //         focusedBorder: UnderlineInputBorder(
-            //             borderSide: BorderSide(
-            //                 color: ColorsConfig.colorTextField, width: 1),
-            //             borderRadius: BorderRadius.only(
-            //                 topLeft: Radius.circular(4.0),
-            //                 topRight: Radius.circular(4.0)))),
-            //     style: TextStyle(
-            //         fontFamily: 'Montserrat',
-            //         color: Color(0xff8b97a2),
-            //         fontWeight: FontWeight.w500),
-            //     validator: (value) =>
-            //         value.isEmpty ? getI18NKey().emailCannotBeNull : null,
-            //     onSaved: (value) {
-            //       return _mobile = value.trim();
-            //     },
-            //   ),
-            SizedBox(height: 20,),
-            GestureDetector(
-                onTap: () {
-                  if (this.widget.onTapListener != null) {
-                    this.widget.onTapListener!(this.countryPhoneCode, this.mobile, this.email, this.curTab);
-                  }
-                },
-                child: new Container(
-                height: 45,
-                alignment: Alignment.center,
-                // padding: EdgeInsets.fromLTRB(10.0, 45.0, 10.0, 0.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  gradient: LinearGradient(
-                      colors: ThemeManager.getInstance().getButtonLinearGradientBackgroundColor()),
+              shrinkWrap: true,
+              children: <Widget>[
+                SizedBox(
+                  height: 40,
                 ),
-                child:
-                new Text(getI18NKey().nextStep,
-                      style: new TextStyle(
-                          fontSize: 20.0, color: Colors.white)),
 
-                )
-            ),
-          ],
-        )));
+                TitleDescWidget(
+                  title: getI18NKey().welcome,
+                  desc: getI18NKey().registerStep1,
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                CustomTabBarWidget(
+                  checkIndex: this.curTab,
+                  list: tabList,
+                  onCheckedListener: (int index) {
+                    this.curTab = index;
+                    setState(() {});
+                  },
+                  fontSize: 14,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+
+                getTextField(),
+                // TextFormField(
+                //     onChanged: (String data) {
+                //       this._mobile = data;
+                //       if (this.widget.onChanged != null) {
+                //         this.widget.onChanged(data);
+                //       }
+                //     },
+                //     inputFormatters: [
+                //       // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
+                //       FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                //       //数字包括小数
+                //     ],
+                //     keyboardType: TextInputType.phone,
+                //     maxLength: 11,
+                //     controller: textController1,
+                //     obscureText: false,
+                //     decoration: InputDecoration(
+                //         labelText: getI18NKey().phoneNo,
+                //         labelStyle: TextStyle(
+                //             color: Color(0xff8b97a2),
+                //             fontWeight: FontWeight.w500,
+                //             fontFamily: 'Montserrat'),
+                //         enabledBorder: UnderlineInputBorder(
+                //             borderSide: BorderSide(
+                //                 color: ColorsConfig.colorTextField, width: 1),
+                //             borderRadius: BorderRadius.only(
+                //                 topLeft: Radius.circular(4.0),
+                //                 topRight: Radius.circular(4.0))),
+                //         focusedBorder: UnderlineInputBorder(
+                //             borderSide: BorderSide(
+                //                 color: ColorsConfig.colorTextField, width: 1),
+                //             borderRadius: BorderRadius.only(
+                //                 topLeft: Radius.circular(4.0),
+                //                 topRight: Radius.circular(4.0)))),
+                //     style: TextStyle(
+                //         fontFamily: 'Montserrat',
+                //         color: Color(0xff8b97a2),
+                //         fontWeight: FontWeight.w500),
+                //     validator: (value) =>
+                //         value.isEmpty ? getI18NKey().emailCannotBeNull : null,
+                //     onSaved: (value) {
+                //       return _mobile = value.trim();
+                //     },
+                //   ),
+                SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      if (this.widget.onTapListener != null) {
+                        this.widget.onTapListener!(this.countryPhoneCode,
+                            this.mobile, this.email, this.curTab);
+                      }
+                    },
+                    child: new Container(
+                      height: 45,
+                      alignment: Alignment.center,
+                      // padding: EdgeInsets.fromLTRB(10.0, 45.0, 10.0, 0.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        gradient: LinearGradient(
+                            colors: ThemeManager.getInstance()
+                                .getButtonLinearGradientBackgroundColor()),
+                      ),
+                      child: new Text(getI18NKey().nextStep,
+                          style: new TextStyle(
+                              fontSize: 20.0, color: Colors.white)),
+                    )),
+              ],
+            )));
   }
 
   Widget getTextField() {
@@ -199,7 +245,7 @@ class RegisterStep1State extends State<RegisterStep1> {
               .getTextColor(defaultColor: Color(0xff8b97a2)),
           fontWeight: FontWeight.w500),
       validator: (value) =>
-      value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
+          value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
       onSaved: (value) {
         if (TextUtil.isEmpty(value) == true) {
           email = "";
@@ -211,7 +257,7 @@ class RegisterStep1State extends State<RegisterStep1> {
   }
 
   StatefulWidget getMobileInputTextField() {
-    if(Utility.isGooglePlay() == true) {
+    if (Utility.isGooglePlay() == true) {
       return IntlPhoneField(
           disableLengthCheck: true,
           searchText: getI18NKey().search_country,
@@ -219,12 +265,13 @@ class RegisterStep1State extends State<RegisterStep1> {
           autovalidateMode: AutovalidateMode.disabled,
           controller: textController1,
           onSubmitted: (v) {
-            if(TextUtil.isEmpty(this.mobile)) {
+            if (TextUtil.isEmpty(this.mobile)) {
               Utility.showToastMsg(msg: getI18NKey().input_mobile);
               return;
             }
             if (this.widget.onTapListener != null) {
-              this.widget.onTapListener!(this.countryPhoneCode ?? "", this.mobile);
+              this.widget.onTapListener!(
+                  this.countryPhoneCode ?? "", this.mobile);
             }
           },
           keyboardType: TextInputType.phone,
@@ -237,16 +284,18 @@ class RegisterStep1State extends State<RegisterStep1> {
           obscureText: false,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
-              labelText: getI18NKey().phoneNo,
-            enabledBorder:StylesConfig.enableBorderSide,
-            focusedBorder:StylesConfig.focusBorderSide,
+            labelText: getI18NKey().phoneNo,
+            enabledBorder: StylesConfig.enableBorderSide,
+            focusedBorder: StylesConfig.focusBorderSide,
             filled: true,
             fillColor: StylesConfig.filledInputColor,
-              labelStyle: TextStyle(
-                  color: ThemeManager.getInstance().getInputPlaceholderColor(defaultColor: Color(0xff8b97a2)),
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Montserrat'),
-            border: OutlineInputBorder(),),
+            labelStyle: TextStyle(
+                color: ThemeManager.getInstance()
+                    .getInputPlaceholderColor(defaultColor: Color(0xff8b97a2)),
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Montserrat'),
+            border: OutlineInputBorder(),
+          ),
           initialCountryCode: DeviceInfoManagement.getCountryCode(),
           onChanged: (phone) async {
             // this.countryIOSCode = phone.countryISOCode;
@@ -274,25 +323,28 @@ class RegisterStep1State extends State<RegisterStep1> {
         controller: textController1,
         obscureText: false,
         decoration: InputDecoration(
-          enabledBorder:StylesConfig.enableBorderSide,
-          focusedBorder:StylesConfig.focusBorderSide,
+          enabledBorder: StylesConfig.enableBorderSide,
+          focusedBorder: StylesConfig.focusBorderSide,
           filled: true,
           fillColor: StylesConfig.filledInputColor,
-            labelText: getI18NKey().phoneNo,
-            labelStyle: TextStyle(
-                color: ThemeManager.getInstance().getInputPlaceholderColor(defaultColor: Color(0xff8b97a2)),
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Montserrat'),
-          border: OutlineInputBorder(),),
+          labelText: getI18NKey().phoneNo,
+          labelStyle: TextStyle(
+              color: ThemeManager.getInstance()
+                  .getInputPlaceholderColor(defaultColor: Color(0xff8b97a2)),
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Montserrat'),
+          border: OutlineInputBorder(),
+        ),
         style: TextStyle(
             fontFamily: 'Montserrat',
-            color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff8b97a2)),
+            color: ThemeManager.getInstance()
+                .getTextColor(defaultColor: Color(0xff8b97a2)),
             fontWeight: FontWeight.w500),
         validator: (value) =>
-        TextUtil.isEmpty(value) ? getI18NKey().emailCannotBeNull : null,
+            TextUtil.isEmpty(value) ? getI18NKey().emailCannotBeNull : null,
         onSaved: (value) {
-           this.mobile = value?.trim();
-           // return this.mobile ?? "";
+          this.mobile = value?.trim();
+          // return this.mobile ?? "";
         },
       );
     }

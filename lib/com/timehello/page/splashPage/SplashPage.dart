@@ -489,7 +489,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, GptChatHistoryPage());
                   // Utility.pushReplacement(context, GPTRoleGridViewPage());
                   // Utility.pushReplacement(context, ChatGptPage());
-                  // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: '', password: '',));
+                  // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: '', password: '',));
                   Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, GroupChatSharingWidget());
                   // Utility.pushReplacement(context, MainContainerWidget());

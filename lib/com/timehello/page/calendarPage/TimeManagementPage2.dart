@@ -30,7 +30,6 @@ import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
-import 'package:time_hello/com/timehello/util/WidgetManager2.dart';
 
 import '../../../../r.dart';
 import '../../common/database/apis/MongoApisManager.dart';
@@ -160,7 +159,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
                                             _calendarController,
                                             _events,
                                             _onViewChanged,
-                                            WidgetManager2
+                                            WidgetManager
                                                 .getAppointmentUIWidget(
                                                     _calendarController));
                                     final double screenHeight =

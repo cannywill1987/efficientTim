@@ -26,26 +26,28 @@ import '../../util/EasyLoadingManager.dart';
 import 'components/registerStep1.dart';
 import 'components/registerStep2.dart';
 
-GlobalKey<RegisterStep2State> mRegisterStep2GK = GlobalKey();
-GlobalKey<RegisterStep1State> mRegisterStep1GK = GlobalKey();
 
 class RegisterPage extends BaseWidget {
-  const RegisterPage();
+  final String defaultVal;
+  final int curTab;
+  const RegisterPage({this.curTab = 0, this.defaultVal = ""}) : super();
 
   @override
   BaseWidgetState<BaseWidget> getState() {
     // TODO: implement getState
-    return new _RegisterPageState();
+    return new _RegisterPageState(curTab: this.curTab);
   }
 }
 
 class _RegisterPageState extends BaseWidgetState<RegisterPage>
     implements LoginResult, Observer {
-  TextEditingController? textController1;
-  TextEditingController? textController2;
+  GlobalKey<RegisterStep2State> mRegisterStep2GK = GlobalKey();
+  GlobalKey<RegisterStep1State> mRegisterStep1GK = GlobalKey();
+  // TextEditingController? textController1Phone;
+  // TextEditingController? textController2Mail;
   String? countryPhoneCode;
   String? _mobile;
-  String? _email;
+  String? _emailEncrypted;
   String? _mobileDecrypted;
   String? _dynamicCode;
   String? _password;
@@ -53,17 +55,33 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
   int curTab = 0;
   bool isEmailVerifiedValRequest=false;
   // bool isLoading = false;
+
+  _RegisterPageState({this.curTab = 0});
   @override
   void initState() {
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
+    // textController1Phone = TextEditingController();
+    // textController2Mail = TextEditingController();
+
     super.initState();
   }
 
+  componentDidMount() {
+    if(curTab == 0) {
+      // textController1Phone?.text = widget.defaultVal;
+      mRegisterStep1GK.currentState?.setPhone(widget.defaultVal);
+    } else {
+      // textController2Mail?.text = widget.defaultVal;
+      mRegisterStep1GK.currentState?.setEmail(widget.defaultVal);
+    }
+    // mRegisterStep1GK.currentState?.setCurTab(curTab);
+    // GoogleMailLoginManager.getInstance().init();
+  }
+
+
   dispose() {
     try {
-      textController1?.dispose();
-      textController2?.dispose();
+      // textController1Phone?.dispose();
+      // textController2Mail?.dispose();
     } catch(e) {
 
     }
@@ -107,7 +125,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
         countryPhoneCode: this.countryPhoneCode,
         onComplete: this);
     } else {
-      String email = await Utility.decryptCTRAES(this._email ?? "", Params.AES_PWD);
+      String email = await Utility.decryptCTRAES(this._emailEncrypted ?? "", Params.AES_PWD);
       if(isEmailVerifiedValRequest == false) {
         LoginManager.getInstance().registerByEmail(
           context: context,
@@ -189,8 +207,9 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                 color: ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
                 child: AnimatedCrossFade(
                     firstChild: RegisterStep1(
+                      curTab: this.curTab,
                         key: mRegisterStep1GK,
-                        onTapListener: (String? countryPhoneCode, String? mobile, String? email, int curTab) async {
+                        onTapListener: (String? countryPhoneCode, String? mobile, String? emailEncrypted, int curTab) async {
                           this.curTab = curTab;
                           if(curTab == 0) {
                             EasyLoadingManager.getInstance().showLoading();
@@ -204,8 +223,8 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                                 },
                                 observer: this);
                           } else {
-                            this._email = email;
-                            String emailP = await Utility.decryptCTRAES(this._email ?? "", Params.AES_PWD);
+                            this._emailEncrypted = emailEncrypted;
+                            String emailP = await Utility.decryptCTRAES(this._emailEncrypted ?? "", Params.AES_PWD);
                             bool isEmailExist = await GoogleMailLoginManager.getInstance().isEmailExistFromServer(email: emailP);
                             if(isEmailExist == true) {
                               // Utility.showToastMsg(msg: getI18NKey().email_exist);

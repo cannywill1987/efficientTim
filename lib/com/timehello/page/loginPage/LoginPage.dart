@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
 import 'package:time_hello/com/timehello/beans/UserBean.dart';
+import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
 import 'package:time_hello/com/timehello/common/httpclient/Oberver.dart';
 import 'package:time_hello/com/timehello/common/httpclient/Observable.dart';
 import 'package:time_hello/com/timehello/components/BackNavigator.dart';
@@ -21,6 +22,7 @@ import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/page/ForgetPasswordPage/ForgetPasswordPage.dart';
 import 'package:time_hello/com/timehello/page/loginPage/components/GuideViewPageWidget.dart';
+import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginUtil.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
@@ -55,7 +57,8 @@ class LoginPage extends BaseWidget {
 class _LoginPageState extends BaseWidgetState<LoginPage>
     implements LoginResult, Observer {
   final _formKey = new GlobalKey<FormState>();
-  GlobalKey<CustomTabBarWidgetState> tabBarGlobalKey = GlobalKey<CustomTabBarWidgetState>();
+  GlobalKey<CustomTabBarWidgetState> tabBarGlobalKey =
+      GlobalKey<CustomTabBarWidgetState>();
   TextEditingController? textController1Phone;
   TextEditingController? textController1Email;
   TextEditingController? textController2;
@@ -76,6 +79,15 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   @override
   void initState() {
     super.initState();
+    this.curTab = Utility.isChina() ? 0 : 1;
+    // this
+    //     .tabBarGlobalKey
+    //     .currentState
+    //     ?.setChecked(this.curTab);
+  }
+
+  componentDidMount() {
+
   }
 
   onClick(type, data) {
@@ -95,7 +107,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
           context: context, msg: getI18NKey().please_input_password);
       return;
     }
-    if(this.curTab == 0) {
+    if (this.curTab == 0) {
       if (TextUtil.isEmpty(this.mobile)) {
         Utility.showToastMsg(
             context: context, msg: getI18NKey().please_input_mobile_no);
@@ -113,16 +125,42 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
             context: context, msg: getI18NKey().please_input_email);
         return;
       }
-      String email = await Utility.decryptCTRAES(this.emailEncrypted ?? "", Params.AES_PWD);
-      LoginManager.getInstance()?.requestPasswordLogin(
-          // countryPhoneCode: this.countryPhoneCode,
-          email: email,
-          // mobile: this.mobile,
-          password: this.password!,
-          onComplete: this);
+      //邮箱登录
+      String email = await Utility.decryptCTRAES(
+          this.emailEncrypted ?? "", Params.AES_PWD);
+      //从重置密码页面过来
+      if(SharePreferenceUtil.getSyncInstance()
+          .getBool(key: ShareprefrenceKeys.needResetPassword, defaultVal: false) == true) {
+        //重置密码后要登录一次验证密码是否正确
+        GoogleMailLoginManager.getInstance().login(email: email, password: await Utility.decryptCTRAES(
+            this.password ?? "", Params.AES_PWD), callbackSuccess: () async {
+          //重置密码 todo 有点风险
+          await HttpManager.getInstance().doPostRequest(Apis.resetPwdByEmail, params: {
+            "password": this.password,
+            "email": this.emailEncrypted
+          },
+            context: context, );
+          //请求邮箱密码登录
+          SharePreferenceUtil.getSyncInstance()
+              .setBool(key: ShareprefrenceKeys.needResetPassword, val: false);
+          requestEmailPasswordLogin(email);
+        }, callbackNeedVerified: () {
+          Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
+        }, callbackLoginFaile: (e) {
+          Utility.showToastMsg(msg: e.message);
+        });
+      } else {
+        //直接邮箱登录注册
+        requestEmailPasswordLogin(email);
+      }
     }
+  }
 
-
+  void requestEmailPasswordLogin(String email) {
+    LoginManager.getInstance()?.requestPasswordLogin(
+        email: email,
+        password: this.password!,
+        onComplete: this);
   }
 
   onClickBack() {
@@ -197,6 +235,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                       CustomTabBarWidget(
                         key: tabBarGlobalKey,
                         list: tabList,
+                      checkIndex: this.curTab,
                         onCheckedListener: (int index) {
                           this.curTab = index;
                           updateUI();
@@ -285,7 +324,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                   colors: ThemeManager.getInstance()
                                       .getButtonLinearGradientBackgroundColor()),
                             ),
-                            child: new Text(getI18NKey().login,
+                            child: new Text(this.curTab == 0 ? getI18NKey().login : getI18NKey().login_or_register,
                                 style: new TextStyle(
                                     fontSize: 20.0, color: Colors.white)),
                           )),
@@ -300,12 +339,14 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                               //注册按钮
                               onPressed: () {
                                 Utility.pushNavigator(
-                                    context, const RegisterPage(),
+                                    context,  RegisterPage(curTab: this.curTab ?? 0, defaultVal: this.curTab == 0 ? (TextUtil.isEmpty(this.mobile) ? "" : ((Utility.decryptCTRAES(this.mobile ?? "" , Params.AES_PWD) ?? "") ?? "")) : (TextUtil.isEmpty(this.mobile) ? "" : (Utility.decryptCTRAES(this.emailEncrypted ?? "" , Params.AES_PWD) ?? "")),),
                                     // 从注册页返回的数据
                                     callback: (data) async {
-                                      this.curTab = data['curTab'];
-                                      this.tabBarGlobalKey.currentState
-                                          ?.setChecked(data['curTab']);
+                                  this.curTab = data['curTab'];
+                                  this
+                                      .tabBarGlobalKey
+                                      .currentState
+                                      ?.setChecked(data['curTab']);
                                   if (curTab == 1) {
                                     if (TextUtil.isEmpty(data['email']) ==
                                         true) {
@@ -313,10 +354,12 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                       return;
                                     }
                                     if (data?['email'] != null) {
-                                      this.emailEncrypted = await Utility.encryptCTRAES(
-                                          data['email'], Params.AES_PWD);
-                                      textController1Email = TextEditingController(
-                                          text: data['email']);
+                                      this.emailEncrypted =
+                                          await Utility.encryptCTRAES(
+                                              data['email'], Params.AES_PWD);
+                                      textController1Email =
+                                          TextEditingController(
+                                              text: data['email']);
                                     }
                                     updateUI();
                                   } else {
@@ -328,8 +371,9 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                     if (data?['mobile'] != null) {
                                       this.mobile = await Utility.encryptCTRAES(
                                           data['mobile'], Params.AES_PWD);
-                                      textController1Phone = TextEditingController(
-                                          text: data['mobile']);
+                                      textController1Phone =
+                                          TextEditingController(
+                                              text: data['mobile']);
                                     }
                                     updateUI();
                                   }
@@ -349,16 +393,39 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                 Utility.pushNavigator(
                                     context, ForgetPasswordPage(),
                                     callback: (data) async {
-                                  if (TextUtil.isEmpty(data['mobile']) ==
-                                      true) {
-                                    this.mobile = "";
-                                    return;
-                                  }
-                                  if (data?['mobile'] != null) {
-                                    this.mobile = await Utility.encryptCTRAES(
-                                        data['mobile'], Params.AES_PWD);
-                                    textController1Phone = TextEditingController(
-                                        text: data['mobile']);
+                                  this.curTab = data['curTab'];
+                                  this
+                                      .tabBarGlobalKey
+                                      .currentState
+                                      ?.setChecked(data['curTab']);
+                                  if (curTab == 1) {
+                                    if (TextUtil.isEmpty(data['email']) ==
+                                        true) {
+                                      this.emailEncrypted = "";
+                                      return;
+                                    }
+                                    if (data?['email'] != null) {
+                                      this.emailEncrypted =
+                                          await Utility.encryptCTRAES(
+                                              data['email'], Params.AES_PWD);
+                                      textController1Email =
+                                          TextEditingController(
+                                              text: data['email']);
+                                    }
+                                    updateUI();
+                                  } else {
+                                    if (TextUtil.isEmpty(data['mobile']) ==
+                                        true) {
+                                      this.mobile = "";
+                                      return;
+                                    }
+                                    if (data?['mobile'] != null) {
+                                      this.mobile = await Utility.encryptCTRAES(
+                                          data['mobile'], Params.AES_PWD);
+                                      textController1Phone =
+                                          TextEditingController(
+                                              text: data['mobile']);
+                                    }
                                   }
                                   updateUI();
                                 });
@@ -526,11 +593,11 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   @override
   void loginFail(Map errorMsg, {LoginMode? loginMode}) async {
     // TODO: implement loginFail
-    if(this.curTab == 1) {
-      if(errorMsg['code'] == CONSTANTS.CODE_USER_NOT_EXIST) {
+    if (this.curTab == 1) {
+      if (errorMsg['code'] == CONSTANTS.CODE_USER_NOT_EXIST) {
         String email = await Utility.decryptCTRAES(
             this.emailEncrypted ?? "", Params.AES_PWD);
-        if(isEmailVerifiedValRequest == false) {
+        if (isEmailVerifiedValRequest == false) {
           LoginManager.getInstance().registerByEmail(
             context: context,
             email: email,

@@ -11,6 +11,7 @@ import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/cal
 import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
 import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -157,6 +158,12 @@ class WidgetManager2 {
             TextSpan(
                 text: missionModel?.title ?? "",
                 style: const TextStyle(
+                  color: Color(0xff404040),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                )),
+            TextSpan(text:!TextUtil.isEmpty(missionModel?.localDurationString) ? "("+(missionModel?.localDurationString ?? "") + ")" : "(1h 00m)",
+                style: TextStyle(
                   color: Color(0xff404040),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,

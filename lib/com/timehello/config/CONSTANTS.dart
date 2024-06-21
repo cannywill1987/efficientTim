@@ -60,6 +60,8 @@ class CONSTANTS {
   static String CODE_LOCAL_MONEY_NOT_ENOUGH = "0000CDEF";
   static String CODE_FAIL = "0000VEWF";
 
+
+
   static const double missionPageMargin = 0;
   static List<FolderModel> folderModelList = [];
   static List<WQBFolderModel> wqbFolderModelList = [];

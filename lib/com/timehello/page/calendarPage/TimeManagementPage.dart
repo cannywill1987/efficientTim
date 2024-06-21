@@ -26,12 +26,12 @@ import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/t
 import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/view_header_style.dart';
 import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/sfcalendar.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
+import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
-import 'package:time_hello/com/timehello/util/WidgetManager2.dart';
 
 import '../../../../r.dart';
 import '../../common/database/apis/MongoApisManager.dart';
@@ -115,6 +115,16 @@ class TimeManagementPageState extends State<TimeManagementPage> {
     }
     _calendarController.view = _currentView;
 
+
+    // eventBus.on<EventFn>().listen((EventFn event) {
+    //   //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
+    //     if (event.type == Params.ACTION_UPDATE_LISTVIEW) {
+    //       setState(() {
+    //
+    //       });
+    //   }
+    // });
+
     super.initState();
   }
 
@@ -160,7 +170,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
                                             _calendarController,
                                             _events,
                                             _onViewChanged,
-                                            WidgetManager2
+                                            WidgetManager
                                                 .getAppointmentUIWidget(
                                                     _calendarController));
                                     final double screenHeight =

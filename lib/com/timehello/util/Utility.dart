@@ -161,15 +161,20 @@ class Utility {
       }
     }
   }
+
 //0 未分享中 仅仅我自己 1 之后分享中 - 1 私有 - 需要搜索 仅仅好友 2 所有人可查看 3 所有人可编辑
   /**
    * 获取folderModel的分享状态 1 2 3
    * 别的用户的uid
    */
-  static List<FolderModel> getFolderIdsForSharing123OtherUser(List<FolderModel> list) {
+  static List<FolderModel> getFolderIdsForSharing123OtherUser(
+      List<FolderModel> list) {
     List<FolderModel> listTmp = [];
     list.forEach((element) {
-      if((element.isSharing == 3 || element.isSharing == 2 || element.isSharing == 1) && (element.uid != LoginManager.getInstance().userBean.uid)) {
+      if ((element.isSharing == 3 ||
+              element.isSharing == 2 ||
+              element.isSharing == 1) &&
+          (element.uid != LoginManager.getInstance().userBean.uid)) {
         listTmp.add(element);
       }
     });
@@ -205,6 +210,7 @@ class Utility {
       return true;
     }
   }
+
   //
   // /**
   //  * folderModel是否可编辑
@@ -224,7 +230,6 @@ class Utility {
   //     return true;
   //   }
   // }
-
 
   static setScreenOrientationHorizontal() {
     SystemChrome.setPreferredOrientations([
@@ -1363,7 +1368,8 @@ class Utility {
       int? timestampCurrent,
       FolderModel? folderModel,
       Function finishCallback) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel.folder_id) ==
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: missionModel.folder_id) ==
         false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -2005,8 +2011,9 @@ class Utility {
     return finishedTime;
   }
 
-  static List<MissionModel> getFinishListMissionModels(List<MissionModel> list, bool isFinished) {
-   List<MissionModel> listMissionModels = [];
+  static List<MissionModel> getFinishListMissionModels(
+      List<MissionModel> list, bool isFinished) {
+    List<MissionModel> listMissionModels = [];
     list.forEach((data) {
       if (data.isFinished == isFinished) {
         listMissionModels.add(data);
@@ -3176,8 +3183,9 @@ class Utility {
     return DateTime.fromMillisecondsSinceEpoch(timestamp).toLocal();
   }
 
-  static String getPromptsText({required String prompts, required String text}) {
-    if(prompts.indexOf("{{text}}") == -1) {
+  static String getPromptsText(
+      {required String prompts, required String text}) {
+    if (prompts.indexOf("{{text}}") == -1) {
       return prompts + "-" + text;
     }
     return prompts.replaceAll("{{text}}", text);
@@ -5243,7 +5251,8 @@ class Utility {
     print(list);
   }
 
-  static DateTime? getStartDateTimeFromListMissionModels({required List<MissionModel> list}) {
+  static DateTime? getStartDateTimeFromListMissionModels(
+      {required List<MissionModel> list}) {
     int start_time = 0;
     for (int i = 0; i < list.length; i++) {
       if (list[i].start_time != null) {
@@ -5252,13 +5261,14 @@ class Utility {
         }
       }
     }
-    if(start_time == 0) {
+    if (start_time == 0) {
       return null;
     }
     return Utility.getDateTimeFromTimeStamp(start_time);
   }
 
-  static DateTime? getEndDateTimeFromListMissionModels({required List<MissionModel> list}) {
+  static DateTime? getEndDateTimeFromListMissionModels(
+      {required List<MissionModel> list}) {
     int end_time = 0;
     for (int i = 0; i < list.length; i++) {
       if (list[i].end_time != null) {
@@ -5267,13 +5277,17 @@ class Utility {
         }
       }
     }
-    if(end_time == 0) {
+    if (end_time == 0) {
       return null;
     }
     return Utility.getDateTimeFromTimeStamp(end_time);
   }
 
-  static ProgressFocusModel getPriorityCompleteNumberWithMissionList(List<MissionModel> listMissionModelsComplete, List<MissionModel> listMissionModels, [DateTime? startDateTime, DateTime? endDateTime]) {
+  static ProgressFocusModel getPriorityCompleteNumberWithMissionList(
+      List<MissionModel> listMissionModelsComplete,
+      List<MissionModel> listMissionModels,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
     ProgressFocusModel progressFocusModel = ProgressFocusModel();
     // int completeNumber = 0;
     // int totalNumber = 0;
@@ -5283,24 +5297,30 @@ class Utility {
     return progressFocusModel;
   }
 
-  static ProgressFocusModel getCompleteNumberWithMissionList(List<MissionModel> listMissionModels, [DateTime? startDateTime, DateTime? endDateTime]) {
+  static ProgressFocusModel getCompleteNumberWithMissionList(
+      List<MissionModel> listMissionModels,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
     ProgressFocusModel progressFocusModel = ProgressFocusModel();
     int completeNumber = 0;
     int totalNumber = 0;
     for (int i = 0; i < listMissionModels.length; i++) {
       MissionModel missionModel = listMissionModels[i];
-        totalNumber += 1;
-        if (missionModel.isFinished == true) {
-          completeNumber += 1;
-        }
+      totalNumber += 1;
+      if (missionModel.isFinished == true) {
+        completeNumber += 1;
       }
+    }
     //当前时间小于结束时间
-  progressFocusModel.totalValue = totalNumber;
+    progressFocusModel.totalValue = totalNumber;
     progressFocusModel.currentValue = completeNumber;
     return progressFocusModel;
   }
 
-  static ProgressFocusModel getTomatoesWithMissionList(List<MissionModel> listMissionModels, [DateTime? startDateTime, DateTime? endDateTime]) {
+  static ProgressFocusModel getTomatoesWithMissionList(
+      List<MissionModel> listMissionModels,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
     ProgressFocusModel progressFocusModel = ProgressFocusModel();
     int tomatoes = 0;
     int totalTomatoes = 0;
@@ -5319,7 +5339,69 @@ class Utility {
     return progressFocusModel;
   }
 
-  static ProgressFocusModel getTotalDurationOfDayModel({required DayModel dayModel}) {
+  static ProgressFocusModel getMissionModelDuration(
+      {required MissionModel missionModel}) {
+    ProgressFocusModel progressFocusModel = ProgressFocusModel();
+    try {
+      int duration = 0;
+      if (missionModel.time_mode == null || missionModel.time_mode == 0) {
+        if (missionModel?.daily_start_time == null &&
+            missionModel?.daily_end_time == null &&
+            missionModel.repetiveType == 0) {
+          if (missionModel?.end_time != null) {
+            //没有重复
+            // DateTime dateTimeStart = Utility.getDateTimeFromTimeStamp(
+            //     missionModel?.start_time ?? 0);
+            // DateTime dateTimeEnd = Utility.getDateTimeFromTimeStamp(
+            //     missionModel?.end_time ?? 0);
+            if (missionModel?.start_time == null ||
+                missionModel?.end_time == null) {
+              return progressFocusModel;
+            }
+            duration =
+                (missionModel?.end_time ?? 0) - (missionModel?.start_time ?? 0);
+          }
+        } else {
+          //有重复
+          if (missionModel?.daily_start_time == null ||
+              missionModel?.daily_end_time == null) {
+            return progressFocusModel;
+          }
+          // DateTime dateTimeStart = Utility.getDateTimeFromTimeStamp(
+          //     missionModel?.start_time ?? 0);
+          // DateTime dateTimeEnd = Utility.getDateTimeFromTimeStamp(
+          //     missionModel?.end_time ?? 0);
+          duration = (missionModel?.daily_end_time ?? 0) -
+              (missionModel?.daily_start_time ?? 0);
+        }
+      } else {
+        //时间段模式
+        if (missionModel?.start_time == null ||
+            missionModel?.end_time == null) {
+          return progressFocusModel;
+        }
+        // DateTime dateTimeStart =
+        // Utility.getDateTimeFromTimeStamp(missionModel?.start_time ?? 0);
+        // DateTime dateTimeEnd =
+        // Utility.getDateTimeFromTimeStamp(missionModel?.end_time ?? 0);
+        // duration = dateTimeEnd
+        //     .difference(dateTimeStart)
+        //     .inMilliseconds;
+        duration =
+            (missionModel?.end_time ?? 0)- (missionModel?.start_time ?? 0);
+      }
+      missionModel.localDuration = duration;
+      missionModel.localDurationString =
+          Utility.formatTimestampWithoutZeroHM(duration);
+      progressFocusModel.totalValue = duration;
+    } catch (e) {
+      print(e.toString());
+    }
+    return progressFocusModel;
+  }
+
+  static ProgressFocusModel getTotalDurationOfDayModel(
+      {required DayModel dayModel}) {
     ProgressFocusModel progressFocusModel = ProgressFocusModel();
     // for (int i = 0; i < list.length; i++) {
     //   DayModel dayModel = list[i];
@@ -5358,21 +5440,21 @@ class Utility {
         } else {
           //有重复
           dateTimeStart = Utility.getDateTimeFromTimeStamp(DateTime(
-              dayModel.dateTime?.year ?? 0,
-              dayModel.dateTime?.month ?? 0,
-              dayModel?.day ?? 0,
-              dayModel.dateTime?.hour ?? 0)
-              .millisecondsSinceEpoch +
+                      dayModel.dateTime?.year ?? 0,
+                      dayModel.dateTime?.month ?? 0,
+                      dayModel?.day ?? 0,
+                      dayModel.dateTime?.hour ?? 0)
+                  .millisecondsSinceEpoch +
               (_missionModel?.daily_start_time ?? 0));
         }
 
         if (_missionModel?.daily_end_time != null) {
           dateTimeEnd = Utility.getDateTimeFromTimeStamp(DateTime(
-              dayModel.dateTime?.year ?? 0,
-              dayModel.dateTime?.month ?? 0,
-              dayModel?.day ?? 0,
-              dayModel.dateTime?.hour ?? 0)
-              .millisecondsSinceEpoch +
+                      dayModel.dateTime?.year ?? 0,
+                      dayModel.dateTime?.month ?? 0,
+                      dayModel?.day ?? 0,
+                      dayModel.dateTime?.hour ?? 0)
+                  .millisecondsSinceEpoch +
               (_missionModel?.daily_end_time ?? 0));
         } else {
           dateTimeEnd = dateTimeStart.add(Duration(hours: 1));
@@ -5393,12 +5475,9 @@ class Utility {
       // if(Utility._missionModel)
       bool isFinished = Utility.getIsFinishOfMissionModel(
         missionModel: _missionModel,
-        curMonthTimeStamp: dayModel
-            .dateTime
-            ?.millisecondsSinceEpoch ??
-            0,
+        curMonthTimeStamp: dayModel.dateTime?.millisecondsSinceEpoch ?? 0,
       );
-      if(isFinished) {
+      if (isFinished) {
         focusedDuration += dateTimeEnd.difference(dateTimeStart).inSeconds;
       }
       // if (listMissionModelsAddedForTimemodeSegment.contains(_missionModel) ==
@@ -5427,7 +5506,9 @@ class Utility {
   }
 
   static ProgressFocusModel getDurationCalendarModelWithMissionList(
-      List<MissionModel> listMissionModels, [DateTime? startDateTime, DateTime? endDateTime]) {
+      List<MissionModel> listMissionModels,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
     //重新刷新推送列表
     // CONSTANTS.pushDataModelList.refresh();
     // PushDataModelList pushDataModelList = PushDataModelList();
@@ -5455,7 +5536,6 @@ class Utility {
       int day = curDateTme.day;
       int weekday = curDateTme.weekday; //星期几
 
-
       DayModel dayModel = DayModel(
           indexMonth: iMonth,
           lunarDay: Utility.getLunarCalendar(
@@ -5469,25 +5549,26 @@ class Utility {
               dateTimeNowFiltered.day == curDateTme.day);
       List<MissionModel> datasMissionModel = MongoApisManager.getInstance()
           .queryWhereEqual_missionDataByEndTime2(
-          listMissionModels: listMissionModels,
-          curDayModelDateTime: dayModel.dateTime,
-          // repetiveType: 0,
-          start_endTime:
-          Utility.getFilterDateTimeFromTimeStamp(curTimeStamp)
-              .millisecondsSinceEpoch,
-          end_endTime:
-          Utility.getFilterDateTimeFromTimeStamp(curTimeStamp, true)
-              .millisecondsSinceEpoch);
+              listMissionModels: listMissionModels,
+              curDayModelDateTime: dayModel.dateTime,
+              // repetiveType: 0,
+              start_endTime:
+                  Utility.getFilterDateTimeFromTimeStamp(curTimeStamp)
+                      .millisecondsSinceEpoch,
+              end_endTime:
+                  Utility.getFilterDateTimeFromTimeStamp(curTimeStamp, true)
+                      .millisecondsSinceEpoch);
 
       //todo 打卡时间要加上
       // Utility.addFlomoMissionModelListToPushDataModelList(datasFlomoMissionModels);
       dayModel.missionModelList = datasMissionModel;
-      if(dayModel.missionModelList.length > 0) {
+      if (dayModel.missionModelList.length > 0) {
         dayModel.missionModelList.forEach((element) {
-            print("${element.title}");
-          if(element.title == "网球") {
-            print("1111111111");
-          }
+          // print("${element.title}");
+          // if (element.title == "增加复制按钮") {
+          //   print("1111111111");
+          // }
+          getMissionModelDuration(missionModel: element);
         });
       }
       ProgressFocusModel model = getTotalDurationOfDayModel(dayModel: dayModel);
@@ -5614,7 +5695,9 @@ class Utility {
    * 只有CreateAIChatGptMissionWidget时用到
    */
   static CalendarModel initCalendarModelWithMissionList(
-      List<MissionModel> listMissionModels, [DateTime? startDateTime, DateTime? endDateTime]) {
+      List<MissionModel> listMissionModels,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
     //重新刷新推送列表
     // CONSTANTS.pushDataModelList.refresh();
     // PushDataModelList pushDataModelList = PushDataModelList();
@@ -5715,19 +5798,9 @@ class Utility {
               end_endTime:
                   Utility.getFilterDateTimeFromTimeStamp(curTimeStamp, true)
                       .millisecondsSinceEpoch);
-
-      // List<FlomoMissionModel> datasFlomoMissionModels =
-      // await MongoApisManager.getInstance()
-      //     .queryWhereEqual_flomoMissionDataByEndTime(
-      //     repetiveType: 0,
-      //     start_endTime:
-      //     Utility.getFilterDateTimeFromTimeStamp(curTimeStamp)
-      //         .millisecondsSinceEpoch,
-      //     end_endTime:
-      //     Utility.getFilterDateTimeFromTimeStamp(curTimeStamp, true)
-      //         .millisecondsSinceEpoch);
-
-      // queryWhereEqual_flomoMissionDataByEndTime
+      datasMissionModel.forEach((element) {
+        getMissionModelDuration(missionModel: element);
+      });
 
       Utility.addMissionModelListToPushDataModelList(datasMissionModel);
       //todo 打卡时间要加上
@@ -5898,7 +5971,9 @@ class Utility {
                   end_endTime:
                       Utility.getFilterDateTimeFromTimeStamp(curTimeStamp, true)
                           .millisecondsSinceEpoch);
-
+      datasMissionModel.forEach((element) {
+        getMissionModelDuration(missionModel: element);
+      });
       List<FlomoMissionModel> datasFlomoMissionModels =
           await MongoApisManager.getInstance()
               .queryWhereEqual_flomoMissionDataByEndTime(
@@ -6218,11 +6293,12 @@ class Utility {
   //   return list;
   // }
 
-  static List<MissionModel> getMissionModelListFromList(List<DayModel> listParam) {
+  static List<MissionModel> getMissionModelListFromList(
+      List<DayModel> listParam) {
     List<MissionModel> list = [];
     listParam.forEach((element) {
       element.missionModelList.forEach((missionModel) {
-        if(!list.contains(missionModel)) {
+        if (!list.contains(missionModel)) {
           list.add(missionModel);
         }
       });
@@ -6230,8 +6306,8 @@ class Utility {
     return list;
   }
 
-  static filterDaysModelsByDateTimeRange(List<DayModel> listParam, FolderModel? folderModel,
-      DateTime? startDateTime, DateTime? endDateTime,
+  static filterDaysModelsByDateTimeRange(List<DayModel> listParam,
+      FolderModel? folderModel, DateTime? startDateTime, DateTime? endDateTime,
       [String? curSearchWords = null]) {
     // listParam = deepCloneDayModelList(listParam);
     // listParam = deepCloneList(listParam).cast<DayModel>();
@@ -6241,11 +6317,13 @@ class Utility {
         // DayModel dayModelToClone = DayModel.
         DateTime? dateTime = dayModel.dateTime;
         if (dateTime != null && startDateTime != null && endDateTime != null) {
-          if ((dateTime.isAfter(startDateTime) || dateTime.isAtSameMomentAs(startDateTime)) &&
+          if ((dateTime.isAfter(startDateTime) ||
+                  dateTime.isAtSameMomentAs(startDateTime)) &&
               (dateTime.isBefore(endDateTime))) {
             List<MissionModel> listMissionModels = [];
             dayModel.missionModelList.forEach((missionModel) {
-              if (missionModel.folder_id == folderModel.objectId || TextUtil.isEmpty(folderModel.objectId)) {
+              if (missionModel.folder_id == folderModel.objectId ||
+                  TextUtil.isEmpty(folderModel.objectId)) {
                 if ((!TextUtil.isEmpty(missionModel.title) &&
                         missionModel.title!.contains(curSearchWords ?? '') ||
                     curSearchWords == null))
@@ -6469,7 +6547,8 @@ class Utility {
   static String getGroupId({int numDigit = 6}) {
     String groupId = '';
     for (int i = 0; i < numDigit; i++) {
-      groupId += Utility.getRandomString(from: 0, max: 9, pureInt: 1).toString();
+      groupId +=
+          Utility.getRandomString(from: 0, max: 9, pureInt: 1).toString();
     }
     return groupId;
   }
@@ -6486,18 +6565,23 @@ class Utility {
   //   return list;
   // }
 
-  static List<MissionModel> getMissionModelsForRatioMissionModel(List<MissionModel> list, DateTime? startDateTime, DateTime? endDateTime) {
+  static List<MissionModel> getMissionModelsForRatioMissionModel(
+      List<MissionModel> list, DateTime? startDateTime, DateTime? endDateTime) {
     List<MissionModel> listMissionModels = [];
     for (int i = 0; i < list.length; i++) {
       MissionModel missionModel = list[i];
       if (endDateTime == null && startDateTime != null) {
-        endDateTime = Utility.getFilterDateTimeFromDateTime(startDateTime, true);
+        endDateTime =
+            Utility.getFilterDateTimeFromDateTime(startDateTime, true);
       }
       if (startDateTime != null && endDateTime != null) {
-        DateTime? curDateTime = Utility.getFilterDateTimeFromTimeStamp(missionModel.end_time ?? 0);
+        DateTime? curDateTime =
+            Utility.getFilterDateTimeFromTimeStamp(missionModel.end_time ?? 0);
         if (curDateTime != null) {
-          if ((curDateTime.isAfter(startDateTime) || curDateTime.isAtSameMomentAs(startDateTime)) &&
-              (curDateTime.isBefore(endDateTime) || curDateTime.isAtSameMomentAs(endDateTime))) {
+          if ((curDateTime.isAfter(startDateTime) ||
+                  curDateTime.isAtSameMomentAs(startDateTime)) &&
+              (curDateTime.isBefore(endDateTime) ||
+                  curDateTime.isAtSameMomentAs(endDateTime))) {
             listMissionModels.add(missionModel);
           }
         }
@@ -6509,9 +6593,8 @@ class Utility {
     return listMissionModels;
   }
 
-
-
-    static List<MissionModel> getMissionModelsForRatio(List<DayModel> list, DateTime? startDateTime, DateTime? endDateTime) {
+  static List<MissionModel> getMissionModelsForRatio(
+      List<DayModel> list, DateTime? startDateTime, DateTime? endDateTime) {
     List<MissionModel> listMissionModels = [];
     for (int i = 0; i < list.length; i++) {
       DayModel dayModel = list[i];
@@ -6524,7 +6607,7 @@ class Utility {
           DateTime? curDateTime = dayModel.dateTime;
           if (curDateTime != null) {
             if ((curDateTime.isAfter(startDateTime!) ||
-                curDateTime.isAtSameMomentAs(startDateTime!)) &&
+                    curDateTime.isAtSameMomentAs(startDateTime!)) &&
                 (curDateTime.isBefore(endDateTime!) ||
                     curDateTime.isAtSameMomentAs(endDateTime!))) {
               listMissionModels.add(_missionModel);
@@ -6551,30 +6634,36 @@ class Utility {
     } else {
       return Image.asset(icon, width: size, height: size, fit: BoxFit.cover);
     }
-
   }
 
-  static DateTime? getStartDateTimeFromCalendar({DateTime? startDateTime, DateTime? endDateTime, required DateTime displayDateTime, required CalendarView calendarView}) {
-    if(startDateTime == null && endDateTime == null) {
+  static DateTime? getStartDateTimeFromCalendar(
+      {DateTime? startDateTime,
+      DateTime? endDateTime,
+      required DateTime displayDateTime,
+      required CalendarView calendarView}) {
+    if (startDateTime == null && endDateTime == null) {
       switch (calendarView) {
         case CalendarView.day:
           DateTime dateTime = displayDateTime;
-          return DateTime(dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
-          // return Utility.getFilterDateTimeFromTimeStamp(
-          //     startDateTime!.millisecondsSinceEpoch);
+          return DateTime(
+              dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
+        // return Utility.getFilterDateTimeFromTimeStamp(
+        //     startDateTime!.millisecondsSinceEpoch);
         case CalendarView.week:
           //根据displayDateTime得到displayDateTime同一周 周日 00:00 的dateTime 1是monday 7是sunday
           int weekDay = displayDateTime.weekday;
-          DateTime dateTime = displayDateTime.subtract(Duration(days: weekDay == 7 ?  0 : weekDay)); // weekDay
-          return DateTime(dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
-          // DateTime dateTime = displayDateTime.subtract(Duration(days: weekDay - 1));
-          // return dateTime;
+          DateTime dateTime = displayDateTime
+              .subtract(Duration(days: weekDay == 7 ? 0 : weekDay)); // weekDay
+          return DateTime(
+              dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
+        // DateTime dateTime = displayDateTime.subtract(Duration(days: weekDay - 1));
+        // return dateTime;
         case CalendarView.month:
           DateTime dateTime = displayDateTime;
           return DateTime(dateTime.year, dateTime.month, 1, 0, 0, 0, 0, 0);
 
-          // return Utility.getFilterDateTimeFromTimeStamp(
-          //     startDateTime!.millisecondsSinceEpoch);
+        // return Utility.getFilterDateTimeFromTimeStamp(
+        //     startDateTime!.millisecondsSinceEpoch);
         case CalendarView.timelineDay:
           return Utility.getFilterDateTimeFromTimeStamp(
               startDateTime!.millisecondsSinceEpoch);
@@ -6588,24 +6677,32 @@ class Utility {
     }
   }
 
-  static DateTime? getEndDateTimeFromCalendar({DateTime? startDateTime, DateTime? endDateTime, required DateTime displayDateTime, required CalendarView calendarView}) {
-    if(startDateTime == null && endDateTime == null) {
+  static DateTime? getEndDateTimeFromCalendar(
+      {DateTime? startDateTime,
+      DateTime? endDateTime,
+      required DateTime displayDateTime,
+      required CalendarView calendarView}) {
+    if (startDateTime == null && endDateTime == null) {
       switch (calendarView) {
         case CalendarView.day:
           DateTime dateTime = displayDateTime;
-          return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59, 59);
-          // return Utility.getFilterDateTimeFromTimeStamp(
-          //     startDateTime!.millisecondsSinceEpoch);
+          return DateTime(
+              dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59, 59);
+        // return Utility.getFilterDateTimeFromTimeStamp(
+        //     startDateTime!.millisecondsSinceEpoch);
         case CalendarView.week:
-        //根据displayDateTime得到displayDateTime同一周 周六 00:00 的dateTime 1是monday 7是sunday
+          //根据displayDateTime得到displayDateTime同一周 周六 00:00 的dateTime 1是monday 7是sunday
           int weekDay = displayDateTime.weekday;
           // 星期天单独算
-          DateTime dateTime = displayDateTime.add(Duration(days: weekDay == 7 ? 6 : 6 - weekDay ));
-          return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59, 59);
+          DateTime dateTime = displayDateTime
+              .add(Duration(days: weekDay == 7 ? 6 : 6 - weekDay));
+          return DateTime(
+              dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59, 59);
         case CalendarView.month:
           DateTime dateTime = displayDateTime;
           int daysInMonth = DateTime(dateTime.year, dateTime.month + 1, 0).day;
-          return DateTime(dateTime.year, dateTime.month, daysInMonth, 23, 59, 59, 59, 59);
+          return DateTime(
+              dateTime.year, dateTime.month, daysInMonth, 23, 59, 59, 59, 59);
         case CalendarView.timelineDay:
           return Utility.getFilterDateTimeFromTimeStamp(
               startDateTime!.millisecondsSinceEpoch);
@@ -6623,11 +6720,16 @@ class Utility {
    * 给url拼接token
    */
   static String getTokenUrl({required String url}) {
-    if(LoginManager.getInstance().userBean == null) {
+    if (LoginManager.getInstance().userBean == null) {
       return url;
     }
     // encodeURIComponent token
-    return url + (url.indexOf("?") != -1 ? "&" : "?")  + "token=" + Uri.encodeComponent(LoginManager.getInstance().userBean?.token ?? "" )+ "&uid=" + LoginManager.getInstance().getUid();
+    return url +
+        (url.indexOf("?") != -1 ? "&" : "?") +
+        "token=" +
+        Uri.encodeComponent(LoginManager.getInstance().userBean?.token ?? "") +
+        "&uid=" +
+        LoginManager.getInstance().getUid();
   }
 
   static Widget getSVGPictureWithSize(String icon,

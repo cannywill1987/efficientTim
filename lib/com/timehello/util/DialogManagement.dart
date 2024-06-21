@@ -485,24 +485,32 @@ class DialogManagement {
     // if (Utility.isMacOS() == true) {
     //   CounterMethodChannelManager.getInstance().requestReview();
     // } else if (Utility.isIOS() == true) {
-    if (Params.channelEnum != ChannelEnum.vivo) {
+    // if (Params.channelEnum != ChannelEnum.vivo) {
       bool hasRating = await CloudSharepreferenceManagement.getInstance()
-          .getBool(ShareprefrenceKeys.hasRating, false);
+          .getBool(ShareprefrenceKeys.hasRating + scene, false);
       if (hasRating == false) {
         DialogManagement.getInstance().showRatingDialogWithOnlyChild(context,
             child: RatingDialog(
                 force: false,
+                starSize: 28,
                 submitButtonTextStyle: TextStyle(fontSize: 20),
-                image: Image.asset(
-                  R.assetsImgBgRatingGuide,
-                  width: 140,
-                  height: 140,
+                image: Container(
+                    clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white,
+                  ),
+                  child: Image.asset(
+                    R.assetsImgBgRatingGuide,
+                    width: 100,
+                    height: 100,
+                  ),
                 ),
-                title: Text(getI18NKey().rating_guide),
+                title: Text(getI18NKey().rating_guide, style: TextStyle(fontSize: 16),),
                 submitButtonText: getI18NKey().submit,
                 onDontRemindAgainListener: () {
                   CloudSharepreferenceManagement.getInstance()
-                      .setBool(ShareprefrenceKeys.hasRating, true);
+                      .setBool(ShareprefrenceKeys.hasRating + scene, true);
                   EventCollection.onCollectionJSON({
                     "sceneType": scene,
                     "eventType": EVENTNAME.rating_refuse,
@@ -543,27 +551,31 @@ class DialogManagement {
                   }
                   if (d.rating >= 4) {
                     if (Utility.isIOS() == true || Utility.isMacOS() == true) {
-                      if (Utility.isMacOS() || Utility.isIOS()) {
-                        final InAppReview inAppReview = InAppReview.instance;
-                        if (await inAppReview.isAvailable()) {
-                          inAppReview.requestReview();
-                        } else {
-                          inAppReview.openStoreListing(
-                              appStoreId: Utility.isMacOS()
-                                  ? '1663772116'
-                                  : '1663610373');
-                        }
-                      } else {
-                        CounterMethodChannelManager.getInstance()
-                            .requestReview();
-                      }
+                      String s = "https://itunes.apple.com/app/id${Utility.isMacOS()
+                          ? '1663772116'
+                          : '1663610373'}?action=write-review";
+                      Utility.openExternalWebView(url: s);
+                      // if (Utility.isIOS()) {
+                      //   final InAppReview inAppReview = InAppReview.instance;
+                      //   if (await inAppReview.isAvailable()) {
+                      //     inAppReview.requestReview();
+                      //   } else {
+                      //     inAppReview.openStoreListing(
+                      //         appStoreId: Utility.isMacOS()
+                      //             ? '1663772116'
+                      //             : '1663610373');
+                      //   }
+                      // } else {
+                      //   CounterMethodChannelManager.getInstance()
+                      //       .requestReview();
+                      // }
                     } else {
                       Utility.openExternalWebView(url: Urls.ratingGuide);
                     }
                   }
                 }));
       }
-    }
+    // }
     // }
   }
 

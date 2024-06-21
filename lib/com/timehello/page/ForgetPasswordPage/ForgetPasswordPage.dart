@@ -17,6 +17,8 @@ import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
+import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
+import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginUtil.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
@@ -63,6 +65,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
   List<CheckButtonStateModel> tabList =
       CONSTANTS.getLoginRegisterTabBarWidget();
   String? email = "";
+
   @override
   void initState() {
     super.initState();
@@ -82,28 +85,53 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
-  onClickResetPassword() {
-    if (TextUtil.isEmpty(this.mobile)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().please_input_mobile_no);
-      return;
+  onClickResetPassword() async {
+    if (this.curTab == 0) {
+      if (TextUtil.isEmpty(this.mobile)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().please_input_mobile_no);
+        return;
+      }
+      if (TextUtil.isEmpty(this.password)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().please_input_password);
+        return;
+      }
+      if (TextUtil.isEmpty(this._msn)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().inputSmsVerificationCode);
+        return;
+      }
+      requestResPwd(
+        mobile: mobile,
+        countryPhoneCode: this.countryPhoneCode,
+        password: this.password,
+        dynamicCode: this._msn,
+      );
+    } else {
+      // if (TextUtil.isEmpty(this.password)) {
+      //   Utility.showToastMsg(
+      //       context: context, msg: getI18NKey().please_input_password);
+      //   return;
+      // }
+      String email =
+          await Utility.decryptCTRAES(this.email ?? "", Params.AES_PWD);
+      GoogleMailLoginManager.getInstance().resetPassword(
+          email: email,
+          // password: await Utility.decryptCTRAES(
+          //     this.password ?? "", Params.AES_PWD),
+          callbackSuccess: () async {
+            Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: email ?? "", password: password ?? ""));
+
+            // Utility.popNavigator(context, {"curTab": 1, "email": email});
+            //用于调用重启密码接口
+            SharePreferenceUtil.getSyncInstance()
+                .setBool(key: ShareprefrenceKeys.needResetPassword, val: true);
+          },
+          callbackFail: (e) {
+            Utility.showToastMsg(context: context, msg: e.message);
+          });
     }
-    if (TextUtil.isEmpty(this.password)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().please_input_password);
-      return;
-    }
-    if (TextUtil.isEmpty(this._msn)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().inputSmsVerificationCode);
-      return;
-    }
-    requestResPwd(
-      mobile: mobile,
-      countryPhoneCode: this.countryPhoneCode,
-      password: this.password,
-      dynamicCode: this._msn,
-    );
   }
 
   onClickBack() {
@@ -162,84 +190,86 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                 SizedBox(
                   height: 15,
                 ),
-                if(this.curTab == 0)
-                Stack(
-                  children: [
-                    TextFormField(
-                      onChanged: (String txt) {
-                        this._msn = txt;
-                      },
-                      controller: textController1,
-                      maxLength: 6,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                          labelText: getI18NKey().smsVerificationCode,
-                          labelStyle: TextStyle(
-                              color: Color(0xff8b97a2),
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Montserrat'),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ThemeManager.getInstance()
-                                      .getInputBorderColor(
-                                          defaultColor:
-                                              ColorsConfig.colorTextField),
-                                  width: 1),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0))),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ThemeManager.getInstance()
-                                      .getInputBorderColor(
-                                          defaultColor:
-                                              ColorsConfig.colorTextField),
-                                  width: 1),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0)))),
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Color(0xff8b97a2),
-                          fontWeight: FontWeight.w500),
-                      keyboardType: TextInputType.phone,
-                      validator: (value) => TextUtil.isEmpty(value)
-                          ? getI18NKey().emailCannotBeNull
-                          : null,
-                      // onSaved: (value) {
-                      //   return _msn = value?.trim() ?? "";
-                      // },
-                    ),
-                    // Container(color: Colors.white, width: ,),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.transparent, width: 1),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4),
-                              topRight: Radius.circular(4),
-                            )),
-                        width: 140,
-                        child: TextButton(
-                            onPressed: () async {
-                              requestGetDynamicCode(context);
-                            },
-                            child: Text(
-                              this.isBtnEnable == false
-                                  ? Utility.parseTimestampToSeconds(msnCurTime)
-                                      .toString()
-                                  : getI18NKey().getVerificationCode,
-                              style:
-                                  TextStyle(color: ColorsConfig.colorTextField),
-                            )),
+                if (this.curTab == 0)
+                  Stack(
+                    children: [
+                      TextFormField(
+                        onChanged: (String txt) {
+                          this._msn = txt;
+                        },
+                        controller: textController1,
+                        maxLength: 6,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                            labelText: getI18NKey().smsVerificationCode,
+                            labelStyle: TextStyle(
+                                color: Color(0xff8b97a2),
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Montserrat'),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ThemeManager.getInstance()
+                                        .getInputBorderColor(
+                                            defaultColor:
+                                                ColorsConfig.colorTextField),
+                                    width: 1),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0))),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ThemeManager.getInstance()
+                                        .getInputBorderColor(
+                                            defaultColor:
+                                                ColorsConfig.colorTextField),
+                                    width: 1),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0)))),
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xff8b97a2),
+                            fontWeight: FontWeight.w500),
+                        keyboardType: TextInputType.phone,
+                        validator: (value) => TextUtil.isEmpty(value)
+                            ? getI18NKey().emailCannotBeNull
+                            : null,
+                        // onSaved: (value) {
+                        //   return _msn = value?.trim() ?? "";
+                        // },
                       ),
-                    ),
-                  ],
-                ),
-                Stack(
+                      // Container(color: Colors.white, width: ,),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.transparent, width: 1),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              )),
+                          width: 140,
+                          child: TextButton(
+                              onPressed: () async {
+                                requestGetDynamicCode(context);
+                              },
+                              child: Text(
+                                this.isBtnEnable == false
+                                    ? Utility.parseTimestampToSeconds(
+                                            msnCurTime)
+                                        .toString()
+                                    : getI18NKey().getVerificationCode,
+                                style: TextStyle(
+                                    color: ColorsConfig.colorTextField),
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (this.curTab == 0)
+                  Stack(
                   children: [
                     TextFormField(
                       onChanged: (String text) async {
@@ -372,14 +402,14 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
             Duration(seconds: 3),
             () => {
                   Utility.popNavigator(
-                      context, {"mobile": this.mobileDecrypted})
+                      context, {"curTab": 0, "mobile": this.mobileDecrypted})
                 });
       }
     });
   }
 
   Widget getInputTextField() {
-    if(this.curTab == 0) {
+    if (this.curTab == 0) {
       return getMobileInputTextField();
     } else {
       return getEmailInputTextField();
@@ -415,7 +445,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
               .getTextColor(defaultColor: Color(0xff8b97a2)),
           fontWeight: FontWeight.w500),
       validator: (value) =>
-      value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
+          value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
       onSaved: (value) {
         if (TextUtil.isEmpty(value) == true) {
           email = "";

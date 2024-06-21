@@ -203,8 +203,8 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
           isFirstTime == true &&
           MongoApisManager.getInstance().listMissionModels.length == 0 &&
           LoginManager.isLogin() == false) {
-        MongoApisManager.getInstance().batchInsert_EndTimeMissionModels(
-            listParam: CONSTANTS.getGuideEndTimeMissionModels());
+        // MongoApisManager.getInstance().batchInsert_EndTimeMissionModels(
+        //     listParam: CONSTANTS.getGuideEndTimeMissionModels());
         // MongoApisManager.getInstance().batchInsert_MissionModels(
         //     listParam: CONSTANTS.getGuideMissionModels());
 

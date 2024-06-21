@@ -125,7 +125,7 @@ class LoginManager {
     loginUtil = new LoginUtil();
   }
 
-  registerByEmail({BuildContext? context, String? email, String? password}) {
+  registerByEmail({BuildContext? context, String? email, String? password}) async {
     if (TextUtil.isEmpty(email)) {
       Utility.showToastMsg(msg: getI18NKey().please_input_email);
       return;
@@ -135,9 +135,16 @@ class LoginManager {
       return;
     }
     EasyLoadingManager.getInstance().showLoading();
-    GoogleMailLoginManager.getInstance().signIn(emailEncrypted: email, password: password, callbackSuccess: () {
+    // EasyLoadingManager.getInstance().showLoading();
+    GoogleMailLoginManager.getInstance().signIn(email: email, password: await Utility.decryptCTRAES(
+        password ?? "", Params.AES_PWD), callbackSuccess: () {
+      //如果注册了那给调用注册
+      // register(email: email, password: password, onComplete: new LoginResult);
       Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
+      // Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
       EasyLoadingManager.getInstance().hideLoading();
+    }, callbackNeedVerified:() {
+      Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
     });
   }
 

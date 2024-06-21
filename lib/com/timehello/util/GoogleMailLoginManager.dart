@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
 import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../config/Params.dart';
 
@@ -38,7 +39,7 @@ class GoogleMailLoginManager {
   }
 
 
-  Future<void> login({required String email, required String password, required Function callbackSuccess}) async {
+  Future<void> login({required String email, required String password, required Function callbackSuccess, required Function callbackNeedVerified, required Function callbackLoginFaile}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -50,7 +51,7 @@ class GoogleMailLoginManager {
       print('Signed in: ${userCredential.user}');
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
-        callbackSuccess();
+        callbackNeedVerified.call();
         print('Verification email has been sent.');
       } else {
         callbackSuccess.call();
@@ -58,14 +59,14 @@ class GoogleMailLoginManager {
       print('Signed in: ${userCredential.user}');
     } on FirebaseAuthException catch (e) {
       if(e.code == 'email-already-in-use') {
-
       }
+      callbackLoginFaile.call(e);
       print('Failed with error code: ${e.code}');
       print(e.message);
     }
   }
 
-  Future<void> signIn({required String email, required String password, required Function callbackSuccess}) async {
+  Future<void> signIn({required String email, required String password, required Function callbackSuccess, Function? callbackNeedVerified}) async {
     // try {
     //   await FirebaseAuth.instance.currentUser?.reload();
     // } catch(e) {}
@@ -87,8 +88,10 @@ class GoogleMailLoginManager {
       print('Signed in: ${userCredential.user}');
     } on FirebaseAuthException catch (e) {
       if(e.code == 'email-already-in-use') {
-        await login(email: email, password: password, callbackSuccess: callbackSuccess);
+        Utility.showToastMsg(msg: getI18NKey().user_exist_reset_password);
+        await login(email: email, password: password, callbackSuccess: callbackSuccess, callbackNeedVerified: callbackNeedVerified ?? callbackSuccess, callbackLoginFaile: (e) {
 
+        });
       }
       print('Failed with error code: ${e.code}');
       print(e.message);
@@ -118,11 +121,13 @@ class GoogleMailLoginManager {
     // }
   }
 
-  resetPassword({String? email, String? password}) async {
+  resetPassword({String? email, required Function callbackSuccess, required Function callbackFail}) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email ?? '');
       print('Password reset email has been sent.');
+      callbackSuccess.call();
     } on FirebaseAuthException catch(e) {
+      callbackFail.call(e);
       print(e);
     }
   }
