@@ -488,7 +488,10 @@ class DialogManagement {
     // if (Params.channelEnum != ChannelEnum.vivo) {
       bool hasRating = await CloudSharepreferenceManagement.getInstance()
           .getBool(ShareprefrenceKeys.hasRating + scene, false);
-      if (hasRating == false) {
+      bool hasRatingGlobal = await CloudSharepreferenceManagement.getInstance()
+          .getBool(ShareprefrenceKeys.hasRating, false);
+
+      if (hasRating == false && hasRatingGlobal == false) {
         DialogManagement.getInstance().showRatingDialogWithOnlyChild(context,
             child: RatingDialog(
                 force: false,
@@ -536,6 +539,8 @@ class DialogManagement {
                       "value1": d.rating
                     });
                   }
+                  CloudSharepreferenceManagement.getInstance()
+                      .setBool(ShareprefrenceKeys.hasRating + scene, true);
                   CloudSharepreferenceManagement.getInstance()
                       .setBool(ShareprefrenceKeys.hasRating, true);
                   // SharePreferenceUtil.getSyncInstance()

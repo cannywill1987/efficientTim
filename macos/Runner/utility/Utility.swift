@@ -60,7 +60,7 @@ class Utility {
     
     static func requestReview() {
         DispatchQueue.main.async {
-             SKStoreReviewController.requestReview()
+            SKStoreReviewController.requestReview()
          }
     }
     
