@@ -1810,8 +1810,8 @@ class MongoApisManager {
 
     MongoDbQuery<MissionModel>? query1, query2, query3, query4, query5, query6;
 
-    MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
-    queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
+    // MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
+    // queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
 
     List<MongoDbQuery<MissionModel>> list2 = [];
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
@@ -1821,9 +1821,12 @@ class MongoApisManager {
       queryUid.addWhereEqualTo("uid", uid ?? '');
       list2.add(queryUid);
     }
-    list2.add(queryDeviceId);
-
-    queryUidAndDeviceId.or(list2);
+    // list2.add(queryDeviceId);
+    if(list2.length == 1) {
+      queryUidAndDeviceId = list2[0];
+    } else {
+      queryUidAndDeviceId.or(list2);
+    }
     List<MongoDbQuery<MissionModel>> listSharingFolderModel = [];
     if (this.listSharingFolderModel != null) {
       this.listSharingFolderModel.forEach((element) {
@@ -1987,7 +1990,11 @@ class MongoApisManager {
     }
     list2.add(queryDeviceId);
 
-    queryUidAndDeviceId.or(list2);
+    if(list2.length == 1) {
+      queryUidAndDeviceId = list2[0];
+    } else {
+      queryUidAndDeviceId.or(list2);
+    }
 
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
@@ -2165,8 +2172,11 @@ class MongoApisManager {
     }
     list2.add(queryDeviceId);
 
-    queryUidAndDeviceId.or(list2);
-
+    if(list2.length == 1) {
+      queryUidAndDeviceId = list2[0];
+    } else {
+      queryUidAndDeviceId.or(list2);
+    }
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
       query1.addWhereEqualTo("folder_id", folder_id ?? "");

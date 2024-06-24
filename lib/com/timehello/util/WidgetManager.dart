@@ -86,17 +86,17 @@ class WidgetManager {
   static Widget getCustomAppointWidget(
       CalendarAppointmentDetails details, BuildContext context,
       {CalendarView? calendarView, bool shouldShowCheckBox = true}) {
-    // Appointment appointment = details.appointments.first;
-    // // MissionModel? missionModelCurSelected = context.read<CalendarMssionEnv>().curSelectedMissionModel;
-    // MissionModel? missionModel = MongoApisManager.getInstance()
-    //     .queryWhereEqual_missionDataByObjectId(
-    //     objectId: appointment.id.toString());
-    // FolderModel? folderModel;
-    // int priorityColor = CONSTANTS.getPriorityColor(missionModel?.priorityStatus ?? 3);
-    // if (missionModel?.folder_id != null) {
-    //   folderModel = MongoApisManager.getInstance()
-    //       .queryfolderModelWithFolderId(missionModel?.folder_id ?? "");
-    // }
+    Appointment appointment = details.appointments.first;
+    // MissionModel? missionModelCurSelected = context.read<CalendarMssionEnv>().curSelectedMissionModel;
+    MissionModel? missionModel = MongoApisManager.getInstance()
+        .queryWhereEqual_missionDataByObjectId(
+        objectId: appointment.id.toString());
+    FolderModel? folderModel;
+    int priorityColor = CONSTANTS.getPriorityColor(missionModel?.priorityStatus ?? 3);
+    if (missionModel?.folder_id != null) {
+      folderModel = MongoApisManager.getInstance()
+          .queryfolderModelWithFolderId(missionModel?.folder_id ?? "");
+    }
 
     return CustomAppointmentWidget(
       details: details,

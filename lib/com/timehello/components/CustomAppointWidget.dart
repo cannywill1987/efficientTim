@@ -45,6 +45,10 @@ class _CustomAppointmentWidgetState extends State<CustomAppointmentWidget> {
   @override
   void initState() {
     super.initState();
+    updateData();
+  }
+
+  void updateData() {
     appointment = widget.details.appointments.first;
     missionModelCurSelected =
         context.read<CalendarMssionEnv>().curSelectedMissionModel;
@@ -57,6 +61,15 @@ class _CustomAppointmentWidgetState extends State<CustomAppointmentWidget> {
       folderModel = MongoApisManager.getInstance()
           .queryfolderModelWithFolderId(missionModel?.folder_id ?? "");
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomAppointmentWidget oldWidget) {
+    // TODO: implement didUpdateWidget
+    if(oldWidget.details != widget.details){
+      updateData();
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
