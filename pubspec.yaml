@@ -147,6 +147,8 @@ dependencies:
   #  credit_card_scanner: ^1.0.5 # 扫描卡
   credit_card_type_detector: ^3.0.0 # 检测卡类型
   u_credit_card: ^1.1.0 # 信用卡卡片ui
+  appflowy_editor:
+    path: ./thirdPartyPackages/appflowy-editor-main
   #  appflowy_editor: ^2.1.0
   #  flutter_credit_card: ^4.0.1 #信用卡输入框
   blurrycontainer: ^1.0.2 # 模糊背景
