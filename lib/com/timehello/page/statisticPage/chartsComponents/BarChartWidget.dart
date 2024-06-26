@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/BarModel.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/components/CardContainer.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'dart:math' as math;
 
@@ -67,11 +68,10 @@ class BarChartWidgetState extends State<BarChartWidget> {
         x: i,
         barRods: [
           BarChartRodData(
-            y: y,
             width: barWidth,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(6), topRight: Radius.circular(6)),
-            rodStackItems: listBarChartRodStackItem,
+            rodStackItems: listBarChartRodStackItem, toY: y,
           ),
         ],
       ));
@@ -135,61 +135,64 @@ class BarChartWidgetState extends State<BarChartWidget> {
     // width = context.findRenderObject().paintBounds.size.width;
     return CardContainer(title: getI18NKey().tomatoNums, child:BarChart(
       BarChartData(
-        barTouchData: BarTouchData(enabled:true,  touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Colors.white,
+        barTouchData: BarTouchData(
+          enabled: true,
+          touchTooltipData: BarTouchTooltipData(
+            getTooltipColor: (spot) => ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
             fitInsideHorizontally: true,
             fitInsideVertically: true,
-            getTooltipItem: (BarChartGroupData group,
-                int groupIndex,
-                BarChartRodData rod,
-                int rodIndex) {
-                //tooltip提示点这里需要在处理乘以base
-                return BarTooltipItem(
-                  '${(rod.y * this.base).toStringAsFixed(0)}',
-                  const TextStyle(
-                      color: Colors.black87,
-                      fontFamily: 'NeueMontreal',
-                      letterSpacing: 0.9,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12),
-                );
-
-            })),
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              // tooltip提示点这里需要在处理乘以base
+              return BarTooltipItem(
+                '${(rod.toY * this.base).toStringAsFixed(0)}',
+                const TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'NeueMontreal',
+                  letterSpacing: 0.9,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+              );
+            },
+          ),
+        ),
         alignment: BarChartAlignment.center,
         minY: 0,
         maxY: (this.maxYVal.toDouble() < 5) ? this.maxYVal.toDouble() * 4 : this.maxYVal.toDouble(),
         groupsSpace: this.getGroupSpace(),
         titlesData: FlTitlesData(
           show: true,
-          bottomTitles: SideTitles(
-            showTitles: true,
-            getTextStyles: (context, value) =>
-                TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
-            margin: 10,
-            rotateAngle: 0,
-            getTitles: (double value) {
-              //根据bargroups数量返回
-              if (this.xList.length > value.toInt()) {
-                return Utility.filterXAxis(this.xList[value.toInt()]);
-              }
-              return "";
-            },
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: (value, meta) {
+                //根据bargroups数量返回
+                if (this.xList.length > value.toInt()) {
+                  return Text(
+                    Utility.filterXAxis(this.xList[value.toInt()]),
+                    style: TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
+                  );
+                }
+                return Text("");
+              },
+              reservedSize: 30,
+              // margin: 10,
+            ),
           ),
-          leftTitles: SideTitles(
-            showTitles: true,
-            getTextStyles: (context, value) =>
-                TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
-            rotateAngle: 45,
-            getTitles: (double value) {
-              //每一格都是5的跳动
-              if (value == 0) {
-                return '0';
-              }
-              return '${value.toInt() * base}' + unit;
-            },
-            interval: this.interval,
-            margin: 8,
-            reservedSize: 30,
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: (value, meta) {
+                //每一格都是5的跳动
+                if (value == 0) {
+                  return Text('0');
+                }
+                return Text('${value.toInt() * base}$unit');
+              },
+              reservedSize: 30,
+              // margin: 8,
+              interval: this.interval,
+            ),
           ),
         ),
         gridData: FlGridData(

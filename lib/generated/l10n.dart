@@ -50,6 +50,136 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `添加子任务`
+  String get add_subtask {
+    return Intl.message(
+      '添加子任务',
+      name: 'add_subtask',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `置顶`
+  String get pin {
+    return Intl.message(
+      '置顶',
+      name: 'pin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `放弃`
+  String get discard {
+    return Intl.message(
+      '放弃',
+      name: 'discard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `标签`
+  String get label {
+    return Intl.message(
+      '标签',
+      name: 'label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传附件`
+  String get upload_attachment {
+    return Intl.message(
+      '上传附件',
+      name: 'upload_attachment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `任务动态`
+  String get task_activity {
+    return Intl.message(
+      '任务动态',
+      name: 'task_activity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `保存为模板`
+  String get save_as_template {
+    return Intl.message(
+      '保存为模板',
+      name: 'save_as_template',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `创建副本`
+  String get create_copy {
+    return Intl.message(
+      '创建副本',
+      name: 'create_copy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy link`
+  String get copy_link {
+    return Intl.message(
+      'Copy link',
+      name: 'copy_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `打开便签`
+  String get open_sticky_note {
+    return Intl.message(
+      '打开便签',
+      name: 'open_sticky_note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `转换为笔记`
+  String get convert_to_note {
+    return Intl.message(
+      '转换为笔记',
+      name: 'convert_to_note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `打印`
+  String get print {
+    return Intl.message(
+      '打印',
+      name: 'print',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Go to Login Page`
   String get to_login {
     return Intl.message(
@@ -485,16 +615,6 @@ class S {
     return Intl.message(
       'Share to',
       name: 'share_to',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Copy link`
-  String get copy_link {
-    return Intl.message(
-      'Copy link',
-      name: 'copy_link',
       desc: '',
       args: [],
     );
@@ -5214,16 +5334,6 @@ class S {
     return Intl.message(
       'Finished',
       name: 'finished',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Delete`
-  String get delete {
-    return Intl.message(
-      'Delete',
-      name: 'delete',
       desc: '',
       args: [],
     );

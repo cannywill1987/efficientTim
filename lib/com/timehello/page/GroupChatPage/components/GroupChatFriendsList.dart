@@ -110,14 +110,22 @@ class _GroupChatFriendsSliverListItemState
     if ((DeviceInfoManagement.isMoible() == true ||
         DeviceInfoManagement.isWebMobileBySize())) {
       return Slidable(
-          enabled: !(ChatGroupManager.isCreatorForUserBean(folderModel: this.widget.folderModel, userBean: this.widget.userInfoBean) || (ChatGroupManager.isMe(userInfoBean: this.widget.userInfoBean)) || (ChatGroupManager.isGroupManager(
-              folderModel: this.widget.folderModel))),
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.15,
-          secondaryActions: this.getSlideActions(this.widget.folderModel),
-          child: this.getItem(
-              userInfoBean: this.widget.userInfoBean,
-              folderModel: this.widget.folderModel));
+        key: ValueKey(this.widget.folderModel),
+        enabled: !(ChatGroupManager.isCreatorForUserBean(
+            folderModel: this.widget.folderModel,
+            userBean: this.widget.userInfoBean) ||
+            ChatGroupManager.isMe(userInfoBean: this.widget.userInfoBean) ||
+            ChatGroupManager.isGroupManager(folderModel: this.widget.folderModel)),
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.15,
+          children: this.getSlideActions(this.widget.folderModel),
+        ),
+        child: this.getItem(
+          userInfoBean: this.widget.userInfoBean,
+          folderModel: this.widget.folderModel,
+        ),
+      );
     } else {
       //PC
       return MouseRegion(
@@ -138,41 +146,51 @@ class _GroupChatFriendsSliverListItemState
     }
   }
 
-  List<Widget> getSlideActions(
-      FolderModel folderModel) {
+  List<Widget> getSlideActions(FolderModel folderModel) {
     List<CheckButtonStateModel> datas = this.getSlideDatas(folderModel, true);
     List<Widget> widgets = [];
     for (CheckButtonStateModel data in datas) {
-        widgets.add(IconSlideAction(
-          caption: data.title,
-          foregroundColor: Colors.white,
-          color: Color(data.color ?? Colors.red.value),
-          iconWidget: data.checkIcon,
-          // icon: data.checkIcon ,
-          onTap: () async {
-            if (data.code == 'cancel_setting_administrator') {
-              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_unset_admin","description": "取消设置管理员",});
-              await ChatGroupManager.setRoleForUserBean(
-                  folderModel: this.widget.folderModel,
-                  userBean: this.widget.userInfoBean,
-                  role: 2);
-              this.widget.onTapCancelAdministrator(folderModel);
-            } else if (data.code == 'setting_administrator') {
-              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_set_admin","description": "设置管理员",});
-              await ChatGroupManager.setRoleForUserBean(
-                  folderModel: this.widget.folderModel,
-                  userBean: this.widget.userInfoBean,
-                  role: 1);
-              this.widget.onTapSetAdministrator(folderModel);
-            } else if (data.code == 'delete') {
-              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_delete_user","description": "删除用户",});
-              await ChatGroupManager.removeUserFromGroup(folderModel: this.widget.folderModel, userBean: this.widget.userInfoBean);
-              this.widget.onTapDeleteUser(folderModel);
-            }
-            // if (this.widget.onTapDeleteListener != null)
-            //   this.widget.onTapDeleteListener!(_folderModelWithExtraData); //侧边栏删除
-          },
-        ));
+      widgets.add(SlidableAction(
+        onPressed: (context) async {
+          if (data.code == 'cancel_setting_administrator') {
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "GroupChatPage",
+              "eventType": "GroupChatPage_unset_admin",
+              "description": "取消设置管理员",
+            });
+            await ChatGroupManager.setRoleForUserBean(
+                folderModel: this.widget.folderModel,
+                userBean: this.widget.userInfoBean,
+                role: 2);
+            this.widget.onTapCancelAdministrator(folderModel);
+          } else if (data.code == 'setting_administrator') {
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "GroupChatPage",
+              "eventType": "GroupChatPage_set_admin",
+              "description": "设置管理员",
+            });
+            await ChatGroupManager.setRoleForUserBean(
+                folderModel: this.widget.folderModel,
+                userBean: this.widget.userInfoBean,
+                role: 1);
+            this.widget.onTapSetAdministrator(folderModel);
+          } else if (data.code == 'delete') {
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "GroupChatPage",
+              "eventType": "GroupChatPage_delete_user",
+              "description": "删除用户",
+            });
+            await ChatGroupManager.removeUserFromGroup(
+                folderModel: this.widget.folderModel,
+                userBean: this.widget.userInfoBean);
+            this.widget.onTapDeleteUser(folderModel);
+          }
+        },
+        backgroundColor: Color(data.color ?? Colors.red.value),
+        foregroundColor: Colors.white,
+        icon: Icons.check, // 用于代替 iconWidget 的默认图标
+        label: data.title,
+      ));
     }
     return widgets;
   }

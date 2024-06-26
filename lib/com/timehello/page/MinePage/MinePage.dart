@@ -28,7 +28,7 @@ import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
-import 'package:flutter_screen_lock/flutter_screen_lock.dart';
+// import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 
 import '../../../../r.dart';
 import '../../beans/BaseBean.dart';
@@ -814,7 +814,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               style: TextButton.styleFrom(
                 backgroundColor:
                     ThemeManager.getInstance().getButtonBackgroundColor(),
-                primary: Colors.white,
+                foregroundColor: Colors.white,
                 side: BorderSide(
                     color: ThemeManager.getInstance().getButtonBorderColor(),
                     width: 1),

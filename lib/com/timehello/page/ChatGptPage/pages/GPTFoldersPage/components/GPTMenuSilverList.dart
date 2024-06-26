@@ -143,12 +143,15 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
     //用于展示 不用于存储 2-今天 明天 即将到来等 3-创建清单
     if ((DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize())) {
       return Slidable(
-          enabled: true,
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.15,
-          secondaryActions: getSlideActions(_chatGptFolderModel),
-          child: getInnerItemWithoutContainer(
-              _chatGptFolderModel, children));
+        key: ValueKey(_chatGptFolderModel),
+        enabled: true,
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.15,
+          children: getSlideActions(_chatGptFolderModel),
+        ),
+        child: getInnerItemWithoutContainer(_chatGptFolderModel, children),
+      );
     } else {
 
       children.addAll([
@@ -255,12 +258,12 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
         //       this.widget.onTapEditListener!(_folderModelWithExtraData); //侧边栏编辑
         //   },
         // ),
-        IconSlideAction(
-          caption: getI18NKey().delete,
+        SlidableAction(
+          label: getI18NKey().delete,
           foregroundColor: Colors.white,
-          color: Colors.red,
+          backgroundColor: Colors.red,
           icon: Icons.delete,
-          onTap: () {
+          onPressed: (e) {
             if (this.widget.onTapDeleteListener != null)
               this
                   .widget

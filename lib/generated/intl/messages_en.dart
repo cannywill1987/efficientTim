@@ -334,6 +334,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_listing": MessageLookupByLibrary.simpleMessage("add listing"),
         "add_note": MessageLookupByLibrary.simpleMessage("add note"),
         "add_reminder": MessageLookupByLibrary.simpleMessage("Add Reminder"),
+        "add_subtask": MessageLookupByLibrary.simpleMessage("添加子任务"),
         "add_successfully": MessageLookupByLibrary.simpleMessage(
             "add successfully, you can be viewed it in TimeLine page"),
         "add_tag": MessageLookupByLibrary.simpleMessage("add tag"),
@@ -573,6 +574,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_days":
             MessageLookupByLibrary.simpleMessage("Continuous Days"),
         "continuously": MessageLookupByLibrary.simpleMessage("Continuing"),
+        "convert_to_note": MessageLookupByLibrary.simpleMessage("转换为笔记"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "copy_link": MessageLookupByLibrary.simpleMessage("Copy link"),
         "copy_link_description": m20,
@@ -601,6 +603,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("created successfully"),
         "createTag": MessageLookupByLibrary.simpleMessage("create tags"),
         "create_chat": MessageLookupByLibrary.simpleMessage("Create Chat"),
+        "create_copy": MessageLookupByLibrary.simpleMessage("创建副本"),
         "create_folder_desc":
             MessageLookupByLibrary.simpleMessage("Create Folder"),
         "create_mission":
@@ -690,6 +693,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("diary"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("Numeric password incorrect"),
+        "discard": MessageLookupByLibrary.simpleMessage("放弃"),
         "dismiss_group":
             MessageLookupByLibrary.simpleMessage("Dismiss the group"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("Do it now"),
@@ -970,6 +974,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("skip this version"),
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("June"),
+        "label": MessageLookupByLibrary.simpleMessage("标签"),
         "landscape": MessageLookupByLibrary.simpleMessage("Landscape"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("last week"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
@@ -1295,6 +1300,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("Only me"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("Only share with friends"),
+        "open_sticky_note": MessageLookupByLibrary.simpleMessage("打开便签"),
         "optional": MessageLookupByLibrary.simpleMessage("optional"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(optional)"),
@@ -1344,6 +1350,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_setting":
             MessageLookupByLibrary.simpleMessage("Permission settings"),
         "phoneNo": MessageLookupByLibrary.simpleMessage("phone number"),
+        "pin": MessageLookupByLibrary.simpleMessage("置顶"),
         "plain_text": MessageLookupByLibrary.simpleMessage("plain text"),
         "play": MessageLookupByLibrary.simpleMessage("play"),
         "pleaseInputTitle":
@@ -1417,6 +1424,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage(
             "Estimated number of tomatoes"),
         "previous_page": MessageLookupByLibrary.simpleMessage("previous page"),
+        "print": MessageLookupByLibrary.simpleMessage("打印"),
         "priority": MessageLookupByLibrary.simpleMessage("priority"),
         "priority1": MessageLookupByLibrary.simpleMessage("imp. & urg."),
         "priority2": MessageLookupByLibrary.simpleMessage("not imp. & urg."),
@@ -1558,6 +1566,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturday": MessageLookupByLibrary.simpleMessage("Sat"),
         "saturdayShort": MessageLookupByLibrary.simpleMessage("Sat"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "save_as_template": MessageLookupByLibrary.simpleMessage("保存为模板"),
         "save_failure": MessageLookupByLibrary.simpleMessage("Save Failed"),
         "save_success": MessageLookupByLibrary.simpleMessage("Save Successful"),
         "saving": MessageLookupByLibrary.simpleMessage("Saving"),
@@ -1673,6 +1682,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "target_reward": MessageLookupByLibrary.simpleMessage("Target Reward"),
         "target_time": MessageLookupByLibrary.simpleMessage("Target Time"),
         "task": MessageLookupByLibrary.simpleMessage("Task"),
+        "task_activity": MessageLookupByLibrary.simpleMessage("任务动态"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("Task List"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("Thirty minutes"),
@@ -1802,6 +1812,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("update completed"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("Latest Update Time"),
+        "upload_attachment": MessageLookupByLibrary.simpleMessage("上传附件"),
         "uploading_pic":
             MessageLookupByLibrary.simpleMessage("Uploading Image"),
         "user_exist_reset_password": MessageLookupByLibrary.simpleMessage(

@@ -3,7 +3,7 @@ import FlutterMacOS
 import UserNotifications
 import Firebase
 
-@NSApplicationMain
+@main
 class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserNotificationCenterDelegate {
     
     var flutterViewController:FlutterViewController!;

@@ -4034,6 +4034,102 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getRichEditorCheckButtonStateModelList() {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        code: "add_subtask",
+        value: 1,
+        title: getI18NKey().add_subtask,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "pin",
+        value: 1,
+        title: getI18NKey().pin,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "discard",
+        value: 1,
+        title: getI18NKey().discard,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "label",
+        value: 1,
+        title: getI18NKey().label,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "upload_attachment",
+        value: 1,
+        title: getI18NKey().upload_attachment,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "task_activity",
+        value: 1,
+        title: getI18NKey().task_activity,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "save_as_template",
+        value: 1,
+        title: getI18NKey().save_as_template,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "create_copy",
+        value: 1,
+        title: getI18NKey().create_copy,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "copy_link",
+        value: 1,
+        title: getI18NKey().copy_link,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "open_sticky_note",
+        value: 1,
+        title: getI18NKey().open_sticky_note,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "convert_to_note",
+        value: 1,
+        title: getI18NKey().convert_to_note,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "print",
+        value: 1,
+        title: getI18NKey().print,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 1,
+        title: getI18NKey().delete,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    return list;
+  }
+
   static List<CheckButtonStateModel> getModuleCheckButtonStateModelList() {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(

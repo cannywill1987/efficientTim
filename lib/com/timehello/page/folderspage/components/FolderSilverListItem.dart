@@ -306,14 +306,17 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         DeviceInfoManagement.isWebMobileBySize()) ||
         folderModelWithExtraData.folderModel.tag == null) {
       return Slidable(
-          enabled: folderModelWithExtraData.folderModel.tag != null &&
-              (folderModelWithExtraData.folderModel.tag == 1 ||
-                  folderModelWithExtraData.folderModel.tag == 2),
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.15,
-          secondaryActions: getSlideActions(folderModelWithExtraData),
-          child:
-          getInnerItemWithoutContainer(folderModelWithExtraData, children));
+        key: ValueKey(folderModelWithExtraData.folderModel),
+        enabled: folderModelWithExtraData.folderModel.tag != null &&
+            (folderModelWithExtraData.folderModel.tag == 1 ||
+                folderModelWithExtraData.folderModel.tag == 2),
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.15,
+          children: getSlideActions(folderModelWithExtraData),
+        ),
+        child: getInnerItemWithoutContainer(folderModelWithExtraData, children),
+      );
     } else {
       //PC
       return MouseRegion(
@@ -347,97 +350,90 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         _folderModelWithExtraData.folderModel.uid ==
             LoginManager.getInstance().userBean.uid) {
       return <Widget>[
-        IconSlideAction(
-          caption: getI18NKey().edit,
-          foregroundColor: Colors.white,
-          color: Colors.blue,
-          icon: Icons.edit,
-          onTap: () {
-            if (this.widget.onTapEditListener != null)
-              this.widget.onTapEditListener!(_folderModelWithExtraData); //侧边栏编辑
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapEditListener != null) {
+              this.widget.onTapEditListener!(_folderModelWithExtraData); // 侧边栏编辑
+            }
           },
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          icon: Icons.edit,
+          label: getI18NKey().edit,
         ),
         if (_folderModelWithExtraData.folderModel.tag == 1)
-          IconSlideAction(
-            caption: getI18NKey().archive,
-            iconWidget: Utility.getSVGPicture(R.assetsImgIcArchive, size: 20),
-            // foregroundColor: Colors.white,
-            color: Colors.blue,
-            // icon: Icons.edit,
-            onTap: () {
-              if (this.widget.onTapArchiveListener != null)
-                this
-                    .widget
-                    .onTapArchiveListener
-                    ?.call(_folderModelWithExtraData); //侧边栏编辑
+          SlidableAction(
+            onPressed: (context) {
+              if (this.widget.onTapArchiveListener != null) {
+                this.widget.onTapArchiveListener?.call(_folderModelWithExtraData); // 侧边栏编辑
+              }
             },
+            backgroundColor: Colors.blue,
+            icon: Icons.archive,  // 添加一个图标
+            label: getI18NKey().archive,
+            // iconWidget: Utility.getSVGPicture(R.assetsImgIcArchive, size: 20),  // 如果需要自定义图标，可以在此处设置
           ),
-        IconSlideAction(
-          caption: _folderModelWithExtraData.folderModel.isSharing != 0 &&
-              !TextUtil.isEmpty(
-                  _folderModelWithExtraData.folderModel.courseModelId)
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapShareListener != null) {
+              this.widget.onTapShareListener!(_folderModelWithExtraData); // 侧边栏分享
+            }
+          },
+          backgroundColor: Colors.lightGreenAccent,
+          foregroundColor: Colors.white,
+          icon: Icons.share,
+          label: _folderModelWithExtraData.folderModel.isSharing != 0 &&
+              !TextUtil.isEmpty(_folderModelWithExtraData.folderModel.courseModelId)
               ? getI18NKey().edit_sharing
               : getI18NKey().share,
-          foregroundColor: Colors.white,
-          color: Colors.lightGreenAccent,
-          icon: Icons.share,
-          onTap: () {
-            if (this.widget.onTapShareListener != null)
-              this.widget.onTapShareListener!(_folderModelWithExtraData);
-            ; //侧边栏删除
-          },
         ),
-        IconSlideAction(
-          caption: getI18NKey().delete,
-          foregroundColor: Colors.white,
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () {
-            if (this.widget.onTapDeleteListener != null)
-              this
-                  .widget
-                  .onTapDeleteListener!(_folderModelWithExtraData); //侧边栏删除
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapDeleteListener != null) {
+              this.widget.onTapDeleteListener!(_folderModelWithExtraData); // 侧边栏删除
+            }
           },
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+          icon: Icons.delete,
+          label: getI18NKey().delete,
         ),
       ];
     } else {
       return <Widget>[
-        IconSlideAction(
-          caption: getI18NKey().edit,
-          foregroundColor: Colors.white,
-          color: Colors.blue,
-          icon: Icons.edit,
-          onTap: () {
-            if (this.widget.onTapEditListener != null)
-              this.widget.onTapEditListener!(_folderModelWithExtraData); //侧边栏编辑
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapEditListener != null) {
+              this.widget.onTapEditListener!(_folderModelWithExtraData); // 侧边栏编辑
+            }
           },
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          icon: Icons.edit,
+          label: getI18NKey().edit,
         ),
         if (_folderModelWithExtraData.folderModel.tag == 1)
-          IconSlideAction(
-            caption: getI18NKey().unarchive,
-            iconWidget: Utility.getSVGPicture(R.assetsImgIcArchive, size: 20),
-            // foregroundColor: Colors.white,
-            color: Colors.blue,
-            // icon: Icons.edit,
-            onTap: () {
-              if (this.widget.onTapArchiveListener != null)
-                this
-                    .widget
-                    .onTapArchiveListener
-                    ?.call(_folderModelWithExtraData); //侧边栏编辑
+          SlidableAction(
+            onPressed: (context) {
+              if (this.widget.onTapArchiveListener != null) {
+                this.widget.onTapArchiveListener?.call(_folderModelWithExtraData); // 侧边栏编辑
+              }
             },
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            icon: Icons.archive, // 自定义图标
+            label: getI18NKey().unarchive,
           ),
-        IconSlideAction(
-          caption: getI18NKey().delete,
-          foregroundColor: Colors.white,
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () {
-            if (this.widget.onTapDeleteListener != null)
-              this
-                  .widget
-                  .onTapDeleteListener!(_folderModelWithExtraData); //侧边栏删除
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapDeleteListener != null) {
+              this.widget.onTapDeleteListener!(_folderModelWithExtraData); // 侧边栏删除
+            }
           },
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+          icon: Icons.delete,
+          label: getI18NKey().delete,
         ),
       ];
     }

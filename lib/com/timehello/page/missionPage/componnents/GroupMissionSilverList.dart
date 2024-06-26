@@ -876,14 +876,18 @@ class GroupMissionSilverListItemState
     if (DeviceInfoManagement.isMoible() == true ||
         DeviceInfoManagement.isWebMobileBySize()) {
       return Slidable(
-          enabled: DeviceInfoManagement.isMoible() == true ||
-              DeviceInfoManagement.isWebMobileBySize(),
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.15,
-          secondaryActions: _missionModel?.isFinished == false
+        key: ValueKey(_missionModel),
+        enabled: DeviceInfoManagement.isMoible() == true ||
+            DeviceInfoManagement.isWebMobileBySize(),
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.15,
+          children: _missionModel?.isFinished == false
               ? getUnfinishIconSlideActions(_missionModel ?? MissionModel())
               : getFinishIconSlideActions(_missionModel ?? MissionModel()),
-          child: getItem(_missionModel, childrenRow));
+        ),
+        child: getItem(_missionModel, childrenRow),
+      );
     } else {
       return getItem(_missionModel, childrenRow);
     }
@@ -1004,56 +1008,52 @@ class GroupMissionSilverListItemState
 
   List<Widget> getFinishIconSlideActions(MissionModel _missionModel) {
     return <Widget>[
-      IconSlideAction(
-        caption: getI18NKey().unfinished,
-        color: Colors.lightBlue,
-        foregroundColor: Colors.white,
-        icon: Icons.check,
-        onTap: () {
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapUnFinishListener != null)
             this.widget.onTapUnFinishListener!(_missionModel);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().multi_select,
-        color: Colors.greenAccent,
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
-        icon: Icons.select_all,
-        onTap: () {
+        icon: Icons.check,
+        label: getI18NKey().unfinished,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapMultiSelectListener != null)
             this.widget.onTapMultiSelectListener!(null);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().delete,
+        backgroundColor: Colors.greenAccent,
         foregroundColor: Colors.white,
-        color: Colors.grey,
-        icon: Icons.delete,
-        onTap: () {
+        icon: Icons.select_all,
+        label: getI18NKey().multi_select,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapDeleteListener != null)
             this.widget.onTapDeleteListener!(_missionModel);
         },
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete,
       ),
     ];
   }
 
   List<Widget> getUnfinishIconSlideActions(MissionModel _missionModel) {
     return <Widget>[
-      IconSlideAction(
-        caption: getI18NKey().play,
-        color: Colors.red,
-        foregroundColor: Colors.white,
-        icon: Icons.play_arrow,
-        onTap: () {
+      SlidableAction(
+        onPressed: (context) {
           this.widget.onTapPlayListener!(_missionModel);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().finish,
-        color: Colors.lightBlue,
+        backgroundColor: Colors.red,
         foregroundColor: Colors.white,
-        icon: Icons.check,
-        onTap: () {
+        icon: Icons.play_arrow,
+        label: getI18NKey().play,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (_missionModel.isFinished == false) {
             if (this.widget.onTapFinishListener != null)
               this.widget.onTapFinishListener!(_missionModel);
@@ -1062,36 +1062,40 @@ class GroupMissionSilverListItemState
               this.widget.onTapUnFinishListener!(_missionModel);
           }
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().edit,
-        color: Colors.lightGreen,
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
-        icon: Icons.edit,
-        onTap: () {
+        icon: Icons.check,
+        label: getI18NKey().finish,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapEditListener != null)
             this.widget.onTapEditListener!(_missionModel);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().multi_select,
-        color: Colors.greenAccent,
+        backgroundColor: Colors.lightGreen,
         foregroundColor: Colors.white,
-        icon: Icons.select_all,
-        onTap: () {
+        icon: Icons.edit,
+        label: getI18NKey().edit,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapMultiSelectListener != null)
             this.widget.onTapMultiSelectListener!(null);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().delete,
+        backgroundColor: Colors.greenAccent,
         foregroundColor: Colors.white,
-        color: Colors.grey,
-        icon: Icons.delete,
-        onTap: () {
+        icon: Icons.select_all,
+        label: getI18NKey().multi_select,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapDeleteListener != null)
             this.widget.onTapDeleteListener!(_missionModel);
         },
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete,
       ),
     ];
   }

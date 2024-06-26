@@ -196,97 +196,102 @@ class DialogContentState extends State<DialogContent> {
           }
         },
         child: Slidable(
-          enabled: true,
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.15,
-          secondaryActions: <Widget>[
-            IconSlideAction(
-              caption: getI18NKey().edit,
-              foregroundColor: Colors.white,
-              color: Colors.blue,
-              icon: Icons.edit,
-              onTap: () {
-                PresentModel presentModel = _listFolderModel![i];
-                Utility.openPagePCAndMobile(context, child: new CreatePresentPage(
-                  pageEnum: PageModeEnum.edit,
-                  presentModel: presentModel,
-                  callback: () {
+          key: ValueKey(i),
+          startActionPane: ActionPane(
+            motion: const DrawerMotion(),
+            extentRatio: 0.15,
+            children: [
+              SlidableAction(
+                onPressed: (context) {
+                  PresentModel presentModel = _listFolderModel![i];
+                  Utility.openPagePCAndMobile(context, child: CreatePresentPage(
+                      pageEnum: PageModeEnum.edit,
+                      presentModel: presentModel,
+                      callback: () {
+                        requestData();
+                      }
+                  ));
+                },
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                icon: Icons.edit,
+                label: getI18NKey().edit,
+              ),
+              SlidableAction(
+                onPressed: (context) async {
+                  PresentModel presentModel = _listFolderModel![i];
+                  try {
+                    await MongoApisManager.getInstance().delete_PresentModel(
+                        currentObjectId: presentModel.objectId);
                     requestData();
+                  } catch (e) {
+                    // Handle error
                   }
-                ));
-              },
-            ),
-            IconSlideAction(
-              caption: getI18NKey().delete,
-              foregroundColor: Colors.white,
-              color: Colors.red,
-              icon: Icons.delete,
-              onTap: () async {
-                PresentModel presentModel = _listFolderModel![i];
-                try {
-                  await MongoApisManager.getInstance().delete_PresentModel(
-                      currentObjectId: presentModel.objectId);
-                  requestData();
-                } catch(e) {
-
-                }
-                // if (this.widget.onTapDeleteListener != null)
-                //   this
-                //       .widget
-                //       .onTapDeleteListener!(_folderModelWithExtraData); //侧边栏删除
-              },
-            ),
-          ],
-          child:Container(
+                },
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: getI18NKey().delete,
+              ),
+            ],
+          ),
+          child: Container(
             height: 60,
-            padding: new EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+            padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Wrap(direction: Axis.vertical, children: [
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 5,
-                      ),
-                      data.icon ?? SizedBox.shrink(),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        data.title ?? '',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: ThemeManager.getInstance().getTextColor(defaultColor: Colors.black),
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
+                Wrap(
+                  direction: Axis.vertical,
                   children: [
-                    SizedBox(
-                      width: 25,
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        SizedBox(width: 5),
+                        data.icon ?? SizedBox.shrink(),
+                        SizedBox(width: 5),
+                        Text(
+                          data.title ?? '',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: ThemeManager.getInstance()
+                                .getTextColor(defaultColor: Colors.black),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(getI18NKey().consump_money),
-                    SizedBox(
-                      width: 5,
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        SizedBox(width: 25),
+                        Text(getI18NKey().consump_money),
+                        SizedBox(width: 5),
+                        MoneyHandlerWidget(
+                          money: (data.data as PresentModel).value.toString(),
+                          pageFrom: PageFromEnum.PresentDialog,
+                        )
+                      ],
                     ),
-                    MoneyHandlerWidget(
-                      money: (data.data as PresentModel).value.toString(),
-                      pageFrom: PageFromEnum.PresentDialog)]),
-                ]),
-                (this.isCheckButtonShow ?? false) ? CheckImage(
+                  ],
+                ),
+                (this.isCheckButtonShow ?? false)
+                    ? CheckImage(
                   checked: data.isChecked ?? false,
-                  checkIcon: Icon(Icons.radio_button_checked_outlined,
-                      color: ColorsConfig.gray_a7),
-                  uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
-                      color: ColorsConfig.gray_a7),
-                ) : SizedBox.shrink(),
+                  checkIcon: Icon(
+                    Icons.radio_button_checked_outlined,
+                    color: ColorsConfig.gray_a7,
+                  ),
+                  uncheckIcon: Icon(
+                    Icons.radio_button_unchecked_outlined,
+                    color: ColorsConfig.gray_a7,
+                  ),
+                )
+                    : SizedBox.shrink(),
               ],
-            )),
-      )));
+            ),
+          ),
+        )));
     }
     return Column(
       children: list,
