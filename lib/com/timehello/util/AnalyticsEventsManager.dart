@@ -93,7 +93,7 @@ class AnalyticsEventsManager {
       String message = data['message'] ?? "";
       await analytics.logEvent(
         name: sceneType + '_' + eventType,
-        parameters: <String, dynamic>{
+        parameters: <String, Object>{
           'sceneType': sceneType,
           'eventType': eventType,
           'message': message,
@@ -112,7 +112,7 @@ class AnalyticsEventsManager {
     try {
       await analytics.logEvent(
         name: name,
-        parameters: <String, dynamic>{
+        parameters: <String, Object>{
           'event_name': name,
           // 'int': 42,
           // 'long': 12345678910,

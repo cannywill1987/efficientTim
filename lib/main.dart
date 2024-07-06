@@ -2,6 +2,7 @@ import 'dart:async';
 
 // import 'package:appflowy_editor/appflowy_editor.dart';
 // import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,6 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/UnregisterPage/UnregisterPage.dart';
 import 'package:time_hello/com/timehello/page/splashPage/SplashPage.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
-import 'package:time_hello/com/timehello/util/FirebaseManager.dart';
 import 'package:time_hello/com/timehello/util/HtmlUtility.dart';
 import 'package:time_hello/com/timehello/util/NumTimesAppOpenManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
@@ -44,6 +44,8 @@ import 'com/timehello/util/AnalyticsEventsManager.dart';
 import 'com/timehello/util/CounterManagement.dart';
 import 'com/timehello/util/EasyLoadingManager.dart';
 import 'com/timehello/util/EventCollection.dart';
+import 'com/timehello/util/FirebaseAuthManager.dart';
+import 'com/timehello/util/LocaleProvider.dart';
 import 'com/timehello/util/LoginManager.dart';
 import 'com/timehello/util/NotificationManager.dart';
 import 'com/timehello/util/SharePreferenceUtil.dart';
@@ -64,11 +66,12 @@ void main() async {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
   if(!Utility.isXiaoMi()) {
-    await FirebaseManager.initialized();
+    await FirebaseAuthManager.initialized();
   }
 
   // runZoned(() {
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => LocaleProvider()),
     ChangeNotifierProvider(create: (_) => MissionDetailEnv()),
     ChangeNotifierProvider(create: (_) => Env()),
     ChangeNotifierProvider(create: (_) => GlobalStateEnv()),
@@ -98,7 +101,7 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
   //初始化如果依赖sharePreference
   if (PrivacyProtocolManager.getInstance().isProtocolAgreed(context) == true) {
     if(Utility.isXiaoMi()) {
-      await FirebaseManager.initialized();
+      await FirebaseAuthManager.initialized();
     }
 
     NotificationManager.getInstance()?.init();
@@ -200,7 +203,7 @@ class _MyAppState extends BaseWidgetState<MyApp> {
       //app 生命周期
       SystemChannels.lifecycle.setMessageHandler((msg) async {
         switch (msg) {
-          // 从后台切换到前台，界面可见
+        // 从后台切换到前台，界面可见
           case "AppLifecycleState.resumed":
             break;
 // 界面不可见，后台运行中
@@ -284,6 +287,10 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     print(
         "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "code has been refreshed");
+    return Selector<LocaleProvider, Locale>(
+        selector: (_, LocaleProvider) => LocaleProvider.locale,
+    builder: (_, local, __) {
+
 
     return AdaptiveTheme(
       light: ThemeManager.getInstance().getLightThemeData(),
@@ -291,9 +298,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
       initial: ThemeManager.getInstance().getThemeMode(),
       builder: (lightTheme, darkTheme) =>   MaterialApp(
         theme:
-            ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
-                ? lightTheme
-                : darkTheme,
+        ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
+            ? lightTheme
+            : darkTheme,
         // theme: ThemeManager.getInstance().getThemeData(),
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
@@ -305,6 +312,11 @@ class _MyAppState extends BaseWidgetState<MyApp> {
         //     textTheme: CupertinoTextThemeData(), // This is required
         //   ),
         // ),
+        // locale:
+        // const Locale.fromSubtags(
+        //   languageCode: 'zh',  countryCode: 'CN')
+        // ,
+
         localizationsDelegates: const [
           // 很强大的记事本
           // AppFlowyEditorLocalizations.delegate,
@@ -315,7 +327,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
           SfGlobalLocalizations.delegate,
           S.delegate
         ],
+        // locale: Locale("en"),
         supportedLocales: [
+          // ...L10n.all,
           Locale("en"), // 英语
           Locale("zh"), //中文
           Locale("zh_HK"), //香港
@@ -336,18 +350,18 @@ class _MyAppState extends BaseWidgetState<MyApp> {
 
           const Locale.fromSubtags(languageCode: 'zh'),
           // generic Chinese 'zh'
-          const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-          // generic simplified Chinese 'zh_Hans'
-          const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+          // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+          // // generic simplified Chinese 'zh_Hans'
+          // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
           // generic traditional Chinese 'zh_Hant'
           const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+              languageCode: 'zh',  countryCode: 'CN'),
           // 'zh_Hans_CN'
-          const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+          // const Locale.fromSubtags(
+          //     languageCode: 'zh',  countryCode: 'TW'),
           // 'zh_Hant_TW'
           const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+              languageCode: 'zh',  countryCode: 'HK'),
           // 'zh_Hant_HK'
         ],
         title: appName,
@@ -362,5 +376,7 @@ class _MyAppState extends BaseWidgetState<MyApp> {
         },
       ),
     );
-  }
+  });
+
+}
 }

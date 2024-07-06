@@ -41,8 +41,8 @@ void showActionMenu(
           _menuItem(
               context,
               dir == TableDirection.col
-                  ? AppFlowyEditorL10n.current.colAddBefore
-                  : AppFlowyEditorL10n.current.rowAddBefore,
+                  ? i18nInstanceLocal.colAddBefore
+                  : i18nInstanceLocal.rowAddBefore,
               dir == TableDirection.col
                   ? Icons.first_page
                   : Icons.vertical_align_top, () {
@@ -52,8 +52,8 @@ void showActionMenu(
           _menuItem(
               context,
               dir == TableDirection.col
-                  ? AppFlowyEditorL10n.current.colAddAfter
-                  : AppFlowyEditorL10n.current.rowAddAfter,
+                  ? i18nInstanceLocal.colAddAfter
+                  : i18nInstanceLocal.rowAddAfter,
               dir == TableDirection.col
                   ? Icons.last_page
                   : Icons.vertical_align_bottom, () {
@@ -63,8 +63,8 @@ void showActionMenu(
           _menuItem(
               context,
               dir == TableDirection.col
-                  ? AppFlowyEditorL10n.current.colRemove
-                  : AppFlowyEditorL10n.current.rowRemove,
+                  ? i18nInstanceLocal.colRemove
+                  : i18nInstanceLocal.rowRemove,
               Icons.delete, () {
             TableActions.delete(node, position, editorState, dir);
             dismissOverlay();
@@ -72,15 +72,15 @@ void showActionMenu(
           _menuItem(
               context,
               dir == TableDirection.col
-                  ? AppFlowyEditorL10n.current.colDuplicate
-                  : AppFlowyEditorL10n.current.rowDuplicate,
+                  ? i18nInstanceLocal.colDuplicate
+                  : i18nInstanceLocal.rowDuplicate,
               Icons.content_copy, () {
             TableActions.duplicate(node, position, editorState, dir);
             dismissOverlay();
           }),
           _menuItem(
             context,
-            AppFlowyEditorL10n.current.backgroundColor,
+            i18nInstanceLocal.backgroundColor,
             Icons.format_color_fill,
             () {
               final cell = dir == TableDirection.col
@@ -112,8 +112,8 @@ void showActionMenu(
           _menuItem(
               context,
               dir == TableDirection.col
-                  ? AppFlowyEditorL10n.current.colClear
-                  : AppFlowyEditorL10n.current.rowClear,
+                  ? i18nInstanceLocal.colClear
+                  : i18nInstanceLocal.rowClear,
               Icons.clear, () {
             TableActions.clear(node, position, editorState, dir);
             dismissOverlay();
@@ -180,14 +180,14 @@ void _showColorMenu(
     left: left,
     builder: (context) {
       return ColorPicker(
-        title: AppFlowyEditorL10n.current.highlightColor,
+        title: i18nInstanceLocal.highlightColor,
         selectedColorHex: selectedColorHex,
         colorOptions: generateHighlightColorOptions(),
         onSubmittedColorHex: (color) {
           action(color);
           dismissOverlay();
         },
-        resetText: AppFlowyEditorL10n.current.clearHighlightColor,
+        resetText: i18nInstanceLocal.clearHighlightColor,
         resetIconName: 'clear_highlight_color',
       );
     },

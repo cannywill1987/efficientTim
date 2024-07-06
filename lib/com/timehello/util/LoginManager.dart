@@ -6,7 +6,7 @@ import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
 import 'package:time_hello/com/timehello/page/SettingUserInfoPage/SettingUserInfoPage.dart';
 import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
-import 'package:time_hello/com/timehello/util/FirebaseManager.dart';
+import 'package:time_hello/com/timehello/util/FirebaseAuthManager.dart';
 import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/PermissionManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
@@ -324,7 +324,7 @@ class LoginManager {
     if (Utility.isAndroid() == true) {
       await PermissionManager.getInstance().requestStoragePermission();
     }
-    Map map = await FirebaseManager.getInstance().signInWithGoogle();
+    Map map = await FirebaseAuthManager.getInstance().signInWithGoogle();
     // EasyLoadingManager.getInstance().hideLoading();
     loginUtil?.doRegisterWithEmail(
         shouldShowLoading: true,
@@ -341,7 +341,7 @@ class LoginManager {
     // if(Utility.isAndroid() == true) {
     //   await PermissionManager.getInstance().requestStoragePermission();
     // }
-    Map map = await FirebaseManager.getInstance().signInWithApple();
+    Map map = await FirebaseAuthManager.getInstance().signInWithApple();
     print(map);
     loginUtil?.doRegisterWithEmail(
         shouldShowLoading: true,

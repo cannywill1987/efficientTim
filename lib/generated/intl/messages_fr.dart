@@ -345,6 +345,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_note": MessageLookupByLibrary.simpleMessage("ajouter une note"),
         "add_reminder":
             MessageLookupByLibrary.simpleMessage("Ajouter un rappel"),
+        "add_subtask":
+            MessageLookupByLibrary.simpleMessage("Ajouter une sous-tâche"),
         "add_successfully": MessageLookupByLibrary.simpleMessage(
             "ajout réussi, peut être consulté dans la page TimeLine"),
         "add_tag": MessageLookupByLibrary.simpleMessage("ajouter une balise"),
@@ -594,6 +596,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_days":
             MessageLookupByLibrary.simpleMessage("Jours continus"),
         "continuously": MessageLookupByLibrary.simpleMessage("Continuellement"),
+        "convert_to_note":
+            MessageLookupByLibrary.simpleMessage("Convertir en note"),
         "copy": MessageLookupByLibrary.simpleMessage("Copier"),
         "copy_link": MessageLookupByLibrary.simpleMessage("Copier le lien"),
         "copy_link_description": m20,
@@ -626,6 +630,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createTag": MessageLookupByLibrary.simpleMessage("créer des tags"),
         "create_chat":
             MessageLookupByLibrary.simpleMessage("Créer une discussion"),
+        "create_copy": MessageLookupByLibrary.simpleMessage("Créer une copie"),
         "create_folder_desc":
             MessageLookupByLibrary.simpleMessage("Créer un dossier"),
         "create_mission":
@@ -720,6 +725,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("journal"),
         "digit_password_incorrect": MessageLookupByLibrary.simpleMessage(
             "Mot de passe numérique incorrect"),
+        "discard": MessageLookupByLibrary.simpleMessage("Jeter"),
         "dismiss_group":
             MessageLookupByLibrary.simpleMessage("Dissoudre le groupe"),
         "do_it_now":
@@ -798,6 +804,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("retour d\'information"),
         "filtering_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de filtrage"),
+        "find": MessageLookupByLibrary.simpleMessage("Trouver"),
         "find_new_version":
             MessageLookupByLibrary.simpleMessage("nouvelle version trouvée"),
         "finish": MessageLookupByLibrary.simpleMessage("Terminer"),
@@ -1015,6 +1022,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("passer à cette version"),
         "jun": MessageLookupByLibrary.simpleMessage("Juin"),
         "junFull": MessageLookupByLibrary.simpleMessage("Juin"),
+        "label": MessageLookupByLibrary.simpleMessage("Étiquette"),
         "landscape": MessageLookupByLibrary.simpleMessage("Paysage"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("semaine dernière"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
@@ -1213,6 +1221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextMission": MessageLookupByLibrary.simpleMessage("Prochaine tâche:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("Étape suivante"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("semaine prochaine"),
+        "next_match": MessageLookupByLibrary.simpleMessage("Résultat suivant"),
         "next_page": MessageLookupByLibrary.simpleMessage("page suivante"),
         "next_time": MessageLookupByLibrary.simpleMessage("la prochaine fois"),
         "no": MessageLookupByLibrary.simpleMessage("Non"),
@@ -1230,6 +1239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_project_parenthese":
             MessageLookupByLibrary.simpleMessage("(Aucun projet)"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("no ranking"),
+        "no_result": MessageLookupByLibrary.simpleMessage("Aucun résultat"),
         "no_task": MessageLookupByLibrary.simpleMessage("no task"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("illimité"),
         "no_tomotoes_finished":
@@ -1350,6 +1360,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("Seulement moi"),
         "only_share_with_friends": MessageLookupByLibrary.simpleMessage(
             "Partager uniquement avec des amis"),
+        "open_sticky_note":
+            MessageLookupByLibrary.simpleMessage("Ouvrir une note"),
         "optional": MessageLookupByLibrary.simpleMessage("optionnel"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(facultatif)"),
@@ -1401,6 +1413,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de permission"),
         "phoneNo": MessageLookupByLibrary.simpleMessage("numéro de téléphone"),
+        "pin": MessageLookupByLibrary.simpleMessage("Épingler"),
         "plain_text": MessageLookupByLibrary.simpleMessage("Texte brut"),
         "play": MessageLookupByLibrary.simpleMessage("jouer"),
         "pleaseInputTitle":
@@ -1474,8 +1487,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "previewTime": MessageLookupByLibrary.simpleMessage("Temps estimé"),
         "previewTomatoesNum":
             MessageLookupByLibrary.simpleMessage("Nombre estimé de tomates"),
+        "previous_match":
+            MessageLookupByLibrary.simpleMessage("Résultat précédent"),
         "previous_page":
             MessageLookupByLibrary.simpleMessage("page précédente"),
+        "print": MessageLookupByLibrary.simpleMessage("Imprimer"),
         "priority": MessageLookupByLibrary.simpleMessage("priorité"),
         "priority1": MessageLookupByLibrary.simpleMessage("imp. & urg."),
         "priority2": MessageLookupByLibrary.simpleMessage("pas imp. & urg."),
@@ -1572,6 +1588,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Valeur répétitive"),
         "repetiveWeekDay":
             MessageLookupByLibrary.simpleMessage("Jours répétitifs"),
+        "replace": MessageLookupByLibrary.simpleMessage("Remplacer"),
+        "replace_all": MessageLookupByLibrary.simpleMessage("Remplacer tout"),
         "reply": MessageLookupByLibrary.simpleMessage("répondre"),
         "report2": MessageLookupByLibrary.simpleMessage("Signaler"),
         "request_error_try_again": MessageLookupByLibrary.simpleMessage(
@@ -1626,6 +1644,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturday": MessageLookupByLibrary.simpleMessage("Sam"),
         "saturdayShort": MessageLookupByLibrary.simpleMessage("Sam"),
         "save": MessageLookupByLibrary.simpleMessage("Enregistrer"),
+        "save_as_template": MessageLookupByLibrary.simpleMessage(
+            "Enregistrer en tant que modèle"),
         "save_failure":
             MessageLookupByLibrary.simpleMessage("Échec de l\'enregistrement"),
         "save_success":
@@ -1754,6 +1774,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Récompense cible"),
         "target_time": MessageLookupByLibrary.simpleMessage("Heure cible"),
         "task": MessageLookupByLibrary.simpleMessage("Tâche"),
+        "task_activity":
+            MessageLookupByLibrary.simpleMessage("Activité de tâche"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("Liste des tâches"),
         "theme": MessageLookupByLibrary.simpleMessage("Thème"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("Trente minutes"),
@@ -1894,6 +1916,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("mise à jour terminée"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("Dernière mise à jour"),
+        "upload_attachment":
+            MessageLookupByLibrary.simpleMessage("Téléverser une pièce jointe"),
         "uploading_pic":
             MessageLookupByLibrary.simpleMessage("Téléchargement de l\'image"),
         "user_exist_reset_password": MessageLookupByLibrary.simpleMessage(

@@ -125,6 +125,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 typedef void OnError(Exception exception);
 
+
 S getI18NKey([BuildContext? context]) {
   return S.of(context ?? Utility.getGlobalContext());
 }
@@ -6090,6 +6091,14 @@ class Utility {
     } catch (e) {
       return MyApp.context!;
     }
+  }
+
+  /**
+   * 得到hash值  xxxx-yyyy-zzzz-aaaa
+   */
+  static String getUUID() {
+    var uuid = Uuid();
+    return uuid.v4();
   }
 
   /**

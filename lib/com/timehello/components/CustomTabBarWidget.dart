@@ -48,7 +48,6 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
   initState() {
     setChecked(checkIndex ?? 0);
     // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
-
   }
 
   resetList() {

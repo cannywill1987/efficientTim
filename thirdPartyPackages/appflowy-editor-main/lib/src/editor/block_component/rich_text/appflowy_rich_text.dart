@@ -76,6 +76,8 @@ class AppFlowyRichText extends StatefulWidget {
   // this span will be appended to the current text span, mostly, it is used for auto complete
   final AppFlowyAutoCompleteTextProvider? autoCompleteTextProvider;
 
+
+
   /// customize the text span for custom attributes
   ///
   /// You can use this to customize the text span for custom attributes

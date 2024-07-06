@@ -13,6 +13,8 @@ import 'package:appflowy_editor/src/history/undo_manager.dart';
 /// set true to this key to prevent attaching the text service when selection is changed.
 const selectionExtraInfoDoNotAttachTextService =
     'selectionExtraInfoDoNotAttachTextService';
+//lzb S传来用作国际化
+var i18nInstanceLocal;
 
 class ApplyOptions {
   /// This flag indicates that
@@ -69,8 +71,12 @@ enum TransactionTime {
 class EditorState {
   EditorState({
     required this.document,
+    this.onUploadCallback, // lzb 增加网络用于上传网络图片
+    i18nInstance,
     this.minHistoryItemDuration = const Duration(milliseconds: 200),
   }) {
+    if(i18nInstanceLocal == null)
+    i18nInstanceLocal = i18nInstance;
     undoManager.state = this;
   }
 
@@ -92,6 +98,10 @@ class EditorState {
 
   // the minimum duration for saving the history item.
   final Duration minHistoryItemDuration;
+  // lzb 增加网络用于上传网络图片
+  Function? onUploadCallback;
+  // lzb
+
 
   /// Whether the editor is editable.
   bool editable = true;

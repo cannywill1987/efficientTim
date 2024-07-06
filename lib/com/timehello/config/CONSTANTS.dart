@@ -1108,9 +1108,11 @@ class CONSTANTS {
   static List<CheckButtonStateModel> getWQBEditTypeModelList() {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
+        code: "new_rich_editor", title: getI18NKey().new_rich_editor, isCheck: true));
+    list.add(CheckButtonStateModel(
         code: "plain_text", title: getI18NKey().plain_text, isCheck: false));
     list.add(CheckButtonStateModel(
-        code: "image", title: getI18NKey().image, isCheck: true));
+        code: "image", title: getI18NKey().image, isCheck: false));
     list.add(CheckButtonStateModel(
         code: "record", title: getI18NKey().record, isCheck: false));
     list.add(CheckButtonStateModel(
@@ -1148,7 +1150,9 @@ class CONSTANTS {
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        title: getI18NKey().note_and_multimission, isCheck: true));
+        title: getI18NKey().note_text, isCheck: true));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().multi_subtask, isCheck: false));
     // list.add(
     //     CheckButtonStateModel(title: getI18NKey().super_notebook, isCheck: false));
     list.add(CheckButtonStateModel(

@@ -117,7 +117,7 @@ class MissionModel extends MongoDbObject{
 
   List<String>? noteOriginUrls = []; // 数组用于存储原始图片url
 
-  int? notePoint = 0; //知识点错题本的三种格式 0 图片 1 录音 2 纯文本 3 富文本
+  int? notePoint = 0; //知识点错题本的三种格式 0 图片 1 录音 2 纯文本 3 富文本 4新富文本
 
 
   // String? noteContent = ""; //知识点错题本 如果是富文本就是Url

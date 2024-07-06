@@ -323,6 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_listing": MessageLookupByLibrary.simpleMessage("목록 추가"),
         "add_note": MessageLookupByLibrary.simpleMessage("노트 작성"),
         "add_reminder": MessageLookupByLibrary.simpleMessage("리마인더 추가"),
+        "add_subtask": MessageLookupByLibrary.simpleMessage("하위 작업 추가"),
         "add_successfully":
             MessageLookupByLibrary.simpleMessage("성공적으로 추가되었습니다, 타임라인에서 확인하세요"),
         "add_tag": MessageLookupByLibrary.simpleMessage("태그 추가"),
@@ -527,6 +528,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_clock_in": MessageLookupByLibrary.simpleMessage("연속 출근"),
         "continuous_days": MessageLookupByLibrary.simpleMessage("연속 일수"),
         "continuously": MessageLookupByLibrary.simpleMessage("지속적으로"),
+        "convert_to_note": MessageLookupByLibrary.simpleMessage("노트로 변환"),
         "copy": MessageLookupByLibrary.simpleMessage("복사"),
         "copy_link": MessageLookupByLibrary.simpleMessage("링크 복사"),
         "copy_link_description": m20,
@@ -554,6 +556,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createSuccess": MessageLookupByLibrary.simpleMessage("생성 성공"),
         "createTag": MessageLookupByLibrary.simpleMessage("태그 생성"),
         "create_chat": MessageLookupByLibrary.simpleMessage("채팅 생성"),
+        "create_copy": MessageLookupByLibrary.simpleMessage("복사본 만들기"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("폴더 생성"),
         "create_mission": MessageLookupByLibrary.simpleMessage("임무 생성"),
         "create_mission_by_content":
@@ -631,6 +634,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("일기"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("숫자 비밀번호가 틀렸습니다"),
+        "discard": MessageLookupByLibrary.simpleMessage("폐기"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("그룹 해산"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("지금 하기"),
         "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
@@ -696,6 +700,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "febFull": MessageLookupByLibrary.simpleMessage("2월"),
         "feedback": MessageLookupByLibrary.simpleMessage("사용자 피드백"),
         "filtering_setting": MessageLookupByLibrary.simpleMessage("필터링 설정"),
+        "find": MessageLookupByLibrary.simpleMessage("찾기"),
         "find_new_version": MessageLookupByLibrary.simpleMessage("새 버전 발견"),
         "finish": MessageLookupByLibrary.simpleMessage("완료"),
         "finish_level": MessageLookupByLibrary.simpleMessage("완성도:"),
@@ -872,6 +877,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("이 버전 건너뛰기"),
         "jun": MessageLookupByLibrary.simpleMessage("6월"),
         "junFull": MessageLookupByLibrary.simpleMessage("6월"),
+        "label": MessageLookupByLibrary.simpleMessage("라벨"),
         "landscape": MessageLookupByLibrary.simpleMessage("가로"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("지난 주"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("최근 7일"),
@@ -1041,6 +1047,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextMission": MessageLookupByLibrary.simpleMessage("다음 임무:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("다음 단계"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("다음 주"),
+        "next_match": MessageLookupByLibrary.simpleMessage("다음 일치"),
         "next_page": MessageLookupByLibrary.simpleMessage("다음 페이지"),
         "next_time": MessageLookupByLibrary.simpleMessage("다음에"),
         "no": MessageLookupByLibrary.simpleMessage("아니오"),
@@ -1056,6 +1063,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_project_parenthese":
             MessageLookupByLibrary.simpleMessage("(프로젝트 없음)"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("순위 없음"),
+        "no_result": MessageLookupByLibrary.simpleMessage("결과 없음"),
         "no_task": MessageLookupByLibrary.simpleMessage("작업 없음"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("시간 제한 없음"),
         "no_tomotoes_finished":
@@ -1168,6 +1176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("나만"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("친구에게만 공유"),
+        "open_sticky_note": MessageLookupByLibrary.simpleMessage("메모 열기"),
         "optional": MessageLookupByLibrary.simpleMessage("선택 사항"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(선택 사항)"),
@@ -1212,6 +1221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pdpa_step4": MessageLookupByLibrary.simpleMessage("행동"),
         "permission_setting": MessageLookupByLibrary.simpleMessage("권한 설정"),
         "phoneNo": MessageLookupByLibrary.simpleMessage("휴대폰 번호"),
+        "pin": MessageLookupByLibrary.simpleMessage("고정"),
         "plain_text": MessageLookupByLibrary.simpleMessage("일반 텍스트"),
         "play": MessageLookupByLibrary.simpleMessage("재생"),
         "pleaseInputTitle": MessageLookupByLibrary.simpleMessage("제목을 입력해주세요"),
@@ -1278,7 +1288,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "preview": MessageLookupByLibrary.simpleMessage("미리보기"),
         "previewTime": MessageLookupByLibrary.simpleMessage("예상 시간"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("예상 토마토 수"),
+        "previous_match": MessageLookupByLibrary.simpleMessage("이전 일치"),
         "previous_page": MessageLookupByLibrary.simpleMessage("이전 페이지"),
+        "print": MessageLookupByLibrary.simpleMessage("인쇄"),
         "priority": MessageLookupByLibrary.simpleMessage("우선 순위"),
         "priority1": MessageLookupByLibrary.simpleMessage("긴급 & 중요"),
         "priority2": MessageLookupByLibrary.simpleMessage("긴급하지 않음 & 중요"),
@@ -1351,6 +1363,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveType": MessageLookupByLibrary.simpleMessage("반복 여부"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("반복 날짜"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("반복 요일"),
+        "replace": MessageLookupByLibrary.simpleMessage("교체"),
+        "replace_all": MessageLookupByLibrary.simpleMessage("모두 교체"),
         "reply": MessageLookupByLibrary.simpleMessage("답장"),
         "report2": MessageLookupByLibrary.simpleMessage("신고"),
         "request_error_try_again":
@@ -1396,6 +1410,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturday": MessageLookupByLibrary.simpleMessage("토요일"),
         "saturdayShort": MessageLookupByLibrary.simpleMessage("토"),
         "save": MessageLookupByLibrary.simpleMessage("저장"),
+        "save_as_template": MessageLookupByLibrary.simpleMessage("템플릿으로 저장"),
         "save_failure": MessageLookupByLibrary.simpleMessage("저장 실패"),
         "save_success": MessageLookupByLibrary.simpleMessage("저장 성공"),
         "saving": MessageLookupByLibrary.simpleMessage("저장 중"),
@@ -1495,6 +1510,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "target_reward": MessageLookupByLibrary.simpleMessage("목표 보상"),
         "target_time": MessageLookupByLibrary.simpleMessage("목표 시간"),
         "task": MessageLookupByLibrary.simpleMessage("작업"),
+        "task_activity": MessageLookupByLibrary.simpleMessage("작업 활동"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("작업 목록"),
         "theme": MessageLookupByLibrary.simpleMessage("테마"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("30분"),
@@ -1607,6 +1623,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_success": MessageLookupByLibrary.simpleMessage("업데이트 성공"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("최신 업데이트 시간"),
+        "upload_attachment": MessageLookupByLibrary.simpleMessage("첨부 파일 업로드"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("사진 업로드 중"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("ユーザーが存在します。パスワードをリセットできます"),

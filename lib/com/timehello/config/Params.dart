@@ -34,6 +34,7 @@ class Params {
   static final int RECEIVE_TIMEOUT = 40000;
 
   static final int RINGTONE_DURATION = 10000;
+  static final String mOssUrl = "http://oss.timerbell.com";
   static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
   static final String mMemberBaseUrl = "";
@@ -128,7 +129,7 @@ class Urls {
 }
 
 class Apis {
-
+  static String getOssToken = "/api/common/getOssToken"; // 获取aliyun token
   static String captcha = "/api/captcha";
   static String chatGptWithOpenAi = "/api/chatGptWithOpenAi";
   static String streamTestApi = "/api/streamTest";

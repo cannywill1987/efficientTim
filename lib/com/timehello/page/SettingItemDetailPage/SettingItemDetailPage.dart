@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -103,6 +104,8 @@ class _SettingItemDetailPageWidgetState<T>
   @override
   void initState() {
     //查找当前mission所属的FolderModel
+    // AppFlowyEditorLocalizations.delegate.load(const Locale('zh', 'CN'));
+
     controller =
         TextEditingController(text: this.widget.missionModel?.message ?? '');
     // await requestGetTags(this.widget.missionModel?.tagNames.split(',') ?? ['ejizfjize']);
@@ -478,12 +481,31 @@ class _SettingItemDetailPageWidgetState<T>
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
+        // Container(
+        //   height: 1,
+        //   color: Color(0xffe0e0e0),
+        // ),
+        CustomTabBarWidget(
+          list: tabList,
+          onCheckedListener: (int index) {
+            this.curTab = index;
+            updateUI();
+          },
+          fontSize: 14,
+        ),
+        Container(
+          height: 1,
+          color: Color(0xffe0e0e0),
+        ),
+        if (this.curTab == 0) ...getTabBar0WidgetList(),
+        if (this.curTab != 0)
         Expanded(
           child: SingleChildScrollView(
               child: Column(children: [
             CustomMarquee(
               bean: MarqueInfo.marqueSettingItemDetail,
             ),
+            if(this.curTab != 0)
             Container(
                 constraints:
                     BoxConstraints(maxWidth: double.infinity, minHeight: 100),
@@ -686,31 +708,17 @@ class _SettingItemDetailPageWidgetState<T>
                       ),
                     ])),
             // Container(height: 20, color: ColorsConfig.backgroundColor,),
-            Container(
-              height: 1,
-              color: Color(0xffe0e0e0),
-            ),
-            CustomTabBarWidget(
-              list: tabList,
-              onCheckedListener: (int index) {
-                this.curTab = index;
-                updateUI();
-              },
-              fontSize: 14,
-            ),
-            Container(
-              height: 1,
-              color: Color(0xffe0e0e0),
-            ),
-            if (this.curTab == 0) ...getTabBar0WidgetList(),
-            // if(this.curTab == 1)
-            //   ...getTabBarRichWWidgetList(),
-            if (this.curTab == 1) ...getTabBar1WidgetList(),
+
+            if(this.curTab == 1)
+              ...getTabBar1WidgetList(),
+            if (this.curTab == 2) ...getTabBar2WidgetList(),
           ])),
         ),
+        if(this.curTab != 0)
         SizedBox(
           height: 20,
         ),
+        if(this.curTab != 0)
         Align(
             child: InkWell(
           onTap: () {
@@ -749,7 +757,7 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
-  List<Widget> getTabBar1WidgetList() {
+  List<Widget> getTabBar2WidgetList() {
     DateTime? dateTimeNextTime = Utility.getNextDateTime(
         missionModelParam: this.widget.missionModel ?? MissionModel(),
         calendarModel: context.read<GlobalStateEnv>().calendarModel);
@@ -1325,8 +1333,7 @@ class _SettingItemDetailPageWidgetState<T>
 
   List<Widget> getTabBar0WidgetList() {
     return [
-      Container(
-        constraints: BoxConstraints(maxHeight: 300),
+      Expanded(
         child: ComposedRichEditorWidget(
           title: getI18NKey().note_plain,
           onTapOk: () {},
@@ -1335,6 +1342,11 @@ class _SettingItemDetailPageWidgetState<T>
           saveModeEnum: SaveModeEnum.normal,
         ),
       ),
+      // getSubmissionListWidget(),
+    ];
+  }
+  List<Widget> getTabBar1WidgetList() {
+    return [
       SectionTitleWidget(
           title: getI18NKey().sub_task_add_newline,
           child: InkWell(

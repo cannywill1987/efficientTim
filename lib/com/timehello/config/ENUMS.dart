@@ -1,3 +1,60 @@
+enum FileExtension {
+  md,
+  json,
+  txt,
+  pdf,
+  doc,
+  docx,
+  xls,
+  xlsx,
+  ppt,
+  pptx,
+  jpg,
+  jpeg,
+  png,
+  gif,
+  mp3,
+  mp4,
+  avi,
+  flv,
+  wmv,
+  mov,
+  m4a,
+  m4v,
+  mkv,
+  rmvb,
+  rm,
+  wma,
+  wav,
+  aac,
+  amr,
+  zip,
+  rar,
+  sevenz,
+  tar,
+  gz,
+  bz2,
+  apk,
+  exe,
+  dmg,
+  iso,
+  deb,
+  rpm,
+  ipa,
+  app,
+  appx,
+
+}
+
+enum DocType {
+  md,
+  document,
+  image,
+  audio,
+  video,
+  attachment, //附件
+}
+
 enum ProgressSortEnum {
   Lyubichs, // 柳比歇斯
   previewTime, // 预估时长排序
@@ -99,6 +156,7 @@ enum WQBEditModeEnum {
   record,
   plain_text,
   rich_text,
+  new_rich_text,
   none
 }
 

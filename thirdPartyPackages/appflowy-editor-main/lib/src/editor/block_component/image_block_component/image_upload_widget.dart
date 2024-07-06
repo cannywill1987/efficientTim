@@ -133,8 +133,8 @@ class _UploadImageMenuState extends State<UploadImageMenu> {
                 height: 36,
                 child: TabBar(
                   tabs: [
-                    Tab(text: AppFlowyEditorL10n.current.uploadImage),
-                    Tab(text: AppFlowyEditorL10n.current.urlImage),
+                    Tab(text: i18nInstanceLocal.uploadImage),
+                    Tab(text: i18nInstanceLocal.urlImage),
                   ],
                   labelColor: widget.headerColor,
                   unselectedLabelColor: Colors.grey,
@@ -204,7 +204,7 @@ class _UploadImageMenuState extends State<UploadImageMenu> {
 
   Widget _buildInvalidLinkText() {
     return Text(
-      AppFlowyEditorL10n.current.incorrectLink,
+      i18nInstanceLocal.incorrectLink,
       style: const TextStyle(color: Colors.red, fontSize: 12),
     );
   }
@@ -240,7 +240,7 @@ class _UploadImageMenuState extends State<UploadImageMenu> {
           }
         },
         child: Text(
-          AppFlowyEditorL10n.current.upload,
+          i18nInstanceLocal.upload,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: 14.0,
@@ -341,7 +341,7 @@ class _UploadImageMenuState extends State<UploadImageMenu> {
                         ),
                         const SizedBox(height: 8.0),
                         Text(
-                          AppFlowyEditorL10n.current.chooseImage,
+                          i18nInstanceLocal.chooseImage,
                           style: const TextStyle(
                             fontSize: 14.0,
                             color: Color(0xff00BCF0),
@@ -373,18 +373,35 @@ extension InsertImage on EditorState {
     if (node == null) {
       return;
     }
+
     final transaction = this.transaction;
     // if the current node is empty paragraph, replace it with image node
     if (node.type == ParagraphBlockKeys.type &&
         (node.delta?.isEmpty ?? false)) {
-      transaction
-        ..insertNode(
-          node.path,
-          imageNode(
-            url: src,
-          ),
-        )
-        ..deleteNode(node);
+      // lzb 上传图片通过回调执行
+      if(this.onUploadCallback != null) {
+       String url = await onUploadCallback?.call(src);
+       if(url.isEmpty) {
+         return;
+       }
+       transaction
+         ..insertNode(
+           node.path,
+           imageNode(
+             url: url,
+           ),
+         );
+         // ..deleteNode(node);
+      } else {
+        transaction
+          ..insertNode(
+            node.path,
+            imageNode(
+              url: src,
+            ),
+          )
+          ..deleteNode(node);
+      }
     } else {
       transaction.insertNode(
         node.path.next,

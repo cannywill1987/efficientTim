@@ -29,51 +29,53 @@ class _BlocksMenu extends StatefulWidget {
 }
 
 class _BlocksMenuState extends State<_BlocksMenu> {
-  final lists = [
-    // heading
-    _ListUnit(
-      icon: AFMobileIcons.h1,
-      label: AppFlowyEditorL10n.current.mobileHeading1,
-      name: HeadingBlockKeys.type,
-      level: 1,
-    ),
-    _ListUnit(
-      icon: AFMobileIcons.h2,
-      label: AppFlowyEditorL10n.current.mobileHeading2,
-      name: HeadingBlockKeys.type,
-      level: 2,
-    ),
-    _ListUnit(
-      icon: AFMobileIcons.h3,
-      label: AppFlowyEditorL10n.current.mobileHeading3,
-      name: HeadingBlockKeys.type,
-      level: 3,
-    ),
-    // list
-    _ListUnit(
-      icon: AFMobileIcons.bulletedList,
-      label: AppFlowyEditorL10n.current.bulletedList,
-      name: BulletedListBlockKeys.type,
-    ),
-    _ListUnit(
-      icon: AFMobileIcons.numberedList,
-      label: AppFlowyEditorL10n.current.numberedList,
-      name: NumberedListBlockKeys.type,
-    ),
-    _ListUnit(
-      icon: AFMobileIcons.checkbox,
-      label: AppFlowyEditorL10n.current.checkbox,
-      name: TodoListBlockKeys.type,
-    ),
-    _ListUnit(
-      icon: AFMobileIcons.quote,
-      label: AppFlowyEditorL10n.current.quote,
-      name: QuoteBlockKeys.type,
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    List lists = [
+      // heading
+      _ListUnit(
+        icon: AFMobileIcons.h1,
+        label: i18nInstanceLocal?.mobileHeading1 ?? i18nInstanceLocal.mobileHeading1,
+        // label: i18nInstanceLocal.mobileHeading1,
+        name: HeadingBlockKeys.type,
+        level: 1,
+      ),
+      _ListUnit(
+        icon: AFMobileIcons.h2,
+        label: i18nInstanceLocal?.mobileHeading2 ?? i18nInstanceLocal.mobileHeading2,
+        name: HeadingBlockKeys.type,
+        level: 2,
+      ),
+      _ListUnit(
+        icon: AFMobileIcons.h3,
+        label: i18nInstanceLocal?.mobileHeading3 ?? i18nInstanceLocal.mobileHeading3,
+        name: HeadingBlockKeys.type,
+        level: 3,
+      ),
+      // list
+      _ListUnit(
+        icon: AFMobileIcons.bulletedList,
+        label: i18nInstanceLocal?.bulletedList ?? i18nInstanceLocal.bulletedList,
+        name: BulletedListBlockKeys.type,
+      ),
+      _ListUnit(
+        icon: AFMobileIcons.numberedList,
+        label: i18nInstanceLocal?.numberedList ??  i18nInstanceLocal.numberedList,
+        name: NumberedListBlockKeys.type,
+      ),
+      _ListUnit(
+        icon: AFMobileIcons.checkbox,
+        label: i18nInstanceLocal?.checkbox ??  i18nInstanceLocal.checkbox,
+        name: TodoListBlockKeys.type,
+      ),
+      _ListUnit(
+        icon: AFMobileIcons.quote,
+        label: i18nInstanceLocal?.quote ??i18nInstanceLocal.quote,
+        name: QuoteBlockKeys.type,
+      ),
+    ];
+
     final style = MobileToolbarTheme.of(context);
 
     final children = lists.map((list) {

@@ -320,6 +320,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_listing": MessageLookupByLibrary.simpleMessage("リストを追加"),
         "add_note": MessageLookupByLibrary.simpleMessage("ノートを書く"),
         "add_reminder": MessageLookupByLibrary.simpleMessage("リマインダーを追加"),
+        "add_subtask": MessageLookupByLibrary.simpleMessage("サブタスクを追加"),
         "add_successfully":
             MessageLookupByLibrary.simpleMessage("追加成功、タイムラインで確認してください"),
         "add_tag": MessageLookupByLibrary.simpleMessage("タグを追加"),
@@ -521,6 +522,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_clock_in": MessageLookupByLibrary.simpleMessage("連続打刻"),
         "continuous_days": MessageLookupByLibrary.simpleMessage("連続日数"),
         "continuously": MessageLookupByLibrary.simpleMessage("継続中"),
+        "convert_to_note": MessageLookupByLibrary.simpleMessage("ノートに変換"),
         "copy": MessageLookupByLibrary.simpleMessage("コピー"),
         "copy_link": MessageLookupByLibrary.simpleMessage("リンクをコピー"),
         "copy_link_description": m20,
@@ -548,6 +550,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createSuccess": MessageLookupByLibrary.simpleMessage("作成成功"),
         "createTag": MessageLookupByLibrary.simpleMessage("タグを作成"),
         "create_chat": MessageLookupByLibrary.simpleMessage("チャットを作成"),
+        "create_copy": MessageLookupByLibrary.simpleMessage("コピーを作成"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("フォルダを作成する"),
         "create_mission": MessageLookupByLibrary.simpleMessage("タスクを作成する"),
         "create_mission_by_content": MessageLookupByLibrary.simpleMessage(
@@ -625,6 +628,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("日記"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("数字のパスワードが間違っています"),
+        "discard": MessageLookupByLibrary.simpleMessage("破棄"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("グループを解散する"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("今すぐやる"),
         "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
@@ -689,6 +693,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "febFull": MessageLookupByLibrary.simpleMessage("2月"),
         "feedback": MessageLookupByLibrary.simpleMessage("ユーザーフィードバック"),
         "filtering_setting": MessageLookupByLibrary.simpleMessage("フィルタリング設定"),
+        "find": MessageLookupByLibrary.simpleMessage("検索"),
         "find_new_version":
             MessageLookupByLibrary.simpleMessage("新しいバージョンを見つけました"),
         "finish": MessageLookupByLibrary.simpleMessage("完了"),
@@ -864,6 +869,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("このバージョンをスキップ"),
         "jun": MessageLookupByLibrary.simpleMessage("6月"),
         "junFull": MessageLookupByLibrary.simpleMessage("6月"),
+        "label": MessageLookupByLibrary.simpleMessage("ラベル"),
         "landscape": MessageLookupByLibrary.simpleMessage("横画面"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("先週"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("過去7日間"),
@@ -1035,6 +1041,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextMission": MessageLookupByLibrary.simpleMessage("次のミッション:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("次へ"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("来週"),
+        "next_match": MessageLookupByLibrary.simpleMessage("次の一致"),
         "next_page": MessageLookupByLibrary.simpleMessage("次のページ"),
         "next_time": MessageLookupByLibrary.simpleMessage("次回"),
         "no": MessageLookupByLibrary.simpleMessage("いいえ"),
@@ -1050,6 +1057,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_project_parenthese":
             MessageLookupByLibrary.simpleMessage("（プロジェクトなし）"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("ランキングなし"),
+        "no_result": MessageLookupByLibrary.simpleMessage("結果なし"),
         "no_task": MessageLookupByLibrary.simpleMessage("タスクなし"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("不限时"),
         "no_tomotoes_finished":
@@ -1163,6 +1171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("自分だけ"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("友達のみに共有"),
+        "open_sticky_note": MessageLookupByLibrary.simpleMessage("付箋を開く"),
         "optional": MessageLookupByLibrary.simpleMessage("任意"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("（任意）"),
@@ -1208,6 +1217,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pdpa_step4": MessageLookupByLibrary.simpleMessage("行動"),
         "permission_setting": MessageLookupByLibrary.simpleMessage("権限設定"),
         "phoneNo": MessageLookupByLibrary.simpleMessage("電話番号"),
+        "pin": MessageLookupByLibrary.simpleMessage("ピン留め"),
         "plain_text": MessageLookupByLibrary.simpleMessage("プレーンテキスト"),
         "play": MessageLookupByLibrary.simpleMessage("再生"),
         "pleaseInputTitle":
@@ -1277,7 +1287,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "preview": MessageLookupByLibrary.simpleMessage("プレビュー"),
         "previewTime": MessageLookupByLibrary.simpleMessage("予想時間"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("予想トマト数"),
+        "previous_match": MessageLookupByLibrary.simpleMessage("前の一致"),
         "previous_page": MessageLookupByLibrary.simpleMessage("前のページ"),
+        "print": MessageLookupByLibrary.simpleMessage("印刷"),
         "priority": MessageLookupByLibrary.simpleMessage("優先度"),
         "priority1": MessageLookupByLibrary.simpleMessage("緊急 & 重要"),
         "priority2": MessageLookupByLibrary.simpleMessage("非緊急 & 重要"),
@@ -1353,6 +1365,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveType": MessageLookupByLibrary.simpleMessage("繰り返しの有無"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("繰り返しの日付"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("繰り返しの曜日"),
+        "replace": MessageLookupByLibrary.simpleMessage("置換"),
+        "replace_all": MessageLookupByLibrary.simpleMessage("すべて置換"),
         "reply": MessageLookupByLibrary.simpleMessage("返信"),
         "report2": MessageLookupByLibrary.simpleMessage("報告する"),
         "request_error_try_again":
@@ -1398,6 +1412,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturday": MessageLookupByLibrary.simpleMessage("土曜日"),
         "saturdayShort": MessageLookupByLibrary.simpleMessage("土"),
         "save": MessageLookupByLibrary.simpleMessage("保存"),
+        "save_as_template": MessageLookupByLibrary.simpleMessage("テンプレートとして保存"),
         "save_failure": MessageLookupByLibrary.simpleMessage("保存に失敗しました"),
         "save_success": MessageLookupByLibrary.simpleMessage("保存成功"),
         "saving": MessageLookupByLibrary.simpleMessage("保存中"),
@@ -1494,6 +1509,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "target_reward": MessageLookupByLibrary.simpleMessage("目標報酬一直"),
         "target_time": MessageLookupByLibrary.simpleMessage("目標時間"),
         "task": MessageLookupByLibrary.simpleMessage("タスク"),
+        "task_activity": MessageLookupByLibrary.simpleMessage("タスク活動"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("タスクリスト"),
         "theme": MessageLookupByLibrary.simpleMessage("テーマ"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("30分"),
@@ -1603,6 +1619,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("最新の更新時間"),
+        "upload_attachment":
+            MessageLookupByLibrary.simpleMessage("添付ファイルをアップロード"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("画像をアップロード中"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("ユーザーが存在します。パスワードをリセットできます"),

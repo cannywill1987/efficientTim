@@ -9,13 +9,13 @@ final Map<String, BlockComponentBuilder> standardBlockComponentBuilderMap = {
   ParagraphBlockKeys.type: ParagraphBlockComponentBuilder(
     configuration: standardBlockComponentConfiguration.copyWith(
       placeholderText: (_) => PlatformExtension.isDesktopOrWeb
-          ? AppFlowyEditorL10n.current.slashPlaceHolder
+          ? i18nInstanceLocal.slashPlaceHolder
           : ' ',
     ),
   ),
   TodoListBlockKeys.type: TodoListBlockComponentBuilder(
     configuration: standardBlockComponentConfiguration.copyWith(
-      placeholderText: (_) => AppFlowyEditorL10n.current.toDoPlaceholder,
+      placeholderText: (_) => i18nInstanceLocal.toDoPlaceholder,
     ),
     toggleChildrenTriggers: [
       LogicalKeyboardKey.shift,
@@ -25,17 +25,17 @@ final Map<String, BlockComponentBuilder> standardBlockComponentBuilderMap = {
   ),
   BulletedListBlockKeys.type: BulletedListBlockComponentBuilder(
     configuration: standardBlockComponentConfiguration.copyWith(
-      placeholderText: (_) => AppFlowyEditorL10n.current.listItemPlaceholder,
+      placeholderText: (_) => i18nInstanceLocal.listItemPlaceholder,
     ),
   ),
   NumberedListBlockKeys.type: NumberedListBlockComponentBuilder(
     configuration: standardBlockComponentConfiguration.copyWith(
-      placeholderText: (_) => AppFlowyEditorL10n.current.listItemPlaceholder,
+      placeholderText: (_) => i18nInstanceLocal.listItemPlaceholder,
     ),
   ),
   QuoteBlockKeys.type: QuoteBlockComponentBuilder(
     configuration: standardBlockComponentConfiguration.copyWith(
-      placeholderText: (_) => AppFlowyEditorL10n.current.quote,
+      placeholderText: (_) => i18nInstanceLocal.quote,
     ),
   ),
   HeadingBlockKeys.type: HeadingBlockComponentBuilder(

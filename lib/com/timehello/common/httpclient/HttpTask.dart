@@ -548,17 +548,14 @@ class HttpTask extends Observable {
 
     try {
       Response responseTmp;
-      Dio dio = Dio(new BaseOptions(
-        responseDecoder: Utility.getGzipDecoder,
-        headers: {"accept-encoding": "gzip"},
-      ))
-        ..interceptors.add(LogInterceptor());
-
-      dio.options.headers['USER-TOKEN'] =
-          LoginManager.getInstance().userBean?.token;
-      dio.options.headers['LANGUAGE'] = DeviceInfoManagement.getLanguage();
-      dio.options.headers['COUNTRY-CODE'] =
-          DeviceInfoManagement.getCountryCode();
+      Dio dio = Dio();
+        // ..interceptors.add(LogInterceptor());
+      //
+      // dio.options.headers['USER-TOKEN'] =
+      //     LoginManager.getInstance().userBean?.token;
+      // dio.options.headers['LANGUAGE'] = DeviceInfoManagement.getLanguage();
+      // dio.options.headers['COUNTRY-CODE'] =
+      //     DeviceInfoManagement.getCountryCode();
 
       if (method == HttpManager.GET) {
         //组合GET请求的参数

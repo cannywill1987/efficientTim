@@ -312,6 +312,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_listing": MessageLookupByLibrary.simpleMessage("添加清單"),
         "add_note": MessageLookupByLibrary.simpleMessage("寫筆記"),
         "add_reminder": MessageLookupByLibrary.simpleMessage("添加提醒"),
+        "add_subtask": MessageLookupByLibrary.simpleMessage("添加子任務"),
         "add_successfully":
             MessageLookupByLibrary.simpleMessage("成功添加,請在時間軸查看"),
         "add_tag": MessageLookupByLibrary.simpleMessage("添加標籤"),
@@ -501,6 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_clock_in": MessageLookupByLibrary.simpleMessage("連續打卡"),
         "continuous_days": MessageLookupByLibrary.simpleMessage("已連續天數"),
         "continuously": MessageLookupByLibrary.simpleMessage("堅持中"),
+        "convert_to_note": MessageLookupByLibrary.simpleMessage("轉換為筆記"),
         "copy": MessageLookupByLibrary.simpleMessage("複製"),
         "copy_link": MessageLookupByLibrary.simpleMessage("複製連結"),
         "copy_mission_model": m21,
@@ -526,6 +528,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createSuccess": MessageLookupByLibrary.simpleMessage("創建成功"),
         "createTag": MessageLookupByLibrary.simpleMessage("創建標籤"),
         "create_chat": MessageLookupByLibrary.simpleMessage("創建會話"),
+        "create_copy": MessageLookupByLibrary.simpleMessage("創建副本"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("創建文件夾"),
         "create_mission": MessageLookupByLibrary.simpleMessage("創建任務"),
         "create_mission_by_content":
@@ -600,6 +603,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("日記"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("數字密碼錯誤"),
+        "discard": MessageLookupByLibrary.simpleMessage("放棄"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("解散本群"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("現在做"),
         "do_it_now_desc":
@@ -659,6 +663,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "febFull": MessageLookupByLibrary.simpleMessage("二月"),
         "feedback": MessageLookupByLibrary.simpleMessage("用戶反饋"),
         "filtering_setting": MessageLookupByLibrary.simpleMessage("過濾設置"),
+        "find": MessageLookupByLibrary.simpleMessage("查找"),
         "find_new_version": MessageLookupByLibrary.simpleMessage("發現新版本"),
         "finish": MessageLookupByLibrary.simpleMessage("完成"),
         "finish_level": MessageLookupByLibrary.simpleMessage("完成度:"),
@@ -823,6 +828,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jump_to_this_version": MessageLookupByLibrary.simpleMessage("跳過本版本"),
         "jun": MessageLookupByLibrary.simpleMessage("六月"),
         "junFull": MessageLookupByLibrary.simpleMessage("六月"),
+        "label": MessageLookupByLibrary.simpleMessage("標籤"),
         "landscape": MessageLookupByLibrary.simpleMessage("橫屏"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("上週"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("近7天"),
@@ -984,6 +990,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextMission": MessageLookupByLibrary.simpleMessage("下個任務:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("下一步"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("下週"),
+        "next_match": MessageLookupByLibrary.simpleMessage("下一個匹配"),
         "next_page": MessageLookupByLibrary.simpleMessage("下一頁"),
         "next_time": MessageLookupByLibrary.simpleMessage("下次再說"),
         "no": MessageLookupByLibrary.simpleMessage("否"),
@@ -997,6 +1004,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("沒有通知權限哦"),
         "no_project_parenthese": MessageLookupByLibrary.simpleMessage("（無專案）"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("無排名"),
+        "no_result": MessageLookupByLibrary.simpleMessage("無結果"),
         "no_task": MessageLookupByLibrary.simpleMessage("無任務"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("不限時"),
         "no_tomotoes_finished":
@@ -1106,6 +1114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("僅我自己"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("僅我分享的好友"),
+        "open_sticky_note": MessageLookupByLibrary.simpleMessage("打開便簽"),
         "optional": MessageLookupByLibrary.simpleMessage("可選"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(可選)"),
@@ -1146,6 +1155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pdpa_step4": MessageLookupByLibrary.simpleMessage("行動(Action)"),
         "permission_setting": MessageLookupByLibrary.simpleMessage("權限設置"),
         "phoneNo": MessageLookupByLibrary.simpleMessage("手機號"),
+        "pin": MessageLookupByLibrary.simpleMessage("置頂"),
         "plain_text": MessageLookupByLibrary.simpleMessage("純文本"),
         "play": MessageLookupByLibrary.simpleMessage("播放"),
         "pleaseInputTitle": MessageLookupByLibrary.simpleMessage("請輸入標題"),
@@ -1206,7 +1216,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "preview": MessageLookupByLibrary.simpleMessage("預覽"),
         "previewTime": MessageLookupByLibrary.simpleMessage("預計時間"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("預計番茄數"),
+        "previous_match": MessageLookupByLibrary.simpleMessage("上一個匹配"),
         "previous_page": MessageLookupByLibrary.simpleMessage("上一頁"),
+        "print": MessageLookupByLibrary.simpleMessage("打印"),
         "priority": MessageLookupByLibrary.simpleMessage("優先級"),
         "priority1": MessageLookupByLibrary.simpleMessage("緊急 & 重要"),
         "priority2": MessageLookupByLibrary.simpleMessage("不緊急 & 重要"),
@@ -1280,6 +1292,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveType": MessageLookupByLibrary.simpleMessage("是否重複"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("重複日期"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("重複星期"),
+        "replace": MessageLookupByLibrary.simpleMessage("替換"),
+        "replace_all": MessageLookupByLibrary.simpleMessage("全部替換"),
         "reply": MessageLookupByLibrary.simpleMessage("回"),
         "report2": MessageLookupByLibrary.simpleMessage("舉報"),
         "request_error_try_again":
@@ -1324,6 +1338,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturday": MessageLookupByLibrary.simpleMessage("週六"),
         "saturdayShort": MessageLookupByLibrary.simpleMessage("六"),
         "save": MessageLookupByLibrary.simpleMessage("保存"),
+        "save_as_template": MessageLookupByLibrary.simpleMessage("保存為模板"),
         "save_failure": MessageLookupByLibrary.simpleMessage("保存失敗"),
         "save_success": MessageLookupByLibrary.simpleMessage("保存成功"),
         "saving": MessageLookupByLibrary.simpleMessage("保存中"),
@@ -1418,6 +1433,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "target_reward": MessageLookupByLibrary.simpleMessage("目標獎勵一直"),
         "target_time": MessageLookupByLibrary.simpleMessage("目標時間"),
         "task": MessageLookupByLibrary.simpleMessage("任務"),
+        "task_activity": MessageLookupByLibrary.simpleMessage("任務動態"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("任務列表"),
         "theme": MessageLookupByLibrary.simpleMessage("主題"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("30分鐘"),
@@ -1521,6 +1537,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_now": MessageLookupByLibrary.simpleMessage("立即更新"),
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
         "update_time_last_time": MessageLookupByLibrary.simpleMessage("最新更新時間"),
+        "upload_attachment": MessageLookupByLibrary.simpleMessage("上傳附件"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("圖片上傳中"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("用戶存在，可以去重置密碼重置您的密碼"),

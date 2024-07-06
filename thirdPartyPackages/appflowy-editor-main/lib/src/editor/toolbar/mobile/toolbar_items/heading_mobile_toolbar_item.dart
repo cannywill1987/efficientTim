@@ -35,17 +35,17 @@ class _HeadingMenuState extends State<_HeadingMenu> {
   final headings = [
     HeadingUnit(
       icon: AFMobileIcons.h1,
-      label: AppFlowyEditorL10n.current.mobileHeading1,
+      label: i18nInstanceLocal.mobileHeading1,
       level: 1,
     ),
     HeadingUnit(
       icon: AFMobileIcons.h2,
-      label: AppFlowyEditorL10n.current.mobileHeading2,
+      label: i18nInstanceLocal.mobileHeading2,
       level: 2,
     ),
     HeadingUnit(
       icon: AFMobileIcons.h3,
-      label: AppFlowyEditorL10n.current.mobileHeading3,
+      label: i18nInstanceLocal.mobileHeading3,
       level: 3,
     ),
   ];

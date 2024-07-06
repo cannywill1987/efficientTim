@@ -17,6 +17,7 @@ import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementContain
 import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/StatisticPage.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../util/AnalyticsEventsManager.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
@@ -265,8 +266,21 @@ Widget desktopCenterRouter(String page, Map data) {
  * PC 右侧区域路由配置
  */
 Widget desktopRightRouter(String page, Map data) {
+  // 得到屏幕宽度
+  double width  = 300;
+  double screenWidth = MediaQuery.of(Utility.getGlobalContext()).size.width;
+  print("screenWidth: $screenWidth");
+  double minScreenWidth = 600;
+  double maxScreenWidrth = 1200;
+  if(screenWidth > maxScreenWidrth) {
+    width = 400;
+  } else if (screenWidth <= maxScreenWidrth && screenWidth < minScreenWidth) {
+    width = 300 * (1 +  (maxScreenWidrth - screenWidth) / 200) ;
+  }else {
+    width = 300;
+  }
   Widget getContainer(Widget child) {
-    return Container(width: 340, child: child);
+    return Container(width: width, child: child);
   }
 
   switch (page) {

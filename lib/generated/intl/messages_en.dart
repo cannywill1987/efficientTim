@@ -316,6 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addBillReminder": MessageLookupByLibrary.simpleMessage(
             "Add bill, remind repayment, avoid expectation"),
         "addMissions2": MessageLookupByLibrary.simpleMessage("Add task..."),
+        "addYourLink": MessageLookupByLibrary.simpleMessage("Add your link"),
         "add_bill": MessageLookupByLibrary.simpleMessage("Add bill"),
         "add_content": MessageLookupByLibrary.simpleMessage("Add content"),
         "add_credit_card_bill":
@@ -334,7 +335,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_listing": MessageLookupByLibrary.simpleMessage("add listing"),
         "add_note": MessageLookupByLibrary.simpleMessage("add note"),
         "add_reminder": MessageLookupByLibrary.simpleMessage("Add Reminder"),
-        "add_subtask": MessageLookupByLibrary.simpleMessage("添加子任务"),
+        "add_subtask": MessageLookupByLibrary.simpleMessage("add subtask"),
         "add_successfully": MessageLookupByLibrary.simpleMessage(
             "add successfully, you can be viewed it in TimeLine page"),
         "add_tag": MessageLookupByLibrary.simpleMessage("add tag"),
@@ -409,6 +410,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("return"),
         "back_card": MessageLookupByLibrary.simpleMessage("Back Card"),
         "background": MessageLookupByLibrary.simpleMessage("Wallpaper"),
+        "backgroundColor":
+            MessageLookupByLibrary.simpleMessage("Background Color"),
+        "backgroundColorBlue":
+            MessageLookupByLibrary.simpleMessage("Blue background"),
+        "backgroundColorBrown":
+            MessageLookupByLibrary.simpleMessage("Brown background"),
+        "backgroundColorDefault":
+            MessageLookupByLibrary.simpleMessage("Default background"),
+        "backgroundColorGray":
+            MessageLookupByLibrary.simpleMessage("Gray background"),
+        "backgroundColorGreen":
+            MessageLookupByLibrary.simpleMessage("Green background"),
+        "backgroundColorOrange":
+            MessageLookupByLibrary.simpleMessage("Orange background"),
+        "backgroundColorPink":
+            MessageLookupByLibrary.simpleMessage("Pink background"),
+        "backgroundColorPurple":
+            MessageLookupByLibrary.simpleMessage("Purple background"),
+        "backgroundColorRed":
+            MessageLookupByLibrary.simpleMessage("Red background"),
+        "backgroundColorYellow":
+            MessageLookupByLibrary.simpleMessage("Yellow background"),
         "background_auto_mode": MessageLookupByLibrary.simpleMessage("bg auto"),
         "background_change_auto_prompt_off":
             MessageLookupByLibrary.simpleMessage("background auto change off"),
@@ -430,9 +453,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "bill_this_statement":
             MessageLookupByLibrary.simpleMessage("Bill this statement"),
         "billing_day": MessageLookupByLibrary.simpleMessage("Billing day"),
+        "bold": MessageLookupByLibrary.simpleMessage("Bold"),
         "browse": MessageLookupByLibrary.simpleMessage("Browse"),
         "browser_not_support_multiline": MessageLookupByLibrary.simpleMessage(
             "The browser does not support multiline input. For a better experience, you can download the client."),
+        "bulletedList": MessageLookupByLibrary.simpleMessage("Bulleted List"),
         "buy_training_plan":
             MessageLookupByLibrary.simpleMessage("buy training plan"),
         "byday": MessageLookupByLibrary.simpleMessage("Day"),
@@ -460,6 +485,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "card": MessageLookupByLibrary.simpleMessage("card"),
         "card_number": MessageLookupByLibrary.simpleMessage("Card number"),
         "carelessness": MessageLookupByLibrary.simpleMessage("Carelessness"),
+        "caseSensitive": MessageLookupByLibrary.simpleMessage("Case sensitive"),
         "cause_analysis":
             MessageLookupByLibrary.simpleMessage("cause analysis"),
         "change_background":
@@ -474,7 +500,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatgpt_desc_huawei": MessageLookupByLibrary.simpleMessage(
             "Any question you have will be answered here"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AI Helper"),
+        "checkbox": MessageLookupByLibrary.simpleMessage("Checkbox"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage("Choose an image"),
         "chronograph": MessageLookupByLibrary.simpleMessage("chronograph"),
+        "clearHighlightColor":
+            MessageLookupByLibrary.simpleMessage("Clear highlight color"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage(""),
         "click_to_view": MessageLookupByLibrary.simpleMessage("Click to view"),
         "clock_in": MessageLookupByLibrary.simpleMessage("Clock In"),
@@ -483,6 +513,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clockin_n_days_continuously": m8,
         "clockin_n_days_totally": m9,
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "closeFind": MessageLookupByLibrary.simpleMessage("Close"),
         "close_all_cycle_mission":
             MessageLookupByLibrary.simpleMessage("Close all cycle missions"),
         "close_multi":
@@ -490,6 +521,120 @@ class MessageLookup extends MessageLookupByLibrary {
         "cloud_sync": MessageLookupByLibrary.simpleMessage("cloud sync"),
         "cloud_sync_content": MessageLookupByLibrary.simpleMessage(
             "Used for cross terminal data synchronization"),
+        "cmdConvertToLink":
+            MessageLookupByLibrary.simpleMessage("Convert to link"),
+        "cmdConvertToParagraph":
+            MessageLookupByLibrary.simpleMessage("convert to paragraph"),
+        "cmdCopySelection":
+            MessageLookupByLibrary.simpleMessage("Copy selection"),
+        "cmdCutSelection":
+            MessageLookupByLibrary.simpleMessage("Cut selection"),
+        "cmdDeleteLeft": MessageLookupByLibrary.simpleMessage(
+            "Delete character to the left"),
+        "cmdDeleteLineLeft":
+            MessageLookupByLibrary.simpleMessage("Delete to beginning of line"),
+        "cmdDeleteRight": MessageLookupByLibrary.simpleMessage(
+            "Delete character to the right"),
+        "cmdDeleteWordLeft":
+            MessageLookupByLibrary.simpleMessage("delete word at left"),
+        "cmdDeleteWordRight":
+            MessageLookupByLibrary.simpleMessage("delete word at right"),
+        "cmdExitEditing":
+            MessageLookupByLibrary.simpleMessage("exit editing mode"),
+        "cmdIndent": MessageLookupByLibrary.simpleMessage("indent"),
+        "cmdMoveCursorBottom":
+            MessageLookupByLibrary.simpleMessage("move cursor to the bottom"),
+        "cmdMoveCursorBottomSelect": MessageLookupByLibrary.simpleMessage(
+            "Select all until end of file"),
+        "cmdMoveCursorDown":
+            MessageLookupByLibrary.simpleMessage("move cursor down"),
+        "cmdMoveCursorDownSelect":
+            MessageLookupByLibrary.simpleMessage("Select downward"),
+        "cmdMoveCursorLeft":
+            MessageLookupByLibrary.simpleMessage("move cursor left"),
+        "cmdMoveCursorLeftSelect":
+            MessageLookupByLibrary.simpleMessage("Select left"),
+        "cmdMoveCursorLineEnd": MessageLookupByLibrary.simpleMessage(
+            "move cursor to the end of line"),
+        "cmdMoveCursorLineEndSelect":
+            MessageLookupByLibrary.simpleMessage("Select to end of line"),
+        "cmdMoveCursorLineStart": MessageLookupByLibrary.simpleMessage(
+            "move cursor to start of line"),
+        "cmdMoveCursorLineStartSelect":
+            MessageLookupByLibrary.simpleMessage("Select to start of line"),
+        "cmdMoveCursorRight":
+            MessageLookupByLibrary.simpleMessage("move cursor right"),
+        "cmdMoveCursorRightSelect":
+            MessageLookupByLibrary.simpleMessage("Select right"),
+        "cmdMoveCursorTop":
+            MessageLookupByLibrary.simpleMessage("move cursor to the top"),
+        "cmdMoveCursorTopSelect": MessageLookupByLibrary.simpleMessage(
+            "Select all until start of file"),
+        "cmdMoveCursorUp":
+            MessageLookupByLibrary.simpleMessage("move cursor up"),
+        "cmdMoveCursorUpSelect":
+            MessageLookupByLibrary.simpleMessage("Select upward"),
+        "cmdMoveCursorWordLeft": MessageLookupByLibrary.simpleMessage(
+            "move cursor to word on the left"),
+        "cmdMoveCursorWordLeftSelect":
+            MessageLookupByLibrary.simpleMessage("Select word to the left"),
+        "cmdMoveCursorWordRight": MessageLookupByLibrary.simpleMessage(
+            "move cursor to word on the right"),
+        "cmdMoveCursorWordRightSelect":
+            MessageLookupByLibrary.simpleMessage("Select word to the right"),
+        "cmdOpenFind": MessageLookupByLibrary.simpleMessage("Open Find"),
+        "cmdOpenFindAndReplace":
+            MessageLookupByLibrary.simpleMessage("Open Find and Replace"),
+        "cmdOpenLink": MessageLookupByLibrary.simpleMessage("open link"),
+        "cmdOpenLinks": MessageLookupByLibrary.simpleMessage("open links"),
+        "cmdOutdent": MessageLookupByLibrary.simpleMessage("outdent"),
+        "cmdPasteContent":
+            MessageLookupByLibrary.simpleMessage("paste content"),
+        "cmdPasteContentAsPlainText":
+            MessageLookupByLibrary.simpleMessage("paste content as plain text"),
+        "cmdRedo": MessageLookupByLibrary.simpleMessage("redo"),
+        "cmdScrollPageDown":
+            MessageLookupByLibrary.simpleMessage("scroll page down"),
+        "cmdScrollPageUp":
+            MessageLookupByLibrary.simpleMessage("scroll page up"),
+        "cmdScrollToBottom":
+            MessageLookupByLibrary.simpleMessage("scroll to bottom"),
+        "cmdScrollToTop": MessageLookupByLibrary.simpleMessage("scroll to top"),
+        "cmdSelectAll": MessageLookupByLibrary.simpleMessage("select all"),
+        "cmdTableLineBreak":
+            MessageLookupByLibrary.simpleMessage("Table: add line break"),
+        "cmdTableMoveToDownCellAtSameOffset":
+            MessageLookupByLibrary.simpleMessage(
+                "Move to down cell at same offset"),
+        "cmdTableMoveToLeftCellIfItsAtStartOfCurrentCell":
+            MessageLookupByLibrary.simpleMessage(
+                "Move to left cell if its at start of current cell"),
+        "cmdTableMoveToRightCellIfItsAtTheEndOfCurrentCell":
+            MessageLookupByLibrary.simpleMessage(
+                "Move to right cell if its at the end of current cell"),
+        "cmdTableMoveToUpCellAtSameOffset":
+            MessageLookupByLibrary.simpleMessage(
+                "Move to up cell at same offset"),
+        "cmdTableNavigateCells": MessageLookupByLibrary.simpleMessage(
+            "Navigate around the cells at same offset"),
+        "cmdTableNavigateCellsReverse": MessageLookupByLibrary.simpleMessage(
+            "Navigate around the cells at same offset in reverse"),
+        "cmdTableStopAtTheBeginningOfTheCell":
+            MessageLookupByLibrary.simpleMessage(
+                "Stop at the beginning of the cell"),
+        "cmdToggleBold": MessageLookupByLibrary.simpleMessage("toggle bold"),
+        "cmdToggleCode": MessageLookupByLibrary.simpleMessage("toggle code"),
+        "cmdToggleHighlight":
+            MessageLookupByLibrary.simpleMessage("toggle highlight"),
+        "cmdToggleItalic":
+            MessageLookupByLibrary.simpleMessage("toggle italic"),
+        "cmdToggleStrikethrough":
+            MessageLookupByLibrary.simpleMessage("toggle strikethrough"),
+        "cmdToggleTodoList":
+            MessageLookupByLibrary.simpleMessage("toggle the todo list"),
+        "cmdToggleUnderline":
+            MessageLookupByLibrary.simpleMessage("toggle underline"),
+        "cmdUndo": MessageLookupByLibrary.simpleMessage("undo"),
         "code_dynamic_code_incorrect": MessageLookupByLibrary.simpleMessage(
             "The dynamic code is incorrect"),
         "code_user_exist":
@@ -498,6 +643,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("User does not exist"),
         "code_user_password_not_correct": MessageLookupByLibrary.simpleMessage(
             "Account or password is incorrect"),
+        "colAddAfter": MessageLookupByLibrary.simpleMessage("Add after"),
+        "colAddBefore": MessageLookupByLibrary.simpleMessage("Add before"),
+        "colClear": MessageLookupByLibrary.simpleMessage("Clear Content"),
+        "colDuplicate": MessageLookupByLibrary.simpleMessage("Duplicate"),
+        "colRemove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "color": MessageLookupByLibrary.simpleMessage("Color"),
         "color_optional": MessageLookupByLibrary.simpleMessage("Color"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Latest 7 days"),
         "comment": MessageLookupByLibrary.simpleMessage("Comment"),
@@ -574,8 +725,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuous_days":
             MessageLookupByLibrary.simpleMessage("Continuous Days"),
         "continuously": MessageLookupByLibrary.simpleMessage("Continuing"),
-        "convert_to_note": MessageLookupByLibrary.simpleMessage("转换为笔记"),
+        "convert_to_note":
+            MessageLookupByLibrary.simpleMessage("Convert to Note"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
+        "copyLink": MessageLookupByLibrary.simpleMessage("Copy link"),
         "copy_link": MessageLookupByLibrary.simpleMessage("Copy link"),
         "copy_link_description": m20,
         "copy_mission_model": m21,
@@ -603,7 +756,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("created successfully"),
         "createTag": MessageLookupByLibrary.simpleMessage("create tags"),
         "create_chat": MessageLookupByLibrary.simpleMessage("Create Chat"),
-        "create_copy": MessageLookupByLibrary.simpleMessage("创建副本"),
+        "create_copy": MessageLookupByLibrary.simpleMessage("Create Copy"),
         "create_folder_desc":
             MessageLookupByLibrary.simpleMessage("Create Folder"),
         "create_mission":
@@ -640,7 +793,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "current_amount":
             MessageLookupByLibrary.simpleMessage("Current amount"),
         "custom": MessageLookupByLibrary.simpleMessage("Custom"),
+        "customColor": MessageLookupByLibrary.simpleMessage("Custom color"),
         "customize": MessageLookupByLibrary.simpleMessage("Customize"),
+        "cut": MessageLookupByLibrary.simpleMessage("Cut"),
         "daily_completion_times":
             MessageLookupByLibrary.simpleMessage("Daily Completion Times"),
         "daily_end_time":
@@ -693,13 +848,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "diary": MessageLookupByLibrary.simpleMessage("diary"),
         "digit_password_incorrect":
             MessageLookupByLibrary.simpleMessage("Numeric password incorrect"),
-        "discard": MessageLookupByLibrary.simpleMessage("放弃"),
+        "discard": MessageLookupByLibrary.simpleMessage("Discard"),
         "dismiss_group":
             MessageLookupByLibrary.simpleMessage("Dismiss the group"),
+        "divider": MessageLookupByLibrary.simpleMessage("Divider"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("Do it now"),
         "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
             "Do it now represents tasks that need to be done immediately. Setting \'Do it now\' will initiate a countdown."),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
         "dont_remind_again":
             MessageLookupByLibrary.simpleMessage("Don\'t remind again"),
         "downloading_please_wait":
@@ -707,6 +864,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "each": MessageLookupByLibrary.simpleMessage("Every"),
         "eachSpace": MessageLookupByLibrary.simpleMessage("Every"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "editLink": MessageLookupByLibrary.simpleMessage("Edit link"),
         "edit_fail": MessageLookupByLibrary.simpleMessage("edit failed"),
         "edit_sharing": MessageLookupByLibrary.simpleMessage("edit sharing"),
         "edit_successfully": MessageLookupByLibrary.simpleMessage(
@@ -716,6 +874,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("E-mail can not be empty"),
+        "embedCode": MessageLookupByLibrary.simpleMessage("Embed Code"),
+        "emptySearchBoxHint":
+            MessageLookupByLibrary.simpleMessage("Enter a pattern"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
             "Write a sentence to encourage yourself~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("Encrypt"),
@@ -769,6 +930,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "feedback": MessageLookupByLibrary.simpleMessage("feedback"),
         "filtering_setting":
             MessageLookupByLibrary.simpleMessage("Filtering Setting"),
+        "find": MessageLookupByLibrary.simpleMessage("Find"),
         "find_new_version":
             MessageLookupByLibrary.simpleMessage("new version found"),
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
@@ -808,6 +970,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Focus on music"),
         "folder": MessageLookupByLibrary.simpleMessage("Folder"),
         "folder_name": MessageLookupByLibrary.simpleMessage("Folder Name"),
+        "fontColorBlue": MessageLookupByLibrary.simpleMessage("Blue"),
+        "fontColorBrown": MessageLookupByLibrary.simpleMessage("Brown"),
+        "fontColorDefault": MessageLookupByLibrary.simpleMessage("Default"),
+        "fontColorGray": MessageLookupByLibrary.simpleMessage("Gray"),
+        "fontColorGreen": MessageLookupByLibrary.simpleMessage("Green"),
+        "fontColorOrange": MessageLookupByLibrary.simpleMessage("Orange"),
+        "fontColorPink": MessageLookupByLibrary.simpleMessage("Pink"),
+        "fontColorPurple": MessageLookupByLibrary.simpleMessage("Purple"),
+        "fontColorRed": MessageLookupByLibrary.simpleMessage("Red"),
+        "fontColorYellow": MessageLookupByLibrary.simpleMessage("Yellow"),
         "four_pws": MessageLookupByLibrary.simpleMessage(
             "Please enter a 4-digit digital password"),
         "four_quadrant": MessageLookupByLibrary.simpleMessage("Quadrant"),
@@ -907,9 +1079,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Develop a habit in 21 days, Ebbinghaus\' long-term memory of what\'s learned"),
         "hasLogined": MessageLookupByLibrary.simpleMessage("already logged in"),
         "header_input_placeholder_with_title": m52,
+        "heading1": MessageLookupByLibrary.simpleMessage("H1"),
+        "heading2": MessageLookupByLibrary.simpleMessage("H2"),
+        "heading3": MessageLookupByLibrary.simpleMessage("H3"),
         "heavy": MessageLookupByLibrary.simpleMessage("heavy"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
+        "hexValue": MessageLookupByLibrary.simpleMessage("Hex value"),
         "hidden": MessageLookupByLibrary.simpleMessage("hidden"),
+        "highlight": MessageLookupByLibrary.simpleMessage("Highlight"),
+        "highlightColor":
+            MessageLookupByLibrary.simpleMessage("Highlight Color"),
         "hint_search_chat":
             MessageLookupByLibrary.simpleMessage("Search chat history"),
         "history_event":
@@ -922,7 +1101,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "i_know": MessageLookupByLibrary.simpleMessage("I know"),
         "icon": MessageLookupByLibrary.simpleMessage("Icon"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
+        "imageLoadFailed":
+            MessageLookupByLibrary.simpleMessage("Could not load the image"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7 days later"),
+        "incorrectLink": MessageLookupByLibrary.simpleMessage("Incorrect Link"),
         "inputSmsVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Please input sms dynamic code"),
         "input_6_digit_password": MessageLookupByLibrary.simpleMessage(
@@ -953,6 +1135,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Targeted push settings"),
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Turn on targeted push settings, which will help you to be notified of the completion of your tasks"),
+        "italic": MessageLookupByLibrary.simpleMessage("Italic"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("January"),
         "jan_to_dec":
@@ -974,7 +1157,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("skip this version"),
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("June"),
-        "label": MessageLookupByLibrary.simpleMessage("标签"),
+        "label": MessageLookupByLibrary.simpleMessage("Label"),
         "landscape": MessageLookupByLibrary.simpleMessage("Landscape"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("last week"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
@@ -996,9 +1179,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "level5_write_words": MessageLookupByLibrary.simpleMessage(
             "Difficulty 5: silent writing"),
         "light": MessageLookupByLibrary.simpleMessage("light"),
+        "lightLightTint1": MessageLookupByLibrary.simpleMessage("Purple"),
+        "lightLightTint2": MessageLookupByLibrary.simpleMessage("Pink"),
+        "lightLightTint3": MessageLookupByLibrary.simpleMessage("Light Pink"),
+        "lightLightTint4": MessageLookupByLibrary.simpleMessage("Orange"),
+        "lightLightTint5": MessageLookupByLibrary.simpleMessage("Yellow"),
+        "lightLightTint6": MessageLookupByLibrary.simpleMessage("Lime"),
+        "lightLightTint7": MessageLookupByLibrary.simpleMessage("Green"),
+        "lightLightTint8": MessageLookupByLibrary.simpleMessage("Aqua"),
+        "lightLightTint9": MessageLookupByLibrary.simpleMessage("Blue"),
         "light_mode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "link": MessageLookupByLibrary.simpleMessage("Link"),
+        "linkAddressHint":
+            MessageLookupByLibrary.simpleMessage("Please enter URL"),
+        "linkText": MessageLookupByLibrary.simpleMessage("Text"),
+        "linkTextHint":
+            MessageLookupByLibrary.simpleMessage("Please enter text"),
         "list": MessageLookupByLibrary.simpleMessage("List"),
+        "listItemPlaceholder":
+            MessageLookupByLibrary.simpleMessage("List item"),
         "listing": MessageLookupByLibrary.simpleMessage("Listing"),
         "listing_icon_optional":
             MessageLookupByLibrary.simpleMessage("Listing icon"),
@@ -1045,6 +1244,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Long rest interval"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("Loop Setting"),
         "lottery": MessageLookupByLibrary.simpleMessage("lottery"),
+        "ltr": MessageLookupByLibrary.simpleMessage("LTR"),
         "lyubichs": MessageLookupByLibrary.simpleMessage("Lyubichs duration"),
         "manual": MessageLookupByLibrary.simpleMessage("Manual"),
         "manual_create": MessageLookupByLibrary.simpleMessage("Manual Create"),
@@ -1117,6 +1317,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "mission_value_toast": m68,
         "missioncompleted":
             MessageLookupByLibrary.simpleMessage("Finished Tasks"),
+        "mobileHeading1": MessageLookupByLibrary.simpleMessage("Heading 1"),
+        "mobileHeading2": MessageLookupByLibrary.simpleMessage("Heading 2"),
+        "mobileHeading3": MessageLookupByLibrary.simpleMessage("Heading 3"),
         "modify_name_listing": m69,
         "modify_name_tag": m70,
         "module_filtering_setting":
@@ -1142,6 +1345,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "move_to_next": MessageLookupByLibrary.simpleMessage("Move Right"),
         "move_to_previous": MessageLookupByLibrary.simpleMessage("Move Left"),
         "multi_select": MessageLookupByLibrary.simpleMessage("Multi select"),
+        "multi_subtask": MessageLookupByLibrary.simpleMessage("子任务"),
         "multi_view": MessageLookupByLibrary.simpleMessage("Multiple Views"),
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "Quadrants, categories, lists, groups, timelines, schedules, Gantt charts, calendars - various views to meet all your needs"),
@@ -1161,13 +1365,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Username needs to be set"),
         "network_error": MessageLookupByLibrary.simpleMessage("Network error"),
         "new_card": MessageLookupByLibrary.simpleMessage("New Card"),
+        "new_rich_editor": MessageLookupByLibrary.simpleMessage("新富文本"),
         "newline": m78,
+        "nextMatch": MessageLookupByLibrary.simpleMessage("Next match"),
         "nextMission": MessageLookupByLibrary.simpleMessage("Next task:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("Next step"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("next week"),
+        "next_match": MessageLookupByLibrary.simpleMessage("Next match"),
         "next_page": MessageLookupByLibrary.simpleMessage("next page"),
         "next_time": MessageLookupByLibrary.simpleMessage("next time"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noFindResult": MessageLookupByLibrary.simpleMessage("No result"),
         "no_auth": MessageLookupByLibrary.simpleMessage("no auth"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "no_delayed_task":
@@ -1181,6 +1389,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_project_parenthese":
             MessageLookupByLibrary.simpleMessage("(No project)"),
         "no_ranking": MessageLookupByLibrary.simpleMessage("no ranking"),
+        "no_result": MessageLookupByLibrary.simpleMessage("No result"),
         "no_task": MessageLookupByLibrary.simpleMessage("no task"),
         "no_time_limit": MessageLookupByLibrary.simpleMessage("unlimited"),
         "no_tomotoes_finished":
@@ -1212,6 +1421,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "note_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, indexSearchingStart: null, state: 0, indexSearchingEnd: null, background_url: null, title: 1. Click on the upper rig, folder_id: null, flomo_object_id: null, type: 1, masterScore: 1.0, update_time: 1699019897598, causeAnalysis: [], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 0, wqbWrongQuestionContent: , wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 0, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: , wqbAnswerRichContentUrl: , content: 1. Click on the upper right corner and select Set to Desktop Components\n2. Desktop widgets can be set up on Android, iPhone, and Mac, device_id: B5CC32ED-595A-54B7-A814-7BC911FBD2D4, tagNames: [], tagIds: null, isFinished: null, color: 4291946748, order_index: 4, status: null, priorityStatus: null, uid: 0aa14757-7695-4e52-9b23-45f839a16715}"),
         "note_short": MessageLookupByLibrary.simpleMessage("note"),
+        "note_text": MessageLookupByLibrary.simpleMessage("note"),
         "notification0": MessageLookupByLibrary.simpleMessage(
             "It\'s time to make plans for tomorrow"),
         "notification1": MessageLookupByLibrary.simpleMessage(
@@ -1283,6 +1493,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "num_tomatoes": m89,
         "num_unit": m90,
         "number_present": m91,
+        "numberedList": MessageLookupByLibrary.simpleMessage("Numbered List"),
         "objective": MessageLookupByLibrary.simpleMessage("Purpose"),
         "oct": MessageLookupByLibrary.simpleMessage("Oct"),
         "octFull": MessageLookupByLibrary.simpleMessage("October"),
@@ -1300,7 +1511,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("Only me"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("Only share with friends"),
-        "open_sticky_note": MessageLookupByLibrary.simpleMessage("打开便签"),
+        "opacity": MessageLookupByLibrary.simpleMessage("Opacity"),
+        "openLink": MessageLookupByLibrary.simpleMessage("Open link"),
+        "open_sticky_note":
+            MessageLookupByLibrary.simpleMessage("Open Sticky Note"),
         "optional": MessageLookupByLibrary.simpleMessage("optional"),
         "optional_with_parenthese":
             MessageLookupByLibrary.simpleMessage("(optional)"),
@@ -1337,6 +1551,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password required for sharing files"),
         "password_set_success":
             MessageLookupByLibrary.simpleMessage("Password set successfully"),
+        "paste": MessageLookupByLibrary.simpleMessage("Paste"),
         "pause": MessageLookupByLibrary.simpleMessage("pause"),
         "pc_not_available": MessageLookupByLibrary.simpleMessage(
             "MAC or PC cannot support this function temporarily, please use mobile phone to operate"),
@@ -1350,7 +1565,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_setting":
             MessageLookupByLibrary.simpleMessage("Permission settings"),
         "phoneNo": MessageLookupByLibrary.simpleMessage("phone number"),
-        "pin": MessageLookupByLibrary.simpleMessage("置顶"),
+        "pin": MessageLookupByLibrary.simpleMessage("Pin"),
         "plain_text": MessageLookupByLibrary.simpleMessage("plain text"),
         "play": MessageLookupByLibrary.simpleMessage("play"),
         "pleaseInputTitle":
@@ -1423,8 +1638,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "previewTime": MessageLookupByLibrary.simpleMessage("Estimated Time"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage(
             "Estimated number of tomatoes"),
+        "previousMatch": MessageLookupByLibrary.simpleMessage("Previous match"),
+        "previous_match":
+            MessageLookupByLibrary.simpleMessage("Previous match"),
         "previous_page": MessageLookupByLibrary.simpleMessage("previous page"),
-        "print": MessageLookupByLibrary.simpleMessage("打印"),
+        "print": MessageLookupByLibrary.simpleMessage("Print"),
         "priority": MessageLookupByLibrary.simpleMessage("priority"),
         "priority1": MessageLookupByLibrary.simpleMessage("imp. & urg."),
         "priority2": MessageLookupByLibrary.simpleMessage("not imp. & urg."),
@@ -1461,6 +1679,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Question/Mistake"),
         "question_wrong_question":
             MessageLookupByLibrary.simpleMessage("Question/Wrong Question"),
+        "quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "random_by_alphabet":
             MessageLookupByLibrary.simpleMessage("alphabet challenge"),
         "random_by_alphabetAndNumber": MessageLookupByLibrary.simpleMessage(
@@ -1483,6 +1702,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Recommended Target"),
         "record": MessageLookupByLibrary.simpleMessage("record"),
         "refuse": MessageLookupByLibrary.simpleMessage("reject"),
+        "regex": MessageLookupByLibrary.simpleMessage("Regex"),
+        "regexError": MessageLookupByLibrary.simpleMessage("Regex Error"),
         "register": MessageLookupByLibrary.simpleMessage("register"),
         "registerStep1": MessageLookupByLibrary.simpleMessage(
             "Please enter your mobile phone number to complete the registration, and you can enjoy an efficient life"),
@@ -1493,6 +1714,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Remarks (optional)"),
         "remind": MessageLookupByLibrary.simpleMessage("hint"),
         "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
+        "removeLink": MessageLookupByLibrary.simpleMessage("Remove link"),
         "remove_user": MessageLookupByLibrary.simpleMessage("Remove user"),
         "rename": MessageLookupByLibrary.simpleMessage("Rename"),
         "repaid": MessageLookupByLibrary.simpleMessage("Repaid"),
@@ -1516,6 +1738,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Repeative Value"),
         "repetiveWeekDay":
             MessageLookupByLibrary.simpleMessage("Repeative Days"),
+        "replace": MessageLookupByLibrary.simpleMessage("Replace"),
+        "replaceAll": MessageLookupByLibrary.simpleMessage("Replace all"),
+        "replace_all": MessageLookupByLibrary.simpleMessage("Replace all"),
         "reply": MessageLookupByLibrary.simpleMessage("reply"),
         "report2": MessageLookupByLibrary.simpleMessage("Report"),
         "request_error_try_again": MessageLookupByLibrary.simpleMessage(
@@ -1525,6 +1750,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request permission"),
         "requesting_please_wait":
             MessageLookupByLibrary.simpleMessage("requesting, please wait"),
+        "resetToDefaultColor":
+            MessageLookupByLibrary.simpleMessage("Reset to default color"),
         "reset_password_has_been_sent": MessageLookupByLibrary.simpleMessage(
             "Password reset email has been sent to your email"),
         "reset_pwd": MessageLookupByLibrary.simpleMessage("reset password"),
@@ -1557,6 +1784,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "I want you to act as an intelligent input method, returning an array of phrases List<String> that the user might input based on the prompt. The array should contain no more than 20 items and must cover the words input by the user (Note: We are not discussing the entire history)."),
         "role_time_manager":
             MessageLookupByLibrary.simpleMessage("Time Manager"),
+        "rowAddAfter": MessageLookupByLibrary.simpleMessage("Add after"),
+        "rowAddBefore": MessageLookupByLibrary.simpleMessage("Add before"),
+        "rowClear": MessageLookupByLibrary.simpleMessage("Clear Content"),
+        "rowDuplicate": MessageLookupByLibrary.simpleMessage("Duplicate"),
+        "rowRemove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "rtl": MessageLookupByLibrary.simpleMessage("RTL"),
         "rules_for_ai": MessageLookupByLibrary.simpleMessage("RULES FOR AI"),
         "rusty": MessageLookupByLibrary.simpleMessage("rusty"),
         "sales": MessageLookupByLibrary.simpleMessage("sales"),
@@ -1566,10 +1799,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturday": MessageLookupByLibrary.simpleMessage("Sat"),
         "saturdayShort": MessageLookupByLibrary.simpleMessage("Sat"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
-        "save_as_template": MessageLookupByLibrary.simpleMessage("保存为模板"),
+        "save_as_template":
+            MessageLookupByLibrary.simpleMessage("Save as Template"),
         "save_failure": MessageLookupByLibrary.simpleMessage("Save Failed"),
+        "save_img_success": MessageLookupByLibrary.simpleMessage("保存图片成功"),
         "save_success": MessageLookupByLibrary.simpleMessage("Save Successful"),
         "saving": MessageLookupByLibrary.simpleMessage("Saving"),
+        "saving_img": MessageLookupByLibrary.simpleMessage("图片保存中"),
         "schedule": MessageLookupByLibrary.simpleMessage("Calendar"),
         "screen_rorate": MessageLookupByLibrary.simpleMessage("Rotate screen"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -1636,6 +1872,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "six_hours": MessageLookupByLibrary.simpleMessage("Six hours"),
         "six_months": MessageLookupByLibrary.simpleMessage("Six months"),
         "skilled": MessageLookupByLibrary.simpleMessage("skilled"),
+        "slashPlaceHolder": MessageLookupByLibrary.simpleMessage(
+            "Enter a / to insert a block, or start typing"),
         "slide_left_right":
             MessageLookupByLibrary.simpleMessage("Sliding left and right"),
         "smsVerificationCode":
@@ -1658,6 +1896,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stop": MessageLookupByLibrary.simpleMessage("stop"),
         "stop_focusing_mission_name": m105,
         "stop_resting_mission_name": m106,
+        "strikethrough": MessageLookupByLibrary.simpleMessage("Strikethrough"),
         "sub_task_add_newline": MessageLookupByLibrary.simpleMessage(
             "Subtask - Add&update By Clicking Enter"),
         "submit": MessageLookupByLibrary.simpleMessage("submit"),
@@ -1673,6 +1912,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "switch_font": MessageLookupByLibrary.simpleMessage("Switch font"),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "Switch to timer mode, will work next time"),
+        "table": MessageLookupByLibrary.simpleMessage("Table"),
         "tag": MessageLookupByLibrary.simpleMessage("Tag"),
         "tagNames": MessageLookupByLibrary.simpleMessage("Tags"),
         "target_details":
@@ -1682,8 +1922,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "target_reward": MessageLookupByLibrary.simpleMessage("Target Reward"),
         "target_time": MessageLookupByLibrary.simpleMessage("Target Time"),
         "task": MessageLookupByLibrary.simpleMessage("Task"),
-        "task_activity": MessageLookupByLibrary.simpleMessage("任务动态"),
+        "task_activity": MessageLookupByLibrary.simpleMessage("Task Activity"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("Task List"),
+        "text": MessageLookupByLibrary.simpleMessage("Text"),
+        "textAlignCenter": MessageLookupByLibrary.simpleMessage("Align Center"),
+        "textAlignLeft": MessageLookupByLibrary.simpleMessage("Align Left"),
+        "textAlignRight": MessageLookupByLibrary.simpleMessage("Align Right"),
+        "textColor": MessageLookupByLibrary.simpleMessage("Text Color"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("Thirty minutes"),
         "thisWeek": MessageLookupByLibrary.simpleMessage("this week"),
@@ -1709,12 +1954,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "timelineview": MessageLookupByLibrary.simpleMessage("Timeline view"),
         "timer": MessageLookupByLibrary.simpleMessage("timer"),
         "times": MessageLookupByLibrary.simpleMessage("times"),
+        "tint1": MessageLookupByLibrary.simpleMessage("Tint 1"),
+        "tint2": MessageLookupByLibrary.simpleMessage("Tint 2"),
+        "tint3": MessageLookupByLibrary.simpleMessage("Tint 3"),
+        "tint4": MessageLookupByLibrary.simpleMessage("Tint 4"),
+        "tint5": MessageLookupByLibrary.simpleMessage("Tint 5"),
+        "tint6": MessageLookupByLibrary.simpleMessage("Tint 6"),
+        "tint7": MessageLookupByLibrary.simpleMessage("Tint 7"),
+        "tint8": MessageLookupByLibrary.simpleMessage("Tint 8"),
+        "tint9": MessageLookupByLibrary.simpleMessage("Tint 9"),
         "tipsAlertTone":
             MessageLookupByLibrary.simpleMessage("Reminder ringtone"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),
         "title_consume":
             MessageLookupByLibrary.simpleMessage("Amount of consumption"),
         "title_data": m109,
+        "toDoPlaceholder": MessageLookupByLibrary.simpleMessage("To-do"),
         "to_login": MessageLookupByLibrary.simpleMessage("Go to Login Page"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "today_data": MessageLookupByLibrary.simpleMessage("Today\'s data"),
@@ -1775,6 +2030,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unarchive": MessageLookupByLibrary.simpleMessage("Unarchive"),
         "uncomplete_plan_classification": MessageLookupByLibrary.simpleMessage(
             "Unfinished plan classification"),
+        "underline": MessageLookupByLibrary.simpleMessage("Underline"),
         "unfinished": MessageLookupByLibrary.simpleMessage("Unfinished"),
         "unit": MessageLookupByLibrary.simpleMessage("Unit"),
         "unitMissions": MessageLookupByLibrary.simpleMessage("Tasks"),
@@ -1812,9 +2068,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("update completed"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("Latest Update Time"),
-        "upload_attachment": MessageLookupByLibrary.simpleMessage("上传附件"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "uploadImage": MessageLookupByLibrary.simpleMessage("Upload"),
+        "upload_attachment":
+            MessageLookupByLibrary.simpleMessage("Upload Attachment"),
         "uploading_pic":
             MessageLookupByLibrary.simpleMessage("Uploading Image"),
+        "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
+        "urlImage": MessageLookupByLibrary.simpleMessage("URL"),
         "user_exist_reset_password": MessageLookupByLibrary.simpleMessage(
             "User exists, you can reset your password"),
         "user_privacy_protocol_title":
