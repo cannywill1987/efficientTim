@@ -1110,13 +1110,13 @@ class CONSTANTS {
     list.add(CheckButtonStateModel(
         code: "new_rich_editor", title: getI18NKey().new_rich_editor, isCheck: true));
     list.add(CheckButtonStateModel(
-        code: "plain_text", title: getI18NKey().plain_text, isCheck: false));
+        code: "record", title: getI18NKey().record, isCheck: false));
     list.add(CheckButtonStateModel(
         code: "image", title: getI18NKey().image, isCheck: false));
     list.add(CheckButtonStateModel(
-        code: "record", title: getI18NKey().record, isCheck: false));
+        code: "plain_text", title: getI18NKey().plain_text + "(" + getI18NKey().deprecated + ")", isCheck: false));
     list.add(CheckButtonStateModel(
-        code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
+        code: "rich_text", title: getI18NKey().rich_text + "(" + getI18NKey().deprecated + ")", isCheck: false));
     return list;
   }
 

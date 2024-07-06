@@ -345,7 +345,7 @@ class _SettingItemDetailPageWidgetState<T>
       backgroundColor: ThemeManager.getInstance()
           .getNavigationBarColor(defaultColor: Colors.white),
       actions: getBarWidget(),
-      title: Text(getI18NKey().setting),
+      title: Text(getI18NKey().setting, style: TextStyle(fontSize: 16)),
       //标题居中显示
       centerTitle: true,
     );
@@ -488,6 +488,7 @@ class _SettingItemDetailPageWidgetState<T>
         CustomTabBarWidget(
           list: tabList,
           onCheckedListener: (int index) {
+            Utility.setDesktopMiddileMissionPage(context, isVisible: true);
             this.curTab = index;
             updateUI();
           },

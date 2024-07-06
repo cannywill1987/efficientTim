@@ -1,4 +1,12 @@
 {
+  "deprecated": "即将作废",
+  "in_selection_word_count_and_char_count": "(选中的) 字数: {wordCount}, 字符数: {charCount}",
+  "word_count_and_char_count": "字数: {wordCount}, 字符数: {charCount}",
+  "download_fail": "加载失败",
+  "save_fail": "保存失败",
+  "save_success": "保存成功",
+  "upload_success": "上传成功",
+  "upload_error": "上传失败",
   "@@locale": "zh-CN",
   "bold": "粗体",
   "@bold": {},

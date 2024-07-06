@@ -792,6 +792,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         // if (sceneCode == "CalendarPage"){
         //   Utility.pushDesktopNavigator(context, sceneCode, {});
         // } else {
+        Utility.setDesktopMiddileMissionPage(context, isVisible: true);
         Utility.popupDesktopRightNavigator(context);
         Utility.pushDesktopMainContainerNavigator(context, sceneCode, {});
         // }

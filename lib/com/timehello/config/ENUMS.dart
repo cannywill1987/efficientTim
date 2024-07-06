@@ -1,3 +1,10 @@
+enum LoadingStatusEnum {
+  normal,
+  loading,
+  success,
+  error,
+}
+
 enum FileExtension {
   md,
   json,

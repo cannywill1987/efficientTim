@@ -1,11 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:provider/provider.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
-import 'package:time_hello/com/timehello/page/FeedbackPage/FeedbackPage.dart';
-
-import '../../../util/Utility.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 /**
  * 右上角的控制按钮
@@ -27,12 +27,13 @@ class AppFlowyControlWidget extends StatelessWidget {
     // 横着排列4个inkwell封装的icon按钮
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
-      children: getButtons(),
+      children: getButtons(context),
     );
   }
 
-  List<Widget> getButtons() {
+  List<Widget> getButtons(BuildContext context) {
     List<Widget> listWidgets = [];
+    bool isExpand = Utility.getGlobalContext().read<Env>().isMiddleMissionPageVisible;
     List list = [];
     // list.add(CheckButtonStateModel(
     //     code: 'report',
@@ -47,12 +48,18 @@ class AppFlowyControlWidget extends StatelessWidget {
     // if (this.chatGptPageEnum == ChatGptPageEnum.chatGptPage || this.chatGptPageEnum == ChatGptPageEnum.morePage) {
     //   list.addAll(this.list);
     // }
-
+    // if(!Utility.isHandsetBySize())
     list.add(CheckButtonStateModel(
-        code: 'close',
-        checkIcon: Icon(
+        code: 'expand',
+        checkIcon: isExpand ? Icon(
           // windows 扩大icon
-          Icons.expand,
+          Icons.open_in_full,
+          color: ThemeManager.getInstance().getDefautThemeColor(),
+          size: 16,
+        ):Icon(
+          // windows 扩大icon
+          Icons.close_fullscreen,
+          color: ThemeManager.getInstance().getDefautThemeColor(),
           size: 16,
         )));
     list.forEach((element) {

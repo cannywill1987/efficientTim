@@ -36,18 +36,30 @@ import 'missionPage/MissionContainerPage.dart';
 import 'missionPage/MissionPage.dart';
 
 getMainPage([String? page]) {
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    children: [
-      Expanded(child: buildBodyFunction(page)),
-      Container(
-        height: double.infinity,
-        width: 2,
-        color: Color(0xff3d8f8),
-      ),
-      RightSide()
-    ],
-  );
+  return Selector<Env, bool>(
+      selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
+      builder: (_, isMiddleMissionPageVisible, __) {
+        // if(isMiddleMissionPageVisible == false) {
+        //   return Container();
+        // }
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            if(isMiddleMissionPageVisible == true)
+            Expanded(child: buildBodyFunction(page)),
+            Container(
+              height: double.infinity,
+              width: 2,
+              color: Color(0xff3d8f8),
+            ),
+            if(isMiddleMissionPageVisible == true)
+            RightSide()
+            else
+            Expanded(child: RightSide()),
+          ],
+        );
+      });
+
 }
 
 // getMainTomatoPage(String page) {
@@ -289,6 +301,15 @@ Widget desktopRightRouter(String page, Map data) {
         key: ValueKey("ejzifjf123"),
         missionModel: data['missionModel'],
       ));
+      // return Selector<Env, bool>(
+      //     selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
+      //     builder: (_, isMiddleMissionPageVisible, __) {
+      //       if(isMiddleMissionPageVisible == false) {
+      //         width = 600;
+      //       }
+      //
+      //     });
+
     case 'ChatGptPage':
       return getContainer(ChatGptPage(
         key: ValueKey("ejzifjf123zefzef"),

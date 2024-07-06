@@ -1,11 +1,14 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.dart';
 import 'package:time_hello/com/timehello/components/EmptyWidget.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/components/HeaderNavBar.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../components/ImagesWrapperWidget.dart';
@@ -29,6 +32,7 @@ class ComposedRichEditorWidget extends StatefulWidget {
   SaveModeEnum saveModeEnum;
   Function onTapOk;
   MissionModel missionModel;
+
   // WQBWrongQuestBookSceneEnum wqbSceneEnum = WQBWrongQuestBookSceneEnum.knowledge_point;
 
   ComposedRichEditorWidget(
@@ -52,21 +56,22 @@ class ComposedRichEditorWidget extends StatefulWidget {
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return ComposedRichEditorWidgetState(
-        saveModeEnum: this.saveModeEnum,
-        missionModelTmp: this.missionModel);
+        saveModeEnum: this.saveModeEnum, missionModelTmp: this.missionModel);
   }
 }
 
-class ComposedRichEditorWidgetState
-    extends State<ComposedRichEditorWidget> {
-
+class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
   SaveModeEnum saveModeEnum;
   MissionModel missionModel = MissionModel();
-  List<CheckButtonStateModel> blackButtonListForReading = CONSTANTS.getWQBEditTypeModelList();
+  List<CheckButtonStateModel> blackButtonListForReading =
+      CONSTANTS.getWQBEditTypeModelList();
   GlobalKey<BlackCheckButtonListWidgetState>
       localKeyBlackCheckButtonListWidget =
       GlobalKey<BlackCheckButtonListWidgetState>();
+  GlobalKey<HeaderNavBarState> localKeyHeaderNavBar =
+      GlobalKey<HeaderNavBarState>();
   AppflowyPage? appflowyPage;
+
   // image,
   // record,
   // plain_text,
@@ -74,8 +79,7 @@ class ComposedRichEditorWidgetState
   WQBEditModeEnum editModeEnum = WQBEditModeEnum.new_rich_text;
 
   ComposedRichEditorWidgetState(
-      {required this.saveModeEnum,
-      required MissionModel missionModelTmp}) {
+      {required this.saveModeEnum, required MissionModel missionModelTmp}) {
     if (missionModelTmp != null)
       missionModel = MissionModel.fromJson(missionModelTmp.toJson());
   }
@@ -95,11 +99,12 @@ class ComposedRichEditorWidgetState
   @override
   void didUpdateWidget(ComposedRichEditorWidget oldWidget) {
     //如果有新数据会走这里 加了页面刷新数据会被清空
-    if (this.widget.missionModel != null && this.widget.missionModel.objectId != this.missionModel.objectId) {
-      missionModel =
-          MissionModel.fromJson(this.widget.missionModel.toJson());
-      this.saveModeEnum = SaveModeEnum.normal;
+    if (this.widget.missionModel != null &&
+        this.widget.missionModel.objectId != this.missionModel.objectId) {
+      missionModel = MissionModel.fromJson(this.widget.missionModel.toJson());
+      // this.saveModeEnum = SaveModeEnum.normal;
       this.editModeEnum = getEditModeEnum();
+      jumpToTabIndexForEditMode(0);
     }
     // blackButtonListForReading = this.getWQBEditTypeModelList();
   }
@@ -108,9 +113,20 @@ class ComposedRichEditorWidgetState
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      HeaderNavBar( onTapListener: (index, CheckButtonStateModel ) {
-        jumpToTabIndexForNormal(index);
-      },),
+      HeaderNavBar(
+        key: localKeyHeaderNavBar,
+        onTapListener: (index, CheckButtonStateModel model) {
+          if (model.code == "expand") {
+            if (context.read<Env>().isMiddleMissionPageVisible == true) {
+              Utility.setDesktopMiddileMissionPage(context, isVisible: false);
+            } else {
+              Utility.setDesktopMiddileMissionPage(context, isVisible: true);
+            }
+          }
+
+          jumpToTabIndexForNormal(index);
+        },
+      ),
       // TitleContainerWidget(
       //     title: this.widget.title ,
       //     rightPartContainer: Wrap(
@@ -180,8 +196,8 @@ class ComposedRichEditorWidgetState
       //     )),
       Container(
           width: double.infinity,
-          height: 2,
-          color: ColorsConfig.borderLineColor),
+          height: 1,
+          color: ThemeManager.getInstance().getDefautThemeColor()),
       Expanded(
         child: getWidget(),
       )
@@ -271,41 +287,42 @@ class ComposedRichEditorWidgetState
       case "new_rich_editor":
         editModeEnum = WQBEditModeEnum.new_rich_text;
         break;
-
     }
     setEditType();
+    localKeyHeaderNavBar.currentState?.setCheck(index);
     updateUi();
   }
 
   void jumpToTabIndexForNormal(index) {
-    if(blackButtonListForReading.length > 0) {
-    CheckButtonStateModel checkButtonStateModel =
-        blackButtonListForReading[index];
-    switch (checkButtonStateModel.code) {
-      case "image":
-        editModeEnum = WQBEditModeEnum.image;
-        break;
-      case "record":
-        editModeEnum = WQBEditModeEnum.record;
-        break;
-      case "plain_text":
-        editModeEnum = WQBEditModeEnum.plain_text;
-        break;
-      case "rich_text":
-        editModeEnum = WQBEditModeEnum.rich_text;
-        break;
-      case "new_rich_editor":
-        editModeEnum = WQBEditModeEnum.new_rich_text;
-        break;
-    }
-    // setEditType();
-    updateUi();
+    if (blackButtonListForReading.length > 0) {
+      CheckButtonStateModel checkButtonStateModel =
+          blackButtonListForReading[index];
+      switch (checkButtonStateModel.code) {
+        case "image":
+          editModeEnum = WQBEditModeEnum.image;
+          break;
+        case "record":
+          editModeEnum = WQBEditModeEnum.record;
+          break;
+        case "plain_text":
+          editModeEnum = WQBEditModeEnum.plain_text;
+          break;
+        case "rich_text":
+          editModeEnum = WQBEditModeEnum.rich_text;
+          break;
+        case "new_rich_editor":
+          editModeEnum = WQBEditModeEnum.new_rich_text;
+          break;
+      }
+      // setEditType();
+      updateUi();
     }
   }
 
   String getRichContentUrl() {
     String url = "";
-    url = Utility.getOSSOriginFromUrl(this.missionModel.noteRichContentUrl ?? "");
+    url =
+        Utility.getOSSOriginFromUrl(this.missionModel.noteRichContentUrl ?? "");
     // switch (this.widget.wqbSceneEnum) {
     //   case WQBWrongQuestBookSceneEnum.knowledge_point:
     //     url = this.missionModel.wqbKnowledgeRichContentUrl;
@@ -321,23 +338,17 @@ class ComposedRichEditorWidgetState
   }
 
   void save(val) {
-        if (TextUtil.isEmpty(val['url'] ?? "") == false) {
-          this.missionModel.noteRichContentUrl = val['url'] ?? "";
-        }
-        this.widget.missionModel.noteSmallUrls =
-            this.missionModel.noteSmallUrls;
-        this.widget.missionModel.noteBigUrls =
-            this.missionModel.noteBigUrls;
-        this.widget.missionModel.noteOriginUrls =
-            this.missionModel.noteOriginUrls;
-        this.widget.missionModel.notePoint =
-            this.missionModel.notePoint;
-        this.widget.missionModel.message =
-            this.missionModel.message;
-        this.widget.missionModel.noteRichContentUrl =
-            this.missionModel.noteRichContentUrl;
-        this.widget.missionModel.noteRecordUrls =
-            this.missionModel.noteRecordUrls;
+    if (TextUtil.isEmpty(val['url'] ?? "") == false) {
+      this.missionModel.noteRichContentUrl = val['url'] ?? "";
+    }
+    this.widget.missionModel.noteSmallUrls = this.missionModel.noteSmallUrls;
+    this.widget.missionModel.noteBigUrls = this.missionModel.noteBigUrls;
+    this.widget.missionModel.noteOriginUrls = this.missionModel.noteOriginUrls;
+    this.widget.missionModel.notePoint = this.missionModel.notePoint;
+    this.widget.missionModel.message = this.missionModel.message;
+    this.widget.missionModel.noteRichContentUrl =
+        this.missionModel.noteRichContentUrl;
+    this.widget.missionModel.noteRecordUrls = this.missionModel.noteRecordUrls;
 
     // switch (this.widget.wqbSceneEnum) {
     //   case WQBWrongQuestBookSceneEnum.knowledge_point:
@@ -392,8 +403,7 @@ class ComposedRichEditorWidgetState
     //         this.missionModel.wqbAnswerRichContentUrl;
     //     break;
     // }
-    missionModel =
-        MissionModel.fromJson(this.widget.missionModel.toJson());
+    missionModel = MissionModel.fromJson(this.widget.missionModel.toJson());
     // onResult?.call(wqbMissionModel);
     Future.delayed(Duration(seconds: 1), () {
       updateUi();
@@ -402,7 +412,7 @@ class ComposedRichEditorWidgetState
   }
 
   void setRichContentUrl(String url) {
-        this.missionModel.noteRichContentUrl = url;
+    this.missionModel.noteRichContentUrl = url;
     // switch (this.widget.wqbSceneEnum) {
     //   case WQBWrongQuestBookSceneEnum.knowledge_point:
     //     break;
@@ -425,24 +435,22 @@ class ComposedRichEditorWidgetState
         title: getI18NKey().new_rich_editor,
         isCheck: true));
 
-      list.add(CheckButtonStateModel(
-          code: "plain_text",
-          title: getI18NKey().plain_text,
-          isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "plain_text", title: getI18NKey().plain_text, isCheck: false));
     // }
-      if ((this.missionModel.noteSmallUrls?.length ?? 0) > 0) {
-        list.add(CheckButtonStateModel(
-            code: "image", title: getI18NKey().image, isCheck: false));
-      }
-      if ((this.missionModel.noteRecordUrls?.length ?? 0) > 0) {
-        list.add(CheckButtonStateModel(
-            code: "record", title: getI18NKey().record, isCheck: false));
-      }
+    if ((this.missionModel.noteSmallUrls?.length ?? 0) > 0) {
+      list.add(CheckButtonStateModel(
+          code: "image", title: getI18NKey().image, isCheck: false));
+    }
+    if ((this.missionModel.noteRecordUrls?.length ?? 0) > 0) {
+      list.add(CheckButtonStateModel(
+          code: "record", title: getI18NKey().record, isCheck: false));
+    }
 
-      if (!TextUtil.isEmpty(this.missionModel.noteRichContentUrl)) {
-        list.add(CheckButtonStateModel(
-            code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
-      }
+    if (!TextUtil.isEmpty(this.missionModel.noteRichContentUrl)) {
+      list.add(CheckButtonStateModel(
+          code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
+    }
     if (list.length > 0) {
       list[0].isCheck = true;
     }
@@ -470,38 +478,39 @@ class ComposedRichEditorWidgetState
   void setEditType() {
     // switch (this.widget.wqbSceneEnum) {
     //   case WQBWrongQuestBookSceneEnum.knowledge_point:
-        if (this.editModeEnum == WQBEditModeEnum.image) {
-          this.missionModel.notePoint = 0;
-        } else if (this.editModeEnum == WQBEditModeEnum.record) {
-          this.missionModel.notePoint = 1;
-        } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
-          this.missionModel.notePoint = 2;
-        } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
-          this.missionModel.notePoint = 3;
-        } else if (this.editModeEnum == WQBEditModeEnum.new_rich_text) { // 新富文本
-          this.missionModel.notePoint = 4;
-        }
+    if (this.editModeEnum == WQBEditModeEnum.image) {
+      this.missionModel.notePoint = 0;
+    } else if (this.editModeEnum == WQBEditModeEnum.record) {
+      this.missionModel.notePoint = 1;
+    } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
+      this.missionModel.notePoint = 2;
+    } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
+      this.missionModel.notePoint = 3;
+    } else if (this.editModeEnum == WQBEditModeEnum.new_rich_text) {
+      // 新富文本
+      this.missionModel.notePoint = 4;
+    }
   }
 
   List<String> getSmallImageList() {
-        return this.missionModel.noteSmallUrls ?? [];
+    return this.missionModel.noteSmallUrls ?? [];
   }
 
   List<String> getOriginalImageList() {
-        return this.missionModel.noteOriginUrls ?? [];
+    return this.missionModel.noteOriginUrls ?? [];
   }
 
   List<String> getBigImageList() {
-        return this.missionModel.noteBigUrls ?? [];
+    return this.missionModel.noteBigUrls ?? [];
   }
 
   void setImageList(
       {required List<String> smallImageList,
       required List<String> originalImageList,
       required List<String> bigImageList}) {
-        this.missionModel.noteSmallUrls = smallImageList;
-        this.missionModel.noteBigUrls = bigImageList;
-        this.missionModel.noteOriginUrls = originalImageList;
+    this.missionModel.noteSmallUrls = smallImageList;
+    this.missionModel.noteBigUrls = bigImageList;
+    this.missionModel.noteOriginUrls = originalImageList;
     updateUi();
   }
 
@@ -511,8 +520,8 @@ class ComposedRichEditorWidgetState
     if (this.editModeEnum == WQBEditModeEnum.new_rich_text) {
       // if(appflowyPage == null) {
       // if(!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
-        return appflowyPage =
-            AppflowyPage(fileName: this.widget.missionModel.objectId ?? "");
+      return appflowyPage =
+          AppflowyPage(fileName: this.widget.missionModel.objectId ?? "");
       // }
       // } else {
       //   return appflowyPage!;
@@ -533,19 +542,20 @@ class ComposedRichEditorWidgetState
       // )
       //     :
       return ImagesWrapperWidget(
-              isEditable: true,
-              listSmallImages: this.getSmallImageList(),
-              listBigImages: this.getBigImageList(),
-              listOriginImages: this.getOriginalImageList(),
-              onChange: (listOriginImages, listSmallImages, listBigImages) {
-                this.setImageList(
-                    smallImageList: listSmallImages,
-                    originalImageList: listOriginImages,
-                    bigImageList: listBigImages);
-              },
-            );
+        isEditable: true,
+        listSmallImages: this.getSmallImageList(),
+        listBigImages: this.getBigImageList(),
+        listOriginImages: this.getOriginalImageList(),
+        onChange: (listOriginImages, listSmallImages, listBigImages) {
+          this.setImageList(
+              smallImageList: listSmallImages,
+              originalImageList: listOriginImages,
+              bigImageList: listBigImages);
+        },
+      );
     } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
-      return NoteWidget(missionModel: this.missionModel, circleTitle: '', priority: 0);
+      return NoteWidget(
+          missionModel: this.missionModel, circleTitle: '', priority: 0);
     } else if (this.editModeEnum == WQBEditModeEnum.rich_text) {
       return Container(
         child: WQBReadOnlyPage(

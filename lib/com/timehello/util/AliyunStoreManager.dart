@@ -220,6 +220,8 @@ class AliyunStoreManager {
     if (res.statusCode == 200) {
       // print("success");
       return ossFilePathUrl;
+    } else {
+      throw Exception("Failed to setString");
     }
 
     print(res);
@@ -241,7 +243,8 @@ try {
   return data.data;
 } catch (e) {
   print(e);
-  return defaultVal ?? "";
+  throw Exception("Failed to getString");
+  // return defaultVal ?? "";
 }
   }
 //

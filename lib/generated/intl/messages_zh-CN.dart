@@ -135,6 +135,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m54(hour, min, sec) => "${hour}时${min}分${sec}秒";
 
+  static String m127(wordCount, charCount) =>
+      "(选中的) 字数: ${wordCount}, 字符数: ${charCount}";
+
   static String m55(num) => "最多输入${num}个字符";
 
   static String m56(max) => "不能超过${max}字符";
@@ -276,6 +279,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m119(version) => "当前版本${version}";
 
   static String m120(appName) => "欢迎来到\"${appName}\"";
+
+  static String m128(wordCount, charCount) =>
+      "字数: ${wordCount}, 字符数: ${charCount}";
 
   static String m121(diary) => "写了日记「${diary}」";
 
@@ -620,6 +626,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "delete_flomo_mission": m39,
         "delete_success": MessageLookupByLibrary.simpleMessage("删除成功"),
+        "deprecated": MessageLookupByLibrary.simpleMessage("即将作废"),
         "desc_consume": MessageLookupByLibrary.simpleMessage("消费描述"),
         "desktop_widget_with_note_n": m40,
         "detailed_training_plan":
@@ -642,6 +649,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "done": MessageLookupByLibrary.simpleMessage("完成"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("不再提示"),
+        "download_fail": MessageLookupByLibrary.simpleMessage("加载失败"),
         "downloading_please_wait":
             MessageLookupByLibrary.simpleMessage("下载中，请稍后…"),
         "each": MessageLookupByLibrary.simpleMessage("每"),
@@ -840,6 +848,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "image": MessageLookupByLibrary.simpleMessage("图片"),
         "imageLoadFailed": MessageLookupByLibrary.simpleMessage("无法加载图片"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7天后"),
+        "in_selection_word_count_and_char_count": m127,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("链接错误"),
         "inputSmsVerificationCode":
             MessageLookupByLibrary.simpleMessage("输入短信验证码"),
@@ -1431,6 +1440,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturdayShort": MessageLookupByLibrary.simpleMessage("六"),
         "save": MessageLookupByLibrary.simpleMessage("保存"),
         "save_as_template": MessageLookupByLibrary.simpleMessage("保存为模板"),
+        "save_fail": MessageLookupByLibrary.simpleMessage("保存失败"),
         "save_failure": MessageLookupByLibrary.simpleMessage("保存失败"),
         "save_success": MessageLookupByLibrary.simpleMessage("保存成功"),
         "saving": MessageLookupByLibrary.simpleMessage("保存中"),
@@ -1651,6 +1661,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "upload": MessageLookupByLibrary.simpleMessage("上传"),
         "uploadImage": MessageLookupByLibrary.simpleMessage("上传图片"),
         "upload_attachment": MessageLookupByLibrary.simpleMessage("上传附件"),
+        "upload_error": MessageLookupByLibrary.simpleMessage("上传失败"),
+        "upload_success": MessageLookupByLibrary.simpleMessage("上传成功"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("图片上传中"),
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
         "urlImage": MessageLookupByLibrary.simpleMessage("网络图片"),
@@ -1693,6 +1705,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "who_can_view_or_edit":
             MessageLookupByLibrary.simpleMessage("谁可以查看/编辑文件"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage("完成总时长(分钟)"),
+        "word_count_and_char_count": m128,
         "write_a_title": MessageLookupByLibrary.simpleMessage("写标题?"),
         "write_diary": MessageLookupByLibrary.simpleMessage("写日记"),
         "write_your_clockin_feedback":

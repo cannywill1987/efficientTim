@@ -17,6 +17,7 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/editor.dart';
 import 'package:time_hello/com/timehello/util/AliyunStoreManager.dart';
+
 // import 'package:time_hello/com/timehello/util/FirebaseStoreManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -24,6 +25,7 @@ import 'package:universal_html/html.dart' as html;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../config/ENUMS.dart';
+import 'AppFlowyPage2.dart';
 import 'pages/auto_complete_editor.dart';
 import 'pages/collab_editor.dart';
 import 'pages/collab_selection_editor.dart';
@@ -74,11 +76,16 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
   WidgetBuilder? _widgetBuilder;
   late EditorState _editorState;
   late Future<String> _jsonString;
-  bool isLoading = false;
+  String? topText;
+  // bool isLoading = false;
+  bool isEnable = false;
+  LoadingStatusEnum loadingStatusEnum = LoadingStatusEnum.normal;
   @override
   void initState() {
     super.initState();
     this.initData();
+    this.forceAppBarVisible = false;
+    this.isAppBarVisible = false;
   }
 
   // void updateEditMode(EditorEditModeEnum editModeEnum) {
@@ -87,6 +94,31 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
   //     if (mounted) setState(() {});
   //   }
   // }
+
+  setEnable() {
+    Future.delayed(Duration(milliseconds: 1000), () {
+      this.isEnable = true;
+      updateUI();
+    });
+  }
+
+  resetTip() {
+    Future.delayed(Duration(milliseconds: 3000), () {
+      this.loadingStatusEnum = LoadingStatusEnum.normal;
+      updateUI();
+    });
+  }
+
+  @override
+  void didUpdateWidget(AppflowyPage oldWidget) {
+    //如果有新数据会走这里 加了页面刷新数据会被清空
+    if (this.widget.fileName != oldWidget.fileName) {
+      this.isEnable = false;
+      // setEnable();
+      initData();
+    }
+    // blackButtonListForReading = this.getWQBEditTypeModelList();
+  }
 
   Future<String> getFileJsonString(
       ExportFileType fileType, String plainText) async {
@@ -109,16 +141,34 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
     return jsonString;
   }
 
-  Function func = Utility.debounceWith((_HomePageState state) async {
-    state.isLoading = true;
+  setLoadingStatusEnum(LoadingStatusEnum loadingStatusEnum, [String? text]) {
+    if(loadingStatusEnum == LoadingStatusEnum.success) {
+      resetTip();
+    }
+    if (this.loadingStatusEnum != loadingStatusEnum) {
+      this.loadingStatusEnum = loadingStatusEnum;
+      this.topText = text;
+      updateUI();
+    }
+  }
+
+  Function funcDebounce = Utility.debounceWith((_HomePageState state) async {
+    // state.isLoading = true;
+    state.setLoadingStatusEnum(LoadingStatusEnum.loading);
     state.updateUI();
     String s =
         await state._exportFile(state._editorState, ExportFileType.markdown);
-    await AliyunStoreManager.getInstance()
-        .setString(data: s, fileName: state.widget.fileName);
-    // String mkString = await FirebaseStoreManager.getInstance()
-    //     .getString(fileName: state.widget.fileName, defaultVal: "");
-    state.isLoading = false;
+    try {
+      await AliyunStoreManager.getInstance()
+          .setString(data: s, fileName: state.widget.fileName);
+      // String mkString = await FirebaseStoreManager.getInstance()
+      //     .getString(fileName: state.widget.fileName, defaultVal: "");
+      // state.setLoadingStatusEnum(LoadingStatusEnum.normal);
+      state.setLoadingStatusEnum(LoadingStatusEnum.success, getI18NKey().save_success);
+
+    } catch(e) {
+      state.setLoadingStatusEnum(LoadingStatusEnum.error, getI18NKey().save_fail);
+    }
     print("upload success");
     // missionModel.message = val;
     // String valTrim = val.trim();
@@ -135,10 +185,17 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
   }, Duration(milliseconds: 3000));
 
   initData() async {
-    String mkString = await AliyunStoreManager.getInstance()
-        .getString(fileName: this.widget.fileName, defaultVal: "");
+    String mkString;
+    try {
+      mkString = await AliyunStoreManager.getInstance()
+          .getString(fileName: this.widget.fileName, defaultVal: "");
+    } catch (e) {
+      mkString = "";
+      setLoadingStatusEnum(LoadingStatusEnum.error, getI18NKey().download_fail);
 
-    if (TextUtil.isEmpty(mkString.trim())) {
+      print(e);
+    }
+    if (TextUtil.isEmpty(mkString?.trim())) {
       _loadEditor(
           context,
           Future<String>.value(jsonEncode(
@@ -148,6 +205,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
       _jsonString = getFileJsonString(ExportFileType.markdown, mkString);
       _loadEditor(context, _jsonString);
     }
+    setEnable();
   }
 
   @override
@@ -170,16 +228,18 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
       return Stack(
         children: [
           _widgetBuilder!(context),
-          if(isLoading)
-          Positioned(
-            right: 10,
-            top: 10,
-            child: LoadingAnimationWidget.twistingDots(
-              // leftDotColor: const Color(0xFF1A1A3F),
-              // rightDotColor: const Color(0xFFEA3799),
-              size: 15, leftDotColor: Colors.blue, rightDotColor: Colors.red,
+          if (this.loadingStatusEnum != LoadingStatusEnum.normal)
+            Positioned(
+              right: 10,
+              top: 10,
+              child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Color(0x88000000),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: getTipWidget()),
             ),
-          ),
         ],
       );
     } else {
@@ -204,6 +264,38 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
     }
   }
 
+  Widget getTipWidget() {
+    if(this.loadingStatusEnum == LoadingStatusEnum.loading) {
+      return LoadingAnimationWidget.twistingDots(
+        size: 15, leftDotColor: Colors.blue, rightDotColor: Colors.red,
+      );
+    } else if (this.loadingStatusEnum == LoadingStatusEnum.error) {
+      return InkWell(
+        onTap: () {
+          funcDebounce(this);
+        },
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Icon(Icons.refresh, color: Colors.red, size: 15),
+            SizedBox(width: 2,),
+            Text(this.topText ?? "error", style: TextStyle(fontSize: 12)),
+          ],
+        ),
+      );
+    } else if (this.loadingStatusEnum == LoadingStatusEnum.success) {
+      return Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Icon(Icons.check, color: Colors.green, size: 15),
+          SizedBox(width: 2,),
+          Text(this.topText ?? "success", style: TextStyle(fontSize: 12)),
+        ],
+      );
+    }
+    return SizedBox.shrink();
+  }
+
   /**
    * 侧边栏选择后更新的editor
    */
@@ -221,14 +313,16 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
               onUploadCallback: (path) async {
                 try {
                   // final appDocDir = await getApplicationDocumentsDirectory();
-                  isLoading = true;
+                  // isLoading = true;
+                  setLoadingStatusEnum(LoadingStatusEnum.loading);
                   updateUI();
                   final file = File(path);
                   String fileName = Utility.getUUID();
                   XFile xfile = await Utility.compressAndGetFile(file: file);
                   // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
                   // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
-                  String url = await AliyunStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
+                  String url = await AliyunStoreManager.getInstance()
+                      .uploadFile(path: xfile.path, fileName: fileName);
                   // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                   // BaseBean res = await HttpManager.getInstance().uploadImage(
                   //     key: "key",
@@ -236,13 +330,15 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
                   //     url: Apis.uploadOss);
                   //上传图片
                   // uploadPic(xfile);
-                  isLoading = false;
+                  // isLoading = false;
+                  setLoadingStatusEnum(LoadingStatusEnum.normal);
                   updateUI();
                   // return res.data['bigImage'];
                   return url;
                 } catch (e) {
                   print(e);
-                  isLoading = false;
+                  // isLoading = false;
+                  setLoadingStatusEnum(LoadingStatusEnum.normal);
                   updateUI();
                   return "";
                 }
@@ -250,7 +346,10 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
               onEditorStateChange: (editorState) {
                 _editorState = editorState;
                 // updateEditMode(EditorEditModeEnum.editing);
-                func(this);
+                if (this.isEnable == false) {
+                  return;
+                }
+                funcDebounce(this);
               },
               textDirection: textDirection,
             );

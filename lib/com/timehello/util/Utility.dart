@@ -1605,7 +1605,16 @@ class Utility {
     context.read<Env>().curFolderStatus = folderStatus;
   }
 
+  static setDesktopMiddileMissionPage(BuildContext context, {isVisible = true}) {
+    if(Utility.isHandsetBySize() == false) {
+      context
+          .read<Env>()
+          .isMiddleMissionPageVisible = isVisible;
+    }
+  }
+
   static popupDesktopRightNavigator(BuildContext context) {
+    setDesktopMiddileMissionPage(context, isVisible: true);
     if (context.read<Env>().routerRightSideData != null) {
       context.read<Env>().routerRightSideData = null;
     }

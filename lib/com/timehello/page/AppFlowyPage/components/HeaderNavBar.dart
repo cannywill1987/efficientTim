@@ -8,17 +8,25 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import '../../../config/ENUMS.dart';
 import 'AppFlowyControlWidget.dart';
 
-class HeaderNavBar extends StatelessWidget {
-  List<CheckButtonStateModel> listTabBars = CONSTANTS.getWQBEditTypeModelList();
-  final List<CheckButtonStateModel> listTabBarWideget = CONSTANTS.getGPTHeaderControlCheckButtonStateModelList();
+class HeaderNavBar extends StatefulWidget {
   final Function onTapListener;
-  // ChatGptPageEnum chatGptPageEnum;
 
   HeaderNavBar({Key? key, required this.onTapListener}) : super(key: key);
 
   @override
+  HeaderNavBarState createState() => HeaderNavBarState();
+}
+
+class HeaderNavBarState extends State<HeaderNavBar> {
+  List<CheckButtonStateModel> listTabBars = CONSTANTS.getWQBEditTypeModelList();
+  final List<CheckButtonStateModel> listTabBarWideget = CONSTANTS.getGPTHeaderControlCheckButtonStateModelList();
+  GlobalKey<CustomTabBarWidgetState> tabBarKey = GlobalKey();
+  setCheck(int index) {
+    tabBarKey.currentState?.setChecked(index);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     print("Check0:${listTabBars[0].isCheck} check1:${listTabBars[1].isCheck}");
     return Container(
       height: 40,
@@ -28,16 +36,26 @@ class HeaderNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-          CustomTabBarWidget(
-            list: listTabBars,
-            fontSize: 12,
-            onCheckedListener: (int index) {
-              this.onTapListener.call(index, listTabBars[index]);
-            },
+          Expanded(
+            child: CustomTabBarWidget(
+              key: tabBarKey,
+              list: listTabBars,
+              fontSize: 12,
+              onCheckedListener: (int index) {
+                setState(() {
+                  widget.onTapListener.call(index, listTabBars[index]);
+                });
+              },
+            ),
           ),
-          AppFlowyControlWidget(list:listTabBarWideget, onTapListener: (CheckButtonStateModel ) {
-            this.onTapListener.call(CheckButtonStateModel);
-          })
+          AppFlowyControlWidget(
+            list: listTabBarWideget,
+            onTapListener: (CheckButtonStateModel model) {
+              setState(() {
+                widget.onTapListener.call(listTabBarWideget.indexOf(model), model);
+              });
+            },
+          )
         ],
       ),
     );

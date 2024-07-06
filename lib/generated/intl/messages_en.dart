@@ -145,6 +145,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m54(hour, min, sec) => "${hour} hour ${min} min ${sec} sec";
 
+  static String m127(wordCount, charCount) =>
+      "(In-selection) Word count: ${wordCount}, character count: ${charCount}";
+
   static String m55(num) => "Enter up to ${num} characters";
 
   static String m56(max) => "Cannot exceed ${max} characters";
@@ -292,6 +295,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m119(version) => "Current version ${version}";
 
   static String m120(appName) => "Welcome to \"${appName}\"";
+
+  static String m128(wordCount, charCount) =>
+      "Word count: ${wordCount}, character count: ${charCount}";
 
   static String m121(diary) => "wrote a diary:${diary}";
 
@@ -834,6 +840,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_flomo_mission": m39,
         "delete_success":
             MessageLookupByLibrary.simpleMessage("Delete Successfully"),
+        "deprecated": MessageLookupByLibrary.simpleMessage("will deprecated"),
         "desc_consume":
             MessageLookupByLibrary.simpleMessage("consumption description"),
         "desktop_widget_with_note_n": m40,
@@ -859,6 +866,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "dont_remind_again":
             MessageLookupByLibrary.simpleMessage("Don\'t remind again"),
+        "download_fail": MessageLookupByLibrary.simpleMessage("加载失败"),
         "downloading_please_wait":
             MessageLookupByLibrary.simpleMessage("Downloading, please wait..."),
         "each": MessageLookupByLibrary.simpleMessage("Every"),
@@ -1104,6 +1112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "imageLoadFailed":
             MessageLookupByLibrary.simpleMessage("Could not load the image"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7 days later"),
+        "in_selection_word_count_and_char_count": m127,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("Incorrect Link"),
         "inputSmsVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Please input sms dynamic code"),
@@ -1801,6 +1810,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "save_as_template":
             MessageLookupByLibrary.simpleMessage("Save as Template"),
+        "save_fail": MessageLookupByLibrary.simpleMessage("保存失败"),
         "save_failure": MessageLookupByLibrary.simpleMessage("Save Failed"),
         "save_img_success": MessageLookupByLibrary.simpleMessage("保存图片成功"),
         "save_success": MessageLookupByLibrary.simpleMessage("Save Successful"),
@@ -2072,6 +2082,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadImage": MessageLookupByLibrary.simpleMessage("Upload"),
         "upload_attachment":
             MessageLookupByLibrary.simpleMessage("Upload Attachment"),
+        "upload_error": MessageLookupByLibrary.simpleMessage("上传失败"),
+        "upload_success": MessageLookupByLibrary.simpleMessage("上传成功"),
         "uploading_pic":
             MessageLookupByLibrary.simpleMessage("Uploading Image"),
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
@@ -2119,6 +2131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can view/edit files"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage(
             "Total time to complete (minutes)"),
+        "word_count_and_char_count": m128,
         "write_a_title": MessageLookupByLibrary.simpleMessage("Write a title?"),
         "write_diary": MessageLookupByLibrary.simpleMessage("write diary"),
         "write_your_clockin_feedback":

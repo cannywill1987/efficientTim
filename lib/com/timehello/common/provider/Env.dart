@@ -24,6 +24,7 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
   Map? _routerData; //右边那部分
   Map? _jumpFromFolderPageToMissionPage;
   Map? _routerRightSideData;
+  bool _isMiddleMissionPageVisible = true; //中间的任务页面是否可见 点击ComposedRichEditorWidget扩大时用得上 需要设置成false
 
   FolderModel? _curFolderSelected;
 
@@ -94,6 +95,15 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
   set routerMainContainerData(Map? value) {
     _routerMainContainerData = value;
     notifyListeners();
+  }
+
+  bool get isMiddleMissionPageVisible => _isMiddleMissionPageVisible;
+
+  set isMiddleMissionPageVisible(bool value) {
+    if(_isMiddleMissionPageVisible != value) {
+      _isMiddleMissionPageVisible = value;
+      notifyListeners();
+    }
   }
 
   Map? get routerRightSideData => _routerRightSideData ?? null;

@@ -50,6 +50,87 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `will deprecated`
+  String get deprecated {
+    return Intl.message(
+      'will deprecated',
+      name: 'deprecated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(In-selection) Word count: {wordCount}, character count: {charCount}`
+  String in_selection_word_count_and_char_count(
+      Object wordCount, Object charCount) {
+    return Intl.message(
+      '(In-selection) Word count: $wordCount, character count: $charCount',
+      name: 'in_selection_word_count_and_char_count',
+      desc: '',
+      args: [wordCount, charCount],
+    );
+  }
+
+  /// `Word count: {wordCount}, character count: {charCount}`
+  String word_count_and_char_count(Object wordCount, Object charCount) {
+    return Intl.message(
+      'Word count: $wordCount, character count: $charCount',
+      name: 'word_count_and_char_count',
+      desc: '',
+      args: [wordCount, charCount],
+    );
+  }
+
+  /// `加载失败`
+  String get download_fail {
+    return Intl.message(
+      '加载失败',
+      name: 'download_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `保存失败`
+  String get save_fail {
+    return Intl.message(
+      '保存失败',
+      name: 'save_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Successful`
+  String get save_success {
+    return Intl.message(
+      'Save Successful',
+      name: 'save_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传成功`
+  String get upload_success {
+    return Intl.message(
+      '上传成功',
+      name: 'upload_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `上传失败`
+  String get upload_error {
+    return Intl.message(
+      '上传失败',
+      name: 'upload_error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Bold`
   String get bold {
     return Intl.message(
@@ -5455,16 +5536,6 @@ class S {
     return Intl.message(
       'Saving',
       name: 'saving',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Save Successful`
-  String get save_success {
-    return Intl.message(
-      'Save Successful',
-      name: 'save_success',
       desc: '',
       args: [],
     );

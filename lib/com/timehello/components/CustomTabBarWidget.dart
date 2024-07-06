@@ -114,7 +114,7 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize:this.widget.fontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.tabbarChecked)),
               ),
-              Container(width: 20, height: 2, margin: EdgeInsets.only(top: 4),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().getColor(defaultColor: Color(0xffff8800))),)
+              Container(width: 20, height: 2, margin: EdgeInsets.only(top: 4),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().getDefautThemeColor()),)
             ],
           ),
           uncheckWidget: Column(
@@ -135,11 +135,8 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      // color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white),
-      child: Row(
-        children: getTabBarWidgets(),
-      ),
+    return Row(
+      children: getTabBarWidgets(),
     );
     // return new Image.asset(this.widget.checked?this.widget.checkedImg:this.widget.unckeckedImg, width: this.widget.width, height: this.widget.height,fit: BoxFit.cover,);
   }

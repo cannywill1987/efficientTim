@@ -147,14 +147,16 @@ class _EditorState extends State<Editor> {
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Word Count: $wordCount  |  Character Count: $charCount',
+                  getI18NKey().word_count_and_char_count(wordCount, charCount),
                   style: const TextStyle(fontSize: 11),
                 ),
                 if (!(editorState?.selection?.isCollapsed ?? true))
                   Text(
-                    '(In-selection) Word Count: $selectedWordCount  |  Character Count: $selectedCharCount',
+                    getI18NKey().in_selection_word_count_and_char_count(
+                        selectedWordCount, selectedCharCount),
                     style: const TextStyle(fontSize: 11),
                   ),
               ],
