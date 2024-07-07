@@ -157,7 +157,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
     // state.isLoading = true;
     state.setLoadingStatusEnum(LoadingStatusEnum.loading);
     state.updateUI();
-`    try {
+    try {
       await AliyunStoreManager.getInstance()
           .setString(docType: DocType.document, fileExtensionEnum: FileExtension.json, data: await state._exportFile(state._editorState, ExportFileType.documentJson), fileName: state.widget.fileName);
        AliyunStoreManager.getInstance()
