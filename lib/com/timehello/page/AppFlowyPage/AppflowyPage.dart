@@ -157,11 +157,11 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
     // state.isLoading = true;
     state.setLoadingStatusEnum(LoadingStatusEnum.loading);
     state.updateUI();
-    String s =
-        await state._exportFile(state._editorState, ExportFileType.markdown);
     try {
       await AliyunStoreManager.getInstance()
-          .setString(data: s, fileName: state.widget.fileName);
+          .setString(docType: DocType.document, fileExtensionEnum: FileExtension.json, data: await state._exportFile(state._editorState, ExportFileType.documentJson), fileName: state.widget.fileName);
+       AliyunStoreManager.getInstance()
+          .setString(data: await state._exportFile(state._editorState, ExportFileType.markdown), fileName: state.widget.fileName);
       // String mkString = await FirebaseStoreManager.getInstance()
       //     .getString(fileName: state.widget.fileName, defaultVal: "");
       // state.setLoadingStatusEnum(LoadingStatusEnum.normal);
@@ -197,17 +197,18 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
         },
       );
     } else {
-      String mkString;
+      Map? json;
       try {
-        mkString = await AliyunStoreManager.getInstance()
-            .getString(fileName: this.widget.fileName, defaultVal: "");
+        json = await AliyunStoreManager.getInstance()
+            .getJSON(docType: DocType.document, fileExtensionEnum: FileExtension.json, fileName: this.widget.fileName, defaultVal: "");
+
       } catch (e) {
-        mkString = "";
+        json = null;
         setLoadingStatusEnum(
             LoadingStatusEnum.error, getI18NKey().download_fail);
         print(e);
       }
-      if (TextUtil.isEmpty(mkString?.trim())) {
+      if (json == null) {
         _loadEditor(
             context,
             Future<String>.value(jsonEncode(
@@ -217,8 +218,8 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
                   .toJson(),
             ).toString()));
       } else {
-        _jsonString = getFileJsonString(ExportFileType.markdown, mkString);
-        _loadEditor(context, _jsonString);
+        // _jsonString = getFileJsonString(ExportFileType.documentJson, mkString);
+        _loadEditor(context, Future<String>.value(jsonEncode(json!)));
       }
     }
       setEnable();

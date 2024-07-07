@@ -230,6 +230,30 @@ class AliyunStoreManager {
     return "";
   }
 
+  Future<Map> getJSON({DocType docType = DocType.md, FileExtension fileExtensionEnum: FileExtension.md, String fileName = "", String? defaultVal}) async {
+    String fileExt = getFileExtensionByEnum(fileExtensionEnum);
+    String fileType = getFileTypeByEnum(docType);
+    String? uid = LoginManager
+        .getInstance()
+        .getUserBean()
+        .uid ?? "otherUid";
+    try {
+      // List<int>? list = await storageReference.child(
+      //     "/${fileType}/${uid}/${fileName}.${fileExt}").getData();
+
+      String ossFilePathUrl =
+          "${Params
+          .mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
+      BaseBean data = await HttpManager.getInstance().doGetFileContentRequest(
+          ossFilePathUrl);
+      return data.data;
+    } catch (e) {
+      print(e);
+      throw Exception("Failed to getString");
+      // return defaultVal ?? "";
+    }
+  }
+
   // 下载文件
   Future<String> getString({DocType docType = DocType.md, FileExtension fileExtensionEnum: FileExtension.md, String fileName = "", String? defaultVal}) async {
     String fileExt = getFileExtensionByEnum(fileExtensionEnum);
