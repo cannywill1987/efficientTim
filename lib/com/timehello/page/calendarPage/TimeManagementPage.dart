@@ -29,6 +29,7 @@ import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
@@ -469,6 +470,14 @@ class TimeManagementPageState extends State<TimeManagementPage> {
    * 跳转到设置叶敏
    */
   void onClickMissionSetting(data) {
+    if (LoginManager.isLogin() == false) {
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
+      LoginManager.getInstance()
+          .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
+      // Utility.pushNavigator(Utility.getGlobalContext(), new LoginPage(), callback: (res) {
+      // });
+      return null;
+    }
     Utility.popupDesktopRightNavigator(context);
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(

@@ -13,6 +13,7 @@ class Params {
   static String curLatestVersionMAC = '';
   static String curLatestVersionWin = '';
   static String appName = "";
+  static bool isFirstTime = false;
   static String sysCode = "TimerBell"; //埋点用得上 系统编码
   static final bool isDebug = env == EnvEnum.dev;
   static bool hasGuidMissionDataInit = false;

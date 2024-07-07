@@ -17,6 +17,7 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/editor.dart';
 import 'package:time_hello/com/timehello/util/AliyunStoreManager.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 
 // import 'package:time_hello/com/timehello/util/FirebaseStoreManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -57,8 +58,8 @@ extension on ExportFileType {
 
 class AppflowyPage extends BaseWidget {
   final String fileName;
-
-  const AppflowyPage({super.key, this.fileName = 'example1111123'});
+  final bool isDebug;
+  const AppflowyPage({super.key, this.isDebug = false, this.fileName = 'example1111123'});
 
   // @override
   // State<HomePage> createState() => _HomePageState();
@@ -185,27 +186,42 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
   }, Duration(milliseconds: 3000));
 
   initData() async {
-    String mkString;
-    try {
-      mkString = await AliyunStoreManager.getInstance()
-          .getString(fileName: this.widget.fileName, defaultVal: "");
-    } catch (e) {
-      mkString = "";
-      setLoadingStatusEnum(LoadingStatusEnum.error, getI18NKey().download_fail);
-
-      print(e);
-    }
-    if (TextUtil.isEmpty(mkString?.trim())) {
-      _loadEditor(
-          context,
-          Future<String>.value(jsonEncode(
-            EditorState.blank(withInitialText: true).document.toJson(),
-          ).toString()));
+    if(this.widget.isDebug) {
+      _jsonString = PlatformExtension.isDesktopOrWeb
+          ? rootBundle.loadString('assets/appFlowyDemo/example.json')
+          : rootBundle.loadString('assets/appFlowyDemo/mobile_example.json');
+      _widgetBuilder = (context) => Editor(
+        jsonString: _jsonString,
+        onEditorStateChange: (editorState) {
+          _editorState = editorState;
+        },
+      );
     } else {
-      _jsonString = getFileJsonString(ExportFileType.markdown, mkString);
-      _loadEditor(context, _jsonString);
+      String mkString;
+      try {
+        mkString = await AliyunStoreManager.getInstance()
+            .getString(fileName: this.widget.fileName, defaultVal: "");
+      } catch (e) {
+        mkString = "";
+        setLoadingStatusEnum(
+            LoadingStatusEnum.error, getI18NKey().download_fail);
+        print(e);
+      }
+      if (TextUtil.isEmpty(mkString?.trim())) {
+        _loadEditor(
+            context,
+            Future<String>.value(jsonEncode(
+              EditorState
+                  .blank(withInitialText: true)
+                  .document
+                  .toJson(),
+            ).toString()));
+      } else {
+        _jsonString = getFileJsonString(ExportFileType.markdown, mkString);
+        _loadEditor(context, _jsonString);
+      }
     }
-    setEnable();
+      setEnable();
   }
 
   @override
@@ -279,7 +295,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
           children: [
             Icon(Icons.refresh, color: Colors.red, size: 15),
             SizedBox(width: 2,),
-            Text(this.topText ?? "error", style: TextStyle(fontSize: 12)),
+            Text(this.topText ?? "error", style: TextStyle(color: Colors.white, fontSize: 12)),
           ],
         ),
       );
@@ -289,7 +305,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
         children: [
           Icon(Icons.check, color: Colors.green, size: 15),
           SizedBox(width: 2,),
-          Text(this.topText ?? "success", style: TextStyle(fontSize: 12)),
+          Text(this.topText ?? "success", style: TextStyle(color: Colors.white, fontSize: 12)),
         ],
       );
     }
@@ -347,6 +363,12 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
                 _editorState = editorState;
                 // updateEditMode(EditorEditModeEnum.editing);
                 if (this.isEnable == false) {
+                  return;
+                }
+                if (
+                    LoginManager.isLogin() == false) {
+                  LoginManager.getInstance()
+                      .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
                   return;
                 }
                 funcDebounce(this);

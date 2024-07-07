@@ -19,10 +19,11 @@ class WQBAudioRecordListWidget extends StatefulWidget {
   MissionModel? missionModel;
   SaveModeEnum saveModeEnum;
   WQBWrongQuestBookSceneEnum wqbSceneEnum = WQBWrongQuestBookSceneEnum.knowledge_point;
-
+  Function? onChange;
   WQBAudioRecordListWidget(
       {this.wqbMissionModel,
         this.missionModel,
+        this.onChange,
       required this.saveModeEnum,
       required this.wqbSceneEnum});
 
@@ -100,6 +101,7 @@ class WQBAudioRecordListWidgetState extends State<WQBAudioRecordListWidget> {
     setState(() {
 
     });
+    this.widget.onChange?.call();
   }
 
   @override

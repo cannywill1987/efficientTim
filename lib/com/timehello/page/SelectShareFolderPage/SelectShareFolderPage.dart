@@ -496,9 +496,9 @@ class SelectShareFolderPageState extends BaseWidgetState<SelectShareFolderPage> 
                   ),
                   ImagesWrapperWidget(
                     isEditable: false,
-                    listSmallImages: this.widget.courseModel?.imageSmallUrls,
-                    listBigImages: this.widget.courseModel?.imageBigUrls,
-                    listOriginImages: this.widget.courseModel?.imageOriginUrls,
+                    listBigImages: this.widget.courseModel?.imageSmallUrls,
+                    // listBigImages: this.widget.courseModel?.imageBigUrls,
+                    // listOriginImages: this.widget.courseModel?.imageOriginUrls,
                     onChange:
                         (listOriginImages, listSmallImages, listBigImages) {
                       // this.widget.courseModel?.imageSmallUrls = listSmallImages;

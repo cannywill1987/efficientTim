@@ -6,7 +6,6 @@ import '../config/CONSTANTS.dart';
 import '../config/ENUMS.dart';
 import '../page/CreditCardManagementPage/pages/CreditCardPage.dart';
 import '../page/RecorderPage/RecordPage2.dart';
-import '../page/RecorderPage/RecorderPage.dart';
 import '../page/RichEditor/RichEditorPage.dart';
 import '../page/TimeLinePage/TimeLinePage.dart';
 import 'DialogManagement.dart';

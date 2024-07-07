@@ -9,6 +9,7 @@ import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:flutter_oss_aliyun/flutter_oss_aliyun.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../beans/BaseBean.dart';
 
@@ -89,9 +90,10 @@ class AliyunStoreManager {
     String fileType = getFileTypeByEnum(docType);
     String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
     File file = File(path);
-    String filePath = "timehello/${fileType}/${uid}/${fileName}.${fileExt}";
+    int random = Utility.getRandom(from: 1000000, max: 9999999);
+    String filePath = "timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
     String ossFilePathUrl =
-        "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
+        "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
     Response<dynamic> res = await client!.putObject(
       file.readAsBytesSync(),
       filePath,

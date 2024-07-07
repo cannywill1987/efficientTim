@@ -74,7 +74,11 @@ class _EditorState extends State<Editor> {
 
   @override
   void dispose() {
-    editorState?.dispose();
+    try {
+      editorState?.dispose();
+    } catch(e) {
+      print(e);
+    }
     super.dispose();
   }
 

@@ -9,22 +9,23 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../common/httpclient/HttpManager.dart';
 import '../config/Params.dart';
+import '../util/AliyunStoreManager.dart';
 import '../util/Utility.dart';
 
 class ImagesWrapperWidget extends StatefulWidget {
   // List? listImages = [];
-  List<String>? listSmallImages = [];
   List<String>? listBigImages = [];
-  List<String>? listOriginImages = [];
+  // List<String>? listBigImages = [];
+  // List<String>? listOriginImages = [];
   Function? onChange;
   bool isEditable;
   ImagesWrapperWidget(
       {
         // this.listImages,
         this.isEditable = true,
-      this.listSmallImages,
       this.listBigImages,
-      this.listOriginImages,
+      // this.listBigImages,
+      // this.listOriginImages,
       this.onChange});
 
   @override
@@ -32,31 +33,33 @@ class ImagesWrapperWidget extends StatefulWidget {
     // TODO: implement createState
     return ImagesWrapperWidgetState(this.onChange,
         // listImages: listImages ?? [],
-        listSmallImages: listSmallImages ?? [],
-        listBigImages: listBigImages ?? [],
-        listOriginImages: listOriginImages ?? []);
+        listSmallImages: listBigImages ?? [],
+        // listBigImages: listBigImages ?? [],
+        // listOriginImages: listOriginImages ?? []
+    );
   }
 }
 
 class ImagesWrapperWidgetState extends State<ImagesWrapperWidget> {
   // List listImages = [];
   List<String> listSmallImages = [];
-  List<String> listBigImages = [];
-  List<String> listOriginImages = [];
+  // List<String> listBigImages = [];
+  // List<String> listOriginImages = [];
   bool isUploading = false;
 
   ImagesWrapperWidgetState(Function? onChange,
       {
         // required this.listImages,
       required this.listSmallImages,
-      required this.listBigImages,
-      required this.listOriginImages});
+      // required this.listBigImages,
+      // required this.listOriginImages
+      });
 
   @override
   void didUpdateWidget(ImagesWrapperWidget oldWidget) {
-    this.listSmallImages = this.widget.listSmallImages ?? [];
-    this.listBigImages = this.widget.listBigImages ?? [];
-    this.listOriginImages = this.widget.listOriginImages ?? [];
+    this.listSmallImages = this.widget.listBigImages ?? [];
+    // this.listBigImages = this.widget.listBigImages ?? [];
+    // this.listOriginImages = this.widget.listOriginImages ?? [];
 
   }
 
@@ -121,7 +124,7 @@ class ImagesWrapperWidgetState extends State<ImagesWrapperWidget> {
       onTap: () {
         // 打开图片浏览器
         MultiImageProvider multiImageProvider = MultiImageProvider(
-            Utility.getImageProviderFromList(listBigImages),
+            Utility.getImageProviderFromList(listSmallImages),
             initialIndex: index);
         showImageViewerPager(context, multiImageProvider,
             swipeDismissible: true, doubleTapZoomable: true);
@@ -144,11 +147,11 @@ class ImagesWrapperWidgetState extends State<ImagesWrapperWidget> {
                 setState(() {
                   // listImages.removeAt(index);
                   listSmallImages.removeAt(index);
-                  listBigImages.removeAt(index);
-                  listOriginImages.removeAt(index);
+                  // listBigImages.removeAt(index);
+                  // listOriginImages.removeAt(index);
                   if (this.widget.onChange != null) {
                     this.widget.onChange!(
-                        listOriginImages, listSmallImages, listBigImages);
+                        listSmallImages, listSmallImages, listSmallImages);
                   }
                 });
               },
@@ -213,32 +216,41 @@ class ImagesWrapperWidgetState extends State<ImagesWrapperWidget> {
     }
     showLoading();
     // 检查文件大小
-    List<Future> list = [];
+    // List<Future> list = [];
     for (int i = 0; i < files.length; i++) {
       XFile item = files[i];
       File file = await File(item.path);
       // BaseBean res = await ;
-      list.add(HttpManager.getInstance()
-          .uploadImage(key: "key", file: file, url: Apis.uploadOss));
+      // list.add(HttpManager.getInstance()
+      //     .uploadImage(key: "key", file: file, url: Apis.uploadOss));
+
+      // final file = File(path);
+      String fileName = Utility.getUUID();
+      XFile xfile = await Utility.compressAndGetFile(file: file);
+      // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
+      // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+      String url = await AliyunStoreManager.getInstance()
+          .uploadFile(path: xfile.path, fileName: fileName);
+      listSmallImages.add(url);
     }
 
-    await Future.wait(list).then((value) {
-      for (int i = 0; i < value.length; i++) {
-        Map<String, dynamic> obj = value[i].data;
-        // listImages.add(obj);
-        listSmallImages.add(obj['smallImage']!);
-        listBigImages.add(obj['bigImage']!);
-        listOriginImages.add(obj['originImage']!);
-      }
+    // await Future.wait(list).then((value) {
+      // for (int i = 0; i < value.length; i++) {
+      //   Map<String, dynamic> obj = value[i].data;
+      //   // listImages.add(obj);
+      //
+      //   // listBigImages.add(obj['bigImage']!);
+      //   // listOriginImages.add(obj['originImage']!);
+      // }
       hideLoading();
       setState(() {
         if (this.widget.onChange != null)
           this.widget.onChange!(
-              listOriginImages, listSmallImages, listBigImages);
+              listSmallImages, listSmallImages, listSmallImages);
       });
-    }).catchError((e) {
-      hideLoading();
-    });
+    // }).catchError((e) {
+    //   hideLoading();
+    // });
   }
 
   void hideLoading() {

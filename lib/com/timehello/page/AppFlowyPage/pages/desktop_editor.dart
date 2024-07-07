@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../util/ThemeManager.dart';
 
@@ -105,6 +107,7 @@ class _DesktopEditorState extends State<DesktopEditor> {
 
   // showcase 1: customize the editor style.
   EditorStyle _buildDesktopEditorStyle(double padding) {
+    bool isMiddleMissionPageVisible = Utility.getGlobalContext().read<Env>().isMiddleMissionPageVisible;
     if(ThemeManager.getInstance().isDark()) {
       return EditorStyle(
         padding: PlatformExtension.isDesktopOrWeb

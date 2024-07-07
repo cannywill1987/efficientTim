@@ -11,7 +11,7 @@
             { "insert": "Welcome to", "attributes": { "bold": true } },
             { "insert": " " },
             {
-              "insert": "AppFlowy Editor",
+              "insert": "Timerbell todo Editor",
               "attributes": { "italic": false, "bold": true }
             }
           ],
@@ -22,7 +22,7 @@
         "type": "paragraph",
         "data": {
           "delta": [
-            { "insert": "AppFlowy Editor is a" },
+            { "insert": "Timerbell todo Editor is a" },
             { "insert": " " },
             {
               "insert": "highly customizable",
@@ -81,7 +81,7 @@
           "delta": [
             { "insert": "Use " },
             {
-              "insert": "AppFlowy Editor",
+              "insert": "Timerbell todo Editor",
               "attributes": {
                 "italic": true,
                 "bold": true,

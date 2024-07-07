@@ -196,22 +196,22 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
     // sharesdk秒验预登陆 应该用不上
     LoginManager.getInstance().requestPreVerify();
     try {
-      bool isFirstTime = await CloudSharepreferenceManagement.getInstance()
+      Params.isFirstTime = await CloudSharepreferenceManagement.getInstance()
           .getBool("IsFirstTime", true);
       //没登录 历史没数据 且是第一次
-      if (Params.hasGuidMissionDataInit == false &&
-          isFirstTime == true &&
-          MongoApisManager.getInstance().listMissionModels.length == 0 &&
+      // Params.hasGuidMissionDataInit == false &&
+      //     isFirstTime == true &&
+      //     MongoApisManager.getInstance().listMissionModels.length == 0 &&
+      if (
           LoginManager.isLogin() == false) {
         // MongoApisManager.getInstance().batchInsert_EndTimeMissionModels(
         //     listParam: CONSTANTS.getGuideEndTimeMissionModels());
         // MongoApisManager.getInstance().batchInsert_MissionModels(
         //     listParam: CONSTANTS.getGuideMissionModels());
+        MongoApisManager.getInstance().listMissionModels = CONSTANTS.getGuideMissionModels();
+        // MongoApisManager.getInstance().batchInsert_MissionModels(
+        //     listParam: CONSTANTS.getGuideMissionModels());
 
-        MongoApisManager.getInstance().batchInsert_MissionModels(
-            listParam: CONSTANTS.getGuideMissionModels());
-        CloudSharepreferenceManagement.getInstance()
-            .setBool("IsFirstTime", false);
       }
     } catch (e) {
       print("");

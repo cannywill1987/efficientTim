@@ -746,8 +746,8 @@ class CreateShareFolderPageWidget
                   ),
                   ImagesWrapperWidget(
                     listBigImages: this.widget.courseModel?.imageBigUrls,
-                    listSmallImages: this.widget.courseModel?.imageSmallUrls,
-                    listOriginImages: this.widget.courseModel?.imageOriginUrls,
+                    // listBigImages: this.widget.courseModel?.imageSmallUrls,
+                    // listOriginImages: this.widget.courseModel?.imageOriginUrls,
                     onChange:
                         (listOriginImages, listSmallImages, listBigImages) {
                       this.widget.courseModel?.imageSmallUrls = listSmallImages;

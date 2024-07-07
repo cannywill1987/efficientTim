@@ -7,6 +7,7 @@ import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.d
 import 'package:time_hello/com/timehello/components/EmptyWidget.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/components/HeaderNavBar.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -107,6 +108,15 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       jumpToTabIndexForEditMode(0);
     }
     // blackButtonListForReading = this.getWQBEditTypeModelList();
+  }
+
+  saveFinal() async {
+                  await globalSave();
+                  if (this.widget.saveModeEnum == SaveModeEnum.normal) {
+                    await MongoApisManager.getInstance()
+                        .update_MissionModel(
+                            missionModel: this.widget.missionModel);
+                  }
   }
 
   @override
@@ -521,7 +531,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       // if(appflowyPage == null) {
       // if(!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
       return appflowyPage =
-          AppflowyPage(fileName: this.widget.missionModel.objectId ?? "");
+          AppflowyPage(isDebug:LoginManager.isLogin() == false && getI18NKey().guide1 == this.missionModel.title,fileName: this.widget.missionModel.objectId ?? "");
       // }
       // } else {
       //   return appflowyPage!;
@@ -543,14 +553,15 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       //     :
       return ImagesWrapperWidget(
         isEditable: true,
-        listSmallImages: this.getSmallImageList(),
-        listBigImages: this.getBigImageList(),
-        listOriginImages: this.getOriginalImageList(),
+        listBigImages: this.getSmallImageList(),
+        // listBigImages: this.getBigImageList(),
+        // listOriginImages: this.getOriginalImageList(),
         onChange: (listOriginImages, listSmallImages, listBigImages) {
           this.setImageList(
               smallImageList: listSmallImages,
               originalImageList: listOriginImages,
               bigImageList: listBigImages);
+          this.saveFinal();
         },
       );
     } else if (this.editModeEnum == WQBEditModeEnum.plain_text) {
@@ -584,6 +595,9 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
         missionModel: this.missionModel,
         saveModeEnum: SaveModeEnum.save,
         wqbSceneEnum: WQBWrongQuestBookSceneEnum.none,
+        onChange: () {
+          this.saveFinal();
+        },
       );
     }
     return EmptyWidget();

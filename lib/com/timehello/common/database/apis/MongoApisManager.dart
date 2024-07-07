@@ -47,6 +47,7 @@ import '../../../models/PresentModel.dart';
 import '../../../models/TimelineMissionModel.dart';
 import '../../../models/WQBFolderModel.dart';
 import '../../../page/loginPage/LoginPage.dart';
+import '../../../util/CloudSharepreferenceManagement.dart';
 import '../../../util/DeviceInfoManagement.dart';
 import '../../../util/DialogManagement.dart';
 import '../../../util/Perf.dart';
@@ -1928,7 +1929,15 @@ class MongoApisManager {
     //批量解密需要解密的 cryptoVersion=0的 -1不需要解密
     missionModels = await CryptoManager.getInstance()
         .batchDecryptMissionModels(missionModels);
-    this.listMissionModels = missionModels;
+    if(missionModels != null && missionModels.length == 0 &&
+        Params.isFirstTime == true) {
+      CloudSharepreferenceManagement.getInstance()
+          .setBool("IsFirstTime", false);
+      MongoApisManager.getInstance().batchInsert_MissionModels(
+          listParam: CONSTANTS.getGuideMissionModels());
+    } else {
+      this.listMissionModels = missionModels;
+    }
     //用于缓存专注时离开app再次进入时的数据 防止销毁的情况发生
     await Utility.initCalendarModel();
     if (callback != null) {

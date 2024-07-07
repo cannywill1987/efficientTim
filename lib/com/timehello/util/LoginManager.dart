@@ -185,6 +185,8 @@ class LoginManager {
         MongoApisManager.getInstance()
             .batchUpdate_FlomoMissionModel(shouldRefresh: false)
       ]);
+      Utility.popupDesktopRightNavigator(context);
+      Utility.setDesktopMiddileMissionPage(context ?? Utility.getGlobalContext(), isVisible: true);
       MongoApisManager.getInstance().batchUpdate_folderModelWithGroupId();
       MongoApisManager.getInstance().reset();
       await MongoApisManager.getInstance().init(); //跨手机登录等需要重新同步数据

@@ -6083,7 +6083,7 @@ class Utility {
    * 是否有alert
    */
   static bool isAlertOn(MissionModel missionModel) {
-    if (missionModel.alert_time != null || missionModel.alert_time! > 0) {
+    if (missionModel.alert_time != null || (missionModel?.alert_time ?? 0) > 0) {
       return true;
     }
     return false;
