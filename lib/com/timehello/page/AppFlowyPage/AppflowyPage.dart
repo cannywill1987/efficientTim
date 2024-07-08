@@ -204,8 +204,8 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
 
       } catch (e) {
         json = null;
-        setLoadingStatusEnum(
-            LoadingStatusEnum.error, getI18NKey().download_fail);
+        // setLoadingStatusEnum(
+        //     LoadingStatusEnum.error, getI18NKey().download_fail);
         print(e);
       }
       if (json == null) {
