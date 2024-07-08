@@ -133,159 +133,165 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m54(hour, min, sec) => "${hour}時${min}分${sec}秒";
 
-  static String m55(num) => "最多輸入${num}個字符";
+  static String m55(wordCount, charCount) =>
+      "(選中的) 字數: ${wordCount}, 字符數: ${charCount}";
 
-  static String m56(max) => "不能超過${max}字符";
+  static String m56(num) => "最多輸入${num}個字符";
 
-  static String m57(time) => "最大錄制時間:${time}";
+  static String m57(max) => "不能超過${max}字符";
 
-  static String m58(min, sec) => "${min}分${sec}秒";
+  static String m58(time) => "最大錄制時間:${time}";
 
-  static String m59(year, month, day, weekday) =>
+  static String m59(min, sec) => "${min}分${sec}秒";
+
+  static String m60(year, month, day, weekday) =>
       "${year}年${month}月${day}日,${weekday}";
 
-  static String m60(month, day, year) => "${year}年${month}月${day}日";
+  static String m61(month, day, year) => "${year}年${month}月${day}日";
 
-  static String m61(month, year) => "${year}年${month}月";
+  static String m62(month, year) => "${year}年${month}月";
 
-  static String m62(year, month, day, hour, min, weekday) =>
+  static String m63(year, month, day, hour, min, weekday) =>
       "${year}年${month}月${day}日 ${hour}:${min},${weekday}";
 
-  static String m63(missionTitle) => "${missionTitle}任務進行中，確認停止嗎";
+  static String m64(missionTitle) => "${missionTitle}任務進行中，確認停止嗎";
 
-  static String m64(name) => "「${name}」任務提醒";
+  static String m65(name) => "「${name}」任務提醒";
 
-  static String m65(name) => "「${name}」打卡任務提醒";
+  static String m66(name) => "「${name}」打卡任務提醒";
 
-  static String m66(submission, mission) =>
+  static String m67(submission, mission) =>
       "任務${mission}下的子任務${submission}開始了，請做好準備";
 
-  static String m67(title) => "任務\"${title}\"";
+  static String m68(title) => "任務\"${title}\"";
 
-  static String m68(value) => "請先設置您每小時價值${value}\$/小時";
+  static String m69(value) => "請先設置您每小時價值${value}\$/小時";
 
-  static String m69(title) => "修改清單標題為「${title}」";
+  static String m70(title) => "修改清單標題為「${title}」";
 
-  static String m70(title) => "修改標籤為「${title}」";
+  static String m71(title) => "修改標籤為「${title}」";
 
-  static String m71(month, day, weekday) => "${month}月${day}日 ${weekday}";
+  static String m72(month, day, weekday) => "${month}月${day}日 ${weekday}";
 
-  static String m72(month) => "${month}月打卡率";
+  static String m73(month) => "${month}月打卡率";
 
-  static String m73(month) => "${month}月打卡日誌";
+  static String m74(month) => "${month}月打卡日誌";
 
-  static String m74(course) => "我的${course}";
+  static String m75(course) => "我的${course}";
 
-  static String m75(ranking) => "第${ranking}名";
+  static String m76(ranking) => "第${ranking}名";
 
-  static String m76(ranking) => "我的本次排名是第${ranking}名";
+  static String m77(ranking) => "我的本次排名是第${ranking}名";
 
-  static String m77(days) => "逾期${days}天";
+  static String m78(days) => "逾期${days}天";
 
-  static String m78(newline) => "換行:${newline}";
+  static String m79(newline) => "換行:${newline}";
 
-  static String m79(title, min, secs) => "${title}(剩餘時間:${min}:${secs}）";
+  static String m80(title, min, secs) => "${title}(剩餘時間:${min}:${secs}）";
 
-  static String m80(value, hour, mins) =>
+  static String m81(value, hour, mins) =>
       "您今天有${value}个任务需要完成，预估需要${hour}小时${mins}分钟";
 
-  static String m81(n, hour, mins) => "有${n}个任务延期,预估需要需要${hour}小时${mins}分钟";
+  static String m82(n, hour, mins) => "有${n}个任务延期,预估需要需要${hour}小时${mins}分钟";
 
-  static String m82(days) => "${days}天";
+  static String m83(days) => "${days}天";
 
-  static String m83(num) => "${num}分鐘";
+  static String m84(num) => "${num}分鐘";
 
-  static String m84(num, total) => "${num} 任務 / ${total} 總任務";
+  static String m85(num, total) => "${num} 任務 / ${total} 總任務";
 
-  static String m85(num, total) => "清單${num}/${total}";
+  static String m86(num, total) => "清單${num}/${total}";
 
-  static String m86(num, total) => "${num}/${total}";
+  static String m87(num, total) => "${num}/${total}";
 
-  static String m87(num) => "${num}個任務";
+  static String m88(num) => "${num}個任務";
 
-  static String m88(num) => "${num}次";
+  static String m89(num) => "${num}次";
 
-  static String m89(num) => "${num} 番茄";
+  static String m90(num) => "${num} 番茄";
 
-  static String m90(num) => "${num}個";
+  static String m91(num) => "${num}個";
 
-  static String m91(number) => "${number}個獎品";
+  static String m92(number) => "${number}個獎品";
 
-  static String m92(name) => "請輸入清單「${name}」的密碼";
+  static String m93(name) => "請輸入清單「${name}」的密碼";
 
-  static String m93(xxx) => "請輸入${xxx}";
+  static String m94(xxx) => "請輸入${xxx}";
 
-  static String m94(name) => "請在應用市場搜索 \"${name}\"";
+  static String m95(name) => "請在應用市場搜索 \"${name}\"";
 
-  static String m95(content) => "請選擇${content}";
+  static String m96(content) => "請選擇${content}";
 
-  static String m96(present) => "${present}需要花費多少幣";
+  static String m97(present) => "${present}需要花費多少幣";
 
-  static String m97(missionFinished, missionToDo, duration) =>
+  static String m98(missionFinished, missionToDo, duration) =>
       "${missionFinished}完成,請開始${missionToDo},${missionToDo}時長:${duration}";
 
-  static String m98(total) => "有${total}循環";
+  static String m99(total) => "有${total}循環";
 
-  static String m99(value) => "時長:${value}";
+  static String m100(value) => "時長:${value}";
 
-  static String m100(value) => "數量:${value}";
+  static String m101(value) => "數量:${value}";
 
-  static String m101(role, time, content, timestampFormat1, timestampFormat2,
+  static String m102(role, time, content, timestampFormat1, timestampFormat2,
           timestampFormat3) =>
       "我想讓你扮演一個${role}, 您需要規劃下以下內容,時間是${time},${content}，並返回json objects數組, 返回JSON Objects\njson每個字段key值和解釋如下\nString? title = \'\'; //標題 必填 \nint? total_tomotoes; //直接算出結果 完成番茄的數量 (daily_end_time - daily_start_time)/tomato_duration \nint? tomato_duration = 1500000;  //直接算出結果 值永遠為為 25 * 60 * 1000毫秒，代表一個番茄專注25分鐘 \nString? end_time; //直接算出結果 ${timestampFormat1}格式 結束時間 必填 \nint? priorityStatus; //3 無優先級  2 低優先級 1 中優先級 0 高優先級 必填 \nString? daily_start_time; //直接算出結果 ${timestampFormat2}格式 任務開始時間   \nString? daily_end_time; //直接算出結果 ${timestampFormat3}格式 任務結束時間 \nString? message; //任務提醒 \n注意:不能為null, key:value中的value直接給結果,每個任務的daily_start_time和daily_end_time時間不能重疊 \ntitle需要標題描述清楚，不需要別的解釋,每個任務至少間隔5分鐘\n 只返回 數組為根的json字符串 如[object,object,](注意:不討論政治歷史)";
 
-  static String m102(listing_name, code, app_name) =>
+  static String m103(listing_name, code, app_name) =>
       "${listing_name}的群組清單號碼為${code}，下載${app_name}並輸入群組清單號碼即可和夥伴一起工作";
 
-  static String m103(title) => "開始專注任務「${title}」";
+  static String m104(title) => "開始專注任務「${title}」";
 
-  static String m104(title) => "開始休息「${title}」";
+  static String m105(title) => "開始休息「${title}」";
 
-  static String m105(title, time, num) =>
+  static String m106(title, time, num) =>
       "停止專注任務「${title}」,專注了${time},賺取了${num}虛擬幣";
 
-  static String m106(title) => "停止休息「${title}」";
+  static String m107(title) => "停止休息「${title}」";
 
-  static String m107(money) => "${money}前";
+  static String m108(money) => "${money}前";
 
-  static String m108(money) => "${money}後";
+  static String m109(money) => "${money}後";
 
-  static String m109(date) => "${date}數據";
+  static String m110(date) => "${date}數據";
 
-  static String m110(num) => "總共 ${num}";
+  static String m111(num) => "總共 ${num}";
 
-  static String m111(num) => "總共 ${num} 番茄";
+  static String m112(num) => "總共 ${num} 番茄";
 
-  static String m112(trainee) =>
+  static String m113(trainee) =>
       "請注意，請根據實際情況量力而行，如果對${trainee}回復不滿意，可以和${trainee}溝通給他更詳細的命令來幫助您規劃時間";
 
-  static String m113(trainee) => "${trainee}的建議";
+  static String m114(trainee) => "${trainee}的建議";
 
-  static String m114(time) => "上次更新時間:${time}";
+  static String m115(time) => "上次更新時間:${time}";
 
-  static String m115(listing, title) => "在清單「${listing}」,更新了任務「${title}」";
+  static String m116(listing, title) => "在清單「${listing}」,更新了任務「${title}」";
 
-  static String m116(title) => "更新了任務「${title}」";
+  static String m117(title) => "更新了任務「${title}」";
 
-  static String m117(value) => "價值:${value}";
+  static String m118(value) => "價值:${value}";
 
-  static String m118(value) => "${value}\$/小時";
+  static String m119(value) => "${value}\$/小時";
 
-  static String m119(version) => "當前版本${version}";
+  static String m120(version) => "當前版本${version}";
 
-  static String m120(appName) => "歡迎來到\"${appName}\"";
+  static String m121(appName) => "歡迎來到\"${appName}\"";
 
-  static String m121(diary) => "寫了日記「${diary}」";
+  static String m122(wordCount, charCount) =>
+      "字數: ${wordCount}, 字符數: ${charCount}";
 
-  static String m122(diary) => "寫了筆記「${diary}」";
+  static String m123(diary) => "寫了日記「${diary}」";
 
-  static String m123(text) => "${text}不能為空";
+  static String m124(diary) => "寫了筆記「${diary}」";
 
-  static String m124(month, year) => "${year}${month}";
+  static String m125(text) => "${text}不能為空";
 
-  static String m125(name) => "您定的打卡任務「${name}」開始了。請來打卡吧";
+  static String m126(month, year) => "${year}${month}";
 
-  static String m126(name) => "您定的任務「${name}」通知已經開始了。請做好準備";
+  static String m127(name) => "您定的打卡任務「${name}」開始了。請來打卡吧";
+
+  static String m128(name) => "您定的任務「${name}」通知已經開始了。請做好準備";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -590,6 +596,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("刪除"),
         "delete_flomo_mission": m39,
         "delete_success": MessageLookupByLibrary.simpleMessage("删除成功"),
+        "deprecated": MessageLookupByLibrary.simpleMessage("即將作廢"),
         "desc_consume": MessageLookupByLibrary.simpleMessage("消費描述"),
         "desktop_widget_with_note_n": m40,
         "detailed_training_plan":
@@ -610,6 +617,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("現在做代表現在馬上做的任務，設置現在做將會有倒計時。"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("不再提示"),
+        "download_fail": MessageLookupByLibrary.simpleMessage("下載失敗"),
         "downloading_please_wait":
             MessageLookupByLibrary.simpleMessage("下載中，請稍後…"),
         "each": MessageLookupByLibrary.simpleMessage("每"),
@@ -788,6 +796,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "icon": MessageLookupByLibrary.simpleMessage("圖標"),
         "image": MessageLookupByLibrary.simpleMessage("圖片"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7天後"),
+        "in_selection_word_count_and_char_count": m55,
         "inputSmsVerificationCode":
             MessageLookupByLibrary.simpleMessage("輸入短信驗證碼"),
         "input_6_digit_password":
@@ -894,9 +903,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "mastering_the_situation": MessageLookupByLibrary.simpleMessage("掌握情況"),
         "max_5m_files_size":
             MessageLookupByLibrary.simpleMessage("檔案大小超過5MB，請選擇較小的檔案。"),
-        "max_input_num": m55,
-        "max_words": m56,
-        "maximum_recording_time": m57,
+        "max_input_num": m56,
+        "max_words": m57,
+        "maximum_recording_time": m58,
         "may": MessageLookupByLibrary.simpleMessage("五月"),
         "mayFull": MessageLookupByLibrary.simpleMessage("五月"),
         "me": MessageLookupByLibrary.simpleMessage("我"),
@@ -917,7 +926,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "microphone_permission_description":
             MessageLookupByLibrary.simpleMessage("做筆記有可能需要錄音功能，介時需要您授權麥克風權限"),
         "min3": MessageLookupByLibrary.simpleMessage("分"),
-        "minAndSec": m58,
+        "minAndSec": m59,
         "min_en": MessageLookupByLibrary.simpleMessage("min"),
         "mine": MessageLookupByLibrary.simpleMessage("我的"),
         "mins": MessageLookupByLibrary.simpleMessage("分"),
@@ -926,27 +935,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "miss_clockin": MessageLookupByLibrary.simpleMessage("缺卡"),
         "mission": MessageLookupByLibrary.simpleMessage("清單"),
         "missionCompleted": MessageLookupByLibrary.simpleMessage("完成任務"),
-        "missionModelDate": m59,
-        "missionModelDate2": m60,
-        "missionModelDate3": m61,
-        "missionModelDate4": m62,
+        "missionModelDate": m60,
+        "missionModelDate2": m61,
+        "missionModelDate3": m62,
+        "missionModelDate4": m63,
         "missionNums": MessageLookupByLibrary.simpleMessage("任務數"),
         "missionPageInputHolder":
             MessageLookupByLibrary.simpleMessage("添加任務...(按「回車」鍵保存)"),
-        "missionRunningAlert": m63,
+        "missionRunningAlert": m64,
         "missionToBeComplete": MessageLookupByLibrary.simpleMessage("待完成任務"),
-        "mission_alert_with_name": m64,
-        "mission_clocks_in_with_name": m65,
+        "mission_alert_with_name": m65,
+        "mission_clocks_in_with_name": m66,
         "mission_evaluation_value":
             MessageLookupByLibrary.simpleMessage("該任務評估價值(\$)"),
         "mission_setting": MessageLookupByLibrary.simpleMessage("任務設置"),
-        "mission_submission_started": m66,
-        "mission_title": m67,
+        "mission_submission_started": m67,
+        "mission_title": m68,
         "mission_value": MessageLookupByLibrary.simpleMessage("任務價值"),
-        "mission_value_toast": m68,
+        "mission_value_toast": m69,
         "missioncompleted": MessageLookupByLibrary.simpleMessage("已完成任務"),
-        "modify_name_listing": m69,
-        "modify_name_tag": m70,
+        "modify_name_listing": m70,
+        "modify_name_tag": m71,
         "module_filtering_setting":
             MessageLookupByLibrary.simpleMessage("模組過濾設定"),
         "monday": MessageLookupByLibrary.simpleMessage("週一"),
@@ -955,9 +964,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("錢不夠,請去完成更多專注任務來賺錢吧"),
         "money_per_hour": MessageLookupByLibrary.simpleMessage("每小時的工作價值(\$)"),
         "month": MessageLookupByLibrary.simpleMessage("月"),
-        "monthDay": m71,
-        "month_clockin_rate": m72,
-        "month_clockin_record": m73,
+        "monthDay": m72,
+        "month_clockin_rate": m73,
+        "month_clockin_record": m74,
         "month_duration_completed":
             MessageLookupByLibrary.simpleMessage("本月專注總時長(分鐘)"),
         "month_mission_completed":
@@ -973,12 +982,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "四象限，分類，列表，分組，時間軸，日程，甘特圖，日曆多種視圖滿足您各種的需求"),
         "music": MessageLookupByLibrary.simpleMessage("音樂"),
-        "my": m74,
+        "my": m75,
         "my_answer": MessageLookupByLibrary.simpleMessage("我的"),
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage("我每小時工作價值"),
-        "my_ranking": m75,
-        "my_ranking_this_time": m76,
-        "n_days_overdue": m77,
+        "my_ranking": m76,
+        "my_ranking_this_time": m77,
+        "n_days_overdue": m78,
         "name": MessageLookupByLibrary.simpleMessage("姓名"),
         "need_notification_permission_content":
             MessageLookupByLibrary.simpleMessage("需要通知權限打開才能使用這個功能"),
@@ -986,7 +995,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "network_error":
             MessageLookupByLibrary.simpleMessage("網絡錯誤（如果多次嘗試失敗，請重新登錄）"),
         "new_card": MessageLookupByLibrary.simpleMessage("新卡"),
-        "newline": m78,
+        "newline": m79,
         "nextMission": MessageLookupByLibrary.simpleMessage("下個任務:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("下一步"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("下週"),
@@ -1073,11 +1082,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "追求進步，從今天開始。打開「時間管理局ToDo」，實現你的計劃。"),
         "notification9": MessageLookupByLibrary.simpleMessage(
             "時間寶貴，珍惜每一分鐘。使用「時間管理局ToDo」，讓時間更有價值。"),
-        "notificationTxt": m79,
+        "notificationTxt": m80,
         "notification_more":
             MessageLookupByLibrary.simpleMessage("来定制您的明天工作内容吧"),
-        "notification_num_mission_to_finish": m80,
-        "notification_num_mission_to_finish_delay": m81,
+        "notification_num_mission_to_finish": m81,
+        "notification_num_mission_to_finish_delay": m82,
         "notification_setting": MessageLookupByLibrary.simpleMessage("推送設置"),
         "notification_setting_content":
             MessageLookupByLibrary.simpleMessage("打開推送將會幫助您知道任務完成或開始狀態"),
@@ -1085,19 +1094,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "nov": MessageLookupByLibrary.simpleMessage("十一月"),
         "novFull": MessageLookupByLibrary.simpleMessage("十一月"),
         "now": MessageLookupByLibrary.simpleMessage("現在"),
-        "num_days": m82,
+        "num_days": m83,
         "num_lives": MessageLookupByLibrary.simpleMessage("生命值:"),
-        "num_mins": m83,
+        "num_mins": m84,
         "num_mission": MessageLookupByLibrary.simpleMessage("任務數"),
-        "num_mission_percent": m84,
-        "num_mission_total": m85,
-        "num_of_total": m86,
-        "num_tasks": m87,
+        "num_mission_percent": m85,
+        "num_mission_total": m86,
+        "num_of_total": m87,
+        "num_tasks": m88,
         "num_tasks_finished": MessageLookupByLibrary.simpleMessage("完成計劃數"),
-        "num_times": m88,
-        "num_tomatoes": m89,
-        "num_unit": m90,
-        "number_present": m91,
+        "num_times": m89,
+        "num_tomatoes": m90,
+        "num_unit": m91,
+        "number_present": m92,
         "objective": MessageLookupByLibrary.simpleMessage("目的"),
         "oct": MessageLookupByLibrary.simpleMessage("十月"),
         "octFull": MessageLookupByLibrary.simpleMessage("十月"),
@@ -1181,7 +1190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_email": MessageLookupByLibrary.simpleMessage("請輸入郵箱"),
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("請輸入您想問的問題"),
-        "please_input_folder_password": m92,
+        "please_input_folder_password": m93,
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("請輸入任務標題"),
         "please_input_mobile_no":
@@ -1190,15 +1199,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_the_mission_title":
             MessageLookupByLibrary.simpleMessage("請輸入任務標題"),
         "please_input_title": MessageLookupByLibrary.simpleMessage("請輸入標題"),
-        "please_input_xxx_name": m93,
+        "please_input_xxx_name": m94,
         "please_input_your_username":
             MessageLookupByLibrary.simpleMessage("請先設置用戶名"),
         "please_origin_password":
             MessageLookupByLibrary.simpleMessage("請輸入原始密碼"),
-        "please_seaarch_on_app_store": m94,
+        "please_seaarch_on_app_store": m95,
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage("請至少在重複週期選擇一個選項"),
-        "please_select_content": m95,
+        "please_select_content": m96,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("請先選擇開始時間"),
         "please_select_date": MessageLookupByLibrary.simpleMessage("請選擇搜索日期"),
@@ -1212,7 +1221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "popup_visible2": MessageLookupByLibrary.simpleMessage("顯示"),
         "postpone": MessageLookupByLibrary.simpleMessage("順延到今天"),
         "practice": MessageLookupByLibrary.simpleMessage("訓練"),
-        "present_value_dialog": m96,
+        "present_value_dialog": m97,
         "preview": MessageLookupByLibrary.simpleMessage("預覽"),
         "previewTime": MessageLookupByLibrary.simpleMessage("預計時間"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("預計番茄數"),
@@ -1243,7 +1252,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "public_course": MessageLookupByLibrary.simpleMessage("開放訓練計劃"),
         "publish": MessageLookupByLibrary.simpleMessage("發佈"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("純淨模式"),
-        "push_counter_status_notification": m97,
+        "push_counter_status_notification": m98,
         "qq_friends": MessageLookupByLibrary.simpleMessage("QQ好友"),
         "qq_share": MessageLookupByLibrary.simpleMessage("qq分享"),
         "question_mistake": MessageLookupByLibrary.simpleMessage("題目/錯題"),
@@ -1287,7 +1296,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("按天"),
         "repeative2": MessageLookupByLibrary.simpleMessage("按周"),
         "repeative3": MessageLookupByLibrary.simpleMessage("艾賓浩斯"),
-        "repeative_content": m98,
+        "repeative_content": m99,
         "repetive": MessageLookupByLibrary.simpleMessage("重複"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("是否重複"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("重複日期"),
@@ -1313,8 +1322,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rest_completed_auto_start_play":
             MessageLookupByLibrary.simpleMessage("休息完成自動開啟播放"),
         "rest_duration": MessageLookupByLibrary.simpleMessage("休息時長"),
-        "rest_focus_duration_with_value": m99,
-        "rest_focus_numbers_with_value": m100,
+        "rest_focus_duration_with_value": m100,
+        "rest_focus_numbers_with_value": m101,
         "resting": MessageLookupByLibrary.simpleMessage("休息中"),
         "restingFinished": MessageLookupByLibrary.simpleMessage("休息完成"),
         "resting_music": MessageLookupByLibrary.simpleMessage("休息中音樂"),
@@ -1324,7 +1333,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "retry": MessageLookupByLibrary.simpleMessage("重試"),
         "rich_text": MessageLookupByLibrary.simpleMessage("富文本"),
         "rmb": MessageLookupByLibrary.simpleMessage("幣"),
-        "role_chatgpt_msg": m101,
+        "role_chatgpt_msg": m102,
         "role_message_placehodler":
             MessageLookupByLibrary.simpleMessage("請輸入工作計劃(請描述清楚大概時間，工作內容等)"),
         "role_prompts_chatgpt_msg": MessageLookupByLibrary.simpleMessage(
@@ -1339,6 +1348,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturdayShort": MessageLookupByLibrary.simpleMessage("六"),
         "save": MessageLookupByLibrary.simpleMessage("保存"),
         "save_as_template": MessageLookupByLibrary.simpleMessage("保存為模板"),
+        "save_fail": MessageLookupByLibrary.simpleMessage("儲存失敗"),
         "save_failure": MessageLookupByLibrary.simpleMessage("保存失敗"),
         "save_success": MessageLookupByLibrary.simpleMessage("保存成功"),
         "saving": MessageLookupByLibrary.simpleMessage("保存中"),
@@ -1387,7 +1397,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_fail": MessageLookupByLibrary.simpleMessage("設置失敗"),
         "setting_success": MessageLookupByLibrary.simpleMessage("設置成功"),
         "share": MessageLookupByLibrary.simpleMessage("分享"),
-        "share_the_link": m102,
+        "share_the_link": m103,
         "share_to": MessageLookupByLibrary.simpleMessage("分享到"),
         "sharing_course": MessageLookupByLibrary.simpleMessage("共享課程"),
         "sharing_listing": MessageLookupByLibrary.simpleMessage("共享清單"),
@@ -1401,16 +1411,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "startResting": MessageLookupByLibrary.simpleMessage("開始休息"),
         "start_date": MessageLookupByLibrary.simpleMessage("起始日期"),
         "start_focus": MessageLookupByLibrary.simpleMessage("開始專注"),
-        "start_focusing_mission_name": m103,
-        "start_resting_name": m104,
+        "start_focusing_mission_name": m104,
+        "start_resting_name": m105,
         "start_time": MessageLookupByLibrary.simpleMessage("開始時間"),
         "status_complete": MessageLookupByLibrary.simpleMessage("處理完畢"),
         "status_developping": MessageLookupByLibrary.simpleMessage("開發中"),
         "status_handling": MessageLookupByLibrary.simpleMessage("處理中"),
         "status_waiting": MessageLookupByLibrary.simpleMessage("等待處理中"),
         "stop": MessageLookupByLibrary.simpleMessage("停止"),
-        "stop_focusing_mission_name": m105,
-        "stop_resting_mission_name": m106,
+        "stop_focusing_mission_name": m106,
+        "stop_resting_mission_name": m107,
         "sub_task_add_newline":
             MessageLookupByLibrary.simpleMessage("子任務-點換行新增&保存"),
         "submit": MessageLookupByLibrary.simpleMessage("提交"),
@@ -1447,9 +1457,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "thursday": MessageLookupByLibrary.simpleMessage("週四"),
         "thursdayShort": MessageLookupByLibrary.simpleMessage("四"),
         "time": MessageLookupByLibrary.simpleMessage("時間"),
-        "time_ago": m107,
+        "time_ago": m108,
         "time_finished": MessageLookupByLibrary.simpleMessage("專注時間"),
-        "time_later": m108,
+        "time_later": m109,
         "time_management": MessageLookupByLibrary.simpleMessage("時間管理"),
         "time_not_arrive_cannot_clcokin":
             MessageLookupByLibrary.simpleMessage("時間沒到，不可以打卡"),
@@ -1462,7 +1472,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tipsAlertTone": MessageLookupByLibrary.simpleMessage("提示鈴聲"),
         "title": MessageLookupByLibrary.simpleMessage("標題"),
         "title_consume": MessageLookupByLibrary.simpleMessage("消費金額"),
-        "title_data": m109,
+        "title_data": m110,
         "to_login": MessageLookupByLibrary.simpleMessage("去登錄頁"),
         "today": MessageLookupByLibrary.simpleMessage("今天"),
         "today_data": MessageLookupByLibrary.simpleMessage("今日數據"),
@@ -1491,12 +1501,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalTimeMinute": MessageLookupByLibrary.simpleMessage("總時長(分鐘)"),
         "total_focus_duration": MessageLookupByLibrary.simpleMessage("總專注時長"),
         "total_focus_time": MessageLookupByLibrary.simpleMessage("專注時間"),
-        "total_maju": m110,
+        "total_maju": m111,
         "total_tasks_count": MessageLookupByLibrary.simpleMessage("任務總數(番茄數)"),
-        "total_tomatoes": m111,
+        "total_tomatoes": m112,
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("番茄總數"),
-        "trainee_advice_notice": m112,
-        "trainee_give_your_advice": m113,
+        "trainee_advice_notice": m113,
+        "trainee_give_your_advice": m114,
         "training_plan_edit": MessageLookupByLibrary.simpleMessage("點擊編輯"),
         "transaction": MessageLookupByLibrary.simpleMessage("理財"),
         "try_again": MessageLookupByLibrary.simpleMessage("請求超時或失敗,請重新嘗試"),
@@ -1531,22 +1541,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_bill": MessageLookupByLibrary.simpleMessage("更新賬單"),
         "update_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("更新信用卡賬單"),
-        "update_last_time": m114,
-        "update_name_mission": m115,
-        "update_name_mission2": m116,
+        "update_last_time": m115,
+        "update_name_mission": m116,
+        "update_name_mission2": m117,
         "update_now": MessageLookupByLibrary.simpleMessage("立即更新"),
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
         "update_time_last_time": MessageLookupByLibrary.simpleMessage("最新更新時間"),
         "upload_attachment": MessageLookupByLibrary.simpleMessage("上傳附件"),
+        "upload_error": MessageLookupByLibrary.simpleMessage("上傳失敗"),
+        "upload_success": MessageLookupByLibrary.simpleMessage("上傳成功"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("圖片上傳中"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("用戶存在，可以去重置密碼重置您的密碼"),
         "user_privacy_protocol_title":
             MessageLookupByLibrary.simpleMessage("用戶隱私協議"),
         "username": MessageLookupByLibrary.simpleMessage("用戶名"),
-        "value": m117,
-        "value_per_hour": m118,
-        "version_num": m119,
+        "value": m118,
+        "value_per_hour": m119,
+        "version_num": m120,
         "vertical": MessageLookupByLibrary.simpleMessage("直屏"),
         "view": MessageLookupByLibrary.simpleMessage("視圖"),
         "view_only": MessageLookupByLibrary.simpleMessage("可查看"),
@@ -1571,13 +1583,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "week_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("本周完成番茄數"),
         "welcome": MessageLookupByLibrary.simpleMessage("welcome"),
-        "welcome_to_time_department": m120,
+        "welcome_to_time_department": m121,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage("是否重復"),
         "who_can_view_edit_files":
             MessageLookupByLibrary.simpleMessage("誰可以查看/編輯文件"),
         "who_can_view_or_edit":
             MessageLookupByLibrary.simpleMessage("誰可以查看/編輯文件"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage("完成總時長(分鐘)"),
+        "word_count_and_char_count": m122,
         "write_a_title": MessageLookupByLibrary.simpleMessage("寫標題?"),
         "write_diary": MessageLookupByLibrary.simpleMessage("寫日記"),
         "write_your_clockin_feedback":
@@ -1590,22 +1603,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrong_question_knowledge_points":
             MessageLookupByLibrary.simpleMessage("錯題知識點"),
         "wrong_thinking": MessageLookupByLibrary.simpleMessage("思路錯誤"),
-        "wrote_a_diary": m121,
-        "wrote_a_note": m122,
-        "xxx_cannot_be_empty": m123,
+        "wrote_a_diary": m123,
+        "wrote_a_note": m124,
+        "xxx_cannot_be_empty": m125,
         "year": MessageLookupByLibrary.simpleMessage("年"),
         "year_duration_completed":
             MessageLookupByLibrary.simpleMessage("今年專注總時長(分鐘)"),
         "year_mission_completed":
             MessageLookupByLibrary.simpleMessage("今年完成的任務數"),
-        "year_month": m124,
+        "year_month": m126,
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今年完成番茄數"),
         "yes": MessageLookupByLibrary.simpleMessage("是"),
-        "your_clockin_mission_with_name_has_begun": m125,
+        "your_clockin_mission_with_name_has_begun": m127,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("這是您自己創建的課程"),
-        "your_mission_with_name_has_begun": m126,
+        "your_mission_with_name_has_begun": m128,
         "your_time_prof": MessageLookupByLibrary.simpleMessage("您隨身的時間管理專家"),
         "yuan": MessageLookupByLibrary.simpleMessage("元")
       };

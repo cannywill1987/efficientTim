@@ -20,6 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_TW';
 
+  static String m55(wordCount, charCount) =>
+      "(選中的) 字數: ${wordCount}, 字符數: ${charCount}";
+
+  static String m122(wordCount, charCount) =>
+      "字數: ${wordCount}, 字符數: ${charCount}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addYourLink": MessageLookupByLibrary.simpleMessage("添加連結"),
@@ -53,8 +59,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "copyLink": MessageLookupByLibrary.simpleMessage("複製連結"),
         "customColor": MessageLookupByLibrary.simpleMessage("自定義顏色"),
         "cut": MessageLookupByLibrary.simpleMessage("剪下"),
+        "deprecated": MessageLookupByLibrary.simpleMessage("即將作廢"),
         "divider": MessageLookupByLibrary.simpleMessage("分割線"),
         "done": MessageLookupByLibrary.simpleMessage("完成"),
+        "download_fail": MessageLookupByLibrary.simpleMessage("下載失敗"),
         "editLink": MessageLookupByLibrary.simpleMessage("修改連結"),
         "embedCode": MessageLookupByLibrary.simpleMessage("代碼塊"),
         "emptySearchBoxHint": MessageLookupByLibrary.simpleMessage("鍵入尋找内容"),
@@ -77,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "highlightColor": MessageLookupByLibrary.simpleMessage("高亮顏色"),
         "image": MessageLookupByLibrary.simpleMessage("圖片"),
         "imageLoadFailed": MessageLookupByLibrary.simpleMessage("無法載入圖像"),
+        "in_selection_word_count_and_char_count": m55,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("連結錯誤"),
         "italic": MessageLookupByLibrary.simpleMessage("斜體"),
         "lightLightTint1": MessageLookupByLibrary.simpleMessage("紫色"),
@@ -117,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rowDuplicate": MessageLookupByLibrary.simpleMessage("複製整列"),
         "rowRemove": MessageLookupByLibrary.simpleMessage("刪除整列"),
         "rtl": MessageLookupByLibrary.simpleMessage("自右至左"),
+        "save_fail": MessageLookupByLibrary.simpleMessage("儲存失敗"),
+        "save_success": MessageLookupByLibrary.simpleMessage("儲存成功"),
         "slashPlaceHolder":
             MessageLookupByLibrary.simpleMessage("輸入 / 以插入内容，或開始鍵入"),
         "strikethrough": MessageLookupByLibrary.simpleMessage("刪除線"),
@@ -138,7 +149,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "underline": MessageLookupByLibrary.simpleMessage("下劃線"),
         "upload": MessageLookupByLibrary.simpleMessage("上載"),
         "uploadImage": MessageLookupByLibrary.simpleMessage("上載圖片"),
+        "upload_error": MessageLookupByLibrary.simpleMessage("上傳失敗"),
+        "upload_success": MessageLookupByLibrary.simpleMessage("上傳成功"),
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
-        "urlImage": MessageLookupByLibrary.simpleMessage("網路圖片")
+        "urlImage": MessageLookupByLibrary.simpleMessage("網路圖片"),
+        "word_count_and_char_count": m122
       };
 }

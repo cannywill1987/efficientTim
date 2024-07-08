@@ -1,4 +1,12 @@
 {
+  "deprecated": "곧 사용 중지",
+  "in_selection_word_count_and_char_count": "(선택된) 단어 수: {wordCount}, 문자 수: {charCount}",
+  "word_count_and_char_count": "단어 수: {wordCount}, 문자 수: {charCount}",
+  "download_fail": "다운로드 실패",
+  "save_fail": "저장 실패",
+  "save_success": "저장 성공",
+  "upload_success": "업로드 성공",
+  "upload_error": "업로드 실패",
   "@@locale": "ja-JP",
   "bold": "",
   "@bold": {},

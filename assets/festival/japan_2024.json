@@ -1,0 +1,161 @@
+
+{
+"status": true,
+"message": "Success",
+"request_id": "example-request-id",
+"data": [
+{
+"year": 2024,
+"festival": "元日",
+"festival_short": "New Year",
+"start_time": "2024-01-01",
+"end_time": "2024-01-01",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "成人の日",
+"festival_short": "Coming of Age Day",
+"start_time": "2024-01-08",
+"end_time": "2024-01-08",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "建国記念の日",
+"festival_short": "National Foundation Day",
+"start_time": "2024-02-11",
+"end_time": "2024-02-11",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "天皇誕生日",
+"festival_short": "Emperor's Birthday",
+"start_time": "2024-02-23",
+"end_time": "2024-02-23",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "春分の日",
+"festival_short": "Vernal Equinox",
+"start_time": "2024-03-20",
+"end_time": "2024-03-20",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "昭和の日",
+"festival_short": "Showa Day",
+"start_time": "2024-04-29",
+"end_time": "2024-04-29",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "憲法記念日",
+"festival_short": "Constitution Memorial Day",
+"start_time": "2024-05-03",
+"end_time": "2024-05-03",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "みどりの日",
+"festival_short": "Greenery Day",
+"start_time": "2024-05-04",
+"end_time": "2024-05-04",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "こどもの日",
+"festival_short": "Children's Day",
+"start_time": "2024-05-05",
+"end_time": "2024-05-05",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "海の日",
+"festival_short": "Marine Day",
+"start_time": "2024-07-15",
+"end_time": "2024-07-15",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "山の日",
+"festival_short": "Mountain Day",
+"start_time": "2024-08-11",
+"end_time": "2024-08-11",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "敬老の日",
+"festival_short": "Respect for the Aged Day",
+"start_time": "2024-09-16",
+"end_time": "2024-09-16",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "秋分の日",
+"festival_short": "Autumnal Equinox",
+"start_time": "2024-09-23",
+"end_time": "2024-09-23",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "体育の日",
+"festival_short": "Health and Sports Day",
+"start_time": "2024-10-14",
+"end_time": "2024-10-14",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "文化の日",
+"festival_short": "Culture Day",
+"start_time": "2024-11-03",
+"end_time": "2024-11-03",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "勤労感謝の日",
+"festival_short": "Labor Thanksgiving Day",
+"start_time": "2024-11-23",
+"end_time": "2024-11-23",
+"days": 1,
+"weekday": ""
+},
+{
+"year": 2024,
+"festival": "天皇誕生日",
+"festival_short": "Emperor's Birthday",
+"start_time": "2024-12-23",
+"end_time": "2024-12-23",
+"days": 1,
+"weekday": ""
+}
+]
+}

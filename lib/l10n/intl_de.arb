@@ -1,4 +1,12 @@
 {
+  "deprecated": "Bald veraltet",
+  "in_selection_word_count_and_char_count": "(Auswahl) Wörter: {wordCount}, Zeichen: {charCount}",
+  "word_count_and_char_count": "Wörter: {wordCount}, Zeichen: {charCount}",
+  "download_fail": "Download fehlgeschlagen",
+  "save_fail": "Speichern fehlgeschlagen",
+  "save_success": "Erfolgreich gespeichert",
+  "upload_success": "Erfolgreich hochgeladen",
+  "upload_error": "Hochladen fehlgeschlagen",
   "@@locale": "de-DE",
   "bold": "Fett gedruckt",
   "@bold": {},

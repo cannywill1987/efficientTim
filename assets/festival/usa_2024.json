@@ -1,0 +1,97 @@
+{
+  "status": true,
+  "message": "Success",
+  "request_id": "example-request-id",
+  "data": [
+    {
+      "year": 2024,
+      "festival": "New Year's Day",
+      "festival_short": "New Year",
+      "start_time": "2024-01-01",
+      "end_time": "2024-01-01",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Martin Luther King Jr. Day",
+      "festival_short": "MLK Day",
+      "start_time": "2024-01-15",
+      "end_time": "2024-01-15",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Presidents' Day",
+      "festival_short": "Presidents' Day",
+      "start_time": "2024-02-19",
+      "end_time": "2024-02-19",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Memorial Day",
+      "festival_short": "Memorial Day",
+      "start_time": "2024-05-27",
+      "end_time": "2024-05-27",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Independence Day",
+      "festival_short": "July 4th",
+      "start_time": "2024-07-04",
+      "end_time": "2024-07-04",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Labor Day",
+      "festival_short": "Labor Day",
+      "start_time": "2024-09-02",
+      "end_time": "2024-09-02",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Columbus Day",
+      "festival_short": "Columbus Day",
+      "start_time": "2024-10-14",
+      "end_time": "2024-10-14",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Veterans Day",
+      "festival_short": "Veterans Day",
+      "start_time": "2024-11-11",
+      "end_time": "2024-11-11",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Thanksgiving Day",
+      "festival_short": "Thanksgiving",
+      "start_time": "2024-11-28",
+      "end_time": "2024-11-28",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "Christmas Day",
+      "festival_short": "Christmas",
+      "start_time": "2024-12-25",
+      "end_time": "2024-12-25",
+      "days": 1,
+      "weekday": ""
+    }
+  ]
+}

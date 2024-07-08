@@ -1,0 +1,97 @@
+{
+  "status": true,
+  "message": "Success",
+  "request_id": "example-request-id",
+  "data": [
+    {
+      "year": 2025,
+      "festival": "New Year's Day",
+      "festival_short": "New Year",
+      "start_time": "2025-01-01",
+      "end_time": "2025-01-01",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Martin Luther King Jr. Day",
+      "festival_short": "MLK Day",
+      "start_time": "2025-01-20",
+      "end_time": "2025-01-20",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Presidents' Day",
+      "festival_short": "Presidents' Day",
+      "start_time": "2025-02-17",
+      "end_time": "2025-02-17",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Memorial Day",
+      "festival_short": "Memorial Day",
+      "start_time": "2025-05-26",
+      "end_time": "2025-05-26",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Independence Day",
+      "festival_short": "July 4th",
+      "start_time": "2025-07-04",
+      "end_time": "2025-07-04",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Labor Day",
+      "festival_short": "Labor Day",
+      "start_time": "2025-09-01",
+      "end_time": "2025-09-01",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Columbus Day",
+      "festival_short": "Columbus Day",
+      "start_time": "2025-10-13",
+      "end_time": "2025-10-13",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Veterans Day",
+      "festival_short": "Veterans Day",
+      "start_time": "2025-11-11",
+      "end_time": "2025-11-11",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Thanksgiving Day",
+      "festival_short": "Thanksgiving",
+      "start_time": "2025-11-27",
+      "end_time": "2025-11-27",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "Christmas Day",
+      "festival_short": "Christmas",
+      "start_time": "2025-12-25",
+      "end_time": "2025-12-25",
+      "days": 1,
+      "weekday": ""
+    }
+  ]
+}

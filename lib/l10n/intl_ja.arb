@@ -1,4 +1,12 @@
 {
+  "deprecated": "非推奨",
+  "in_selection_word_count_and_char_count": "(選択された) 単語数: {wordCount}, 文字数: {charCount}",
+  "word_count_and_char_count": "単語数: {wordCount}, 文字数: {charCount}",
+  "download_fail": "ダウンロードに失敗しました",
+  "save_fail": "保存に失敗しました",
+  "save_success": "保存に成功しました",
+  "upload_success": "アップロードに成功しました",
+  "upload_error": "アップロードに失敗しました",
   "find": "検索",
   "previous_match": "前の一致",
   "next_match": "次の一致",

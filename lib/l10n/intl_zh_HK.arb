@@ -1,4 +1,12 @@
 {
+  "deprecated": "即將作廢",
+  "in_selection_word_count_and_char_count": "(選中的) 字數: {wordCount}, 字符數: {charCount}",
+  "word_count_and_char_count": "字數: {wordCount}, 字符數: {charCount}",
+  "download_fail": "下載失敗",
+  "save_fail": "儲存失敗",
+  "save_success": "儲存成功",
+  "upload_success": "上傳成功",
+  "upload_error": "上傳失敗",
   "find": "查找",
   "previous_match": "上一個匹配",
   "next_match": "下一個匹配",

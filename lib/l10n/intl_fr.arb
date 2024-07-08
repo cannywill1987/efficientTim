@@ -1,4 +1,12 @@
 {
+  "deprecated": "Bientôt obsolète",
+  "in_selection_word_count_and_char_count": "(Sélectionné) Nombre de mots: {wordCount}, Nombre de caractères: {charCount}",
+  "word_count_and_char_count": "Nombre de mots: {wordCount}, Nombre de caractères: {charCount}",
+  "download_fail": "Échec du téléchargement",
+  "save_fail": "Échec de l'enregistrement",
+  "save_success": "Enregistré avec succès",
+  "upload_success": "Téléchargement réussi",
+  "upload_error": "Échec du téléchargement",
   "@@locale": "fr-FR",
   "bold": "Gras",
   "@bold": {},
