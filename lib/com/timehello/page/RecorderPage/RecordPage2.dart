@@ -141,17 +141,23 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
       EasyLoadingManager.getInstance().showLoading();
       // String? path = await RecorderManager.getInstance().stop();
       File file = new File(path ?? "");
-      BaseBean res = await HttpManager.getInstance()
-          .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
-      this.widget.onSubmit?.call(title ?? "", res.data, this.audioPath ?? "", duration, file.lengthSync());
+      String url = await AliyunStoreManager.getInstance()
+          .uploadFile(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+
+      // BaseBean res = await HttpManager.getInstance()
+      //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
+      this.widget.onSubmit?.call(title ?? "", url, this.audioPath ?? "", duration, file.lengthSync());
       EasyLoadingManager.getInstance().dismiss();
       Utility.popupPagePCAndMobile(context);
     } else {
       EasyLoadingManager.getInstance().showLoading();
       // String? path = await RecorderManager.getInstance().stop();
       File file = new File(path ?? "");
-      BaseBean res = await HttpManager.getInstance()
-          .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
+      String url = await AliyunStoreManager.getInstance()
+          .uploadFile(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+
+      // BaseBean res = await HttpManager.getInstance()
+      //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
       MongoDbSaved? resMongoDbSave =
       await MongoApisManager.getInstance().insertTimelineMissionModel(
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
@@ -163,10 +169,10 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
               extra: jsonEncode({
                 "file": file.lengthSync(),
                 "duration": duration,
-                "url": res.data,
+                "url": url,
                 "localUrl": file.path
               })));
-      this.widget.onSubmit?.call(title ?? "", res.data, this.audioPath ?? "", duration, file.lengthSync());
+      this.widget.onSubmit?.call(title ?? "", url, this.audioPath ?? "", duration, file.lengthSync());
       handleSuccessResult(resMongoDbSave);
     }
   }

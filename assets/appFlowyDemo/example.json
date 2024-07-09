@@ -31,7 +31,7 @@
             { "insert": " " },
             { "insert": "rich-text editor", "attributes": { "italic": true } },
             { "insert": " for " },
-            { "insert": "Flutter", "attributes": { "underline": true } }
+            { "insert": "TimerBell", "attributes": { "underline": true } }
           ]
         }
       },
