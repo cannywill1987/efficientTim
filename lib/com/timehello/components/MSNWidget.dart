@@ -7,11 +7,13 @@ import 'package:time_hello/com/timehello/components/TitleDescWidget.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/TimerUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
 
 import '../common/httpclient/HttpManager.dart';
+import '../util/LoginManager.dart';
 import '../util/ThemeManager.dart';
 
 class MSNWidget extends StatefulWidget {
@@ -105,6 +107,7 @@ class MSNWidgetState extends State<MSNWidget> {
               // Text(getI18NKey().please_finish_msn,
               //     style: TextStyle(color: Color(0xff404040)),
               //     textAlign: TextAlign.center),
+              if(!LoginManager.getInstance().isEmailAccount())
               Container(
                 // decoration: BoxDecoration(
                 //     border: Border.all(
@@ -270,7 +273,7 @@ class MSNWidgetState extends State<MSNWidget> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   decoration: TextDecoration.none,
-                                  color: Color(0xffbbbbbb),
+                                  color: Color(0xff61c37d),
                                   fontSize: 15)))),
                   Container(
                     width: 1,
@@ -297,6 +300,9 @@ class MSNWidgetState extends State<MSNWidget> {
 
 
   requestGetDynamicCode(BuildContext context) async {
+    if(LoginManager.getInstance().isEmailAccount()){
+      return;
+    }
     BaseBean baseBean = await HttpManager.getInstance().doPostRequest(
       Apis.getDynamicCode,
       context: context,
@@ -307,4 +313,6 @@ class MSNWidgetState extends State<MSNWidget> {
       startTimer();
     }
   }
+
+  // bool isEmailAccount() => LoginManager.getInstance().userBean.email == null || LoginManager.getInstance().userBean.email!.isEmpty;
 }

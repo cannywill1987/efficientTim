@@ -2059,6 +2059,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unregister account"),
         "unregister_content": MessageLookupByLibrary.simpleMessage(
             "All account information will be deleted\\nAll your related list, task data\\nPackage coupons will be emptied and cannot be restored\\nRegister again after logout, but historical data will not be restored"),
+        "unregister_success":
+            MessageLookupByLibrary.simpleMessage("Unregister successful"),
         "unregister_temp": MessageLookupByLibrary.simpleMessage("Cancel"),
         "unregister_title": MessageLookupByLibrary.simpleMessage(
             "After logging out, the following information will be affected"),

@@ -100,8 +100,8 @@ class EditorState {
   final Duration minHistoryItemDuration;
   // lzb 增加网络用于上传网络图片
   Function? onUploadCallback;
-  // lzb
-
+  // lzb 用于上传附件
+  Function? onAttachmentUploadCallback;
 
   /// Whether the editor is editable.
   bool editable = true;

@@ -312,10 +312,10 @@ class _MyAppState extends BaseWidgetState<MyApp> {
         //     textTheme: CupertinoTextThemeData(), // This is required
         //   ),
         // ),
-        // locale:
-        // const Locale.fromSubtags(
-        //   languageCode: 'zh',  countryCode: 'CN')
-        // ,
+        locale:
+        const Locale.fromSubtags(
+          languageCode: 'en')
+        ,
 
         localizationsDelegates: const [
           // 很强大的记事本

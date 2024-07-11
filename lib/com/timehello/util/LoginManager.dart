@@ -47,6 +47,8 @@ class LoginManager {
 
   hasLogin() async {}
 
+  bool isEmailAccount() => !TextUtil.isEmpty(LoginManager.getInstance().userBean.email);
+
   hasUserName(
       {required BuildContext context, required Function callback}) async {
     if (isLogin() == false) {

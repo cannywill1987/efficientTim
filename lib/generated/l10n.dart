@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Unregister successful`
+  String get unregister_success {
+    return Intl.message(
+      'Unregister successful',
+      name: 'unregister_success',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Deprecated`
   String get deprecated {
     return Intl.message(

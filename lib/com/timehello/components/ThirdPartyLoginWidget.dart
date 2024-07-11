@@ -78,7 +78,7 @@ class ThirdPartyLoginWidget extends StatelessWidget {
           width: 20,
         ),
         (Utility.isProductEnv() == false ||
-                (Utility.isMobile() == true && isChina == false))
+                (isChina == false))
             ?
         InkWell(
           onTap: () async {

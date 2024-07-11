@@ -1,4 +1,5 @@
 {
+  "unregister_success": "Unregister successful",
   "deprecated": "Deprecated",
   "in_selection_word_count_and_char_count": "In selection word count: {wordCount}, character count: {charCount}",
   "word_count_and_char_count": "Word count: {wordCount}, character count: {charCount}",

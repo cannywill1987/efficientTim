@@ -2301,8 +2301,8 @@ class MongoApisManager {
         query5,
         query6;
 
-    MongoDbQuery<TimelineMissionModel> queryDeviceId = MongoDbQuery();
-    queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
+    // MongoDbQuery<TimelineMissionModel> queryDeviceId = MongoDbQuery();
+    // queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
 
     List<MongoDbQuery<TimelineMissionModel>> list2 = [];
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
@@ -2312,7 +2312,7 @@ class MongoApisManager {
       queryUid.addWhereEqualTo("uid", uid ?? "");
       list2.add(queryUid);
     }
-    list2.add(queryDeviceId);
+    // list2.add(queryDeviceId);
 
     queryUidAndDeviceId.or(list2);
 
