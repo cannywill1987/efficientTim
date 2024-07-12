@@ -111,7 +111,7 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
         //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
 
         String url = await AliyunStoreManager.getInstance()
-            .uploadFile(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+            .uploadFileByFilePath(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
 
         MongoDbSaved? resMongoDbSave;
         resMongoDbSave = await MongoApisManager.getInstance()
@@ -142,7 +142,7 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
       // String? path = await RecorderManager.getInstance().stop();
       File file = new File(path ?? "");
       String url = await AliyunStoreManager.getInstance()
-          .uploadFile(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+          .uploadFileByFilePath(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
 
       // BaseBean res = await HttpManager.getInstance()
       //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
@@ -154,7 +154,7 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
       // String? path = await RecorderManager.getInstance().stop();
       File file = new File(path ?? "");
       String url = await AliyunStoreManager.getInstance()
-          .uploadFile(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+          .uploadFileByFilePath(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
 
       // BaseBean res = await HttpManager.getInstance()
       //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);

@@ -11,6 +11,7 @@ import '../../../util/Utility.dart';
 class Editor extends StatefulWidget {
   const Editor({
     super.key,
+    this.onAttachmentUploadCallback,
     this.onUploadCallback,
     required this.jsonString,
     required this.onEditorStateChange,
@@ -18,7 +19,7 @@ class Editor extends StatefulWidget {
     this.textDirection = TextDirection.ltr,
   });
 
-
+  final Function? onAttachmentUploadCallback;
   final Function? onUploadCallback;
   final Future<String> jsonString;
   final EditorStyle? editorStyle;
@@ -98,6 +99,7 @@ class _EditorState extends State<Editor> {
                   isInitialized = true;
                   EditorState editorState = EditorState(
                     i18nInstance: getI18NKey(context),
+                    onAttachmentUploadCallback: widget.onAttachmentUploadCallback,
                     onUploadCallback: widget.onUploadCallback,
                     document: Document.fromJson(
                       Map<String, Object>.from(

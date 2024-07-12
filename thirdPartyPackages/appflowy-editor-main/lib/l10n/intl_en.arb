@@ -1,4 +1,5 @@
 {
+  "attachment": "Attachment",
   "@@locale": "en",
   "bold": "Bold",
   "bulletedList": "Bulleted List",

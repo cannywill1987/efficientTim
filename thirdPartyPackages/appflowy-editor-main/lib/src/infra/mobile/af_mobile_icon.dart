@@ -16,6 +16,9 @@ enum AFMobileIcons {
   h3('toolbar_icons/h3'),
   list('toolbar_icons/list'),
   bulletedList('toolbar_icons/bulleted_list'),
+  //lzb 附件icon
+  attachment('toolbar_icons/attachment'),
+
   numberedList('toolbar_icons/numbered_list'),
   checkbox('toolbar_icons/checkbox'),
   quote('toolbar_icons/quote'),

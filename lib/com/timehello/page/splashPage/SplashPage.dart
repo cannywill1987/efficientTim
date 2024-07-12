@@ -230,6 +230,14 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         ResourceDeliveryInfoBean? google_login_on = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'google_login_on');
 
+        ResourceDeliveryInfoBean? isGoogleLoginOn =
+        Utility.getDeliveryInfoBean(
+            response: response,
+            key: 'ab_setting',
+            code: 'isGoogleLoginOn');
+        ResourceDeliveryInfoBean? isAppleLoginOn = Utility.getDeliveryInfoBean(
+            response: response, key: 'ab_setting', code: 'isAppleLoginOn');
+
         bool isLatestVersion = Utility.isLatestVersion(
             isOpenOn?.extendParamsMap?['version'] ?? "",
             defaultval: false);
@@ -257,8 +265,10 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
             bean_huawei_secverify_on?.extendParamsMap?['isOn'] ?? false;
         ABTestSetting.isFacebookOn =
             facebook_login_on?.extendParamsMap?['isOn'] ?? false;
-        ABTestSetting.isGoogleOn =
-            google_login_on?.extendParamsMap?['isOn'] ?? false;
+        ABTestSetting.isGoogleLoginOn =
+            isGoogleLoginOn?.extendParamsMap?['isOn'] ?? false;
+        ABTestSetting.isAppleLoginOn =
+            isAppleLoginOn?.extendParamsMap?['isOn'] ?? false;
 
         print('');
       } catch (e) {}

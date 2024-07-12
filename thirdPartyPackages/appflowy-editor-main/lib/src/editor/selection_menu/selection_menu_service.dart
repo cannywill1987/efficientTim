@@ -1,4 +1,5 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:appflowy_editor/src/editor/block_component/attachment_block_component/attachment_upload_widget.dart';
 import 'package:appflowy_editor/src/service/default_text_operations/format_rich_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -237,7 +238,7 @@ class SelectionMenu extends SelectionMenuService {
 
 final List<SelectionMenuItem> standardSelectionMenuItems = [
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.text,
+    getName: () => i18nInstanceLocal.text,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'text',
       isSelected: isSelected,
@@ -249,7 +250,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.heading1,
+    getName: () => i18nInstanceLocal.heading1,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'h1',
       isSelected: isSelected,
@@ -261,7 +262,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.heading2,
+    getName: () => i18nInstanceLocal.heading2,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'h2',
       isSelected: isSelected,
@@ -273,7 +274,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.heading3,
+    getName: () => i18nInstanceLocal.heading3,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'h3',
       isSelected: isSelected,
@@ -284,8 +285,22 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
       insertHeadingAfterSelection(editorState, 3);
     },
   ),
+  // lzb 附件
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.image,
+    getName: () => i18nInstanceLocal?.attachment ?? i18nInstanceLocal.attachment,
+    icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
+      name: 'attachment',
+      isSelected: isSelected,
+      style: style,
+    ),
+    keywords: ['attachment'],
+    handler: (editorState, menuService, context) {
+      final container = Overlay.of(context, rootOverlay: true);
+      showAttachmentMenu(container, editorState, menuService);
+    },
+  ),
+  SelectionMenuItem(
+    getName: () => i18nInstanceLocal.image,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'image',
       isSelected: isSelected,
@@ -298,7 +313,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.bulletedList,
+    getName: () => i18nInstanceLocal.bulletedList,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'bulleted_list',
       isSelected: isSelected,
@@ -310,7 +325,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.numberedList,
+    getName: () => i18nInstanceLocal.numberedList,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'number',
       isSelected: isSelected,
@@ -322,7 +337,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.checkbox,
+    getName: () => i18nInstanceLocal.checkbox,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'checkbox',
       isSelected: isSelected,
@@ -334,7 +349,7 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
     },
   ),
   SelectionMenuItem(
-    getName: () => AppFlowyEditorL10n.current.quote,
+    getName: () => i18nInstanceLocal.quote,
     icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
       name: 'quote',
       isSelected: isSelected,

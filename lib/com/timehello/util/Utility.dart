@@ -205,7 +205,7 @@ class Utility {
       uid = LoginManager.getInstance().userBean.uid ?? "";
     }
     //如果otherUid有那就是加入的
-    if (folderModel?.otherUids?.contains(uid) == true) {
+    if (folderModel?.uid != uid) {
       return false;
     } else {
       return true;

@@ -3100,13 +3100,13 @@ class MongoApisManager {
     return folderModelList.length > 0 ? true : false;
   }
 
-  Future<bool> isTagNameExist_folderModel({title, callback}) async {
+  Future<bool> isTagNameExist_folderModel({required FolderModel folderModel, callback}) async {
     MongoDbQuery<FolderModel> query = MongoDbQuery();
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
         ? ''
         : LoginManager.getInstance().getUserBean().uid;
     query.addWhereEqualTo("uid", uid ?? '');
-    query.addWhereEqualTo("title", title);
+    query.addWhereEqualTo("title", folderModel?.title ?? "");
 
     query.setLimit(1);
     query.setSkip(0);
@@ -3119,15 +3119,29 @@ class MongoApisManager {
         data.map((i) => FolderModel.fromJson(i)).toList();
     for (FolderModel folderModel in folderModelList) {
       if (folderModel != null) {
+        if(folderModel.title == folderModel.title && folderModel.tag == folderModel.tag) {
+          return true;
+        }
         // print(folderModel.objectId);
         // print(folderModel.title);
         // print(missionModel.content);
       }
     }
-    if (callback != null) {
-      callback(folderModelList.length > 0 ? true : false);
-    }
-    return folderModelList.length > 0 ? true : false;
+    // if (callback != null) {
+    //   if(folderModelList.length > 0) {
+    //     FolderModel folderModelTmp = folderModelList[0];
+    //     callback((folderModelTmp.title == folderModel.title && folderModelTmp.tag == folderModel.tag) ? true : false);
+    //   } else {
+    //     callback(false);
+    //   }
+    //
+    // }
+    // if(folderModelList.length > 0) {
+    //   FolderModel folderModelTmp = folderModelList[0];
+    //   return (folderModelTmp.title == folderModel.title && folderModelTmp.tag == folderModel.tag) ? true : false;
+    // } else {
+      return false;
+    // }
   }
 
   ///修改一条数据
@@ -3978,7 +3992,7 @@ class MongoApisManager {
                 tagColor: folderModel.tagColor,
                 timelineMessage: getI18NKey().create_name_tag(title)));
       }
-      if (await isTagNameExist_folderModel(title: title) == true) {
+      if (await isTagNameExist_folderModel(folderModel: folderModel) == true) {
         if (callback != null) {
           callback(null);
         }

@@ -230,7 +230,7 @@ class ImagesWrapperWidgetState extends State<ImagesWrapperWidget> {
       // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
       // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
       String url = await AliyunStoreManager.getInstance()
-          .uploadFile(path: xfile.path, fileName: fileName);
+          .uploadFileByFilePath(path: xfile.path, fileName: fileName);
       listSmallImages.add(url);
     }
 

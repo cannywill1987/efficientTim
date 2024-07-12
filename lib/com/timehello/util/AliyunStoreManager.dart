@@ -78,9 +78,53 @@ class AliyunStoreManager {
     return;
   }
 
+  Future uploadFile(
+      {required File file,
+        DocType docType = DocType.image,
+        FileExtension fileExtensionEnum: FileExtension.jpg,
+        String fileName = ""}) async {
+    await this.init();
+    String fileExt = getFileExtensionByEnum(fileExtensionEnum);
+    String fileType = getFileTypeByEnum(docType);
+    String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
+    File file = File(path);
+    int random = Utility.getRandom(from: 1000000, max: 9999999);
+    String filePath = "timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
+    String ossFilePathUrl =
+        "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
+    Response<dynamic> res = await client!.putObject(
+      file.readAsBytesSync(),
+      filePath,
+      option: PutRequestOption(
+        bucketName: "timehello",
+
+        onSendProgress: (count, total) {
+          // if (kDebugMode) {
+          print("send: count = $count, and total = $total");
+          // }
+        },
+        onReceiveProgress: (count, total) {
+          // if (kDebugMode) {
+          print("receive: count = $count, and total = $total");
+          // }
+        },
+        override: true,
+        aclModel: AclMode.publicWrite,
+        storageType: StorageType.standard,
+      ),
+    );
+    if (res.statusCode == 200) {
+      // print("success");
+      return ossFilePathUrl;
+    }
+
+    print(res);
+    return "";
+  }
+
 //
 //   // 上传文件
-  Future uploadFile(
+  Future uploadFileByFilePath(
       {required String path,
       DocType docType = DocType.image,
       FileExtension fileExtensionEnum: FileExtension.jpg,

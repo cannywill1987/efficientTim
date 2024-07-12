@@ -1,4 +1,9 @@
 {
+  "url_attachment": "url attachment",
+  "please_select_attachment": "Please select attachment",
+  "choose_attachment": "Choose attachment",
+  "upload_attachment": "upload attachment",
+  "attachment": "Attachment",
   "unregister_success": "Unregister successful",
   "deprecated": "Deprecated",
   "in_selection_word_count_and_char_count": "In selection word count: {wordCount}, character count: {charCount}",

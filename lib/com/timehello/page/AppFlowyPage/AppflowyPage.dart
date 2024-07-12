@@ -166,7 +166,6 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
       //     .getString(fileName: state.widget.fileName, defaultVal: "");
       // state.setLoadingStatusEnum(LoadingStatusEnum.normal);
       state.setLoadingStatusEnum(LoadingStatusEnum.success, getI18NKey().save_success);
-
     } catch(e) {
       state.setLoadingStatusEnum(LoadingStatusEnum.error, getI18NKey().save_fail);
     }
@@ -327,6 +326,39 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
       () {
         _widgetBuilder = (context) => Editor(
               jsonString: _jsonString,
+            onAttachmentUploadCallback: (path) async {
+              try {
+                // final appDocDir = await getApplicationDocumentsDirectory();
+                // isLoading = true;
+                setLoadingStatusEnum(LoadingStatusEnum.loading);
+                updateUI();
+                final file = File(path);
+                String fileName = Utility.getUUID();
+                // XFile xfile = await Utility.compressAndGetFile(file: file);
+                // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
+                // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+                String url = await AliyunStoreManager.getInstance()
+                    .uploadFile(file: file, fileName: fileName);
+                // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+                // BaseBean res = await HttpManager.getInstance().uploadImage(
+                //     key: "key",
+                //     file: new File(xfile.path),
+                //     url: Apis.uploadOss);
+                //上传图片
+                // uploadPic(xfile);
+                // isLoading = false;
+                setLoadingStatusEnum(LoadingStatusEnum.normal);
+                updateUI();
+                // return res.data['bigImage'];
+                return url;
+              } catch (e) {
+                print(e);
+                // isLoading = false;
+                setLoadingStatusEnum(LoadingStatusEnum.normal);
+                updateUI();
+                return "";
+              }
+            },
               onUploadCallback: (path) async {
                 try {
                   // final appDocDir = await getApplicationDocumentsDirectory();
@@ -339,7 +371,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
                   // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
                   // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                   String url = await AliyunStoreManager.getInstance()
-                      .uploadFile(path: xfile.path, fileName: fileName);
+                      .uploadFileByFilePath(path: xfile.path, fileName: fileName);
                   // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                   // BaseBean res = await HttpManager.getInstance().uploadImage(
                   //     key: "key",

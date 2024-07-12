@@ -1,4 +1,5 @@
 {
+  "attachment": "Attachment",
   "@@locale": "de-DE",
   "bold": "Fett gedruckt",
   "@bold": {},

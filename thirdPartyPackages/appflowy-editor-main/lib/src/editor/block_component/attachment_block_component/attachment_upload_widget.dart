@@ -20,7 +20,7 @@ void showAttachmentMenu(
   OverlayState container,
   EditorState editorState,
   SelectionMenuService menuService, {
-  OnInsertAttachment? onInsertImage,
+  OnInsertAttachment? onInsertAttachment,
 }) {
   menuService.dismiss();
 
@@ -31,8 +31,8 @@ void showAttachmentMenu(
   void insertAttachment(
     String url,
   ) {
-    if (onInsertImage != null) {
-      onInsertImage(url);
+    if (onInsertAttachment != null) {
+      onInsertAttachment(url);
     } else {
       editorState.insertAttachmentNode(url);
     }
@@ -82,6 +82,10 @@ class UploadAttachmentMenu extends StatefulWidget {
 class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
   //lzb 允许上传的附件格式
   static const allowedExtensions = [    "jpg",
+    "mp3",
+    "pic",
+    "pdf",
+    "apk",
     "png",
     "jpeg",
     "gif",
@@ -166,8 +170,8 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
                 height: 36,
                 child: TabBar(
                   tabs: [
-                    Tab(text: i18nInstanceLocal.uploadImage),
-                    Tab(text: i18nInstanceLocal.urlImage),
+                    Tab(text: i18nInstanceLocal.upload_attachment),
+                    Tab(text: i18nInstanceLocal.url_attachment),
                   ],
                   labelColor: widget.headerColor,
                   unselectedLabelColor: Colors.grey,
@@ -368,13 +372,13 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const EditorSvg(
-                          name: 'upload_image',
+                          name: 'upload_attachment',
                           width: 32,
                           height: 32,
                         ),
                         const SizedBox(height: 8.0),
                         Text(
-                          i18nInstanceLocal.chooseImage,
+                          i18nInstanceLocal.please_select_attachment,
                           style: const TextStyle(
                             fontSize: 14.0,
                             color: Color(0xff00BCF0),
@@ -394,7 +398,7 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
   }
 }
 
-extension InsertImage on EditorState {
+extension InsertAttachment on EditorState {
   Future<void> insertAttachmentNode(
     String src,
   ) async {

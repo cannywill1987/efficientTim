@@ -50,6 +50,56 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `url attachment`
+  String get url_attachment {
+    return Intl.message(
+      'url attachment',
+      name: 'url_attachment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select attachment`
+  String get please_select_attachment {
+    return Intl.message(
+      'Please select attachment',
+      name: 'please_select_attachment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose attachment`
+  String get choose_attachment {
+    return Intl.message(
+      'Choose attachment',
+      name: 'choose_attachment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Attachment`
+  String get upload_attachment {
+    return Intl.message(
+      'Upload Attachment',
+      name: 'upload_attachment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Attachment`
+  String get attachment {
+    return Intl.message(
+      'Attachment',
+      name: 'attachment',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Unregister successful`
   String get unregister_success {
     return Intl.message(
@@ -2066,16 +2116,6 @@ class S {
     return Intl.message(
       'Label',
       name: 'label',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Upload Attachment`
-  String get upload_attachment {
-    return Intl.message(
-      'Upload Attachment',
-      name: 'upload_attachment',
       desc: '',
       args: [],
     );

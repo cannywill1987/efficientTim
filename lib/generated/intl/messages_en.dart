@@ -402,6 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Arithmetic error"),
         "at_least_one_prize": MessageLookupByLibrary.simpleMessage(
             "Please select at least one prize"),
+        "attachment": MessageLookupByLibrary.simpleMessage("Attachment"),
         "aug": MessageLookupByLibrary.simpleMessage("Aug"),
         "augFull": MessageLookupByLibrary.simpleMessage("August"),
         "author_intro":
@@ -508,6 +509,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AI Helper"),
         "checkbox": MessageLookupByLibrary.simpleMessage("Checkbox"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose an image"),
+        "choose_attachment":
+            MessageLookupByLibrary.simpleMessage("Choose attachment"),
         "chronograph": MessageLookupByLibrary.simpleMessage("chronograph"),
         "clearHighlightColor":
             MessageLookupByLibrary.simpleMessage("Clear highlight color"),
@@ -1626,6 +1629,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage(
                 "Please select at least one option in the repeat cycle"),
+        "please_select_attachment":
+            MessageLookupByLibrary.simpleMessage("Please select attachment"),
         "please_select_content": m96,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("please select start time"),
@@ -2092,6 +2097,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Uploading Image"),
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
         "urlImage": MessageLookupByLibrary.simpleMessage("URL"),
+        "url_attachment":
+            MessageLookupByLibrary.simpleMessage("url attachment"),
         "user_exist_reset_password": MessageLookupByLibrary.simpleMessage(
             "User exists, you can reset your password"),
         "user_privacy_protocol_title":

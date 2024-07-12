@@ -72,6 +72,7 @@ class EditorState {
   EditorState({
     required this.document,
     this.onUploadCallback, // lzb 增加网络用于上传网络图片
+    this.onAttachmentUploadCallback, // lzb 用于上传附件
     i18nInstance,
     this.minHistoryItemDuration = const Duration(milliseconds: 200),
   }) {
