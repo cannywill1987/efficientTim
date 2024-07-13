@@ -67,11 +67,11 @@ class AppflowyPage extends BaseWidget {
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
     // TODO: implement getState
-    return _HomePageState();
+    return AppflowyPageState();
   }
 }
 
-class _HomePageState extends BaseWidgetState<AppflowyPage> {
+class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   EditorEditModeEnum editModeEnum = EditorEditModeEnum.normal;
   WidgetBuilder? _widgetBuilder;
@@ -153,7 +153,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
     }
   }
 
-  Function funcDebounce = Utility.debounceWith((_HomePageState state) async {
+  Function funcDebounce = Utility.debounceWith((AppflowyPageState state) async {
     // state.isLoading = true;
     state.setLoadingStatusEnum(LoadingStatusEnum.loading);
     state.updateUI();
@@ -185,6 +185,7 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
   }, Duration(milliseconds: 3000));
 
   initData() async {
+    this.isEnable = false;
     if(this.widget.isDebug) {
       _jsonString = PlatformExtension.isDesktopOrWeb
           ? rootBundle.loadString('assets/appFlowyDemo/example.json')
@@ -333,12 +334,12 @@ class _HomePageState extends BaseWidgetState<AppflowyPage> {
                 setLoadingStatusEnum(LoadingStatusEnum.loading);
                 updateUI();
                 final file = File(path);
-                String fileName = Utility.getUUID();
+                // String fileName = Utility.getUUID();
                 // XFile xfile = await Utility.compressAndGetFile(file: file);
                 // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
                 // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                 String url = await AliyunStoreManager.getInstance()
-                    .uploadFile(file: file, fileName: fileName);
+                    .uploadFile(file: file);
                 // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                 // BaseBean res = await HttpManager.getInstance().uploadImage(
                 //     key: "key",

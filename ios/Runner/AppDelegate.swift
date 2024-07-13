@@ -7,7 +7,7 @@ import flutter_downloader
 import Firebase
 
 //
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate, WXApiDelegate{
     let badgeKey = "badgeKey"
     

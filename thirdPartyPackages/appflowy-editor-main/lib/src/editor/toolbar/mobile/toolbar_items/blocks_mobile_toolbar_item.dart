@@ -1,4 +1,5 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:appflowy_editor/src/service/default_text_operations/format_rich_text_style.dart';
 import 'package:flutter/material.dart';
 
 final blocksMobileToolbarItem = MobileToolbarItem.withMenu(
@@ -33,6 +34,37 @@ class _BlocksMenuState extends State<_BlocksMenu> {
   @override
   Widget build(BuildContext context) {
     List lists = [
+      // heading
+      _ListUnit(
+        icon: AFMobileIcons.datetime,
+        label: i18nInstanceLocal?.datetime ?? i18nInstanceLocal.datetime,
+        // label: i18nInstanceLocal.mobileHeading1,
+        name: "DateTime",
+        level: 1,
+      ),
+      // heading
+      _ListUnit(
+        icon: AFMobileIcons.date,
+        label: i18nInstanceLocal?.date ?? i18nInstanceLocal.date,
+        // label: i18nInstanceLocal.mobileHeading1,
+        name: "Date",
+        level: 1,
+      ),      // heading
+      _ListUnit(
+        icon: AFMobileIcons.time,
+        label: i18nInstanceLocal?.time ?? i18nInstanceLocal.time,
+        // label: i18nInstanceLocal.mobileHeading1,
+        name: "Time",
+        level: 1,
+      ),
+      // heading
+      _ListUnit(
+        icon: AFMobileIcons.h1,
+        label: i18nInstanceLocal?.mobileHeading1 ?? i18nInstanceLocal.mobileHeading1,
+        // label: i18nInstanceLocal.mobileHeading1,
+        name: HeadingBlockKeys.type,
+        level: 1,
+      ),
       // heading
       _ListUnit(
         icon: AFMobileIcons.h1,
@@ -97,6 +129,45 @@ class _BlocksMenuState extends State<_BlocksMenu> {
         isSelected: isSelected,
         onPressed: () {
           setState(() {
+            if(list.name == 'DateTime') { // lzb
+              try {
+                // lzb yyyy-mm-dd hh:mm:ss
+                String datetime = DateTime.now().toString().substring(0, 19);
+                // Selection? selection = editorState.selection;
+                final delta = Delta();
+                delta.insert(datetime, attributes: {"font_color": "0xff9e9e9e",});
+                insertNodeAfterSelection(
+                  widget.editorState,
+                  paragraphNode(
+                    delta: delta,
+                  ),
+                );
+              } catch (e) {
+                print(e);
+              }
+            } else if(list.name == 'Date') { // lzb
+              //  yyyy-mm-dd
+              String date = DateTime.now().toString().substring(0, 10);
+              final delta = Delta();
+              delta.insert(date, attributes: {"font_color": "0xff9e9e9e",});
+              insertNodeAfterSelection(
+                widget.editorState,
+                paragraphNode(
+                  delta: delta,
+                ),
+              );
+            }  else if(list.name == 'Time') { // lzb
+              // hh:mm:ss
+              String time = DateTime.now().toString().substring(11, 19);
+              final delta = Delta();
+              delta.insert(time, attributes: {"font_color": "0xff9e9e9e",});
+              insertNodeAfterSelection(
+                widget.editorState,
+                paragraphNode(
+                  delta: delta,
+                ),
+              );
+            }  else {
             widget.editorState.formatNode(
               widget.selection,
               (node) => node.copyWith(
@@ -115,6 +186,7 @@ class _BlocksMenuState extends State<_BlocksMenu> {
                 selectionExtraInfoDoNotAttachTextService: true,
               },
             );
+            }
           });
         },
       );

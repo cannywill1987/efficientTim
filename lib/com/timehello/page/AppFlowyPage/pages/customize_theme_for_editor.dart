@@ -64,11 +64,11 @@ class _CustomizeThemeForEditorState extends State<CustomizeThemeForEditor> {
         editorState: editorState,
         editorStyle: customizeEditorStyle(),
         blockComponentBuilders: customBuilder(editorState),
-        header: Image.asset(
-          'assets/appFlowyDemo/images/header.png',
-          height: 200,
-          fit: BoxFit.cover,
-        ),
+        // header: Image.asset(
+        //   'assets/appFlowyDemo/images/header.png',
+        //   height: 200,
+        //   fit: BoxFit.cover,
+        // ),
       ),
     );
   }

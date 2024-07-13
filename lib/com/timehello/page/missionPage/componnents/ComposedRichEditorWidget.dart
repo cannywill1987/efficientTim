@@ -71,6 +71,8 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       GlobalKey<BlackCheckButtonListWidgetState>();
   GlobalKey<HeaderNavBarState> localKeyHeaderNavBar =
       GlobalKey<HeaderNavBarState>();
+  GlobalKey<AppflowyPageState> appflowyPageStateKey =
+  GlobalKey<AppflowyPageState>();
   AppflowyPage? appflowyPage;
 
   // image,
@@ -132,6 +134,9 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
             } else {
               Utility.setDesktopMiddileMissionPage(context, isVisible: true);
             }
+          } else if(model.code == "refresh") {
+            appflowyPageStateKey.currentState?.initData();
+            // this.saveFinal();
           }
 
           jumpToTabIndexForNormal(index);
@@ -531,7 +536,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       // if(appflowyPage == null) {
       // if(!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
       return appflowyPage =
-          AppflowyPage(isDebug:LoginManager.isLogin() == false && getI18NKey().guide1 == this.missionModel.title,fileName: this.widget.missionModel.objectId ?? "");
+          AppflowyPage(key: appflowyPageStateKey, isDebug:LoginManager.isLogin() == false && getI18NKey().guide1 == this.missionModel.title,fileName: this.widget.missionModel.objectId ?? "");
       // }
       // } else {
       //   return appflowyPage!;

@@ -285,6 +285,77 @@ final List<SelectionMenuItem> standardSelectionMenuItems = [
       insertHeadingAfterSelection(editorState, 3);
     },
   ),
+  // lzb 日期时间
+  SelectionMenuItem(
+    getName: () => i18nInstanceLocal?.datetime ?? i18nInstanceLocal.datetime,
+    icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
+      name: 'datetime',
+      isSelected: isSelected,
+      style: style,
+    ),
+    keywords: ['datetime'],
+    handler: (editorState, menuService, context) {
+      try {
+        // lzb yyyy-mm-dd hh:mm:ss
+        String datetime = DateTime.now().toString().substring(0, 19);
+        Selection? selection = editorState.selection;
+        final delta = Delta();
+        delta.insert(datetime, attributes: {"font_color": "0xff9e9e9e",});
+        insertNodeAfterSelection(
+          editorState,
+          paragraphNode(
+            delta: delta,
+          ),
+        );
+      } catch (e) {
+        print(e);
+      }
+    },
+  ),
+  // lzb 日期
+  SelectionMenuItem(
+    getName: () => i18nInstanceLocal?.date ?? i18nInstanceLocal.date,
+    icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
+      name: 'date',
+      isSelected: isSelected,
+      style: style,
+    ),
+    keywords: ['date'],
+    handler: (editorState, menuService, context) {
+      //  yyyy-mm-dd
+      String date = DateTime.now().toString().substring(0, 10);
+      final delta = Delta();
+      delta.insert(date, attributes: {"font_color": "0xff9e9e9e",});
+      insertNodeAfterSelection(
+        editorState,
+        paragraphNode(
+          delta: delta,
+        ),
+      );
+    },
+  ),
+  // lzb 时间
+  SelectionMenuItem(
+    getName: () => i18nInstanceLocal?.time ?? i18nInstanceLocal.time,
+    icon: (editorState, isSelected, style) => SelectionMenuIconWidget(
+      name: 'time',
+      isSelected: isSelected,
+      style: style,
+    ),
+    keywords: ['time'],
+    handler: (editorState, menuService, context) {
+      // hh:mm:ss
+      String time = DateTime.now().toString().substring(11, 19);
+      final delta = Delta();
+      delta.insert(time, attributes: {"font_color": "0xff9e9e9e",});
+      insertNodeAfterSelection(
+        editorState,
+        paragraphNode(
+          delta: delta,
+        ),
+      );
+    },
+  ),
   // lzb 附件
   SelectionMenuItem(
     getName: () => i18nInstanceLocal?.attachment ?? i18nInstanceLocal.attachment,

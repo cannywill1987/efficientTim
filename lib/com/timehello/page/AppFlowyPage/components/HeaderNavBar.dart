@@ -51,9 +51,9 @@ class HeaderNavBarState extends State<HeaderNavBar> {
           AppFlowyControlWidget(
             list: listTabBarWideget,
             onTapListener: (CheckButtonStateModel model) {
-              setState(() {
+              // setState(() {
                 widget.onTapListener.call(listTabBarWideget.indexOf(model), model);
-              });
+              // });
             },
           )
         ],

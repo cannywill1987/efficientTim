@@ -80,18 +80,19 @@ class AliyunStoreManager {
 
   Future uploadFile(
       {required File file,
-        DocType docType = DocType.image,
-        FileExtension fileExtensionEnum: FileExtension.jpg,
-        String fileName = ""}) async {
+        // DocType docType = DocType.image,
+        // FileExtension fileExtensionEnum: FileExtension.jpg,
+        }) async {
     await this.init();
-    String fileExt = getFileExtensionByEnum(fileExtensionEnum);
-    String fileType = getFileTypeByEnum(docType);
+    String fileName = file.path.split('/').last;
+    // String fileExt = getFileTypeByString(file.path);
+    String fileType = getFileTypeByString(file.path);
     String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
-    File file = File(path);
+    // File file = File(file.path);
     int random = Utility.getRandom(from: 1000000, max: 9999999);
-    String filePath = "timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
+    String filePath = "timehello/${fileType}/${uid}/${random}-${fileName}";
     String ossFilePathUrl =
-        "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
+        "${Params.mOssUrl}/timehello/${fileType}/${uid}/${random}-${fileName}";
     Response<dynamic> res = await client!.putObject(
       file.readAsBytesSync(),
       filePath,
@@ -360,6 +361,101 @@ try {
         return "md";
       default:
         return "others";
+    }
+  }
+  // 返回 document image audio video attachment md others
+  String getFileTypeByString(String path) {
+    String extension = path.split('.').last;
+    switch (extension) {
+      case "md":
+        return "md";
+      case "json":
+        return "document";
+      case "txt":
+        return "document";
+      case "pdf":
+        return "document";
+      case "doc":
+        return "document";
+      case "docx":
+        return "document";
+      case "xls":
+        return "document";
+      case "xlsx":
+        return "document";
+      case "ppt":
+        return "document";
+      case "pptx":
+        return "document";
+      case "jpg":
+        return "image";
+      case "jpeg":
+        return "image";
+      case "png":
+        return "image";
+      case "gif":
+        return "image";
+      case "mp3":
+        return "audio";
+      case "mp4":
+        return "video";
+      case "avi":
+        return "video";
+      case "flv":
+        return "video";
+      case "wmv":
+        return "video";
+      case "mov":
+        return "video";
+      case "m4a":
+        return "audio";
+      case "m4v":
+        return "video";
+      case "mkv":
+        return "video";
+      case "rmvb":
+        return "video";
+      case "rm":
+        return "video";
+      case "wma":
+        return "audio";
+      case "wav":
+        return "audio";
+      case "aac":
+        return "audio";
+      case "amr":
+        return "audio";
+      case "zip":
+        return "attachment";
+      case "rar":
+        return "attachment";
+      case "sevenz":
+        return "attachment";
+      case "tar":
+        return "attachment";
+      case "gz":
+        return "attachment";
+      case "bz2":
+        return "attachment";
+      case "apk":
+        return "attachment";
+      case "exe":
+        return "attachment";
+      case "dmg":
+        return "attachment";
+      case "iso":
+        return "attachment";
+      case "deb":
+        return "attachment";
+      case "rpm":
+        return "attachment";
+      case "ipa":
+        return "attachment";
+      case "app":
+        return "attachment";
+      default:
+        return "others";
+
     }
   }
 

@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Type something...`
+  String get type_something {
+    return Intl.message(
+      'Type something...',
+      name: 'type_something',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DateTime`
+  String get datetime {
+    return Intl.message(
+      'DateTime',
+      name: 'datetime',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `url attachment`
   String get url_attachment {
     return Intl.message(

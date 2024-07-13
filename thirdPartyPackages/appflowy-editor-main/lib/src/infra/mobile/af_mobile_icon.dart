@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 
 enum AFMobileIcons {
   textDecoration('toolbar_icons/text_decoration'),
+  date('toolbar_icons/date'),
+  datetime('toolbar_icons/datetime'),
+  time('toolbar_icons/time'),
   bold('toolbar_icons/bold'),
   italic('toolbar_icons/italic'),
   underline('toolbar_icons/underline'),
@@ -18,6 +21,9 @@ enum AFMobileIcons {
   bulletedList('toolbar_icons/bulleted_list'),
   //lzb 附件icon
   attachment('toolbar_icons/attachment'),
+
+  //lzb 图片icon
+  image('toolbar_icons/upload_image'),
 
   numberedList('toolbar_icons/numbered_list'),
   checkbox('toolbar_icons/checkbox'),

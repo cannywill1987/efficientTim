@@ -441,6 +441,7 @@ class _ToolbarItemListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // lzb 注释 移动端toolbar滚动条
     return ListView.builder(
       itemBuilder: (context, index) {
         final toolbarItem = toolbarItems[index];

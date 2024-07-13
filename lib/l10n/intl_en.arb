@@ -1,4 +1,6 @@
 {
+  "type_something": "Type something...",
+  "datetime": "DateTime",
   "url_attachment": "url attachment",
   "please_select_attachment": "Please select attachment",
   "choose_attachment": "Choose attachment",

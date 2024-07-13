@@ -8,13 +8,14 @@ import 'package:string_validator/string_validator.dart';
 
 import '../../util/file_picker/file_picker_impl.dart';
 import '../image_block_component/base64_image.dart';
+import 'FileWidget.dart';
 
 enum ImageFromFileStatus {
   notSelected,
   selected,
 }
 
-typedef OnInsertAttachment = void Function(String url);
+typedef OnInsertAttachment = void Function(fp.PlatformFile  url);
 
 void showAttachmentMenu(
   OverlayState container,
@@ -29,12 +30,12 @@ void showAttachmentMenu(
   late final OverlayEntry imageMenuEntry;
 
   void insertAttachment(
-    String url,
+      fp.PlatformFile file,
   ) {
     if (onInsertAttachment != null) {
-      onInsertAttachment(url);
+      onInsertAttachment(file);
     } else {
-      editorState.insertAttachmentNode(url);
+      editorState.insertAttachmentNode(file);
     }
     menuService.dismiss();
     imageMenuEntry.remove();
@@ -72,8 +73,8 @@ class UploadAttachmentMenu extends StatefulWidget {
   final Color backgroundColor;
   final Color headerColor;
   final double width;
-  final void Function(String text) onSubmitted;
-  final void Function(String text) onUpload;
+  final void Function(fp.PlatformFile file) onSubmitted;
+  final void Function(fp.PlatformFile file) onUpload;
 
   @override
   State<UploadAttachmentMenu> createState() => _UploadAttachmentMenuState();
@@ -126,7 +127,7 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
   // this value is either a path or base64 content
   // if the app is running on web, it will be base64 content
   // otherwise, it will be a path
-  String? _imagePathOrContent;
+  fp.PlatformFile? _uploadFile;
 
   bool isUrlValid = true;
 
@@ -171,7 +172,7 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
                 child: TabBar(
                   tabs: [
                     Tab(text: i18nInstanceLocal.upload_attachment),
-                    Tab(text: i18nInstanceLocal.url_attachment),
+                    // Tab(text: i18nInstanceLocal.url_attachment),
                   ],
                   labelColor: widget.headerColor,
                   unselectedLabelColor: Colors.grey,
@@ -192,7 +193,7 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   _buildFileTab(context),
-                  _buildUrlTab(context),
+                  // _buildUrlTab(context),
                 ],
               ),
             ),
@@ -202,42 +203,42 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
     );
   }
 
-  Widget _buildInput() {
-    return TextField(
-      focusNode: _focusNode,
-      style: const TextStyle(fontSize: 14.0),
-      textAlign: TextAlign.left,
-      controller: _textEditingController,
-      onSubmitted: (text) {
-        if (_validateUrl(text)) {
-          widget.onSubmitted(text);
-        } else {
-          setState(() {
-            isUrlValid = false;
-          });
-        }
-      },
-      decoration: InputDecoration(
-        hintText: 'URL',
-        hintStyle: const TextStyle(fontSize: 14.0),
-        contentPadding: const EdgeInsets.all(16.0),
-        isDense: true,
-        suffixIcon: IconButton(
-          padding: const EdgeInsets.all(4.0),
-          icon: const EditorSvg(
-            name: 'clear',
-            width: 24,
-            height: 24,
-          ),
-          onPressed: _textEditingController.clear,
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          borderSide: BorderSide(color: Color(0xFFBDBDBD)),
-        ),
-      ),
-    );
-  }
+  // Widget _buildInput() {
+  //   return TextField(
+  //     focusNode: _focusNode,
+  //     style: const TextStyle(fontSize: 14.0),
+  //     textAlign: TextAlign.left,
+  //     controller: _textEditingController,
+  //     onSubmitted: (text) {
+  //       if (_validateUrl(text)) {
+  //         widget.onSubmitted(text);
+  //       } else {
+  //         setState(() {
+  //           isUrlValid = false;
+  //         });
+  //       }
+  //     },
+  //     decoration: InputDecoration(
+  //       hintText: 'URL',
+  //       hintStyle: const TextStyle(fontSize: 14.0),
+  //       contentPadding: const EdgeInsets.all(16.0),
+  //       isDense: true,
+  //       suffixIcon: IconButton(
+  //         padding: const EdgeInsets.all(4.0),
+  //         icon: const EditorSvg(
+  //           name: 'clear',
+  //           width: 24,
+  //           height: 24,
+  //         ),
+  //         onPressed: _textEditingController.clear,
+  //       ),
+  //       border: const OutlineInputBorder(
+  //         borderRadius: BorderRadius.all(Radius.circular(12.0)),
+  //         borderSide: BorderSide(color: Color(0xFFBDBDBD)),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildInvalidLinkText() {
     return Text(
@@ -262,15 +263,17 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
           ),
         ),
         onPressed: () async {
-          if (_imagePathOrContent != null) {
+          if (_uploadFile != null) {
             widget.onUpload(
-              _imagePathOrContent!,
+              _uploadFile!,
             );
-          } else if (_validateUrl(_textEditingController.text)) {
-            widget.onUpload(
-              _textEditingController.text,
-            );
-          } else {
+          }
+          // else if (_validateUrl(_textEditingController.text)) {
+          //   widget.onUpload(
+          //     _textEditingController.text,
+          //   );
+          // }
+          else {
             setState(() {
               isUrlValid = false;
             });
@@ -287,24 +290,24 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
     );
   }
 
-  Widget _buildUrlTab(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 16.0),
-        _buildInput(),
-        const SizedBox(height: 18.0),
-        if (!isUrlValid) _buildInvalidLinkText(),
-        const SizedBox(height: 18.0),
-        Align(
-          alignment: Alignment.centerRight,
-          child: _buildUploadButton(
-            context,
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildUrlTab(BuildContext context) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const SizedBox(height: 16.0),
+  //       _buildInput(),
+  //       const SizedBox(height: 18.0),
+  //       if (!isUrlValid) _buildInvalidLinkText(),
+  //       const SizedBox(height: 18.0),
+  //       Align(
+  //         alignment: Alignment.centerRight,
+  //         child: _buildUploadButton(
+  //           context,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildFileTab(BuildContext context) {
     return Column(
@@ -332,18 +335,19 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
             final result = await _filePicker.pickFiles(
               dialogTitle: '',
               allowMultiple: false,
-              type: kIsWeb ? fp.FileType.custom : fp.FileType.image,
-              allowedExtensions: allowedExtensions,
+              // type: kIsWeb ? fp.FileType.custom : fp.FileType.image,
+              // allowedExtensions: allowedExtensions,
               withData: kIsWeb,
             );
             if (result != null && result.files.isNotEmpty) {
               setState(() {
-                final bytes = result.files.first.bytes;
-                if (kIsWeb && bytes != null) {
-                  _imagePathOrContent = base64String(bytes);
-                } else {
-                  _imagePathOrContent = result.files.first.path;
-                }
+                // final bytes = result.files.first.bytes;
+                // if (kIsWeb && bytes != null) {
+                //   _imagePathOrContent = base64String(bytes);
+                // } else {
+                // fp.PlatformFile file = result.files.first;
+                  _uploadFile = result.files.first;
+                // }
               });
             }
           },
@@ -354,18 +358,19 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
               border: Border.all(color: const Color(0xff00BCF0)),
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: _imagePathOrContent != null
+            child: _uploadFile != null
                 ? Align(
                     alignment: Alignment.center,
-                    child: kIsWeb
-                        ? Image.memory(
-                            dataFromBase64String(_imagePathOrContent!),
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            File(_imagePathOrContent!),
-                            fit: BoxFit.cover,
-                          ),
+                    child: FileWidget(file: _uploadFile!,),
+                    // child: kIsWeb
+                    //     ? Image.memory(
+                    //         dataFromBase64String(_imagePathOrContent!),
+                    //         fit: BoxFit.cover,
+                    //       )
+                    //     : Image.file(
+                    //         File(_imagePathOrContent!),
+                    //         fit: BoxFit.cover,
+                    //       ),
                   )
                 : Center(
                     child: Column(
@@ -400,7 +405,7 @@ class _UploadAttachmentMenuState extends State<UploadAttachmentMenu> {
 
 extension InsertAttachment on EditorState {
   Future<void> insertAttachmentNode(
-    String src,
+      fp.PlatformFile  file,
   ) async {
     final selection = this.selection;
     if (selection == null || !selection.isCollapsed) {
@@ -417,53 +422,24 @@ extension InsertAttachment on EditorState {
         (node.delta?.isEmpty ?? false)) {
       // lzb 上传图片通过回调执行
       if(this.onAttachmentUploadCallback != null) {
-       String url = await onAttachmentUploadCallback?.call(src);
-       if(url.isEmpty) {
-         return;
-       }
-       // transaction
-       //   ..insertNode(
-       //     node.path,
-       //     paragraphNode(
-       //       attributes: {
-       //         ParagraphBlockKeys.delta: delta.toJson(),
-       //       },
-       //       // textDirection: textDirection,
-       //       children: node.children,
-       //     ),
-       //     deepCopy: true,
-       //   )
-       //   ..deleteNode(node)
-       //   ..afterSelection = transaction.beforeSelection;
-       // // editorState.apply(transaction);
-       //
-       //
-       //
-       // transaction
-       //   ..insertNode(
-       //     node.path,
-       //     imageNode(
-       //       url: url,
-       //     ),
-       //   );
-         // ..deleteNode(node);
-      } else {
+        String url = await onAttachmentUploadCallback?.call(file.path);
+        if(url.isEmpty) {
+          return;
+        }
+        final delta = Delta();
+        delta.insert(i18nInstanceLocal.attachment + ":" +file.name + "(" + FileWidget.formatBytes(file.size) + ")", attributes: {BuiltInAttributeKey.href: url,});
+
         transaction
           ..insertNode(
             node.path,
-            imageNode(
-              url: src,
+            paragraphNode(
+              delta: delta,
             ),
+            deepCopy: true,
           )
-          ..deleteNode(node);
+          ..deleteNode(node)
+          ..afterSelection = transaction.beforeSelection;
       }
-    } else {
-      transaction.insertNode(
-        node.path.next,
-        imageNode(
-          url: src,
-        ),
-      );
     }
 
     transaction.afterSelection = Selection.collapsed(

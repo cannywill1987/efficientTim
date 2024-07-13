@@ -1,6 +1,7 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 class MobileEditor extends StatefulWidget {
   const MobileEditor({
@@ -51,7 +52,10 @@ class _MobileEditorState extends State<MobileEditor> {
     return MobileToolbarV2(
       toolbarHeight: 48.0,
       toolbarItems: [
+        // 移动端工具栏 几个items
         textDecorationMobileToolbarItemV2,
+        attachmentMobileToolbarItem,
+        imageMobileToolbarItem,
         buildTextAndBackgroundColorMobileToolbarItem(),
         blocksMobileToolbarItem,
         linkMobileToolbarItem,
@@ -91,14 +95,14 @@ class _MobileEditorState extends State<MobileEditor> {
                 blockComponentBuilders: blockComponentBuilders,
                 showMagnifier: true,
                 // showcase 3: customize the header and footer.
-                header: Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Image.asset(
-                    'assets/appFlowyDemo/images/header.png',
-                  ),
-                ),
+                // header: Padding(
+                //   padding: const EdgeInsets.only(bottom: 10.0),
+                //   child: Image.asset(
+                //     'assets/appFlowyDemo/images/header.png',
+                //   ),
+                // ),
                 footer: const SizedBox(
-                  height: 100,
+                  height: 30,
                 ),
               ),
             ),
@@ -152,7 +156,7 @@ class _MobileEditorState extends State<MobileEditor> {
     );
     map[ParagraphBlockKeys.type] = ParagraphBlockComponentBuilder(
       configuration: BlockComponentConfiguration(
-        placeholderText: (node) => 'Type something...',
+        placeholderText: (node) => getI18NKey().type_something,
       ),
     );
     return map;

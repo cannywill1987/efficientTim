@@ -50,6 +50,15 @@ class AppFlowyControlWidget extends StatelessWidget {
     // }
     // if(!Utility.isHandsetBySize())
     list.add(CheckButtonStateModel(
+        code: 'refresh',
+        checkIcon: Icon(
+          // windows 扩大icon
+          Icons.refresh,
+          color: ThemeManager.getInstance().getDefautThemeColor(),
+          size: 16,
+        )));
+
+    list.add(CheckButtonStateModel(
         code: 'expand',
         checkIcon: isExpand ? Icon(
           // windows 扩大icon

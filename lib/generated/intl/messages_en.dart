@@ -821,6 +821,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFromMonthToMins": m36,
         "dateOutOfLimit": MessageLookupByLibrary.simpleMessage(
             "The date you selected is out of range"),
+        "datetime": MessageLookupByLibrary.simpleMessage("DateTime"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
         "day_hour_minute_second":
             MessageLookupByLibrary.simpleMessage("Day, Hour, Minute, Second"),
@@ -2043,6 +2044,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "twenty_one_days":
             MessageLookupByLibrary.simpleMessage("Twenty one days"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
+        "type_something":
+            MessageLookupByLibrary.simpleMessage("Type something..."),
         "unarchive": MessageLookupByLibrary.simpleMessage("Unarchive"),
         "uncomplete_plan_classification": MessageLookupByLibrary.simpleMessage(
             "Unfinished plan classification"),
