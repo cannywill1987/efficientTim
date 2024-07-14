@@ -80,6 +80,7 @@ class AliyunStoreManager {
 
   Future uploadFile(
       {required File file,
+        Function? downloadCallback
         // DocType docType = DocType.image,
         // FileExtension fileExtensionEnum: FileExtension.jpg,
         }) async {
@@ -102,6 +103,7 @@ class AliyunStoreManager {
         onSendProgress: (count, total) {
           // if (kDebugMode) {
           print("send: count = $count, and total = $total");
+          downloadCallback?.call(count, total);
           // }
         },
         onReceiveProgress: (count, total) {
@@ -128,7 +130,8 @@ class AliyunStoreManager {
   Future uploadFileByFilePath(
       {required String path,
       DocType docType = DocType.image,
-      FileExtension fileExtensionEnum: FileExtension.jpg,
+        Function? downloadCallback,
+        FileExtension fileExtensionEnum: FileExtension.jpg,
       String fileName = ""}) async {
     await this.init();
     String fileExt = getFileExtensionByEnum(fileExtensionEnum);
@@ -148,6 +151,7 @@ class AliyunStoreManager {
         onSendProgress: (count, total) {
           // if (kDebugMode) {
           print("send: count = $count, and total = $total");
+          downloadCallback?.call(count, total);
           // }
         },
         onReceiveProgress: (count, total) {

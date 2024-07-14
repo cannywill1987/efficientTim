@@ -414,6 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Erreur arithmétique"),
         "at_least_one_prize": MessageLookupByLibrary.simpleMessage(
             "Veuillez sélectionner au moins un prix"),
+        "attachment": MessageLookupByLibrary.simpleMessage("Pièce jointe"),
         "aug": MessageLookupByLibrary.simpleMessage("Août"),
         "augFull": MessageLookupByLibrary.simpleMessage("Août"),
         "author_intro":
@@ -501,6 +502,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Toute question que vous avez sera répondue ici"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("Assistant AI"),
         "checkbox": MessageLookupByLibrary.simpleMessage("Case à cocher"),
+        "choose_attachment":
+            MessageLookupByLibrary.simpleMessage("Choisir une pièce jointe"),
         "chronograph": MessageLookupByLibrary.simpleMessage("chronomètre"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage(""),
         "click_to_view":
@@ -697,6 +700,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFromMonthToMins": m36,
         "dateOutOfLimit": MessageLookupByLibrary.simpleMessage(
             "La date que vous avez sélectionnée est hors de portée"),
+        "datetime": MessageLookupByLibrary.simpleMessage("DateHeure"),
         "day": MessageLookupByLibrary.simpleMessage("jour"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage(
             "Jour, Heure, Minute, Seconde"),
@@ -1484,6 +1488,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage(
                 "Veuillez sélectionner au moins une option dans le cycle de répétition"),
+        "please_select_attachment": MessageLookupByLibrary.simpleMessage(
+            "Veuillez sélectionner une pièce jointe"),
         "please_select_content": m96,
         "please_select_daily_start_time": MessageLookupByLibrary.simpleMessage(
             "veuillez sélectionner l\'heure de début"),
@@ -1899,6 +1905,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "twenty_one_days":
             MessageLookupByLibrary.simpleMessage("Vingt et un jours"),
         "type": MessageLookupByLibrary.simpleMessage("type"),
+        "type_something":
+            MessageLookupByLibrary.simpleMessage("Tapez quelque chose..."),
         "unarchive": MessageLookupByLibrary.simpleMessage("Désarchiver"),
         "uncomplete_plan_classification": MessageLookupByLibrary.simpleMessage(
             "Classification des plans non terminés"),
@@ -1921,6 +1929,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Désinscrire le compte"),
         "unregister_content": MessageLookupByLibrary.simpleMessage(
             "Toutes les informations de compte seront supprimées\\nToutes vos données de liste et de tâche associées\\nLes coupons de paquet seront vidés et ne pourront pas être restaurés\\nS\'inscrire à nouveau après la déconnexion, mais les données historiques ne seront pas restaurées"),
+        "unregister_success":
+            MessageLookupByLibrary.simpleMessage("Désinscription réussie"),
         "unregister_temp": MessageLookupByLibrary.simpleMessage("Annuler"),
         "unregister_title": MessageLookupByLibrary.simpleMessage(
             "Après la déconnexion, les informations suivantes seront affectées"),
@@ -1950,6 +1960,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Téléchargement réussi"),
         "uploading_pic":
             MessageLookupByLibrary.simpleMessage("Téléchargement de l\'image"),
+        "url_attachment":
+            MessageLookupByLibrary.simpleMessage("Pièce jointe URL"),
         "user_exist_reset_password": MessageLookupByLibrary.simpleMessage(
             "L\'utilisateur existe, vous pouvez réinitialiser votre mot de passe"),
         "user_privacy_protocol_title": MessageLookupByLibrary.simpleMessage(

@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/util/LoginManager.dart';
 
 // import 'package:time_hello/com/timehello/util/FirebaseStoreManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -81,6 +82,9 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
   // bool isLoading = false;
   bool isEnable = false;
   LoadingStatusEnum loadingStatusEnum = LoadingStatusEnum.normal;
+  double _progress = 0;
+  bool isProgressBarVisible = false;
+  int colorValue = ThemeManager.getInstance().getDefautThemeColor().value;
   @override
   void initState() {
     super.initState();
@@ -257,6 +261,14 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                   ),
                   child: getTipWidget()),
             ),
+          //progressbar
+          if(isProgressBarVisible)
+          LinearProgressIndicator(
+            value: _progress,
+            minHeight: 2,
+            valueColor: AlwaysStoppedAnimation<Color>(Color(colorValue)),
+            backgroundColor: Color(colorValue).withOpacity(0.1),
+          ),
         ],
       );
     } else {
@@ -332,14 +344,24 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                 // final appDocDir = await getApplicationDocumentsDirectory();
                 // isLoading = true;
                 setLoadingStatusEnum(LoadingStatusEnum.loading);
-                updateUI();
                 final file = File(path);
                 // String fileName = Utility.getUUID();
                 // XFile xfile = await Utility.compressAndGetFile(file: file);
                 // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
                 // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+                _progress = 0;
+                this.isProgressBarVisible = true;
+                updateUI();
                 String url = await AliyunStoreManager.getInstance()
-                    .uploadFile(file: file);
+                    .uploadFile(file: file, downloadCallback: (curVal, total) {
+                      this.isProgressBarVisible = true;
+                      double progress = curVal / total;
+                      _progress = progress;
+                      print("progress: $progress");
+                      updateUI();
+                });
+                _progress = 1;
+                this.isProgressBarVisible = false;
                 // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                 // BaseBean res = await HttpManager.getInstance().uploadImage(
                 //     key: "key",
@@ -365,14 +387,25 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                   // final appDocDir = await getApplicationDocumentsDirectory();
                   // isLoading = true;
                   setLoadingStatusEnum(LoadingStatusEnum.loading);
-                  updateUI();
                   final file = File(path);
                   String fileName = Utility.getUUID();
                   XFile xfile = await Utility.compressAndGetFile(file: file);
                   // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
                   // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+                  _progress = 0;
+                  this.isProgressBarVisible = true;
+                  updateUI();
+
                   String url = await AliyunStoreManager.getInstance()
-                      .uploadFileByFilePath(path: xfile.path, fileName: fileName);
+                      .uploadFileByFilePath(path: xfile.path, fileName: fileName, downloadCallback: (curVal, total) {
+                    this.isProgressBarVisible = true;
+                    double progress = curVal / total;
+                    _progress = progress;
+                    print("progress: $progress");
+                    updateUI();
+                  });
+                  _progress = 1;
+                  this.isProgressBarVisible = false;
                   // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
                   // BaseBean res = await HttpManager.getInstance().uploadImage(
                   //     key: "key",
