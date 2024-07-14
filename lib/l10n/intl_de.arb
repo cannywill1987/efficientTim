@@ -1,4 +1,12 @@
 {
+  "type_something": "Geben Sie etwas ein...",
+  "datetime": "DatumZeit",
+  "url_attachment": "URL-Anhang",
+  "please_select_attachment": "Bitte Anhang auswählen",
+  "choose_attachment": "Anhang auswählen",
+  "upload_attachment": "Anhang hochladen",
+  "attachment": "Anhang",
+  "unregister_success": "Abmeldung erfolgreich",
   "deprecated": "Bald veraltet",
   "in_selection_word_count_and_char_count": "(Auswahl) Wörter: {wordCount}, Zeichen: {charCount}",
   "word_count_and_char_count": "Wörter: {wordCount}, Zeichen: {charCount}",

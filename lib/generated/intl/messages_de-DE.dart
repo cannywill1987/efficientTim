@@ -412,6 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rechenfehler"),
         "at_least_one_prize": MessageLookupByLibrary.simpleMessage(
             "Bitte wählen Sie mindestens einen Preis aus"),
+        "attachment": MessageLookupByLibrary.simpleMessage("Anhang"),
         "aug": MessageLookupByLibrary.simpleMessage("Aug"),
         "augFull": MessageLookupByLibrary.simpleMessage("August"),
         "author_intro":
@@ -501,6 +502,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Jede Frage, die Sie haben, wird hier beantwortet"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AI Helfer"),
         "checkbox": MessageLookupByLibrary.simpleMessage("Kontrollkästchen"),
+        "choose_attachment":
+            MessageLookupByLibrary.simpleMessage("Anhang auswählen"),
         "chronograph": MessageLookupByLibrary.simpleMessage("Chronograph"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage(""),
         "click_to_view":
@@ -692,6 +695,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFromMonthToMins": m36,
         "dateOutOfLimit": MessageLookupByLibrary.simpleMessage(
             "Das von Ihnen ausgewählte Datum liegt außerhalb des Bereichs"),
+        "datetime": MessageLookupByLibrary.simpleMessage("DatumZeit"),
         "day": MessageLookupByLibrary.simpleMessage("Tag"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage(
             "Tag, Stunde, Minute, Sekunde"),
@@ -1476,6 +1480,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage(
                 "Bitte wählen Sie mindestens eine Option im Wiederholungszyklus"),
+        "please_select_attachment":
+            MessageLookupByLibrary.simpleMessage("Bitte Anhang auswählen"),
         "please_select_content": m96,
         "please_select_daily_start_time": MessageLookupByLibrary.simpleMessage(
             "Bitte wählen Sie die Startzeit"),
@@ -1877,6 +1883,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "twenty_one_days":
             MessageLookupByLibrary.simpleMessage("Einundzwanzig Tage"),
         "type": MessageLookupByLibrary.simpleMessage("Typ"),
+        "type_something":
+            MessageLookupByLibrary.simpleMessage("Geben Sie etwas ein..."),
         "unarchive":
             MessageLookupByLibrary.simpleMessage("Archivierung aufheben"),
         "uncomplete_plan_classification": MessageLookupByLibrary.simpleMessage(
@@ -1899,6 +1907,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Konto abmelden"),
         "unregister_content": MessageLookupByLibrary.simpleMessage(
             "Alle Kontoinformationen werden gelöscht\\nAlle Ihre zugehörigen Listen, Aufgabendaten\\nPackage-Gutscheine werden geleert und können nicht wiederhergestellt werden\\nRegistrieren Sie sich erneut nach dem Abmelden, aber historische Daten werden nicht wiederhergestellt"),
+        "unregister_success":
+            MessageLookupByLibrary.simpleMessage("Abmeldung erfolgreich"),
         "unregister_temp": MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "unregister_title": MessageLookupByLibrary.simpleMessage(
             "Nach dem Abmelden wird die folgende Information betroffen sein"),
@@ -1927,6 +1937,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upload_success":
             MessageLookupByLibrary.simpleMessage("Erfolgreich hochgeladen"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("Bild hochladen"),
+        "url_attachment": MessageLookupByLibrary.simpleMessage("URL-Anhang"),
         "user_exist_reset_password": MessageLookupByLibrary.simpleMessage(
             "Benutzer existiert, Sie können Ihr Passwort zurücksetzen"),
         "user_privacy_protocol_title": MessageLookupByLibrary.simpleMessage(

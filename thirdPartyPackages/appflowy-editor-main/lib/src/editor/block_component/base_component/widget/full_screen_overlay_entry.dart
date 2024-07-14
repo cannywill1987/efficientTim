@@ -9,8 +9,10 @@ class FullScreenOverlayEntry {
     required this.builder,
     this.tapToDismiss = true,
     this.dismissCallback,
+    this.isCenter = false //lzb 是否居中
   });
-
+  //lzb 是否居中
+  final bool isCenter;
   final double? top;
   final double? bottom;
   final double? left;
@@ -41,6 +43,17 @@ class FullScreenOverlayEntry {
                   }
                 },
               ),
+              //lzb 居中
+              if(this.isCenter)
+                Align(
+                  alignment: Alignment(0,-0.5),
+                  child: Material(
+                    // Avoid background color behind the child, so the child can fully control the overlay style
+                    color: Colors.transparent,
+                    child: builder(context),
+                  ),
+                )
+              else
               Positioned(
                 top: top,
                 bottom: bottom,

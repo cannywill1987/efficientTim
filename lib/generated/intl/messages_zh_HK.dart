@@ -367,6 +367,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "archived": MessageLookupByLibrary.simpleMessage("已歸檔"),
         "arithmetic_error": MessageLookupByLibrary.simpleMessage("運算錯誤"),
         "at_least_one_prize": MessageLookupByLibrary.simpleMessage("請選擇至少一個獎品"),
+        "attachment": MessageLookupByLibrary.simpleMessage("附件"),
         "aug": MessageLookupByLibrary.simpleMessage("八月"),
         "augFull": MessageLookupByLibrary.simpleMessage("八月"),
         "author_intro": MessageLookupByLibrary.simpleMessage("作者簡介"),
@@ -431,6 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatgpt_desc_huawei":
             MessageLookupByLibrary.simpleMessage("任何您的問題在這裡都會找到答案"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AI助手"),
+        "choose_attachment": MessageLookupByLibrary.simpleMessage("選擇附件"),
         "chronograph": MessageLookupByLibrary.simpleMessage("秒表"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage("複製qq號"),
         "click_to_view": MessageLookupByLibrary.simpleMessage("點擊查看"),
@@ -578,6 +580,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFromMonth": m35,
         "dateFromMonthToMins": m36,
         "dateOutOfLimit": MessageLookupByLibrary.simpleMessage("您選擇的日期超出了範圍"),
+        "datetime": MessageLookupByLibrary.simpleMessage("日期時間"),
         "day": MessageLookupByLibrary.simpleMessage("日"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage("天時分秒"),
         "daysLater": MessageLookupByLibrary.simpleMessage("天後"),
@@ -1207,6 +1210,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_seaarch_on_app_store": m95,
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage("請至少在重複週期選擇一個選項"),
+        "please_select_attachment":
+            MessageLookupByLibrary.simpleMessage("請選擇附件"),
         "please_select_content": m96,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("請先選擇開始時間"),
@@ -1515,6 +1520,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "twelve_12hours": MessageLookupByLibrary.simpleMessage("12小時"),
         "twenty_one_days": MessageLookupByLibrary.simpleMessage("21天"),
         "type": MessageLookupByLibrary.simpleMessage("書寫"),
+        "type_something": MessageLookupByLibrary.simpleMessage("請輸入內容..."),
         "unarchive": MessageLookupByLibrary.simpleMessage("取消歸檔"),
         "uncomplete_plan_classification":
             MessageLookupByLibrary.simpleMessage("未完成計劃分類"),
@@ -1531,6 +1537,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unregister_account": MessageLookupByLibrary.simpleMessage("注銷賬號"),
         "unregister_content": MessageLookupByLibrary.simpleMessage(
             "將刪除所有的賬戶信息\n所有您相關的清單,任務數據\n包優惠券將清空且無法恢復\n注銷後重新註冊，但是歷史數據不會恢復"),
+        "unregister_success": MessageLookupByLibrary.simpleMessage("註銷成功"),
         "unregister_temp": MessageLookupByLibrary.simpleMessage("暫不注銷"),
         "unregister_title":
             MessageLookupByLibrary.simpleMessage("注銷後，以下信息會收到影響"),
@@ -1551,6 +1558,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upload_error": MessageLookupByLibrary.simpleMessage("上傳失敗"),
         "upload_success": MessageLookupByLibrary.simpleMessage("上傳成功"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("圖片上傳中"),
+        "url_attachment": MessageLookupByLibrary.simpleMessage("URL附件"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("用戶存在，可以去重置密碼重置您的密碼"),
         "user_privacy_protocol_title":

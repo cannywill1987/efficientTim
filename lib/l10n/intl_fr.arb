@@ -1,4 +1,12 @@
 {
+  "type_something": "Tapez quelque chose...",
+  "datetime": "DateHeure",
+  "url_attachment": "Pièce jointe URL",
+  "please_select_attachment": "Veuillez sélectionner une pièce jointe",
+  "choose_attachment": "Choisir une pièce jointe",
+  "upload_attachment": "Télécharger une pièce jointe",
+  "attachment": "Pièce jointe",
+  "unregister_success": "Désinscription réussie",
   "deprecated": "Bientôt obsolète",
   "in_selection_word_count_and_char_count": "(Sélectionné) Nombre de mots: {wordCount}, Nombre de caractères: {charCount}",
   "word_count_and_char_count": "Nombre de mots: {wordCount}, Nombre de caractères: {charCount}",

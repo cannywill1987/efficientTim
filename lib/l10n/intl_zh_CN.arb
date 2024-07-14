@@ -1,4 +1,12 @@
 {
+  "type_something": "请输入...",
+  "datetime": "日期时间",
+  "url_attachment": "url附件",
+  "please_select_attachment": "请选择附件",
+  "choose_attachment": "选择附件",
+  "upload_attachment": "上传成功",
+  "attachment": "附件",
+  "unregister_success": "注销成功",
   "deprecated": "即将作废",
   "in_selection_word_count_and_char_count": "(选中的) 字数: {wordCount}, 字符数: {charCount}",
   "word_count_and_char_count": "字数: {wordCount}, 字符数: {charCount}",

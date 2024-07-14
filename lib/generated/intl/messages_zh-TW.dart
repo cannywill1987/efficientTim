@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addYourLink": MessageLookupByLibrary.simpleMessage("添加連結"),
+        "attachment": MessageLookupByLibrary.simpleMessage("附件"),
         "auto": MessageLookupByLibrary.simpleMessage("自動"),
         "backgroundColor": MessageLookupByLibrary.simpleMessage("背景顏色"),
         "backgroundColorBlue": MessageLookupByLibrary.simpleMessage("藍色背景"),
@@ -47,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "caseSensitive": MessageLookupByLibrary.simpleMessage("區分大小寫"),
         "checkbox": MessageLookupByLibrary.simpleMessage("核取方塊"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("選取圖像檔案"),
+        "choose_attachment": MessageLookupByLibrary.simpleMessage("選擇附件"),
         "clearHighlightColor": MessageLookupByLibrary.simpleMessage("清除高亮顏色"),
         "closeFind": MessageLookupByLibrary.simpleMessage("關閉"),
         "colAddAfter": MessageLookupByLibrary.simpleMessage("右側插入行"),
@@ -59,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "copyLink": MessageLookupByLibrary.simpleMessage("複製連結"),
         "customColor": MessageLookupByLibrary.simpleMessage("自定義顏色"),
         "cut": MessageLookupByLibrary.simpleMessage("剪下"),
+        "datetime": MessageLookupByLibrary.simpleMessage("日期時間"),
         "deprecated": MessageLookupByLibrary.simpleMessage("即將作廢"),
         "divider": MessageLookupByLibrary.simpleMessage("分割線"),
         "done": MessageLookupByLibrary.simpleMessage("完成"),
@@ -112,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "opacity": MessageLookupByLibrary.simpleMessage("透明度"),
         "openLink": MessageLookupByLibrary.simpleMessage("打開連結"),
         "paste": MessageLookupByLibrary.simpleMessage("貼上"),
+        "please_select_attachment":
+            MessageLookupByLibrary.simpleMessage("請選擇附件"),
         "previousMatch": MessageLookupByLibrary.simpleMessage("上一相符項"),
         "quote": MessageLookupByLibrary.simpleMessage("引文"),
         "regex": MessageLookupByLibrary.simpleMessage("正規表示式"),
@@ -146,13 +151,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "tint7": MessageLookupByLibrary.simpleMessage("色調7"),
         "tint8": MessageLookupByLibrary.simpleMessage("色調8"),
         "tint9": MessageLookupByLibrary.simpleMessage("色調9"),
+        "type_something": MessageLookupByLibrary.simpleMessage("請輸入內容..."),
         "underline": MessageLookupByLibrary.simpleMessage("下劃線"),
+        "unregister_success": MessageLookupByLibrary.simpleMessage("註銷成功"),
         "upload": MessageLookupByLibrary.simpleMessage("上載"),
         "uploadImage": MessageLookupByLibrary.simpleMessage("上載圖片"),
+        "upload_attachment": MessageLookupByLibrary.simpleMessage("上傳附件"),
         "upload_error": MessageLookupByLibrary.simpleMessage("上傳失敗"),
         "upload_success": MessageLookupByLibrary.simpleMessage("上傳成功"),
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
         "urlImage": MessageLookupByLibrary.simpleMessage("網路圖片"),
+        "url_attachment": MessageLookupByLibrary.simpleMessage("URL附件"),
         "word_count_and_char_count": m122
       };
 }

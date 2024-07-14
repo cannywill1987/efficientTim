@@ -16,13 +16,61 @@ enum ImageFromFileStatus {
 
 typedef OnInsertImage = void Function(String url);
 
+// lzb 给移动端的mobile
+void showImageMenuMobile(
+    OverlayState container,
+    EditorState editorState,
+     {
+      OnInsertImage? onInsertImage,
+    }) {
+  // menuService?.dismiss();
+
+  // final (left, top, right, bottom) = menuService.getPosition();
+
+  late final OverlayEntry imageMenuEntry;
+
+  void insertImage(
+      String url,
+      ) {
+    if (onInsertImage != null) {
+      onInsertImage(url);
+    } else {
+      editorState.insertImageNode(url);
+    }
+    Selection?  selection = editorState.selection;
+    // menuService.dismiss();
+    imageMenuEntry.remove();
+    keepEditorFocusNotifier.decrease();
+  }
+
+  keepEditorFocusNotifier.increase();
+  // double width = MediaQuery.of(context).size.width;
+  imageMenuEntry = FullScreenOverlayEntry(
+    isCenter: true,
+    // left: 50,
+    // // right: right,
+    // top: 200,
+    // bottom: bottom,
+    dismissCallback: () => keepEditorFocusNotifier.decrease(),
+    builder: (context) => UploadImageMenu(
+      isMobile: true,
+      // backgroundColor: menuService.style.selectionMenuBackgroundColor,
+      // headerColor: menuService.style.selectionMenuItemTextColor,
+      width: MediaQuery.of(context).size.width * 0.7,
+      onSubmitted: insertImage,
+      onUpload: insertImage,
+    ),
+  ).build();
+  container.insert(imageMenuEntry);
+}
+
 void showImageMenu(
   OverlayState container,
   EditorState editorState,
   SelectionMenuService menuService, {
   OnInsertImage? onInsertImage,
 }) {
-  menuService.dismiss();
+  menuService?.dismiss();
 
   final (left, top, right, bottom) = menuService.getPosition();
 
@@ -62,6 +110,7 @@ void showImageMenu(
 class UploadImageMenu extends StatefulWidget {
   const UploadImageMenu({
     super.key,
+    this.isMobile = false, // lzb 判断是不是mobile
     this.backgroundColor = Colors.white,
     this.headerColor = Colors.black,
     this.width = 300,
@@ -69,6 +118,8 @@ class UploadImageMenu extends StatefulWidget {
     required this.onUpload,
   });
 
+  // lzb 判断是不是mobile
+  final bool isMobile;
   final Color backgroundColor;
   final Color headerColor;
   final double width;
@@ -295,8 +346,8 @@ class _UploadImageMenuState extends State<UploadImageMenu> {
             final result = await _filePicker.pickFiles(
               dialogTitle: '',
               allowMultiple: false,
-              type: kIsWeb ? fp.FileType.custom : fp.FileType.image,
-              allowedExtensions: allowedExtensions,
+              type: this.widget.isMobile == true ? fp.FileType.image : (kIsWeb)? fp.FileType.custom : fp.FileType.image,
+              allowedExtensions: this.widget.isMobile == true ? null : allowedExtensions,
               withData: kIsWeb,
             );
             if (result != null && result.files.isNotEmpty) {

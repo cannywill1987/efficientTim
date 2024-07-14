@@ -384,6 +384,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "arithmetic_error": MessageLookupByLibrary.simpleMessage("산술 오류"),
         "at_least_one_prize":
             MessageLookupByLibrary.simpleMessage("적어도 하나의 상품을 선택하세요"),
+        "attachment": MessageLookupByLibrary.simpleMessage("첨부 파일"),
         "aug": MessageLookupByLibrary.simpleMessage("8월"),
         "augFull": MessageLookupByLibrary.simpleMessage("8월"),
         "author_intro": MessageLookupByLibrary.simpleMessage("저자 소개"),
@@ -455,6 +456,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("여기서는 어떤 질문에도 답을 찾을 수 있습니다"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AI 도우미"),
         "checkbox": MessageLookupByLibrary.simpleMessage(""),
+        "choose_attachment": MessageLookupByLibrary.simpleMessage("첨부 파일 선택"),
         "chronograph": MessageLookupByLibrary.simpleMessage("스톱워치"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage("QQ 번호 복사"),
         "click_to_view": MessageLookupByLibrary.simpleMessage("보려면 클릭"),
@@ -611,6 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFromMonthToMins": m36,
         "dateOutOfLimit":
             MessageLookupByLibrary.simpleMessage("선택한 날짜가 범위를 벗어났습니다"),
+        "datetime": MessageLookupByLibrary.simpleMessage("날짜시간"),
         "day": MessageLookupByLibrary.simpleMessage("일"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage("일시분초"),
         "daysLater": MessageLookupByLibrary.simpleMessage("일 후"),
@@ -1287,6 +1290,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_seaarch_on_app_store": m95,
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage("반복 주기에서 최소한 하나의 옵션을 선택하십시오"),
+        "please_select_attachment":
+            MessageLookupByLibrary.simpleMessage("첨부 파일을 선택하세요"),
         "please_select_content": m96,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("먼저 시작 시간을 선택해 주세요"),
@@ -1611,6 +1616,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "twelve_12hours": MessageLookupByLibrary.simpleMessage("12시간"),
         "twenty_one_days": MessageLookupByLibrary.simpleMessage("21일"),
         "type": MessageLookupByLibrary.simpleMessage("작성"),
+        "type_something": MessageLookupByLibrary.simpleMessage("무언가를 입력하세요..."),
         "unarchive": MessageLookupByLibrary.simpleMessage("보관 해제"),
         "uncomplete_plan_classification":
             MessageLookupByLibrary.simpleMessage("미완료 계획 분류"),
@@ -1629,6 +1635,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unregister_account": MessageLookupByLibrary.simpleMessage("계정 탈퇴"),
         "unregister_content": MessageLookupByLibrary.simpleMessage(
             "모든 계정 정보를 삭제합니다\n관련된 모든 목록, 작업 데이터\n쿠폰은 삭제되며 복구할 수 없습니다\n탈퇴 후 다시 등록해도 이전 데이터는 복구되지 않습니다"),
+        "unregister_success": MessageLookupByLibrary.simpleMessage("등록 해제 성공"),
         "unregister_temp":
             MessageLookupByLibrary.simpleMessage("일시적으로 탈퇴하지 않음"),
         "unregister_title":
@@ -1651,6 +1658,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upload_error": MessageLookupByLibrary.simpleMessage("업로드 실패"),
         "upload_success": MessageLookupByLibrary.simpleMessage("업로드 성공"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("사진 업로드 중"),
+        "url_attachment": MessageLookupByLibrary.simpleMessage("URL 첨부 파일"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("ユーザーが存在します。パスワードをリセットできます"),
         "user_privacy_protocol_title":

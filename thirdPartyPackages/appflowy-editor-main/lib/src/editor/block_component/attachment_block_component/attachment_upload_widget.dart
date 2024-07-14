@@ -17,6 +17,53 @@ enum ImageFromFileStatus {
 
 typedef OnInsertAttachment = void Function(fp.PlatformFile  url);
 
+// lzb 给移动端的mobile
+void showAttachmentMenuMobile(
+    OverlayState container,
+    EditorState editorState,
+    {
+      OnInsertAttachment? onInsertAttachment,
+    }) {
+  // menuService?.dismiss();
+
+  // final (left, top, right, bottom) = menuService.getPosition();
+
+  late final OverlayEntry imageMenuEntry;
+
+  void insertAttachment(
+      fp.PlatformFile file,
+      ) {
+    if (onInsertAttachment != null) {
+      onInsertAttachment(file);
+    } else {
+      editorState.insertAttachmentNode(file);
+    }
+    // menuService.dismiss();
+    imageMenuEntry.remove();
+    keepEditorFocusNotifier.decrease();
+  }
+
+  keepEditorFocusNotifier.increase();
+  // double width = MediaQuery.of(context).size.width;
+  imageMenuEntry = FullScreenOverlayEntry(
+    isCenter: true,
+    // left: 50,
+    // // right: right,
+    // top: 200,
+    // bottom: bottom,
+    dismissCallback: () => keepEditorFocusNotifier.decrease(),
+    builder: (context) => UploadAttachmentMenu(
+      // isMobile: true,
+      // backgroundColor: menuService.style.selectionMenuBackgroundColor,
+      // headerColor: menuService.style.selectionMenuItemTextColor,
+      width: MediaQuery.of(context).size.width * 0.7,
+      onSubmitted: insertAttachment,
+      onUpload: insertAttachment,
+    ),
+  ).build();
+  container.insert(imageMenuEntry);
+}
+
 void showAttachmentMenu(
   OverlayState container,
   EditorState editorState,

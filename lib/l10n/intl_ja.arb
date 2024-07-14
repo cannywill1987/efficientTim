@@ -1,4 +1,12 @@
 {
+  "type_something": "何か入力してください...",
+  "datetime": "日時",
+  "url_attachment": "URL添付ファイル",
+  "please_select_attachment": "添付ファイルを選択してください",
+  "choose_attachment": "添付ファイルを選択",
+  "upload_attachment": "添付ファイルをアップロード",
+  "attachment": "添付ファイル",
+  "unregister_success": "登録解除が成功しました",
   "deprecated": "非推奨",
   "in_selection_word_count_and_char_count": "(選択された) 単語数: {wordCount}, 文字数: {charCount}",
   "word_count_and_char_count": "単語数: {wordCount}, 文字数: {charCount}",

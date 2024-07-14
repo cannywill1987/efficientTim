@@ -127,8 +127,16 @@ class EditorState {
     if (selectionNotifier.value != value) {
       _toggledStyle.clear();
     }
-
-    selectionNotifier.value = value;
+    if(value == null) {
+      print("");
+    }
+    // print("====================================22222");
+    // print(value);
+    // print("====================================22222");
+    // lzb 离开页面会设置成null, 打开相簿会设置成null，这样会没法上传
+    if(value != null) {
+      selectionNotifier.value = value;
+    }
   }
 
   SelectionType? selectionType;
@@ -241,7 +249,9 @@ class EditorState {
     _selectionUpdateReason = reason;
 
     this.selection = selection;
-
+    print("====================================");
+    print(this.selection);
+    print("====================================");
     return completer.future;
   }
 

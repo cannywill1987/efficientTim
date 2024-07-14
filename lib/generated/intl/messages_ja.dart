@@ -379,6 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "arithmetic_error": MessageLookupByLibrary.simpleMessage("計算エラー"),
         "at_least_one_prize":
             MessageLookupByLibrary.simpleMessage("少なくとも1つの賞を選択してください"),
+        "attachment": MessageLookupByLibrary.simpleMessage("添付ファイル"),
         "aug": MessageLookupByLibrary.simpleMessage("8月"),
         "augFull": MessageLookupByLibrary.simpleMessage("8月"),
         "author_intro": MessageLookupByLibrary.simpleMessage("著者紹介"),
@@ -447,6 +448,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatgpt_desc_huawei":
             MessageLookupByLibrary.simpleMessage("あなたの質問はここで答えを見つけることができます"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AIアシスタント"),
+        "choose_attachment": MessageLookupByLibrary.simpleMessage("添付ファイルを選択"),
         "chronograph": MessageLookupByLibrary.simpleMessage("ストップウォッチ"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage("QQ番号をコピー"),
         "click_to_view": MessageLookupByLibrary.simpleMessage("クリックして表示"),
@@ -602,6 +604,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFromMonthToMins": m36,
         "dateOutOfLimit":
             MessageLookupByLibrary.simpleMessage("選択した日付が範囲を超えています"),
+        "datetime": MessageLookupByLibrary.simpleMessage("日時"),
         "day": MessageLookupByLibrary.simpleMessage("日"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage("日時分秒"),
         "daysLater": MessageLookupByLibrary.simpleMessage("日後"),
@@ -1276,6 +1279,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage(
                 "リピートサイクルで少なくとも一つのオプションを選択してください"),
+        "please_select_attachment":
+            MessageLookupByLibrary.simpleMessage("添付ファイルを選択してください"),
         "please_select_content": m96,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("開始時間を選択してください"),
@@ -1595,6 +1600,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "twelve_12hours": MessageLookupByLibrary.simpleMessage("12時間"),
         "twenty_one_days": MessageLookupByLibrary.simpleMessage("21日"),
         "type": MessageLookupByLibrary.simpleMessage("書き込み"),
+        "type_something": MessageLookupByLibrary.simpleMessage("何か入力してください..."),
         "unarchive": MessageLookupByLibrary.simpleMessage("アーカイブを解除"),
         "uncomplete_plan_classification":
             MessageLookupByLibrary.simpleMessage("未完了の計画の分類"),
@@ -1612,6 +1618,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("アカウントを登録解除"),
         "unregister_content": MessageLookupByLibrary.simpleMessage(
             "すべてのアカウント情報を削除します\nあなたに関連するすべてのリスト、タスクデータ\nクーポンはすべてクリアされ、復元できません\n登録解除後に再登録しても、過去のデータは復元されません"),
+        "unregister_success":
+            MessageLookupByLibrary.simpleMessage("登録解除が成功しました"),
         "unregister_temp": MessageLookupByLibrary.simpleMessage("一時的に登録解除しない"),
         "unregister_title":
             MessageLookupByLibrary.simpleMessage("登録解除後、以下の情報が影響を受けます"),
@@ -1634,6 +1642,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upload_error": MessageLookupByLibrary.simpleMessage("アップロードに失敗しました"),
         "upload_success": MessageLookupByLibrary.simpleMessage("アップロードに成功しました"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("画像をアップロード中"),
+        "url_attachment": MessageLookupByLibrary.simpleMessage("URL添付ファイル"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("ユーザーが存在します。パスワードをリセットできます"),
         "user_privacy_protocol_title":
