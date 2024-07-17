@@ -126,6 +126,10 @@ class MissionModel extends MongoDbObject{
 
   List? noteRecordUrls = []; //录音url
 
+  List? attachmentUrls = []; //附件url {}
+
+  String? newRichEditorUrl = ""; //新富文本url
+
   int? cryptoVersion = -1; // -1代表没有设置加密 0代表设置了加密版本 1代表设置了加密版本并且加密了
 
   bool? hasDecrypted = false; //是否解密过 cryptoVersion = 0 hasDecrypted = true 代表解密过

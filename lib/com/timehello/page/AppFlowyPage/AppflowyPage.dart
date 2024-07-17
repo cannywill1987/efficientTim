@@ -60,7 +60,9 @@ extension on ExportFileType {
 class AppflowyPage extends BaseWidget {
   final String fileName;
   final bool isDebug;
-  const AppflowyPage({super.key, this.isDebug = false, this.fileName = 'example1111123'});
+  final Function? onSaveCallback;
+  final Function? onUploadCallback;
+  const AppflowyPage({super.key, this.isDebug = false, this.onUploadCallback, this.onSaveCallback, this.fileName = 'example1111123'});
 
   // @override
   // State<HomePage> createState() => _HomePageState();
@@ -162,10 +164,11 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
     state.setLoadingStatusEnum(LoadingStatusEnum.loading);
     state.updateUI();
     try {
-      await AliyunStoreManager.getInstance()
-          .setString(docType: DocType.document, fileExtensionEnum: FileExtension.json, data: await state._exportFile(state._editorState, ExportFileType.documentJson), fileName: state.widget.fileName);
        AliyunStoreManager.getInstance()
-          .setString(data: await state._exportFile(state._editorState, ExportFileType.markdown), fileName: state.widget.fileName);
+          .setString(data: await state._exportFile(state._editorState, ExportFileType.markdown), fileName: state.widget.fileName, fileExtensionEnum: FileExtension.md, docType: DocType.md);
+      String url = await AliyunStoreManager.getInstance()
+          .setString(docType: DocType.document, fileExtensionEnum: FileExtension.json, data: await state._exportFile(state._editorState, ExportFileType.documentJson), fileName: state.widget.fileName);
+      state.widget.onSaveCallback?.call(url);
       // String mkString = await FirebaseStoreManager.getInstance()
       //     .getString(fileName: state.widget.fileName, defaultVal: "");
       // state.setLoadingStatusEnum(LoadingStatusEnum.normal);
@@ -352,14 +355,17 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                 _progress = 0;
                 this.isProgressBarVisible = true;
                 updateUI();
+                int fileSize = 0;
                 String url = await AliyunStoreManager.getInstance()
                     .uploadFile(file: file, downloadCallback: (curVal, total) {
+                      fileSize = total;
                       this.isProgressBarVisible = true;
                       double progress = curVal / total;
                       _progress = progress;
                       print("progress: $progress");
                       updateUI();
                 });
+                this.widget.onUploadCallback?.call({"create_time": Utility.getTimeStampToday(), "url": url, "fileSize": fileSize, "name": Utility.getFileName(path)});
                 _progress = 1;
                 this.isProgressBarVisible = false;
                 // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);

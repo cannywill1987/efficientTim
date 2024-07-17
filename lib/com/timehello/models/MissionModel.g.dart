@@ -14,38 +14,39 @@ MissionModel _$MissionModelFromJson(Map<String, dynamic> json) => MissionModel(
       ..objectId = json['_id'] as String?
       ..folder_id = json['folder_id'] as String?
       ..group_id = json['group_id'] as String?
-      ..time_mode = json['time_mode'] as int?
+      ..time_mode = (json['time_mode'] as num?)?.toInt()
       ..title = json['title'] as String?
-      ..indexSearchingStart = json['indexSearchingStart'] as int?
-      ..indexSearchingEnd = json['indexSearchingEnd'] as int?
+      ..indexSearchingStart = (json['indexSearchingStart'] as num?)?.toInt()
+      ..indexSearchingEnd = (json['indexSearchingEnd'] as num?)?.toInt()
       ..device_id = json['device_id'] as String?
       ..tagNames = json['tagNames'] as String?
       ..tagIds = json['tagIds'] as String?
       ..background_url = json['background_url'] as String?
-      ..no_tomotoes_finished = json['no_tomotoes_finished'] as int?
-      ..total_tomotoes = json['total_tomotoes'] as int?
-      ..color = json['color'] as int?
-      ..tomato_duration = json['tomato_duration'] as int?
-      ..order_index = json['order_index'] as int?
-      ..end_time_before_finished = json['end_time_before_finished'] as int?
-      ..start_time = json['start_time'] as int?
-      ..end_time = json['end_time'] as int?
-      ..finish_time = json['finish_time'] as int?
-      ..alert_time = json['alert_time'] as int?
-      ..time_finished = json['time_finished'] as int?
-      ..dateStatus = json['dateStatus'] as int?
-      ..priorityStatus = json['priorityStatus'] as int?
-      ..daily_start_time = json['daily_start_time'] as int?
-      ..mission_value = json['mission_value'] as int?
+      ..no_tomotoes_finished = (json['no_tomotoes_finished'] as num?)?.toInt()
+      ..total_tomotoes = (json['total_tomotoes'] as num?)?.toInt()
+      ..color = (json['color'] as num?)?.toInt()
+      ..tomato_duration = (json['tomato_duration'] as num?)?.toInt()
+      ..order_index = (json['order_index'] as num?)?.toInt()
+      ..end_time_before_finished =
+          (json['end_time_before_finished'] as num?)?.toInt()
+      ..start_time = (json['start_time'] as num?)?.toInt()
+      ..end_time = (json['end_time'] as num?)?.toInt()
+      ..finish_time = (json['finish_time'] as num?)?.toInt()
+      ..alert_time = (json['alert_time'] as num?)?.toInt()
+      ..time_finished = (json['time_finished'] as num?)?.toInt()
+      ..dateStatus = (json['dateStatus'] as num?)?.toInt()
+      ..priorityStatus = (json['priorityStatus'] as num?)?.toInt()
+      ..daily_start_time = (json['daily_start_time'] as num?)?.toInt()
+      ..mission_value = (json['mission_value'] as num?)?.toInt()
       ..do_it_now = json['do_it_now'] as List<dynamic>?
-      ..daily_end_time = json['daily_end_time'] as int?
+      ..daily_end_time = (json['daily_end_time'] as num?)?.toInt()
       ..isFinished = json['isFinished'] as bool?
       ..isDelayed = json['isDelayed'] as bool?
-      ..repetiveType = json['repetiveType'] as int?
+      ..repetiveType = (json['repetiveType'] as num?)?.toInt()
       ..repeativeDate = (json['repeativeDate'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList()
-      ..repetiveValue = json['repetiveValue'] as int?
+      ..repetiveValue = (json['repetiveValue'] as num?)?.toInt()
       ..repetiveWeekDay = json['repetiveWeekDay'] as List<dynamic>?
       ..uid = json['uid'] as String?
       ..noteSmallUrls = (json['noteSmallUrls'] as List<dynamic>?)
@@ -57,10 +58,11 @@ MissionModel _$MissionModelFromJson(Map<String, dynamic> json) => MissionModel(
       ..noteOriginUrls = (json['noteOriginUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList()
-      ..notePoint = json['notePoint'] as int?
+      ..notePoint = (json['notePoint'] as num?)?.toInt()
       ..noteRichContentUrl = json['noteRichContentUrl'] as String?
       ..noteRecordUrls = json['noteRecordUrls'] as List<dynamic>?
-      ..cryptoVersion = json['cryptoVersion'] as int?
+      ..attachmentUrls = json['attachmentUrls'] as List<dynamic>?
+      ..cryptoVersion = (json['cryptoVersion'] as num?)?.toInt()
       ..hasDecrypted = json['hasDecrypted'] as bool?
       ..subMissions = json['subMissions'] as List<dynamic>?;
 
@@ -110,6 +112,7 @@ Map<String, dynamic> _$MissionModelToJson(MissionModel instance) =>
       'notePoint': instance.notePoint,
       'noteRichContentUrl': instance.noteRichContentUrl,
       'noteRecordUrls': instance.noteRecordUrls,
+      'attachmentUrls': instance.attachmentUrls,
       'cryptoVersion': instance.cryptoVersion,
       'hasDecrypted': instance.hasDecrypted,
       'subMissions': instance.subMissions,

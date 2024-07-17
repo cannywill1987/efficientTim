@@ -14,13 +14,13 @@ SharePreferenceModel _$SharePreferenceModelFromJson(
       ..objectId = json['_id'] as String?
       ..key = json['key'] as String?
       ..boolVal = json['boolVal'] as bool?
-      ..intVal = json['intVal'] as int?
+      ..intVal = (json['intVal'] as num?)?.toInt()
       ..stringVal = json['stringVal'] as String?
       ..arrayVal = json['arrayVal'] as List<dynamic>?
       ..uid = json['uid'] as String?
       ..device_id = json['device_id'] as String?
-      ..update_time = json['update_time'] as int?
-      ..create_time = json['create_time'] as int?;
+      ..update_time = (json['update_time'] as num?)?.toInt()
+      ..create_time = (json['create_time'] as num?)?.toInt();
 
 Map<String, dynamic> _$SharePreferenceModelToJson(
         SharePreferenceModel instance) =>

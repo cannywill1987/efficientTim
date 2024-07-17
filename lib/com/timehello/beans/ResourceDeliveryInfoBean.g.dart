@@ -12,16 +12,17 @@ ResourceDeliveryInfoBean _$ResourceDeliveryInfoBeanFromJson(
       resourceContent: json['resource_content'] as String?,
       resourceTitle: json['resource_title'] as String?,
       deliveryName: json['delivery_name'] as String?,
-      locationInfoId: json['location_info_id'] as int?,
+      locationInfoId: (json['location_info_id'] as num?)?.toInt(),
       resourcePictureUrl: json['resource_picture_url'] as String?,
       resourceIconUrl: json['resource_icon_url'] as String?,
       extendParamsMap: json['extendParamsMap'] as Map<String, dynamic>?,
       isChecked: json['isChecked'] as bool?,
     )
-      ..id = json['id'] as int?
+      ..id = (json['id'] as num?)?.toInt()
       ..extendParamsString = json['extend_params'] as String?
       ..resourceRedirectUrl = json['resource_redirect_url'] as String?
-      ..resourceRedirectUrlType = json['resource_redirect_url_type'] as int?;
+      ..resourceRedirectUrlType =
+          (json['resource_redirect_url_type'] as num?)?.toInt();
 
 Map<String, dynamic> _$ResourceDeliveryInfoBeanToJson(
         ResourceDeliveryInfoBean instance) =>

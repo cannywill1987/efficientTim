@@ -17,9 +17,9 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) => CommentModel()
   ..device_id = json['device_id'] as String?
   ..username = json['username'] as String?
   ..countryCode = json['countryCode'] as String?
-  ..update_time = json['update_time'] as int?
-  ..create_time = json['create_time'] as int?
-  ..status = json['status'] as int?;
+  ..update_time = (json['update_time'] as num?)?.toInt()
+  ..create_time = (json['create_time'] as num?)?.toInt()
+  ..status = (json['status'] as num?)?.toInt();
 
 Map<String, dynamic> _$CommentModelToJson(CommentModel instance) =>
     <String, dynamic>{

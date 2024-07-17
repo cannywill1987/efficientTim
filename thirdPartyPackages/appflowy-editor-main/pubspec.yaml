@@ -49,6 +49,9 @@ dependencies:
   url_launcher: ^6.1.11
   visibility_detector: ^0.4.0+2
 
+dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有点问题
+  dart_style: ^2.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

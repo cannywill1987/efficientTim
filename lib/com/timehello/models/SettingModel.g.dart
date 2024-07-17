@@ -10,29 +10,31 @@ SettingModel _$SettingModelFromJson(Map<String, dynamic> json) => SettingModel()
   ..createdAt = json['createdAt'] as String?
   ..updatedAt = json['updatedAt'] as String?
   ..objectId = json['_id'] as String?
-  ..isListingTodayOn = json['isListingTodayOn'] as int?
-  ..isListingDoItNowOn = json['isListingDoItNowOn'] as int?
-  ..isListingTomorrowOn = json['isListingTomorrowOn'] as int?
-  ..isListingLatest7DaysOn = json['isListingLatest7DaysOn'] as int?
-  ..isListingTodoListOn = json['isListingTodoListOn'] as int?
-  ..isListingFragmentOn = json['isListingFragmentOn'] as int?
+  ..isListingTodayOn = (json['isListingTodayOn'] as num?)?.toInt()
+  ..isListingDoItNowOn = (json['isListingDoItNowOn'] as num?)?.toInt()
+  ..isListingTomorrowOn = (json['isListingTomorrowOn'] as num?)?.toInt()
+  ..isListingLatest7DaysOn = (json['isListingLatest7DaysOn'] as num?)?.toInt()
+  ..isListingTodoListOn = (json['isListingTodoListOn'] as num?)?.toInt()
+  ..isListingFragmentOn = (json['isListingFragmentOn'] as num?)?.toInt()
   ..isListingAllUnfinishedMIssion =
-      json['isListingAllUnfinishedMIssion'] as int?
-  ..isListingFinishedOn = json['isListingFinishedOn'] as int?
-  ..isListingAllOn = json['isListingAllOn'] as int?
-  ..isTomatoPageOn = json['isTomatoPageOn'] as int
-  ..isTimeManagementPageOn = json['isTimeManagementPageOn'] as int
-  ..isCalendarContainerPageOn = json['isCalendarContainerPageOn'] as int
-  ..isFourQuadrantPageOn = json['isFourQuadrantPageOn'] as int
-  ..isTimelinePageOn = json['isTimelinePageOn'] as int
-  ..isClockInPCPageOn = json['isClockInPCPageOn'] as int
-  ..isWQBContainerOn = json['isWQBContainerOn'] as int
-  ..isCountDownListViewPageOn = json['isCountDownListViewPageOn'] as int
-  ..isGamePageOn = json['isGamePageOn'] as int
-  ..isLockScreenPageOn = json['isLockScreenPageOn'] as int
-  ..isStatisticPageOn = json['isStatisticPageOn'] as int
-  ..isAIHelperPageOn = json['isAIHelperPageOn'] as int
-  ..isSettingPageOn = json['isSettingPageOn'] as int;
+      (json['isListingAllUnfinishedMIssion'] as num?)?.toInt()
+  ..isListingFinishedOn = (json['isListingFinishedOn'] as num?)?.toInt()
+  ..isListingAllOn = (json['isListingAllOn'] as num?)?.toInt()
+  ..isTomatoPageOn = (json['isTomatoPageOn'] as num).toInt()
+  ..isTimeManagementPageOn = (json['isTimeManagementPageOn'] as num).toInt()
+  ..isCalendarContainerPageOn =
+      (json['isCalendarContainerPageOn'] as num).toInt()
+  ..isFourQuadrantPageOn = (json['isFourQuadrantPageOn'] as num).toInt()
+  ..isTimelinePageOn = (json['isTimelinePageOn'] as num).toInt()
+  ..isClockInPCPageOn = (json['isClockInPCPageOn'] as num).toInt()
+  ..isWQBContainerOn = (json['isWQBContainerOn'] as num).toInt()
+  ..isCountDownListViewPageOn =
+      (json['isCountDownListViewPageOn'] as num).toInt()
+  ..isGamePageOn = (json['isGamePageOn'] as num).toInt()
+  ..isLockScreenPageOn = (json['isLockScreenPageOn'] as num).toInt()
+  ..isStatisticPageOn = (json['isStatisticPageOn'] as num).toInt()
+  ..isAIHelperPageOn = (json['isAIHelperPageOn'] as num).toInt()
+  ..isSettingPageOn = (json['isSettingPageOn'] as num).toInt();
 
 Map<String, dynamic> _$SettingModelToJson(SettingModel instance) =>
     <String, dynamic>{

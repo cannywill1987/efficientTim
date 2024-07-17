@@ -11,7 +11,7 @@ ColorsModel _$ColorsModelFromJson(Map<String, dynamic> json) => ColorsModel()
   ..updatedAt = json['updatedAt'] as String?
   ..objectId = json['_id'] as String?
   ..title = json['title'] as String?
-  ..color = json['color'] as int
+  ..color = (json['color'] as num).toInt()
   ..code = json['code'] as String?;
 
 Map<String, dynamic> _$ColorsModelToJson(ColorsModel instance) =>

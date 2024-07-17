@@ -7,12 +7,13 @@ part of 'UserBean.dart';
 // **************************************************************************
 
 UserBean _$UserBeanFromJson(Map<String, dynamic> json) => UserBean(
-      level: json['level'] as int?,
+      level: (json['level'] as num?)?.toInt(),
       authorIntro: json['authorIntro'] as String?,
-      totalFocusTimeRanking: json['totalFocusTimeRanking'] as int? ?? -1,
-      totalFocusTime: json['totalFocusTime'] as int? ?? 0,
-      appMoney: json['appMoney'] as int? ?? 0,
-      localMoney: json['localMoney'] as int? ?? 1,
+      totalFocusTimeRanking:
+          (json['totalFocusTimeRanking'] as num?)?.toInt() ?? -1,
+      totalFocusTime: (json['totalFocusTime'] as num?)?.toInt() ?? 0,
+      appMoney: (json['appMoney'] as num?)?.toInt() ?? 0,
+      localMoney: (json['localMoney'] as num?)?.toInt() ?? 1,
       username: json['username'] as String? ?? '',
       token: json['token'] as String?,
       mobilePhoneNumber: json['mobilePhoneNumber'] as String?,
@@ -20,8 +21,8 @@ UserBean _$UserBeanFromJson(Map<String, dynamic> json) => UserBean(
       uid: json['uid'] as String?,
       avatar: json['avatar'] as String?,
     )
-      ..gptToken = json['gptToken'] as int?
-      ..valuePerHour = json['valuePerHour'] as int?;
+      ..gptToken = (json['gptToken'] as num?)?.toInt()
+      ..valuePerHour = (json['valuePerHour'] as num?)?.toInt();
 
 Map<String, dynamic> _$UserBeanToJson(UserBean instance) => <String, dynamic>{
       'token': instance.token,

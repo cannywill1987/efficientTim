@@ -13,7 +13,7 @@ WebViewBaseBean _$WebViewBaseBeanFromJson(Map<String, dynamic> json) =>
       success: json['success'] as bool,
       code: json['code'] as String?,
       data: json['data'] as Map<String, dynamic>?,
-      sysTime: json['sysTime'] as int?,
+      sysTime: (json['sysTime'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$WebViewBaseBeanToJson(WebViewBaseBean instance) =>

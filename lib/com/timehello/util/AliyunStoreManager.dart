@@ -293,6 +293,7 @@ class AliyunStoreManager {
       String ossFilePathUrl =
           "${Params
           .mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
+      print("ossUrl: $ossFilePathUrl");
       BaseBean data = await HttpManager.getInstance().doGetFileContentRequest(
           ossFilePathUrl);
       return data.data;

@@ -15,7 +15,7 @@ GameRankingBean _$GameRankingBeanFromJson(Map<String, dynamic> json) =>
       avatar: json['avatar'] as String?,
       gameTitle: json['gameTitle'] as String?,
       gameTitleEn: json['gameTitleEn'] as String?,
-      time: json['time'] as int?,
+      time: (json['time'] as num?)?.toInt(),
       deviceId: json['deviceId'] as String?,
       val1: (json['val1'] as num?)?.toDouble(),
       val2: (json['val2'] as num?)?.toDouble(),

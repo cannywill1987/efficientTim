@@ -18,7 +18,7 @@ class HeaderNavBar extends StatefulWidget {
 }
 
 class HeaderNavBarState extends State<HeaderNavBar> {
-  List<CheckButtonStateModel> listTabBars = CONSTANTS.getWQBEditTypeModelList();
+  List<CheckButtonStateModel> listTabBars = CONSTANTS.getMissionEditTypeModelList();
   final List<CheckButtonStateModel> listTabBarWideget = CONSTANTS.getGPTHeaderControlCheckButtonStateModelList();
   GlobalKey<CustomTabBarWidgetState> tabBarKey = GlobalKey();
   setCheck(int index) {

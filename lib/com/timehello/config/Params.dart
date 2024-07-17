@@ -133,6 +133,8 @@ class Urls {
 }
 
 class Apis {
+  static String getRedis = "/api/redis/getRedis"; // get
+  static String setRedis = "/api/redis/setRedis"; // post
   static String getOssToken = "/api/common/getOssToken"; // 获取aliyun token
   static String captcha = "/api/captcha";
   static String chatGptWithOpenAi = "/api/chatGptWithOpenAi";

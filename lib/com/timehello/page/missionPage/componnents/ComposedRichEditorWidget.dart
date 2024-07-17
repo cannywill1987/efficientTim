@@ -8,6 +8,7 @@ import 'package:time_hello/com/timehello/components/EmptyWidget.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/components/HeaderNavBar.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
+import 'package:time_hello/com/timehello/util/RedisStoreManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -72,7 +73,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
   GlobalKey<HeaderNavBarState> localKeyHeaderNavBar =
       GlobalKey<HeaderNavBarState>();
   GlobalKey<AppflowyPageState> appflowyPageStateKey =
-  GlobalKey<AppflowyPageState>();
+      GlobalKey<AppflowyPageState>();
   AppflowyPage? appflowyPage;
 
   // image,
@@ -113,12 +114,11 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
   }
 
   saveFinal() async {
-                  await globalSave();
-                  if (this.widget.saveModeEnum == SaveModeEnum.normal) {
-                    await MongoApisManager.getInstance()
-                        .update_MissionModel(
-                            missionModel: this.widget.missionModel);
-                  }
+    await globalSave();
+    if (this.widget.saveModeEnum == SaveModeEnum.normal) {
+      await MongoApisManager.getInstance()
+          .update_MissionModel(missionModel: this.widget.missionModel);
+    }
   }
 
   @override
@@ -134,8 +134,12 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
             } else {
               Utility.setDesktopMiddileMissionPage(context, isVisible: true);
             }
-          } else if(model.code == "refresh") {
+          } else if (model.code == "refresh") {
             appflowyPageStateKey.currentState?.initData();
+            // this.saveFinal();
+          } else if (model.code == "share") {
+            RedisManager.getInstance().setString(scene: "mission_note_share", key: this.missionModel.objectId ?? "", value: this.missionModel.newRichEditorUrl ?? "", time: 60 * 60 * 24);
+            // appflowyPageStateKey.currentState?.initData();
             // this.saveFinal();
           }
 
@@ -535,8 +539,31 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
     if (this.editModeEnum == WQBEditModeEnum.new_rich_text) {
       // if(appflowyPage == null) {
       // if(!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
-      return appflowyPage =
-          AppflowyPage(key: appflowyPageStateKey, isDebug:LoginManager.isLogin() == false && getI18NKey().guide1 == this.missionModel.title,fileName: this.widget.missionModel.objectId ?? "");
+      return appflowyPage = AppflowyPage(
+          key: appflowyPageStateKey,
+          onUploadCallback: (data) async {
+            if (this.widget.missionModel.attachmentUrls == null) {
+              this.widget.missionModel.attachmentUrls = [];
+            }
+            if(this.widget.missionModel.attachmentUrls?.contains(data) == false) {
+              this.widget.missionModel.attachmentUrls?.add(data);
+              await MongoApisManager.getInstance().update_MissionModel(
+                  shouldQueryMissionModel: false,
+                  missionModel: this.widget.missionModel);
+            }
+          },
+          onSaveCallback: (url) async {
+            if (TextUtil.isEmpty(this.widget.missionModel?.newRichEditorUrl) ==
+                false) {
+              this.widget.missionModel?.newRichEditorUrl = url;
+              await MongoApisManager.getInstance().update_MissionModel(
+                  shouldQueryMissionModel: false,
+                  missionModel: this.widget.missionModel);
+            }
+          },
+          isDebug: LoginManager.isLogin() == false &&
+              getI18NKey().guide1 == this.missionModel.title,
+          fileName: this.widget.missionModel.objectId ?? "");
       // }
       // } else {
       //   return appflowyPage!;

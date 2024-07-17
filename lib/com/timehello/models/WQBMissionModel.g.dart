@@ -11,18 +11,18 @@ WQBMissionModel _$WQBMissionModelFromJson(Map<String, dynamic> json) =>
       ..createdAt = json['createdAt'] as String?
       ..updatedAt = json['updatedAt'] as String?
       ..objectId = json['_id'] as String?
-      ..indexSearchingStart = json['indexSearchingStart'] as int?
-      ..state = json['state'] as int
-      ..indexSearchingEnd = json['indexSearchingEnd'] as int?
+      ..indexSearchingStart = (json['indexSearchingStart'] as num?)?.toInt()
+      ..state = (json['state'] as num).toInt()
+      ..indexSearchingEnd = (json['indexSearchingEnd'] as num?)?.toInt()
       ..background_url = json['background_url'] as String?
       ..title = json['title'] as String?
       ..folder_id = json['folder_id'] as String?
       ..flomo_object_id = json['flomo_object_id'] as String?
-      ..type = json['type'] as int
+      ..type = (json['type'] as num).toInt()
       ..masterScore = (json['masterScore'] as num).toDouble()
-      ..update_time = json['update_time'] as int?
+      ..update_time = (json['update_time'] as num?)?.toInt()
       ..causeAnalysis = json['causeAnalysis'] as List<dynamic>?
-      ..wqbTypeKnowledgePoint = json['wqbTypeKnowledgePoint'] as int
+      ..wqbTypeKnowledgePoint = (json['wqbTypeKnowledgePoint'] as num).toInt()
       ..wqbKnowledgeContent = json['wqbKnowledgeContent'] as String
       ..wqbKnowledgeRichContentUrl =
           json['wqbKnowledgeRichContentUrl'] as String
@@ -38,7 +38,7 @@ WQBMissionModel _$WQBMissionModelFromJson(Map<String, dynamic> json) =>
           (json['wqbKnowledgeOriginUrls'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList()
-      ..wqbTypeWrongQuestion = json['wqbTypeWrongQuestion'] as int
+      ..wqbTypeWrongQuestion = (json['wqbTypeWrongQuestion'] as num).toInt()
       ..wqbWrongQuestionContent = json['wqbWrongQuestionContent'] as String
       ..wqbWrongQuestionRichContentUrl =
           json['wqbWrongQuestionRichContentUrl'] as String
@@ -56,7 +56,7 @@ WQBMissionModel _$WQBMissionModelFromJson(Map<String, dynamic> json) =>
           (json['wqbWrongQuestionOriginUrls'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList()
-      ..wqbTypeAnswer = json['wqbTypeAnswer'] as int
+      ..wqbTypeAnswer = (json['wqbTypeAnswer'] as num).toInt()
       ..wqbAnswerRecordUrls = json['wqbAnswerRecordUrls'] as List<dynamic>
       ..wqbAnswerSmallUrls = (json['wqbAnswerSmallUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -74,10 +74,10 @@ WQBMissionModel _$WQBMissionModelFromJson(Map<String, dynamic> json) =>
       ..tagNames = json['tagNames'] as List<dynamic>?
       ..tagIds = json['tagIds'] as String?
       ..isFinished = json['isFinished'] as bool?
-      ..color = json['color'] as int?
-      ..order_index = json['order_index'] as int?
-      ..status = json['status'] as int?
-      ..priorityStatus = json['priorityStatus'] as int?
+      ..color = (json['color'] as num?)?.toInt()
+      ..order_index = (json['order_index'] as num?)?.toInt()
+      ..status = (json['status'] as num?)?.toInt()
+      ..priorityStatus = (json['priorityStatus'] as num?)?.toInt()
       ..uid = json['uid'] as String?;
 
 Map<String, dynamic> _$WQBMissionModelToJson(WQBMissionModel instance) =>

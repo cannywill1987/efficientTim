@@ -168,6 +168,7 @@ dependencies:
   shell: ^2.0.0
 
 dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有点问题
+#  dart_style: ^2.3.1 #这个版本才可以用
   fading_edge_scrollview: ^4.1.1
   pointer_interceptor: ^0.10.1+1 #某些依赖库用得上 我的代码用不上
   file_picker: ^5.2.5 #有ffi
@@ -228,7 +229,7 @@ dev_dependencies:
   json_serializable: ^6.1.5
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.7
+  build_runner: ^2.4.11
   flutter_gen_runner: 5.1.0+1
   build_web_compilers: ^4.0.8
   flip_board: ^1.0.0 # 折叠计时用

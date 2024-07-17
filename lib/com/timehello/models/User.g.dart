@@ -17,8 +17,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..mobilePhoneNumber = json['mobilePhoneNumber'] as String?
   ..mobilePhoneNumberVerified = json['mobilePhoneNumberVerified'] as bool?
   ..sessionToken = json['sessionToken'] as String?
-  ..age = json['age'] as int?
-  ..gender = json['gender'] as int?
+  ..age = (json['age'] as num?)?.toInt()
+  ..gender = (json['gender'] as num?)?.toInt()
   ..nickname = json['nickname'] as String?;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{

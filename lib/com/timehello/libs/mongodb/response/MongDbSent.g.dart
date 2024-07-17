@@ -7,7 +7,7 @@ part of 'MongDbSent.dart';
 // **************************************************************************
 
 MongDbSent _$MongDbSentFromJson(Map<String, dynamic> json) =>
-    MongDbSent()..smsId = json['smsId'] as int?;
+    MongDbSent()..smsId = (json['smsId'] as num?)?.toInt();
 
 Map<String, dynamic> _$MongDbSentToJson(MongDbSent instance) =>
     <String, dynamic>{

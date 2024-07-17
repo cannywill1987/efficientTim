@@ -19,9 +19,9 @@ MgmInvitationFriendModel _$MgmInvitationFriendModelFromJson(
       ..email = json['email'] as String?
       ..coins = (json['coins'] as num?)?.toDouble()
       ..countryCode = json['countryCode'] as String?
-      ..gender = json['gender'] as int?
-      ..update_time = json['update_time'] as int?
-      ..create_time = json['create_time'] as int?;
+      ..gender = (json['gender'] as num?)?.toInt()
+      ..update_time = (json['update_time'] as num?)?.toInt()
+      ..create_time = (json['create_time'] as num?)?.toInt();
 
 Map<String, dynamic> _$MgmInvitationFriendModelToJson(
         MgmInvitationFriendModel instance) =>

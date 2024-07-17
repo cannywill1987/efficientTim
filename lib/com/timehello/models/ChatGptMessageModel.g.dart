@@ -12,13 +12,13 @@ ChatGptMessageModel _$ChatGptMessageModelFromJson(Map<String, dynamic> json) =>
       ..updatedAt = json['updatedAt'] as String?
       ..objectId = json['_id'] as String?
       ..fid = json['fid'] as String?
-      ..modelType = json['modelType'] as int?
+      ..modelType = (json['modelType'] as num?)?.toInt()
       ..isCurrentSelectFolder = json['isCurrentSelectFolder'] as bool?
       ..system_message = json['system_message'] as String?
       ..folderTitle = json['folderTitle'] as String?
       ..folder_objectId = json['folder_objectId'] as String?
       ..function_call = json['function_call'] as String?
-      ..chatModeEnum = json['chatModeEnum'] as int?
+      ..chatModeEnum = (json['chatModeEnum'] as num?)?.toInt()
       ..function_call_arguments =
           json['function_call_arguments'] as Map<String, dynamic>?
       ..username = json['username'] as String?
@@ -38,15 +38,17 @@ ChatGptMessageModel _$ChatGptMessageModelFromJson(Map<String, dynamic> json) =>
       ..detailObject = json['detailObject'] as String?
       ..detailCreated = json['detailCreated'] as String?
       ..detailModel = json['detailModel'] as String?
-      ..detailUsagePromptToken = json['detailUsagePromptToken'] as int?
-      ..detailUsageCompletionToken = json['detailUsageCompletionToken'] as int?
-      ..detailUsageTotalToken = json['detailUsageTotalToken'] as int?
+      ..detailUsagePromptToken =
+          (json['detailUsagePromptToken'] as num?)?.toInt()
+      ..detailUsageCompletionToken =
+          (json['detailUsageCompletionToken'] as num?)?.toInt()
+      ..detailUsageTotalToken = (json['detailUsageTotalToken'] as num?)?.toInt()
       ..choicesMessageRole = json['choicesMessageRole'] as String?
       ..choicesMessageContent = json['choicesMessageContent'] as String?
       ..choicesFinishReason = json['choicesFinishReason'] as String?
       ..countryCode = json['countryCode'] as String?
-      ..created_at = json['created_at'] as int?
-      ..updated_at = json['updated_at'] as int?;
+      ..created_at = (json['created_at'] as num?)?.toInt()
+      ..updated_at = (json['updated_at'] as num?)?.toInt();
 
 Map<String, dynamic> _$ChatGptMessageModelToJson(
         ChatGptMessageModel instance) =>

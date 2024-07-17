@@ -8,8 +8,8 @@ part of 'VocabularyLevelBean.dart';
 
 VocabularyLevelBean _$VocabularyLevelBeanFromJson(Map<String, dynamic> json) =>
     VocabularyLevelBean()
-      ..id = json['id'] as int?
-      ..numWords = json['numWords'] as int?
+      ..id = (json['id'] as num?)?.toInt()
+      ..numWords = (json['numWords'] as num?)?.toInt()
       ..level = json['level'] as String?
       ..levelName = json['levelName'] as String?
       ..url = json['url'] as String?;
