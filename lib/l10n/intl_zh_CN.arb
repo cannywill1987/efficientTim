@@ -1,4 +1,6 @@
 {
+  "copy_and_share_with_title": "关于任务{title}的内容请点击链接查看:{link}",
+  "copy_and_share": "复制链接分享给别的小伙伴",
   "type_something": "请输入...",
   "datetime": "日期时间",
   "url_attachment": "url附件",

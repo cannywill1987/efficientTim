@@ -40,7 +40,7 @@ class RedisManager {
 
   setString({required String scene, required String key, required String value, required int time}) async {
     BaseBean baseBean = await HttpManager.getInstance().doPostRequest(
-        Apis.setRedis, params: {"scene": scene, "key": key, "text": value, "delay": time});
+        Apis.setRedis, params: {"scene": scene, "key": key, "text": value, "time": time});
     if (baseBean.code == 200) {
       return true;
     } else {

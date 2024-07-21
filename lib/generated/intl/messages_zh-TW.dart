@@ -20,10 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_TW';
 
-  static String m55(wordCount, charCount) =>
+  static String m20(title, link) => "關於任務${title}的內容請點擊鏈接查看: ${link}";
+
+  static String m56(wordCount, charCount) =>
       "(選中的) 字數: ${wordCount}, 字符數: ${charCount}";
 
-  static String m122(wordCount, charCount) =>
+  static String m123(wordCount, charCount) =>
       "字數: ${wordCount}, 字符數: ${charCount}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -59,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "color": MessageLookupByLibrary.simpleMessage("顏色"),
         "copy": MessageLookupByLibrary.simpleMessage("複製"),
         "copyLink": MessageLookupByLibrary.simpleMessage("複製連結"),
+        "copy_and_share": MessageLookupByLibrary.simpleMessage("複製鏈接分享給其他小夥伴"),
+        "copy_and_share_with_title": m20,
         "customColor": MessageLookupByLibrary.simpleMessage("自定義顏色"),
         "cut": MessageLookupByLibrary.simpleMessage("剪下"),
         "datetime": MessageLookupByLibrary.simpleMessage("日期時間"),
@@ -88,7 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "highlightColor": MessageLookupByLibrary.simpleMessage("高亮顏色"),
         "image": MessageLookupByLibrary.simpleMessage("圖片"),
         "imageLoadFailed": MessageLookupByLibrary.simpleMessage("無法載入圖像"),
-        "in_selection_word_count_and_char_count": m55,
+        "in_selection_word_count_and_char_count": m56,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("連結錯誤"),
         "italic": MessageLookupByLibrary.simpleMessage("斜體"),
         "lightLightTint1": MessageLookupByLibrary.simpleMessage("紫色"),
@@ -162,6 +166,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
         "urlImage": MessageLookupByLibrary.simpleMessage("網路圖片"),
         "url_attachment": MessageLookupByLibrary.simpleMessage("URL附件"),
-        "word_count_and_char_count": m122
+        "word_count_and_char_count": m123
       };
 }

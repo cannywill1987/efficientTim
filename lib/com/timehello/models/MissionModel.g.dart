@@ -62,6 +62,7 @@ MissionModel _$MissionModelFromJson(Map<String, dynamic> json) => MissionModel(
       ..noteRichContentUrl = json['noteRichContentUrl'] as String?
       ..noteRecordUrls = json['noteRecordUrls'] as List<dynamic>?
       ..attachmentUrls = json['attachmentUrls'] as List<dynamic>?
+      ..newRichEditorUrl = json['newRichEditorUrl'] as String?
       ..cryptoVersion = (json['cryptoVersion'] as num?)?.toInt()
       ..hasDecrypted = json['hasDecrypted'] as bool?
       ..subMissions = json['subMissions'] as List<dynamic>?;
@@ -113,6 +114,7 @@ Map<String, dynamic> _$MissionModelToJson(MissionModel instance) =>
       'noteRichContentUrl': instance.noteRichContentUrl,
       'noteRecordUrls': instance.noteRecordUrls,
       'attachmentUrls': instance.attachmentUrls,
+      'newRichEditorUrl': instance.newRichEditorUrl,
       'cryptoVersion': instance.cryptoVersion,
       'hasDecrypted': instance.hasDecrypted,
       'subMissions': instance.subMissions,

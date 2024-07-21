@@ -1,4 +1,6 @@
 {
+  "copy_and_share_with_title": "タスク{title}の内容を見るには、リンクをクリックしてください: {link}",
+  "copy_and_share": "リンクをコピーして他の人と共有する",
   "type_something": "何か入力してください...",
   "datetime": "日時",
   "url_attachment": "URL添付ファイル",

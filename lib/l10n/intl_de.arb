@@ -1,4 +1,6 @@
 {
+  "copy_and_share_with_title": "Über die Aufgabe {title} können Sie den Link klicken, um den Inhalt zu sehen: {link}",
+  "copy_and_share": "Link kopieren und mit anderen teilen",
   "type_something": "Geben Sie etwas ein...",
   "datetime": "DatumZeit",
   "url_attachment": "URL-Anhang",

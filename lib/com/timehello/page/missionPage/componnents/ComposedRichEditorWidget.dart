@@ -6,7 +6,9 @@ import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.dart';
 import 'package:time_hello/com/timehello/components/EmptyWidget.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/components/HeaderNavBar.dart';
+import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/RedisStoreManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -127,7 +129,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
     return Column(mainAxisSize: MainAxisSize.max, children: [
       HeaderNavBar(
         key: localKeyHeaderNavBar,
-        onTapListener: (index, CheckButtonStateModel model) {
+        onTapListener: (index, CheckButtonStateModel model) async {
           if (model.code == "expand") {
             if (context.read<Env>().isMiddleMissionPageVisible == true) {
               Utility.setDesktopMiddileMissionPage(context, isVisible: false);
@@ -138,12 +140,30 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
             appflowyPageStateKey.currentState?.initData();
             // this.saveFinal();
           } else if (model.code == "share") {
-            RedisManager.getInstance().setString(scene: "mission_note_share", key: this.missionModel.objectId ?? "", value: this.missionModel.newRichEditorUrl ?? "", time: 60 * 60 * 24);
+            if(!TextUtil.isEmpty(this.missionModel.newRichEditorUrl)) {
+              await RedisManager.getInstance().setString(scene: "mission_note_share",
+                  key: this.missionModel.objectId ?? "",
+                  value: this.missionModel.newRichEditorUrl ?? "",
+                  time: 60 * 60 * 24);
+              String url = Urls.missionNoteSharing + (this.missionModel.objectId ?? "");
+              DialogManagement.getInstance().showCopyTextDialog(context,
+                  title: this.missionModel.title ?? "",
+                  okCallBack: (text) {
+                    Utility.popNavigator(context);
+                    Utility.showToastMsg(msg: getI18NKey().copy_success);
+                    Utility.copyToClipboard(url);
+                  },
+                  cancelCallBack: () {
+                    Utility.popNavigator(context);
+                  },
+                  content: getI18NKey().copy_and_share_with_title(this.missionModel.title ?? "", url));
+            }
             // appflowyPageStateKey.currentState?.initData();
             // this.saveFinal();
           }
-
-          jumpToTabIndexForNormal(index);
+          if(index >= 0) {
+            jumpToTabIndexForNormal(index);
+          }
         },
       ),
       // TitleContainerWidget(
@@ -542,28 +562,28 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       return appflowyPage = AppflowyPage(
           key: appflowyPageStateKey,
           onUploadCallback: (data) async {
-            if (this.widget.missionModel.attachmentUrls == null) {
-              this.widget.missionModel.attachmentUrls = [];
+            if (this.missionModel.attachmentUrls == null) {
+              this.missionModel.attachmentUrls = [];
             }
-            if(this.widget.missionModel.attachmentUrls?.contains(data) == false) {
-              this.widget.missionModel.attachmentUrls?.add(data);
+            if(this.missionModel.attachmentUrls?.contains(data) == false) {
+              this.missionModel.attachmentUrls?.add(data);
               await MongoApisManager.getInstance().update_MissionModel(
                   shouldQueryMissionModel: false,
-                  missionModel: this.widget.missionModel);
+                  missionModel: this.missionModel);
             }
           },
           onSaveCallback: (url) async {
-            if (TextUtil.isEmpty(this.widget.missionModel?.newRichEditorUrl) ==
-                false) {
-              this.widget.missionModel?.newRichEditorUrl = url;
+            if (TextUtil.isEmpty(this.missionModel?.newRichEditorUrl) ==
+                true) {
+              this.missionModel?.newRichEditorUrl = url;
               await MongoApisManager.getInstance().update_MissionModel(
                   shouldQueryMissionModel: false,
-                  missionModel: this.widget.missionModel);
+                  missionModel: this.missionModel);
             }
           },
           isDebug: LoginManager.isLogin() == false &&
               getI18NKey().guide1 == this.missionModel.title,
-          fileName: this.widget.missionModel.objectId ?? "");
+          fileName: this.missionModel.objectId ?? "");
       // }
       // } else {
       //   return appflowyPage!;

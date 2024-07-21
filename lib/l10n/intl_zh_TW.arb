@@ -1,4 +1,6 @@
 {
+  "copy_and_share_with_title": "關於任務{title}的內容請點擊鏈接查看: {link}",
+  "copy_and_share": "複製鏈接分享給其他小夥伴",
   "type_something": "請輸入內容...",
   "datetime": "日期時間",
   "url_attachment": "URL附件",

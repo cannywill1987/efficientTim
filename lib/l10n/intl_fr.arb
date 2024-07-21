@@ -1,4 +1,6 @@
 {
+  "copy_and_share_with_title": "Pour voir le contenu de la tâche {title}, cliquez sur le lien: {link}",
+  "copy_and_share": "Copiez le lien et partagez-le avec d'autres",
   "type_something": "Tapez quelque chose...",
   "datetime": "DateHeure",
   "url_attachment": "Pièce jointe URL",

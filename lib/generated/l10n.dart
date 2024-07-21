@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `关于任务{title}的内容请点击链接查看:{link}`
+  String copy_and_share_with_title(Object title, Object link) {
+    return Intl.message(
+      '关于任务$title的内容请点击链接查看:$link',
+      name: 'copy_and_share_with_title',
+      desc: '',
+      args: [title, link],
+    );
+  }
+
+  /// `复制链接分享给别的小伙伴`
+  String get copy_and_share {
+    return Intl.message(
+      '复制链接分享给别的小伙伴',
+      name: 'copy_and_share',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Type something...`
   String get type_something {
     return Intl.message(

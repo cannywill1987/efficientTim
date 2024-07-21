@@ -122,6 +122,7 @@ class ABTestSetting {
 }
 
 class Urls {
+  static String missionNoteSharing = "https://www.timerbell.com/web/app/md/"; // 任务管理分享
   static String isUserExistByEmail = "/api/common/isUserExistByEmail"; // 判断用户是否存在
   static String ratingGuide = "https://www.timerbell.com/views/ratingGuide"; // 评分引导
   static String facebook = "https://www.facebook.com/profile.php?id=100090694350100"; // facebook

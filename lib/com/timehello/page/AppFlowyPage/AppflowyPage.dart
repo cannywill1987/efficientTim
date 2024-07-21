@@ -18,6 +18,7 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/editor.dart';
 import 'package:time_hello/com/timehello/util/AliyunStoreManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
+import 'package:time_hello/com/timehello/util/RedisStoreManager.dart';
 
 // import 'package:time_hello/com/timehello/util/FirebaseStoreManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -148,6 +149,10 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
     return jsonString;
   }
 
+  // share() {
+  //   RedisManager.getInstance().setString(scene: scene, key: key, value: value, time: time)
+  // }
+
   setLoadingStatusEnum(LoadingStatusEnum loadingStatusEnum, [String? text]) {
     if(loadingStatusEnum == LoadingStatusEnum.success) {
       resetTip();
@@ -168,7 +173,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
           .setString(data: await state._exportFile(state._editorState, ExportFileType.markdown), fileName: state.widget.fileName, fileExtensionEnum: FileExtension.md, docType: DocType.md);
       String url = await AliyunStoreManager.getInstance()
           .setString(docType: DocType.document, fileExtensionEnum: FileExtension.json, data: await state._exportFile(state._editorState, ExportFileType.documentJson), fileName: state.widget.fileName);
-      state.widget.onSaveCallback?.call(url);
+      state.widget.onSaveCallback?.call(url.replaceAll(".json", ".md"));
       // String mkString = await FirebaseStoreManager.getInstance()
       //     .getString(fileName: state.widget.fileName, defaultVal: "");
       // state.setLoadingStatusEnum(LoadingStatusEnum.normal);
