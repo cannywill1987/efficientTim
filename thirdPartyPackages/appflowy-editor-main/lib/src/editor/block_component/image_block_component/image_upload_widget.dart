@@ -454,12 +454,37 @@ extension InsertImage on EditorState {
           ..deleteNode(node);
       }
     } else {
-      transaction.insertNode(
-        node.path.next,
-        imageNode(
-          url: src,
-        ),
-      );
+
+      if(this.onUploadCallback != null) {
+        String url = await onUploadCallback?.call(src);
+        if(url.isEmpty) {
+          return;
+        }
+        transaction
+          ..insertNode(
+            node.path.next,
+            imageNode(
+              url: url,
+            ),
+          );
+        // ..deleteNode(node);
+      } else {
+        transaction
+          ..insertNode(
+            node.path.next,
+            imageNode(
+              url: src,
+            ),
+          )
+          ..deleteNode(node);
+      }
+
+      // transaction.insertNode(
+      //   node.path.next,
+      //   imageNode(
+      //     url: src,
+      //   ),
+      // );
     }
 
     transaction.afterSelection = Selection.collapsed(

@@ -200,8 +200,8 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
     this.isEnable = false;
     if(this.widget.isDebug) {
       _jsonString = PlatformExtension.isDesktopOrWeb
-          ? rootBundle.loadString('assets/appFlowyDemo/example.json')
-          : rootBundle.loadString('assets/appFlowyDemo/mobile_example.json');
+          ? (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/example.json'))
+          : (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/mobile_example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/mobile_example.json'));
       _widgetBuilder = (context) => Editor(
         jsonString: _jsonString,
         onEditorStateChange: (editorState) {

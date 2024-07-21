@@ -1152,6 +1152,11 @@ PODS:
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
+  - FMDB (2.7.12):
+    - FMDB/standard (= 2.7.12)
+  - FMDB/Core (2.7.12)
+  - FMDB/standard (2.7.12):
+    - FMDB/Core
   - gallery_saver (0.0.1):
     - Flutter
   - google_sign_in_ios (0.0.1):
@@ -1389,6 +1394,7 @@ DEPENDENCIES:
   - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - flutter_vibrate (from `.symlinks/plugins/flutter_vibrate/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - FMDB (~> 2.7.12)
   - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
@@ -1435,6 +1441,7 @@ SPEC REPOS:
     - FirebaseSharedSwift
     - FirebaseStorage
     - flutter_sound_core
+    - FMDB
     - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleUtilities
@@ -1595,6 +1602,7 @@ SPEC CHECKSUMS:
   flutter_sound_core: 26c10e5832e76aaacfae252d8925232281c486ae
   flutter_vibrate: 9f4c2ab57008965f78969472367c329dd77eb801
   fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
+  FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
   gallery_saver: 9fc173c9f4fcc48af53b2a9ebea1b643255be542
   google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
   GoogleAppMeasurement: 9abf64b682732fed36da827aa2a68f0221fd2356
@@ -1637,6 +1645,6 @@ SPEC CHECKSUMS:
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter_wkwebview: 2a23822e9039b7b1bc52e5add778e5d89ad488d1
 
-PODFILE CHECKSUM: 9f029a82ae091c3eb5123acad87eec3bb521ee39
+PODFILE CHECKSUM: 0bf95fef53b29bc982ecb1bff855fac8bfb7accb
 
 COCOAPODS: 1.14.3

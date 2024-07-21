@@ -1,0 +1,166 @@
+{
+  "document": {
+    "type": "page",
+    "children": [
+      {
+        "type": "heading",
+        "data": {
+          "level": 3,
+          "delta": [
+            {
+              "insert": "Timerbell Todo 编辑器现在支持",
+              "attributes": { "italic": false, "bold": true }
+            }
+          ]
+        }
+      },
+      {
+        "type": "heading",
+        "data": {
+          "level": 1,
+          "delta": [
+            { "insert": "👏 移动端" },
+            { "insert": " ", "attributes": { "italic": false, "bold": true } },
+            { "insert": "📱", "attributes": { "bold": true } }
+          ]
+        }
+      },
+      {
+        "type": "paragraph",
+        "data": {
+          "level": 1,
+          "delta": [
+            {
+              "insert": "Timerbell Todo 编辑器",
+              "attributes": { "bold": true, "italic": false, "underline": false }
+            },
+            {
+              "insert": " 为您的应用提供无缝的文档编辑功能。",
+              "attributes": { "bold": false, "italic": false, "underline": false }
+            }
+          ]
+        }
+      },
+      {
+        "type": "paragraph",
+        "data": {
+          "delta": [
+            { "insert": "添加 " },
+            { "insert": "Timerbell Todo 编辑器", "attributes": { "bold": true } },
+            {
+              "insert": " 到您的应用中，您将解锁强大且可定制的文档编辑功能，所有这些都无需从头构建。"
+            }
+          ]
+        }
+      },
+      {
+        "type": "heading",
+        "data": { "level": 1, "delta": [{ "insert": "👀 一起来看看" }] }
+      },
+      {
+        "type": "heading",
+        "data": { "level": 3, "delta": [{ "insert": "文本装饰" }] }
+      },
+      {
+        "type": "paragraph",
+        "data": {
+          "delta": [
+            { "insert": "粗体", "attributes": { "bold": true } },
+            { "insert": "  " },
+            { "insert": "斜体  ", "attributes": { "italic": true } },
+            { "insert": "下划线", "attributes": { "italic": false, "underline": true } },
+            { "insert": "   ", "attributes": { "italic": true } },
+            { "insert": "删除线", "attributes": { "italic": false, "strikethrough": true } }
+          ]
+        }
+      },
+      {
+        "type": "heading",
+        "data": { "level": 3, "delta": [{ "insert": "彩色文本" }] }
+      },
+      {
+        "type": "paragraph",
+        "data": {
+          "delta": [
+            { "insert": "注入", "attributes": { "font_color": "0xfff44336" } },
+            { "insert": " " },
+            { "insert": "你的", "attributes": { "font_color": "0xffffeb3b" } },
+            { "insert": " " },
+            { "insert": "文本", "attributes": { "font_color": "0xff2196f3" } },
+            { "insert": " " },
+            { "insert": "以", "attributes": { "font_color": "0xff4caf50" } },
+            { "insert": " " },
+            { "insert": "多彩", "attributes": { "font_color": "0xff795548" } },
+            { "insert": " " },
+            { "insert": "的", "attributes": { "font_color": "0xffe91e63" } },
+            { "insert": " " },
+            { "insert": "色调", "attributes": { "font_color": "0xff9c27b0" } },
+            { "insert": " " },
+            { "insert": "使", "attributes": { "font_color": "0xff9e9e9e" } },
+            { "insert": " " },
+            { "insert": "彩虹", "attributes": { "bg_color": "0x4df44336" } },
+            { "insert": " " },
+            { "insert": "般", "attributes": { "bg_color": "0x4d4caf50" } },
+            { "insert": " " },
+            { "insert": "的", "attributes": { "bg_color": "0x4dffeb3b" } },
+            { "insert": " " },
+            { "insert": "文字", "attributes": { "bg_color": "0x4d795548" } },
+            { "insert": " " },
+            { "insert": "点亮", "attributes": { "bg_color": "0x4d9c27b0" } },
+            { "insert": " " },
+            { "insert": "你", "attributes": { "bg_color": "0x4d2196f3" } },
+            { "insert": " " },
+            { "insert": "的一天！" }
+          ]
+        }
+      },
+      {
+        "type": "heading",
+        "data": { "level": 3, "delta": [{ "insert": "列表" }] }
+      },
+      {
+        "type": "todo_list",
+        "data": { "checked": false, "delta": [{ "insert": "待办事项列表" }] }
+      },
+      {
+        "type": "todo_list",
+        "data": { "delta": [{ "insert": "已完成" }], "checked": true }
+      },
+      {
+        "type": "bulleted_list",
+        "data": { "delta": [{ "insert": "项目符号列表" }] }
+      },
+      { "type": "bulleted_list", "data": { "delta": [] } },
+      {
+        "type": "numbered_list",
+        "data": { "delta": [{ "insert": "编号列表" }] }
+      },
+      { "type": "numbered_list", "data": { "delta": [] } },
+      {
+        "type": "heading",
+        "data": { "level": 3, "delta": [{ "insert": "链接和引用" }] }
+      },
+      {
+        "type": "quote",
+        "data": {
+          "delta": [
+            { "insert": "这里可以找到 " },
+            {
+              "insert": "Timerbell Todo 编辑器 flutter 包",
+              "attributes": { "href": "https://pub.dev/packages/Timerbell todo_editor" }
+            },
+            { "insert": " 以添加到您的环境中。" }
+          ]
+        }
+      },
+      {
+        "type": "heading",
+        "data": { "level": 3, "delta": [{ "insert": "代码内联" }] }
+      },
+      {
+        "type": "paragraph",
+        "data": { "delta": [{ "insert": "Timerbell todo_editor\n", "attributes": { "code": true } }] }
+      }
+    ]
+  }
+}

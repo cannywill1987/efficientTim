@@ -556,24 +556,24 @@ class DialogManagement {
                   }
                   if (d.rating >= 4) {
                     if (Utility.isIOS() == true || Utility.isMacOS() == true) {
-                      String s = "https://itunes.apple.com/app/id${Utility.isMacOS()
-                          ? '1663772116'
-                          : '1663610373'}?action=write-review";
-                      Utility.openExternalWebView(url: s);
-                      // if (Utility.isIOS()) {
-                      //   final InAppReview inAppReview = InAppReview.instance;
-                      //   if (await inAppReview.isAvailable()) {
-                      //     inAppReview.requestReview();
-                      //   } else {
-                      //     inAppReview.openStoreListing(
-                      //         appStoreId: Utility.isMacOS()
-                      //             ? '1663772116'
-                      //             : '1663610373');
-                      //   }
-                      // } else {
-                      //   CounterMethodChannelManager.getInstance()
-                      //       .requestReview();
-                      // }
+                      // String s = "https://itunes.apple.com/app/id${Utility.isMacOS()
+                      //     ? '1663772116'
+                      //     : '1663610373'}?action=write-review";
+                      // Utility.openExternalWebView(url: s);
+                      if (Utility.isIOS()) {
+                        final InAppReview inAppReview = InAppReview.instance;
+                        if (await inAppReview.isAvailable()) {
+                          inAppReview.requestReview();
+                        } else {
+                          inAppReview.openStoreListing(
+                              appStoreId: Utility.isMacOS()
+                                  ? '1663772116'
+                                  : '1663610373');
+                        }
+                      } else {
+                        CounterMethodChannelManager.getInstance()
+                            .requestReview();
+                      }
                     } else {
                       Utility.openExternalWebView(url: Urls.ratingGuide);
                     }

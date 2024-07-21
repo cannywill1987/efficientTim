@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
+import 'package:time_hello/com/timehello/common/provider/GlobalStateEnv.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
+import 'package:time_hello/com/timehello/page/AppFlowyPage/components/AppFlowyControlWidget.dart';
 import 'package:time_hello/com/timehello/page/MobileTabBarHome.dart';
 import 'package:time_hello/com/timehello/page/PCMainHomePage.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
@@ -202,16 +205,14 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
       // Params.hasGuidMissionDataInit == false &&
       //     isFirstTime == true &&
       //     MongoApisManager.getInstance().listMissionModels.length == 0 &&
+      // Future.delayed(Duration(seconds: 3), (){
+      //
+      // });
       if (
-          LoginManager.isLogin() == false) {
-        // MongoApisManager.getInstance().batchInsert_EndTimeMissionModels(
-        //     listParam: CONSTANTS.getGuideEndTimeMissionModels());
-        // MongoApisManager.getInstance().batchInsert_MissionModels(
-        //     listParam: CONSTANTS.getGuideMissionModels());
+      LoginManager.isLogin() == false) {
         MongoApisManager.getInstance().listMissionModels = CONSTANTS.getGuideMissionModels();
-        // MongoApisManager.getInstance().batchInsert_MissionModels(
-        //     listParam: CONSTANTS.getGuideMissionModels());
-
+        context.read<GlobalStateEnv>().listMissionModels = MongoApisManager.getInstance().listMissionModels;
+        Utility.initCalendarModel();
       }
     } catch (e) {
       print("");

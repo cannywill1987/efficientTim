@@ -10,7 +10,7 @@ project 'Runner', {
   'Release' => :release,
 }
 
-# pod 'FBSDKLoginKit'
+
 # source 'https://github.com/zhangao0086/DKImagePickerController.git'
 # pod 'DKImagePickerController'
 # source 'https://github.com/CocoaPods/Specs.git'
@@ -96,3 +96,5 @@ end
 # pod 'AlicloudPush', '~> 1.9.1'
 # source 'https://github.com/aliyun/aliyun-specs.git'
 # pod 'AlicloudPush', '~> 1.9.1'
+#lzb 我加的 否则找不到FMDB framework 所以认为加上去了
+pod 'FMDB', '~> 2.7.12'
