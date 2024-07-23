@@ -94,91 +94,94 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
       margin:
           EdgeInsets.only(top: this.widget.paddingTop ?? 0, left: 5, right: 5),
       alignment: Alignment.center,
-      child: Stack(
+      child: Row(
         children: [
-          Focus(
-              onKey: (FocusNode node, RawKeyEvent event) {
-                return KeyEventResult.ignored;
-              },
-              child: TextField(
-                // maxLength: 255,
-                textAlign: TextAlign.center,
-                focusNode: _contentFocusNode,
-                controller: inputController,
-                onChanged: (text) {
-                  if (this.widget.onChangeListener != null) {
-                    this.widget.onChangeListener!(text);
-                  }
+          Expanded(
+            child: Focus(
+                onKey: (FocusNode node, RawKeyEvent event) {
+                  return KeyEventResult.ignored;
                 },
-                // onSubmitted: (String value) {
-                //   if (this.widget.onSubmitListener != null) {
-                //     this.widget.onSubmitListener(
-                //         {"inputContent": value, "folderModel": curFolderModel});
-                //   }
-                //
-                //   print(value);
-                // },
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    decorationColor: ThemeManager.getInstance().getInputThemeColor(defaultColor: Color(0xffd5d5d5)),
-                    color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)),
-                    fontWeight: FontWeight.w500),
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 0, bottom: 0),
-                    counterStyle:
-                        TextStyle(color: Colors.transparent, fontSize: 0),
-                    //右边距是为了放置番茄计数器
-                    fillColor: ThemeManager.getInstance().getInputDecorationColor(defaultColor: Color(0xffe0e0e0)),
-                    //背景颜色，必须结合filled: true,才有效
-                    // hoverColor: Colors.white,
-                    // focusColor: Colors.white,
-                    filled: true,
-                    //重点，必须设置为true，fillColor才有效
-                    // border: OutlineInputBorder(),
-                    // prefixIcon: Icon(
-                    //   Icons.search,
-                    //   color: Color(0xffd5d5d5),
-                    // ),
-                    prefixIconColor: Color(0xffd5d5d5),
-                    floatingLabelStyle:
-                        TextStyle(color: Color(0xffff0000), fontSize: 14),
-                    border: _outlineInputBorder,
-                    //边框，一般下面的几个边框一起设置
-                    //keyboardType: TextInputType.number, //键盘类型
-                    //obscureText: true,//密码模式
-                    focusedBorder: _outlineInputBorder,
-                    enabledBorder: _outlineInputBorder,
-                    disabledBorder: _outlineInputBorder,
-                    focusedErrorBorder: _outlineInputBorder,
-                    errorBorder: _outlineInputBorder,
-                    // labelStyle:
-                    //     TextStyle(color: Color(0x00000000), fontSize: 14),
-                    // labelText: getI18NKey().search,
-                    hintStyle: TextStyle(fontSize: 13),
-                    hintText: getI18NKey().search),
-              )),
-          Align(
-            alignment: Alignment(1, -0),
-            child: Container(
-              margin: EdgeInsets.only(right: 10),
-              width: 20,
-              height: 20,
-              child: IconButton(
-                  onPressed: () {
-                    if (this.widget.onClickResetListener != null) {
-                      this.widget.onClickResetListener!();
+                child: TextField(
+                  // maxLength: 255,
+                  textAlign: TextAlign.center,
+                  focusNode: _contentFocusNode,
+                  controller: inputController,
+                  onChanged: (text) {
+                    if (this.widget.onChangeListener != null) {
+                      this.widget.onChangeListener!(text);
                     }
-                    resetData();
                   },
-                  padding: EdgeInsets.all(0),
-                  icon: Icon(
-                    Icons.close,
-                    size: 20,
-                  ),
-                  iconSize: 20),
-            ),
-          )
+                  // onSubmitted: (String value) {
+                  //   if (this.widget.onSubmitListener != null) {
+                  //     this.widget.onSubmitListener(
+                  //         {"inputContent": value, "folderModel": curFolderModel});
+                  //   }
+                  //
+                  //   print(value);
+                  // },
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      decorationColor: ThemeManager.getInstance().getInputThemeColor(defaultColor: Color(0xffd5d5d5)),
+                      color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)),
+                      fontWeight: FontWeight.w500),
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                      suffixIcon: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        width: 20,
+                        height: 20,
+                        child: IconButton(
+                            onPressed: () {
+                              if (this.widget.onClickResetListener != null) {
+                                this.widget.onClickResetListener!();
+                              }
+                              resetData();
+                            },
+                            padding: EdgeInsets.all(0),
+                            icon: Icon(
+                              Icons.close,
+                              size: 20,
+                            ),
+                            iconSize: 20),
+                      ),
+                      contentPadding: EdgeInsets.only(top: 0, bottom: 0),
+                      counterStyle:
+                          TextStyle(color: Colors.transparent, fontSize: 0),
+                      //右边距是为了放置番茄计数器
+                      fillColor: ThemeManager.getInstance().getInputDecorationColor(defaultColor: Color(0xffe0e0e0)),
+                      //背景颜色，必须结合filled: true,才有效
+                      // hoverColor: Colors.white,
+                      // focusColor: Colors.white,
+                      filled: true,
+                      //重点，必须设置为true，fillColor才有效
+                      // border: OutlineInputBorder(),
+                      // prefixIcon: Icon(
+                      //   Icons.search,
+                      //   color: Color(0xffd5d5d5),
+                      // ),
+                      prefixIconColor: Color(0xffd5d5d5),
+                      floatingLabelStyle:
+                          TextStyle(color: Color(0xffff0000), fontSize: 14),
+                      border: _outlineInputBorder,
+                      //边框，一般下面的几个边框一起设置
+                      //keyboardType: TextInputType.number, //键盘类型
+                      //obscureText: true,//密码模式
+                      focusedBorder: _outlineInputBorder,
+                      enabledBorder: _outlineInputBorder,
+                      disabledBorder: _outlineInputBorder,
+                      focusedErrorBorder: _outlineInputBorder,
+                      errorBorder: _outlineInputBorder,
+                      // labelStyle:
+                      //     TextStyle(color: Color(0x00000000), fontSize: 14),
+                      // labelText: getI18NKey().search,
+                      hintStyle: TextStyle(fontSize: 13),
+                      hintText: getI18NKey().search),
+                )),
+          ),
+          // Align(
+          //   alignment: Alignment(1, -0),
+          //   child: ,
+          // )
         ],
       ),
     );

@@ -14,13 +14,15 @@ class CustomCloseButton extends StatelessWidget {
         onTapListener();
       },
       child: Container(
-          padding: EdgeInsets.all(2),
+        width: size + 2,
+          height: size + 2,
+          // padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Color(0x40ffffff),
+          color: Color(0xffe0e0e0),
           borderRadius: BorderRadius.circular(50),
         ),
         margin: margin,
-        width: size,
+        // width: size,
         child: Icon(CupertinoIcons.clear, size: size - 2),
       ),
     );

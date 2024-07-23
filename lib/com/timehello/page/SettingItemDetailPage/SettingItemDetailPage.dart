@@ -1194,6 +1194,7 @@ class _SettingItemDetailPageWidgetState<T>
               ),
               icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
                   size: StylesConfig.iconSize)),
+      if(this.widget.missionModel?.time_mode == 0)
       this.widget.missionModel?.isFinished == true
           ? SizedBox.shrink()
           : MenuItem2(

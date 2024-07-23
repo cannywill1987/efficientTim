@@ -14,12 +14,12 @@ if (flutterRoot == null) {
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 //if (flutterVersionCode == null) {
 //每个版本要升一级 要不应用市场不认
-    flutterVersionCode = '148'
+    flutterVersionCode = '149'
 //}
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 //if (flutterVersionName == null) {
-    flutterVersionName = '7.0.8'
+    flutterVersionName = '7.0.9'
 //}
 
 apply plugin: 'com.android.application'
@@ -110,7 +110,7 @@ apply plugin: 'com.huawei.agconnect'
 //classpath "com.tencent.android.tpns:tpnsplugin:1.8.0"
 android {
     useLibrary 'org.apache.http.legacy'
-    compileSdk 33
+    compileSdk 34
 
     sourceSets {
         main {

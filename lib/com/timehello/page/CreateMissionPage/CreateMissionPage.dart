@@ -1036,6 +1036,7 @@ class _CreateMissionPageWidgetState<T>
                 icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
                     size: StylesConfig.iconSize,
                     color: ThemeManager.getInstance().getDefautThemeColor())),
+        if(this.widget.missionModel?.time_mode == 0)
         (this.widget.missionModel.isFinished == true)
             ? SizedBox.shrink()
             : MenuItem2(

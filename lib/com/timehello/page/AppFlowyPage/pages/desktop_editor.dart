@@ -267,6 +267,7 @@ class _DesktopEditorState extends State<DesktopEditor> {
     }
     final text = delta.toPlainText();
     // An example, if the text ends with 'hello', then show the autocomplete.
+
     if (text.endsWith('hello')) {
       return ' world';
     }
