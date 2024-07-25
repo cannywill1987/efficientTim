@@ -1850,6 +1850,30 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getFourQuadrantButtonList({int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    const double size = 14;
+    list.add(CheckButtonStateModel(
+        code: 'export',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcExport, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcExport, size: size),
+        title: getI18NKey().export,
+        isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        code: 'visibility',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcVisible, size: size - 5),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcVisible, size: size - 5),
+        title: getI18NKey().visible,
+        isCheck: defaultVal == 1));
+    // list.add(CheckButtonStateModel(
+    //     code: 'group',
+    //     checkIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
+    //     uncheckIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
+    //     title: getI18NKey().add_group_listing,
+    //     isCheck: defaultVal == 1));
+    return list;
+  }
+
   static List<CheckButtonStateModel> getFolderButtonList({int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     const double size = 14;
@@ -5255,7 +5279,7 @@ class CONSTANTS {
    * 早上锻炼15分钟，然后工作2小时，帮我规划下
    */
   static String getChatGptMessagge(
-      String role, DateTime dateTime, String content) {
+      String role, String content) {
     String timestampFormat = "当地时间格式 YYYY-MM-DD HH:MM:SS.FFFFFF";
     DateTime dateTimeNow = new DateTime.now();
     int timestamp = dateTimeNow.millisecondsSinceEpoch;
@@ -5531,9 +5555,11 @@ class CONSTANTS {
         dateTimeStart = startDateTime;
       } else if (endDateTime != null) {
         dateTimeEnd = endDateTime;
-      } else if (dateTimeStart == null && dateTimeEnd == null) {
-        return;
-      } else if (dateTimeEnd != null) {
+      }
+      // else if (dateTimeStart == null && dateTimeEnd == null) {
+      //   return;
+      // }
+      else if (dateTimeEnd != null) {
         dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
       } else {
         if (dateTimeStart != null) {
@@ -5575,9 +5601,11 @@ class CONSTANTS {
         dateTimeStart = startDateTime;
       } else if (endDateTime != null) {
         dateTimeEnd = endDateTime;
-      } else if (dateTimeStart == null && dateTimeEnd == null) {
-        return;
-      } else if (dateTimeEnd != null) {
+      }
+      // else if (dateTimeStart == null && dateTimeEnd == null) {
+      //   return;
+      // }
+      else if (dateTimeEnd != null) {
         dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
       } else {
         if (dateTimeStart != null) {
@@ -5619,9 +5647,11 @@ class CONSTANTS {
         dateTimeStart = startDateTime;
       } else if (endDateTime != null) {
         dateTimeEnd = endDateTime;
-      } else if (dateTimeStart == null && dateTimeEnd == null) {
-        return;
-      } else if (dateTimeEnd != null) {
+      }
+      // else if (dateTimeStart == null && dateTimeEnd == null) {
+      //   return;
+      // }
+      else if (dateTimeEnd != null) {
         dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
       } else {
         if (dateTimeStart != null) {
@@ -5766,12 +5796,18 @@ class CONSTANTS {
       }
     });
     listMissionModels.forEach((element) {
-      list.forEach((element2) {
-        if (element.folder_id == element2?['folderObjectId']) {
-          if(element2?['listMissionModels'].contains(element) == false)
-            element2?['listMissionModels'].add(element);
+      for(int i = 0; i < list.length; i++){
+        if (element.folder_id == list[i]?['folderObjectId']) {
+          list[i]?['listMissionModels'].add(element);
+          break;
         }
-      });
+      }
+      // list.forEach((element2) {
+      //   if (element.folder_id == element2?['folderObjectId']) {
+      //     if(element2?['listMissionModels'].contains(element) == false)
+      //       element2?['listMissionModels'].add(element);
+      //   }
+      // });
     });
 
     return list;

@@ -27,6 +27,7 @@ class TimeRatioComponent extends StatefulWidget {
   DateTime? endTime;
   String scene;
   Widget? lastChild;
+  Widget? firstChild;
   // final List<TimeSegment> segments;
   final List<MissionModel> listMissionModels;
   ProgressSortEnum progressSortEnum;
@@ -36,6 +37,7 @@ class TimeRatioComponent extends StatefulWidget {
     this.endTime,
     this.scene = "default",
     this.progressSortEnum = ProgressSortEnum.priority,
+    this.firstChild,
     this.lastChild,
     required this.width,
     required this.height,
@@ -150,6 +152,9 @@ class TimeRatioComponentState extends State<TimeRatioComponent> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(width: 4),
+              if(this.widget.firstChild != null)
+                this.widget.firstChild!,
+              if(!Utility.isHandsetBySize())
               Text(
                 CONSTANTS.getSegmentDateString(
                     dateTime1: this.widget.startTime,

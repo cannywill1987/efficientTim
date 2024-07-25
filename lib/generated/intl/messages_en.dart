@@ -356,6 +356,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Advanced permissions: can set restrictions on copying, commenting, etc."),
         "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("agree"),
+        "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI Create"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI Helper"),
         "alert": MessageLookupByLibrary.simpleMessage("Remind"),
@@ -731,6 +732,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Continuous Clock-in"),
         "continue2": MessageLookupByLibrary.simpleMessage("Continue"),
         "continueTxt": MessageLookupByLibrary.simpleMessage("continue"),
+        "continue_writing": MessageLookupByLibrary.simpleMessage("继续写作"),
         "continuous_clock_in":
             MessageLookupByLibrary.simpleMessage("Continuous Clock-in"),
         "continuous_days":
@@ -883,6 +885,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editLink": MessageLookupByLibrary.simpleMessage("Edit link"),
         "edit_fail": MessageLookupByLibrary.simpleMessage("edit failed"),
+        "edit_options": MessageLookupByLibrary.simpleMessage("编辑选项"),
         "edit_sharing": MessageLookupByLibrary.simpleMessage("edit sharing"),
         "edit_successfully": MessageLookupByLibrary.simpleMessage(
             "edit successfully, it can be viewed it in TimeLine page"),
@@ -915,6 +918,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "End time cannot be earlier than start time"),
         "endtime_cannot_before_starttime": MessageLookupByLibrary.simpleMessage(
             "End time cannot be earlier than start time"),
+        "enrich": MessageLookupByLibrary.simpleMessage("更丰富"),
         "enterBankName":
             MessageLookupByLibrary.simpleMessage("Please enter bank name"),
         "enterBillAmount":
@@ -938,6 +942,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "example_demo_hint": MessageLookupByLibrary.simpleMessage(
             "e.g..\"always describe in bullet points, never use unwrap, always output your answers in English\""),
         "exist_app_focusing_mission_name": m44,
+        "explain": MessageLookupByLibrary.simpleMessage("解释一下"),
         "export": MessageLookupByLibrary.simpleMessage("export"),
         "export_data": MessageLookupByLibrary.simpleMessage("export data"),
         "export_excel":
@@ -955,6 +960,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish_mission_name": m45,
         "finish_time": MessageLookupByLibrary.simpleMessage("Complete time"),
         "finished": MessageLookupByLibrary.simpleMessage("Finished"),
+        "fix_spelling_grammar": MessageLookupByLibrary.simpleMessage("修复拼写和语法"),
         "focus": MessageLookupByLibrary.simpleMessage("concentrate on"),
         "focusFinished":
             MessageLookupByLibrary.simpleMessage("focus on completion"),
@@ -1120,6 +1126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "image": MessageLookupByLibrary.simpleMessage("image"),
         "imageLoadFailed":
             MessageLookupByLibrary.simpleMessage("Could not load the image"),
+        "improve_writing": MessageLookupByLibrary.simpleMessage("改进写作"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7 days later"),
         "in_selection_word_count_and_char_count": m56,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("Incorrect Link"),
@@ -1264,6 +1271,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lottery": MessageLookupByLibrary.simpleMessage("lottery"),
         "ltr": MessageLookupByLibrary.simpleMessage("LTR"),
         "lyubichs": MessageLookupByLibrary.simpleMessage("Lyubichs duration"),
+        "manage": MessageLookupByLibrary.simpleMessage("管理"),
         "manual": MessageLookupByLibrary.simpleMessage("Manual"),
         "manual_create": MessageLookupByLibrary.simpleMessage("Manual Create"),
         "mar": MessageLookupByLibrary.simpleMessage("Mar"),
@@ -1868,6 +1876,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_repeat_option": MessageLookupByLibrary.simpleMessage(
             "Please select at least one option in the repeat cycle"),
         "select_ringtone": MessageLookupByLibrary.simpleMessage("select sound"),
+        "select_scenario":
+            MessageLookupByLibrary.simpleMessage("选择下列场景或告诉AI如何编辑"),
         "send_again": MessageLookupByLibrary.simpleMessage("send again"),
         "sep": MessageLookupByLibrary.simpleMessage("Sep"),
         "sepFull": MessageLookupByLibrary.simpleMessage("September"),
@@ -1890,6 +1900,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("sharing course"),
         "sharing_listing":
             MessageLookupByLibrary.simpleMessage("Sharing listing"),
+        "shorten": MessageLookupByLibrary.simpleMessage("更简短"),
+        "simplify_language": MessageLookupByLibrary.simpleMessage("简化语言"),
         "six_hours": MessageLookupByLibrary.simpleMessage("Six hours"),
         "six_months": MessageLookupByLibrary.simpleMessage("Six months"),
         "skilled": MessageLookupByLibrary.simpleMessage("skilled"),
@@ -1924,6 +1936,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage(
                 "Successfully copied to clipboard"),
+        "summarize": MessageLookupByLibrary.simpleMessage("总结"),
         "summary": MessageLookupByLibrary.simpleMessage("summary"),
         "sunday": MessageLookupByLibrary.simpleMessage("sun"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("Sun"),
@@ -1931,6 +1944,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "switch_chronograph_mode_success": MessageLookupByLibrary.simpleMessage(
             "Switch to chronograph mode, will work next time"),
         "switch_font": MessageLookupByLibrary.simpleMessage("Switch font"),
+        "switch_style": MessageLookupByLibrary.simpleMessage("切换风格"),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "Switch to timer mode, will work next time"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),
@@ -2040,6 +2054,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "training_plan_edit":
             MessageLookupByLibrary.simpleMessage("Training Plan Edit"),
         "transaction": MessageLookupByLibrary.simpleMessage("trans."),
+        "translate": MessageLookupByLibrary.simpleMessage("翻译"),
         "try_again": MessageLookupByLibrary.simpleMessage(
             "Request error, please try again"),
         "tuesday": MessageLookupByLibrary.simpleMessage("Tue"),

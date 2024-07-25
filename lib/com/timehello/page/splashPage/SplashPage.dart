@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
+import 'package:time_hello/com/timehello/page/TestPage/Test6Page.dart';
 import 'package:time_hello/com/timehello/util/AliyunStoreManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
@@ -471,8 +472,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, GPTRoleGridViewPage());
                   // Utility.pushReplacement(context, ChatGptPage());
                   // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: '', password: '',));
-                  // Utility.pushReplacement(context, AppflowyPage());
+                  // Utility.pushReplacement(context, Test6Page());
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, AppflowyPage());
                   // Utility.pushReplacement(context, GroupChatSharingWidget());
                   // Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, CreateAIChatGptMissionWidget(listMissionModel: [],));

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
+import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/util/ChatGptManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../util/ThemeManager.dart';
@@ -71,6 +73,35 @@ class _DesktopEditorState extends State<DesktopEditor> {
     assert(PlatformExtension.isDesktopOrWeb);
     return FloatingToolbar(
       items: [
+        // aiItem,
+        ToolbarItem(
+          id: 'editor.ai',
+          group: 0, // 位置
+          isActive: onlyShowInSingleSelectionAndTextType,
+          builder: (context, editorState, highlightColor, iconColor) {
+            final selection = editorState.selection!;
+            final node = editorState.getNodeAtPath(selection.start.path)!;
+            final isHighlight = node.type == 'paragraph';
+            final delta = (node.delta ?? Delta()).toJson();
+            return SVGIconItemWidget(
+                iconName: 'toolbar/ai',
+                name: i18nInstanceLocal.ai,
+                isHighlight: isHighlight,
+                highlightColor: highlightColor,
+                iconColor: iconColor,
+                tooltip: i18nInstanceLocal.ai,
+                onPressed: () {
+                  showAIMenu(context, editorState, selection, isHighlight, (aiText, textSelected) async {
+await ChatGptManager.getInstance().sendMessage(     showForbiddenMsg: false,
+    // conversationIdParams: getLastParentMessageId()['conversationId'],
+    newChatGptObject: true,
+    systemMessage: aiText,
+    textParam: textSelected,
+    parentMessageIdParam: null);
+                  });
+                });
+          },
+        ),
         paragraphItem,
         ...headingItems,
         ...markdownFormatItems,

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:string_validator/string_validator.dart';
 
+/**
+ * lzb
+ * 添加链接对话框内容 在link_toolbar_iem有overlay用于展示
+ */
 class LinkMenu extends StatefulWidget {
   const LinkMenu({
     super.key,

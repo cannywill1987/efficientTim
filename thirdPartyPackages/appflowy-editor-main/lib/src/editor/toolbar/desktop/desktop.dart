@@ -12,3 +12,4 @@ export 'items/paragraph_toolbar_item.dart';
 export 'items/placeholder_toolbar_item.dart';
 export 'items/quote_toolbar_item.dart';
 export 'items/text_direction_toolbar_items.dart';
+export 'items/ai/ai_toolbar_item.dart';

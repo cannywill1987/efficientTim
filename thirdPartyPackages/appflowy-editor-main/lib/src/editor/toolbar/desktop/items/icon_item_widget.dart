@@ -7,6 +7,7 @@ class SVGIconItemWidget extends StatelessWidget {
     this.size = const Size.square(30.0),
     this.iconSize = const Size.square(18.0),
     this.iconName,
+    this.name,
     this.iconBuilder,
     required this.isHighlight,
     required this.highlightColor,
@@ -14,7 +15,7 @@ class SVGIconItemWidget extends StatelessWidget {
     this.tooltip,
     this.onPressed,
   });
-
+  final String? name;
   final Size size;
   final Size iconSize;
   final String? iconName;
@@ -29,12 +30,22 @@ class SVGIconItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child = iconBuilder != null
         ? iconBuilder!(context)
-        : EditorSvg(
-            name: iconName,
-            color: isHighlight ? highlightColor : iconColor,
-            width: iconSize.width,
-            height: iconSize.height,
-          );
+        : this.name == null ? EditorSvg(
+      name: iconName,
+      color: isHighlight ? highlightColor : iconColor,
+      width: iconSize.width,
+      height: iconSize.height,
+    ) : Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+      EditorSvg(
+        name: iconName,
+        color: isHighlight ? highlightColor : iconColor,
+        width: iconSize.width,
+        height: iconSize.height,
+      ),
+      Text(name!, style: TextStyle(fontSize: 12, color: isHighlight ? highlightColor : iconColor)),
+    ]);
     if (onPressed != null) {
       child = MouseRegion(
         cursor: SystemMouseCursors.click,

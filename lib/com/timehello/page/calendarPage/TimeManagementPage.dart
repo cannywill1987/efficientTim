@@ -116,7 +116,6 @@ class TimeManagementPageState extends State<TimeManagementPage> {
     }
     _calendarController.view = _currentView;
 
-
     // eventBus.on<EventFn>().listen((EventFn event) {
     //   //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
     //     if (event.type == Params.ACTION_UPDATE_LISTVIEW) {
@@ -208,15 +207,68 @@ class TimeManagementPageState extends State<TimeManagementPage> {
                                                 })
                                               : null,
                                           width: this.missionPageWidth,
-                                          startTime: Utility.getStartDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week),
-                                          endTime: Utility.getEndDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week),
+                                          startTime: Utility.isHandsetBySize()
+                                              ? this.startDateTime
+                                              : Utility
+                                                  .getStartDateTimeFromCalendar(
+                                                      startDateTime:
+                                                          this.startDateTime,
+                                                      endDateTime:
+                                                          this.endDateTime,
+                                                      displayDateTime:
+                                                          _calendarController
+                                                                  .displayDate ??
+                                                              DateTime.now(),
+                                                      calendarView:
+                                                          _calendarController
+                                                                  .view ??
+                                                              CalendarView
+                                                                  .week),
+                                          endTime: Utility.isHandsetBySize()
+                                              ? this.endDateTime
+                                              : (Utility
+                                                  .getEndDateTimeFromCalendar(
+                                                      startDateTime:
+                                                          this.startDateTime,
+                                                      endDateTime:
+                                                          this.endDateTime,
+                                                      displayDateTime:
+                                                          _calendarController
+                                                                  .displayDate ??
+                                                              DateTime.now(),
+                                                      calendarView:
+                                                          _calendarController
+                                                                  .view ??
+                                                              CalendarView
+                                                                  .week)),
                                           height: 5,
                                           // totalTime: 24 * 60 * 60, // 一天的总秒数
-                                          listMissionModels:
-                                              Utility.getMissionModelsForRatio(
-                                                  dayModelList,
-                                                  Utility.getStartDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week),
-                                                  Utility.getEndDateTimeFromCalendar(startDateTime: this.startDateTime, endDateTime: this.endDateTime, displayDateTime: _calendarController.displayDate ?? DateTime.now(), calendarView: _calendarController.view ?? CalendarView.week)),
+                                          listMissionModels: Utility.getMissionModelsForRatio(
+                                              dayModelList,
+                                              Utility.getStartDateTimeFromCalendar(
+                                                  startDateTime:
+                                                      this.startDateTime,
+                                                  endDateTime: this.endDateTime,
+                                                  displayDateTime:
+                                                      _calendarController
+                                                              .displayDate ??
+                                                          DateTime.now(),
+                                                  calendarView:
+                                                      _calendarController
+                                                              .view ??
+                                                          CalendarView.week),
+                                              Utility.getEndDateTimeFromCalendar(
+                                                  startDateTime:
+                                                      this.startDateTime,
+                                                  endDateTime: this.endDateTime,
+                                                  displayDateTime:
+                                                      _calendarController
+                                                              .displayDate ??
+                                                          DateTime.now(),
+                                                  calendarView:
+                                                      _calendarController
+                                                              .view ??
+                                                          CalendarView.week)),
                                           // [
                                           //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
                                           //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
@@ -225,7 +277,9 @@ class TimeManagementPageState extends State<TimeManagementPage> {
                                           //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
                                           // ],
                                         ),
-                                        SizedBox(height: 5,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Expanded(
                                           child: Stack(
                                             children: [
@@ -335,8 +389,6 @@ class TimeManagementPageState extends State<TimeManagementPage> {
       });
     });
   }
-
-
 
   /// Creates the required appointment details as a list.
   /// Creates the required appointment details as a list.

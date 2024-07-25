@@ -259,12 +259,11 @@ class CommonCalendarHeaderWidgetState
     return !Utility.isHandsetBySize() && getMonthSubtitle().isEmpty == true && getYearTitle().isEmpty == true
         ? SizedBox.shrink()
         : Container(
-
-            padding: EdgeInsets.only(left: 10,bottom: 10),
+            // padding: EdgeInsets.only(left: 10,bottom: 10),
             decoration: BoxDecoration(
                 border: Border(
                     bottom:
-                        BorderSide(color: Color(0xffe3e0e2), width: 1))),
+                        BorderSide(color: Color(0xff666666), width: 2))),
             alignment: Alignment.centerLeft,
             child: GestureDetector(
               child: Wrap(

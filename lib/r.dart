@@ -561,6 +561,8 @@ class R {
   static final String assetsImgIcChatgptSelected = 'assets/img/ic_chatgpt_selected.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_eye_close.svg)
   static final String assetsImgIcEyeClose = 'assets/img/ic_eye_close.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_visible.svg)
+  static final String assetsImgIcVisible = 'assets/img/ic_visible.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_bank.svg)
   static final String assetsImgIcBank = 'assets/img/ic_bank.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_right_panel.svg)
@@ -621,6 +623,8 @@ class R {
   static final String assetsImgAvatar28 = 'assets/img/avatar28.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_card_all_white.svg)
   static final String assetsImgIcCardAllWhite = 'assets/img/ic_card_all_white.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_export.svg)
+  static final String assetsImgIcExport = 'assets/img/ic_export.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_huaxia_bank.png)
   static final String assetsImgIcHuaxiaBank = 'assets/img/ic_huaxia_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/bg_circle_light.png)

@@ -335,12 +335,13 @@ class CreateAIChatGptMissionPageState
       this.isLoading = true;
       updateUI();
       try {
+        // this.curDateTime,
         chatGptMessageModelGpt = await ChatGptManager.getInstance().sendMessage(
             showForbiddenMsg: false,
             // conversationIdParams: getLastParentMessageId()['conversationId'],
             newChatGptObject: true,
             textParam:
-                CONSTANTS.getChatGptMessagge(this.role, this.curDateTime, val),
+                CONSTANTS.getChatGptMessagge(this.role,  val),
             parentMessageIdParam: null);
         String s = chatGptMessageModelGpt?.text ?? "";
         print("result:${s}");

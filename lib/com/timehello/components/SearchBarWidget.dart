@@ -24,10 +24,11 @@ class SearchBarWidget extends StatefulWidget {
   double? width;
   double? paddingTop;
   String? defaultValue;
-
+  Widget? lastWidget;
   SearchBarWidget({
     Key? key,
     this.defaultValue,
+    this.lastWidget,
     this.width,
     this.paddingTop,
     this.onDesktopSubmitListener,
@@ -178,6 +179,8 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
                       hintText: getI18NKey().search),
                 )),
           ),
+          if(this.widget.lastWidget != null) SizedBox(width: 5),
+            if(this.widget.lastWidget != null) this.widget.lastWidget!,
           // Align(
           //   alignment: Alignment(1, -0),
           //   child: ,

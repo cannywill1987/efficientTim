@@ -229,7 +229,7 @@ extension TextTransforms on EditorState {
   }
 
   /// format the node at the given selection.
-  ///
+  /// lzb 比如把一个节点的type改成另一个节点的type
   /// If the [Selection] is not passed in, use the current selection.
   Future<void> formatNode(
     Selection? selection,

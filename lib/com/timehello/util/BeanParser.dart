@@ -24,10 +24,10 @@ class BeanParser {
     List<FolderTimeModel> listFolderTimeModel = [];
     List<Map?> listFolderIds = CONSTANTS.sortMissionModelListToFolderIds(data);
     if (ProgressSortEnum.tomato == progressSortEnum) {
-      CONSTANTS.sortByFolderTimeForTomatoes(listFolderIds, listFolderTimeModel, list);
+      CONSTANTS.sortByFolderTimeForTomatoes(listFolderIds, listFolderTimeModel, list, startDateTime, endDateTime);
       return list;
     } else if (ProgressSortEnum.completeNum == progressSortEnum) {
-      CONSTANTS.sortByFolderTimeForCompleteNum(listFolderIds, listFolderTimeModel, list);
+      CONSTANTS.sortByFolderTimeForCompleteNum(listFolderIds, listFolderTimeModel, list, startDateTime, endDateTime);
     } else if (ProgressSortEnum.focusDuration == progressSortEnum) {
       CONSTANTS.sortByFolderTime(listFolderIds, listFolderTimeModel, list);
     } else if (ProgressSortEnum.Lyubichs == progressSortEnum) {

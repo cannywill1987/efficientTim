@@ -50,6 +50,146 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `编辑选项`
+  String get edit_options {
+    return Intl.message(
+      '编辑选项',
+      name: 'edit_options',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `选择下列场景或告诉AI如何编辑`
+  String get select_scenario {
+    return Intl.message(
+      '选择下列场景或告诉AI如何编辑',
+      name: 'select_scenario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `改进写作`
+  String get improve_writing {
+    return Intl.message(
+      '改进写作',
+      name: 'improve_writing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修复拼写和语法`
+  String get fix_spelling_grammar {
+    return Intl.message(
+      '修复拼写和语法',
+      name: 'fix_spelling_grammar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更简短`
+  String get shorten {
+    return Intl.message(
+      '更简短',
+      name: 'shorten',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更丰富`
+  String get enrich {
+    return Intl.message(
+      '更丰富',
+      name: 'enrich',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `切换风格`
+  String get switch_style {
+    return Intl.message(
+      '切换风格',
+      name: 'switch_style',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `简化语言`
+  String get simplify_language {
+    return Intl.message(
+      '简化语言',
+      name: 'simplify_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `继续写作`
+  String get continue_writing {
+    return Intl.message(
+      '继续写作',
+      name: 'continue_writing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `总结`
+  String get summarize {
+    return Intl.message(
+      '总结',
+      name: 'summarize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `翻译`
+  String get translate {
+    return Intl.message(
+      '翻译',
+      name: 'translate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `解释一下`
+  String get explain {
+    return Intl.message(
+      '解释一下',
+      name: 'explain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `管理`
+  String get manage {
+    return Intl.message(
+      '管理',
+      name: 'manage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI`
+  String get ai {
+    return Intl.message(
+      'AI',
+      name: 'ai',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `关于任务{title}的内容请点击链接查看:{link}`
   String copy_and_share_with_title(Object title, Object link) {
     return Intl.message(

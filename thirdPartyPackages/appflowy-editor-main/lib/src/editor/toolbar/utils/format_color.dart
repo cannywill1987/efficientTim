@@ -13,6 +13,10 @@ void formatHighlightColor(
   );
 }
 
+/**
+ * lzb
+ * 格式化字体颜色
+ */
 void formatFontColor(
   EditorState editorState,
   Selection? selection,

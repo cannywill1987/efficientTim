@@ -552,6 +552,7 @@ flutter:
     - assets/img/ic_jiangsu_bank.png
     - assets/img/ic_chatgpt_selected.png
     - assets/img/ic_eye_close.svg
+    - assets/img/ic_visible.svg
     - assets/img/ic_bank.svg
     - assets/img/ic_right_panel.svg
     - assets/img/ic_money3.svg
@@ -582,6 +583,7 @@ flutter:
     - assets/img/ic_secure.svg
     - assets/img/avatar28.svg
     - assets/img/ic_card_all_white.svg
+    - assets/img/ic_export.svg
     - assets/img/ic_huaxia_bank.png
     - assets/img/bg_circle_light.png
     - assets/img/avatar29.svg

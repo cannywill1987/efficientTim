@@ -22,27 +22,31 @@ String shortcutTooltips(
 String getTooltipText(String id) {
   switch (id) {
     case 'underline':
-      return '${AppFlowyEditorL10n.current.underline}${shortcutTooltips('⌘ + U', 'CTRL + U', 'CTRL + U')}';
+      return '${i18nInstanceLocal.underline}${shortcutTooltips('⌘ + U', 'CTRL + U', 'CTRL + U')}';
     case 'bold':
-      return '${AppFlowyEditorL10n.current.bold}${shortcutTooltips('⌘ + B', 'CTRL + B', 'CTRL + B')}';
+      return '${i18nInstanceLocal.bold}${shortcutTooltips('⌘ + B', 'CTRL + B', 'CTRL + B')}';
     case 'italic':
-      return '${AppFlowyEditorL10n.current.italic}${shortcutTooltips('⌘ + I', 'CTRL + I', 'CTRL + I')}';
+      return '${i18nInstanceLocal.italic}${shortcutTooltips('⌘ + I', 'CTRL + I', 'CTRL + I')}';
     case 'strikethrough':
-      return '${AppFlowyEditorL10n.current.strikethrough}${shortcutTooltips('⌘ + SHIFT + S', 'CTRL + SHIFT + S', 'CTRL + SHIFT + S')}';
+      return '${i18nInstanceLocal.strikethrough}${shortcutTooltips('⌘ + SHIFT + S', 'CTRL + SHIFT + S', 'CTRL + SHIFT + S')}';
     case 'code':
-      return '${AppFlowyEditorL10n.current.embedCode}${shortcutTooltips('⌘ + E', 'CTRL + E', 'CTRL + E')}';
+      return '${i18nInstanceLocal.embedCode}${shortcutTooltips('⌘ + E', 'CTRL + E', 'CTRL + E')}';
     case 'align_left':
-      return AppFlowyEditorL10n.current.textAlignLeft;
+      return i18nInstanceLocal.textAlignLeft;
     case 'align_center':
-      return AppFlowyEditorL10n.current.textAlignCenter;
+      return i18nInstanceLocal.textAlignCenter;
     case 'align_right':
-      return AppFlowyEditorL10n.current.textAlignRight;
+      return i18nInstanceLocal.textAlignRight;
     case 'text_direction_auto':
-      return AppFlowyEditorL10n.current.auto;
+      return i18nInstanceLocal.auto;
     case 'text_direction_ltr':
-      return AppFlowyEditorL10n.current.ltr;
+      return i18nInstanceLocal.ltr;
     case 'text_direction_rtl':
-      return AppFlowyEditorL10n.current.rtl;
+      return i18nInstanceLocal.rtl;
+    case 'text_direction_rtl':
+      return i18nInstanceLocal.rtl;
+    case 'ai':
+      return i18nInstanceLocal.ai;
     default:
       return '';
   }
