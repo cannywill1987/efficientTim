@@ -8,6 +8,7 @@ import 'DimensConfig.dart';
 const Color kCanvasColor = Color(0xfff2f3f7);
 
 class StylesConfig {
+  static double sizeGroup = 20;
   static double heightItemOfCalendar = 120;
   static double iconSize = 15;
   static TextStyle textStyleMenuItemTextStyle =

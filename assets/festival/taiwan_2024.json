@@ -1,0 +1,79 @@
+{
+  "status": true,
+  "message": "Success",
+  "request_id": "example-request-id",
+  "data": [
+    {
+      "year": 2024,
+      "festival": "元旦",
+      "festival_short": "元旦",
+      "start_time": "2024-01-01",
+      "end_time": "2024-01-01",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "春節",
+      "festival_short": "春節",
+      "start_time": "2024-02-09",
+      "end_time": "2024-02-15",
+      "days": 7,
+      "weekday": "2024-02-17"
+    },
+    {
+      "year": 2024,
+      "festival": "和平紀念日",
+      "festival_short": "和平紀念日",
+      "start_time": "2024-02-28",
+      "end_time": "2024-02-29",
+      "days": 2,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "兒童節及清明節",
+      "festival_short": "兒童節及清明節",
+      "start_time": "2024-04-04",
+      "end_time": "2024-04-07",
+      "days": 4,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "勞動節",
+      "festival_short": "勞動節",
+      "start_time": "2024-05-01",
+      "end_time": "2024-05-01",
+      "days": 1,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "端午節",
+      "festival_short": "端午節",
+      "start_time": "2024-06-08",
+      "end_time": "2024-06-10",
+      "days": 3,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "中秋節",
+      "festival_short": "中秋節",
+      "start_time": "2024-09-17",
+      "end_time": "2024-09-18",
+      "days": 2,
+      "weekday": ""
+    },
+    {
+      "year": 2024,
+      "festival": "國慶日",
+      "festival_short": "國慶日",
+      "start_time": "2024-10-10",
+      "end_time": "2024-10-12",
+      "days": 3,
+      "weekday": ""
+    }
+  ]
+}

@@ -55,6 +55,8 @@ class UnregisterPageState extends BaseWidgetState<UnregisterPage> {
           listParam: MongoApisManager
               .getInstance()
               .listMissionModels);
+      MongoApisManager.getInstance().batchdelete_TimelineMissionModel(listParam: MongoApisManager
+          .getInstance().listTimelineMissionModel);
       MongoApisManager.getInstance().batchdelete_EndTimeMissionModel(listParam: MongoApisManager
               .getInstance().listEndTimeMissionModels);
       MongoApisManager.getInstance().batchdelete_FlomoMissionModel(listParam: MongoApisManager
@@ -73,6 +75,7 @@ class UnregisterPageState extends BaseWidgetState<UnregisterPage> {
           listParam: MongoApisManager
               .getInstance()
               .listStatsModels);
+      Utility.showToastMsg(msg: getI18NKey().unregister_success);
       // MongoApisManager.getInstance().batchdelete_TimelineMissionModel(
       //     listParam: MongoApisManager
       //         .getInstance()

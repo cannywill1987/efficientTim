@@ -8,7 +8,7 @@ part of 'TextVoiceBean.dart';
 
 TextVoiceBean _$TextVoiceBeanFromJson(Map<String, dynamic> json) =>
     TextVoiceBean()
-      ..id = json['id'] as int?
+      ..id = (json['id'] as num?)?.toInt()
       ..code = json['code'] as String?
       ..text = json['text'] as String?
       ..textVoiceUrl = json['text_voice_url'] as String?

@@ -11,7 +11,7 @@ PushDataModel _$PushDataModelFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       content: json['content'] as String,
       summaryText: json['summaryText'] as String?,
-      whenMilliseconds: json['whenMilliseconds'] as int,
+      whenMilliseconds: (json['whenMilliseconds'] as num).toInt(),
       id: json['id'] as String,
     );
 

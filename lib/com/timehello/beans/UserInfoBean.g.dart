@@ -10,11 +10,11 @@ UserInfoBean _$UserInfoBeanFromJson(Map<String, dynamic> json) => UserInfoBean(
       uid: json['uid'] as String?,
       avatar: json['avatar'] as String?,
       username: json['username'] as String?,
-      numTomatoesFcoused: json['numTomatoesFcoused'] as int? ?? 0,
-      numTasksDone: json['numTasksDone'] as int? ?? 0,
-      totalDurationFocus: json['totalDurationFocus'] as int? ?? 0,
-      onlineStatus: json['onlineStatus'] as int? ?? 0,
-    );
+      numTomatoesFcoused: (json['numTomatoesFcoused'] as num?)?.toInt() ?? 0,
+      numTasksDone: (json['numTasksDone'] as num?)?.toInt() ?? 0,
+      totalDurationFocus: (json['totalDurationFocus'] as num?)?.toInt() ?? 0,
+      onlineStatus: (json['onlineStatus'] as num?)?.toInt() ?? 0,
+    )..role = (json['role'] as num?)?.toInt();
 
 Map<String, dynamic> _$UserInfoBeanToJson(UserInfoBean instance) =>
     <String, dynamic>{
@@ -25,4 +25,5 @@ Map<String, dynamic> _$UserInfoBeanToJson(UserInfoBean instance) =>
       'numTasksDone': instance.numTasksDone,
       'totalDurationFocus': instance.totalDurationFocus,
       'onlineStatus': instance.onlineStatus,
+      'role': instance.role,
     };

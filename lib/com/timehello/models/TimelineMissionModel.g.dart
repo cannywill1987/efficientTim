@@ -12,9 +12,9 @@ TimelineMissionModel _$TimelineMissionModelFromJson(
       extra: json['extra'] as String?,
       picUrl: json['picUrl'] as String?,
       url: json['url'] as String?,
-      color: json['color'] as int?,
-      tagColor: json['tagColor'] as int?,
-      icon: json['icon'] as int?,
+      color: (json['color'] as num?)?.toInt(),
+      tagColor: (json['tagColor'] as num?)?.toInt(),
+      icon: (json['icon'] as num?)?.toInt(),
       tagName: json['tagName'] as String?,
       timelineMessage: json['timelineMessage'] as String?,
       sceneType: json['sceneType'] as String?,
@@ -24,21 +24,22 @@ TimelineMissionModel _$TimelineMissionModelFromJson(
       device_id: json['device_id'] as String?,
       tagNames: json['tagNames'] as String?,
       tagIds: json['tagIds'] as String?,
-      no_tomotoes_finished: json['no_tomotoes_finished'] as int?,
-      total_tomotoes: json['total_tomotoes'] as int?,
-      tomato_duration: json['tomato_duration'] as int?,
-      order_index: json['order_index'] as int?,
-      end_time_before_finished: json['end_time_before_finished'] as int?,
-      end_time: json['end_time'] as int?,
-      alert_time: json['alert_time'] as int?,
-      time_finished: json['time_finished'] as int?,
-      dateStatus: json['dateStatus'] as int?,
-      priorityStatus: json['priorityStatus'] as int?,
+      no_tomotoes_finished: (json['no_tomotoes_finished'] as num?)?.toInt(),
+      total_tomotoes: (json['total_tomotoes'] as num?)?.toInt(),
+      tomato_duration: (json['tomato_duration'] as num?)?.toInt(),
+      order_index: (json['order_index'] as num?)?.toInt(),
+      end_time_before_finished:
+          (json['end_time_before_finished'] as num?)?.toInt(),
+      end_time: (json['end_time'] as num?)?.toInt(),
+      alert_time: (json['alert_time'] as num?)?.toInt(),
+      time_finished: (json['time_finished'] as num?)?.toInt(),
+      dateStatus: (json['dateStatus'] as num?)?.toInt(),
+      priorityStatus: (json['priorityStatus'] as num?)?.toInt(),
       message: json['message'] as String?,
       isFinished: json['isFinished'] as bool?,
       isDelayed: json['isDelayed'] as bool?,
-      repetiveType: json['repetiveType'] as int?,
-      repetiveValue: json['repetiveValue'] as int?,
+      repetiveType: (json['repetiveType'] as num?)?.toInt(),
+      repetiveValue: (json['repetiveValue'] as num?)?.toInt(),
       repetiveWeekDay: json['repetiveWeekDay'] as List<dynamic>?,
       uid: json['uid'] as String?,
     )
@@ -47,8 +48,8 @@ TimelineMissionModel _$TimelineMissionModelFromJson(
       ..objectId = json['_id'] as String?
       ..mission_id = json['mission_id'] as String?
       ..object_id = json['object_id'] as String?
-      ..indexSearchingStart = json['indexSearchingStart'] as int?
-      ..indexSearchingEnd = json['indexSearchingEnd'] as int?;
+      ..indexSearchingStart = (json['indexSearchingStart'] as num?)?.toInt()
+      ..indexSearchingEnd = (json['indexSearchingEnd'] as num?)?.toInt();
 
 Map<String, dynamic> _$TimelineMissionModelToJson(
         TimelineMissionModel instance) =>

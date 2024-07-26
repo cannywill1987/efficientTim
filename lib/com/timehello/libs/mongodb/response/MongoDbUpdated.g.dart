@@ -10,7 +10,7 @@ MongoDbUpdated _$MongoDbUpdatedFromJson(Map<String, dynamic> json) =>
     MongoDbUpdated()
       ..success = json['success'] as bool?
       ..code = json['code'] as String?
-      ..sysTime = json['sysTime'] as int?
+      ..sysTime = (json['sysTime'] as num?)?.toInt()
       ..message = json['message'] as String?
       ..data = json['data'];
 

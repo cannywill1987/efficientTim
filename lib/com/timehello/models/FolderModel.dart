@@ -25,6 +25,9 @@ class FolderModel extends MongoDbObject {
   String? device_id; //设备id 用于没用登录时的搜索
   int? number;
   String? uid;
+  Map<String, dynamic>? _userInfo; // 管理员信息 用于私有模式别的用户加入
+  @JsonKey(ignore: true)
+  UserInfoBean? userInfoBean; // 管理员信息 用于私有模式别的用户加入
   String? noteUrl; //笔记url
   String? timelineNoteObjectId; //笔记objectId
   int? numberNoteWords; //笔记字数
@@ -46,6 +49,12 @@ class FolderModel extends MongoDbObject {
   String? folderTeamWorkId; // 群id 用于添加文件夹共享
   String? introText; // 群id 用于添加文件夹共享
   String? groupChatPassword; // 群密码
+
+  // List? adminUids = []; //管理员
+  // List? _adminUserInfo = []; //用于私有模式别的用户加入 {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username, "numTomatoesFcoused":0,"numTasksDone": 0, "totalDurationFocus": 0, "onlineStatus": 0}
+  // @JsonKey(ignore: true)
+  // List<UserInfoBean>? adminUserInfoBean = []; //用于私有模式别的用户加入
+
   List? otherUids = []; //用于私有模式别的用户加入
   List? _otherUserInfo = []; //用于私有模式别的用户加入 {"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username, "numTomatoesFcoused":0,"numTasksDone": 0, "totalDurationFocus": 0, "onlineStatus": 0}
   @JsonKey(ignore: true)
@@ -58,6 +67,32 @@ class FolderModel extends MongoDbObject {
   // bool? isFoldedForFolder = false; //是否折叠 如果tag是3
   List<String>? folderModelObjectIdOrderList =
       []; //当folderModel代表文件夹时 用于folderModel objectId的排序
+
+  set userInfo(Map<String, dynamic>? value) {
+    _userInfo = value;
+    userInfoBean = UserInfoBean.fromJson(value ?? {});
+    userInfoBean?.onlineStatusEnum =
+        OnlineStatusEnum.values[userInfoBean?.onlineStatus ?? 0];
+  }
+
+  Map<String, dynamic>? get userInfo {
+    return _userInfo;
+  }
+
+  // set adminUserInfo(List? value) {
+  //   _adminUserInfo = value;
+  //   adminUserInfoBean = [];
+  //   _adminUserInfo?.forEach((element) {
+  //     UserInfoBean userInfoBean = UserInfoBean.fromJson(element);
+  //     userInfoBean.onlineStatusEnum = OnlineStatusEnum.values[userInfoBean.onlineStatus ?? 0];
+  //     adminUserInfoBean?.add(userInfoBean);
+  //   });
+  //   // adminUserInfoBean = value;
+  // }
+  //
+  // List? get adminUserInfo {
+  //   return _adminUserInfo;
+  // }
 
   set otherUserInfo(List? value) {
     _otherUserInfo = value;

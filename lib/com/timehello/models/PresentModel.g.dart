@@ -12,14 +12,14 @@ PresentModel _$PresentModelFromJson(Map<String, dynamic> json) => PresentModel()
   ..objectId = json['_id'] as String?
   ..title = json['title'] as String
   ..imageUrl = json['imageUrl'] as String?
-  ..value = json['value'] as int?
-  ..icon = json['icon'] as int?
-  ..color = json['color'] as int?
+  ..value = (json['value'] as num?)?.toInt()
+  ..icon = (json['icon'] as num?)?.toInt()
+  ..color = (json['color'] as num?)?.toInt()
   ..isLottery = json['isLottery'] as bool?
   ..uid = json['uid'] as String?
   ..device_id = json['device_id'] as String?
-  ..update_time = json['update_time'] as int?
-  ..create_time = json['create_time'] as int?;
+  ..update_time = (json['update_time'] as num?)?.toInt()
+  ..create_time = (json['create_time'] as num?)?.toInt();
 
 Map<String, dynamic> _$PresentModelToJson(PresentModel instance) =>
     <String, dynamic>{

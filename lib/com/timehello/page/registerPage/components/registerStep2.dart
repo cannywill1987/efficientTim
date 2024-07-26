@@ -16,9 +16,10 @@ import '../../../util/ThemeManager.dart';
 
 class RegisterStep2 extends StatefulWidget {
   Function? onTapListener;
-
+  int curTab = 0; // 0 手机号注册 1 邮箱
   RegisterStep2({
     Key? key,
+    this.curTab = 0,
     Function? onTapListener,
   }) : super(key: key) {
     this.onTapListener = onTapListener;
@@ -106,6 +107,7 @@ class RegisterStep2State extends State<RegisterStep2> {
                 SizedBox(
                   height: 40,
                 ),
+                if(this.widget.curTab == 0)
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(

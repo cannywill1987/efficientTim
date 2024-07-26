@@ -45,6 +45,11 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     // setChecked(this.checkIndex ?? 0);
   }
 
+  initState() {
+    setChecked(checkIndex ?? 0);
+    // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
+  }
+
   resetList() {
     this.list.forEach((element) {
       element.isCheck = false;
@@ -53,9 +58,9 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
   void setChecked(int index) {
     if(index == 0) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
+      // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
     } else if(index == 1) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_time_period","description": "时间段",});
+      // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_time_period","description": "时间段",});
     }
     this.resetList();
     this.list[index].isCheck = true;
@@ -72,12 +77,11 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     // print(list);
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
 
   void updateUI() {
     setState(() {
@@ -110,7 +114,7 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize:this.widget.fontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.tabbarChecked)),
               ),
-              Container(width: 20, height: 2, margin: EdgeInsets.only(top: 4),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().getColor(defaultColor: Color(0xffff8800))),)
+              Container(width: 20, height: 2, margin: EdgeInsets.only(top: 4),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().getDefautThemeColor()),)
             ],
           ),
           uncheckWidget: Column(
@@ -131,11 +135,8 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      // color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white),
-      child: Row(
-        children: getTabBarWidgets(),
-      ),
+    return Row(
+      children: getTabBarWidgets(),
     );
     // return new Image.asset(this.widget.checked?this.widget.checkedImg:this.widget.unckeckedImg, width: this.widget.width, height: this.widget.height,fit: BoxFit.cover,);
   }

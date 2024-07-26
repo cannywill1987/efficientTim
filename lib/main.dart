@@ -2,7 +2,7 @@ import 'dart:async';
 
 // import 'package:appflowy_editor/appflowy_editor.dart';
 // import 'package:appflowy_editor/appflowy_editor.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,7 @@ import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/HtmlUtility.dart';
 import 'package:time_hello/com/timehello/util/NumTimesAppOpenManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
+import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -43,12 +44,14 @@ import 'com/timehello/util/AnalyticsEventsManager.dart';
 import 'com/timehello/util/CounterManagement.dart';
 import 'com/timehello/util/EasyLoadingManager.dart';
 import 'com/timehello/util/EventCollection.dart';
+import 'com/timehello/util/FirebaseAuthManager.dart';
+import 'com/timehello/util/LocaleProvider.dart';
 import 'com/timehello/util/LoginManager.dart';
 import 'com/timehello/util/NotificationManager.dart';
 import 'com/timehello/util/SharePreferenceUtil.dart';
 import 'com/timehello/util/TickTimeManager.dart';
 import 'generated/l10n.dart';
-// import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -62,35 +65,13 @@ void main() async {
   } catch (e) {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
-  if (DeviceInfoManagement.isWEB() == false) {
-    await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: "xxx",
-        appId: "xxx",
-        messagingSenderId: "xxx",
-        projectId: "xxx",
-      ),
-    );
-    // await Firebase.initializeApp(
-    //   name: "TimerBell",
-    //   // options: DefaultFirebaseOptions.currentPlatform,
-    // );
-    // await Firebase.initializeApp(
-    //   name: "TimerBell",
-    //   options: DefaultFirebaseOptions.currentPlatform,
-    // );
-  } else {
-    await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: "xxx",
-        appId: "xxx",
-        messagingSenderId: "xxx",
-        projectId: "xxx",
-      ),
-    );
+  if(!Utility.isXiaoMi()) {
+    await FirebaseAuthManager.initialized();
   }
+
   // runZoned(() {
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => LocaleProvider()),
     ChangeNotifierProvider(create: (_) => MissionDetailEnv()),
     ChangeNotifierProvider(create: (_) => Env()),
     ChangeNotifierProvider(create: (_) => GlobalStateEnv()),
@@ -119,6 +100,10 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
   // print('1111111111111 initThirdparty');
   //初始化如果依赖sharePreference
   if (PrivacyProtocolManager.getInstance().isProtocolAgreed(context) == true) {
+    if(Utility.isXiaoMi()) {
+      await FirebaseAuthManager.initialized();
+    }
+
     NotificationManager.getInstance()?.init();
     MongoDb.initMasterKey(
         Params.mBaseUrl + "/api",
@@ -212,6 +197,7 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     //   EasyLoadingManager.getInstance().showLoading();
     // }
 
+
     HtmlUtility.dismissLoading();
     try {
       //app 生命周期
@@ -301,12 +287,16 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     print(
         "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "code has been refreshed");
+    return Selector<LocaleProvider, Locale>(
+        selector: (_, LocaleProvider) => LocaleProvider.locale,
+    builder: (_, local, __) {
+
 
     return AdaptiveTheme(
       light: ThemeManager.getInstance().getLightThemeData(),
       dark: ThemeManager.getInstance().getDarkThemeData(),
       initial: ThemeManager.getInstance().getThemeMode(),
-      builder: (lightTheme, darkTheme) => MaterialApp(
+      builder: (lightTheme, darkTheme) =>   MaterialApp(
         theme:
         ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
             ? lightTheme
@@ -322,6 +312,11 @@ class _MyAppState extends BaseWidgetState<MyApp> {
         //     textTheme: CupertinoTextThemeData(), // This is required
         //   ),
         // ),
+        // locale:
+        // const Locale.fromSubtags(
+        //   languageCode: 'en')
+        // ,
+
         localizationsDelegates: const [
           // 很强大的记事本
           // AppFlowyEditorLocalizations.delegate,
@@ -332,7 +327,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
           SfGlobalLocalizations.delegate,
           S.delegate
         ],
+        // locale: Locale("en"),
         supportedLocales: [
+          // ...L10n.all,
           Locale("en"), // 英语
           Locale("zh"), //中文
           Locale("zh_HK"), //香港
@@ -353,18 +350,18 @@ class _MyAppState extends BaseWidgetState<MyApp> {
 
           const Locale.fromSubtags(languageCode: 'zh'),
           // generic Chinese 'zh'
-          const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-          // generic simplified Chinese 'zh_Hans'
-          const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+          // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+          // // generic simplified Chinese 'zh_Hans'
+          // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
           // generic traditional Chinese 'zh_Hant'
           const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+              languageCode: 'zh',  countryCode: 'CN'),
           // 'zh_Hans_CN'
-          const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+          // const Locale.fromSubtags(
+          //     languageCode: 'zh',  countryCode: 'TW'),
           // 'zh_Hant_TW'
           const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+              languageCode: 'zh',  countryCode: 'HK'),
           // 'zh_Hant_HK'
         ],
         title: appName,
@@ -379,5 +376,7 @@ class _MyAppState extends BaseWidgetState<MyApp> {
         },
       ),
     );
-  }
+  });
+
+}
 }

@@ -9,7 +9,7 @@ part of 'MongoDbResults.dart';
 MongoDbResults _$MongoDbResultsFromJson(Map<String, dynamic> json) =>
     MongoDbResults()
       ..results = json['results'] as List<dynamic>?
-      ..count = json['count'] as int?;
+      ..count = (json['count'] as num?)?.toInt();
 
 Map<String, dynamic> _$MongoDbResultsToJson(MongoDbResults instance) =>
     <String, dynamic>{

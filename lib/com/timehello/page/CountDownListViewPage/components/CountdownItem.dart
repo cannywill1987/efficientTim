@@ -76,22 +76,22 @@ class _CountdownItemState extends State<CountdownItem> {
 
   List<Widget> getUnfinishIconSlideActions(EndTimeMissionModel _missionModel) {
     return <Widget>[
-      IconSlideAction(
-        caption: getI18NKey().edit,
-        color: Colors.lightGreen,
+      SlidableAction(
+        label: getI18NKey().edit,
+        backgroundColor: Colors.lightGreen,
         foregroundColor: Colors.white,
         icon: Icons.edit,
-        onTap: () {
+        onPressed: (e) {
           if (this.widget.onTapEditListener != null)
             this.widget.onTapEditListener!(_missionModel);
         },
       ),
-      IconSlideAction(
-        caption: getI18NKey().delete,
+      SlidableAction(
+        label: getI18NKey().delete,
         foregroundColor: Colors.white,
-        color: Colors.red,
+        backgroundColor: Colors.red,
         icon: Icons.delete,
-        onTap: () {
+        onPressed: (e) {
           if (this.widget.onTapDeleteListener != null)
             this.widget.onTapDeleteListener!(_missionModel);
         },
@@ -101,15 +101,15 @@ class _CountdownItemState extends State<CountdownItem> {
 
   List<Widget> getFinishIconSlideActions(EndTimeMissionModel _missionModel) {
     return <Widget>[
-      IconSlideAction(
-        caption: getI18NKey().delete,
-        foregroundColor: Colors.white,
-        color: Colors.red,
-        icon: Icons.delete,
-        onTap: () {
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapDeleteListener != null)
             this.widget.onTapDeleteListener!(_missionModel);
         },
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete,
       ),
     ];
   }
@@ -191,107 +191,113 @@ class _CountdownItemState extends State<CountdownItem> {
     );
 
     return Slidable(
-        enabled: DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize(),
-        actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.15,
-        secondaryActions: this.widget.missionModel.isFinished == false
+      key: ValueKey(this.widget.missionModel),
+      enabled: DeviceInfoManagement.isMoible() == true ||
+          DeviceInfoManagement.isWebMobileBySize(),
+      endActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        extentRatio: 0.15,
+        children: this.widget.missionModel.isFinished == false
             ? getUnfinishIconSlideActions(this.widget.missionModel)
             : getFinishIconSlideActions(this.widget.missionModel),
-        child: InkWell(
-            onTap: () {
-              if (this.widget.onTapListener != null) {
-                this.widget.onTapListener!(this.widget.missionModel);
-              }
-            },
-            child: MouseRegion(
-                onEnter: (_) {
-                  setState(() {
-                    this.isHover = true;
-                  });
-                },
-                onHover: (_) {},
-                onExit: (_) {
-                  setState(() {
-                    this.isHover = false;
-                  });
-                },
-                child: Container(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  margin: EdgeInsets.only(
-                      bottom: 2,
-                      left: CONSTANTS.missionPageMargin,
-                      right: CONSTANTS.missionPageMargin),
-                  decoration: new BoxDecoration(
-                    image: imageProvider == null
-                        ? null
-                        : DecorationImage(
-                        image: imageProvider!,
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                            Colors.white, BlendMode.colorBurn)),
-                    color: Colors.white,
-                    border: new Border.all(
-                        width: 1.0, color: ThemeManager.getInstance().getBackgroundColor(defaultColor: new Color(0xfff0f0f0))),
-                    borderRadius:
-                    const BorderRadius.all(const Radius.circular(0.0)),
+      ),
+      child: InkWell(
+        onTap: () {
+          if (this.widget.onTapListener != null) {
+            this.widget.onTapListener!(this.widget.missionModel);
+          }
+        },
+        child: MouseRegion(
+          onEnter: (_) {
+            setState(() {
+              this.isHover = true;
+            });
+          },
+          onHover: (_) {},
+          onExit: (_) {
+            setState(() {
+              this.isHover = false;
+            });
+          },
+          child: Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            margin: EdgeInsets.only(
+              bottom: 2,
+              left: CONSTANTS.missionPageMargin,
+              right: CONSTANTS.missionPageMargin,
+            ),
+            decoration: BoxDecoration(
+              image: imageProvider == null
+                  ? null
+                  : DecorationImage(
+                image: imageProvider!,
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(Colors.white, BlendMode.colorBurn),
+              ),
+              color: Colors.white,
+              border: Border.all(
+                width: 1.0,
+                color: ThemeManager.getInstance().getBackgroundColor(
+                  defaultColor: Color(0xfff0f0f0),
+                ),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(0.0)),
+            ),
+            child: Stack(
+              children: [
+                TextUtil.isEmpty(this.widget.missionModel.background_url)
+                    ? SizedBox.shrink()
+                    : CachedNetworkImage(
+                  imageUrl: Utility.filterHttpUrl(
+                    this.widget.missionModel.background_url ?? '',
+                    prefix: "oss",
                   ),
+                  imageBuilder: (context, imageProviderTmp) {
+                    Future.delayed(Duration(seconds: 0), () {
+                      imageProvider = imageProviderTmp;
+                    });
+                    return Container();
+                  },
+                ),
+                Container(
+                  color: ThemeManager.getInstance().getCardBackgroundColor(
+                    defaultColor: Color(0xb0ffffff),
+                    alpha: TextUtil.isEmpty(this.widget.missionModel.background_url) ? 255 : 150,
+                  ),
+                  padding: EdgeInsets.only(top: 6, bottom: 6),
+                  alignment: Alignment.centerLeft,
                   child: Stack(
                     children: [
-                      TextUtil.isEmpty(this.widget.missionModel.background_url)
-                          ? SizedBox.shrink()
-                          : CachedNetworkImage(
-                          imageUrl: Utility.filterHttpUrl(this.widget.missionModel.background_url ?? '', prefix: "oss"),
-                          imageBuilder: (context, imageProviderTmp) {
-                            Future.delayed(Duration(seconds: 0), () {
-                              imageProvider = imageProviderTmp;
-                              // setState(() {});
-                            });
-                            return Container();
-                          }),
-                      Container(
-                        color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Color(0xb0ffffff), alpha: TextUtil.isEmpty(this.widget.missionModel.background_url) ? 255 : 150),
-                        padding: EdgeInsets.only(top: 6, bottom: 6),
-                        alignment: Alignment.centerLeft,
-                        child: Stack(children: [
-                          child,
-                          // Column(
-                          //   children: [
-                          //     Row(
-                          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //       children: childrenRow,
-                          //     ),
-                          //   ],
-                          // ),
-                          Align(
-                              alignment: Alignment.topRight,
-                              child: (this.isHover == true)
-                                  ? PopupMenuButton<String>(
-                                tooltip: '',
-                                padding:
-                                EdgeInsets.only(left: 18, bottom: 20),
-                                // offset: Offset(130, 30),
-                                iconSize: 14,
-                                icon: Icon(
-                                  Icons.more_vert,
-                                  color: ThemeManager.getInstance().getIconColor(),
-                                ),
-                                onCanceled: () {},
-                                itemBuilder: (context) {
-                                  // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
-                                  if (this.widget.missionModel.isFinished == false) {
-                                    return getUnfinishedPopupList(
-                                        this.widget.missionModel);
-                                  } else {
-                                    return getFinishedPopupList(
-                                        this.widget.missionModel);
-                                  }
-                                },
-                              )
-                                  : SizedBox.shrink()),
-                        ]),
+                      child,
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: (this.isHover == true)
+                            ? PopupMenuButton<String>(
+                          tooltip: '',
+                          padding: EdgeInsets.only(left: 18, bottom: 20),
+                          iconSize: 14,
+                          icon: Icon(
+                            Icons.more_vert,
+                            color: ThemeManager.getInstance().getIconColor(),
+                          ),
+                          onCanceled: () {},
+                          itemBuilder: (context) {
+                            if (this.widget.missionModel.isFinished == false) {
+                              return getUnfinishedPopupList(this.widget.missionModel);
+                            } else {
+                              return getFinishedPopupList(this.widget.missionModel);
+                            }
+                          },
+                        )
+                            : SizedBox.shrink(),
                       ),
                     ],
                   ),
-                ))));
-  }
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );  }
 }

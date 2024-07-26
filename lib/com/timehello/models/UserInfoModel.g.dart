@@ -11,7 +11,7 @@ UserInfoModel _$UserInfoModelFromJson(Map<String, dynamic> json) =>
       ..createdAt = json['createdAt'] as String?
       ..updatedAt = json['updatedAt'] as String?
       ..objectId = json['_id'] as String?
-      ..coins = json['coins'] as int?
+      ..coins = (json['coins'] as num?)?.toInt()
       ..inviteFriends = json['inviteFriends'] as List<dynamic>?
       ..uid = json['uid'] as String?;
 

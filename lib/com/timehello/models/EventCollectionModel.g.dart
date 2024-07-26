@@ -19,8 +19,8 @@ EventCollectionModel _$EventCollectionModelFromJson(
       ..message = json['message'] as String?
       ..value1 = (json['value1'] as num?)?.toDouble()
       ..deviceId = json['deviceId'] as String?
-      ..create_time = json['create_time'] as int?
-      ..update_time = json['update_time'] as int?
+      ..create_time = (json['create_time'] as num?)?.toInt()
+      ..update_time = (json['update_time'] as num?)?.toInt()
       ..create_time_utc = json['create_time_utc'] as String?
       ..timeZoneOffset = json['timeZoneOffset'] as String?
       ..country = json['country'] as String?

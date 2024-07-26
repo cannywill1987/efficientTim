@@ -8,10 +8,10 @@ part of 'VocabularyUnitBean.dart';
 
 VocabularyUnitBean _$VocabularyUnitBeanFromJson(Map<String, dynamic> json) =>
     VocabularyUnitBean()
-      ..id = json['id'] as int?
-      ..level_id = json['level_id'] as int?
+      ..id = (json['id'] as num?)?.toInt()
+      ..level_id = (json['level_id'] as num?)?.toInt()
       ..unit = json['unit'] as String?
-      ..numWords = json['numWords'] as int?
+      ..numWords = (json['numWords'] as num?)?.toInt()
       ..level = json['level'] as String?
       ..levelName = json['levelName'] as String?
       ..unitName = json['unitName'] as String?

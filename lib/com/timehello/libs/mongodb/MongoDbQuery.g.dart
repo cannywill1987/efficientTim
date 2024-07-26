@@ -9,11 +9,11 @@ part of 'MongoDbQuery.dart';
 MongoDbQuery<T> _$MongoDbQueryFromJson<T>(Map<String, dynamic> json) =>
     MongoDbQuery<T>()
       ..include = json['include'] as String?
-      ..limit = json['limit'] as int?
-      ..skip = json['skip'] as int?
+      ..limit = (json['limit'] as num?)?.toInt()
+      ..skip = (json['skip'] as num?)?.toInt()
       ..order = json['order'] as String?
-      ..orderValue = json['orderValue'] as int?
-      ..count = json['count'] as int?
+      ..orderValue = (json['orderValue'] as num?)?.toInt()
+      ..count = (json['count'] as num?)?.toInt()
       ..c = json['c'] as String?
       ..where = json['where'] as Map<String, dynamic>?
       ..having = json['having'] as Map<String, dynamic>?

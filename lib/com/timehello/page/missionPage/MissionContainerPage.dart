@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
@@ -10,6 +11,7 @@ import 'package:time_hello/com/timehello/page/missionPage/MissionPage.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../common/provider/Env.dart';
 import '../../components/ViewStub.dart';
 import 'componnents/TimeManagementMissionPage.dart';
 
@@ -44,14 +46,14 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
   @override
   baseBuild(BuildContext context) {
     // TODO: implement baseBuild
-         return Stack(
+    return Stack(
       children: <Widget>[
         ViewStubWidget(
           isShowed: this.widget.folderModel?.layoutType == 2 || this.widget.folderModel?.layoutType == 0 || this.widget.folderModel?.layoutType == null,
           child: MissionPage(onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener, onTapNavMenuListener: this.widget.onTapNavMenuListener, folderModel: this.widget.folderModel, folderStatusDate: this.widget.folderStatusDate),
         ),
         ViewStubWidget(
-        // , folderModel: this.widget.folderModel
+          // , folderModel: this.widget.folderModel
           child: Container(child: GroupMissionPage(key: ValueKey("eiwfjiwef"),onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener,  onTapNavMenuListener: this.widget.onTapNavMenuListener),),
           isShowed: this.widget.folderModel?.layoutType == 1,
         ),
@@ -73,6 +75,7 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
         // Offstage(
       ],
     );
+
     // return super.baseBuild(context);
   }
 

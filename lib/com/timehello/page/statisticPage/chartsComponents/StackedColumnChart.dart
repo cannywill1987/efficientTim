@@ -169,11 +169,10 @@ class _StackedColumnChartState extends State<StackedColumnChart> {
         x: i,
         barRods: [
           BarChartRodData(
-            y: y,
             width: barWidth,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(6), topRight: Radius.circular(6)),
-            rodStackItems: listBarChartRodStackItem,
+            rodStackItems: listBarChartRodStackItem, toY: y,
           ),
         ],
       ));

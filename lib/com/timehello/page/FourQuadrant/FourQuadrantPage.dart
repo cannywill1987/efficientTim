@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
 import 'package:time_hello/com/timehello/components/CustomBlackButton.dart';
+import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/ListingFilterWidget.dart';
+import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -31,16 +35,16 @@ import 'components/QuadrantWidget.dart';
 import '../../components/SearchBarWidget.dart';
 
 class FourQuadrantPage extends BaseWidget {
-  const FourQuadrantPage();
+  const FourQuadrantPage({Key? key}) : super(key: key);
 
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
     // TODO: implement getState
-    return FourQuadrantPageWidget();
+    return FourQuadrantPageState();
   }
 }
 
-class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
+class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
   SessionMissionModel? listSessionMissionModelRed1;
   SessionMissionModel? listSessionMissionModelYellow2;
   SessionMissionModel? listSessionMissionModelBlue3;
@@ -61,6 +65,22 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
   GlobalKey<QuadrantWidgetState> quadrantWidgetGlobalKey3 = GlobalKey();
   GlobalKey<QuadrantWidgetState> quadrantWidgetGlobalKey4 = GlobalKey();
   int curIndex = 1;
+
+  DateTime? startDateTime;
+  DateTime? endDateTime;
+  double missionPageWidth = 300;
+
+  selectDate(DateTime? startDateTime, DateTime? endDateTime) {
+    this.startDateTime = startDateTime;
+    this.endDateTime = endDateTime;
+    if (this.startDateTime == null && this.endDateTime == null) {
+      controller?.dateTimePicker = null;
+    } else {
+      controller?.dateTimePicker =
+          PickerDateRange(this.startDateTime, this.endDateTime);
+    }
+    this.requestDatas();
+  }
 
   @override
   void initState() {
@@ -104,7 +124,7 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
       }
     }
 
-      _request();
+    _request();
     // //待定 还没设定时间的
     // Utility.throttle(() async {
     // })();
@@ -220,220 +240,112 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
   Widget baseBuild(BuildContext context) {
     double innerMargin = Utility.isHandsetBySize() ? 10 : 20.0;
     // TODO: implement build
-    return Stack(
-      children: [
-        Container(
-            key: quadrantWidgetGlobalKey,
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                CustomMarquee(
-                  paddingHor: 0,
-                  paddingTop: 0,
-                  bean: MarqueInfo.marqueFourQuadrantPage,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                // 搜索框
-                Container(
-                  child: SearchBarWidget(onChangeListener: (val) {
-                    this.onClick('onClickSearch', val);
-                  }),
-                ),
-                SizedBox(
-                  //头部
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    // 七天内的搜索框
-                    CommonCalendarHeaderWidget(
-                        controller: controller,
-                        calendarTypeEnum: calendarTypeEnum,
-                        onChange: (data) {
-                          dateTimePickerDateRange = data;
-                          requestDatas();
-                        }),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        BlackCheckButtonListWidget(
-                          // backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(),
-                          // key: blackCheckButtonListWidgetGlobalKey,
-                          initIndex: curIndex,
-                          list: CONSTANTS.getVisibleButtonList(),
-                          onTapListener: (index) async {
-                            this.curIndex = index;
-                            SharePreferenceUtil.getSyncInstance().setInt(
-                                key: ShareprefrenceKeys.fourquadrantVisible,
-                                value: this.curIndex);
-                            setState(() {});
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        // 导出
-                        GestureDetector(
-                          onTap: () {
-                            TextEditingController textEditingController =
-                                TextEditingController();
-                            String s = Utility.getContentFromMissionList(
-                                datas: this.missionListForView,
-                                listCheckButtonModel:
-                                    CONSTANTS.getExportButtonsList());
-                            textEditingController.text = s;
-                            ExportMissionListDialogUtil.show(context,
-                                textEditingController: textEditingController,
-                                onTapListener: (res) {
-                              List<CheckButtonStateModel> data = res['data'];
-                              MissionOrderEnum missionOrderEnum = res['enum'];
-                              String s = Utility.getContentFromMissionList(
-                                  datas: Utility.getMissionModelListAfterOrder(
-                                      missionOrderEnum,
-                                      this.missionListForView),
-                                  listCheckButtonModel: data);
-                              textEditingController.text = s;
-                              updateUI();
-                            }, export: (data) {
-                              Utility.showToastMsg(
-                                  context: context,
-                                  msg: getI18NKey().offer_next_version);
-                            });
-                            // Utility.getContentFromMissionList(datas: this.missionListOriginal, listCheckButtonModel: CONSTANTS.getMi);
-                          },
-                          child: CustomBlackButton(
-                            text: getI18NKey().export,
-                            color: ThemeManager.getInstance().getTextColor(defaultColor: Colors.red),
-                          ),
-                        ),
-                        ListingFilterWidget(onTapListener: (data) {
-                          this.curSearchingFocusModel = data;
-                          this.requestDatas();
-                        }),
-                        SizedBox(
-                          width: 4,
-                        ),
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      this.missionPageWidth = constraints.maxWidth;
+      return Stack(
+        children: [
+          Container(
+              key: quadrantWidgetGlobalKey,
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  CustomMarquee(
+                    paddingHor: 0,
+                    paddingTop: 0,
+                    bean: MarqueInfo.marqueFourQuadrantPage,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  // 搜索框
+                  SearchBarWidget(
+                      lastWidget: CustomPopupWidget(
+                        onSelected: (CheckButtonStateModel model) {
+                          if(model.code == 'export') {
+                            onClickExport(context);
+                          } else if (model.code == 'visibility') {
+                            onClickChangeVisibility(curIndex == 1 ? 0 :1);
 
-                        // 右上角Pc端按钮列表
-                        PCButtonListWidget(
-                          initIndex: calendarTypeEnum.index,
-                          list: pcDateButtonList,
-                          onTapListener: (data) {
-                            int index = data['index'];
-                            if (CalendarTypeEnum.all.index == index) {
-                              controller?.dateTimePicker = null;
-                              // dateTimePickerDateRange = null;
-                            }
-                            this.calendarTypeEnum =
-                                CalendarTypeEnum.values[index];
-                            this.onClick("onClickSegmentControl", index);
-                          },
+                          }
+                        },
+                        list: CONSTANTS.getFourQuadrantButtonList(),
+                        child: Icon(
+                          Icons.more_horiz,
+                          color: Color(0xff999999),
                         ),
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                    child: Row(
-                  children: [
-                    Expanded(
-                        child: Container(
-                      padding: EdgeInsets.only(right: 5),
-                      child: QuadrantWidget(
-                        key: quadrantWidgetGlobalKey1,
-                        isHeaderVisible: this.curIndex == 1,
-                        quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
-                        onRefresh: () {
-                          this.requestDatas();
-                        },
-                        onRefreshListener: (missionModel) {
-                          this.onClick("onRefreshListener", missionModel);
-                        },
-                        listMissionModelsFinished:
-                            Utility.getMissionModelFinished(
-                                listSessionMissionModelRed1?.datas ?? []),
-                        listMissionModelsUnfinished:
-                            Utility.getMissionModelUnfinished(
-                                listSessionMissionModelRed1?.datas ?? []),
-                        priorityEnum: PriorityEnum.red1,
-                        title: getI18NKey().four_quadrant_priority1,
-                        desc: getI18NKey().four_quadrant_priority1_desc,
-                        onDragingListener: onDragingListener, onDragEndListener: resetBorder,
                       ),
-                    )),
-                    Expanded(
-                        child: Container(
-                      padding: EdgeInsets.only(left: 5),
-                      child: QuadrantWidget(
-                        key: quadrantWidgetGlobalKey2,
-                        isHeaderVisible: this.curIndex == 1,
-                        quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
-                        onRefreshListener: (missionModel) {
-                          this.onClick("onRefreshListener", missionModel);
-                        },
-                        onRefresh: () {
-                          this.requestDatas();
-                        },
-                        listMissionModelsFinished:
-                            Utility.getMissionModelFinished(
-                                listSessionMissionModelYellow2?.datas ?? []),
-                        listMissionModelsUnfinished:
-                            Utility.getMissionModelUnfinished(
-                                listSessionMissionModelYellow2?.datas ?? []),
-                        priorityEnum: PriorityEnum.yellow2,
-                        title: getI18NKey().four_quadrant_priority2,
-                        desc: getI18NKey().four_quadrant_priority2_desc,
-                        onDragingListener: onDragingListener, onDragEndListener: resetBorder,
+                      onChangeListener: (val) {
+                        this.onClick('onClickSearch', val);
+                      }),
+                  SizedBox(
+                    //头部
+                    height: 5,
+                  ),
+                  TimeRatioComponent(
+                      scene: "FourQuadrantPage",
+                      firstChild:         this.calendarTypeEnum == CalendarTypeEnum.custom ?
+          CommonCalendarHeaderWidget(
+          controller: controller,
+          calendarTypeEnum: calendarTypeEnum,
+          onChange: (data) {
+            dateTimePickerDateRange = data;
+            requestDatas();
+          }):null,
+                      progressSortEnum: ProgressSortEnum.priority,
+                      lastChild: getListingWidget(context),
+                      width: this.missionPageWidth,
+                      startTime: this.startDateTime,
+                      endTime: this.endDateTime,
+                      height: 5,
+                      // totalTime: 24 * 60 * 60, // 一天的总秒数
+                      listMissionModels: this.missionListForView
+                      // [
+                      //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
+                      //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
+                      //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
+                      //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
+                      //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
+                      // ],
                       ),
-                    )),
-                  ],
-                )),
-                SizedBox(
-                  height: innerMargin,
-                ),
-                Expanded(
-                    child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Expanded(
+                      child: Row(
+                    children: [
+                      Expanded(
+                          child: Container(
                         padding: EdgeInsets.only(right: 5),
                         child: QuadrantWidget(
-                          key: quadrantWidgetGlobalKey3,
+                          key: quadrantWidgetGlobalKey1,
                           isHeaderVisible: this.curIndex == 1,
                           quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
-                          onRefreshListener: (missionModel) {
-                            this.onClick("onRefreshListener", missionModel);
-                          },
                           onRefresh: () {
                             this.requestDatas();
                           },
+                          onRefreshListener: (missionModel) {
+                            this.onClick("onRefreshListener", missionModel);
+                          },
                           listMissionModelsFinished:
                               Utility.getMissionModelFinished(
-                                  listSessionMissionModelBlue3?.datas ?? []),
+                                  listSessionMissionModelRed1?.datas ?? []),
                           listMissionModelsUnfinished:
                               Utility.getMissionModelUnfinished(
-                                  listSessionMissionModelBlue3?.datas ?? []),
-                          priorityEnum: PriorityEnum.blue3,
-                          title: getI18NKey().four_quadrant_priority3,
-                          desc: getI18NKey().four_quadrant_priority3_desc,
-                          onDragingListener: onDragingListener, onDragEndListener: resetBorder,
+                                  listSessionMissionModelRed1?.datas ?? []),
+                          priorityEnum: PriorityEnum.red1,
+                          title: getI18NKey().four_quadrant_priority1,
+                          desc: getI18NKey().four_quadrant_priority1_desc,
+                          onDragingListener: onDragingListener,
+                          onDragEndListener: resetBorder,
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
+                      )),
+                      Expanded(
+                          child: Container(
                         padding: EdgeInsets.only(left: 5),
                         child: QuadrantWidget(
-                          key: quadrantWidgetGlobalKey4,
+                          key: quadrantWidgetGlobalKey2,
                           isHeaderVisible: this.curIndex == 1,
                           quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
                           onRefreshListener: (missionModel) {
@@ -444,44 +356,199 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
                           },
                           listMissionModelsFinished:
                               Utility.getMissionModelFinished(
-                                  listSessionMissionModelGreen4?.datas ?? []),
+                                  listSessionMissionModelYellow2?.datas ?? []),
                           listMissionModelsUnfinished:
                               Utility.getMissionModelUnfinished(
-                                  listSessionMissionModelGreen4?.datas ?? []),
-                          priorityEnum: PriorityEnum.green4,
-                          title: getI18NKey().four_quadrant_priority4,
-                          desc: getI18NKey().four_quadrant_priority4_desc,
-                          onDragingListener: onDragingListener, onDragEndListener: resetBorder,
+                                  listSessionMissionModelYellow2?.datas ?? []),
+                          priorityEnum: PriorityEnum.yellow2,
+                          title: getI18NKey().four_quadrant_priority2,
+                          desc: getI18NKey().four_quadrant_priority2_desc,
+                          onDragingListener: onDragingListener,
+                          onDragEndListener: resetBorder,
+                        ),
+                      )),
+                    ],
+                  )),
+                  SizedBox(
+                    height: innerMargin,
+                  ),
+                  Expanded(
+                      child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(right: 5),
+                          child: QuadrantWidget(
+                            key: quadrantWidgetGlobalKey3,
+                            isHeaderVisible: this.curIndex == 1,
+                            quadrantWidgetGlobalKey:
+                                this.quadrantWidgetGlobalKey,
+                            onRefreshListener: (missionModel) {
+                              this.onClick("onRefreshListener", missionModel);
+                            },
+                            onRefresh: () {
+                              this.requestDatas();
+                            },
+                            listMissionModelsFinished:
+                                Utility.getMissionModelFinished(
+                                    listSessionMissionModelBlue3?.datas ?? []),
+                            listMissionModelsUnfinished:
+                                Utility.getMissionModelUnfinished(
+                                    listSessionMissionModelBlue3?.datas ?? []),
+                            priorityEnum: PriorityEnum.blue3,
+                            title: getI18NKey().four_quadrant_priority3,
+                            desc: getI18NKey().four_quadrant_priority3_desc,
+                            onDragingListener: onDragingListener,
+                            onDragEndListener: resetBorder,
+                          ),
                         ),
                       ),
-                    )
-                  ],
-                )),
-                SizedBox(
-                  height: innerMargin,
-                ),
-              ],
-            )),
-        Positioned(
-            bottom: 30,
-            right: 20,
-            child: CircleWidget(
-              onTapListener: (obj) {
-                MissionModel missionModel = MissionModel();
-                missionModel.end_time = CONSTANTS.getDeadLineTme((0) + 1);
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(left: 5),
+                          child: QuadrantWidget(
+                            key: quadrantWidgetGlobalKey4,
+                            isHeaderVisible: this.curIndex == 1,
+                            quadrantWidgetGlobalKey:
+                                this.quadrantWidgetGlobalKey,
+                            onRefreshListener: (missionModel) {
+                              this.onClick("onRefreshListener", missionModel);
+                            },
+                            onRefresh: () {
+                              this.requestDatas();
+                            },
+                            listMissionModelsFinished:
+                                Utility.getMissionModelFinished(
+                                    listSessionMissionModelGreen4?.datas ?? []),
+                            listMissionModelsUnfinished:
+                                Utility.getMissionModelUnfinished(
+                                    listSessionMissionModelGreen4?.datas ?? []),
+                            priorityEnum: PriorityEnum.green4,
+                            title: getI18NKey().four_quadrant_priority4,
+                            desc: getI18NKey().four_quadrant_priority4_desc,
+                            onDragingListener: onDragingListener,
+                            onDragEndListener: resetBorder,
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: innerMargin,
+                  ),
+                ],
+              )),
+          Positioned(
+              bottom: 30,
+              right: 20,
+              child: CircleWidget(
+                onTapListener: (obj) {
+                  MissionModel missionModel = MissionModel();
+                  missionModel.end_time = CONSTANTS.getDeadLineTme((0) + 1);
 
-                if (Utility.isHandsetBySize() == true) {
-                  Utility.pushNavigator(
-                      context, CreateMissionPage(missionModel: missionModel));
-                } else {
-                  DialogManagement.getInstance().showPCCustomDialog(
-                      context: context,
-                      widget: CreateMissionPage(missionModel: missionModel));
-                }
-              },
-            ))
+                  if (Utility.isHandsetBySize() == true) {
+                    Utility.pushNavigator(
+                        context, CreateMissionPage(missionModel: missionModel));
+                  } else {
+                    DialogManagement.getInstance().showPCCustomDialog(
+                        context: context,
+                        widget: CreateMissionPage(missionModel: missionModel));
+                  }
+                },
+              ))
+        ],
+      );
+    });
+  }
+
+  Widget getListingWidget(BuildContext context) {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      alignment: WrapAlignment.center,
+      children: [
+        // BlackCheckButtonListWidget(
+        //   // backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(),
+        //   // key: blackCheckButtonListWidgetGlobalKey,
+        //   initIndex: curIndex,
+        //   list: CONSTANTS.getVisibleButtonList(),
+        //   onTapListener: (index) async {
+        //     onClickChangeVisibility(index);
+        //   },
+        // ),
+        SizedBox(
+          width: 10,
+        ),
+        // 导出
+        // GestureDetector(
+        //   onTap: () {
+        //     onClickExport(context);
+        //     // Utility.getContentFromMissionList(datas: this.missionListOriginal, listCheckButtonModel: CONSTANTS.getMi);
+        //   },
+        //   child: CustomBlackButton(
+        //     text: getI18NKey().export,
+        //     color: ThemeManager.getInstance()
+        //         .getTextColor(defaultColor: Colors.red),
+        //   ),
+        // ),
+
+        SizedBox(
+          width: 4,
+        ),
+
+        // 右上角Pc端按钮列表
+        if (Utility.isHandsetBySize())
+          PCButtonListWidget(
+            initIndex: calendarTypeEnum.index,
+            list: pcDateButtonList,
+            onTapListener: (data) {
+              int index = data['index'];
+              if (CalendarTypeEnum.all.index == index) {
+                controller?.dateTimePicker = null;
+                // dateTimePickerDateRange = null;
+              }
+              this.calendarTypeEnum = CalendarTypeEnum.values[index];
+              this.onClick("onClickSegmentControl", index);
+            },
+          ),
+        ListingFilterWidget(onTapListener: (data) {
+          this.curSearchingFocusModel = data;
+          context.read<CalendarMssionEnv>().curSelectedFolderModel = data;
+          this.requestDatas();
+        }),
       ],
     );
+  }
+
+  void onClickChangeVisibility(index) {
+                  this.curIndex = index;
+    SharePreferenceUtil.getSyncInstance().setInt(
+        key: ShareprefrenceKeys.fourquadrantVisible,
+        value: this.curIndex);
+    setState(() {});
+  }
+
+  void onClickExport(BuildContext context) {
+            TextEditingController textEditingController =
+        TextEditingController();
+    String s = Utility.getContentFromMissionList(
+        datas: this.missionListForView,
+        listCheckButtonModel: CONSTANTS.getExportButtonsList());
+    textEditingController.text = s;
+    ExportMissionListDialogUtil.show(context,
+        textEditingController: textEditingController,
+        onTapListener: (res) {
+      List<CheckButtonStateModel> data = res['data'];
+      MissionOrderEnum missionOrderEnum = res['enum'];
+      String s = Utility.getContentFromMissionList(
+          datas: Utility.getMissionModelListAfterOrder(
+              missionOrderEnum, this.missionListForView),
+          listCheckButtonModel: data);
+      textEditingController.text = s;
+      updateUI();
+    }, export: (data) {
+      Utility.showToastMsg(
+          context: context, msg: getI18NKey().offer_next_version);
+    });
   }
 
   resetBorder() {
@@ -493,22 +560,22 @@ class FourQuadrantPageWidget extends BaseWidgetState<FourQuadrantPage> {
 
   onDragingListener(index) {
     print(index);
-    if(index == 1) {
+    if (index == 1) {
       quadrantWidgetGlobalKey1.currentState?.showBorder();
       quadrantWidgetGlobalKey2.currentState?.hideBorder();
       quadrantWidgetGlobalKey3.currentState?.hideBorder();
       quadrantWidgetGlobalKey4.currentState?.hideBorder();
-    } else if(index == 2) {
+    } else if (index == 2) {
       quadrantWidgetGlobalKey1.currentState?.hideBorder();
       quadrantWidgetGlobalKey2.currentState?.showBorder();
       quadrantWidgetGlobalKey3.currentState?.hideBorder();
       quadrantWidgetGlobalKey4.currentState?.hideBorder();
-    } else if(index == 3) {
+    } else if (index == 3) {
       quadrantWidgetGlobalKey1.currentState?.hideBorder();
       quadrantWidgetGlobalKey2.currentState?.hideBorder();
       quadrantWidgetGlobalKey3.currentState?.showBorder();
       quadrantWidgetGlobalKey4.currentState?.hideBorder();
-    } else if(index == 4) {
+    } else if (index == 4) {
       quadrantWidgetGlobalKey1.currentState?.hideBorder();
       quadrantWidgetGlobalKey2.currentState?.hideBorder();
       quadrantWidgetGlobalKey3.currentState?.hideBorder();

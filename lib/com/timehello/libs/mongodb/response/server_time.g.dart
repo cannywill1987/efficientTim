@@ -7,7 +7,7 @@ part of 'server_time.dart';
 // **************************************************************************
 
 ServerTime _$ServerTimeFromJson(Map<String, dynamic> json) => ServerTime()
-  ..timestamp = json['timestamp'] as int?
+  ..timestamp = (json['timestamp'] as num?)?.toInt()
   ..datetime = json['datetime'] as String?;
 
 Map<String, dynamic> _$ServerTimeToJson(ServerTime instance) =>

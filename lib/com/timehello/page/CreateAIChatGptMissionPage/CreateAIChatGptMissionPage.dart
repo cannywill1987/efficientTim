@@ -7,12 +7,22 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 ///calendar import
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:time_hello/com/timehello/beans/ResourceDeliveryInfoBean.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/appointment.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/calendar_datasource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/calendar_controller.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/resource_view/calendar_resource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/month_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/schedule_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/time_slot_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/view_header_style.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/sfcalendar.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
@@ -325,12 +335,13 @@ class CreateAIChatGptMissionPageState
       this.isLoading = true;
       updateUI();
       try {
+        // this.curDateTime,
         chatGptMessageModelGpt = await ChatGptManager.getInstance().sendMessage(
             showForbiddenMsg: false,
             // conversationIdParams: getLastParentMessageId()['conversationId'],
             newChatGptObject: true,
             textParam:
-                CONSTANTS.getChatGptMessagge(this.role, this.curDateTime, val),
+                CONSTANTS.getChatGptMessagge(this.role,  val),
             parentMessageIdParam: null);
         String s = chatGptMessageModelGpt?.text ?? "";
         print("result:${s}");

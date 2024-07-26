@@ -16,10 +16,10 @@ ChatGptFolderModel _$ChatGptFolderModelFromJson(Map<String, dynamic> json) =>
       ..prompt = json['prompt'] as String?
       ..uid = json['uid'] as String?
       ..isCollect = json['isCollect'] as bool?
-      ..update_time = json['update_time'] as int?
-      ..create_time = json['create_time'] as int?
-      ..color = json['color'] as int?
-      ..tagColor = json['tagColor'] as int?;
+      ..update_time = (json['update_time'] as num?)?.toInt()
+      ..create_time = (json['create_time'] as num?)?.toInt()
+      ..color = (json['color'] as num?)?.toInt()
+      ..tagColor = (json['tagColor'] as num?)?.toInt();
 
 Map<String, dynamic> _$ChatGptFolderModelToJson(ChatGptFolderModel instance) =>
     <String, dynamic>{

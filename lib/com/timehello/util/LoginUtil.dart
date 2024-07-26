@@ -103,6 +103,7 @@ class LoginUtil implements Observer {
       {BuildContext? context,
         String? countryPhoneCode,
         String? phoneNum,
+        String? email,
         String? password,
         String? dynamicCode,
         bool shouldShowLoading = false}) {
@@ -110,6 +111,7 @@ class LoginUtil implements Observer {
         countryPhoneCode: countryPhoneCode,
         mobile: phoneNum,
         shouldShowLoading: shouldShowLoading,
+        email: email,
         password: password,
         dynamicCode: dynamicCode,
         loginAndRegisterEnum: LoginAndRegisterEnum.register);
@@ -121,6 +123,7 @@ class LoginUtil implements Observer {
         String? name,
         String? deviceId,
         String? avatar,
+        String? password,
         bool? shouldShowLoading = false,
         LoginTypeEnum loginTypeEnum = LoginTypeEnum.email}) async {
     if (shouldShowLoading == true) {
@@ -137,6 +140,7 @@ class LoginUtil implements Observer {
                 pureInt: 2,
               )}',
           "email": email,
+          "password": password,
           "deviceId": deviceId,
           "loginType": loginTypeEnum.toString(),
           "channel": Params.channelEnum.toString()
@@ -164,12 +168,14 @@ class LoginUtil implements Observer {
 
   doLogin(
       {String? countryPhoneCode,
+        String? email,
         String? phoneNum,
         String? password,
         String? dynamicCode,
         bool shouldShowLoading = false}) {
     loginWithPassword(
         countryPhoneCode: countryPhoneCode,
+        email: email,
         mobile: phoneNum,
         password: password,
         dynamicCode: dynamicCode,
@@ -185,6 +191,7 @@ class LoginUtil implements Observer {
 
   loginWithPassword(
       {String? mobile,
+        String? email,
         String? password,
         String? countryPhoneCode,
         String? dynamicCode,
@@ -207,6 +214,7 @@ class LoginUtil implements Observer {
             max: 40,
             pureInt: 2,
           )}',
+          "email": email,
           "mobilePhoneNumber": mobile,
           "password": password,
           "countryPhoneCode": countryPhoneCode,
@@ -217,6 +225,7 @@ class LoginUtil implements Observer {
         }
             : loginAndRegisterEnum == LoginAndRegisterEnum.login
             ? {
+          "email": email,
           "mobilePhoneNumber": mobile,
           "password": password,
           "countryPhoneCode": countryPhoneCode,
@@ -254,6 +263,7 @@ class LoginUtil implements Observer {
 
       return true;
     } else {
+      loginResult?.loginFail(baseBean.toJson(), loginMode: LoginMode.none);
       return false;
       // if (baseBean.message.isNotEmpty) {
       //   Utility.showToast(msg: baseBean.message);

@@ -28,6 +28,12 @@ class MissionModel extends MongoDbObject{
   @JsonKey(ignore: true)
   List<SubmissionModel>? _subMissionModels = [];
 
+  @JsonKey(ignore: true)
+  int localDuration = 0;
+
+  @JsonKey(ignore: true)
+  String? localDurationString;
+
   // @JsonKey(ignore: true)
   // List<SubmissionModel> subMissionModels = [];
 
@@ -111,7 +117,7 @@ class MissionModel extends MongoDbObject{
 
   List<String>? noteOriginUrls = []; // 数组用于存储原始图片url
 
-  int? notePoint = 0; //知识点错题本的三种格式 0 图片 1 录音 2 纯文本 3 富文本
+  int? notePoint = 0; //知识点错题本的三种格式 0 图片 1 录音 2 纯文本 3 富文本 4新富文本
 
 
   // String? noteContent = ""; //知识点错题本 如果是富文本就是Url
@@ -119,6 +125,10 @@ class MissionModel extends MongoDbObject{
   String? noteRichContentUrl = ""; //知识点错题本 如果是富文本就是Url
 
   List? noteRecordUrls = []; //录音url
+
+  List? attachmentUrls = []; //附件url {}
+
+  String? newRichEditorUrl = ""; //新富文本url
 
   int? cryptoVersion = -1; // -1代表没有设置加密 0代表设置了加密版本 1代表设置了加密版本并且加密了
 

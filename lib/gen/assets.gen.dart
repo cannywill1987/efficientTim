@@ -9,6 +9,19 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsAppFlowyDemoGen {
+  const $AssetsAppFlowyDemoGen();
+
+  /// File path: assets/appFlowyDemo/example.json
+  String get example => 'assets/appFlowyDemo/example.json';
+
+  /// File path: assets/appFlowyDemo/mobile_example.json
+  String get mobileExample => 'assets/appFlowyDemo/mobile_example.json';
+
+  /// List of all assets
+  List<String> get values => [example, mobileExample];
+}
+
 class $AssetsImgGen {
   const $AssetsImgGen();
 
@@ -229,6 +242,9 @@ class $AssetsImgGen {
 
   /// File path: assets/img/ic_addnote.svg
   String get icAddnote => 'assets/img/ic_addnote.svg';
+
+  /// File path: assets/img/ic_admin.svg
+  String get icAdmin => 'assets/img/ic_admin.svg';
 
   /// File path: assets/img/ic_ai_helper.svg
   String get icAiHelper => 'assets/img/ic_ai_helper.svg';
@@ -625,6 +641,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_listing.svg
   String get icListing => 'assets/img/ic_listing.svg';
 
+  /// File path: assets/img/ic_listing_group.svg
+  String get icListingGroup => 'assets/img/ic_listing_group.svg';
+
   /// File path: assets/img/ic_lock_screen.svg
   String get icLockScreen => 'assets/img/ic_lock_screen.svg';
 
@@ -647,6 +666,9 @@ class $AssetsImgGen {
 
   /// File path: assets/img/ic_loudspeaker.svg
   String get icLoudspeaker => 'assets/img/ic_loudspeaker.svg';
+
+  /// File path: assets/img/ic_lyubichs.svg
+  String get icLyubichs => 'assets/img/ic_lyubichs.svg';
 
   /// File path: assets/img/ic_mac.svg
   String get icMac => 'assets/img/ic_mac.svg';
@@ -705,6 +727,9 @@ class $AssetsImgGen {
 
   /// File path: assets/img/ic_normal.svg
   String get icNormal => 'assets/img/ic_normal.svg';
+
+  /// File path: assets/img/ic_normal_worker.svg
+  String get icNormalWorker => 'assets/img/ic_normal_worker.svg';
 
   /// File path: assets/img/ic_note.svg
   String get icNote => 'assets/img/ic_note.svg';
@@ -786,6 +811,9 @@ class $AssetsImgGen {
 
   /// File path: assets/img/ic_record_start.svg
   String get icRecordStart => 'assets/img/ic_record_start.svg';
+
+  /// File path: assets/img/ic_remove_user.svg
+  String get icRemoveUser => 'assets/img/ic_remove_user.svg';
 
   /// File path: assets/img/ic_repeative_orange.svg
   String get icRepeativeOrange => 'assets/img/ic_repeative_orange.svg';
@@ -1118,6 +1146,7 @@ class $AssetsImgGen {
         icAddFriend,
         icAddlink,
         icAddnote,
+        icAdmin,
         icAiHelper,
         icAiService,
         icAiVoice,
@@ -1239,6 +1268,7 @@ class $AssetsImgGen {
         icLightningBlack,
         icLightningWhite,
         icListing,
+        icListingGroup,
         icLockScreen,
         icLockscreen,
         icLockscreenSelected,
@@ -1246,6 +1276,7 @@ class $AssetsImgGen {
         icLogoOrange,
         icLogoRed,
         icLoudspeaker,
+        icLyubichs,
         icMac,
         icMasterBank,
         icMemorandum,
@@ -1264,6 +1295,7 @@ class $AssetsImgGen {
         icNoData,
         icNongyeBank,
         icNormal,
+        icNormalWorker,
         icNote,
         icNote3,
         icNum1,
@@ -1290,6 +1322,7 @@ class $AssetsImgGen {
         icRecordRecording,
         icRecordReset,
         icRecordStart,
+        icRemoveUser,
         icRepeativeOrange,
         icRest,
         icRight,
@@ -1385,6 +1418,7 @@ class $AssetsKeysGen {
 class Assets {
   Assets._();
 
+  static const $AssetsAppFlowyDemoGen appFlowyDemo = $AssetsAppFlowyDemoGen();
   static const String backgroundVideo = 'assets/background_video.mp4';
   static const String icCalendarToday = 'assets/ic_calendar_today.svg';
   static const String icCustomize = 'assets/ic_customize.svg';

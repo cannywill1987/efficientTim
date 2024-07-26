@@ -8,7 +8,7 @@ class EVENTNAME {
   static final String REQUEST_ERROR_MONGODB_ERROR_DELETE = "REQUEST_ERROR_MONGODB_ERROR_DELETE";
   static final String REQUEST_ERROR_MONGODB_ERROR_PUT = "REQUEST_ERROR_MONGODB_ERROR_PUT";
   static final String REQUEST_ERROR_MONGODB_ERROR_GET = "REQUEST_ERROR_MONGODB_ERROR_GET";
-
+  static final String INSERT_MISSION = "INSERT_MISSION";
   // static final String RATING = "RATING"; //评价
   static final String MainContainerWidget = "MainContainerWidget";
   static final String missiondetailpage = "missiondetailpage";

@@ -11,10 +11,56 @@ import StoreKit
 //import WechatOpenSDK
 
 class Utility {
-
+    @discardableResult
+    static func runProcessAsAdministrator(scriptPath: String, withArguments arguments: [String], output: inout String?, errorDescription: inout String?) -> Bool {
+        let allArgs = arguments.joined(separator: " ")
+        let fullScript = "'\(scriptPath)' \(allArgs)"
+        
+        let script = "do shell script \"\(fullScript)\" with administrator privileges"
+        
+        if let appleScript = NSAppleScript(source: script) {
+            var errorInfo: NSDictionary? = nil
+            let eventResult = appleScript.executeAndReturnError(&errorInfo)
+            
+            // Check errorInfo
+            if eventResult.stringValue == nil {
+                // Describe common errors
+                if let errorNumber = errorInfo?[NSAppleScript.errorNumber] as? NSNumber, errorNumber.intValue == -128 {
+                    errorDescription = "The administrator password is required to do this."
+                } else if let errorMessage = errorInfo?[NSAppleScript.errorMessage] as? String {
+                    errorDescription = errorMessage
+                }
+                return false
+            } else {
+                // Set output to the AppleScript's output
+                output = eventResult.stringValue
+                return true
+            }
+        } else {
+            errorDescription = "Failed to create AppleScript."
+            return false
+        }
+    }
+    
+    static func scheduleShutdown(after seconds: Int) {
+        var output: String?
+         var errorDescription: String?
+         let success = runProcessAsAdministrator(scriptPath: "/sbin/shutdown", withArguments: ["-h", "+\(seconds / 60)"], output: &output, errorDescription: &errorDescription)
+         
+         if success {
+             print("Shutdown scheduled successfully!")
+         } else {
+             if let errorDescription = errorDescription {
+                 print("Error: \(errorDescription)")
+             } else {
+                 print("Unknown error occurred.")
+             }
+         }
+    }
+    
     static func requestReview() {
         DispatchQueue.main.async {
-             SKStoreReviewController.requestReview()
+            SKStoreReviewController.requestReview()
          }
     }
     

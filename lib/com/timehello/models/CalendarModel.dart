@@ -105,6 +105,8 @@ class DayModel {
   List<WQBMissionModel> wqbmissionModelList = [];
   List<MissionModel> missionModelList = [];
   List<FlomoMissionModel> flomoMissionModelList = [];
+  int duration = 0; // 总时间
+  int completeDuration = 0; //完成的时间
   int? day;
   bool isCurrent = false; //是否是这个天
   bool isCheck = false; //是否被选中

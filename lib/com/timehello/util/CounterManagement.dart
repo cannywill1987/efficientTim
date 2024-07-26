@@ -138,6 +138,17 @@ class CounterManagement {
     return mCounterManagement;
   }
 
+  set(
+      {
+        MissionModel? missionModel,
+        FolderModel? folderModel,
+        }) {
+    // this.timeRest =  SharePreferenceUtil.getInstance().getTomatoRestTime();
+    this.missionModel = missionModel;
+    this.folderModel = folderModel;
+    return mCounterManagement;
+  }
+
   updateMissionModel(MissionModel missionModel) {
     if (this.missionModel?.objectId == missionModel.objectId) {
       this.missionModel = missionModel;
@@ -707,6 +718,7 @@ class CounterManagement {
   }
 
   void stopRelaxing() {
+    SharePreferenceUtil.getSyncInstance().incTomatoLongDurationCurCounter();
     if (this.curTimeF == 0) {
       //表示自动暂停才播放音乐
       AudioPlayUtil.getInstance()?.stop();

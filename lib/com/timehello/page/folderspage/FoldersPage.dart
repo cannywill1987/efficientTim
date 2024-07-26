@@ -38,6 +38,7 @@ import '../../interface/OnCallbackListener.dart';
 import '../../interface/OnTapListener.dart';
 import '../../models/CourseModel.dart';
 import '../../models/EventFn.dart';
+import '../../util/ChatGroupManager.dart';
 import '../../util/DialogManagement.dart';
 import '../../util/JumpNavigator.dart';
 import '../CreateShareFolderPage/CreateShareFolderPage.dart';
@@ -398,26 +399,30 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         );
       }
     } else {
-      List<Future> updateMongoList = [];
-      List listOtherUids = data.folderModel.otherUids ?? [];
-      listOtherUids.remove(LoginManager.getInstance().userBean.uid);
-      Utility.deleteUserInfoMapByUid(data.folderModel.otherUserInfo,
-          LoginManager.getInstance().userBean.uid);
-      updateMongoList.add(MongoApisManager.getInstance()
-          .update_FolderModelWithFM(folderModel: data.folderModel));
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_leave_group","description": "退群",});
+      ChatGroupManager.exitGroup(folderModel: data.folderModel);
+      Utility.popupDesktopRightNavigator(context);
 
-      CourseModel? courseModel = await MongoApisManager.getInstance()
-          .requestCourseModelByFolderId(
-              folder_id: data.folderModel.objectId ?? "");
-      if (courseModel != null) {
-        courseModel.otherUids?.remove(LoginManager.getInstance().userBean.uid);
-        Utility.deleteUserInfoMapByUid(courseModel.otherUserInfo ?? [],
-            LoginManager.getInstance().userBean.uid);
-        updateMongoList.add(MongoApisManager.getInstance().update_CourseModel(
-            courseModel?.objectId ?? "",
-            courseModel: courseModel));
-      }
-      await Future.wait(updateMongoList);
+      // List<Future> updateMongoList = [];
+      // List listOtherUids = data.folderModel.otherUids ?? [];
+      // listOtherUids.remove(LoginManager.getInstance().userBean.uid);
+      // Utility.deleteUserInfoMapByUid(data.folderModel.otherUserInfo,
+      //     LoginManager.getInstance().userBean.uid);
+      // updateMongoList.add(MongoApisManager.getInstance()
+      //     .update_FolderModelWithFM(folderModel: data.folderModel));
+      //
+      // CourseModel? courseModel = await MongoApisManager.getInstance()
+      //     .requestCourseModelByFolderId(
+      //         folder_id: data.folderModel.objectId ?? "");
+      // if (courseModel != null) {
+      //   courseModel.otherUids?.remove(LoginManager.getInstance().userBean.uid);
+      //   Utility.deleteUserInfoMapByUid(courseModel.otherUserInfo ?? [],
+      //       LoginManager.getInstance().userBean.uid);
+      //   updateMongoList.add(MongoApisManager.getInstance().update_CourseModel(
+      //       courseModel?.objectId ?? "",
+      //       courseModel: courseModel));
+      // }
+      // await Future.wait(updateMongoList);
     }
     this.requestDatas(shouldRefresh: true);
   }
@@ -435,32 +440,36 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             .delete_CourseModel(data.folderModel.courseModelId)
       ]);
     } else {
-      List<Future> updateMongoList = [];
-      List listOtherUids = data.folderModel.otherUids ?? [];
-      listOtherUids.remove(LoginManager.getInstance().userBean.uid);
-      Utility.deleteUserInfoMapByUid(data.folderModel.otherUserInfo,
-          LoginManager.getInstance().userBean.uid);
-      updateMongoList.add(MongoApisManager.getInstance()
-          .update_FolderModelWithFM(folderModel: data.folderModel));
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_leave_group","description": "退群",});
+      ChatGroupManager.exitGroup(folderModel: data.folderModel);
+      Utility.popupDesktopRightNavigator(context);
 
-      CourseModel? courseModel = await MongoApisManager.getInstance()
-          .requestCourseModelByFolderId(
-              folder_id: data.folderModel.objectId ?? "");
-      if (courseModel != null) {
-        courseModel.otherUids?.remove(LoginManager.getInstance().userBean.uid);
-        Utility.deleteUserInfoMapByUid(courseModel.otherUserInfo ?? [],
-            LoginManager.getInstance().userBean.uid);
-        updateMongoList.add(MongoApisManager.getInstance().update_CourseModel(
-            courseModel?.objectId ?? "",
-            courseModel: courseModel));
-      }
-      await Future.wait(updateMongoList);
+      // List<Future> updateMongoList = [];
+      // List listOtherUids = data.folderModel.otherUids ?? [];
+      // listOtherUids.remove(LoginManager.getInstance().userBean.uid);
+      // Utility.deleteUserInfoMapByUid(data.folderModel.otherUserInfo,
+      //     LoginManager.getInstance().userBean.uid);
+      // updateMongoList.add(MongoApisManager.getInstance()
+      //     .update_FolderModelWithFM(folderModel: data.folderModel));
+      //
+      // CourseModel? courseModel = await MongoApisManager.getInstance()
+      //     .requestCourseModelByFolderId(
+      //         folder_id: data.folderModel.objectId ?? "");
+      // if (courseModel != null) {
+      //   courseModel.otherUids?.remove(LoginManager.getInstance().userBean.uid);
+      //   Utility.deleteUserInfoMapByUid(courseModel.otherUserInfo ?? [],
+      //       LoginManager.getInstance().userBean.uid);
+      //   updateMongoList.add(MongoApisManager.getInstance().update_CourseModel(
+      //       courseModel?.objectId ?? "",
+      //       courseModel: courseModel));
+      // }
+      // await Future.wait(updateMongoList);
     }
     this.requestDatas(shouldRefresh: true);
   }
 
   // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
-  void onClickMissionPage(data, folderStatus) {
+  void onClickMissionPage(FolderModel data, folderStatus) {
     // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单
     switch(data.iconType) {
       case 1:  // 今天
@@ -507,8 +516,12 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             {"folderModel": data, "folderStatus": folderStatus});
       }
     } else {
+      if(data.tag == 1) {
       Utility.openRightSideDesktopNavigator(
           context, 'GroupChatPage', {});
+      } else {
+        Utility.popupDesktopRightNavigator(context);
+      }
       Utility.pushCurFolderModel(context,
           folderModel: data, folderStatus: folderStatus);
       Utility.pushDesktopNavigator(

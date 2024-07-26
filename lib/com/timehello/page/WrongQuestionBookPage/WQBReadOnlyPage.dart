@@ -16,6 +16,7 @@ import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
 import 'package:time_hello/com/timehello/page/RichEditor/RichEditorPage.dart';
 
 import 'package:time_hello/com/timehello/page/RichEditor/universal_ui/universal_ui.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../components/BaseWidget.dart';
@@ -268,7 +269,7 @@ class _WQBReadOnlyPageState extends BaseWidgetState<WQBReadOnlyPage> {
           Expanded(
             flex: 15,
             child: Container(
-              color: Colors.white,
+              color: ThemeManager.getInstance().isDark() ? Colors.black : Colors.white,
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: quillEditor,
             ),

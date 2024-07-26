@@ -4,6 +4,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/services.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -115,7 +116,7 @@ class SelectShareFolderPageState extends BaseWidgetState<SelectShareFolderPage> 
         if(folderModel?.otherUids!.contains(LoginManager.getInstance().userBean.uid) == false) {
           folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
           folderModel?.otherUids?.add(LoginManager.getInstance().userBean.uid);
-          folderModel?.otherUserInfo?.add({"uid": LoginManager.getInstance().userBean.uid, "avatar": LoginManager.getInstance().userBean.avatar, "username": LoginManager.getInstance().userBean.username});
+          folderModel?.otherUserInfo?.add(ChatGroupManager.getUserInfoBean(role: 2));
 
           this.widget.courseModel?.otherUids = folderModel?.otherUids;
           this.widget.courseModel?.otherUserInfo = folderModel?.otherUserInfo;
@@ -495,9 +496,9 @@ class SelectShareFolderPageState extends BaseWidgetState<SelectShareFolderPage> 
                   ),
                   ImagesWrapperWidget(
                     isEditable: false,
-                    listSmallImages: this.widget.courseModel?.imageSmallUrls,
-                    listBigImages: this.widget.courseModel?.imageBigUrls,
-                    listOriginImages: this.widget.courseModel?.imageOriginUrls,
+                    listBigImages: this.widget.courseModel?.imageSmallUrls,
+                    // listBigImages: this.widget.courseModel?.imageBigUrls,
+                    // listOriginImages: this.widget.courseModel?.imageOriginUrls,
                     onChange:
                         (listOriginImages, listSmallImages, listBigImages) {
                       // this.widget.courseModel?.imageSmallUrls = listSmallImages;

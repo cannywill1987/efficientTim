@@ -68,23 +68,22 @@ class MissionPickPeriodDialogWidgetState extends State<MissionPickPeriodDialogWi
         // 时间选择组件 返回hh:mm
         Container(
           margin: EdgeInsets.only(top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Wrap(
             children: [
               Text(
-                getI18NKey().target_reward,
+                getI18NKey().do_it_now_desc,
                 style: TextStyle(
                     color: ThemeManager.getInstance().getTextColor(),
                     fontSize: 14,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
-                getI18NKey().continue2,
-                style: TextStyle(
-                    color: Color(0xffFFA500),
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   getI18NKey().continue2,
+              //   style: TextStyle(
+              //       color: Color(0xffFFA500),
+              //       fontSize: 14,
+              //       fontWeight: FontWeight.bold),
+              // ),
             ],
           ),
         ),

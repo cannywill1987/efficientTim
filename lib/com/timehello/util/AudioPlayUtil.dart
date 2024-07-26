@@ -16,7 +16,7 @@ class AudioPlayUtil {
 
   // FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
   AudioPlayer? audioPlayer;
-  AnimationController? animationController;
+  // AnimationController? animationController;
 
   // AssetsAudioPlayer assetsAudioPlayer;
   int duration = 10000;

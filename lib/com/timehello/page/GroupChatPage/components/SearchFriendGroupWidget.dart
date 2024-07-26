@@ -7,12 +7,16 @@ import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/libs/pinput/src/pinput.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/FolderListView.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
+import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../../../r.dart';
 import '../../../common/provider/Env.dart';
+import '../../../config/Params.dart';
 import '../../../models/FolderModel.dart';
 
 class SearchFriendGroupWidget extends StatefulWidget {
@@ -171,27 +175,26 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
                     folder_id: folderModelTmp?.objectId ?? "");
 
             if (folderModel != null) {
-              // 添加uid
-              if (folderModel?.otherUids == null) folderModel?.otherUids = [];
-              if (folderModel.uid != LoginManager.getInstance().userBean.uid && folderModel?.otherUids!
-                      .contains(LoginManager.getInstance().userBean.uid) ==
-                  false ) {
-                // folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
-                folderModel?.otherUids
-                    ?.add(LoginManager.getInstance().userBean.uid);
-                folderModel?.otherUserInfo?.add({
-                  "uid": LoginManager.getInstance().userBean.uid,
-                  "avatar": LoginManager.getInstance().userBean.avatar,
-                  "username": LoginManager.getInstance().userBean.username,
-                  "numTasksDone": 0,
-                  "totalDurationFocus": 0
+              // if(ChatGroupManager.isInTheFolder(folderModel: folderModel)) {
+              //   Utility.showToastMsg(msg: getI18NKey().already_in_group);
+              //   return;
+              // }
+              if(!TextUtil.isEmpty(folderModel.groupChatPassword)) {
+                DialogManagement.getInstance().showPasswordDialog(title: folderModelTmp.title, okCallback: (val) async  {
+                  if(folderModel.groupChatPassword == Utility.encryptCTRAES(val, Params.AES_PWD)) {
+                    DialogManagement.getInstance()
+                        .hideDialog(Utility.getGlobalContext(), true);
+                    await addUser(folderModel, context);
+                  } else {
+                    Utility.showToastMsg(msg: getI18NKey().password_incorrect);
+                  }
                 });
-                await MongoApisManager.getInstance()
-                    .update_FolderModelWithFM(folderModel: folderModel!);
-                context.read<Env>().curFolderSelected = folderModel;
               } else {
-                Utility.showToastMsg(msg: getI18NKey().already_in_group);
+                // 添加uid
+                await addUser(folderModel, context);
               }
+
+
               // this.widget.courseModel?.otherUids = folderModel?.otherUids;
               // this.widget.courseModel?.otherUserInfo = folderModel?.otherUserInfo;
               //主要目的是更新uid
@@ -271,5 +274,30 @@ class SearchFriendGroupWidgetState extends State<SearchFriendGroupWidget> {
         //   ),
       ],
     );
+  }
+
+  Future<void> addUser(FolderModel folderModel, BuildContext context) async {
+     // 添加uid
+    if (folderModel?.otherUids == null) folderModel?.otherUids = [];
+    if (folderModel.uid != LoginManager.getInstance().userBean.uid && folderModel?.otherUids!
+            .contains(LoginManager.getInstance().userBean.uid) ==
+        false ) {
+      // folderModel?.isOtherUserEditable = this.widget.courseModel?.isEditable;
+      folderModel?.otherUids
+          ?.add(LoginManager.getInstance().userBean.uid);
+      folderModel?.otherUserInfo?.add({
+        "uid": LoginManager.getInstance().userBean.uid,
+        "avatar": LoginManager.getInstance().userBean.avatar,
+        "username": LoginManager.getInstance().userBean.username,
+        "numTasksDone": 0,
+        "totalDurationFocus": 0
+      });
+      await MongoApisManager.getInstance()
+          .update_FolderModelWithFM(folderModel: folderModel!, shouldCheckPermission: false, shouldQueryMissionModel: true);
+      context.read<Env>().curFolderSelected = folderModel;
+      DialogManagement.getInstance().hideDialog(context);
+    } else {
+      Utility.showToastMsg(msg: getI18NKey().already_in_group);
+    }
   }
 }

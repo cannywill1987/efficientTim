@@ -10,11 +10,11 @@ ResourceLocationInfoBean _$ResourceLocationInfoBeanFromJson(
         Map<String, dynamic> json) =>
     ResourceLocationInfoBean(
       locationCode: json['location_code'] as String? ?? "",
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       locationTitle: json['location_title'] as String?,
       locationLinkTxt: json['location_link_txt'] as String?,
       locationLinkUrl: json['location_link_url'] as String?,
-      orderIndex: json['order_index'] as int?,
+      orderIndex: (json['order_index'] as num?)?.toInt(),
       extendParams: json['extendParams'] as Map<String, dynamic>?,
       deliveryList: (json['deliveryList'] as List<dynamic>?)
           ?.map((e) =>

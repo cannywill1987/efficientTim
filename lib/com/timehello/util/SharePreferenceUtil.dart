@@ -419,6 +419,21 @@ class SharePreferenceUtil {
   int getTomatoRestTime() {
     try {
       initShareprerence();
+      int curCounter = this.getTomatoLongDurationCurCounter();
+      int interval = this.getTomatoLongDurationInterval();
+      // 长计时休息触发
+      if (curCounter > 0&& curCounter % interval == 0) {
+        return this.getTomatoLongDurationRestTime();
+      }
+      return mSharedPreferences?.getInt('TomatoRestTime') ?? 5 * 60 * 1000;
+    } catch (e) {
+      return 5 * 60 * 1000;
+    }
+  }
+
+  int getTomatoRestTime2() {
+    try {
+      initShareprerence();
       return mSharedPreferences?.getInt('TomatoRestTime') ?? 5 * 60 * 1000;
     } catch (e) {
       return 5 * 60 * 1000;
@@ -428,6 +443,50 @@ class SharePreferenceUtil {
   void setTomatoRestTime(int time) {
     initShareprerence();
     mSharedPreferences?.setInt('TomatoRestTime', time);
+  }
+
+  int getTomatoLongDurationRestTime() {
+    try {
+      initShareprerence();
+      return mSharedPreferences?.getInt('TomatoLongDurationRestTime') ?? 5 * 60 * 1000;
+    } catch (e) {
+      return 5 * 60 * 1000;
+    }
+  }
+
+  void setTomatoLongDurationInterval(int times) {
+    initShareprerence();
+    mSharedPreferences?.setInt('TomatoLongDurationInterval', times);
+  }
+
+
+  int getTomatoLongDurationCurCounter() {
+    try {
+      initShareprerence();
+      return mSharedPreferences?.getInt('getTomatoLongDurationCurCounter') ?? 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  void incTomatoLongDurationCurCounter() {
+    initShareprerence();
+    int curTime = this.getTomatoLongDurationCurCounter() ?? 0;
+    mSharedPreferences?.setInt('getTomatoLongDurationCurCounter', ++curTime);
+  }
+
+  int getTomatoLongDurationInterval() {
+    try {
+      initShareprerence();
+      return mSharedPreferences?.getInt('TomatoLongDurationInterval') ?? 1;
+    } catch (e) {
+      return 5 * 60 * 1000;
+    }
+  }
+
+  void setTomatoLongDurationRestTime(int time) {
+    initShareprerence();
+    mSharedPreferences?.setInt('TomatoLongDurationRestTime', time);
   }
 
   /**
@@ -444,6 +503,23 @@ class SharePreferenceUtil {
       return mSharedPreferences?.getInt('CommonColor') ?? 0xffff8800;
     } catch (e) {
       return 0xffff8800;
+    }
+  }
+
+  /**
+   * 更新点击跳转这个版本
+   */
+  void setSwitchMissionTitle({bool isOn = false}) {
+    initShareprerence();
+    mSharedPreferences?.setBool('setSwitchMissionTitle', isOn);
+  }
+
+  bool getSwitchMissionTitle() {
+    try {
+      initShareprerence();
+      return mSharedPreferences?.getBool('setSwitchMissionTitle') ?? false;
+    } catch (e) {
+      return false;
     }
   }
 

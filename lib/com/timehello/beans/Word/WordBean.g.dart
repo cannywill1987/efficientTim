@@ -9,7 +9,7 @@ part of 'WordBean.dart';
 WordBean _$WordBeanFromJson(Map<String, dynamic> json) => WordBean(
       isCheck: json['isCheck'] ?? false,
     )
-      ..id = json['id'] as int?
+      ..id = (json['id'] as num?)?.toInt()
       ..word = json['word'] as String?
       ..meaning = json['meaning'] as String?
       ..am = json['am'] as String?

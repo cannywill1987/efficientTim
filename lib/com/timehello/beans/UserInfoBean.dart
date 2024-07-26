@@ -12,6 +12,7 @@ class UserInfoBean {
   int? numTasksDone = 0;
   int? totalDurationFocus = 0;
   int? onlineStatus = 0;
+  int? role = 0; // 0-创建者 1-管理员 2-普通用户
   @JsonKey(ignore: true)
   OnlineStatusEnum? onlineStatusEnum;
 

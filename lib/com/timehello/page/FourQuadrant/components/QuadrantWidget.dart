@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
+import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -223,7 +224,8 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data.title != CounterManagement.getInstance().missionModel?.title) {
-      Utility.showAlertDialog(
+      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+        Utility.showAlertDialog(
           context: context,
           content: getI18NKey().missionRunningAlert(data.title ?? ""),
           onConfirm: () {
@@ -236,6 +238,12 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
             //       folderModel: this.widget.folderModel,
             //     ));
           });
+    } else {
+      OverlayManagement.getInstance().openMissionDetailPageOverlay(
+          context: context,
+          missionModel: data,
+          folderModel: folderModel);
+    }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
           context: context, missionModel: data, folderModel: folderModel);

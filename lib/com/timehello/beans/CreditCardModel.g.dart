@@ -11,16 +11,16 @@ CreditCardModel _$CreditCardModelFromJson(Map<String, dynamic> json) =>
       bankId: json['bankId'] as String?,
       bankName: json['bankName'] as String?,
       logoUrl: json['logoUrl'] as String?,
-      billDay: json['billDay'] as int?,
+      billDay: (json['billDay'] as num?)?.toInt(),
       cardId: json['cardId'] as String?,
-      repayDay: json['repayDay'] as int?,
+      repayDay: (json['repayDay'] as num?)?.toInt(),
       servicePhone: json['servicePhone'] as String?,
     )
       ..createdAt = json['createdAt'] as String?
       ..updatedAt = json['updatedAt'] as String?
       ..objectId = json['_id'] as String?
       ..name = json['name'] as String?
-      ..creditAmount = json['creditAmount'] as int?
+      ..creditAmount = (json['creditAmount'] as num?)?.toInt()
       ..repaymentData = json['repaymentData'] as List<dynamic>?
       ..eventList = json['eventList'] as List<dynamic>?
       ..uid = json['uid'] as String?

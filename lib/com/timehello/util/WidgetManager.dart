@@ -5,8 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
+import 'package:time_hello/com/timehello/components/CustomAppointWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/appointment.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/calendar_controller.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -16,8 +22,6 @@ import '../config/ColorsConfig.dart';
 import '../config/StylesConfig.dart';
 import '../models/FolderModel.dart';
 import '../models/WQBFolderModel.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 /**
  * 公共组件的管理
  */
@@ -79,92 +83,105 @@ class WidgetManager {
     // }
   }
 
-  static Container getCustomAppointWidget(
+  static Widget getCustomAppointWidget(
       CalendarAppointmentDetails details, BuildContext context,
       {CalendarView? calendarView, bool shouldShowCheckBox = true}) {
     Appointment appointment = details.appointments.first;
-    MissionModel? missionModelCurSelected = context.read<CalendarMssionEnv>().curSelectedMissionModel;
+    // MissionModel? missionModelCurSelected = context.read<CalendarMssionEnv>().curSelectedMissionModel;
     MissionModel? missionModel = MongoApisManager.getInstance()
         .queryWhereEqual_missionDataByObjectId(
-            objectId: appointment.id.toString());
+        objectId: appointment.id.toString());
     FolderModel? folderModel;
     int priorityColor = CONSTANTS.getPriorityColor(missionModel?.priorityStatus ?? 3);
     if (missionModel?.folder_id != null) {
       folderModel = MongoApisManager.getInstance()
           .queryfolderModelWithFolderId(missionModel?.folder_id ?? "");
     }
-    return Container(
-      constraints: BoxConstraints(minHeight: 100),
-      decoration: BoxDecoration(
-        color: folderModel?.color != null
-            ? Color(folderModel!.color - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000))
-            : Color(0xffff8800 - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000)),
-        borderRadius: BorderRadius.circular(4),
-        border: missionModelCurSelected == missionModel ? Border.all(
-                color: folderModel?.color != null
-                    ? Color(priorityColor ?? folderModel!.color)
-                    : Color(priorityColor ?? 0xffff8800),
-                width: 3) : Border(
-            left: BorderSide(
-                color: folderModel?.color != null
-                    ? Color(priorityColor ?? folderModel!.color)
-                    : Color(priorityColor ?? 0xffff8800),
-                width: 3)),
-      ),
-      padding: EdgeInsets.only(left: 4),
-      alignment: calendarView == CalendarView.month
-          ? Alignment.centerLeft
-          : Alignment.topLeft,
-      child: Text.rich(
-        maxLines: calendarView == CalendarView.month ? 1 : null,
-        overflow: calendarView == CalendarView.month ? TextOverflow.ellipsis : null,
-        TextSpan(
-          // text: 'Hello', // default text style
-          children: [
-            if(shouldShowCheckBox)
-            WidgetSpan(
-                child: Container(
-              width: 15,
-              height: 15,
-              padding: calendarView == CalendarView.month ? null:EdgeInsets.only(top: 1),
-              child: CheckImage(
-                width: 15,
-                height: 15,
-                isSizeConfigured: true,
-                onTapListener: (res) {
-                  Utility.onClickFinishItem(
-                      missionModel: missionModel ?? MissionModel(),
-                      folderModel: folderModel ?? null,
-                      timestampCurrent: details.date.millisecondsSinceEpoch,
-                      context: context,
-                      finishCallback: () {
-                        // requestDatas();
-                      });
-                },
-                checked: Utility.getIsFinishOfMissionModel(
-                  missionModel: missionModel ?? MissionModel(),
-                  curMonthTimeStamp: details.date.millisecondsSinceEpoch,
-                ),
-                checkIcon: Icon(Icons.check_circle,
-                    size: 15, color: ColorsConfig.calendar_green),
-                uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
-                    color: ColorsConfig.gray_a7, size: 15),
-              ),
-            )),
-            TextSpan(
-                text: missionModel?.title ?? "",
-                style: const TextStyle(
-                  color: Color(0xff404040),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                )),
-            ...getTagsWidgetSpan(missionModel ?? MissionModel()),
-            // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
 
+    return CustomAppointmentWidget(
+      details: details,
+      calendarView: calendarView,
+      shouldShowCheckBox: shouldShowCheckBox,
     );
+
+    // return Container(
+    //   constraints: BoxConstraints(minHeight: 100),
+    //   decoration: BoxDecoration(
+    //     color: folderModel?.color != null
+    //         ? Color(folderModel!.color - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000))
+    //         : Color(0xffff8800 - (ThemeManager.getInstance().isDark() ? 0x10000000 : 0xa0000000)),
+    //     borderRadius: BorderRadius.circular(4),
+    //     border: missionModelCurSelected == missionModel ? Border.all(
+    //         color: folderModel?.color != null
+    //             ? Color(priorityColor ?? folderModel!.color)
+    //             : Color(priorityColor ?? 0xffff8800),
+    //         width: 3) : Border(
+    //         left: BorderSide(
+    //             color: folderModel?.color != null
+    //                 ? Color(priorityColor ?? folderModel!.color)
+    //                 : Color(priorityColor ?? 0xffff8800),
+    //             width: 3)),
+    //   ),
+    //   padding: EdgeInsets.only(left: 4),
+    //   alignment: calendarView == CalendarView.month
+    //       ? Alignment.centerLeft
+    //       : Alignment.topLeft,
+    //   child: Text.rich(
+    //     maxLines: calendarView == CalendarView.month ? 1 : null,
+    //     overflow: calendarView == CalendarView.month ? TextOverflow.ellipsis : null,
+    //     TextSpan(
+    //       // text: 'Hello', // default text style
+    //       children: [
+    //         if(shouldShowCheckBox)
+    //           WidgetSpan(
+    //               child: Container(
+    //                 width: 15,
+    //                 height: 15,
+    //                 padding: calendarView == CalendarView.month ? null:EdgeInsets.only(top: 1),
+    //                 child: CheckImage(
+    //                   width: 15,
+    //                   height: 15,
+    //                   isSizeConfigured: true,
+    //                   onTapListener: (res) {
+    //                     Utility.onClickFinishItem(
+    //                         missionModel: missionModel ?? MissionModel(),
+    //                         folderModel: folderModel ?? null,
+    //                         timestampCurrent: details.date.millisecondsSinceEpoch,
+    //                         context: context,
+    //                         finishCallback: () {
+    //                           // requestDatas();
+    //                         });
+    //                   },
+    //                   checked: Utility.getIsFinishOfMissionModel(
+    //                     missionModel: missionModel ?? MissionModel(),
+    //                     curMonthTimeStamp: details.date.millisecondsSinceEpoch,
+    //                   ),
+    //                   checkIcon: Icon(Icons.check_circle,
+    //                       size: 15, color: ColorsConfig.calendar_green),
+    //                   uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
+    //                       color: ColorsConfig.gray_a7, size: 15),
+    //                 ),
+    //               )),
+    //         TextSpan(
+    //             text: missionModel?.title ?? "",
+    //             style: const TextStyle(
+    //               color: Color(0xff404040),
+    //               fontSize: 12,
+    //               fontWeight: FontWeight.w500,
+    //             )),
+    //         TextSpan(text:!TextUtil.isEmpty(missionModel?.localDurationString) ? "("+(missionModel?.localDurationString ?? "") + ")" : "(1h 00m)",
+    //             style: TextStyle(
+    //               color: Color(0xff404040),
+    //               fontSize: 12,
+    //               fontWeight: FontWeight.w500,
+    //             )),
+    //         ...getTagsWidgetSpan(missionModel ?? MissionModel()),
+    //         // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+    //       ],
+    //     ),
+    //   ),
+    //
+    // );
   }
 
   static double getWidgetWidth(GlobalKey globalKey) {
@@ -220,10 +237,10 @@ class WidgetManager {
 
   static Widget getCachedNetworkImage(
       {double radius: 20,
-      required double width,
-      required double height,
-      required String url,
-      bool isLoading = true}) {
+        required double width,
+        required double height,
+        required String url,
+        bool isLoading = true}) {
     return CachedNetworkImage(
       width: width,
       height: height,
@@ -240,15 +257,15 @@ class WidgetManager {
         ),
       ),
       placeholder: (context, url) =>
-          isLoading == true ? CircularProgressIndicator() : SizedBox.shrink(),
+      isLoading == true ? CircularProgressIndicator() : SizedBox.shrink(),
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }
 
   static Widget getMiniInputWidget(
       {TextEditingController? inputController,
-      Function? onChangeListener,
-      Function? onSubmitListener}) {
+        Function? onChangeListener,
+        Function? onSubmitListener}) {
     FocusNode _contentFocusNode = FocusNode();
     OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
       gapPadding: 0,
@@ -314,8 +331,8 @@ class WidgetManager {
 
   static Widget getInputWidget(
       {bool readOnly = false,
-      required Function onSubmit,
-      required Function onChange}) {
+        required Function onSubmit,
+        required Function onChange}) {
     // OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
     //   gapPadding: 0,
     //   borderSide: BorderSide(
@@ -327,7 +344,7 @@ class WidgetManager {
         child: TextField(
             readOnly: readOnly,
             style:
-                TextStyle(letterSpacing: 15, fontSize: 16, color: Colors.blue),
+            TextStyle(letterSpacing: 15, fontSize: 16, color: Colors.blue),
             textAlign: TextAlign.center,
             onChanged: (text) {
               onChange(text);
@@ -348,9 +365,9 @@ class WidgetManager {
    */
   static Widget getSliderDialogTitleWidget(
       {FocusNode? focusNode,
-      int maxLength: 100,
-      TextEditingController? textEditingController,
-      Function? onChange}) {
+        int maxLength: 100,
+        TextEditingController? textEditingController,
+        Function? onChange}) {
     if ((textEditingController?.text?.length ?? maxLength) >= maxLength) {
       textEditingController?.text =
           textEditingController.text.substring(0, maxLength) + "...";
@@ -414,10 +431,10 @@ class WidgetManager {
 
   static Widget getDialogInputWidget(
       {FocusNode? focusNode,
-      TextEditingController? textEditingController,
-      enabled: true,
-      String? hintText,
-      Function? onChange}) {
+        TextEditingController? textEditingController,
+        enabled: true,
+        String? hintText,
+        Function? onChange}) {
     return Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -478,8 +495,8 @@ class WidgetManager {
 
   static Widget getSliderDialogInputNumberWidget(
       {FocusNode? focusNode,
-      TextEditingController? textEditingController,
-      Function? onChange}) {
+        TextEditingController? textEditingController,
+        Function? onChange}) {
     return Container(
         width: 60,
         child: TextField(
@@ -545,39 +562,39 @@ class WidgetManager {
         case 0:
           return Icon(
               (_folderModel.tag == 0 ||
-                      _folderModel.tag == false ||
-                      _folderModel.tag == null)
+                  _folderModel.tag == false ||
+                  _folderModel.tag == null)
                   ? Icons.calendar_today //今天
                   : _folderModel.tag == 1
-                      ? IconData(_folderModel.icon ?? 0,
-                          fontFamily: 'MaterialIcons') //任务folder
-                      : Icons.local_offer, //标签
+                  ? IconData(_folderModel.icon ?? 0,
+                  fontFamily: 'MaterialIcons') //任务folder
+                  : Icons.local_offer, //标签
               color: (_folderModel.tag == 0 ||
-                      _folderModel.tag == false ||
-                      _folderModel.tag == null)
+                  _folderModel.tag == false ||
+                  _folderModel.tag == null)
                   ? Colors.pink //todo 这个是干啥 应该是默认颜色吧
                   : Color(_folderModel.color),
               size: iconSize); //颜色
           break;
         case 1:
           return Utility.getSVGPicture(R.assetsImgIcToday, size: iconSize);
-        // return Icon(Icons.wb_sunny, size: iconSize, color: Colors.green);
-        // break;
+      // return Icon(Icons.wb_sunny, size: iconSize, color: Colors.green);
+      // break;
         case 2:
           return Utility.getSVGPicture(R.assetsImgIcTomorrow, size: iconSize);
-        // return Icon(Icons.brightness_6,
-        //     size: iconSize, color: Colors.deepOrange);
+      // return Icon(Icons.brightness_6,
+      //     size: iconSize, color: Colors.deepOrange);
         case 3:
           return Utility.getSVGPicture(R.assetsImgIcThisWeek, size: 16);
-        // return Icon(Icons.system_update_alt,
-        //     size: iconSize, color: Colors.blue);
+      // return Icon(Icons.system_update_alt,
+      //     size: iconSize, color: Colors.blue);
         case 4:
           return Utility.getSVGPicture(R.assetsImgIcUnfinishMissions, size: 16);
 
         case 5:
           return Utility.getSVGPicture(R.assetsImgIcCalendar, size: 16);
-        // return Icon(Icons.calendar_today,
-        //     size: iconSize, color: ColorsConfig.calendar_green);
+      // return Icon(Icons.calendar_today,
+      //     size: iconSize, color: ColorsConfig.calendar_green);
         case 6:
           return Utility.getSVGPicture(R.assetsImgIcFinished, size: 18);
         case 7:
@@ -586,9 +603,9 @@ class WidgetManager {
           return Utility.getSVGPicture(R.assetsImgIcTodo, size: 16);
         case 13:
           return Utility.getSVGPicture(R.assetsImgIcFragment, size: 16);
-        // return Icon(Icons.add,
-        //     size: iconSize, color: ColorsConfig.create_folder);
-        // break;
+      // return Icon(Icons.add,
+      //     size: iconSize, color: ColorsConfig.create_folder);
+      // break;
       }
     } else {}
   }
@@ -601,39 +618,39 @@ class WidgetManager {
         case 0:
           return Icon(
               (_folderModel.tag == 0 ||
-                      _folderModel.tag == false ||
-                      _folderModel.tag == null)
+                  _folderModel.tag == false ||
+                  _folderModel.tag == null)
                   ? Icons.calendar_today //今天
                   : _folderModel.tag == 1
-                      ? IconData(_folderModel.icon ?? 0,
-                          fontFamily: 'MaterialIcons') //任务folder
-                      : Icons.local_offer, //标签
+                  ? IconData(_folderModel.icon ?? 0,
+                  fontFamily: 'MaterialIcons') //任务folder
+                  : Icons.local_offer, //标签
               color: (_folderModel.tag == 0 ||
-                      _folderModel.tag == false ||
-                      _folderModel.tag == null)
+                  _folderModel.tag == false ||
+                  _folderModel.tag == null)
                   ? Colors.pink //todo 这个是干啥 应该是默认颜色吧
                   : Color(_folderModel.color),
               size: iconSize); //颜色
           break;
         case 1:
           return Utility.getSVGPicture(R.assetsImgIcToday, size: iconSize);
-        // return Icon(Icons.wb_sunny, size: iconSize, color: Colors.green);
-        // break;
+      // return Icon(Icons.wb_sunny, size: iconSize, color: Colors.green);
+      // break;
         case 2:
           return Utility.getSVGPicture(R.assetsImgIcTomorrow, size: iconSize);
-        // return Icon(Icons.brightness_6,
-        //     size: iconSize, color: Colors.deepOrange);
+      // return Icon(Icons.brightness_6,
+      //     size: iconSize, color: Colors.deepOrange);
         case 3:
           return Utility.getSVGPicture(R.assetsImgIcThisWeek, size: 16);
-        // return Icon(Icons.system_update_alt,
-        //     size: iconSize, color: Colors.blue);
+      // return Icon(Icons.system_update_alt,
+      //     size: iconSize, color: Colors.blue);
         case 4:
           return Utility.getSVGPicture(R.assetsImgIcUnfinishMissions, size: 16);
 
         case 5:
           return Utility.getSVGPicture(R.assetsImgIcCalendar, size: 16);
-        // return Icon(Icons.calendar_today,
-        //     size: iconSize, color: ColorsConfig.calendar_green);
+      // return Icon(Icons.calendar_today,
+      //     size: iconSize, color: ColorsConfig.calendar_green);
         case 6:
           return Utility.getSVGPicture(R.assetsImgIcFinished, size: 18);
         case 7:
@@ -644,9 +661,9 @@ class WidgetManager {
           return Utility.getSVGPicture(R.assetsImgIcTodo, size: 16);
         case 13:
           return Utility.getSVGPicture(R.assetsImgIcFragment, size: 16);
-        // return Icon(Icons.add,
-        //     size: iconSize, color: ColorsConfig.create_folder);
-        // break;
+      // return Icon(Icons.add,
+      //     size: iconSize, color: ColorsConfig.create_folder);
+      // break;
       }
     } else {}
   }

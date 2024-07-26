@@ -63,9 +63,9 @@ class WQBImageWidgetState extends State<WQBImageWidget> {
               return Icon(Icons.error);
             })
         : ImagesWrapperWidget(
+      // listBigImages: [],
       listBigImages: [],
-      listSmallImages: [],
-      listOriginImages: [],
+      // listOriginImages: [],
       onChange:
           (listOriginImages, listSmallImages, listBigImages) {
         // this.widget.courseModel?.imageSmallUrls = listSmallImages;

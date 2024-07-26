@@ -7,12 +7,13 @@ import '../beans/ResourceLocationInfoBean.dart';
 class Params {
   // kDebugMode可以用来做全局开发环境测试
   static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
-  static String curVersion = '3.5.0';
+  static String curVersion = '3.5.1';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
   static String curLatestVersionMAC = '';
   static String curLatestVersionWin = '';
   static String appName = "";
+  static bool isFirstTime = false;
   static String sysCode = "TimerBell"; //埋点用得上 系统编码
   static final bool isDebug = env == EnvEnum.dev;
   static bool hasGuidMissionDataInit = false;
@@ -34,7 +35,8 @@ class Params {
   static final int RECEIVE_TIMEOUT = 40000;
 
   static final int RINGTONE_DURATION = 10000;
-  static final String mBaseUrl = env == EnvEnum.dev ? "http://localhost:7001" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
+  static final String mOssUrl = "http://oss.timerbell.com";
+  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
   static final String mMemberBaseUrl = "";
   static final String MSN_REGISTER_SCENE = "MSN_REGISTER_SCENE";
@@ -51,6 +53,8 @@ class Params {
   static String ACTION_UPDATE_FOLDER_PAGE = 'ACTION_UPDATE_FOLDER_PAGE';
   static String ACTION_UPDATE_LISTVIEW = 'ACTION_UPDATE_LISTVIEW'; //用于更新Foldertage的silver list,但
   static String ACTION_UPDATE_SETTING_ITEM_DETAIL = 'ACTION_UPDATE_SETTING_ITEM_DETAIL';  //
+  static String ACTION_UPDATE_TIME_MANAGEMENT_PAGE = 'ACTION_UPDATE_TIME_MANAGEMENT_PAGE';  //
+
   static String ACTION_UPDATE_FLOMO_LISTVIEW = 'ACTION_UPDATE_FLOMO_LISTVIEW'; //用于更新Foldertage的silver list,但
 
   static String ACTION_UPDATE_USERINFO_AVATAR = 'ACTION_UPDATE_USERINFO_AVATAR';
@@ -112,20 +116,27 @@ class ABTestSetting {
 
   static bool isRegisterDynamicCode = false;
   static bool isHuaweiSecVerifyOn = false; //华为秒验开关
+
+  static bool isAppleLoginOn = false; //apple秒验开关
+  static bool isGoogleLoginOn = false; //google秒验开关
 }
 
 class Urls {
-  static String ratingGuide = "https://www.timerbell.com/views/ratingGuide";
-  static String facebook = "https://www.facebook.com/profile.php?id=100090694350100";
-  static String privacyProtocol = "https://www.timerbell.com/views/protocol/privacyProtocol";
-  static String privacyProtocolOfficial = "https://www.timerbell.com/views/protocol/privacyProtocolOfficial";
-  static String privacyProtocolXiaoMi = "https://www.timerbell.com/views/protocol/privacyProtocolXiaomi";
-  static String privacyProtocolVivo = "https://www.timerbell.com/views/protocol/privacyProtocolVivo";
+  static String missionNoteSharing = "https://www.timerbell.com/web/app/md/"; // 任务管理分享
+  static String isUserExistByEmail = "/api/common/isUserExistByEmail"; // 判断用户是否存在
+  static String ratingGuide = "https://www.timerbell.com/views/ratingGuide"; // 评分引导
+  static String facebook = "https://www.facebook.com/profile.php?id=100090694350100"; // facebook
+  static String privacyProtocol = "https://www.timerbell.com/views/protocol/privacyProtocol"; // 隐私协议
+  static String privacyProtocolOfficial = "https://www.timerbell.com/views/protocol/privacyProtocolOfficial"; // 官方隐私协议
+  static String privacyProtocolXiaoMi = "https://www.timerbell.com/views/protocol/privacyProtocolXiaomi"; // 小米隐私协议
+  static String privacyProtocolVivo = "https://www.timerbell.com/views/protocol/privacyProtocolVivo"; // vivo隐私协议
   static String mgmHomeUrl = Params.mUrl + "/mgm/home";
 }
 
 class Apis {
-
+  static String getRedis = "/api/redis/getRedis"; // get
+  static String setRedis = "/api/redis/setRedis"; // post
+  static String getOssToken = "/api/common/getOssToken"; // 获取aliyun token
   static String captcha = "/api/captcha";
   static String chatGptWithOpenAi = "/api/chatGptWithOpenAi";
   static String streamTestApi = "/api/streamTest";
@@ -139,6 +150,7 @@ class Apis {
   static String updateValuePerHour = "/api/timehello/updateValuePerHour";
   static String updateLocalMoney = "/api/timehello/updateLocalMoney";
   static String getDynamicCode = "/api/common/getDynamicCode";
+  static String resetPwdByEmail = "/api/timehello/resetPwdByEmail";
   static String unregisterAccount = "/api/common/unregisterAccount";
   static String updateUser = "/api/timehello/updateUser";
   static String resetPwd = "/api/timehello/resetPwd"; //重置密码
@@ -170,6 +182,8 @@ class Apis {
 
 //Shareprefrence的key
 class ShareprefrenceKeys {
+  static String insertMissionCount = "jeifziefizef";
+  static String needResetPassword = "jewijfizfc";
   static String default9DigitPasswordsNeedShowWhenLoginAppLock = "efzfsace";
   static String default9DigitPasswordsNeedShowWhenLogin = "eififizsifizefizefijzefceizf";
   static String default9DigitPasswords = "eififizsifizefizefij";
@@ -203,7 +217,7 @@ class ShareprefrenceKeys {
   static String curFocusingMissionObjectIdForCurTimeFKey = "curFocusingMissionObjectIdForCurTimeFKey";
   static String curFocusingMissionObjectIdForTotalTimeFKey = "curFocusingMissionObjectIdForTotalTimeFKey";
   static String UserInfoModelKey = "jeizfjizejfizewf";
-
+  static String TimeRatioProgressSortEnumKey = "zefczefzejfjizefji";
 
 }
 

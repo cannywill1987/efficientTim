@@ -12,27 +12,27 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) => FolderModel()
   ..objectId = json['_id'] as String?
   ..originalFolderId = json['originalFolderId'] as String?
   ..courseModelId = json['courseModelId'] as String?
-  ..layoutType = json['layoutType'] as int?
-  ..order_index = json['order_index'] as int?
+  ..layoutType = (json['layoutType'] as num?)?.toInt()
+  ..order_index = (json['order_index'] as num?)?.toInt()
   ..title = json['title'] as String?
   ..description = json['description'] as String?
   ..device_id = json['device_id'] as String?
-  ..number = json['number'] as int?
+  ..number = (json['number'] as num?)?.toInt()
   ..uid = json['uid'] as String?
   ..noteUrl = json['noteUrl'] as String?
   ..timelineNoteObjectId = json['timelineNoteObjectId'] as String?
-  ..numberNoteWords = json['numberNoteWords'] as int?
-  ..start_time = json['start_time'] as int?
-  ..end_time = json['end_time'] as int?
-  ..update_time = json['update_time'] as int?
-  ..create_time = json['create_time'] as int?
-  ..tag = json['tag'] as int?
-  ..color = json['color'] as int
-  ..tagColor = json['tagColor'] as int?
-  ..icon = json['icon'] as int?
+  ..numberNoteWords = (json['numberNoteWords'] as num?)?.toInt()
+  ..start_time = (json['start_time'] as num?)?.toInt()
+  ..end_time = (json['end_time'] as num?)?.toInt()
+  ..update_time = (json['update_time'] as num?)?.toInt()
+  ..create_time = (json['create_time'] as num?)?.toInt()
+  ..tag = (json['tag'] as num?)?.toInt()
+  ..color = (json['color'] as num).toInt()
+  ..tagColor = (json['tagColor'] as num?)?.toInt()
+  ..icon = (json['icon'] as num?)?.toInt()
   ..tagName = json['tagName'] as String?
-  ..type = json['type'] as int?
-  ..iconType = json['iconType'] as int?
+  ..type = (json['type'] as num?)?.toInt()
+  ..iconType = (json['iconType'] as num?)?.toInt()
   ..groupModelObjectIdOrderList =
       (json['groupModelObjectIdOrderList'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -42,13 +42,14 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) => FolderModel()
   ..groupChatPassword = json['groupChatPassword'] as String?
   ..otherUids = json['otherUids'] as List<dynamic>?
   ..isOtherUserEditable = json['isOtherUserEditable'] as bool?
-  ..isSharing = json['isSharing'] as int?
-  ..folderStatus = json['folderStatus'] as int?
-  ..cryptoVersion = json['cryptoVersion'] as int?
+  ..isSharing = (json['isSharing'] as num?)?.toInt()
+  ..folderStatus = (json['folderStatus'] as num?)?.toInt()
+  ..cryptoVersion = (json['cryptoVersion'] as num?)?.toInt()
   ..folderModelObjectIdOrderList =
       (json['folderModelObjectIdOrderList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList()
+  ..userInfo = json['userInfo'] as Map<String, dynamic>?
   ..otherUserInfo = json['otherUserInfo'] as List<dynamic>?;
 
 Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
@@ -89,5 +90,6 @@ Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
       'folderStatus': instance.folderStatus,
       'cryptoVersion': instance.cryptoVersion,
       'folderModelObjectIdOrderList': instance.folderModelObjectIdOrderList,
+      'userInfo': instance.userInfo,
       'otherUserInfo': instance.otherUserInfo,
     };

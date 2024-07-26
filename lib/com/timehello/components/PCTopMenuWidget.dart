@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../../../r.dart';
+import '../util/FirebaseStoreManager.dart';
+import '../util/LocaleProvider.dart';
 import '../util/LoginManager.dart';
 import '../util/Utility.dart';
 import 'ConsumeMoneyButtonWidget.dart';
@@ -85,8 +90,24 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             Spacer(),
             if(!Utility.isProductEnv())
               InkWell(onTap: () {
-                DialogManagement.getInstance().showSearchFriendGroupWidget();
+                final provider = Provider.of<LocaleProvider>(context);
+                provider.setLocale(    const Locale('fr'));
+
+                // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
+                // FirebaseStoreManager.getInstance().setString(data: "11111111111111111");
+                // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
+                // DialogManagement.getInstance().showSearchFriendGroupWidget();
               }, child: Text("测试"),),
+            if(!Utility.isProductEnv())
+              SizedBox(width: 30,),
+            if(!Utility.isProductEnv())
+              InkWell(onTap: () {
+                FirebaseStoreManager.getInstance().getString();
+                // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
+
+                // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
+                // DialogManagement.getInstance().showSearchFriendGroupWidget();
+              }, child: Text("测试2"),),
             // Expanded(
             //   child: Container(),
             // ),

@@ -1,0 +1,63 @@
+{
+  "status": true,
+  "message": "Success",
+  "request_id": "eb33e11b-52bd-4cbd-9c95-a28645d7c16e",
+  "data": [
+    {
+      "year": 2025,
+      "festival": "元旦节",
+      "start_time": "2024-12-31",
+      "end_time": "2025-01-02",
+      "days": 3,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "春节",
+      "start_time": "2025-01-28",
+      "end_time": "2025-02-03",
+      "days": 7,
+      "weekday": "2025-01-25,2025-02-08"
+    },
+    {
+      "year": 2025,
+      "festival": "清明节",
+      "start_time": "2025-04-04",
+      "end_time": "2025-04-06",
+      "days": 3,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "劳动节",
+      "start_time": "2025-05-01",
+      "end_time": "2025-05-03",
+      "days": 3,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "端午节",
+      "start_time": "2025-05-31",
+      "end_time": "2025-06-02",
+      "days": 3,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "中秋节",
+      "start_time": "2025-09-22",
+      "end_time": "2025-09-24",
+      "days": 3,
+      "weekday": ""
+    },
+    {
+      "year": 2025,
+      "festival": "国庆节",
+      "start_time": "2025-10-01",
+      "end_time": "2025-10-07",
+      "days": 7,
+      "weekday": "2025-10-11"
+    }
+  ]
+}

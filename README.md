@@ -183,3 +183,13 @@ firebase
 timerbell2022@gmail.com
 linzhibin2003
 https://console.firebase.google.com/
+
+
+节假日查询
+https://www.idcd.com/docs/open-api/holiday
+curl --location --request GET 'https://www.idcd.com/api/holiday?year=2024' \
+--header 'ClientID: df77f2de-2924-4499-adda-1c4cc243625a' \
+--header 'Nonce: v0j38hHHUEqFwoh0Gc8Rbfi737xtIpLL' \
+--header 'Timestamp: 1716085926' \
+--header 'Signature: 5b1230f42bad2ffd5ad09890a8ebb47c02d74668be0cf7bb54a0f6a14996117b' \
+--header 'SignatureMethod: HmacSHA256'

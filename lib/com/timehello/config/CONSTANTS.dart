@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/ColorsModel.dart';
@@ -13,6 +14,7 @@ import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/MusicModel.dart';
 import 'package:time_hello/com/timehello/beans/ResourceDeliveryInfoBean.dart';
+import 'package:time_hello/com/timehello/models/ProgressFocusModel.dart';
 import 'package:time_hello/com/timehello/models/SelectObjectTypeModel.dart';
 import 'package:time_hello/com/timehello/models/SettingModel.dart';
 import 'package:time_hello/com/timehello/models/SheetDataModel.dart';
@@ -47,6 +49,19 @@ const kNavigationRailWidth = 72.0;
 ScreenType screenType = ScreenType.Handset;
 
 class CONSTANTS {
+  static String CODE_CAPTCHA_INCORRECT = "0000CPI";
+  static String CODE_DYNAMIC_CODE_INCORRECT = "0000CDCI";
+  static String CODE_GPT_TOKEN_EXPIRED = "0000FEWF";
+  static String CODE_USER_EXIST = "0000D2DE";
+  static String CODE_USER_NOT_EXIST = "0000AESE";
+  static String CODE_USER_OR_PASSWORD_NOT_CORRECT = "0000AFED";
+  static String CODE_USER_TOKEN_EXPIRED = "0000AFEI";
+  static String CODE_LOGIN_FIRST = "0000JFED";
+  static String CODE_LOCAL_MONEY_NOT_ENOUGH = "0000CDEF";
+  static String CODE_FAIL = "0000VEWF";
+
+
+
   static const double missionPageMargin = 0;
   static List<FolderModel> folderModelList = [];
   static List<WQBFolderModel> wqbFolderModelList = [];
@@ -1090,16 +1105,33 @@ class CONSTANTS {
     return list;
   }
 
-  static List<CheckButtonStateModel> getWQBEditTypeModelList() {
+  static List<CheckButtonStateModel> getMissionEditTypeModelList() {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        code: "plain_text", title: getI18NKey().plain_text, isCheck: false));
-    list.add(CheckButtonStateModel(
-        code: "image", title: getI18NKey().image, isCheck: true));
+        code: "new_rich_editor", title: getI18NKey().new_rich_editor, isCheck: true));
     list.add(CheckButtonStateModel(
         code: "record", title: getI18NKey().record, isCheck: false));
     list.add(CheckButtonStateModel(
-        code: "rich_text", title: getI18NKey().rich_text, isCheck: false));
+        code: "image", title: getI18NKey().image, isCheck: false));
+    // list.add(CheckButtonStateModel(
+    //     code: "plain_text", title: getI18NKey().plain_text + "(" + getI18NKey().deprecated + ")", isCheck: false));
+    // list.add(CheckButtonStateModel(
+    //     code: "rich_text", title: getI18NKey().rich_text + "(" + getI18NKey().deprecated + ")", isCheck: false));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getWQBEditTypeModelList() {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        code: "new_rich_editor", title: getI18NKey().new_rich_editor, isCheck: true));
+    list.add(CheckButtonStateModel(
+        code: "record", title: getI18NKey().record, isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "image", title: getI18NKey().image, isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "plain_text", title: getI18NKey().plain_text + "(" + getI18NKey().deprecated + ")", isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "rich_text", title: getI18NKey().rich_text + "(" + getI18NKey().deprecated + ")", isCheck: false));
     return list;
   }
 
@@ -1133,11 +1165,25 @@ class CONSTANTS {
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        title: getI18NKey().note_and_multimission, isCheck: true));
+        title: getI18NKey().note_text, isCheck: true));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().multi_subtask, isCheck: false));
     // list.add(
     //     CheckButtonStateModel(title: getI18NKey().super_notebook, isCheck: false));
     list.add(CheckButtonStateModel(
         title: getI18NKey().mission_setting, isCheck: false));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getLoginRegisterTabBarWidget(
+      {bool? hasAll = false}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().phoneNo, isCheck: true));
+    // list.add(
+    //     CheckButtonStateModel(title: getI18NKey().super_notebook, isCheck: false));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().email, isCheck: false));
     return list;
   }
 
@@ -1209,7 +1255,6 @@ class CONSTANTS {
     return list;
   }
 
-
   /**
    * SettingItemDetail页面的自动切换
    */
@@ -1252,6 +1297,53 @@ class CONSTANTS {
         color: 0xff404040,
         content: "",
         isCheck: false));
+
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getRatioPopup(
+      {double size = 16,
+      ProgressSortEnum defaultIndex = ProgressSortEnum.Lyubichs}) {
+    List<CheckButtonStateModel> list = [];
+    // const double size = 16;
+    list.add(CheckButtonStateModel(
+        code: "Lyubichs",
+        value: 0,
+        title: getI18NKey().lyubichs,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcLyubichs, size: 20),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.Lyubichs));
+
+    list.add(CheckButtonStateModel(
+        code: "num_mission",
+        value: 0,
+        title: getI18NKey().num_mission,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcTotalCheck, size: 15),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.completeNum));
+
+    list.add(CheckButtonStateModel(
+        code: "four_quadrant",
+        value: 0,
+        title: getI18NKey().four_quadrant,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcFourQuadrant, size: size),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.priority));
+
+    list.add(CheckButtonStateModel(
+        code: "tomato",
+        value: 0,
+        title: getI18NKey().tomato,
+        checkIcon:
+            Utility.getSVGPicture(R.assetsImgIcTomatoChecked, size: size),
+        // color: 0xff404040,
+        content: "",
+        isCheck: defaultIndex == ProgressSortEnum.tomato));
+
+    // list[defaultIndex].isCheck = true;
 
     return list;
   }
@@ -1347,6 +1439,74 @@ class CONSTANTS {
         content: "",
         isCheck: false));
 
+    return list;
+  }
+
+  /**
+   * 创建者角色的下拉框
+   */
+  static List<CheckButtonStateModel> getCreatorCheckList(
+      {bool isAdministrator = false, bool isSlide = false}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        code: isAdministrator
+            ? "cancel_setting_administrator"
+            : "setting_administrator",
+        value: 0,
+        color: isAdministrator ? Colors.blue.value : Colors.green.value,
+        title: isAdministrator
+            ? getI18NKey().cancel_setting_administrator
+            : getI18NKey().setting_administrator,
+        // color: Colors.green.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAdmin,
+            size: 16, color: isSlide ? Colors.white : Colors.blue),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 0,
+        title: getI18NKey().remove_user,
+        color: Colors.red.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser,
+            size: 16, color: isSlide ? Colors.white : Colors.red),
+        content: "",
+        isCheck: false));
+    return list;
+  }
+
+  /**
+   * 管理员角色的下拉框
+   */
+  static List<CheckButtonStateModel> getAdministratorCheckList(
+      {bool isAdministrator = false, bool isSlide = false}) {
+    List<CheckButtonStateModel> list = [];
+
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 0,
+        title: getI18NKey().remove_user,
+        color: Colors.red.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser,
+            size: 16, color: isSlide ? Colors.white : Colors.red),
+        content: "",
+        isCheck: false));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getAdminsCheckList(
+      {bool isAdministrator = false, bool isSlide = false}) {
+    List<CheckButtonStateModel> list = [];
+
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 0,
+        title: getI18NKey().setting_administrator,
+        color: Colors.green.value,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcRemoveUser,
+            size: 16, color: isSlide ? Colors.white : Colors.green),
+        content: "",
+        isCheck: false));
     return list;
   }
 
@@ -1687,6 +1847,30 @@ class CONSTANTS {
         uncheckIcon: Utility.getSVGPicture(R.assetsImgIcSecure, size: size),
         title: getI18NKey().encrypt,
         isCheck: defaultVal == 1));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getFourQuadrantButtonList({int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    const double size = 14;
+    list.add(CheckButtonStateModel(
+        code: 'export',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcExport, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcExport, size: size),
+        title: getI18NKey().export,
+        isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        code: 'visibility',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcVisible, size: size - 5),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcVisible, size: size - 5),
+        title: getI18NKey().visible,
+        isCheck: defaultVal == 1));
+    // list.add(CheckButtonStateModel(
+    //     code: 'group',
+    //     checkIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
+    //     uncheckIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
+    //     title: getI18NKey().add_group_listing,
+    //     isCheck: defaultVal == 1));
     return list;
   }
 
@@ -2185,8 +2369,7 @@ class CONSTANTS {
       list.add({
         'sceneCode': 'AIHelper',
         'icon': Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
-        'iconChecked':
-        Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
+        'iconChecked': Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
         'title': getI18NKey().ai_helper
       });
     if (settingModel.isSettingPageOn == 1)
@@ -3894,6 +4077,102 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getRichEditorCheckButtonStateModelList() {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        code: "add_subtask",
+        value: 1,
+        title: getI18NKey().add_subtask,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "pin",
+        value: 1,
+        title: getI18NKey().pin,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "discard",
+        value: 1,
+        title: getI18NKey().discard,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "label",
+        value: 1,
+        title: getI18NKey().label,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "upload_attachment",
+        value: 1,
+        title: getI18NKey().upload_attachment,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "task_activity",
+        value: 1,
+        title: getI18NKey().task_activity,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "save_as_template",
+        value: 1,
+        title: getI18NKey().save_as_template,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "create_copy",
+        value: 1,
+        title: getI18NKey().create_copy,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "copy_link",
+        value: 1,
+        title: getI18NKey().copy_link,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "open_sticky_note",
+        value: 1,
+        title: getI18NKey().open_sticky_note,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "convert_to_note",
+        value: 1,
+        title: getI18NKey().convert_to_note,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "print",
+        value: 1,
+        title: getI18NKey().print,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "delete",
+        value: 1,
+        title: getI18NKey().delete,
+        color: 0xff404040,
+        content: "",
+        isCheck: false));
+    return list;
+  }
+
   static List<CheckButtonStateModel> getModuleCheckButtonStateModelList() {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
@@ -4095,7 +4374,7 @@ class CONSTANTS {
         value: 9,
         title: getI18NKey().do_it_now,
         color: 0xff404040,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcToday, size: size),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcInstantly, size: size),
         content: "",
         isCheck: false));
     list.add(CheckButtonStateModel(
@@ -4298,6 +4577,28 @@ class CONSTANTS {
         Utility.getDateTimeModelFromTimeStamp(missionModel?.end_time ?? 0));
 
     return getI18NKey().date1_to_date2(s1, s2);
+  }
+
+  static String getSegmentDateString(
+      {DateTime? dateTime1, DateTime? dateTime2}) {
+    if (dateTime1 == null && dateTime2 == null) {
+      return getI18NKey().all_maju;
+    } else if (dateTime1 == null && dateTime2 != null) {
+      return getI18NKey().before_date(CONSTANTS.getAlertDateString(
+          Utility.getDateTimeModelFromTimeStamp(
+              dateTime2.millisecondsSinceEpoch ?? 0)));
+    } else if (dateTime1 != null && dateTime2 == null) {
+      return getI18NKey().after_date(CONSTANTS.getAlertDateString(
+          Utility.getDateTimeModelFromTimeStamp(
+              dateTime1?.millisecondsSinceEpoch ?? 0)));
+    } else {
+      return getI18NKey().between_date(
+          CONSTANTS.getAlertDateString(Utility.getDateTimeModelFromTimeStamp(
+              dateTime1?.millisecondsSinceEpoch ?? 0)),
+          CONSTANTS.getAlertDateString(Utility.getDateTimeModelFromTimeStamp(
+              dateTime2?.millisecondsSinceEpoch ?? 0)));
+    }
+    return "";
   }
 
   /**
@@ -4978,7 +5279,7 @@ class CONSTANTS {
    * 早上锻炼15分钟，然后工作2小时，帮我规划下
    */
   static String getChatGptMessagge(
-      String role, DateTime dateTime, String content) {
+      String role, String content) {
     String timestampFormat = "当地时间格式 YYYY-MM-DD HH:MM:SS.FFFFFF";
     DateTime dateTimeNow = new DateTime.now();
     int timestamp = dateTimeNow.millisecondsSinceEpoch;
@@ -5123,7 +5424,7 @@ class CONSTANTS {
     } else if (Utility.isWindows()) {
       return "ctrl+enter";
     } else {
-      if(DeviceInfoManagement.isWEB()) {
+      if (DeviceInfoManagement.isWEB()) {
         return getI18NKey().browser_not_support_multiline;
       }
       return "";
@@ -5138,5 +5439,377 @@ class CONSTANTS {
       }
     }
     return 0;
+  }
+
+  static void sortByPriorityFolderTimeForCompleteNum(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+        DateTime? endDateTime]) {
+    List<MissionModel> listMissionModels = [];
+    List<MissionModel> listMissionModelRed1Complete = [];
+    List<MissionModel> listMissionModelRed1 = [];
+    List<MissionModel> listMissionModelYellow2Complete = [];
+    List<MissionModel> listMissionModelYellow2 = [];
+    List<MissionModel> listMissionModelGreen3Complete = [];
+    List<MissionModel> listMissionModelGreen3 = [];
+    List<MissionModel> listMissionModelBlue4Complete = [];
+    List<MissionModel> listMissionModelBlue4 = [];
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      listMissionModels.addAll(listMissionModel);
+    });
+    listMissionModels.forEach((element) {
+      //3 无优先级  2 低优先级 1 中优先级 0 高优先级
+      if(element.priorityStatus == 0){
+        if(element?.isFinished == true)
+          listMissionModelRed1Complete.add(element);
+        listMissionModelRed1.add(element);
+      }
+      if(element.priorityStatus == 1){
+        if(element?.isFinished == true)
+          listMissionModelYellow2Complete.add(element);
+        listMissionModelYellow2.add(element);
+      }
+      if(element.priorityStatus == 2){
+        if(element?.isFinished == true)
+          listMissionModelGreen3Complete.add(element);
+        listMissionModelGreen3.add(element);
+
+      }
+      if(element.priorityStatus == 3){
+        if(element?.isFinished == true)
+          listMissionModelBlue4Complete.add(element);
+        listMissionModelBlue4.add(element);
+
+
+      }
+    });
+    ProgressFocusModel progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelRed1Complete, listMissionModelRed1);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority1 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(0)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+
+     progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelYellow2Complete, listMissionModelYellow2);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority2 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(1)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+     progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelGreen3Complete, listMissionModelGreen3);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority3 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(2)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+     progressFocusModel = Utility.getPriorityCompleteNumberWithMissionList(
+        listMissionModelBlue4Complete, listMissionModelBlue4);
+    if(progressFocusModel.totalValue > 0)
+    list.add(TimeSegment(
+        label: getI18NKey().priority4 +
+            "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+        value: progressFocusModel.currentValue,
+        color: Color(CONSTANTS.getPriorityColor(3)),
+        totalValue: progressFocusModel.totalValue == 0
+            ? 1
+            : progressFocusModel.totalValue,
+        onTap: () => print("Segment 1 clicked")));
+  }
+
+  static void sortByFolderTimeForCompleteNum(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      int color = element?["color"] ?? Utility.getRandomColor();
+      DateTime? dateTimeStart =
+          Utility.getStartDateTimeFromListMissionModels(list: listMissionModel);
+      DateTime? dateTimeEnd =
+          Utility.getEndDateTimeFromListMissionModels(list: listMissionModel);
+      if (startDateTime != null) {
+        dateTimeStart = startDateTime;
+      } else if (endDateTime != null) {
+        dateTimeEnd = endDateTime;
+      }
+      // else if (dateTimeStart == null && dateTimeEnd == null) {
+      //   return;
+      // }
+      else if (dateTimeEnd != null) {
+        dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
+      } else {
+        if (dateTimeStart != null) {
+          dateTimeEnd =
+              Utility.getFilterDateTimeFromDateTime(dateTimeStart, true);
+        }
+      }
+      ProgressFocusModel progressFocusModel =
+          Utility.getCompleteNumberWithMissionList(
+              listMissionModel, startDateTime ?? dateTimeStart, endDateTime ?? dateTimeEnd);
+
+      list.add(TimeSegment(
+          label: title +
+              "(${getI18NKey().num_mission_percent(progressFocusModel.currentValue, progressFocusModel.totalValue)})",
+          value: progressFocusModel.currentValue,
+          color: Color(color),
+          totalValue: progressFocusModel.totalValue == 0
+              ? 1
+              : progressFocusModel.totalValue,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static void sortByFolderTimeForTomatoes(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      int color = element?["color"] ?? Utility.getRandomColor();
+      DateTime? dateTimeStart =
+          Utility.getStartDateTimeFromListMissionModels(list: listMissionModel);
+      DateTime? dateTimeEnd =
+          Utility.getEndDateTimeFromListMissionModels(list: listMissionModel);
+      if (startDateTime != null) {
+        dateTimeStart = startDateTime;
+      } else if (endDateTime != null) {
+        dateTimeEnd = endDateTime;
+      }
+      // else if (dateTimeStart == null && dateTimeEnd == null) {
+      //   return;
+      // }
+      else if (dateTimeEnd != null) {
+        dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
+      } else {
+        if (dateTimeStart != null) {
+          dateTimeEnd =
+              Utility.getFilterDateTimeFromDateTime(dateTimeStart, true);
+        }
+      }
+      ProgressFocusModel progressFocusModel =
+          Utility.getTomatoesWithMissionList(
+              listMissionModel, dateTimeStart, dateTimeEnd);
+
+      list.add(TimeSegment(
+          label: title +
+              "(${getI18NKey().num_tomatoes(progressFocusModel.currentValue)}/${getI18NKey().num_tomatoes(progressFocusModel.totalValue)})",
+          value: progressFocusModel.currentValue,
+          color: Color(color),
+          totalValue: progressFocusModel.totalValue == 0
+              ? 1
+              : progressFocusModel.totalValue,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static void sortByFolderTimeForLyubichs(
+      List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel,
+      List<TimeSegment> list,
+      [DateTime? startDateTime,
+      DateTime? endDateTime]) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      int color = element?["color"] ?? Utility.getRandomColor();
+      DateTime? dateTimeStart =
+          Utility.getStartDateTimeFromListMissionModels(list: listMissionModel);
+      DateTime? dateTimeEnd =
+          Utility.getEndDateTimeFromListMissionModels(list: listMissionModel);
+      if (startDateTime != null) {
+        dateTimeStart = startDateTime;
+      } else if (endDateTime != null) {
+        dateTimeEnd = endDateTime;
+      }
+      // else if (dateTimeStart == null && dateTimeEnd == null) {
+      //   return;
+      // }
+      else if (dateTimeEnd != null) {
+        dateTimeEnd = Utility.getFilterDateTimeFromDateTime(dateTimeEnd, true);
+      } else {
+        if (dateTimeStart != null) {
+          dateTimeEnd =
+              Utility.getFilterDateTimeFromDateTime(dateTimeStart, true);
+        }
+      }
+      ProgressFocusModel progressFocusModel =
+          Utility.getDurationCalendarModelWithMissionList(
+              listMissionModel, startDateTime ?? dateTimeStart, endDateTime ?? dateTimeEnd);
+
+      list.add(TimeSegment(
+          label: title +
+              "(${Utility.formatTimestampWithoutZeroHM(progressFocusModel.currentValue * 1000)} / ${Utility.formatTimestampWithoutZeroHM(progressFocusModel.totalValue == 0 ? 1 : (progressFocusModel.totalValue * 1000))})",
+          value: progressFocusModel.currentValue,
+          color: Color(color),
+          totalValue: progressFocusModel.totalValue == 0
+              ? 1
+              : progressFocusModel.totalValue,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static void sortByFolderTime(List<Map<dynamic, dynamic>?> listFolderIds,
+      List<FolderTimeModel> listFolderTimeModel, List<TimeSegment> list) {
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      FolderTimeModel folderTimeModel =
+          Utility.getFolderTimeModel(listMissionModel);
+      folderTimeModel.folderTitle = title;
+      folderTimeModel.listDatas = listMissionModel;
+      listFolderTimeModel.add(folderTimeModel);
+    });
+    listFolderTimeModel.forEach((element) {
+      int totalTime =
+          ((element.previewTime ?? 0) + (element.finishedTime ?? 0));
+      list.add(TimeSegment(
+          label: element.folderTitle ?? '',
+          value: element.previewTime ?? 0,
+          color: Utility.getRandomColor(),
+          totalValue: totalTime == 0 ? 1 : totalTime,
+          onTap: () => print("Segment 1 clicked")));
+    });
+  }
+
+  static List<TimeSegment> parseFolderModelListToTimeSegmentByDateTime(
+      List<MissionModel> data, DateTime dateTimeStart, DateTime dateTimeEnd) {
+    CalendarModel calendarModel =
+        Utility.initCalendarModelWithMissionList(data);
+    List<FolderTimeModel> listFolderTimeModel = [];
+    List<MissionModel> listMissionModel = getMissionModelsFromCalendarModel(
+        calendarModel: calendarModel,
+        dateTimeStart: dateTimeStart,
+        dateTimeEnd: dateTimeEnd);
+    List<Map?> listFolderIds =
+        sortMissionModelListToFolderIds(listMissionModel);
+    List<TimeSegment> listTimeSegment = [];
+    listFolderIds.forEach((element) {
+      List<MissionModel> listMissionModel = element?['listMissionModels'];
+      String title = element?['folderTitle'];
+      String folderObjectId = element?['folderObjectId'];
+      FolderTimeModel folderTimeModel =
+          Utility.getFolderTimeModel(listMissionModel);
+      folderTimeModel.folderTitle = title;
+      folderTimeModel.folderObjectId = folderObjectId;
+      listFolderTimeModel.add(folderTimeModel);
+    });
+    listFolderTimeModel.forEach((element) {
+      listTimeSegment.add(TimeSegment(
+          label: element.folderTitle ?? '',
+          value: element.previewTime ?? 0,
+          color: Utility.getRandomColor(),
+          totalValue: element.previewTime ?? 0,
+          onTap: () => print("Segment 1 clicked")));
+    });
+    return [];
+  }
+
+  static List<MissionModel> getMissionModelsFromCalendarModel(
+      {required CalendarModel calendarModel,
+      required DateTime dateTimeStart,
+      required DateTime dateTimeEnd}) {
+    List<DayModel> listMissionModels = calendarModel.dayModelList;
+    List<MissionModel> list = [];
+    listMissionModels.forEach((element) {
+      list.addAll(element.missionModelList);
+    });
+    return list;
+  }
+
+  /**
+   * 将任务列表按照folder_id排序 放到listMissionModels中
+   * {"folderObjectId": element?.folder_id, "folderTitle": element?.title, "listMissionModels": []}
+   */
+  static List<Map?> sortMissionModelListToFolderIds(
+    List<MissionModel> listMissionModels,
+  ) {
+    List<String> listFolderObjectId = [];
+
+    List<Map?> list = [];
+
+    listMissionModels.forEach((element) {
+      if (!TextUtil.isEmpty(element.folder_id) &&
+          !listFolderObjectId.contains(element.folder_id)) {
+        listFolderObjectId.add(element.folder_id!);
+      } else {
+        listFolderObjectId.add("");
+      }
+    });
+    // 查询folder列表
+    List<FolderModel?> listFolderModels = MongoApisManager.getInstance()
+        .queryFolderModelListByObjectIdList(listFolderObjectId);
+    // 如果folder_id为空则添加一个空的folder
+    if (listFolderObjectId.contains("")) {
+      listFolderModels.add(FolderModel());
+    }
+    List colorExist = [];
+    listFolderModels.forEach((element) {
+      List<MissionModel> listTmp = [];
+      int color = element?.color != 0
+          ? (element?.color ?? Colors.orange.value)
+          : Colors.orange.value;
+      if (colorExist.contains(color)) {
+        color = Utility.getRandomColor().value;
+      }
+      colorExist.add(color);
+      if (element?.objectId == null) {
+        list.add({
+          "folderObjectId": null,
+          "folderTitle": getI18NKey().no_project_parenthese,
+          "color": color,
+          "listMissionModels": listTmp
+        });
+      } else {
+        list.add({
+          "folderObjectId": element?.objectId,
+          "folderTitle": element?.title,
+          "color": color,
+          "listMissionModels": listTmp
+        });
+      }
+    });
+    listMissionModels.forEach((element) {
+      for(int i = 0; i < list.length; i++){
+        if (element.folder_id == list[i]?['folderObjectId']) {
+          list[i]?['listMissionModels'].add(element);
+          break;
+        }
+      }
+      // list.forEach((element2) {
+      //   if (element.folder_id == element2?['folderObjectId']) {
+      //     if(element2?['listMissionModels'].contains(element) == false)
+      //       element2?['listMissionModels'].add(element);
+      //   }
+      // });
+    });
+
+    return list;
   }
 }

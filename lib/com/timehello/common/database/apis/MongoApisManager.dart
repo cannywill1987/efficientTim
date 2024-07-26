@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/MongoDb.dart';
 import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
@@ -46,6 +47,7 @@ import '../../../models/PresentModel.dart';
 import '../../../models/TimelineMissionModel.dart';
 import '../../../models/WQBFolderModel.dart';
 import '../../../page/loginPage/LoginPage.dart';
+import '../../../util/CloudSharepreferenceManagement.dart';
 import '../../../util/DeviceInfoManagement.dart';
 import '../../../util/DialogManagement.dart';
 import '../../../util/Perf.dart';
@@ -73,6 +75,7 @@ class MongoApisManager {
   bool hasLoadedStatsModels = false;
   bool hasInit = false;
   List<CourseModel> listCourseModel = [];
+  List<FolderModel> listSharingFolderModel = [];
   List<FlomoMissionModel> listFlomoMissionModel = [];
 
   /**
@@ -113,6 +116,7 @@ class MongoApisManager {
       listPresentModel = [];
       listEventCollectionModel = [];
       listChatGptMessageModel = [];
+      listSharingFolderModel = [];
       Utility.getGlobalContext().read<GlobalStateEnv>().listCourseModel =
           this.listCourseModel;
       Utility.getGlobalContext().read<GlobalStateEnv>().listFlomoMissionModel =
@@ -232,14 +236,19 @@ class MongoApisManager {
         // final perf = Perf();
         // perf.start();
         try {
-          await Future.wait([
+          Future.wait([
             queryWhereEqual_folderModel(), //初始化listFolderModel
+          ]).then((value) {
+            queryWhereEqual_missionData();
+          });
+          await Future.wait([
+            // queryWhereEqual_folderModel(), //初始化listFolderModel
             queryWhereEqual_groupModel(),
-            queryWhereEqual_missionData(),
             queryWhereEqual_FlomoMissionModel(),
             queryWhereEqual_sharePreferenceModel()
             // queryWhereEqual_creditModel()
           ]).then((value) {
+            // queryWhereEqual_missionData();
             Utility.reinitBottomCounter();
             // eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
             // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
@@ -271,8 +280,10 @@ class MongoApisManager {
     // print(installationId);
   }
 
-
-  Future delete_ChatGptFolderModel([String? objectId, bool shouldQueryModel = false, Function? callback]) async {
+  Future delete_ChatGptFolderModel(
+      [String? objectId,
+      bool shouldQueryModel = false,
+      Function? callback]) async {
     if (LoginManager.isLogin() == false) {
       Utility.showToastMsg(msg: getI18NKey().loginFirst);
       LoginManager.getInstance()
@@ -285,11 +296,14 @@ class MongoApisManager {
     ChatGptFolderModel chatGptFolderModel = ChatGptFolderModel();
     chatGptFolderModel.objectId = objectId;
     MongoDbHandled bmobHandled = await chatGptFolderModel.delete();
-    if(shouldQueryModel == true) {
+    if (shouldQueryModel == true) {
       await queryWhereEqual_ChatGptFolderModel(shouldRefresh: true);
     } else {
-      this.listChatGptFolderModel.removeWhere((element) => element.objectId == objectId);
-      context?.read<GlobalStateEnv>().listChatGptFolderModel = listChatGptFolderModel;
+      this
+          .listChatGptFolderModel
+          .removeWhere((element) => element.objectId == objectId);
+      context?.read<GlobalStateEnv>().listChatGptFolderModel =
+          listChatGptFolderModel;
     }
     // await queryWhereEqual_ChatGptFolderModel(shouldRefresh: true);
 
@@ -299,7 +313,6 @@ class MongoApisManager {
     Utility.print("删除一条数据成功：${bmobHandled.message}");
     return bmobHandled;
   }
-
 
   // 删除 CourseModel
   Future delete_CourseModel([String? objectId, Function? callback]) async {
@@ -419,7 +432,10 @@ class MongoApisManager {
   }
 
   Future<List<FolderModel>?> requestFolderModelByGroup(
-      {required String folderTeamWorkId,  String? groupChatPassword, required List<int> isSharingList, callback}) async {
+      {required String folderTeamWorkId,
+      String? groupChatPassword,
+      required List<int> isSharingList,
+      callback}) async {
     List<MongoDbQuery<FolderModel>> list = [];
     List<MongoDbQuery<FolderModel>> listOr = [];
 
@@ -429,9 +445,10 @@ class MongoApisManager {
     MongoDbQuery<FolderModel> query1 = MongoDbQuery();
     query1.addWhereEqualTo("folderTeamWorkId", folderTeamWorkId);
     list.add(query1);
-    if(TextUtil.isEmpty(groupChatPassword) == false) {
+    if (TextUtil.isEmpty(groupChatPassword) == false) {
       MongoDbQuery<FolderModel> query2 = MongoDbQuery();
-      list.add(query2..addWhereEqualTo("groupChatPassword", groupChatPassword ?? ""));
+      list.add(query2
+        ..addWhereEqualTo("groupChatPassword", groupChatPassword ?? ""));
     }
     isSharingList.forEach((element) {
       MongoDbQuery<FolderModel> query3 = MongoDbQuery();
@@ -450,7 +467,7 @@ class MongoApisManager {
 
     List<dynamic> data = await commonQuery.queryObjects();
     List<FolderModel> listTmp =
-    data.map((i) => FolderModel.fromJson(i)).toList();
+        data.map((i) => FolderModel.fromJson(i)).toList();
     if (callback != null) {
       callback(listTmp);
     }
@@ -818,6 +835,236 @@ class MongoApisManager {
     }
     return true;
   }
+  List<MissionModel> queryWhereEqual_missionDataByEndTime2(
+      {int? start_endTime,
+        int? end_endTime,
+        List<MissionModel>? listMissionModels,
+        DateTime? curDayModelDateTime,
+        // int? time_mode,
+        String? fid,
+        bool? isFinished,
+        int? repetiveType = null,
+        callback}) {
+    List<MissionModel> list = [];
+    List<MissionModel> listMissionModelsTmp =
+        listMissionModels ?? this.listMissionModels;
+    for (int i = 0; i < listMissionModelsTmp.length; i++) {
+      MissionModel model = listMissionModelsTmp[i];
+      if (start_endTime != null && end_endTime != null) {
+        if (model.time_mode == 1) {
+          //时间段 判断时间有没有交叉
+          // if (start_endTime != null && model.end_time! >= start_endTime) {
+          //   if (end_endTime != null && model.end_time! <= end_endTime) {
+          bool isIntersect = isIntersectDate1AndDate2(
+              startTime1: start_endTime,
+              endTime1: end_endTime,
+              startTime2: model.start_time,
+              endTime2: model.end_time);
+          if (isIntersect == true) {
+            if (repetiveType == null || model.repetiveType == repetiveType) {
+              if (fid == null || model.folder_id == fid) {
+                if (isFinished == null || model.isFinished == isFinished) {
+                  list.add(model);
+                }
+                // list.add(model);
+                //     }
+                //   }
+              }
+            }
+          }
+        } else {
+          if(model.repetiveType == 1) {
+            int repetiveValue = model.repetiveValue ?? 0;
+            DateTime dateTime = Utility.getYearMonthAndDayDateTimeByTimestamp(
+                model?.end_time ?? 0);
+            if (((dateTime.millisecondsSinceEpoch -
+                (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+                (repetiveValue * 24 * 60 * 60 * 1000) ==
+                0) &&
+                ((model?.end_time == null) ||
+                    ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+                        (model?.end_time ?? 0)))) {
+              // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+                if (repetiveType == null || model.repetiveType == repetiveType) {
+                  if (fid == null || model.folder_id == fid) {
+                    // if(time_mode == null || model.time_mode == time_mode) {
+                    if (isFinished == null || model.isFinished == isFinished) {
+                      list.add(model);
+                    }
+                    // }
+                  }
+                }
+
+            }
+          } else if(model.repetiveType == 2) {
+            int dailyStartTime = model?.daily_start_time ?? 0;
+            int dailyEndTime = model?.daily_end_time ?? 0;
+            Utility.getDateTimeFromTimeStamp(start_endTime);
+            DateTime startDateTime = Utility.getDateTimeFromTimeStamp(DateTime(
+                curDayModelDateTime?.year ?? 0,
+                curDayModelDateTime?.month ?? 0,
+                curDayModelDateTime?.day ?? 0,
+                curDayModelDateTime?.hour ?? 0)
+                .millisecondsSinceEpoch +
+                (dailyStartTime ?? 0));
+            DateTime endDateTime = Utility.getDateTimeFromTimeStamp(DateTime(
+                curDayModelDateTime?.year ?? 0,
+                curDayModelDateTime?.month ?? 0,
+                curDayModelDateTime?.day ?? 0,
+                curDayModelDateTime?.hour ?? 0)
+                .millisecondsSinceEpoch +
+                (dailyEndTime ?? 0));
+            DateTime curModelDateTime = dailyStartTime != 0 ? startDateTime : endDateTime;
+            DateTime dt = Utility.getDateTimeFromTimeStamp(start_endTime);
+            int weekDay = dt.weekday;
+            if(Utility.includeWeekDay(repetiveWeekDay: model?.repetiveWeekDay ?? [], weekDay: weekDay)) {
+
+              if(model.end_time == null || model.end_time == 0 || (model.end_time! >= end_endTime ))
+                if (repetiveType == null || model.repetiveType == repetiveType) {
+                  if (fid == null || model.folder_id == fid) {
+                    if (isFinished == null || model.isFinished == isFinished) {
+                      list.add(model);
+                    }
+                  }
+                }
+            }
+          } else    if(model.repetiveType == 3) {
+            // DateTime dateTimeDayModel = curDayModelDateTime ?? DateTime.now();
+            DateTime dateTimeMissionModel =
+            Utility.getYearMonthAndDayDateTimeByTimestamp(
+                model?.end_time ?? 0);
+
+            int yearMissionModel = dateTimeMissionModel.year;
+            int monthMissionModel = dateTimeMissionModel.month;
+            int dayMissionModel = dateTimeMissionModel.day;
+            int totalMonthDayModel = yearMissionModel * 12 + monthMissionModel;
+
+            int repetiveValueMissionModel = model?.repetiveValue ?? 0;
+            int totalMonthMissionModel = yearMissionModel * 12 + monthMissionModel;
+
+            if ((totalMonthMissionModel - totalMonthDayModel) %
+                (repetiveValueMissionModel) ==
+                0) {
+              DateTime dateTimeDayModel = curDayModelDateTime ?? DateTime.now();
+              int yearDayModel = dateTimeDayModel.year;
+              int monthDayModel = dateTimeDayModel.month;
+              int dayDayModel = dateTimeDayModel.day;
+              int totalMonthDayModel = yearDayModel * 12 + monthDayModel;
+              if ((totalMonthMissionModel - totalMonthDayModel) %
+                  (repetiveValueMissionModel) ==
+                  0) {
+                if (dayMissionModel == dayDayModel) {
+                  if (repetiveType == null ||
+                      model.repetiveType == repetiveType) {
+                    if (fid == null || model.folder_id == fid) {
+                      // if(time_mode == null || model.time_mode == time_mode) {
+                      if (isFinished == null ||
+                          model.isFinished == isFinished) {
+                        list.add(model);
+                      }
+                      // }
+                    }
+                  }
+                }
+              }
+            }
+
+              // if (dayMissionModel == dayDayModel) {
+              //   //~~~~~~~~~~~
+              //   if (((dateTime.millisecondsSinceEpoch -
+              //       (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+              //       (repetiveValue * 24 * 60 * 60 * 1000) ==
+              //       0) &&
+              //       ((model?.end_time == null) ||
+              //           ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+              //               (model?.end_time ?? 0)))) {
+              //     // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+              //     if (repetiveType == null || model.repetiveType == repetiveType) {
+              //       if (fid == null || model.folder_id == fid) {
+              //         // if(time_mode == null || model.time_mode == time_mode) {
+              //         if (isFinished == null || model.isFinished == isFinished) {
+              //           list.add(model);
+              //         }
+              //         // }
+              //       }
+              //     }
+              //
+              //   }
+              //   //~~~~~~~~~~
+              // }
+            // }
+            //
+            // int repetiveValue = model.repetiveValue ?? 0;
+            // DateTime dateTime = Utility.getYearMonthAndDayDateTimeByTimestamp(
+            //     model?.end_time ?? 0);
+            // if (((dateTime.millisecondsSinceEpoch -
+            //     (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+            //     (repetiveValue * 24 * 60 * 60 * 1000) ==
+            //     0) &&
+            //     ((model?.end_time == null) ||
+            //         ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+            //             (model?.end_time ?? 0)))) {
+            //   // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+            //   if (repetiveType == null || model.repetiveType == repetiveType) {
+            //     if (fid == null || model.folder_id == fid) {
+            //       // if(time_mode == null || model.time_mode == time_mode) {
+            //       if (isFinished == null || model.isFinished == isFinished) {
+            //         list.add(model);
+            //       }
+            //       // }
+            //     }
+            //   }
+
+            // }
+          } else{
+            if(start_endTime != null && model.end_time! >= start_endTime) {
+              if (end_endTime != null && model.end_time! <= end_endTime) {
+                // model.ic
+                if (repetiveType == null || model.repetiveType == repetiveType) {
+                  if (fid == null || model.folder_id == fid) {
+                    // if(time_mode == null || model.time_mode == time_mode) {
+                    if (isFinished == null || model.isFinished == isFinished) {
+                      list.add(model);
+                    }
+                    // }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else if (start_endTime != null && end_endTime == null) {
+        if (model.end_time! >= start_endTime) {
+          if (repetiveType == null || model.repetiveType == repetiveType) {
+            if (fid == null || model.folder_id == fid) {
+              // if(time_mode == null || model.time_mode == time_mode) {
+              if (isFinished == null || model.isFinished == isFinished) {
+                list.add(model);
+              }
+              // }
+            }
+          }
+        }
+      } else if (start_endTime == null && end_endTime != null) {
+        if (model.end_time! <= end_endTime) {
+          if (repetiveType == null || model.repetiveType == repetiveType) {
+            if (fid == null || model.folder_id == fid) {
+              if (isFinished == null || model.isFinished == isFinished) {
+                list.add(model);
+              }
+            }
+          }
+        }
+      } else {
+        if (fid == null || model.folder_id == fid) {
+          if (isFinished == null || model.isFinished == isFinished) {
+            list.add(model);
+          }
+        }
+      }
+    }
+    return list;
+  }
 
   /**
    * 等于条件查询
@@ -829,7 +1076,7 @@ class MongoApisManager {
       List<MissionModel>? listMissionModels,
       // int? time_mode,
       String? fid,
-        bool? isFinished,
+      bool? isFinished,
       int? repetiveType = null,
       callback}) {
     List<MissionModel> list = [];
@@ -850,7 +1097,7 @@ class MongoApisManager {
           if (isIntersect == true) {
             if (repetiveType == null || model.repetiveType == repetiveType) {
               if (fid == null || model.folder_id == fid) {
-                if(isFinished == null || model.isFinished == isFinished) {
+                if (isFinished == null || model.isFinished == isFinished) {
                   list.add(model);
                 }
                 // list.add(model);
@@ -866,7 +1113,7 @@ class MongoApisManager {
               if (repetiveType == null || model.repetiveType == repetiveType) {
                 if (fid == null || model.folder_id == fid) {
                   // if(time_mode == null || model.time_mode == time_mode) {
-                  if(isFinished == null || model.isFinished == isFinished) {
+                  if (isFinished == null || model.isFinished == isFinished) {
                     list.add(model);
                   }
                   // }
@@ -880,7 +1127,7 @@ class MongoApisManager {
           if (repetiveType == null || model.repetiveType == repetiveType) {
             if (fid == null || model.folder_id == fid) {
               // if(time_mode == null || model.time_mode == time_mode) {
-              if(isFinished == null || model.isFinished == isFinished) {
+              if (isFinished == null || model.isFinished == isFinished) {
                 list.add(model);
               }
               // }
@@ -891,7 +1138,7 @@ class MongoApisManager {
         if (model.end_time! <= end_endTime) {
           if (repetiveType == null || model.repetiveType == repetiveType) {
             if (fid == null || model.folder_id == fid) {
-              if(isFinished == null || model.isFinished == isFinished) {
+              if (isFinished == null || model.isFinished == isFinished) {
                 list.add(model);
               }
             }
@@ -899,7 +1146,7 @@ class MongoApisManager {
         }
       } else {
         if (fid == null || model.folder_id == fid) {
-          if(isFinished == null || model.isFinished == isFinished) {
+          if (isFinished == null || model.isFinished == isFinished) {
             list.add(model);
           }
         }
@@ -1557,13 +1804,15 @@ class MongoApisManager {
 
     this.hasLoadedMissionModels = true;
     MongoDbQuery<MissionModel> query = MongoDbQuery();
+    MongoDbQuery<MissionModel> queryOr = MongoDbQuery();
     MongoDbQuery<MissionModel> queryUid = MongoDbQuery();
+    MongoDbQuery<MissionModel> queryAll = MongoDbQuery();
     MongoDbQuery<MissionModel> queryUidAndDeviceId = MongoDbQuery();
 
     MongoDbQuery<MissionModel>? query1, query2, query3, query4, query5, query6;
 
-    MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
-    queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
+    // MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
+    // queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
 
     List<MongoDbQuery<MissionModel>> list2 = [];
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
@@ -1573,9 +1822,23 @@ class MongoApisManager {
       queryUid.addWhereEqualTo("uid", uid ?? '');
       list2.add(queryUid);
     }
-    list2.add(queryDeviceId);
-
-    queryUidAndDeviceId.or(list2);
+    // list2.add(queryDeviceId);
+    if(list2.length == 1) {
+      queryUidAndDeviceId = list2[0];
+    } else {
+      queryUidAndDeviceId.or(list2);
+    }
+    List<MongoDbQuery<MissionModel>> listSharingFolderModel = [];
+    if (this.listSharingFolderModel != null) {
+      this.listSharingFolderModel.forEach((element) {
+        if (element.objectId != null) {
+          MongoDbQuery<MissionModel> querySharingFolderModel = MongoDbQuery();
+          querySharingFolderModel.addWhereEqualTo(
+              "folder_id", element.objectId!);
+          listSharingFolderModel.add(querySharingFolderModel);
+        }
+      });
+    }
 
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
@@ -1610,13 +1873,23 @@ class MongoApisManager {
     if (query5 != null) list.add(query5);
     if (query6 != null) list.add(query6);
     if (query2 != null) list.add(query2);
+    // if (queryOr != null) list.add(queryOr);
+    // if(listSharingFolderModel.length > 0) {
+    //   list.addAll(listSharingFolderModel);
+    // }
     query.and(list);
-    query.skip = 0;
-    query.limit = 100000;
+    if(listSharingFolderModel.length > 0) {
+      queryOr.or(listSharingFolderModel);
+      queryAll.or([query, queryOr]);
+    } else {
+      queryAll = query;
+    }
+    queryAll.skip = 0;
+    queryAll.limit = 100000;
     // BmobAcl bmobAcl = BmobAcl();
     // bmobAcl.addRoleReadAccess(user.getObjectId(), true);
     // query.addWhereEqualTo("title", "博客标题");
-    List<dynamic> data = await query.queryObjects();
+    List<dynamic> data = await queryAll.queryObjects();
     // Utility.print(data.toString());
     List<MissionModel> missionModels = [];
     missionModels = data.map((i) {
@@ -1656,7 +1929,15 @@ class MongoApisManager {
     //批量解密需要解密的 cryptoVersion=0的 -1不需要解密
     missionModels = await CryptoManager.getInstance()
         .batchDecryptMissionModels(missionModels);
-    this.listMissionModels = missionModels;
+    if(missionModels != null && missionModels.length == 0 &&
+        Params.isFirstTime == true) {
+      CloudSharepreferenceManagement.getInstance()
+          .setBool("IsFirstTime", false);
+      MongoApisManager.getInstance().batchInsert_MissionModels(
+          listParam: CONSTANTS.getGuideMissionModels());
+    } else {
+      this.listMissionModels = missionModels;
+    }
     //用于缓存专注时离开app再次进入时的数据 防止销毁的情况发生
     await Utility.initCalendarModel();
     if (callback != null) {
@@ -1718,7 +1999,11 @@ class MongoApisManager {
     }
     list2.add(queryDeviceId);
 
-    queryUidAndDeviceId.or(list2);
+    if(list2.length == 1) {
+      queryUidAndDeviceId = list2[0];
+    } else {
+      queryUidAndDeviceId.or(list2);
+    }
 
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
@@ -1896,8 +2181,11 @@ class MongoApisManager {
     }
     list2.add(queryDeviceId);
 
-    queryUidAndDeviceId.or(list2);
-
+    if(list2.length == 1) {
+      queryUidAndDeviceId = list2[0];
+    } else {
+      queryUidAndDeviceId.or(list2);
+    }
     if (TextUtil.isEmpty(folder_id) != true) {
       query1 = MongoDbQuery();
       query1.addWhereEqualTo("folder_id", folder_id ?? "");
@@ -2013,8 +2301,8 @@ class MongoApisManager {
         query5,
         query6;
 
-    MongoDbQuery<TimelineMissionModel> queryDeviceId = MongoDbQuery();
-    queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
+    // MongoDbQuery<TimelineMissionModel> queryDeviceId = MongoDbQuery();
+    // queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
 
     List<MongoDbQuery<TimelineMissionModel>> list2 = [];
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
@@ -2024,7 +2312,7 @@ class MongoApisManager {
       queryUid.addWhereEqualTo("uid", uid ?? "");
       list2.add(queryUid);
     }
-    list2.add(queryDeviceId);
+    // list2.add(queryDeviceId);
 
     queryUidAndDeviceId.or(list2);
 
@@ -2433,12 +2721,12 @@ class MongoApisManager {
       query1.addWhereEqualTo("uid", uid ?? "");
       list.add(query1);
     }
-    if (!TextUtil.isEmpty(this.device_id)) {
-      MongoDbQuery<FolderModel> query2 = MongoDbQuery();
-      query2.addWhereEqualTo(
-          "device_id", this.device_id ?? ""); //todo 这里有问题 闪屏页进来拿到空的数据
-      list.add(query2);
-    }
+    // if (!TextUtil.isEmpty(this.device_id)) {
+    //   MongoDbQuery<FolderModel> query2 = MongoDbQuery();
+    //   query2.addWhereEqualTo(
+    //       "device_id", this.device_id ?? ""); //todo 这里有问题 闪屏页进来拿到空的数据
+    //   list.add(query2);
+    // }
 
     MongoDbQuery<FolderModel> query3 = MongoDbQuery();
     if (uid?.isNotEmpty == true) {
@@ -2458,7 +2746,7 @@ class MongoApisManager {
       Utility.print(e);
     }
     folderModelList.forEach((element) {
-      if (TextUtil.isEmpty(element.uid) == true) {
+      if (TextUtil.isEmpty(element.uid) == true && (element.isSharing == 0)) {
         element.uid =
             !TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
                 ? LoginManager.getInstance().getUserBean().uid
@@ -2477,6 +2765,8 @@ class MongoApisManager {
     this.hasLoadedFolderModels = true;
     // folderModelList = await CryptoManager.getInstance().batchDecryptFolderModels(folderModelList);
     this.listFolderModels = folderModelList;
+    this.listSharingFolderModel =
+        Utility.getFolderIdsForSharing123OtherUser(this.listFolderModels ?? []);
     Utility.getGlobalContext().read<GlobalStateEnv>().listFolderModels =
         folderModelList;
     // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
@@ -2659,7 +2949,7 @@ class MongoApisManager {
     query.limit = 100000;
     List<dynamic> data = await query.queryObjects();
     List<ChatGptFolderModel> listChatGptFolderModel =
-    data.map((i) => ChatGptFolderModel.fromJson(i)).toList();
+        data.map((i) => ChatGptFolderModel.fromJson(i)).toList();
     listChatGptFolderModel.forEach((element) {
       if (TextUtil.isEmpty(element.uid) == true) {
         element.uid = LoginManager.getInstance().getUid();
@@ -2675,7 +2965,8 @@ class MongoApisManager {
     if (callback != null) {
       callback(listChatGptFolderModel);
     }
-    context?.read<GlobalStateEnv>().listChatGptFolderModel = this.listChatGptFolderModel;
+    context?.read<GlobalStateEnv>().listChatGptFolderModel =
+        this.listChatGptFolderModel;
     return this.listChatGptFolderModel;
   }
 
@@ -2809,13 +3100,13 @@ class MongoApisManager {
     return folderModelList.length > 0 ? true : false;
   }
 
-  Future<bool> isTagNameExist_folderModel({title, callback}) async {
+  Future<bool> isTagNameExist_folderModel({required FolderModel folderModel, callback}) async {
     MongoDbQuery<FolderModel> query = MongoDbQuery();
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
         ? ''
         : LoginManager.getInstance().getUserBean().uid;
     query.addWhereEqualTo("uid", uid ?? '');
-    query.addWhereEqualTo("title", title);
+    query.addWhereEqualTo("title", folderModel?.title ?? "");
 
     query.setLimit(1);
     query.setSkip(0);
@@ -2828,15 +3119,29 @@ class MongoApisManager {
         data.map((i) => FolderModel.fromJson(i)).toList();
     for (FolderModel folderModel in folderModelList) {
       if (folderModel != null) {
+        if(folderModel.title == folderModel.title && folderModel.tag == folderModel.tag) {
+          return true;
+        }
         // print(folderModel.objectId);
         // print(folderModel.title);
         // print(missionModel.content);
       }
     }
-    if (callback != null) {
-      callback(folderModelList.length > 0 ? true : false);
-    }
-    return folderModelList.length > 0 ? true : false;
+    // if (callback != null) {
+    //   if(folderModelList.length > 0) {
+    //     FolderModel folderModelTmp = folderModelList[0];
+    //     callback((folderModelTmp.title == folderModel.title && folderModelTmp.tag == folderModel.tag) ? true : false);
+    //   } else {
+    //     callback(false);
+    //   }
+    //
+    // }
+    // if(folderModelList.length > 0) {
+    //   FolderModel folderModelTmp = folderModelList[0];
+    //   return (folderModelTmp.title == folderModel.title && folderModelTmp.tag == folderModel.tag) ? true : false;
+    // } else {
+      return false;
+    // }
   }
 
   ///修改一条数据
@@ -3011,14 +3316,27 @@ class MongoApisManager {
         // });
         return null;
       }
-      FolderModel missionModelTmp = folderModel ?? FolderModel();
-      missionModelTmp.uid =
+      FolderModel folderModelTmp = folderModel ?? FolderModel();
+      folderModelTmp.uid =
           TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
               ? ''
               : LoginManager.getInstance().getUserBean().uid;
-      missionModelTmp.device_id = this.device_id;
-
-      MongoDbSaved? bmobSaved = await missionModelTmp.save();
+      folderModelTmp.device_id = this.device_id;
+//如果foldermodel没添加管理员，补充下
+      if (folderModelTmp.userInfoBean == null &&
+          folderModelTmp.uid == LoginManager.getInstance().userBean.uid) {
+        folderModelTmp.userInfo =
+            ChatGroupManager.getUserInfoBean(role: 0).toJson();
+      }
+      if ((folderModelTmp.otherUids == null ||
+              folderModelTmp.otherUids?.length == 0) &&
+          folderModelTmp.uid == LoginManager.getInstance().userBean.uid) {
+        folderModelTmp.otherUids = [folderModelTmp.uid];
+        folderModelTmp.otherUserInfo = [
+          ChatGroupManager.getUserInfoBean(role: 1).toJson()
+        ];
+      }
+      MongoDbSaved? bmobSaved = await folderModelTmp.save();
       await queryWhereEqual_folderModel(shouldRefresh: true);
       String message =
           "创建一条数据成功：${bmobSaved?.objectId} - ${bmobSaved?.createdAt}";
@@ -3212,6 +3530,14 @@ class MongoApisManager {
   Future<MongoDbSaved?> insertGroupModelModel(
       {required GroupModel groupModel, Function? callback}) async {
     try {
+      if (ChatGroupManager.isFolderModelEnabled(
+              folderId: groupModel.folder_id ?? "",
+              uid: LoginManager.getInstance().userBean.uid ?? "") ==
+          false) {
+        Utility.showToastMsg(
+            context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+        return null;
+      }
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
         Utility.showToastMsg(msg: getI18NKey().loginFirst);
@@ -3416,6 +3742,11 @@ class MongoApisManager {
       if (callback != null) {
         callback(bmobSaved);
       }
+      int insertMissionCount = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.insertMissionCount, defaultVal: 0);
+      if(insertMissionCount == 3) {
+        DialogManagement.showRatingDialog(Utility.getGlobalContext(), scene: EVENTNAME.INSERT_MISSION);
+      }
+      SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.insertMissionCount, value: insertMissionCount + 1);
       String? objectId = bmobSaved?.objectId;
       if (objectId?.isEmpty == false) {
         // String id = Utility.getObjectIdWithId(objectId ?? "");
@@ -3609,7 +3940,7 @@ class MongoApisManager {
       FolderModel folderModel = FolderModel();
       folderModel.layoutType = layoutType;
       // folderModel.id = id;
-      if(tag == 1) {
+      if (tag == 1) {
         folderModel.folderTeamWorkId = Utility.getGroupId();
       }
       folderModel.cryptoVersion = cryptoVersion;
@@ -3661,7 +3992,7 @@ class MongoApisManager {
                 tagColor: folderModel.tagColor,
                 timelineMessage: getI18NKey().create_name_tag(title)));
       }
-      if (await isTagNameExist_folderModel(title: title) == true) {
+      if (await isTagNameExist_folderModel(folderModel: folderModel) == true) {
         if (callback != null) {
           callback(null);
         }
@@ -3935,6 +4266,101 @@ class MongoApisManager {
     return true;
   }
 
+  Future<MongoDbSaved?> copy_MissionModel(
+      {required MissionModel missionModel,
+        bool shouldCheckPermission = true,
+        bool shouldQueryMissionModel = true,
+        Function? callback}) async {
+    if (shouldCheckPermission == true &&
+        ChatGroupManager.isFolderModelEnabled(
+            folderId: missionModel.folder_id ?? "",
+            uid: LoginManager.getInstance().userBean.uid ?? "") ==
+            false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
+    missionModel.objectId = null;
+    missionModel.noteSmallUrls = [];
+    missionModel.noteBigUrls = [];
+    missionModel.noteOriginUrls = [];
+    missionModel.noteRichContentUrl = ""; //知识点错题本 如果是富文本就是Url
+    missionModel.noteRecordUrls = []; //录音url
+    missionModel.subMissionModels=[];
+
+    // eventBus.fire(Params.ACTION_UPDATE_SETTING_ITEM_DETAIL, {"objectId": missionModel.objectId});
+    try {
+      MissionModel missionModelTmp = missionModel ?? MissionModel();
+      bool validate = validMissionModel(missionModel: missionModelTmp);
+      if (validate == false) {
+        return null;
+      }
+      MongoDbSaved? mongoDbSaved;
+      mongoDbSaved = await missionModelTmp.save();
+
+      if (shouldQueryMissionModel == true) {
+        await queryWhereEqual_missionData(
+          shouldRefresh: true,
+        ); //更新 missionModels
+      } else {
+        // 更新 missionModels  todo 有问题 没更新
+        for (int i = 0; i < this.listMissionModels.length; i++) {
+          if (this.listMissionModels[i].objectId == missionModelTmp.objectId) {
+            this.listMissionModels[i] = missionModelTmp;
+            print("");
+          }
+        }
+        missionModelTmp.objectId = mongoDbSaved?.objectId;
+        this.listMissionModels.add(missionModelTmp);
+        // context?.read<GlobalStateEnv>().listMissionModels =
+        //     this.listMissionModels;
+        // this.listMissionModels = missionModels;
+      }
+      if (TextUtil.isEmpty(missionModelTmp.folder_id) == true) {
+        MongoDbSaved? res = await MongoApisManager.getInstance()
+            .insertTimelineMissionModel(
+            missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                icon: Icons.check_circle.codePoint,
+                color: Colors.greenAccent.value,
+                missionModel: missionModel,
+                sceneType: "mission",
+                eventType: "copy_mission",
+                timelineMessage: getI18NKey()
+                    .update_name_mission2(missionModel.title ?? "?")));
+      } else {
+        FolderModel? folderModel = MongoApisManager.getInstance()
+            .queryWhereEqualFolderModelByObjectId(
+            objectId: missionModelTmp.folder_id) ??
+            null;
+        MongoDbSaved? res = await MongoApisManager.getInstance()
+            .insertTimelineMissionModel(
+            missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                icon: Icons.check_circle.codePoint,
+                color: Colors.greenAccent.value,
+                missionModel: missionModel,
+                sceneType: "mission",
+                eventType: "copy_mission",
+                timelineMessage: getI18NKey().copy_mission_model(
+                    missionModel.title ?? "")));
+      }
+//如果计数中需要更新missionModel
+//       CounterManagement.getInstance().updateMissionModel(missionModel);
+//       eventBus.fire(EventFn(
+//           Params.ACTION_UPDATE_TIME_MANAGEMENT_PAGE, {"data": missionModelTmp}));
+      // String id = Utility.getObjectIdWithId(missionModelTmp.objectId);
+      // if (callback != null) {
+      //   callback(mongoDbSaved);
+      // }
+        context?.read<GlobalStateEnv>().listMissionModels =
+            this.listMissionModels;
+      Utility.initCalendarModel();
+      // print("修改一条数据成功：${mongoDbSaved.message}");
+      return mongoDbSaved;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
   ///修改一条数据
   Future<MongoDbUpdated?> update_MissionModel(
       {required MissionModel missionModel,
@@ -4078,11 +4504,10 @@ class MongoApisManager {
     return bmobUpdated;
   }
 
-
-
   Future<MongoDbUpdated?> update_ChatGptFolderModel(
       {ChatGptFolderModel? chatGptFolderModel, Function? callback}) async {
-    ChatGptFolderModel chatGptFolderModelTmp = chatGptFolderModel ?? ChatGptFolderModel();
+    ChatGptFolderModel chatGptFolderModelTmp =
+        chatGptFolderModel ?? ChatGptFolderModel();
     MongoDbUpdated bmobUpdated = await chatGptFolderModelTmp.update();
     await queryWhereEqual_ChatGptFolderModel(
       shouldRefresh: true,
@@ -4112,6 +4537,14 @@ class MongoApisManager {
       {GroupModel? groupModel,
       bool shouldQueryMissionModel = true,
       Function? callback}) async {
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: groupModel?.folder_id ?? "",
+            uid: LoginManager.getInstance().userBean.uid ?? "") ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
     GroupModel billModelTmp = groupModel ?? GroupModel();
     MongoDbUpdated bmobUpdated = await billModelTmp.update();
     if (shouldQueryMissionModel == true) {
@@ -4196,8 +4629,30 @@ class MongoApisManager {
   ///修改一条数据
   Future<MongoDbUpdated?> update_FolderModelWithFM(
       {required FolderModel folderModel,
+      bool shouldCheckPermission = true,
       bool shouldQueryMissionModel = true,
       Function? callback}) async {
+    if (shouldCheckPermission &&
+        ChatGroupManager.isFolderModelEnabled(
+                folderId: folderModel.objectId ?? "",
+                uid: LoginManager.getInstance().userBean.uid ?? "") ==
+            false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
+    //如果foldermodel没添加管理员，补充下
+    if (folderModel.userInfoBean == null &&
+        folderModel.uid == LoginManager.getInstance().userBean.uid) {
+      folderModel.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+    }
+    if ((folderModel.otherUids == null || folderModel.otherUids?.length == 0) &&
+        folderModel.uid == LoginManager.getInstance().userBean.uid) {
+      folderModel.otherUids = [folderModel.uid];
+      folderModel.otherUserInfo = [
+        ChatGroupManager.getUserInfoBean(role: 1).toJson()
+      ];
+    }
     FolderModel folderModelTmp = folderModel ?? FolderModel();
     MongoDbUpdated bmobUpdated = await folderModelTmp.update();
     if (shouldQueryMissionModel == true) {
@@ -4337,10 +4792,26 @@ class MongoApisManager {
       if (!TextUtil.isEmpty(number)) {
         folderModel.number = number;
       }
-      folderModel.uid =
-          TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
-              ? ''
-              : LoginManager.getInstance().getUserBean().uid;
+      if (TextUtil.isEmpty(folderModel.uid)) {
+        folderModel.uid =
+            TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+                ? ''
+                : LoginManager.getInstance().getUserBean().uid;
+      }
+      //如果foldermodel没添加管理员，补充下
+      if (folderModel.userInfoBean == null &&
+          folderModel.uid == LoginManager.getInstance().userBean.uid) {
+        folderModel.userInfo =
+            ChatGroupManager.getUserInfoBean(role: 0).toJson();
+      }
+      if ((folderModel.otherUids == null ||
+              folderModel.otherUids?.length == 0) &&
+          folderModel.uid == LoginManager.getInstance().userBean.uid) {
+        folderModel.otherUids = [folderModel.uid];
+        folderModel.otherUserInfo = [
+          ChatGroupManager.getUserInfoBean(role: 1).toJson()
+        ];
+      }
       // folderModel.update_time = Utility.getTimeStamp();
       MongoDbUpdated bmobUpdated = await folderModel.update();
       await queryWhereEqual_folderModel(shouldRefresh: shouldRefresh);
@@ -4407,7 +4878,7 @@ class MongoApisManager {
    * 用于更新群id
    * 主要是以前folderTeamWorkId没有值的时候
    */
-   batchUpdate_folderModelWithGroupId() async {
+  batchUpdate_folderModelWithGroupId() async {
     List<FolderModel> listFolderModel = this.listFolderModels;
     List<FolderModel> listFolderModelTmp = [];
     listFolderModel.forEach((element) {
@@ -4416,16 +4887,28 @@ class MongoApisManager {
         listFolderModelTmp.add(element);
       }
     });
-    if(listFolderModelTmp.length > 0) {
+    if (listFolderModelTmp.length > 0) {
       return batchUpdate_folderModelWithParams(
           listFolderModel: listFolderModelTmp);
     }
-
   }
 
   Future<List> batchUpdate_folderModelWithParams(
       {required List<FolderModel> listFolderModel, Function? callback}) async {
     MongoDbBatch batch = MongoDbBatch();
+    listFolderModels.forEach((element) {
+      if (element.userInfoBean == null &&
+          element.uid == LoginManager.getInstance().userBean.uid) {
+        element.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+      }
+      if ((element.otherUids == null || element.otherUids?.length == 0) &&
+          element.uid == LoginManager.getInstance().userBean.uid) {
+        element.otherUids = [element.uid];
+        element.otherUserInfo = [
+          ChatGroupManager.getUserInfoBean(role: 1).toJson()
+        ];
+      }
+    });
     //先批量加密 query那会批量解密
     List list = await batch.updateBatch(listFolderModel);
     if (callback != null) {
@@ -4607,6 +5090,17 @@ class MongoApisManager {
             TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
                 ? ''
                 : LoginManager.getInstance().getUserBean().uid;
+        if (element.userInfoBean == null &&
+            element.uid == LoginManager.getInstance().userBean.uid) {
+          element.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+        }
+        if ((element.otherUids == null || element.otherUids?.length == 0) &&
+            element.uid == LoginManager.getInstance().userBean.uid) {
+          element.otherUids = [element.uid];
+          element.otherUserInfo = [
+            ChatGroupManager.getUserInfoBean(role: 1).toJson()
+          ];
+        }
         listParamUidNull.add(element);
       }
     });
@@ -4639,6 +5133,17 @@ class MongoApisManager {
     List<FolderModel> listParam = [];
     listFolderModelTmp.forEach((element) {
       //如果不是分享的图片 表示都是自己创建的
+      if (element.userInfoBean == null &&
+          element.uid == LoginManager.getInstance().userBean.uid) {
+        element.userInfo = ChatGroupManager.getUserInfoBean(role: 0).toJson();
+      }
+      if ((element.otherUids == null || element.otherUids?.length == 0) &&
+          element.uid == LoginManager.getInstance().userBean.uid) {
+        element.otherUids = [element.uid];
+        element.otherUserInfo = [
+          ChatGroupManager.getUserInfoBean(role: 1).toJson()
+        ];
+      }
       if (element.isSharing == 0 && (element.otherUids?.length ?? 0) == 0) {
         listParam.add(element);
       }
@@ -5095,6 +5600,14 @@ class MongoApisManager {
     if (currentObjectId != null) {
       GroupModel groupModel = GroupModel();
       groupModel.objectId = currentObjectId;
+      if (ChatGroupManager.isFolderModelEnabled(
+              folderId: groupModel.folder_id ?? "",
+              uid: LoginManager.getInstance().userBean.uid ?? "") ==
+          false) {
+        Utility.showToastMsg(
+            context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+        return null;
+      }
       MongoDbHandled bmobHandled = await groupModel.delete();
       await queryWhereEqual_groupModel(shouldRefresh: true);
       if (callback != null) {
@@ -5249,8 +5762,7 @@ class MongoApisManager {
   /**
    * ai助手用
    */
-  List<ChatGptMessageModel> getChatGptMessageModelListByObjectId(
-      String fid) {
+  List<ChatGptMessageModel> getChatGptMessageModelListByObjectId(String fid) {
     List<ChatGptMessageModel> list = [];
     this.listChatGptMessageModel.forEach((element) {
       if (element.fid == fid) {
@@ -5417,7 +5929,6 @@ class MongoApisManager {
     }
   }
 
-
   Future<MongoDbSaved?> insertBillModel(
       {BillModel? billModel, Function? callback}) async {
     try {
@@ -5442,11 +5953,9 @@ class MongoApisManager {
   }
 
   Future<MongoDbSaved?> insertAndUpdateUserInfoModel(
-      {required UserInfoModel userInfoModel,
-        Function? callback}) async {
+      {required UserInfoModel userInfoModel, Function? callback}) async {
     try {
-
-      if(TextUtil.isEmpty(userInfoModel.uid)) {
+      if (TextUtil.isEmpty(userInfoModel.uid)) {
         userInfoModel.uid = LoginManager.getInstance().getUid();
         User user = User();
         user.setObjectId(LoginManager.getInstance().getUid());
@@ -5543,7 +6052,7 @@ class MongoApisManager {
     if (callback != null) {
       callback(listTmp);
     }
-    if(listTmp.length > 0) {
+    if (listTmp.length > 0) {
       return listTmp[0];
     } else {
       return null;
@@ -5828,9 +6337,9 @@ class MongoApisManager {
     MongoDbBatch batch = MongoDbBatch();
     listParam?.forEach((element) {
       element.uid =
-      TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
-          ? ''
-          : LoginManager.getInstance().getUserBean().uid;
+          TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+              ? ''
+              : LoginManager.getInstance().getUserBean().uid;
     });
     List list = await batch.deleteBatch(listParam ?? []);
     await queryWhereEqual_ChatGptFolderModel(shouldRefresh: true);
@@ -5839,8 +6348,6 @@ class MongoApisManager {
     }
     return list;
   }
-
-
 
   batchDelete_GroupModel(
       {List<GroupModel>? listParam, Function? callback}) async {

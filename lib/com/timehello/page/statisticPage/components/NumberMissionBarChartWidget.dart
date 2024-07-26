@@ -65,11 +65,10 @@ class NumberMissionBarChartWidgetState extends State<NumberMissionBarChartWidget
         x: i,
         barRods: [
           BarChartRodData(
-            y: y,
             width: barWidth,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(6), topRight: Radius.circular(6)),
-            rodStackItems: listBarChartRodStackItem,
+            rodStackItems: listBarChartRodStackItem, toY: y,
           ),
         ],
       ));
@@ -132,106 +131,110 @@ class NumberMissionBarChartWidgetState extends State<NumberMissionBarChartWidget
     // print("maxVal:" + this.maxYVal.toString());
     // width = context.findRenderObject().paintBounds.size.width;
     return CardContainer(title: getI18NKey().missionNums, child:BarChart(
-      BarChartData(
-        barTouchData: BarTouchData(enabled:true,  touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Colors.white,
-            fitInsideHorizontally: true,
-            fitInsideVertically: true,
-            getTooltipItem: (BarChartGroupData group,
-                int groupIndex,
-                BarChartRodData rod,
-                int rodIndex) {
+        BarChartData(
+          barTouchData: BarTouchData(
+            enabled: true,
+            touchTooltipData: BarTouchTooltipData(
+              getTooltipColor: (e) {
+                return Colors.white;
+              },
+              fitInsideHorizontally: true,
+              fitInsideVertically: true,
+              getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 //tooltip提示点这里需要在处理乘以base
                 return BarTooltipItem(
-                  '${(rod.y * this.base).toStringAsFixed(0)}',
+                  '${(rod.toY * this.base).toStringAsFixed(0)}',
                   const TextStyle(
-                      color: Colors.black87,
-                      fontFamily: 'NeueMontreal',
-                      letterSpacing: 0.9,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12),
+                    color: Colors.black87,
+                    fontFamily: 'NeueMontreal',
+                    letterSpacing: 0.9,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
                 );
-
-            })),
-        alignment: BarChartAlignment.center,
-        minY: 0,
-        maxY: (this.maxYVal.toDouble() < 5) ? this.maxYVal.toDouble() * 4 : this.maxYVal.toDouble(),
-        groupsSpace: this.getGroupSpace(),
-        titlesData: FlTitlesData(
-          show: true,
-          bottomTitles: SideTitles(
-            showTitles: true,
-            getTextStyles: (context, value) =>
-                TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
-            margin: 10,
-            rotateAngle: 0,
-            getTitles: (double value) {
-              //根据bargroups数量返回
-              if (this.xList.length > value.toInt()) {
-                return Utility.filterXAxis(this.xList[value.toInt()]);
-              }
-              return "";
-            },
+              },
+            ),
           ),
-          leftTitles: SideTitles(
-            showTitles: true,
-            getTextStyles: (context, value) =>
-                TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
-            rotateAngle: 45,
-            getTitles: (double value) {
-              //每一格都是5的跳动
-              if (value == 0) {
-                return '0';
-              }
-              return '${value.toInt() * base}' + unit;
-            },
-            interval: this.interval,
-            margin: 8,
-            reservedSize: 30,
-          ),
-        ),
-        gridData: FlGridData(
-          show: true,
-          drawVerticalLine: true,
-          drawHorizontalLine: true,
-          verticalInterval: verticalInterVal.toDouble(),
-          checkToShowVerticalLine: (value) {
-            return value % verticalInterVal == 0;
-          },
-          checkToShowHorizontalLine: (value) {
-            return value % horizontalLineInterVal == 0;
-          },
-          getDrawingVerticalLine: (value) {
-            if (value == 0) {
-              return FlLine(
-                  color: ColorsConfig.statisticLine, strokeWidth: 3);
-            }
-            return FlLine(
-              color: ColorsConfig.statisticLine,
-              strokeWidth: 0.8,
-            );
-          },
-          getDrawingHorizontalLine: (value) {
-            // if (value == 0) {
-            //   return FlLine(
-            //       color: const Color(0xff363753), strokeWidth: 3);
-            // }
-            return FlLine(
-              color: ColorsConfig.statisticLine,
-              strokeWidth: 0.8,
-            );
-          },
-        ),
-        borderData: FlBorderData(
+          alignment: BarChartAlignment.center,
+          minY: 0,
+          maxY: (this.maxYVal.toDouble() < 5) ? this.maxYVal.toDouble() * 4 : this.maxYVal.toDouble(),
+          groupsSpace: this.getGroupSpace(),
+          titlesData: FlTitlesData(
             show: true,
-            border:  Border.all(
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 30,
+                getTitlesWidget: (value, meta) {
+                  if (this.xList.length > value.toInt()) {
+                    return Text(
+                      Utility.filterXAxis(this.xList[value.toInt()]),
+                      style: TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
+                    );
+                  }
+                  return Text("");
+                },
+                // margin: 10,
+              ),
+            ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 30,
+                getTitlesWidget: (value, meta) {
+                  if (value == 0) {
+                    return Text('0');
+                  }
+                  return Text(
+                    '${value.toInt() * base}$unit',
+                    style: TextStyle(color: ColorsConfig.statisticText, fontSize: 10),
+                  );
+                },
+                interval: this.interval,
+                // margin: 8,
+              ),
+            ),
+          ),
+          gridData: FlGridData(
+            show: true,
+            drawVerticalLine: true,
+            drawHorizontalLine: true,
+            verticalInterval: verticalInterVal.toDouble(),
+            checkToShowVerticalLine: (value) {
+              return value % verticalInterVal == 0;
+            },
+            checkToShowHorizontalLine: (value) {
+              return value % horizontalLineInterVal == 0;
+            },
+            getDrawingVerticalLine: (value) {
+              if (value == 0) {
+                return FlLine(
+                  color: ColorsConfig.statisticLine,
+                  strokeWidth: 3,
+                );
+              }
+              return FlLine(
+                color: ColorsConfig.statisticLine,
+                strokeWidth: 0.8,
+              );
+            },
+            getDrawingHorizontalLine: (value) {
+              return FlLine(
+                color: ColorsConfig.statisticLine,
+                strokeWidth: 0.8,
+              );
+            },
+          ),
+          borderData: FlBorderData(
+            show: true,
+            border: Border.all(
               color: ColorsConfig.statisticLine,
               width: 1.0,
               style: BorderStyle.solid,
-            )
-        ),
-        barGroups: listBarChartGroupData,
-      ),
+            ),
+          ),
+          barGroups: listBarChartGroupData,
+        )
     ),);
   }
 }

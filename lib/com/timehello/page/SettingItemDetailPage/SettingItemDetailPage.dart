@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -23,6 +24,7 @@ import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/NavigatorManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -102,6 +104,8 @@ class _SettingItemDetailPageWidgetState<T>
   @override
   void initState() {
     //查找当前mission所属的FolderModel
+    // AppFlowyEditorLocalizations.delegate.load(const Locale('zh', 'CN'));
+
     controller =
         TextEditingController(text: this.widget.missionModel?.message ?? '');
     // await requestGetTags(this.widget.missionModel?.tagNames.split(',') ?? ['ejizfjize']);
@@ -133,6 +137,15 @@ class _SettingItemDetailPageWidgetState<T>
   // }
 
   void onClick(type, data) async {
+    if (
+    ChatGroupManager.isFolderModelEnabled(
+        folderId: this.widget.missionModel.folder_id ?? "",
+        uid: LoginManager.getInstance().userBean.uid ?? "") ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return null;
+    }
     switch (type) {
       case 'onClickMissionDetail': //跳转到任务详情页MissionPage开始任务
         onClickMissionStart(data);
@@ -332,7 +345,7 @@ class _SettingItemDetailPageWidgetState<T>
       backgroundColor: ThemeManager.getInstance()
           .getNavigationBarColor(defaultColor: Colors.white),
       actions: getBarWidget(),
-      title: Text(getI18NKey().setting),
+      title: Text(getI18NKey().setting, style: TextStyle(fontSize: 16)),
       //标题居中显示
       centerTitle: true,
     );
@@ -396,7 +409,9 @@ class _SettingItemDetailPageWidgetState<T>
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
-      Utility.showAlertDialog(
+      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+
+        Utility.showAlertDialog(
           context: context,
           content: getI18NKey().missionRunningAlert(
               CounterManagement.getInstance().missionModel?.title ?? ""),
@@ -404,6 +419,12 @@ class _SettingItemDetailPageWidgetState<T>
             OverlayManagement.getInstance().openMissionDetailPageOverlay(
                 context: context, missionModel: data, folderModel: folderModel);
           });
+      } else {
+        OverlayManagement.getInstance().openMissionDetailPageOverlay(
+            context: context,
+            missionModel: data,
+            folderModel: folderModel);
+      }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
           context: context, missionModel: data, folderModel: folderModel);
@@ -460,12 +481,32 @@ class _SettingItemDetailPageWidgetState<T>
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
+        // Container(
+        //   height: 1,
+        //   color: Color(0xffe0e0e0),
+        // ),
+        CustomTabBarWidget(
+          list: tabList,
+          onCheckedListener: (int index) {
+            Utility.setDesktopMiddileMissionPage(context, isVisible: true);
+            this.curTab = index;
+            updateUI();
+          },
+          fontSize: 14,
+        ),
+        Container(
+          height: 1,
+          color: Color(0xffe0e0e0),
+        ),
+        if (this.curTab == 0) ...getTabBar0WidgetList(),
+        if (this.curTab != 0)
         Expanded(
           child: SingleChildScrollView(
               child: Column(children: [
             CustomMarquee(
               bean: MarqueInfo.marqueSettingItemDetail,
             ),
+            if(this.curTab != 0)
             Container(
                 constraints:
                     BoxConstraints(maxWidth: double.infinity, minHeight: 100),
@@ -622,9 +663,27 @@ class _SettingItemDetailPageWidgetState<T>
                       TagsGridViewWidget(
                         datas: this.folderModelTags,
                         onTapAddTagListener: (data) {
+                          if (
+                          ChatGroupManager.isFolderModelEnabled(
+                              folderId: this.widget.missionModel.folder_id ?? "",
+                              uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                              false) {
+                            Utility.showToastMsg(
+                                context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                            return null;
+                          }
                           this.onClick('onTapTagListener', data);
                         },
                         onTapDeleteTagListener: (data) {
+                          if (
+                              ChatGroupManager.isFolderModelEnabled(
+                                  folderId: this.widget.missionModel.folder_id ?? "",
+                                  uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                                  false) {
+                            Utility.showToastMsg(
+                                context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                            return null;
+                          }
                           List<String> tagNamesList =
                               this.widget.missionModel?.tagNames?.split(',') ??
                                   [];
@@ -650,31 +709,17 @@ class _SettingItemDetailPageWidgetState<T>
                       ),
                     ])),
             // Container(height: 20, color: ColorsConfig.backgroundColor,),
-            Container(
-              height: 1,
-              color: Color(0xffe0e0e0),
-            ),
-            CustomTabBarWidget(
-              list: tabList,
-              onCheckedListener: (int index) {
-                this.curTab = index;
-                updateUI();
-              },
-              fontSize: 14,
-            ),
-            Container(
-              height: 1,
-              color: Color(0xffe0e0e0),
-            ),
-            if (this.curTab == 0) ...getTabBar0WidgetList(),
-            // if(this.curTab == 1)
-            //   ...getTabBarRichWWidgetList(),
-            if (this.curTab == 1) ...getTabBar1WidgetList(),
+
+            if(this.curTab == 1)
+              ...getTabBar1WidgetList(),
+            if (this.curTab == 2) ...getTabBar2WidgetList(),
           ])),
         ),
+        if(this.curTab != 0)
         SizedBox(
           height: 20,
         ),
+        if(this.curTab != 0)
         Align(
             child: InkWell(
           onTap: () {
@@ -713,7 +758,7 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
-  List<Widget> getTabBar1WidgetList() {
+  List<Widget> getTabBar2WidgetList() {
     DateTime? dateTimeNextTime = Utility.getNextDateTime(
         missionModelParam: this.widget.missionModel ?? MissionModel(),
         calendarModel: context.read<GlobalStateEnv>().calendarModel);
@@ -757,6 +802,15 @@ class _SettingItemDetailPageWidgetState<T>
               : getI18NKey().daily_start_time,
           subTitle: "(${getI18NKey().optional})",
           onTapListener: (data) async {
+            if (
+            ChatGroupManager.isFolderModelEnabled(
+                folderId: this.widget.missionModel.folder_id ?? "",
+                uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                false) {
+              Utility.showToastMsg(
+                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+              return null;
+            }
             DateTimeModel model;
             if (this.widget.missionModel.time_mode == 1) {
               DateTimeModel? model =
@@ -838,6 +892,15 @@ class _SettingItemDetailPageWidgetState<T>
               ? ""
               : "(${getI18NKey().optional})",
           onTapListener: (data) async {
+            if (
+            ChatGroupManager.isFolderModelEnabled(
+                folderId: this.widget.missionModel.folder_id ?? "",
+                uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                false) {
+              Utility.showToastMsg(
+                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+              return null;
+            }
             if (this.widget.missionModel.time_mode == 1) {
               if (this.widget.missionModel?.start_time == null) {
                 Utility.showToastMsg(
@@ -1007,6 +1070,15 @@ class _SettingItemDetailPageWidgetState<T>
           : MenuItem2(
               title: getI18NKey().deadLine,
               onTapListener: (data) async {
+                if (
+                ChatGroupManager.isFolderModelEnabled(
+                    folderId: this.widget.missionModel.folder_id ?? "",
+                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                    false) {
+                  Utility.showToastMsg(
+                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  return null;
+                }
                 DateTimeModel? model = await Utility.showDatePickerDialog(
                     context, this.widget.missionModel?.end_time ?? 0);
                 this.setState(() {
@@ -1036,7 +1108,9 @@ class _SettingItemDetailPageWidgetState<T>
                     onPressed: () {
                       this.isNeedUpdateBmob = true;
                       this.widget.missionModel?.end_time =
-                          Utility.getTimeStampToday();
+                          null;
+                      // this.widget.missionModel?.end_time =
+                      //     Utility.getTimeStampToday();
                       // this.widget.missionModel.end_time = 0;
                       this.updateUI();
                     },
@@ -1051,6 +1125,15 @@ class _SettingItemDetailPageWidgetState<T>
               title: getI18NKey().alert,
               subTitle: "(${getI18NKey().optional})",
               onTapListener: (data) async {
+                if (
+                ChatGroupManager.isFolderModelEnabled(
+                    folderId: this.widget.missionModel.folder_id ?? "",
+                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                    false) {
+                  Utility.showToastMsg(
+                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  return null;
+                }
                 //没有权限提醒设置权限
                 DateTimeModel? model;
                 TimeOfDay? timeOfDay;
@@ -1111,12 +1194,22 @@ class _SettingItemDetailPageWidgetState<T>
               ),
               icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
                   size: StylesConfig.iconSize)),
+      if(this.widget.missionModel?.time_mode == 0)
       this.widget.missionModel?.isFinished == true
           ? SizedBox.shrink()
           : MenuItem2(
               title: getI18NKey().repetive,
               subTitle: "(${getI18NKey().optional})",
               onTapListener: (data) {
+                if (
+                ChatGroupManager.isFolderModelEnabled(
+                    folderId: this.widget.missionModel.folder_id ?? "",
+                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                    false) {
+                  Utility.showToastMsg(
+                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  return null;
+                }
                 SelectDatePeriodDialogUtil.show(context, okCallBack:
                     (valueMiddleSelected, valueRightSelected, listCheckModels) {
                   this.isNeedUpdateBmob = true;
@@ -1242,8 +1335,7 @@ class _SettingItemDetailPageWidgetState<T>
 
   List<Widget> getTabBar0WidgetList() {
     return [
-      Container(
-        constraints: BoxConstraints(maxHeight: 300),
+      Expanded(
         child: ComposedRichEditorWidget(
           title: getI18NKey().note_plain,
           onTapOk: () {},
@@ -1252,6 +1344,11 @@ class _SettingItemDetailPageWidgetState<T>
           saveModeEnum: SaveModeEnum.normal,
         ),
       ),
+      // getSubmissionListWidget(),
+    ];
+  }
+  List<Widget> getTabBar1WidgetList() {
+    return [
       SectionTitleWidget(
           title: getI18NKey().sub_task_add_newline,
           child: InkWell(

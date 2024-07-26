@@ -165,10 +165,17 @@ class FolderPageMainContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Env env = context.watch<Env>();
-    return desktopCenterRouter(
-        env.routerData != null ? (env.routerData?['page'] ?? "") : (page ?? ""),
-        env.routerData ?? {});
+    // Env env = context.watch<Env>();
+    return Selector<Env, Map?>(
+        selector: (_, globalStateEnv) => globalStateEnv.routerData,
+        builder: (_, routerData, __) {
+          return desktopCenterRouter(
+              routerData != null ? (routerData?['page'] ?? "") : (page ?? ""),
+              routerData ?? {});
+        }
+    );
+
+
   }
 }
 
@@ -181,11 +188,17 @@ class RightSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Env env = context.watch<Env>();
-    return desktopRightRouter(
-        env.routerRightSideData != null
-            ? (env.routerRightSideData?['page'] ?? "")
-            : "",
-        env.routerRightSideData ?? {});
+    // Env env = context.watch<Env>();
+    return Selector<Env, Map?>(
+        selector: (_, globalStateEnv) => globalStateEnv.routerRightSideData,
+        builder: (_, routerRightSideData, __) {
+          return desktopRightRouter(
+              routerRightSideData != null
+                  ? (routerRightSideData?['page'] ?? "")
+                  : "",
+              routerRightSideData ?? {});
+        }
+    );
   }
+
 }

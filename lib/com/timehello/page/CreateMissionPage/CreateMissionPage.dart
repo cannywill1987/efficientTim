@@ -956,8 +956,9 @@ class _CreateMissionPageWidgetState<T>
                           size: 20, color: ColorsConfig.gray_cc_cancel),
                       onPressed: () {
                         this.isNeedUpdateBmob = true;
-                        this.widget.missionModel.end_time =
-                            Utility.getTimeStampToday();
+                        this.widget.missionModel.end_time = null;
+                        // this.widget.missionModel.end_time =
+                        //     Utility.getTimeStampToday();
                         // this.widget.missionModel.end_time = 0;
                         this.updateUI();
                       },
@@ -1035,6 +1036,7 @@ class _CreateMissionPageWidgetState<T>
                 icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
                     size: StylesConfig.iconSize,
                     color: ThemeManager.getInstance().getDefautThemeColor())),
+        if(this.widget.missionModel?.time_mode == 0)
         (this.widget.missionModel.isFinished == true)
             ? SizedBox.shrink()
             : MenuItem2(

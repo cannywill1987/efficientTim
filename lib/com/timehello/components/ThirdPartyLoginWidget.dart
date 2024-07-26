@@ -36,9 +36,9 @@ class ThirdPartyLoginWidget extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
-        (Utility.isProductEnv() == false ||
+        if(Utility.isProductEnv() == false || ABTestSetting.isGoogleLoginOn &&
                 (isChina == false))
-            ? InkWell(
+             InkWell(
                 onTap: () async {
                   // EasyLoadingManager.getInstance().showLoading();
                   await LoginManager.getInstance()
@@ -73,13 +73,12 @@ class ThirdPartyLoginWidget extends StatelessWidget {
                       ],
                     )),
               )
-            : SizedBox.shrink(),
+            ,
         SizedBox(
           width: 20,
         ),
-        (Utility.isProductEnv() == false ||
-                (Utility.isMobile() == true && isChina == false))
-            ?
+        if(Utility.isProductEnv() == false || (ABTestSetting.isAppleLoginOn &&
+                (isChina == false)))
         InkWell(
           onTap: () async {
             await LoginManager.getInstance()
@@ -114,7 +113,6 @@ class ThirdPartyLoginWidget extends StatelessWidget {
               )),
         )
 
-            : SizedBox.shrink()
       ],
     );
   }

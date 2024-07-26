@@ -397,55 +397,59 @@ class FlomoMissionSilverListItemState
     //   return getItem(childrenRow, _missionModel);
     // }
     return Slidable(
-      enabled: (DeviceInfoManagement.isMoible() == true  || DeviceInfoManagement.isWebMobileBySize()) &&
+      key: ValueKey(_missionModel),
+      enabled: (DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize()) &&
           _missionModel.isFinished == false,
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.15,
+      startActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        extentRatio: 0.15,
+        children: [
+          SlidableAction(
+            onPressed: (context) {
+              if (this.widget.onTapFinishListener != null)
+                this.widget.onTapFinishListener!(_missionModel);
+            },
+            backgroundColor: Colors.lightBlue,
+            foregroundColor: Colors.white,
+            icon: Icons.check,
+            label: 'Finish',  // 添加label以替代旧版中的caption
+          ),
+          SlidableAction(
+            onPressed: (context) {
+              if (this.widget.onTapEditListener != null)
+                this.widget.onTapEditListener!(_missionModel);
+            },
+            backgroundColor: Colors.lightGreen,
+            foregroundColor: Colors.white,
+            icon: Icons.edit,
+            label: 'Edit',  // 添加label以替代旧版中的caption
+          ),
+          SlidableAction(
+            onPressed: (context) {
+              if (this.widget.onTapDeleteListener != null)
+                this.widget.onTapDeleteListener!(_missionModel);
+            },
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: 'Delete',  // 添加label以替代旧版中的caption
+          ),
+        ],
+      ),
       child: MouseRegion(
-          onEnter: (_) {
-            setState(() {
-              this.isHover = true;
-            });
-          },
-          onHover: (_) {},
-          onExit: (_) {
-            setState(() {
-              this.isHover = false;
-            });
-          },
-          child: getItem(childrenRow, _missionModel)),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          // caption: getI18NKey().finish,
-          color: Colors.lightBlue,
-          foregroundColor: Colors.white,
-          icon: Icons.check,
-          onTap: () {
-            if (this.widget.onTapFinishListener != null)
-              this.widget.onTapFinishListener!(_missionModel);
-          },
-        ),
-        IconSlideAction(
-          // caption: getI18NKey().edit,
-          color: Colors.lightGreen,
-          foregroundColor: Colors.white,
-          icon: Icons.edit,
-          onTap: () {
-            if (this.widget.onTapEditListener != null)
-              this.widget.onTapEditListener!(_missionModel);
-          },
-        ),
-        IconSlideAction(
-          // caption: getI18NKey().delete,
-          foregroundColor: Colors.white,
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () {
-            if (this.widget.onTapDeleteListener != null)
-              this.widget.onTapDeleteListener!(_missionModel);
-          },
-        ),
-      ],
+        onEnter: (_) {
+          setState(() {
+            this.isHover = true;
+          });
+        },
+        onHover: (_) {},
+        onExit: (_) {
+          setState(() {
+            this.isHover = false;
+          });
+        },
+        child: getItem(childrenRow, _missionModel),
+      ),
     );
   }
 

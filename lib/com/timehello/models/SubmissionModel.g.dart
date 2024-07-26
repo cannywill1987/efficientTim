@@ -9,14 +9,14 @@ part of 'SubmissionModel.dart';
 SubmissionModel _$SubmissionModelFromJson(Map<String, dynamic> json) =>
     SubmissionModel(
       isFinished: json['isFinished'] as bool,
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       shouldFocus: json['shouldFocus'] as bool,
       title: json['title'] as String,
-      notificationTime: json['notificationTime'] as int,
-      numToamatoesFocused: json['numToamatoesFocused'] as int,
-      numToamatoTotal: json['numToamatoTotal'] as int,
-      create_time: json['create_time'] as int,
-      update_time: json['update_time'] as int,
+      notificationTime: (json['notificationTime'] as num).toInt(),
+      numToamatoesFocused: (json['numToamatoesFocused'] as num).toInt(),
+      numToamatoTotal: (json['numToamatoTotal'] as num).toInt(),
+      create_time: (json['create_time'] as num).toInt(),
+      update_time: (json['update_time'] as num).toInt(),
     );
 
 Map<String, dynamic> _$SubmissionModelToJson(SubmissionModel instance) =>

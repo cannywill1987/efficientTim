@@ -7,7 +7,7 @@ part of 'MongoDbError.dart';
 // **************************************************************************
 
 MongoDbError _$MongoDbErrorFromJson(Map<String, dynamic> json) => MongoDbError(
-      json['code'] as int,
+      (json['code'] as num).toInt(),
       json['error'] as String,
     );
 

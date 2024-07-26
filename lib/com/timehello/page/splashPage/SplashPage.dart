@@ -1,32 +1,18 @@
 import 'dart:async';
 
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_hello/com/timehello/beans/CreditCardModel.dart';
-import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
-import 'package:time_hello/com/timehello/models/FlomoMissionModel.dart';
-import 'package:time_hello/com/timehello/models/FolderModel.dart';
-import 'package:time_hello/com/timehello/models/MissionModel.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTRoleGridViewPage.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GptChatHistoryPage.dart';
-import 'package:time_hello/com/timehello/page/CreateAIChatGptMissionPage/CreateAIChatGptMissionPage.dart';
-import 'package:time_hello/com/timehello/page/GroupChatPage/GroupChatPage.dart';
-import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupChatSharingWidget.dart';
 import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
-import 'package:time_hello/com/timehello/page/folderspage/FoldersPage.dart';
-import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
-import 'package:time_hello/com/timehello/util/CounterManagement.dart';
-import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
+import 'package:time_hello/com/timehello/page/TestPage/Test6Page.dart';
+import 'package:time_hello/com/timehello/util/AliyunStoreManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
-import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
-import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:time_hello/generated/l10n.dart';
 
 import '../../../../main.dart';
 import '../../../../r.dart';
@@ -34,32 +20,10 @@ import '../../beans/ResourceDeliveryInfoBean.dart';
 import '../../beans/ResourceLocationInfoBean.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/FamousSentenceWidget.dart';
-import '../../components/SubmissionSliverList.dart';
 import '../../config/ColorsConfig.dart';
-import '../../config/ENUMS.dart';
 import '../../config/Params.dart';
-import '../../util/AutoUpdateManager.dart';
 import '../../util/GetResourceDeliveryManager.dart';
-import '../CreateAIChatGptMissionPage/CreateAIChatGptMissionWidget.dart';
-import '../CreditCardManagementPage/components/RepayDialogWidget.dart';
-import '../CreditCardManagementPage/pages/CreateCreditCardPage.dart';
-import '../CreditCardManagementPage/pages/CreditCardDetailPage.dart';
-import '../CreditCardManagementPage/pages/CreditCardPage.dart';
-import '../DrawPage/DrawingPage.dart';
-import '../FlomoPage/FlomoCreatePage.dart';
-import '../FlomoPage/FlomoPage.dart';
-import '../RecorderPage/RecordPage2.dart';
-import '../TestPage/Test3Page.dart';
-import '../TestPage/Test5Page.dart';
-import '../TestPage/TestPage.dart';
-import '../ThemePage/ThemePage.dart';
-import '../UnregisterPage/UnregisterPage.dart';
 import '../WebviewPage/WebviewPage.dart';
-import '../WrongQuestionBookPage/WrongQuestionBookPage.dart';
-import '../demoPages/SampleView2.dart';
-import '../missionDetailPage/components/MobileFlipCounterWidget.dart';
-import '../missionPage/GroupMissionPage.dart';
-import 'components/BakgroundSplashWidget.dart';
 
 class SplashPage extends BaseWidget {
   SplashPage();
@@ -267,6 +231,14 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         ResourceDeliveryInfoBean? google_login_on = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'google_login_on');
 
+        ResourceDeliveryInfoBean? isGoogleLoginOn =
+        Utility.getDeliveryInfoBean(
+            response: response,
+            key: 'ab_setting',
+            code: 'isGoogleLoginOn');
+        ResourceDeliveryInfoBean? isAppleLoginOn = Utility.getDeliveryInfoBean(
+            response: response, key: 'ab_setting', code: 'isAppleLoginOn');
+
         bool isLatestVersion = Utility.isLatestVersion(
             isOpenOn?.extendParamsMap?['version'] ?? "",
             defaultval: false);
@@ -294,8 +266,10 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
             bean_huawei_secverify_on?.extendParamsMap?['isOn'] ?? false;
         ABTestSetting.isFacebookOn =
             facebook_login_on?.extendParamsMap?['isOn'] ?? false;
-        ABTestSetting.isGoogleOn =
-            google_login_on?.extendParamsMap?['isOn'] ?? false;
+        ABTestSetting.isGoogleLoginOn =
+            isGoogleLoginOn?.extendParamsMap?['isOn'] ?? false;
+        ABTestSetting.isAppleLoginOn =
+            isAppleLoginOn?.extendParamsMap?['isOn'] ?? false;
 
         print('');
       } catch (e) {}
@@ -322,12 +296,18 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
 
   @override
   void onClick(type, data) {}
+  // loadLocal() {
+  //   S.load(Locale('zh', 'HK'));
+  //   // AppFlowyEditorLocalizations.load(Locale('zh', 'HK'));
+  // }
 
   @override
   void initState() {
     super.initState();
+    // loadLocal();
     // sets theme mode to dark
     // AdaptiveTheme.of(context).setDark();
+    AliyunStoreManager.getInstance();
     this.shouldShowSafeArea = false;
     this.isAppBarVisible = false;
     try {
@@ -343,6 +323,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
 
   componentDidMount() {
     print('componentDidMount');
+    String slashPlaceHolder = getI18NKey().slashPlaceHolder;
     // 如果第一次打开app需要有隐私协议
     PrivacyProtocolManager.getInstance().showDialog(this.context,
         jumpCallback: () {
@@ -490,9 +471,12 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, GptChatHistoryPage());
                   // Utility.pushReplacement(context, GPTRoleGridViewPage());
                   // Utility.pushReplacement(context, ChatGptPage());
-
-                  // Utility.pushReplacement(context, GroupChatSharingWidget());
+                  // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: '', password: '',));
+                  // Utility.pushReplacement(context, Test6Page());
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, AppflowyPage());
+                  // Utility.pushReplacement(context, GroupChatSharingWidget());
+                  // Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, CreateAIChatGptMissionWidget(listMissionModel: [],));
 
                   // Utility.pushReplacement(context, CreateAIChatGptMissionPage());

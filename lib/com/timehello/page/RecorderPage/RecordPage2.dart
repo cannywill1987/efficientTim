@@ -15,6 +15,7 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/response/MongoDbSaved.dart';
+import 'package:time_hello/com/timehello/util/AliyunStoreManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 // import 'package:record/record.dart';
@@ -106,8 +107,12 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
         // String? path = await RecorderManager.getInstance().stop();
         EasyLoadingManager.getInstance().showLoading();
         File file = new File(path ?? "");
-        BaseBean res = await HttpManager.getInstance()
-            .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
+        // BaseBean res = await HttpManager.getInstance()
+        //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
+
+        String url = await AliyunStoreManager.getInstance()
+            .uploadFileByFilePath(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+
         MongoDbSaved? resMongoDbSave;
         resMongoDbSave = await MongoApisManager.getInstance()
             .insertTimelineMissionModel(
@@ -122,7 +127,7 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
                 extra: jsonEncode({
                   "file": file.lengthSync(),
                   "duration": duration,
-                  "url": res.data,
+                  "url": url,
                   "localUrl": file.path
                 })));
         EasyLoadingManager.getInstance().dismiss();
@@ -136,17 +141,23 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
       EasyLoadingManager.getInstance().showLoading();
       // String? path = await RecorderManager.getInstance().stop();
       File file = new File(path ?? "");
-      BaseBean res = await HttpManager.getInstance()
-          .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
-      this.widget.onSubmit?.call(title ?? "", res.data, this.audioPath ?? "", duration, file.lengthSync());
+      String url = await AliyunStoreManager.getInstance()
+          .uploadFileByFilePath(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+
+      // BaseBean res = await HttpManager.getInstance()
+      //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
+      this.widget.onSubmit?.call(title ?? "", url, this.audioPath ?? "", duration, file.lengthSync());
       EasyLoadingManager.getInstance().dismiss();
       Utility.popupPagePCAndMobile(context);
     } else {
       EasyLoadingManager.getInstance().showLoading();
       // String? path = await RecorderManager.getInstance().stop();
       File file = new File(path ?? "");
-      BaseBean res = await HttpManager.getInstance()
-          .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
+      String url = await AliyunStoreManager.getInstance()
+          .uploadFileByFilePath(docType: DocType.audio, path: file.path, fileName: Utility.getUUID());
+
+      // BaseBean res = await HttpManager.getInstance()
+      //     .uploadFile(key: "record", file: file, url: Apis.uploadOSSFile);
       MongoDbSaved? resMongoDbSave =
       await MongoApisManager.getInstance().insertTimelineMissionModel(
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
@@ -158,10 +169,10 @@ class RecordPage2State extends BaseWidgetState<RecordPage2> {
               extra: jsonEncode({
                 "file": file.lengthSync(),
                 "duration": duration,
-                "url": res.data,
+                "url": url,
                 "localUrl": file.path
               })));
-      this.widget.onSubmit?.call(title ?? "", res.data, this.audioPath ?? "", duration, file.lengthSync());
+      this.widget.onSubmit?.call(title ?? "", url, this.audioPath ?? "", duration, file.lengthSync());
       handleSuccessResult(resMongoDbSave);
     }
   }

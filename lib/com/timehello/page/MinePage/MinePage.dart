@@ -14,7 +14,7 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
+// import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/FlomoPage/FlomoPage.dart';
 import 'package:time_hello/com/timehello/page/LockScreenPage/LockScreenPage.dart';
 import 'package:time_hello/com/timehello/page/SettingPage/pages/FilterMenuSettingPage.dart';
@@ -28,6 +28,7 @@ import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
+// import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 
 import '../../../../r.dart';
 import '../../beans/BaseBean.dart';
@@ -477,17 +478,17 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-    if(Utility.isHuaWei() == false) {
-      list.add(GridMenuItem(
-          icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
-          title: getI18NKey().ai_helper,
-          // subtitle: getI18NKey().cloud_sync_content,
-          onTapListener: () async {
-            // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
-            // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
-            Utility.pushNavigator(context, const GPTContainer());
-          }));
-    }
+    // if(Utility.isHuaWei() == false) {
+    //   list.add(GridMenuItem(
+    //       icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
+    //       title: getI18NKey().ai_helper,
+    //       // subtitle: getI18NKey().cloud_sync_content,
+    //       onTapListener: () async {
+    //         // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
+    //         // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
+    //         Utility.pushNavigator(context, const GPTContainer());
+    //       }));
+    // }
     // list.add(GridMenuItem(
     //     icon: Utility.getSVGPicture(R.assetsImgIcCreditCard, size: iconSize),
     //     title: getI18NKey().credit_bag,
@@ -791,6 +792,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         // if (sceneCode == "CalendarPage"){
         //   Utility.pushDesktopNavigator(context, sceneCode, {});
         // } else {
+        Utility.setDesktopMiddileMissionPage(context, isVisible: true);
         Utility.popupDesktopRightNavigator(context);
         Utility.pushDesktopMainContainerNavigator(context, sceneCode, {});
         // }
@@ -813,7 +815,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               style: TextButton.styleFrom(
                 backgroundColor:
                     ThemeManager.getInstance().getButtonBackgroundColor(),
-                // primary: Colors.white,
+                foregroundColor: Colors.white,
                 side: BorderSide(
                     color: ThemeManager.getInstance().getButtonBorderColor(),
                     width: 1),

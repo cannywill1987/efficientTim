@@ -4,11 +4,13 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
+  cloud_firestore
   dynamic_color
   file_saver
   file_selector_windows
   firebase_auth
   firebase_core
+  firebase_storage
   pasteboard
   platform_device_id_windows
   record_windows

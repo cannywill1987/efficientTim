@@ -6,9 +6,14 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupAnnouncement.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupChatFriendsList.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/components/GroupInfoPage.dart';
+import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
+import 'package:time_hello/com/timehello/util/ChatGptManager.dart';
+import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../beans/UserInfoBean.dart';
 import '../../models/FolderModel.dart';
 
 class GroupChatPage extends BaseWidget {
@@ -26,6 +31,7 @@ class GroupChatPage extends BaseWidget {
 
 class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
   FolderModel? folderModel;
+  String? curSearchWords = null;
 
   @override
   Widget baseBuild(BuildContext context) {
@@ -33,19 +39,49 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
         selector: (_, globalStateEnv) => globalStateEnv.curFolderSelected,
         builder: (_, folderModel, __) {
           this.folderModel = folderModel;
-          return Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                if(this.folderModel != null)
-                SliverToBoxAdapter(child: GroupInfoPage(folderModel: this.folderModel!, onTapShare: () {
-                  DialogManagement.getInstance().showGroupChatSharingWidgetDialog(folderModel: this.folderModel!);
-                },),),
+          return CustomScrollView(
+            slivers: [
+              if (this.folderModel != null)
                 SliverToBoxAdapter(
-                  child: InkWell(
-                      onTap: () {
-                        DialogManagement.getInstance().showMultiInputDialog(
-                            title: "群公告",
-                            okCallback: (val) async {
+                  child: GroupInfoWidget(
+                    folderModel: this.folderModel!,
+                    onTapShare: () {
+                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_share","description": "分享",});
+                      DialogManagement.getInstance()
+                          .showGroupChatSharingWidgetDialog(
+                              folderModel: this.folderModel!);
+                    },
+                    onTapQuit: () {
+                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_leave_group","description": "退群",});
+                      ChatGroupManager.exitGroup(folderModel: this.folderModel);
+                      Utility.popupDesktopRightNavigator(context);
+                      // DialogManagement.getInstance().showAlertDialog(
+                      //     title: "退出群聊",
+                      //     content: "确定要退出群聊吗？",
+                      //     okCallback: () async {
+                      //       await MongoApisManager.getInstance()
+                      //           ?.quitGroupChat(folderModel: this.folderModel!);
+                      //       Navigator.pop(context);
+                      //     });
+                      // }
+                    },
+                  ),
+                ),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 1,
+                  color: Color(0xffe0e0e0),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: InkWell(
+                    onTap: () {
+                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_edit_announcement","description": "编辑公告",});
+                      DialogManagement.getInstance().showMultiInputDialog(
+                          title: getI18NKey().group_announcement,
+                          okCallback: (val) async {
+                            if (ChatGroupManager.isFolderModelEnabled(
+                                folderId: this.folderModel?.objectId)) {
                               if (this.folderModel?.objectId != null &&
                                   val != null &&
                                   val.isNotEmpty) {
@@ -57,22 +93,67 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
                                             this.folderModel ?? FolderModel());
                                 updateUI();
                               } else {
-                                Utility.showToastMsg(msg: "内容不能为空");
+                                Utility.showToastMsg(
+                                    msg: getI18NKey().content_cannot_be_empty);
                               }
-                            });
-                      },
-                      child: GroupAnnouncement()),
+                            }
+                          });
+                    },
+                    child: GroupAnnouncement(
+                      folderModel: this.folderModel,
+                    )),
+              ),
+              SliverToBoxAdapter(child: _buildAnnouncement()),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 1,
+                  color: Color(0xffe0e0e0),
                 ),
-                SliverToBoxAdapter(child: _buildAnnouncement()),
-                SliverToBoxAdapter(child: _buildSearch()),
-                GroupChatFriendsSliverList(
-                  userInfoBeans: this.folderModel?.otherUserInfoBean ?? [],
-                  onFriendTap: () {},
-                )
-              ],
-            ),
+              ),
+              SliverToBoxAdapter(child: _buildSearch()),
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  height: 1,
+                  color: Color(0xffe0e0e0),
+                ),
+              ),
+              GroupChatFriendsSliverList(
+                folderModel: this.folderModel ?? FolderModel(),
+                userInfoBeans: getUserInfoBean(),
+                onFriendTap: () {},
+                userInfoBeanCreator:
+                    this.folderModel?.userInfoBean ?? UserInfoBean(),
+                onTapCancelAdministrator: (folderModel) {
+                  this.folderModel = folderModel;
+                  updateUI();
+                },
+                onTapSetAdministrator: (folderModel) {
+                  this.folderModel = folderModel;
+                  updateUI();
+                },
+                onTapDeleteUser: (folderModel) {
+                  this.folderModel = folderModel;
+                  updateUI();
+                },
+              )
+            ],
           );
         });
+  }
+
+  List<dynamic> getUserInfoBean() {
+    if (this.curSearchWords != null && this.curSearchWords!.isNotEmpty) {
+      return this
+              .folderModel
+              ?.otherUserInfoBean
+              ?.where((element) => (element.username ?? "")
+                  .toLowerCase()
+                  .contains(this.curSearchWords!.toLowerCase()))
+              .toList() ??
+          [];
+    }
+    return this.folderModel?.otherUserInfoBean ?? [];
   }
 
   Widget _buildAnnouncement() {
@@ -83,7 +164,8 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
         Container(
       height: 200,
       width: double.infinity,
-      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+      // color: Colors.white,
       child: SingleChildScrollView(
         child: Text(
           // "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
@@ -96,13 +178,30 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
   }
 
   Widget _buildSearch() {
+    bool hasSearch = false;
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: '搜索',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        alignment: Alignment.center,
+        height: 32,
+        child: TextField(
+          onChanged: (val) {
+            if(hasSearch == false) {
+              hasSearch = true;
+              AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_search_bar","description": "搜索栏",});
+            }
+            this.curSearchWords = val;
+            updateUI();
+          },
+          // st
+          decoration: InputDecoration(
+            hintText: getI18NKey().search,
+            hintStyle: TextStyle(
+              fontSize: 12,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
           ),
         ),
       ),

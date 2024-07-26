@@ -9,10 +9,16 @@ import 'package:time_hello/com/timehello/common/httpclient/Observable.dart';
 import 'package:time_hello/com/timehello/components/BackNavigator.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
+import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
 import 'package:time_hello/com/timehello/components/TitleDescWidget.dart';
+import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/config/StylesConfig.dart';
+import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
+import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
+import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginUtil.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
@@ -55,10 +61,15 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
   int msnTotalTime = 60 * 1000;
   int msnCurTime = 0;
   bool isBtnEnable = true;
+  int curTab = 0;
+  List<CheckButtonStateModel> tabList =
+      CONSTANTS.getLoginRegisterTabBarWidget();
+  String? email = "";
 
   @override
   void initState() {
     super.initState();
+    if (Utility.isHandsetBySize()) {}
     _timerUtil = new TimerUtil(mCurTime: msnTotalTime);
     msnCurTime = msnTotalTime;
   }
@@ -74,23 +85,53 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
-  onClickResetPassword() {
-    if (TextUtil.isEmpty(this.mobile)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().please_input_mobile_no);
-      return;
+  onClickResetPassword() async {
+    if (this.curTab == 0) {
+      if (TextUtil.isEmpty(this.mobile)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().please_input_mobile_no);
+        return;
+      }
+      if (TextUtil.isEmpty(this.password)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().please_input_password);
+        return;
+      }
+      if (TextUtil.isEmpty(this._msn)) {
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().inputSmsVerificationCode);
+        return;
+      }
+      requestResPwd(
+        mobile: mobile,
+        countryPhoneCode: this.countryPhoneCode,
+        password: this.password,
+        dynamicCode: this._msn,
+      );
+    } else {
+      // if (TextUtil.isEmpty(this.password)) {
+      //   Utility.showToastMsg(
+      //       context: context, msg: getI18NKey().please_input_password);
+      //   return;
+      // }
+      String email =
+          await Utility.decryptCTRAES(this.email ?? "", Params.AES_PWD);
+      GoogleMailLoginManager.getInstance().resetPassword(
+          email: email,
+          // password: await Utility.decryptCTRAES(
+          //     this.password ?? "", Params.AES_PWD),
+          callbackSuccess: () async {
+            Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: email ?? "", password: password ?? ""));
+
+            // Utility.popNavigator(context, {"curTab": 1, "email": email});
+            //用于调用重启密码接口
+            SharePreferenceUtil.getSyncInstance()
+                .setBool(key: ShareprefrenceKeys.needResetPassword, val: true);
+          },
+          callbackFail: (e) {
+            Utility.showToastMsg(context: context, msg: e.message);
+          });
     }
-    if (TextUtil.isEmpty(this.password)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().please_input_password);
-      return;
-    }
-    if (TextUtil.isEmpty(this._msn)) {
-      Utility.showToastMsg(
-          context: context, msg: getI18NKey().inputSmsVerificationCode);
-      return;
-    }
-    requestResPwd(mobile: mobile, countryPhoneCode: this.countryPhoneCode, password: this.password, dynamicCode: this._msn,);
   }
 
   onClickBack() {
@@ -115,17 +156,10 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         focusNode: FocusNode(),
         child: Container(
             padding: EdgeInsets.only(left: 15, right: 15),
-            color: Colors.white,
+            color: ThemeManager.getInstance()
+                .getBackgroundColor(defaultColor: Colors.white),
             child: Column(
               children: [
-                Utility.isHandsetBySize()
-                    ? SizedBox.shrink()
-                    : BackNavigator(
-                    title: getI18NKey().reset_pwd,
-                    backColor: Colors.black,
-                    onTapListener: (data) {
-                      this.onClick('onClickBack', null);
-                    }),
                 Utility.isHandsetBySize()
                     ? SizedBox.shrink()
                     : BackNavigator(
@@ -137,182 +171,211 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                 //   title: getI18NKey().welcome,
                 //   desc: "",
                 // ),
-                Container(margin: EdgeInsets.only(top:30), height: 90, child: getInputTextField()),
+                SizedBox(
+                  height: 10,
+                ),
+                CustomTabBarWidget(
+                  list: tabList,
+                  onCheckedListener: (int index) {
+                    this.curTab = index;
+                    updateUI();
+                  },
+                  fontSize: 14,
+                ),
+
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    height: 90,
+                    child: getInputTextField()),
                 SizedBox(
                   height: 15,
                 ),
-                Stack(
-                  children: [
-                TextFormField(
-                  onChanged: (String txt) {
-                    this._msn = txt;
-                  },
-                  controller: textController1,
-                  maxLength: 6,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                      labelText: getI18NKey().smsVerificationCode,
-                      labelStyle: TextStyle(
-                          color: Color(0xff8b97a2),
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Montserrat'),
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField),
-                              width: 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0))),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField),
-                              width: 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0)))),
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Color(0xff8b97a2),
-                      fontWeight: FontWeight.w500),
-                  keyboardType: TextInputType.phone,
-                  validator: (value) => TextUtil.isEmpty(value)
-                      ? getI18NKey().emailCannotBeNull
-                      : null,
-                  // onSaved: (value) {
-                  //   return _msn = value?.trim() ?? "";
-                  // },
-                ),
-                // Container(color: Colors.white, width: ,),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.transparent, width: 1),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(4),
-                          topRight: Radius.circular(4),
-                        )),
-                    width: 140,
-                    child: TextButton(
-                        onPressed: () async {
-                          requestGetDynamicCode(context);
+                if (this.curTab == 0)
+                  Stack(
+                    children: [
+                      TextFormField(
+                        onChanged: (String txt) {
+                          this._msn = txt;
                         },
-                        child: Text(
-                          this.isBtnEnable == false
-                              ? Utility.parseTimestampToSeconds(
-                                      msnCurTime)
-                                  .toString()
-                              : getI18NKey().getVerificationCode,
-                          style: TextStyle(
-                              color: ColorsConfig.colorTextField),
-                        )),
+                        controller: textController1,
+                        maxLength: 6,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                            labelText: getI18NKey().smsVerificationCode,
+                            labelStyle: TextStyle(
+                                color: Color(0xff8b97a2),
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Montserrat'),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ThemeManager.getInstance()
+                                        .getInputBorderColor(
+                                            defaultColor:
+                                                ColorsConfig.colorTextField),
+                                    width: 1),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0))),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ThemeManager.getInstance()
+                                        .getInputBorderColor(
+                                            defaultColor:
+                                                ColorsConfig.colorTextField),
+                                    width: 1),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0)))),
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xff8b97a2),
+                            fontWeight: FontWeight.w500),
+                        keyboardType: TextInputType.phone,
+                        validator: (value) => TextUtil.isEmpty(value)
+                            ? getI18NKey().emailCannotBeNull
+                            : null,
+                        // onSaved: (value) {
+                        //   return _msn = value?.trim() ?? "";
+                        // },
+                      ),
+                      // Container(color: Colors.white, width: ,),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.transparent, width: 1),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              )),
+                          width: 140,
+                          child: TextButton(
+                              onPressed: () async {
+                                requestGetDynamicCode(context);
+                              },
+                              child: Text(
+                                this.isBtnEnable == false
+                                    ? Utility.parseTimestampToSeconds(
+                                            msnCurTime)
+                                        .toString()
+                                    : getI18NKey().getVerificationCode,
+                                style: TextStyle(
+                                    color: ColorsConfig.colorTextField),
+                              )),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                  ],
-                ),
-                Stack(
+                if (this.curTab == 0)
+                  Stack(
                   children: [
-                TextFormField(
-                  onChanged: (String text) async {
-                    if (TextUtil.isEmpty(text) == true) {
-                      this.password = "";
-                      return;
-                    }
-                    this.password = await Utility.encryptCTRAES(
-                        text, Params.AES_PWD);
-                  },
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: !this.checked,
-                  //密码是否可见
-                  textInputAction: TextInputAction.done,
-                  controller: textController2,
-                  // obscureText: false,
-                  decoration: InputDecoration(
-                      labelText: getI18NKey().password,
-                      labelStyle: TextStyle(
+                    TextFormField(
+                      onChanged: (String text) async {
+                        if (TextUtil.isEmpty(text) == true) {
+                          this.password = "";
+                          return;
+                        }
+                        this.password =
+                            await Utility.encryptCTRAES(text, Params.AES_PWD);
+                      },
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: !this.checked,
+                      //密码是否可见
+                      textInputAction: TextInputAction.done,
+                      controller: textController2,
+                      // obscureText: false,
+                      decoration: InputDecoration(
+                          labelText: getI18NKey().password,
+                          labelStyle: TextStyle(
+                              color: Color(0xff8b97a2),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat'),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: ThemeManager.getInstance()
+                                      .getInputBorderColor(
+                                          defaultColor:
+                                              ColorsConfig.colorTextField),
+                                  width: 1),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0))),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: ThemeManager.getInstance()
+                                      .getInputBorderColor(
+                                          defaultColor:
+                                              ColorsConfig.colorTextField),
+                                  width: 1),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0)))),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
                           color: Color(0xff8b97a2),
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Montserrat'),
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField),
-                              width: 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0))),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField),
-                              width: 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0)))),
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Color(0xff8b97a2),
-                      fontWeight: FontWeight.w500),
-                  validator: (value) => value!.isEmpty
-                      ? getI18NKey().passwordNotEmpty
-                      : null,
-                  onSaved: (value) {
-                    if (TextUtil.isEmpty(value) == true) {
-                      password = "";
-                      return;
-                    }
-                    password = value!.trim();
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Align(
-                      alignment: Alignment(1, 1),
-                      child: CheckImage(
-                        //显示隐藏密码的眼睛
-                        onTapListener: (isChecked) {
-                          checked = !isChecked;
-                          updateUI();
-                        },
-                        checked: checked,
-                        autoCheck: true,
-                        checkIcon: Utility.getSVGPicture(
-                            R.assetsImgIcEyeSlash,
-                            size: 30),
-                        uncheckIcon: Utility.getSVGPicture(
-                            R.assetsImgIcEyeClose,
-                            size: 30),
-                      )),
-                ),
+                          fontWeight: FontWeight.w500),
+                      validator: (value) =>
+                          value!.isEmpty ? getI18NKey().passwordNotEmpty : null,
+                      onSaved: (value) {
+                        if (TextUtil.isEmpty(value) == true) {
+                          password = "";
+                          return;
+                        }
+                        password = value!.trim();
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Align(
+                          alignment: Alignment(1, 1),
+                          child: CheckImage(
+                            //显示隐藏密码的眼睛
+                            onTapListener: (isChecked) {
+                              checked = !isChecked;
+                              updateUI();
+                            },
+                            checked: checked,
+                            autoCheck: true,
+                            checkIcon: Utility.getSVGPicture(
+                                R.assetsImgIcEyeSlash,
+                                size: 30),
+                            uncheckIcon: Utility.getSVGPicture(
+                                R.assetsImgIcEyeClose,
+                                size: 30),
+                          )),
+                    ),
                   ],
                 ),
                 SizedBox(
                   height: 50,
                 ),
                 GestureDetector(
-                onTap: () {
-                  this.onClick('onClickResetPwd', null);
-                },
-                child: new Container(
-                  height: 45,
-                  alignment: Alignment.center,
-                  // padding: EdgeInsets.fromLTRB(10.0, 45.0, 10.0, 0.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    gradient: LinearGradient(
-                        colors: ColorsConfig
-                            .listColorsOrangeLightToHeavyButton),
-                  ),
-                  child: new Text(getI18NKey().reset_pwd,
-                      style: new TextStyle(
-                          fontSize: 20.0, color: Colors.white)),
-                )),
+                    onTap: () {
+                      this.onClick('onClickResetPwd', null);
+                    },
+                    child: new Container(
+                      height: 45,
+                      alignment: Alignment.center,
+                      // padding: EdgeInsets.fromLTRB(10.0, 45.0, 10.0, 0.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        gradient: LinearGradient(
+                            colors: ColorsConfig
+                                .listColorsOrangeLightToHeavyButton),
+                      ),
+                      child: new Text(getI18NKey().reset_pwd,
+                          style: new TextStyle(
+                              fontSize: 20.0, color: Colors.white)),
+                    )),
                 SizedBox(
                   height: 10,
                 ),
                 SizedBox(
                   height: 10,
-                )],
+                )
+              ],
             )));
   }
 
@@ -333,15 +396,67 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         context: context,
         callback: (BaseBean response, String scene, bool isFromCache) {
       if (response.success == true) {
-        Utility.showToastMsg(context: context, msg: getI18NKey().reset_pwd_successful);
-        Future.delayed(Duration(seconds: 3), () => {
-          Utility.popNavigator(context, {"mobile": this.mobileDecrypted})
-        });
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().reset_pwd_successful);
+        Future.delayed(
+            Duration(seconds: 3),
+            () => {
+                  Utility.popNavigator(
+                      context, {"curTab": 0, "mobile": this.mobileDecrypted})
+                });
       }
     });
   }
 
   Widget getInputTextField() {
+    if (this.curTab == 0) {
+      return getMobileInputTextField();
+    } else {
+      return getEmailInputTextField();
+    }
+  }
+
+  getEmailInputTextField() {
+    return TextFormField(
+      onChanged: (String text) async {
+        if (TextUtil.isEmpty(text) == true) {
+          this.email = "";
+          return;
+        }
+        this.email = await Utility.encryptCTRAES(text, Params.AES_PWD);
+      },
+      // inputFormatters: [
+      //   // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
+      //   FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
+      // ],
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      controller: textController2,
+      // maxLength: 11,
+      obscureText: false,
+      onFieldSubmitted: (e) {
+        this.onClick('onClickLogin', null);
+      },
+      //手机号输入
+      decoration: StylesConfig.getInputDecoration(hintText: getI18NKey().email),
+      style: TextStyle(
+          fontFamily: 'Montserrat',
+          color: ThemeManager.getInstance()
+              .getTextColor(defaultColor: Color(0xff8b97a2)),
+          fontWeight: FontWeight.w500),
+      validator: (value) =>
+          value!.isEmpty ? getI18NKey().emailCannotBeNull : null,
+      onSaved: (value) {
+        if (TextUtil.isEmpty(value) == true) {
+          email = "";
+          return;
+        }
+        email = value!.trim();
+      },
+    );
+  }
+
+  StatefulWidget getMobileInputTextField() {
     if (Utility.isGooglePlay() == true) {
       return IntlPhoneField(
         disableLengthCheck: true,
@@ -387,8 +502,8 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
             this.mobile = "";
             return;
           }
-          this.mobile =
-              await Utility.encryptCTRAES(this.mobileDecrypted ?? "", Params.AES_PWD);
+          this.mobile = await Utility.encryptCTRAES(
+              this.mobileDecrypted ?? "", Params.AES_PWD);
           // print("111111");
         },
       );
@@ -451,8 +566,11 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
       Apis.getDynamicCode,
       context: context,
       shouldShowErrorToast: true,
-      params: {"scene": Params.MSN_FORGET_PWD, "countryPhoneCode":this.countryPhoneCode,
-        "mobilePhoneNumber": this.mobile,},
+      params: {
+        "scene": Params.MSN_FORGET_PWD,
+        "countryPhoneCode": this.countryPhoneCode,
+        "mobilePhoneNumber": this.mobile,
+      },
     );
     if (baseBean.success == true) {
       startTimer();

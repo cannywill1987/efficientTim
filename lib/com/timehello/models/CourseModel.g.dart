@@ -24,15 +24,15 @@ CourseModel _$CourseModelFromJson(Map<String, dynamic> json) => CourseModel(
       imageOriginUrls: (json['imageOriginUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      type: json['type'] as int?,
+      type: (json['type'] as num?)?.toInt(),
       password: json['password'] as String?,
       price: (json['price'] as num?)?.toDouble(),
       courseFid: json['courseFid'] as String?,
       uid: json['uid'] as String?,
       authorAvatar: json['authorAvatar'] as String?,
       authorName: json['authorName'] as String?,
-      created_at: json['created_at'] as int?,
-      updated_at: json['updated_at'] as int?,
+      created_at: (json['created_at'] as num?)?.toInt(),
+      updated_at: (json['updated_at'] as num?)?.toInt(),
     )
       ..createdAt = json['createdAt'] as String?
       ..updatedAt = json['updatedAt'] as String?
@@ -41,7 +41,7 @@ CourseModel _$CourseModelFromJson(Map<String, dynamic> json) => CourseModel(
       ..backgroundUrl = json['backgroundUrl'] as String?
       ..countryCode = json['countryCode'] as String?
       ..isEditable = json['isEditable'] as bool?
-      ..verifiedtatus = json['verifiedtatus'] as int?
+      ..verifiedtatus = (json['verifiedtatus'] as num?)?.toInt()
       ..otherUids = json['otherUids'] as List<dynamic>?
       ..otherUserInfo = json['otherUserInfo'] as List<dynamic>?;
 

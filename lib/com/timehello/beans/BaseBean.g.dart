@@ -11,7 +11,7 @@ BaseBean _$BaseBeanFromJson(Map<String, dynamic> json) => BaseBean(
       success: json['success'] as bool,
       code: json['code'] as String?,
       data: json['data'],
-      sysTime: json['sysTime'] as int?,
+      sysTime: (json['sysTime'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$BaseBeanToJson(BaseBean instance) => <String, dynamic>{

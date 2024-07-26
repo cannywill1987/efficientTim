@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/components/CustomCloseButton.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
 import 'package:time_hello/com/timehello/components/HorizontalNumberPickerWrapper.dart';
@@ -29,7 +30,8 @@ typedef OnTapUpdateDateListener = void Function(
     {dynamic startDate,
     dynamic alertDate,
     dynamic dailyStartDate,
-    dynamic dailyEndDate, int time_mode});
+    dynamic dailyEndDate,
+    int time_mode});
 // typedef OnTapDailyEndDateListener = void Function({dynamic endDate});
 typedef OnTapBottomBarPriorityListener = void Function(dynamic data);
 typedef OnTapBottomBarTagListener = void Function(dynamic data);
@@ -263,7 +265,12 @@ class BottomBarState extends State<BottomBar> {
                           children: [
                             CustomPopupWidget(
                               onSelected: (v) {
-                                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_date_type","description": "任务时间类型",});
+                                AnalyticsEventsManager.getInstance()
+                                    .sendAnalyticsEventMap({
+                                  "sceneType": "missionpage",
+                                  "eventType": "missionpage_date_type",
+                                  "description": "任务时间类型",
+                                });
                                 if (this.widget.onTapDateListener != null) {
                                   this.widget.onTapDateListener?.call(v.value);
                                 }
@@ -379,7 +386,11 @@ class BottomBarState extends State<BottomBar> {
             style: TextStyle(color: Colors.red),
           ),
           onTap: () {
-            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_create_button","description": "创建",});
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "missionpage",
+              "eventType": "missionpage_create_button",
+              "description": "创建",
+            });
             if (this.widget.onTapFinishListener != null) {
               this.widget.onTapFinishListener!();
             }
@@ -403,12 +414,19 @@ class BottomBarState extends State<BottomBar> {
             width: 5,
           ),
           new Text(
-              CONSTANTS.getWeekDayString(
+              end_time == null ? getI18NKey().none : CONSTANTS.getWeekDayString(
                   Utility.getDateTimeModelFromTimeStamp(end_time ?? 0)),
               style: TextStyle(
                   color: ThemeManager.getInstance()
                       .getTextColor(defaultColor: Colors.black87),
                   fontSize: 12)),
+          CustomCloseButton(
+            margin: EdgeInsets.only(left: 5),
+            onTapListener: () {
+              this.end_time = null;
+              setState(() {});
+            },
+          ),
           Icon(
             Icons.arrow_right_sharp,
             color: ThemeManager.getInstance()
@@ -422,7 +440,11 @@ class BottomBarState extends State<BottomBar> {
         this.setState(() {
           this.end_time = model?.datetime?.millisecondsSinceEpoch; //计划到期日
         });
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_end_time","description": "完成时间",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_end_time",
+          "description": "完成时间",
+        });
         if (this.widget.onTapEndTimeListener != null) {
           this.widget.onTapEndTimeListener!(data: this.end_time);
         }
@@ -456,6 +478,13 @@ class BottomBarState extends State<BottomBar> {
                       )) +
                       ")",
               style: TextStyle(color: ColorsConfig.colorGold, fontSize: 12)),
+          CustomCloseButton(
+            margin: EdgeInsets.only(left: 5),
+            onTapListener: () {
+              this.widget.mission_value = null;
+              setState(() {});
+            },
+          ),
           Icon(
             Icons.arrow_right_sharp,
             color: ThemeManager.getInstance()
@@ -464,7 +493,11 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_task_duration","description": "任务价值",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_task_duration",
+          "description": "任务价值",
+        });
         if (LoginManager.getInstance().userBean.valuePerHour == null ||
             LoginManager.getInstance().userBean.valuePerHour == 0) {
           OverlayManagement.getInstance().openSelectMoneyPerHourOfMeOverlay(
@@ -534,6 +567,24 @@ class BottomBarState extends State<BottomBar> {
                   color: ThemeManager.getInstance()
                       .getTextColor(defaultColor: Colors.black87),
                   fontSize: 12)),
+          CustomCloseButton(
+            margin: EdgeInsets.only(left: 5),
+            onTapListener: () {
+              this.repetiveType = 0;
+              this.repetiveValue = 0;
+              this.repetiveWeekDay = [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+              ];
+
+              setState(() {});
+            },
+          ),
           Icon(
             Icons.arrow_right_sharp,
             color: ThemeManager.getInstance()
@@ -542,7 +593,11 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_repeative","description": "重复",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_repeative",
+          "description": "重复",
+        });
 
         SelectDatePeriodDialogUtil.show(context, okCallBack:
             (valueMiddleSelected, valueRightSelected, listCheckModels) {
@@ -595,8 +650,7 @@ class BottomBarState extends State<BottomBar> {
           new Text(
               this.time_mode == 1
                   ? CONSTANTS.getAlertDateString(
-                      Utility.getDateTimeModelFromTimeStamp(
-                          this.end_time ?? 0))
+                      Utility.getDateTimeModelFromTimeStamp(this.end_time ?? 0))
                   : this.daily_end_time != null
                       ? Utility.formatHourAndMin2(this.daily_end_time ?? 0)
                       : getI18NKey().none,
@@ -604,6 +658,13 @@ class BottomBarState extends State<BottomBar> {
                   color: ThemeManager.getInstance()
                       .getTextColor(defaultColor: Colors.black87),
                   fontSize: 12)),
+          CustomCloseButton(
+            margin: EdgeInsets.only(left: 5),
+            onTapListener: () {
+              this.daily_end_time = null;
+              setState(() {});
+            },
+          ),
           Icon(
             Icons.arrow_right_sharp,
             color: ThemeManager.getInstance()
@@ -616,9 +677,10 @@ class BottomBarState extends State<BottomBar> {
           // DateTimeModel? model =
           //     await Utility.showDateTimePickerDialog(context);
           // updateAlertTime();
-          DateTimeModel? model = await Utility.showDateTimePickerDialog(
-              context);
-          if ((model?.datetime?.millisecondsSinceEpoch ?? 0) < (this.start_time ?? 0)) {
+          DateTimeModel? model =
+              await Utility.showDateTimePickerDialog(context);
+          if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
+              (this.start_time ?? 0)) {
             Utility.showToastMsg(
                 context: context,
                 msg: getI18NKey().end_time_cannot_before_start_time);
@@ -651,10 +713,13 @@ class BottomBarState extends State<BottomBar> {
         }
         if (this.widget.onTapUpdateDateListener != null) {
           this.widget.onTapUpdateDateListener!(
-              startDate: this.time_mode == 0 ? this.daily_start_time : this.start_time,
+              startDate:
+                  this.time_mode == 0 ? this.daily_start_time : this.start_time,
               alertDate: this.alert_time,
-              dailyStartDate: this.time_mode == 0 ? this.daily_start_time : this.start_time,
-              dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time, time_mode: this.time_mode);
+              dailyStartDate:
+                  this.time_mode == 0 ? this.daily_start_time : this.start_time,
+              dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time,
+              time_mode: this.time_mode);
         }
         setState(() {});
       },
@@ -675,16 +740,40 @@ class BottomBarState extends State<BottomBar> {
             width: 5,
           ),
           new Text(
-              this.time_mode == 1 ? CONSTANTS.getAlertDateString(
-                  Utility.getDateTimeModelFromTimeStamp(
-                      this.start_time ?? 0)) :
-              this.daily_start_time != null
-                  ? Utility.formatHourAndMin2(this.daily_start_time ?? 0)
-                  : getI18NKey().none,
+              this.time_mode == 1
+                  ? CONSTANTS.getAlertDateString(
+                      Utility.getDateTimeModelFromTimeStamp(
+                          this.start_time ?? 0))
+                  : this.daily_start_time != null
+                      ? Utility.formatHourAndMin2(this.daily_start_time ?? 0)
+                      : getI18NKey().none,
               style: TextStyle(
                   color: ThemeManager.getInstance()
                       .getTextColor(defaultColor: Colors.black87),
                   fontSize: 12)),
+          CustomCloseButton(
+            margin: EdgeInsets.only(left: 5),
+            onTapListener: () {
+              this.daily_start_time = null;
+              this.daily_end_time = null;
+              this.start_time = 0;
+              this.end_time = 0;
+              if (this.widget.onTapUpdateDateListener != null) {
+                this.widget.onTapUpdateDateListener!(
+                    startDate: this.time_mode == 0
+                        ? this.daily_start_time
+                        : this.start_time,
+                    alertDate: this.alert_time,
+                    dailyStartDate: this.time_mode == 0
+                        ? this.daily_start_time
+                        : this.start_time,
+                    dailyEndDate:
+                        this.time_mode == 0 ? this.end_time : this.end_time,
+                    time_mode: this.time_mode);
+              }
+              setState(() {});
+            },
+          ),
           Icon(
             Icons.arrow_right_sharp,
             color: ThemeManager.getInstance()
@@ -693,7 +782,11 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_start_time","description": "开始时间",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_start_time",
+          "description": "开始时间",
+        });
         if (this.time_mode == 1) {
           DateTimeModel? model =
               await Utility.showDateTimePickerDialog(context);
@@ -725,10 +818,13 @@ class BottomBarState extends State<BottomBar> {
         updateAlertTime();
         if (this.widget.onTapUpdateDateListener != null) {
           this.widget.onTapUpdateDateListener!(
-              startDate: this.time_mode == 0 ? this.daily_start_time : this.start_time,
+              startDate:
+                  this.time_mode == 0 ? this.daily_start_time : this.start_time,
               alertDate: this.alert_time,
-              dailyStartDate: this.time_mode == 0 ? this.daily_start_time : this.start_time,
-              dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time, time_mode: this.time_mode);
+              dailyStartDate:
+                  this.time_mode == 0 ? this.daily_start_time : this.start_time,
+              dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time,
+              time_mode: this.time_mode);
         }
         setState(() {});
       },
@@ -738,7 +834,11 @@ class BottomBarState extends State<BottomBar> {
   Widget getPriorityWidget() {
     return CustomPopupWidget(
       onSelected: (v) {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_priority","description": "优先级",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_priority",
+          "description": "优先级",
+        });
         if (this.widget.onTapPriorityListener != null) {
           this.widget.onTapPriorityListener?.call(v.value);
         }
@@ -751,7 +851,11 @@ class BottomBarState extends State<BottomBar> {
   CustomTagFolderModelSelectPopupWidget getTagNameWidget() {
     return CustomTagFolderModelSelectPopupWidget(
       onSelected: (v) {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_tags","description": "标签",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_tags",
+          "description": "标签",
+        });
         if (this.widget.onTapTagListener != null) {
           this.widget.onTapTagListener!(v);
         }
@@ -812,7 +916,11 @@ class BottomBarState extends State<BottomBar> {
   Widget getCircleFolderModelWidget() {
     return CustomFolderModelSelectPopupWidget(
       onSelected: (v) {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_select_list","description": "选择清单",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_select_list",
+          "description": "选择清单",
+        });
         if (this.widget.onTapCircleListener != null) {
           this.widget.onTapCircleListener?.call(v);
         }

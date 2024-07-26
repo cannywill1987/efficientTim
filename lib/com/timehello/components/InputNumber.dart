@@ -34,7 +34,7 @@ class InputNumberState extends State<InputNumber> {
   int counter = 1;
   int duration = SharePreferenceUtil.getSyncInstance().getTomatoTime();
   double margin = 30;
-  double sizeBtn = 30;
+  double sizeBtn = 25;
   InputNumberState({required this.counter}) {}
 
   @override
@@ -84,26 +84,27 @@ class InputNumberState extends State<InputNumber> {
                   ),
                 )),
             SizedBox(width: margin,),
-            Wrap(
-              alignment: WrapAlignment.center,
-              runAlignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.end,
-              children: [
-                Text(counter.toString(),
+            RichText(
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  TextSpan(
+                    text: counter.toString(),
                     style: TextStyle(
-                        fontSize: 26,
+                        fontSize: 22,
                         color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)),
-                        fontWeight: FontWeight.bold)),
-                SizedBox(width: 10),
-                Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Text(this.widget.unit,
-                        style:
-                            TextStyle(fontSize: 14, color: Color(0xffa0a0a0)))),
-                SizedBox(
-                  width: 2,
-                ),
-              ],
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' ' + this.widget.unit,
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xffa0a0a0)
+                    ),
+                  ),
+                ],
+              ),
             ),
             // Container(height: 20, color: Color(0xffa0a0a0),),
             SizedBox(width: margin,),

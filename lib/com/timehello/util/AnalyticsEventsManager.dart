@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -6,7 +9,8 @@ class AnalyticsEventsManager {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   static AnalyticsEventsManager? instance;
-
+  Timer? timer;
+  bool? isEmailVerifiedVal=false;
   static getInstance() {
     if(instance == null) {
       instance = AnalyticsEventsManager();
@@ -30,6 +34,58 @@ class AnalyticsEventsManager {
     // });
   }
 
+  Future<void> signIn({required String email, required String password}) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('Signed in: ${userCredential.user}');
+    } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+    }
+  }
+
+  bool isEmailVerified() {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    this.isEmailVerifiedVal = user?.emailVerified ?? false;
+    if(!(isEmailVerifiedVal ?? false)) {
+      sendVerificationEmail();
+    }
+    return isEmailVerifiedVal ?? false;
+  }
+
+  cancelTimer() {
+    timer?.cancel();
+  }
+
+  Future checkEmailVerified() async {
+    await FirebaseAuth.instance.currentUser?.reload();
+    isEmailVerifiedVal = FirebaseAuth.instance.currentUser?.emailVerified;
+    if(isEmailVerified == false) {
+      sendVerificationEmail();
+    }
+  }
+
+  Future checkEmailVerifiedPeriodic() async {
+    timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      if(isEmailVerified()) {
+        timer.cancel();
+      }
+    });
+  }
+
+  Future sendVerificationEmail() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      await user?.sendEmailVerification();
+    } catch(e) {
+      print(e);
+    }
+  }
+
   Future<void> sendAnalyticsEventMap(Map data) async {
     try {
       String sceneType = data['sceneType'] ?? "";
@@ -37,7 +93,7 @@ class AnalyticsEventsManager {
       String message = data['message'] ?? "";
       await analytics.logEvent(
         name: sceneType + '_' + eventType,
-        parameters: <String, dynamic>{
+        parameters: <String, Object>{
           'sceneType': sceneType,
           'eventType': eventType,
           'message': message,
@@ -53,22 +109,22 @@ class AnalyticsEventsManager {
     // https://firebase.google.com/docs/reference/ios/firebaseanalytics/api/reference/Classes/FIRAnalytics#+logeventwithname:parameters:
     // https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#public-void-logevent-string-name,-bundle-params
     //部分小米机型打不开
-    // try {
-    //   await analytics.logEvent(
-    //     name: name,
-    //     parameters: <String, dynamic>{
-    //       'event_name': name,
-    //       // 'int': 42,
-    //       // 'long': 12345678910,
-    //       // 'double': 42.0,
-    //       // // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
-    //       // // https://developers.google.cn/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
-    //       // 'bool': true.toString(),
-    //     },
-    //   );
-    // } catch(e) {
-    //   print(e);
-    // }
+    try {
+      await analytics.logEvent(
+        name: name,
+        parameters: <String, Object>{
+          'event_name': name,
+          // 'int': 42,
+          // 'long': 12345678910,
+          // 'double': 42.0,
+          // // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
+          // // https://developers.google.cn/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
+          // 'bool': true.toString(),
+        },
+      );
+    } catch(e) {
+      print(e);
+    }
   }
 
 

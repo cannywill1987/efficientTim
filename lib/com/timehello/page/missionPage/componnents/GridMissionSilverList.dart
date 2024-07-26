@@ -323,127 +323,129 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                     )),
     ];
     return Slidable(
-        enabled: DeviceInfoManagement.isMoible() == true ||
-            DeviceInfoManagement.isWebMobileBySize(),
-        actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.15,
-        secondaryActions: _missionModel?.isFinished == false
+      key: ValueKey(_missionModel),
+      enabled: DeviceInfoManagement.isMoible() == true ||
+          DeviceInfoManagement.isWebMobileBySize(),
+      endActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        extentRatio: 0.15,
+        children: _missionModel?.isFinished == false
             ? getUnfinishIconSlideActions(_missionModel ?? MissionModel())
             : getFinishIconSlideActions(_missionModel ?? MissionModel()),
-        child: InkWell(
-            onTap: () {
-              if (this.widget.multiSelectModeEnum ==
-                  MultiSelectModeEnum.multiSelect) {
-                if (this.widget.onTapMultiSelectListener != null) {
-                  _missionModel?.isSelected =
-                      _missionModel.isSelected ? false : true;
-                  this.widget.onTapMultiSelectListener?.call(_missionModel);
-                  setState(() {});
-                }
-              } else {
-                if (this.widget.onTapListener != null) {
-                  this.widget.onTapListener!(_missionModel);
-                }
-              }
-            },
-            child: MouseRegion(
-                onEnter: (_) {
-                  setState(() {
-                    this.isHover = true;
-                  });
-                },
-                onHover: (_) {},
-                onExit: (_) {
-                  setState(() {
-                    this.isHover = false;
-                  });
-                },
-                child: Container(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  margin: EdgeInsets.only(
-                      bottom: 2,
-                      left: CONSTANTS.missionPageMargin + 4,
-                      right: CONSTANTS.missionPageMargin + 4),
-                  decoration: new BoxDecoration(
-                    border: this.widget.multiSelectModeEnum ==
-                            MultiSelectModeEnum.normal
-                        ? new Border.all(
-                            width: 1.0,
-                            color: ThemeManager.getInstance().isDark()
-                                ? new Color(CONSTANTS.getPriorityColor(
-                                    _missionModel?.priorityStatus ?? 3))
-                                : new Color(0xfff0f0f0))
-                        : Border.all(
-                            width: 2.0,
-                            color: new Color((CONSTANTS.getPriorityColor(
-                                    _missionModel?.priorityStatus ?? 3) -
-                                (this.widget._missionModel?.isSelected == true
-                                    ? 0x00000000
-                                    : 0xe0000000)))),
-                    image: imageProvider == null
-                        ? null
-                        : ThemeManager.getInstance().isDark()
-                            ? DecorationImage(
-                                image: imageProvider!,
-                                fit: BoxFit.cover,
-                                colorFilter: ColorFilter.mode(
-                                    ThemeManager.getInstance().isDark()
-                                        ? ThemeManager.getInstance()
-                                            .getCardBackgroundColor(alpha: 150)
-                                        : Colors.white,
-                                    BlendMode.colorBurn))
-                            : DecorationImage(
-                                image: imageProvider!,
-                                fit: BoxFit.cover,
-                                colorFilter: ColorFilter.mode(
-                                    Colors.white, BlendMode.colorBurn)),
-                    color: ThemeManager.getInstance().isDark()
-                        ? ThemeManager.getInstance()
-                            .getCardBackgroundColor(alpha: 150)
-                        : Colors.white,
-                    borderRadius:
-                        const BorderRadius.all(const Radius.circular(8.0)),
-                  ),
+      ),
+      child: InkWell(
+        onTap: () {
+          if (this.widget.multiSelectModeEnum == MultiSelectModeEnum.multiSelect) {
+            if (this.widget.onTapMultiSelectListener != null) {
+              _missionModel?.isSelected =
+              _missionModel.isSelected ? false : true;
+              this.widget.onTapMultiSelectListener?.call(_missionModel);
+              setState(() {});
+            }
+          } else {
+            if (this.widget.onTapListener != null) {
+              this.widget.onTapListener!(_missionModel);
+            }
+          }
+        },
+        child: MouseRegion(
+          onEnter: (_) {
+            setState(() {
+              this.isHover = true;
+            });
+          },
+          onHover: (_) {},
+          onExit: (_) {
+            setState(() {
+              this.isHover = false;
+            });
+          },
+          child: Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            margin: EdgeInsets.only(
+                bottom: 2,
+                left: CONSTANTS.missionPageMargin + 4,
+                right: CONSTANTS.missionPageMargin + 4),
+            decoration: BoxDecoration(
+              border: this.widget.multiSelectModeEnum == MultiSelectModeEnum.normal
+                  ? Border.all(
+                  width: 1.0,
+                  color: ThemeManager.getInstance().isDark()
+                      ? Color(CONSTANTS.getPriorityColor(
+                      _missionModel?.priorityStatus ?? 3))
+                      : Color(0xfff0f0f0))
+                  : Border.all(
+                  width: 2.0,
+                  color: Color((CONSTANTS.getPriorityColor(
+                      _missionModel?.priorityStatus ?? 3) -
+                      (this.widget._missionModel?.isSelected == true
+                          ? 0x00000000
+                          : 0xe0000000)))),
+              image: imageProvider == null
+                  ? null
+                  : ThemeManager.getInstance().isDark()
+                  ? DecorationImage(
+                  image: imageProvider!,
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      ThemeManager.getInstance().isDark()
+                          ? ThemeManager.getInstance()
+                          .getCardBackgroundColor(alpha: 150)
+                          : Colors.white,
+                      BlendMode.colorBurn))
+                  : DecorationImage(
+                  image: imageProvider!,
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.white, BlendMode.colorBurn)),
+              color: ThemeManager.getInstance().isDark()
+                  ? ThemeManager.getInstance()
+                  .getCardBackgroundColor(alpha: 150)
+                  : Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            ),
+            child: Stack(
+              children: [
+                TextUtil.isEmpty(_missionModel?.background_url ?? "")
+                    ? SizedBox.shrink()
+                    : CachedNetworkImage(
+                    imageUrl: Utility.filterHttpUrl(
+                        _missionModel?.background_url ?? '',
+                        prefix: "oss"),
+                    imageBuilder: (context, imageProviderTmp) {
+                      Future.delayed(Duration(seconds: 0), () {
+                        imageProvider = imageProviderTmp;
+                        if (mounted) {
+                          // setState(() {});
+                        }
+                      });
+                      return Container();
+                    }),
+                Container(
+                  color: ThemeManager.getInstance()
+                      .getCardBackgroundColor(defaultColor: Color(0xb0ffffff), alpha: 150),
+                  constraints: BoxConstraints(minHeight: 30),
+                  padding: EdgeInsets.only(top: 0, bottom: 0),
+                  alignment: Alignment.centerLeft,
                   child: Stack(
                     children: [
-                      TextUtil.isEmpty(_missionModel?.background_url ?? "")
-                          ? SizedBox.shrink()
-                          : CachedNetworkImage(
-                              imageUrl: Utility.filterHttpUrl(
-                                  _missionModel?.background_url ?? '',
-                                  prefix: "oss"),
-                              imageBuilder: (context, imageProviderTmp) {
-                                Future.delayed(Duration(seconds: 0), () {
-                                  imageProvider = imageProviderTmp;
-                                  if (mounted == true) {
-                                    // setState(() {});
-                                  }
-                                });
-                                return Container();
-                              }),
-                      Container(
-                        color: ThemeManager.getInstance()
-                            .getCardBackgroundColor(
-                                defaultColor: Color(0xb0ffffff), alpha: 150),
-                        // color: Colors.yellow,
-                        constraints: BoxConstraints(minHeight: 30),
-                        padding: EdgeInsets.only(top: 0, bottom: 0),
-                        alignment: Alignment.centerLeft,
-                        child: Stack(children: [
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: childrenRow,
-                              ),
-                            ],
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: childrenRow,
                           ),
-                        ]),
+                        ],
                       ),
                     ],
                   ),
-                ))));
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   bool isDoItNow(MissionModel? _missionModel) =>
@@ -452,56 +454,55 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
 
   List<Widget> getFinishIconSlideActions(MissionModel _missionModel) {
     return <Widget>[
-      IconSlideAction(
-        caption: getI18NKey().unfinished,
-        color: Colors.lightBlue,
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapUnFinishListener != null) {
+            this.widget.onTapUnFinishListener!(_missionModel);
+          }
+        },
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
         icon: Icons.check,
-        onTap: () {
-          if (this.widget.onTapUnFinishListener != null)
-            this.widget.onTapUnFinishListener!(_missionModel);
-        },
+        label: getI18NKey().unfinished,
       ),
-      IconSlideAction(
-        caption: getI18NKey().multi_select,
-        color: Colors.greenAccent,
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapMultiSelectListener != null) {
+            this.widget.onTapMultiSelectListener!(null);
+          }
+        },
+        backgroundColor: Colors.greenAccent,
         foregroundColor: Colors.white,
         icon: Icons.select_all,
-        onTap: () {
-          if (this.widget.onTapMultiSelectListener != null)
-            this.widget.onTapMultiSelectListener!(null);
-        },
+        label: getI18NKey().multi_select,
       ),
-      IconSlideAction(
-        caption: getI18NKey().delete,
-        foregroundColor: Colors.white,
-        color: Colors.grey,
-        icon: Icons.delete,
-        onTap: () {
-          if (this.widget.onTapDeleteListener != null)
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapDeleteListener != null) {
             this.widget.onTapDeleteListener!(_missionModel);
+          }
         },
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete,
       ),
     ];
   }
 
   List<Widget> getUnfinishIconSlideActions(MissionModel _missionModel) {
     return <Widget>[
-      IconSlideAction(
-        caption: getI18NKey().play,
-        color: Colors.red,
-        foregroundColor: Colors.white,
-        icon: Icons.play_arrow,
-        onTap: () {
+      SlidableAction(
+        onPressed: (context) {
           this.widget.onTapPlayListener!(_missionModel);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().finish,
-        color: Colors.lightBlue,
+        backgroundColor: Colors.red,
         foregroundColor: Colors.white,
-        icon: Icons.check,
-        onTap: () {
+        icon: Icons.play_arrow,
+        label: getI18NKey().play,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (_missionModel.isFinished == false) {
             if (this.widget.onTapFinishListener != null)
               this.widget.onTapFinishListener!(_missionModel);
@@ -510,36 +511,40 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
               this.widget.onTapUnFinishListener!(_missionModel);
           }
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().edit,
-        color: Colors.lightGreen,
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
-        icon: Icons.edit,
-        onTap: () {
+        icon: Icons.check,
+        label: getI18NKey().finish,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapEditListener != null)
             this.widget.onTapEditListener!(_missionModel);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().multi_select,
-        color: Colors.greenAccent,
+        backgroundColor: Colors.lightGreen,
         foregroundColor: Colors.white,
-        icon: Icons.select_all,
-        onTap: () {
+        icon: Icons.edit,
+        label: getI18NKey().edit,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapMultiSelectListener != null)
             this.widget.onTapMultiSelectListener!(null);
         },
-      ),
-      IconSlideAction(
-        caption: getI18NKey().delete,
+        backgroundColor: Colors.greenAccent,
         foregroundColor: Colors.white,
-        color: Colors.grey,
-        icon: Icons.delete,
-        onTap: () {
+        icon: Icons.select_all,
+        label: getI18NKey().multi_select,
+      ),
+      SlidableAction(
+        onPressed: (context) {
           if (this.widget.onTapDeleteListener != null)
             this.widget.onTapDeleteListener!(_missionModel);
         },
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete,
       ),
     ];
   }

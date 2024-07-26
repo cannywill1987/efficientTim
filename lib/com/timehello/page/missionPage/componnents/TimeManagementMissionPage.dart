@@ -6,16 +6,26 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 ///calendar import
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:time_hello/com/timehello/components/CustomTextField.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
+import 'package:time_hello/com/timehello/config/StylesConfig.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/appointment.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/appointment_engine/calendar_datasource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/calendar_controller.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/enums.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/common/event_args.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/resource_view/calendar_resource.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/month_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/schedule_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/time_slot_view_settings.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/settings/view_header_style.dart';
+import 'package:time_hello/com/timehello/libs/SFCalendar/src/calendar/sfcalendar.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
-import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 
 import '../../../../../r.dart';
 import '../../../common/database/apis/MongoApisManager.dart';
@@ -37,6 +47,7 @@ import '../../../models/TimelineMissionModel.dart';
 import '../../../util/DialogManagement.dart';
 import '../../../util/TextUtil.dart';
 import '../../../util/Utility.dart';
+import '../../../util/WidgetManager.dart';
 import '../../CreateMissionPage/CreateMissionPage.dart';
 import '../../RichEditor/RichEditorPage.dart';
 import '../../SettingItemDetailPage/SettingItemDetailPage.dart';
@@ -53,12 +64,14 @@ class TimeManagementMissionPage extends BaseWidget {
   Function? onTapNavMenuListener;
   Function? onTapCreateMissionListener;
   Function? onTapRightNavMenuListener;
+
   TimeManagementMissionPage(
       {Key? key,
       this.pageEnum = PageEnum.Normal,
       Function? onRefresh,
-        this.onTapRightNavMenuListener,
-      this.onTapNavMenuListener, this.onTapCreateMissionListener})
+      this.onTapRightNavMenuListener,
+      this.onTapNavMenuListener,
+      this.onTapCreateMissionListener})
       : super(key: key);
 
   @override
@@ -114,14 +127,14 @@ class TimeManagementMissionPageState
         },
       )
     ];
-    if(ABTestSetting.isOpenAiOn)
-    this.rightNavChildren = [
-      IconButton(
-          onPressed: () {
-            this.widget.onTapRightNavMenuListener?.call();
-          },
-          icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
-    ];
+    // if(ABTestSetting.isOpenAiOn)
+    // this.rightNavChildren = [
+    //   IconButton(
+    //       onPressed: () {
+    //         this.widget.onTapRightNavMenuListener?.call();
+    //       },
+    //       icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
+    // ];
     int currentView = SharePreferenceUtil.getSyncInstance().getInt(
         key: "timeManagementDefautKey", defaultVal: CalendarView.week.index);
     if (currentView != null) {
@@ -135,6 +148,58 @@ class TimeManagementMissionPageState
     this.curSearchWords = searchWord;
     updateUI();
     // requestDatas();
+  }
+
+  @override
+  void didUpdateWidget(covariant TimeManagementMissionPage oldWidget) {
+    // TODO: implement didUpdateWidget
+    updateRightNavChildren();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void updateRightNavChildren() {
+    // && this.rightNavChildren == null
+    if (this.folderModelSearch?.tag == 1) {
+      // if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
+      this.rightNavChildren = [
+        IconButton(
+            onPressed: () {
+              this.widget.onTapRightNavMenuListener?.call(this.folderModelSearch, false);
+            },
+            icon: Utility.getSVGPicture(R.assetsImgIcListingGroup,
+                size: StylesConfig.sizeGroup))
+      ];
+      updateUI();
+    }
+    // else if (this.rightNavChildren != null) {
+    //   this.rightNavChildren = null;
+    //   updateUI();
+    // }
+    else if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false) {
+      this.rightNavChildren = [
+        IconButton(
+            onPressed: () {
+              this
+                  .widget
+                  .onTapRightNavMenuListener
+                  ?.call(this.folderModelSearch, true);
+            },
+            icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
+      ];
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
+  componentDidMount() {
+    // TODO: implement componentDidMount
+    updateRightNavChildren();
+    return super.componentDidMount();
   }
 
   @override
@@ -158,7 +223,11 @@ class TimeManagementMissionPageState
                       _events =
                           _DataSource(getAppointmentDetails(dayModelList));
                       final Widget calendar = _getDragAndDropCalendar(
-                          _calendarController, _events, _onViewChanged, WidgetManager.getAppointmentUIWidget(_calendarController));
+                          _calendarController,
+                          _events,
+                          _onViewChanged,
+                          WidgetManager.getAppointmentUIWidget(
+                              _calendarController));
                       final double screenHeight =
                           MediaQuery.of(context).size.height;
                       return Scaffold(
@@ -229,9 +298,12 @@ class TimeManagementMissionPageState
                                               CreateMissionPage(
                                                   missionModel: missionModel));
                                         } else {
-                                          OverlayManagement.getInstance().showPCCustomOverlay(context: context, child: CreateMissionPage(
-                                              missionModel:
-                                              missionModel));
+                                          OverlayManagement.getInstance()
+                                              .showPCCustomOverlay(
+                                                  context: context,
+                                                  child: CreateMissionPage(
+                                                      missionModel:
+                                                          missionModel));
                                           // DialogManagement.getInstance()
                                           //     .showPCCustomDialog(
                                           //         context: context,
@@ -515,34 +587,36 @@ class TimeManagementMissionPageState
         }
         late DateTime dateTimeStart;
         late DateTime? dateTimeEnd;
-        if(_missionModel.title == "11111222222") {
+        if (_missionModel.title == "11111222222") {
           print(1111111);
         }
         if (_missionModel.time_mode == null || _missionModel.time_mode == 0) {
           if (_missionModel?.daily_start_time == null &&
               _missionModel?.daily_end_time == null &&
               _missionModel.repetiveType == 0) {
-            if (_missionModel?.end_time != null) { //没有重复
+            if (_missionModel?.end_time != null) {
+              //没有重复
               dateTimeStart = Utility.getDateTimeFromTimeStamp(
                   _missionModel?.start_time ?? 0);
             }
-          } else { //有重复
+          } else {
+            //有重复
             dateTimeStart = Utility.getDateTimeFromTimeStamp(DateTime(
-                dayModel.dateTime?.year ?? 0,
-                dayModel.dateTime?.month ?? 0,
-                dayModel?.day ?? 0,
-                dayModel.dateTime?.hour ?? 0)
-                .millisecondsSinceEpoch +
+                        dayModel.dateTime?.year ?? 0,
+                        dayModel.dateTime?.month ?? 0,
+                        dayModel?.day ?? 0,
+                        dayModel.dateTime?.hour ?? 0)
+                    .millisecondsSinceEpoch +
                 (_missionModel?.daily_start_time ?? 0));
           }
 
           if (_missionModel?.daily_end_time != null) {
             dateTimeEnd = Utility.getDateTimeFromTimeStamp(DateTime(
-                dayModel.dateTime?.year ?? 0,
-                dayModel.dateTime?.month ?? 0,
-                dayModel?.day ?? 0,
-                dayModel.dateTime?.hour ?? 0)
-                .millisecondsSinceEpoch +
+                        dayModel.dateTime?.year ?? 0,
+                        dayModel.dateTime?.month ?? 0,
+                        dayModel?.day ?? 0,
+                        dayModel.dateTime?.hour ?? 0)
+                    .millisecondsSinceEpoch +
                 (_missionModel?.daily_end_time ?? 0));
           } else {
             dateTimeEnd = dateTimeStart.add(Duration(hours: 1));
@@ -612,7 +686,7 @@ class TimeManagementMissionPageState
       [CalendarController? calendarController,
       CalendarDataSource? calendarDataSource,
       ViewChangedCallback? viewChangedCallback,
-        CalendarAppointmentBuilder? appointmentBuilder]) {
+      CalendarAppointmentBuilder? appointmentBuilder]) {
     return SfCalendar(
       controller: calendarController,
       dataSource: calendarDataSource,
@@ -641,9 +715,9 @@ class TimeManagementMissionPageState
         missionModel.time_mode = 1;
         missionModel.end_time = date.millisecondsSinceEpoch;
         missionModel.start_time = date.millisecondsSinceEpoch;
-        missionModel.end_time = date.add(Duration(hours: 1)).millisecondsSinceEpoch;
+        missionModel.end_time =
+            date.add(Duration(hours: 1)).millisecondsSinceEpoch;
         this.widget.onTapCreateMissionListener?.call(missionModel);
-
       },
       onSelectionChanged: (CalendarSelectionDetails calendarSelectionDetails) {
         // print(11111111);
@@ -669,24 +743,27 @@ class TimeManagementMissionPageState
         Appointment appointment = details.appointment as Appointment;
         MissionModel? missionModel = await MongoApisManager.getInstance()
             .queryWhereEqual_missionDataByObjectId(
-            objectId: appointment.id.toString());
+                objectId: appointment.id.toString());
         CalendarResource? resource = details.resource;
         DateTime startDateTime = details.startTime!;
         DateTime endDateTime = details.endTime!;
         //日期
         if (missionModel?.time_mode == 0 || missionModel?.time_mode == null) {
-          missionModel?.daily_end_time = (endDateTime?.hour ?? 0) * 60 * 60 * 1000 +
-              (endDateTime?.minute ?? 0) * 60 * 1000 +
-              (endDateTime?.second ?? 0) * 1000;
-          missionModel?.daily_start_time = (startDateTime?.hour ?? 0) * 60 * 60 * 1000 +
-              (startDateTime?.minute ?? 0) * 60 * 1000 +
-              (startDateTime?.second ?? 0) * 1000;
+          missionModel?.daily_end_time =
+              (endDateTime?.hour ?? 0) * 60 * 60 * 1000 +
+                  (endDateTime?.minute ?? 0) * 60 * 1000 +
+                  (endDateTime?.second ?? 0) * 1000;
+          missionModel?.daily_start_time =
+              (startDateTime?.hour ?? 0) * 60 * 60 * 1000 +
+                  (startDateTime?.minute ?? 0) * 60 * 1000 +
+                  (startDateTime?.second ?? 0) * 1000;
         } else {
           //时间段
           missionModel?.start_time = startDateTime.millisecondsSinceEpoch;
           missionModel?.end_time = endDateTime.millisecondsSinceEpoch;
         }
-        if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+        if (ChatGroupManager.isFolderModelEnabled(
+                folderId: missionModel?.folder_id) ==
             false) {
           Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -704,7 +781,7 @@ class TimeManagementMissionPageState
         Appointment appointment = details.appointment as Appointment;
         MissionModel? missionModel = await MongoApisManager.getInstance()
             .queryWhereEqual_missionDataByObjectId(
-            objectId: appointment.id.toString());
+                objectId: appointment.id.toString());
         CalendarResource? sourceResource = details.sourceResource;
         CalendarResource? targetResource = details.targetResource;
         DateTime? draggingTime = details.droppingTime;
@@ -719,7 +796,8 @@ class TimeManagementMissionPageState
                   (appointment.startTime?.second ?? 0) * 1000;
           missionModel?.folder_id = this.folderModelSearch?.objectId;
           if (missionModel?.repetiveType == 0) {
-            missionModel?.end_time = (draggingTime?.millisecondsSinceEpoch ?? 0);
+            missionModel?.end_time =
+                (draggingTime?.millisecondsSinceEpoch ?? 0);
           }
         } else {
           //时间段
@@ -727,15 +805,16 @@ class TimeManagementMissionPageState
               appointment.startTime?.millisecondsSinceEpoch;
           missionModel?.end_time = appointment.endTime?.millisecondsSinceEpoch;
         }
-        if (ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) ==
+        if (ChatGroupManager.isFolderModelEnabled(
+                folderId: missionModel?.folder_id) ==
             false) {
           Utility.showToastMsg(
               context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
           return;
         }
         if (missionModel != null) {
-          await MongoApisManager.getInstance()
-              .update_MissionModel(missionModel: missionModel, shouldQueryMissionModel: false);
+          await MongoApisManager.getInstance().update_MissionModel(
+              missionModel: missionModel, shouldQueryMissionModel: false);
         }
         if (this.widget.onRefresh != null) {
           this.widget.onRefresh!();

@@ -81,7 +81,7 @@ class ListingSecurityWidget extends StatelessWidget {
   }
 
   Future<void> showPasswordDialog() async {
-    bool res = await CryptoManager.getInstance().showPasswordDialog(
+    bool res = await CryptoManager.getInstance().showTwoPasswordDialog(
         folderId: this.folder_id,
         okCallback: (password) {
           List<MissionModel>? listMissionModels =

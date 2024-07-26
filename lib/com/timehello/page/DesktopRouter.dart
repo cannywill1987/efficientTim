@@ -10,12 +10,14 @@ import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/CountDownListViewPage/CountDownListViewPage.dart';
 import 'package:time_hello/com/timehello/page/CoursePage/CoursePage.dart';
 import 'package:time_hello/com/timehello/page/CreditCardManagementPage/pages/CreditCardContainer.dart';
+import 'package:time_hello/com/timehello/page/FourQuadrant/FourQuadrantContainer.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/GroupChatPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/CalendarPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementContainer.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/StatisticPage.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../util/AnalyticsEventsManager.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
@@ -34,18 +36,30 @@ import 'missionPage/MissionContainerPage.dart';
 import 'missionPage/MissionPage.dart';
 
 getMainPage([String? page]) {
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    children: [
-      Expanded(child: buildBodyFunction(page)),
-      Container(
-        height: double.infinity,
-        width: 2,
-        color: Color(0xff3d8f8),
-      ),
-      RightSide()
-    ],
-  );
+  return Selector<Env, bool>(
+      selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
+      builder: (_, isMiddleMissionPageVisible, __) {
+        // if(isMiddleMissionPageVisible == false) {
+        //   return Container();
+        // }
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            if(isMiddleMissionPageVisible == true)
+            Expanded(child: buildBodyFunction(page)),
+            Container(
+              height: double.infinity,
+              width: 2,
+              color: Color(0xff3d8f8),
+            ),
+            if(isMiddleMissionPageVisible == true)
+            RightSide()
+            else
+            Expanded(child: RightSide()),
+          ],
+        );
+      });
+
 }
 
 // getMainTomatoPage(String page) {
@@ -111,7 +125,7 @@ Widget buildBodyFunction([String? page]) {
             //日历页面
             settingModel.isFourQuadrantPageOn != 1 ? SizedBox.shrink() :Offstage(
                 offstage: !(page == 'FourQuadrantPage'),
-                child: const FourQuadrantPage()),
+                child: const FourQuadrantContainer()),
 
             settingModel.isAIHelperPageOn != 1 ? SizedBox.shrink() :Offstage(
                 offstage: !(page == 'AIHelper'),
@@ -264,8 +278,21 @@ Widget desktopCenterRouter(String page, Map data) {
  * PC 右侧区域路由配置
  */
 Widget desktopRightRouter(String page, Map data) {
+  // 得到屏幕宽度
+  double width  = 300;
+  double screenWidth = MediaQuery.of(Utility.getGlobalContext()).size.width;
+  print("screenWidth: $screenWidth");
+  double minScreenWidth = 600;
+  double maxScreenWidrth = 1200;
+  if(screenWidth > maxScreenWidrth) {
+    width = 400;
+  } else if (screenWidth <= maxScreenWidrth && screenWidth < minScreenWidth) {
+    width = 300 * (1 +  (maxScreenWidrth - screenWidth) / 200) ;
+  }else {
+    width = 300;
+  }
   Widget getContainer(Widget child) {
-    return Container(width: 340, child: child);
+    return Container(width: width, child: child);
   }
 
   switch (page) {
@@ -274,6 +301,15 @@ Widget desktopRightRouter(String page, Map data) {
         key: ValueKey("ejzifjf123"),
         missionModel: data['missionModel'],
       ));
+      // return Selector<Env, bool>(
+      //     selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
+      //     builder: (_, isMiddleMissionPageVisible, __) {
+      //       if(isMiddleMissionPageVisible == false) {
+      //         width = 600;
+      //       }
+      //
+      //     });
+
     case 'ChatGptPage':
       return getContainer(ChatGptPage(
         key: ValueKey("ejzifjf123zefzef"),
