@@ -574,10 +574,9 @@ class ThemeManager {
       // 文本主题
       textTheme: TextTheme(
         // 你可以根据需要设置其他文本样式
-
-        headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-        headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-        bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        // headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+        // headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+        // bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
       ),
     );
     this.curThemeDataLight = themeData;
