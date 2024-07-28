@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `请根据以下内容继续写作：\n\n{existing_text}\n\n接下来：`
+  /// `Please continue writing based on the following content:\n\n{existing_text}\n\nNext:`
   String continue_writing_prompt_with_text(Object existing_text) {
     return Intl.message(
-      '请根据以下内容继续写作：\n\n$existing_text\n\n接下来：',
+      'Please continue writing based on the following content:\n\n$existing_text\n\nNext:',
       name: 'continue_writing_prompt_with_text',
       desc: '',
       args: [existing_text],
@@ -70,280 +70,280 @@ class S {
     );
   }
 
-  /// `插入`
+  /// `Insert`
   String get insert {
     return Intl.message(
-      '插入',
+      'Insert',
       name: 'insert',
       desc: '',
       args: [],
     );
   }
 
-  /// `继续写作`
+  /// `Continue Writing`
   String get continue_writing {
     return Intl.message(
-      '继续写作',
+      'Continue Writing',
       name: 'continue_writing',
       desc: '',
       args: [],
     );
   }
 
-  /// `放弃`
+  /// `Give Up`
   String get give_up {
     return Intl.message(
-      '放弃',
+      'Give Up',
       name: 'give_up',
       desc: '',
       args: [],
     );
   }
 
-  /// `输入`
+  /// `Input`
   String get input {
     return Intl.message(
-      '输入',
+      'Input',
       name: 'input',
       desc: '',
       args: [],
     );
   }
 
-  /// `原文：政府正在积极采取措施，以应对日益严重的环境问题，包括加强环保法规的执行力度，提高公众环保意识，并推动绿色能源的发展。`
+  /// `Original Text: The government is actively taking measures to address the increasingly serious environmental issues, including strengthening the enforcement of environmental regulations, raising public environmental awareness, and promoting the development of green energy.`
   String get original_text {
     return Intl.message(
-      '原文：政府正在积极采取措施，以应对日益严重的环境问题，包括加强环保法规的执行力度，提高公众环保意识，并推动绿色能源的发展。',
+      'Original Text: The government is actively taking measures to address the increasingly serious environmental issues, including strengthening the enforcement of environmental regulations, raising public environmental awareness, and promoting the development of green energy.',
       name: 'original_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `改写：政府正在加强环保法规，提高公众意识，并推动绿色能源，以应对环境问题。`
+  /// `Revised Text: The government is strengthening environmental regulations, raising public awareness, and promoting green energy to address environmental issues.`
   String get revised_text {
     return Intl.message(
-      '改写：政府正在加强环保法规，提高公众意识，并推动绿色能源，以应对环境问题。',
+      'Revised Text: The government is strengthening environmental regulations, raising public awareness, and promoting green energy to address environmental issues.',
       name: 'revised_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `选择下列场景或告诉AI如何编辑`
+  /// `Select from the following scenarios or tell AI how to edit`
   String get select_scenario {
     return Intl.message(
-      '选择下列场景或告诉AI如何编辑',
+      'Select from the following scenarios or tell AI how to edit',
       name: 'select_scenario',
       desc: '',
       args: [],
     );
   }
 
-  /// `请改进所选段落的写作，使其更加清晰和富有表达力。`
+  /// `Please improve the selected paragraph to make it clearer and more expressive.`
   String get improve_writing_prompt {
     return Intl.message(
-      '请改进所选段落的写作，使其更加清晰和富有表达力。',
+      'Please improve the selected paragraph to make it clearer and more expressive.',
       name: 'improve_writing_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请检查所选段落的拼写和语法，并修复任何错误。`
+  /// `Please check the selected paragraph for spelling and grammar errors and fix any issues.`
   String get fix_spelling_grammar_prompt {
     return Intl.message(
-      '请检查所选段落的拼写和语法，并修复任何错误。',
+      'Please check the selected paragraph for spelling and grammar errors and fix any issues.',
       name: 'fix_spelling_grammar_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请将所选段落改写得更加简短，同时保持原意。`
+  /// `Please rewrite the selected paragraph to make it more concise while retaining its original meaning.`
   String get shorten_prompt {
     return Intl.message(
-      '请将所选段落改写得更加简短，同时保持原意。',
+      'Please rewrite the selected paragraph to make it more concise while retaining its original meaning.',
       name: 'shorten_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请使所选段落更加丰富和详细。`
+  /// `Please enrich the selected paragraph, making it more detailed and comprehensive.`
   String get enrich_prompt {
     return Intl.message(
-      '请使所选段落更加丰富和详细。',
+      'Please enrich the selected paragraph, making it more detailed and comprehensive.',
       name: 'enrich_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请将所选段落转换为另一种写作风格，例如正式、非正式、学术或幽默。`
+  /// `Please change the writing style of the selected paragraph, such as formal, informal, academic, or humorous.`
   String get switch_style_prompt {
     return Intl.message(
-      '请将所选段落转换为另一种写作风格，例如正式、非正式、学术或幽默。',
+      'Please change the writing style of the selected paragraph, such as formal, informal, academic, or humorous.',
       name: 'switch_style_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请简化所选段落的语言，使其更易于理解。`
+  /// `Please simplify the language of the selected paragraph to make it easier to understand.`
   String get simplify_language_prompt {
     return Intl.message(
-      '请简化所选段落的语言，使其更易于理解。',
+      'Please simplify the language of the selected paragraph to make it easier to understand.',
       name: 'simplify_language_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请根据所选段落继续写作，扩展内容。`
+  /// `Please continue writing based on the selected paragraph, expanding the content.`
   String get continue_writing_prompt {
     return Intl.message(
-      '请根据所选段落继续写作，扩展内容。',
+      'Please continue writing based on the selected paragraph, expanding the content.',
       name: 'continue_writing_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请总结所选段落的主要内容。`
+  /// `Please summarize the main points of the selected paragraph.`
   String get summarize_prompt {
     return Intl.message(
-      '请总结所选段落的主要内容。',
+      'Please summarize the main points of the selected paragraph.',
       name: 'summarize_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请将所选段落翻译成英文。`
+  /// `Please translate the selected paragraph into English.`
   String get translate_prompt {
     return Intl.message(
-      '请将所选段落翻译成英文。',
+      'Please translate the selected paragraph into English.',
       name: 'translate_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `请解释所选段落的主要内容和意义。`
+  /// `Please explain the main content and significance of the selected paragraph.`
   String get explain_prompt {
     return Intl.message(
-      '请解释所选段落的主要内容和意义。',
+      'Please explain the main content and significance of the selected paragraph.',
       name: 'explain_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `编辑选项`
+  /// `Edit Options`
   String get edit_options {
     return Intl.message(
-      '编辑选项',
+      'Edit Options',
       name: 'edit_options',
       desc: '',
       args: [],
     );
   }
 
-  /// `改进写作`
+  /// `Improve Writing`
   String get improve_writing {
     return Intl.message(
-      '改进写作',
+      'Improve Writing',
       name: 'improve_writing',
       desc: '',
       args: [],
     );
   }
 
-  /// `修复拼写和语法`
+  /// `Fix Spelling and Grammar`
   String get fix_spelling_grammar {
     return Intl.message(
-      '修复拼写和语法',
+      'Fix Spelling and Grammar',
       name: 'fix_spelling_grammar',
       desc: '',
       args: [],
     );
   }
 
-  /// `更简短`
+  /// `Shorten`
   String get shorten {
     return Intl.message(
-      '更简短',
+      'Shorten',
       name: 'shorten',
       desc: '',
       args: [],
     );
   }
 
-  /// `更丰富`
+  /// `Enrich`
   String get enrich {
     return Intl.message(
-      '更丰富',
+      'Enrich',
       name: 'enrich',
       desc: '',
       args: [],
     );
   }
 
-  /// `切换风格`
+  /// `Switch Style`
   String get switch_style {
     return Intl.message(
-      '切换风格',
+      'Switch Style',
       name: 'switch_style',
       desc: '',
       args: [],
     );
   }
 
-  /// `简化语言`
+  /// `Simplify Language`
   String get simplify_language {
     return Intl.message(
-      '简化语言',
+      'Simplify Language',
       name: 'simplify_language',
       desc: '',
       args: [],
     );
   }
 
-  /// `总结`
+  /// `Summarize`
   String get summarize {
     return Intl.message(
-      '总结',
+      'Summarize',
       name: 'summarize',
       desc: '',
       args: [],
     );
   }
 
-  /// `翻译`
+  /// `Translate`
   String get translate {
     return Intl.message(
-      '翻译',
+      'Translate',
       name: 'translate',
       desc: '',
       args: [],
     );
   }
 
-  /// `解释一下`
+  /// `Explain`
   String get explain {
     return Intl.message(
-      '解释一下',
+      'Explain',
       name: 'explain',
       desc: '',
       args: [],
     );
   }
 
-  /// `管理`
+  /// `Manage`
   String get manage {
     return Intl.message(
-      '管理',
+      'Manage',
       name: 'manage',
       desc: '',
       args: [],
@@ -360,20 +360,20 @@ class S {
     );
   }
 
-  /// `关于任务{title}的内容请点击链接查看:{link}`
+  /// `For the content of the task {title}, please click the link to view: {link}`
   String copy_and_share_with_title(Object title, Object link) {
     return Intl.message(
-      '关于任务$title的内容请点击链接查看:$link',
+      'For the content of the task $title, please click the link to view: $link',
       name: 'copy_and_share_with_title',
       desc: '',
       args: [title, link],
     );
   }
 
-  /// `复制链接分享给别的小伙伴`
+  /// `Copy link and share`
   String get copy_and_share {
     return Intl.message(
-      '复制链接分享给别的小伙伴',
+      'Copy link and share',
       name: 'copy_and_share',
       desc: '',
       args: [],
