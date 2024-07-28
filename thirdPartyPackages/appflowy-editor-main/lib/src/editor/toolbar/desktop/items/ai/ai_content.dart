@@ -3,6 +3,8 @@ import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../model/AppFlowyCheckButtonStateModel.dart';
+
 class AIContentWidget extends StatefulWidget {
   Function? onSubmit;
   AIContentWidget({this.onSubmit});
@@ -26,6 +28,25 @@ class AIContentWidgetState extends State<AIContentWidget> {
     super.dispose();
   }
 
+  getListWidget() {
+    List<AppFlowyCheckButtonStateModel> list = AppFlowyCheckButtonStateModel.getModelList();
+    List<Widget> widgets = [];
+    for (AppFlowyCheckButtonStateModel model in list) {
+      widgets.add( ListTile(
+        leading: model.checkIcon,
+        title: Text(model.title ?? "", style: TextStyle(color: fontColor, fontSize: fontSize),),
+        onTap: () {
+          // Handle menu item tap
+          _controller.text = model.content ?? "";
+          setState(() {
+
+          });
+        },
+      ));
+    }
+    return widgets;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,6 +58,10 @@ class AIContentWidgetState extends State<AIContentWidget> {
               Expanded(
                 child: TextField(
                   controller: _controller,
+                  onSubmitted: (text) {
+                    this.widget.onSubmit?.call(text);
+                  },
+                  style: TextStyle(color: Color(0xff404040)),
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search, color: color),
                     suffixIcon: Row(
@@ -47,9 +72,13 @@ class AIContentWidgetState extends State<AIContentWidget> {
                           style: TextStyle(color: color),
                         ),
                         SizedBox(width: 8),
+                        //圆形
                         ElevatedButton(
+                          clipBehavior: Clip.antiAlias,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _controller.text.isEmpty ? Colors.purple[100] : color, // 按钮颜色
+                            disabledBackgroundColor: _controller.text.isEmpty ? Colors.purple[100] : color, // 按钮颜色
+                            // foregroundColor: _controller.text.isEmpty ? Colors.purple[100] : color, // 文字颜色
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                             ),
@@ -60,6 +89,7 @@ class AIContentWidgetState extends State<AIContentWidget> {
                           },
                           child: Icon(Icons.arrow_forward),
                         ),
+                        SizedBox(width: 8)
                       ],
                     ),
                     border: OutlineInputBorder(
@@ -87,89 +117,18 @@ class AIContentWidgetState extends State<AIContentWidget> {
         ),
         Expanded(
           child: ListView(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.text_fields, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.improve_writing, style: TextStyle(color: fontColor, fontSize: fontSize),),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.spellcheck, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.fix_spelling_grammar, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.short_text, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.shorten, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.format_list_bulleted, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.enrich, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.format_paint, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.switch_style, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.language, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.simplify_language, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.edit, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.continue_writing, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.summarize, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.summarize, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.translate, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.translate, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.help_outline, color: color, size: iconSize,),
-                title: Text(i18nInstanceLocal.explain, style: TextStyle(color: fontColor, fontSize: fontSize)),
-                onTap: () {
-                  // Handle menu item tap
-                },
-              ),
-            ],
+            children: getListWidget(),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            onPressed: () {
-              // Handle button press
-            },
-            child: Text(i18nInstanceLocal.manage),
-          ),
-        ),
+        // Container(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: ElevatedButton(
+        //     onPressed: () {
+        //       // Handle button press
+        //     },
+        //     child: Text(i18nInstanceLocal.manage),
+        //   ),
+        // ),
       ],
     );
   }

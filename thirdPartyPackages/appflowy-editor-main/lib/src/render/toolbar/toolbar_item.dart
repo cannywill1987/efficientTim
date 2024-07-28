@@ -8,6 +8,7 @@ typedef ToolbarItemEventHandler = void Function(
 typedef ToolbarItemValidator = bool Function(EditorState editorState);
 typedef ToolbarItemHighlightCallback = bool Function(EditorState editorState);
 
+
 class ToolbarItem {
   ToolbarItem({
     required this.id,

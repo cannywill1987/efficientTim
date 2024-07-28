@@ -338,78 +338,78 @@ class ChatGptManager {
     return ChatModeEnum.text.index;
   }
 
-  Future<ChatGptMessageModel?> sendMessage(
-      {bool showForbiddenMsg: true,
-      bool? newChatGptObject: false,
-      String? conversationIdParams,
-      String? parentMessageIdParam,
-      String? systemMessage,
-      required String textParam}) async {
-    BaseBean baseBean =
-        await HttpManager.getInstance().doPostRequest(Apis.chatGpt,
-            shouldShowErrorToast: false,
-            params: {
-              "newChatGptObject": newChatGptObject,
-              "conversationId": conversationIdParams,
-              "parentMessageId": parentMessageIdParam ?? "",
-              "systemMessage":
-                  systemMessage ?? getI18NKey().gpt_system_msg_forbidden,
-              "text": "$textParam" +
-                  (showForbiddenMsg
-                      ? '(${getI18NKey().gpt_system_msg_forbidden})'
-                      : "")
-            },
-            CONNECT_TIMEOUT: 3 * 60000,
-            RECEIVE_TIMEOUT: 3 * 60000);
-    // ChatGptMessageModel model = baseBean.data;
-    try {
-      if (baseBean.success) {
-        String role = baseBean.data['role'];
-        String id = baseBean.data['id'];
-        String conversationId = baseBean.data['id'];
-        String parentMessageId = baseBean.data['parentMessageId'];
-        String text = baseBean.data['text'];
-        String detailId = baseBean.data['detail']['id'];
-        String detailObject = baseBean.data['detail']['object'];
-        String detailCreated = baseBean.data['detail']['created'].toString();
-        String detailModel = baseBean.data['detail']['model'];
-
-        int prompt_tokens = baseBean.data['detail']['usage']['prompt_tokens'];
-        int completion_tokens =
-            baseBean.data['detail']['usage']['completion_tokens'];
-        int total_tokens = baseBean.data['detail']['usage']['total_tokens'];
-
-        // String choicesRole = baseBean.data['detail']['choices'][0]['message']['role'];
-        // String choicesContent = baseBean.data['detail']['choices'][0]['message']['content'];
-        String finishReason =
-            baseBean.data['detail']['choices'][0]['finish_reason'];
-
-        ChatGptMessageModel chatGptMessageModel = ChatGptMessageModel();
-        chatGptMessageModel.role = role;
-        chatGptMessageModel.id = id;
-        chatGptMessageModel.conversationId = conversationId;
-        chatGptMessageModel.parentMessageId = parentMessageId;
-        chatGptMessageModel.text = text;
-        chatGptMessageModel.detailId = detailId;
-        chatGptMessageModel.isUser = false;
-        chatGptMessageModel.detailObject = detailObject;
-        chatGptMessageModel.detailCreated = detailCreated;
-        chatGptMessageModel.detailModel = detailModel;
-        chatGptMessageModel.detailUsagePromptToken = prompt_tokens;
-        chatGptMessageModel.detailUsageCompletionToken = completion_tokens;
-        chatGptMessageModel.detailUsageTotalToken = total_tokens;
-        // chatGptMessageModel.choicesMessageRole = choicesRole;
-        // chatGptMessageModel.choicesMessageContent = choicesContent;
-        chatGptMessageModel.choicesFinishReason = finishReason;
-        chatGptMessageModel.countryCode = DeviceInfoManagement.getCountryCode();
-        chatGptMessageModel.uid = LoginManager.getInstance().userBean.uid;
-        chatGptMessageModel.username = getI18NKey().chatgpt;
-        return chatGptMessageModel;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
+  // Future<ChatGptMessageModel?> sendMessage(
+  //     {bool showForbiddenMsg: true,
+  //     bool? newChatGptObject: false,
+  //     String? conversationIdParams,
+  //     String? parentMessageIdParam,
+  //     String? systemMessage,
+  //     required String textParam}) async {
+  //   BaseBean baseBean =
+  //       await HttpManager.getInstance().doPostRequest(Apis.chatGpt,
+  //           shouldShowErrorToast: false,
+  //           params: {
+  //             "newChatGptObject": newChatGptObject,
+  //             "conversationId": conversationIdParams,
+  //             "parentMessageId": parentMessageIdParam ?? "",
+  //             "systemMessage":
+  //                 systemMessage ?? getI18NKey().gpt_system_msg_forbidden,
+  //             "text": "$textParam" +
+  //                 (showForbiddenMsg
+  //                     ? '(${getI18NKey().gpt_system_msg_forbidden})'
+  //                     : "")
+  //           },
+  //           CONNECT_TIMEOUT: 3 * 60000,
+  //           RECEIVE_TIMEOUT: 3 * 60000);
+  //   // ChatGptMessageModel model = baseBean.data;
+  //   try {
+  //     if (baseBean.success) {
+  //       String role = baseBean.data['role'];
+  //       String id = baseBean.data['id'];
+  //       String conversationId = baseBean.data['id'];
+  //       String parentMessageId = baseBean.data['parentMessageId'];
+  //       String text = baseBean.data['text'];
+  //       String detailId = baseBean.data['detail']['id'];
+  //       String detailObject = baseBean.data['detail']['object'];
+  //       String detailCreated = baseBean.data['detail']['created'].toString();
+  //       String detailModel = baseBean.data['detail']['model'];
+  //
+  //       int prompt_tokens = baseBean.data['detail']['usage']['prompt_tokens'];
+  //       int completion_tokens =
+  //           baseBean.data['detail']['usage']['completion_tokens'];
+  //       int total_tokens = baseBean.data['detail']['usage']['total_tokens'];
+  //
+  //       // String choicesRole = baseBean.data['detail']['choices'][0]['message']['role'];
+  //       // String choicesContent = baseBean.data['detail']['choices'][0]['message']['content'];
+  //       String finishReason =
+  //           baseBean.data['detail']['choices'][0]['finish_reason'];
+  //
+  //       ChatGptMessageModel chatGptMessageModel = ChatGptMessageModel();
+  //       chatGptMessageModel.role = role;
+  //       chatGptMessageModel.id = id;
+  //       chatGptMessageModel.conversationId = conversationId;
+  //       chatGptMessageModel.parentMessageId = parentMessageId;
+  //       chatGptMessageModel.text = text;
+  //       chatGptMessageModel.detailId = detailId;
+  //       chatGptMessageModel.isUser = false;
+  //       chatGptMessageModel.detailObject = detailObject;
+  //       chatGptMessageModel.detailCreated = detailCreated;
+  //       chatGptMessageModel.detailModel = detailModel;
+  //       chatGptMessageModel.detailUsagePromptToken = prompt_tokens;
+  //       chatGptMessageModel.detailUsageCompletionToken = completion_tokens;
+  //       chatGptMessageModel.detailUsageTotalToken = total_tokens;
+  //       // chatGptMessageModel.choicesMessageRole = choicesRole;
+  //       // chatGptMessageModel.choicesMessageContent = choicesContent;
+  //       chatGptMessageModel.choicesFinishReason = finishReason;
+  //       chatGptMessageModel.countryCode = DeviceInfoManagement.getCountryCode();
+  //       chatGptMessageModel.uid = LoginManager.getInstance().userBean.uid;
+  //       chatGptMessageModel.username = getI18NKey().chatgpt;
+  //       return chatGptMessageModel;
+  //     } else {
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
 }

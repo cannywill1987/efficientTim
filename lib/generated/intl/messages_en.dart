@@ -65,6 +65,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m19(money, present) =>
       "Consume ${money} coins to buy a ${present}";
 
+  static String m130(existing_text) =>
+      "请根据以下内容继续写作：\n\n${existing_text}\n\n接下来：";
+
   static String m20(title, link) => "关于任务${title}的内容请点击链接查看:${link}";
 
   static String m21(code) =>
@@ -733,6 +736,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "continue2": MessageLookupByLibrary.simpleMessage("Continue"),
         "continueTxt": MessageLookupByLibrary.simpleMessage("continue"),
         "continue_writing": MessageLookupByLibrary.simpleMessage("继续写作"),
+        "continue_writing_prompt":
+            MessageLookupByLibrary.simpleMessage("请根据所选段落继续写作，扩展内容。"),
+        "continue_writing_prompt_with_text": m130,
         "continuous_clock_in":
             MessageLookupByLibrary.simpleMessage("Continuous Clock-in"),
         "continuous_days":
@@ -919,6 +925,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "endtime_cannot_before_starttime": MessageLookupByLibrary.simpleMessage(
             "End time cannot be earlier than start time"),
         "enrich": MessageLookupByLibrary.simpleMessage("更丰富"),
+        "enrich_prompt": MessageLookupByLibrary.simpleMessage("请使所选段落更加丰富和详细。"),
         "enterBankName":
             MessageLookupByLibrary.simpleMessage("Please enter bank name"),
         "enterBillAmount":
@@ -943,6 +950,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "e.g..\"always describe in bullet points, never use unwrap, always output your answers in English\""),
         "exist_app_focusing_mission_name": m44,
         "explain": MessageLookupByLibrary.simpleMessage("解释一下"),
+        "explain_prompt":
+            MessageLookupByLibrary.simpleMessage("请解释所选段落的主要内容和意义。"),
         "export": MessageLookupByLibrary.simpleMessage("export"),
         "export_data": MessageLookupByLibrary.simpleMessage("export data"),
         "export_excel":
@@ -961,6 +970,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish_time": MessageLookupByLibrary.simpleMessage("Complete time"),
         "finished": MessageLookupByLibrary.simpleMessage("Finished"),
         "fix_spelling_grammar": MessageLookupByLibrary.simpleMessage("修复拼写和语法"),
+        "fix_spelling_grammar_prompt":
+            MessageLookupByLibrary.simpleMessage("请检查所选段落的拼写和语法，并修复任何错误。"),
         "focus": MessageLookupByLibrary.simpleMessage("concentrate on"),
         "focusFinished":
             MessageLookupByLibrary.simpleMessage("focus on completion"),
@@ -1064,6 +1075,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "get_train_plan_successful": m50,
         "get_training_plan":
             MessageLookupByLibrary.simpleMessage("get training plan"),
+        "give_up": MessageLookupByLibrary.simpleMessage("放弃"),
         "go_to_setting":
             MessageLookupByLibrary.simpleMessage("Open to setting"),
         "google_login": MessageLookupByLibrary.simpleMessage("Google Login"),
@@ -1127,9 +1139,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "imageLoadFailed":
             MessageLookupByLibrary.simpleMessage("Could not load the image"),
         "improve_writing": MessageLookupByLibrary.simpleMessage("改进写作"),
+        "improve_writing_prompt":
+            MessageLookupByLibrary.simpleMessage("请改进所选段落的写作，使其更加清晰和富有表达力。"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7 days later"),
         "in_selection_word_count_and_char_count": m56,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("Incorrect Link"),
+        "input": MessageLookupByLibrary.simpleMessage("输入"),
         "inputSmsVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Please input sms dynamic code"),
         "input_6_digit_password": MessageLookupByLibrary.simpleMessage(
@@ -1147,6 +1162,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mobile number cannot be empty, please enter the mobile number!"),
         "input_your_goal": MessageLookupByLibrary.simpleMessage(
             "Enter the goal you want to stick to~"),
+        "insert": MessageLookupByLibrary.simpleMessage("插入"),
         "insert_event": MessageLookupByLibrary.simpleMessage("insert event"),
         "insert_success":
             MessageLookupByLibrary.simpleMessage("insert successfully"),
@@ -1556,6 +1572,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_by_time": MessageLookupByLibrary.simpleMessage("Sort by time"),
         "order_by_update_time": MessageLookupByLibrary.simpleMessage(
             "order by update time(Suitable for work report)"),
+        "original_text": MessageLookupByLibrary.simpleMessage(
+            "原文：政府正在积极采取措施，以应对日益严重的环境问题，包括加强环保法规的执行力度，提高公众环保意识，并推动绿色能源的发展。"),
         "other_login_mode":
             MessageLookupByLibrary.simpleMessage("Other login model"),
         "others": MessageLookupByLibrary.simpleMessage("others"),
@@ -1803,6 +1821,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("end of break bell"),
         "resume": MessageLookupByLibrary.simpleMessage("resume"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
+        "revised_text": MessageLookupByLibrary.simpleMessage(
+            "改写：政府正在加强环保法规，提高公众意识，并推动绿色能源，以应对环境问题。"),
         "rich_text": MessageLookupByLibrary.simpleMessage("rich text"),
         "rmb": MessageLookupByLibrary.simpleMessage("currency"),
         "role_chatgpt_msg": m103,
@@ -1901,7 +1921,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "sharing_listing":
             MessageLookupByLibrary.simpleMessage("Sharing listing"),
         "shorten": MessageLookupByLibrary.simpleMessage("更简短"),
+        "shorten_prompt":
+            MessageLookupByLibrary.simpleMessage("请将所选段落改写得更加简短，同时保持原意。"),
         "simplify_language": MessageLookupByLibrary.simpleMessage("简化语言"),
+        "simplify_language_prompt":
+            MessageLookupByLibrary.simpleMessage("请简化所选段落的语言，使其更易于理解。"),
         "six_hours": MessageLookupByLibrary.simpleMessage("Six hours"),
         "six_months": MessageLookupByLibrary.simpleMessage("Six months"),
         "skilled": MessageLookupByLibrary.simpleMessage("skilled"),
@@ -1937,6 +1961,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Successfully copied to clipboard"),
         "summarize": MessageLookupByLibrary.simpleMessage("总结"),
+        "summarize_prompt":
+            MessageLookupByLibrary.simpleMessage("请总结所选段落的主要内容。"),
         "summary": MessageLookupByLibrary.simpleMessage("summary"),
         "sunday": MessageLookupByLibrary.simpleMessage("sun"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("Sun"),
@@ -1945,6 +1971,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Switch to chronograph mode, will work next time"),
         "switch_font": MessageLookupByLibrary.simpleMessage("Switch font"),
         "switch_style": MessageLookupByLibrary.simpleMessage("切换风格"),
+        "switch_style_prompt": MessageLookupByLibrary.simpleMessage(
+            "请将所选段落转换为另一种写作风格，例如正式、非正式、学术或幽默。"),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "Switch to timer mode, will work next time"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),
@@ -2055,6 +2083,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Training Plan Edit"),
         "transaction": MessageLookupByLibrary.simpleMessage("trans."),
         "translate": MessageLookupByLibrary.simpleMessage("翻译"),
+        "translate_prompt":
+            MessageLookupByLibrary.simpleMessage("请将所选段落翻译成英文。"),
         "try_again": MessageLookupByLibrary.simpleMessage(
             "Request error, please try again"),
         "tuesday": MessageLookupByLibrary.simpleMessage("Tue"),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'ai_content.dart';
+import 'ai_content_confirm.dart';
 
 const _menuWidth = 300;
 const _hasTextHeight = 244;
@@ -35,7 +36,9 @@ void showAIMenu(
   EditorState editorState,
   Selection selection,
   bool isHighlight,
-    Function? onSubmit,
+  Function? onSubmit,
+  Function? onContinue,
+    Function? onCopy,
 ) {
   // Since link format is only available for single line selection,
   // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
@@ -76,40 +79,118 @@ void showAIMenu(
     right: right,
     dismissCallback: () => keepEditorFocusNotifier.decrease(),
     builder: (context) {
-      return Container(width: 600, height: 600, decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)), child: AIContentWidget(onSubmit: (aiText) {
-        onSubmit?.call(aiText, text);
-      },));
-      // return LinkMenu(
-      //   linkText: linkText,
-      //   editorState: editorState,
-      //   onOpenLink: () async {
-      //     await safeLaunchUrl(linkText);
-      //   },
-      //   onSubmitted: (text) async {
-      //     // if (isURL(text)) {
-      //     //   await editorState.formatDelta(selection, {
-      //     //     BuiltInAttributeKey.href: text,
-      //     //   });
-      //     //   dismissOverlay();
-      //     // }
-      //   },
-      //   onCopyLink: () {
-      //     AppFlowyClipboard.setData(text: linkText);
-      //     dismissOverlay();
-      //   },
-      //   onRemoveLink: () {
-      //     final transaction = editorState.transaction
-      //       ..formatText(
-      //         node,
-      //         index,
-      //         length,
-      //         {BuiltInAttributeKey.href: null},
-      //       );
-      //     editorState.apply(transaction);
-      //     dismissOverlay();
-      //   },
-      //   onDismiss: dismissOverlay,
-      // );
+      return Container(
+          width: 400,
+          height: 600,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(8)),
+          child: AIContentWidget(
+            onSubmit: (aiText) async {
+              String res = await onSubmit?.call(aiText, text);
+              showAIConfirmMenu(context, editorState, selection, isHighlight,
+                  res, onSubmit, onContinue, onCopy);
+              dismissOverlay();
+            },
+          ));
+    },
+  ).build();
+
+  Overlay.of(context, rootOverlay: true).insert(overlay!);
+}
+
+void showAIConfirmMenu(
+  BuildContext context,
+  EditorState editorState,
+  Selection selection,
+  bool isHighlight,
+  String? text,
+  Function? onSubmit,
+  Function? onContinue,
+    Function? onCopy,
+) {
+  // Since link format is only available for single line selection,
+  // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
+  // final texts = editorState.getTextInSelection(selection);
+  // String text = texts.join('\n');
+  // get link address if the selection is already a link
+  String? linkText;
+  if (isHighlight) {
+    linkText = editorState.getDeltaAttributeValueInSelection(
+      BuiltInAttributeKey.href,
+      selection,
+    );
+  }
+
+  final (left, top, right, bottom) = _getPosition(editorState, linkText);
+
+  // get node, index and length for formatting text when the link is removed
+  final node = editorState.getNodeAtPath(selection.end.path);
+  if (node == null) {
+    return;
+  }
+  final index = selection.normalized.startIndex;
+  final length = selection.length;
+
+  OverlayEntry? overlay;
+
+  void dismissOverlay() {
+    keepEditorFocusNotifier.decrease();
+    overlay?.remove();
+    overlay = null;
+  }
+
+  keepEditorFocusNotifier.increase();
+  overlay = FullScreenOverlayEntry(
+    top: top,
+    bottom: bottom,
+    left: left,
+    right: right,
+    dismissCallback: () => keepEditorFocusNotifier.decrease(),
+    builder: (context) {
+      return Container(
+          width: 400,
+          height: 600,
+          // decoration: BoxDecoration(
+          //     color: Colors.white, borderRadius: BorderRadius.circular(8)),
+          child: AiContentConfirmWidget(
+            text: text ?? "",
+            onCopy: (text) {
+              print('复制');
+              onCopy?.call(text);
+              dismissOverlay();
+              // _controller.text = this.widget.text;
+            },
+            onReplace: (text) {
+              print('替换');
+              editorState.replaceTextAtPosition(text, selection: selection);
+            },
+            onInsert: (text) {
+              print('插入');
+              editorState.insertTextAtLastCurrentSelection(
+                text,
+                // position: selection.end,
+                // forceInsert: true
+              );
+              // setState({});
+            },
+            onContinue: (text) async {
+              print('继续写作');
+              String res = await onContinue?.call(i18nInstanceLocal.continue_writing_prompt,  text);
+              text = res;
+              showAIConfirmMenu(context, editorState, selection, isHighlight,
+                  res, onSubmit, onContinue,onCopy);
+            },
+            onGiveUp: (text) {
+              print('放弃');
+              dismissOverlay();
+            },
+            onSubmit: (aiText) async {
+              String res = await onSubmit?.call(aiText, text);
+              dismissOverlay();
+              showAIConfirmMenu(context, editorState, selection, isHighlight,
+                  res, onSubmit, onContinue,onCopy);
+            },
+          ));
     },
   ).build();
 

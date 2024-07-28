@@ -8,13 +8,15 @@ import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/util/ChatGptManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../../models/ChatGptMessageModel.dart';
 import '../../../util/ThemeManager.dart';
 
 class DesktopEditor extends StatefulWidget {
   final double? padding;
+
   const DesktopEditor({
     super.key,
-    this.padding=20,
+    this.padding = 20,
     this.headerWidget,
     required this.editorState,
     this.textDirection = TextDirection.ltr,
@@ -77,7 +79,7 @@ class _DesktopEditorState extends State<DesktopEditor> {
         ToolbarItem(
           id: 'editor.ai',
           group: 0, // 位置
-          isActive: onlyShowInSingleSelectionAndTextType,
+          isActive: onlyShowInTextType,
           builder: (context, editorState, highlightColor, iconColor) {
             final selection = editorState.selection!;
             final node = editorState.getNodeAtPath(selection.start.path)!;
@@ -91,14 +93,44 @@ class _DesktopEditorState extends State<DesktopEditor> {
                 iconColor: iconColor,
                 tooltip: i18nInstanceLocal.ai,
                 onPressed: () {
-                  showAIMenu(context, editorState, selection, isHighlight, (aiText, textSelected) async {
-await ChatGptManager.getInstance().sendMessage(     showForbiddenMsg: false,
-    // conversationIdParams: getLastParentMessageId()['conversationId'],
-    newChatGptObject: true,
-    systemMessage: aiText,
-    textParam: textSelected,
-    parentMessageIdParam: null);
-                  });
+                  // showAIConfirmMenu(context, editorState, selection, isHighlight,
+                  //     "", () {}, () {});
+                  showAIMenu(context, editorState, selection, isHighlight,
+                      (String aiText, String textSelected) async {
+                    ChatGptMessageModel chatGptMessageModelGpt =
+                        await ChatGptManager.getInstance().sendMessages(
+                            scene: "chat",
+                            // chatGptFolderModel: _curChatGptFolderModel,
+                            // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                            systemMessage: aiText,
+                            messages: [
+                          {"role": "user", "content": textSelected}
+                        ]);
+                    print(
+                        "chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
+                    if (chatGptMessageModelGpt?.text != null) {
+                      return chatGptMessageModelGpt?.text;
+                    }
+                    return null;
+                  }, (String aiText,  String originText) async {
+                        ChatGptMessageModel chatGptMessageModelGpt =
+                        await ChatGptManager.getInstance().sendMessages(
+                            scene: "chat",
+                            // chatGptFolderModel: _curChatGptFolderModel,
+                            // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                            systemMessage: aiText,
+                            messages: [
+                              {"role": "user", "content": originText}
+                            ]);
+                        print(
+                            "chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
+                        if (chatGptMessageModelGpt?.text != null) {
+                          return originText + "\n" + (chatGptMessageModelGpt?.text ?? "");
+                        }
+                        return null;
+                      }, (text) {
+                    Utility.copyToClipboard(text);
+                      });
                 });
           },
         ),
@@ -138,12 +170,13 @@ await ChatGptManager.getInstance().sendMessage(     showForbiddenMsg: false,
 
   // showcase 1: customize the editor style.
   EditorStyle _buildDesktopEditorStyle(double padding) {
-    bool isMiddleMissionPageVisible = Utility.getGlobalContext().read<Env>().isMiddleMissionPageVisible;
-    if(ThemeManager.getInstance().isDark()) {
+    bool isMiddleMissionPageVisible =
+        Utility.getGlobalContext().read<Env>().isMiddleMissionPageVisible;
+    if (ThemeManager.getInstance().isDark()) {
       return EditorStyle(
         padding: PlatformExtension.isDesktopOrWeb
-            ?  EdgeInsets.only(left: padding, right: padding)
-            :  EdgeInsets.symmetric(horizontal: padding),
+            ? EdgeInsets.only(left: padding, right: padding)
+            : EdgeInsets.symmetric(horizontal: padding),
         cursorColor: Colors.green,
         dragHandleColor: Colors.green,
         selectionColor: Colors.green.withOpacity(0.5),
@@ -203,7 +236,7 @@ await ChatGptManager.getInstance().sendMessage(     showForbiddenMsg: false,
             fontWeight: FontWeight.w500,
           ),
         ),
-        padding:  EdgeInsets.symmetric(horizontal: padding),
+        padding: EdgeInsets.symmetric(horizontal: padding),
       );
     }
   }

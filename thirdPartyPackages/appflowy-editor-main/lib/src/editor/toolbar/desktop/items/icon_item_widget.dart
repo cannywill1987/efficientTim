@@ -35,8 +35,9 @@ class SVGIconItemWidget extends StatelessWidget {
       color: isHighlight ? highlightColor : iconColor,
       width: iconSize.width,
       height: iconSize.height,
-    ) : Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
+    ) : Row(
+
+        // crossAxisAlignment: WrapCrossAlignment.center,
         children: [
       EditorSvg(
         name: iconName,
@@ -44,6 +45,7 @@ class SVGIconItemWidget extends StatelessWidget {
         width: iconSize.width,
         height: iconSize.height,
       ),
+      SizedBox(width: 4.0),
       Text(name!, style: TextStyle(fontSize: 12, color: isHighlight ? highlightColor : iconColor)),
     ]);
     if (onPressed != null) {
@@ -70,7 +72,7 @@ class SVGIconItemWidget extends StatelessWidget {
       );
     }
     return SizedBox(
-      width: size.width,
+      width: this.name == null ? size.width : null,
       height: size.height,
       child: child,
     );

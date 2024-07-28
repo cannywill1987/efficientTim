@@ -50,11 +50,81 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `编辑选项`
-  String get edit_options {
+  /// `请根据以下内容继续写作：\n\n{existing_text}\n\n接下来：`
+  String continue_writing_prompt_with_text(Object existing_text) {
     return Intl.message(
-      '编辑选项',
-      name: 'edit_options',
+      '请根据以下内容继续写作：\n\n$existing_text\n\n接下来：',
+      name: 'continue_writing_prompt_with_text',
+      desc: '',
+      args: [existing_text],
+    );
+  }
+
+  /// `Replace`
+  String get replace {
+    return Intl.message(
+      'Replace',
+      name: 'replace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `插入`
+  String get insert {
+    return Intl.message(
+      '插入',
+      name: 'insert',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `继续写作`
+  String get continue_writing {
+    return Intl.message(
+      '继续写作',
+      name: 'continue_writing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `放弃`
+  String get give_up {
+    return Intl.message(
+      '放弃',
+      name: 'give_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `输入`
+  String get input {
+    return Intl.message(
+      '输入',
+      name: 'input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `原文：政府正在积极采取措施，以应对日益严重的环境问题，包括加强环保法规的执行力度，提高公众环保意识，并推动绿色能源的发展。`
+  String get original_text {
+    return Intl.message(
+      '原文：政府正在积极采取措施，以应对日益严重的环境问题，包括加强环保法规的执行力度，提高公众环保意识，并推动绿色能源的发展。',
+      name: 'original_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `改写：政府正在加强环保法规，提高公众意识，并推动绿色能源，以应对环境问题。`
+  String get revised_text {
+    return Intl.message(
+      '改写：政府正在加强环保法规，提高公众意识，并推动绿色能源，以应对环境问题。',
+      name: 'revised_text',
       desc: '',
       args: [],
     );
@@ -65,6 +135,116 @@ class S {
     return Intl.message(
       '选择下列场景或告诉AI如何编辑',
       name: 'select_scenario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请改进所选段落的写作，使其更加清晰和富有表达力。`
+  String get improve_writing_prompt {
+    return Intl.message(
+      '请改进所选段落的写作，使其更加清晰和富有表达力。',
+      name: 'improve_writing_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请检查所选段落的拼写和语法，并修复任何错误。`
+  String get fix_spelling_grammar_prompt {
+    return Intl.message(
+      '请检查所选段落的拼写和语法，并修复任何错误。',
+      name: 'fix_spelling_grammar_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请将所选段落改写得更加简短，同时保持原意。`
+  String get shorten_prompt {
+    return Intl.message(
+      '请将所选段落改写得更加简短，同时保持原意。',
+      name: 'shorten_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请使所选段落更加丰富和详细。`
+  String get enrich_prompt {
+    return Intl.message(
+      '请使所选段落更加丰富和详细。',
+      name: 'enrich_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请将所选段落转换为另一种写作风格，例如正式、非正式、学术或幽默。`
+  String get switch_style_prompt {
+    return Intl.message(
+      '请将所选段落转换为另一种写作风格，例如正式、非正式、学术或幽默。',
+      name: 'switch_style_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请简化所选段落的语言，使其更易于理解。`
+  String get simplify_language_prompt {
+    return Intl.message(
+      '请简化所选段落的语言，使其更易于理解。',
+      name: 'simplify_language_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请根据所选段落继续写作，扩展内容。`
+  String get continue_writing_prompt {
+    return Intl.message(
+      '请根据所选段落继续写作，扩展内容。',
+      name: 'continue_writing_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请总结所选段落的主要内容。`
+  String get summarize_prompt {
+    return Intl.message(
+      '请总结所选段落的主要内容。',
+      name: 'summarize_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请将所选段落翻译成英文。`
+  String get translate_prompt {
+    return Intl.message(
+      '请将所选段落翻译成英文。',
+      name: 'translate_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请解释所选段落的主要内容和意义。`
+  String get explain_prompt {
+    return Intl.message(
+      '请解释所选段落的主要内容和意义。',
+      name: 'explain_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `编辑选项`
+  String get edit_options {
+    return Intl.message(
+      '编辑选项',
+      name: 'edit_options',
       desc: '',
       args: [],
     );
@@ -125,16 +305,6 @@ class S {
     return Intl.message(
       '简化语言',
       name: 'simplify_language',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `继续写作`
-  String get continue_writing {
-    return Intl.message(
-      '继续写作',
-      name: 'continue_writing',
       desc: '',
       args: [],
     );
@@ -1256,16 +1426,6 @@ class S {
     return Intl.message(
       'Close',
       name: 'closeFind',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Replace`
-  String get replace {
-    return Intl.message(
-      'Replace',
-      name: 'replace',
       desc: '',
       args: [],
     );

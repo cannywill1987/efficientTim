@@ -1,27 +1,24 @@
 // import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:flip_card/flip_card.dart';
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/components/CustomBackgroundWidget.dart';
-import 'package:time_hello/com/timehello/models/TimelineMissionModel.dart';
-import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
-import 'package:time_hello/com/timehello/util/Utility.dart';
 
-import '../../components/CustomLgLeftChatWidget.dart';
-import '../TimeLinePage/components/FileMessageWidget.dart';
-import '../WrongQuestionBookPage/components/WQBNoteWidget.dart';
-import '../missionPage/componnents/MissionGridView.dart';
+class AiContentConfirmWidget extends StatefulWidget {
+  String text;
 
-class Test6Page extends StatefulWidget {
+  AiContentConfirmWidget({required this.text});
+  // Function? onSubmit;
+  //
+  // AIContentWidget({this.onSubmit});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return Test6PageState();
+    return AiContentConfirmWidgetState();
   }
 }
 
-class Test6PageState extends State<Test6Page> {
-  final _formKey = GlobalKey<FormState>();
+class AiContentConfirmWidgetState extends State<AiContentConfirmWidget> {
   final _controller = TextEditingController();
   Color color = Colors.purple;
   Color fontColor = Colors.black;
@@ -52,7 +49,7 @@ class Test6PageState extends State<Test6Page> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      // key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,7 +99,7 @@ class Test6PageState extends State<Test6Page> {
                           color: color, // hover时的边框颜色
                         ),
                       ),
-                      labelText: getI18NKey().select_scenario,
+                      labelText: i18nInstanceLocal.select_scenario,
                       labelStyle: TextStyle(
                         color: _controller.text.isEmpty ? Colors.purple[100] : color,
                       ),

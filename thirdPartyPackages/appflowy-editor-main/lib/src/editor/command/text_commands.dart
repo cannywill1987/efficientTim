@@ -55,7 +55,7 @@ extension TextTransforms on EditorState {
 
     // Copy the text direction from the current node.
     final textDirection =
-        node.attributes[blockComponentTextDirection] as String?;
+    node.attributes[blockComponentTextDirection] as String?;
     if (textDirection != null) {
       attributes[blockComponentTextDirection] = textDirection;
     }
@@ -84,7 +84,16 @@ extension TextTransforms on EditorState {
     // Apply the transaction.
     return apply(transaction);
   }
+    
 
+  // lzb 替换选中的内容
+  Future<void> replaceTextAtPosition(
+    String text, {
+    required Selection selection,
+  }) async {
+    deleteSelection(selection);
+    insertTextAtCurrentSelection(text);
+  }
   /// Inserts text at the given position.
   /// If the [Position] is not passed in, use the current selection.
   /// If there is no position, or if the selection is not collapsed, do nothing.
@@ -93,13 +102,17 @@ extension TextTransforms on EditorState {
   Future<void> insertTextAtPosition(
     String text, {
     Position? position,
+        bool withUpdateSelection = true,
+        bool forceInsert = false, // lzb 强制插入在某个地方
   }) async {
     // If the position is not passed in, use the current selection.
     position ??= selection?.start;
 
     // If there is no position, or if the selection is not collapsed, do nothing.
-    if (position == null || !(selection?.isCollapsed ?? false)) {
-      return;
+    if(position == null || forceInsert == false) {
+      if (position == null || !(selection?.isCollapsed ?? false)) {
+        return;
+      }
     }
 
     final path = position.path;
@@ -319,6 +332,39 @@ extension TextTransforms on EditorState {
       transaction..insertText(node, index, text),
     );
   }
+
+  insertTextAtLastCurrentSelection(String text) async {
+    final selection = this.selection;
+    if (selection == null) {
+      return;
+    }
+    Position positionStart = selection.start;
+    Position positionEnd = selection.end;
+    Position lastPostion;
+    int pathStart = positionStart.path.length > 0 ? positionStart.path[0] : 0;
+    int pathEnd = positionEnd.path.length > 0 ? positionEnd.path[0]: 0;
+    if (pathStart > pathEnd) {
+      lastPostion = positionStart;
+    } else {
+      if (positionStart.offset > positionEnd.offset) {
+        lastPostion = positionStart;
+      } else {
+        lastPostion = positionEnd;
+      }
+    }
+
+
+
+    insertTextAtPosition(text, position: lastPostion, forceInsert: true);
+    // node ??= getNodeAtPath(selection.end.path);
+    // if (node == null) {
+    //   assert(false, 'node is null');
+    //   return;
+    // }
+    // return apply(
+    //   transaction..insertText(node, index, text),
+    // );
+}
 
   Future<void> insertTextAtCurrentSelection(String text) async {
     final selection = this.selection;
