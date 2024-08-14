@@ -1,4 +1,66 @@
 {
+  "ai_write_for_me": "AI Write for Me",
+  "ai_write_for_me_prompt": "Please tell me what AI can help me write.",
+  "ai_placeholder": "What should I write with AI?",
+
+  "brainstorm": "Brainstorm",
+  "brainstorm_prompt": "Please help me brainstorm on the topic of...",
+  "brainstorm_placeholder": "(Example) Please provide at least 5 solutions for global warming.",
+
+  "write_article": "Write Article",
+  "write_article_prompt": "Please help me write an article about...",
+  "write_article_placeholder": "(Example) Please write a 1000-word, positive article on the theme of environmental protection and give it a title.",
+
+  "outline": "Outline",
+  "outline_prompt": "Please help me list an outline about...",
+  "outline_placeholder": "(Example) Please list an outline on the theme of environmental protection.",
+
+  "xiaohongshu": "Xiaohongshu",
+  "xiaohongshu_prompt": "Please help me write a Xiaohongshu post, the content is...",
+  "xiaohongshu_placeholder": "What should I write with AI?",
+
+  "more": "More",
+  "more_prompt": "Please provide more writing options.",
+  "timehello": "{appname} AI",
+  "ai_write_what": "What should I write with AI?",
+  "ai_write_what_prompt": "Please tell me what AI can help me write.",
+
+  "manage": "Manage",
+  "manage_prompt": "Please open the management options.",
+
+  "ai_scenario": "AI Writing Scenario",
+  "ai_scenario_prompt": "Please select a writing scenario.",
+
+  "brainstorm": "Brainstorm",
+  "brainstorm_prompt": "Please help me brainstorm on the topic of...",
+
+  "write_article": "Write Article",
+  "write_article_prompt": "Please help me write an article about...",
+
+  "outline": "Outline",
+  "outline_prompt": "Please help me list an outline about...",
+
+  "xiaohongshu": "Xiaohongshu",
+  "xiaohongshu_prompt": "Please help me write a Xiaohongshu post, the content is...",
+
+  "speech": "Speech",
+  "speech_prompt": "Please help me write a speech about...",
+
+  "announcement": "Announcement",
+  "announcement_prompt": "Please help me write an announcement, the content is...",
+
+  "write_essay": "Write Essay",
+  "write_essay_prompt": "Please help me write an essay, the topic is...",
+  "more": "More",
+  "more_prompt": "Please provide more writing options.",
+  "history_record": "History Record",
+  "history_record_prompt": "View history records.",
+  "write_article_history": "Write Article Time's Article",
+  "write_article_history_prompt": "Please view and edit the previously written article: Time's Article.",
+  "xiaohongshu_history": "Xiaohongshu Help me write Xiaohongshu post",
+  "xiaohongshu_history_prompt": "Please view and edit the previously written Xiaohongshu post: Help me write Xiaohongshu post.",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "Character limit: 0/1000",
   "continue_writing_prompt_with_text": "Please continue writing based on the following content:\n\n{existing_text}\n\nNext:",
   "replace": "Replace",
   "insert": "Insert",

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class AiContentConfirmWidget extends StatefulWidget {
   String text;
+  bool shouldShowReplace;
   Function? onSubmit;
   Function? onReplace;
   Function? onInsert;
@@ -13,6 +14,7 @@ class AiContentConfirmWidget extends StatefulWidget {
 
   AiContentConfirmWidget({
     required this.text,
+    this.shouldShowReplace = true,
     this.onCopy,
     this.onSubmit,
     this.onReplace,
@@ -174,6 +176,7 @@ class AiContentConfirmWidgetState extends State<AiContentConfirmWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if(this.widget.shouldShowReplace == true)
               InkWell(
                 onTap: () => _handleButtonPress('replace'),
                 child: Container(

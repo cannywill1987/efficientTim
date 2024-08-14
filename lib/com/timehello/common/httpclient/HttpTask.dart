@@ -367,8 +367,12 @@ class HttpTask extends Observable {
           // 处理错误
           print('Error: $error');
           // 在出错时完成completer，返回错误
+          try {
           completer.completeError(error);
           callBack?.call(error.toString(), scene == null ? url : scene, 3);
+          } catch (e) {
+            print(e);
+          }
         },
         cancelOnError: true,
       );

@@ -27,125 +27,97 @@ class Test6PageState extends State<Test6Page> {
   Color fontColor = Colors.black;
   double iconSize = 18;
   double fontSize = 14;
-  void _handleButtonPress(String action) {
-    switch (action) {
-      case '替换':
-      // 替换逻辑
-        print('替换');
-        break;
-      case '插入':
-      // 插入逻辑
-        print('插入');
-        break;
-      case '继续写作':
-      // 继续写作逻辑
-        print('继续写作');
-        break;
-      case '放弃':
-      // 放弃逻辑
-        _controller.clear();
-        print('放弃');
-        break;
-    }
+  void _handleButtonClick(String action) {
+    print('Button clicked: $action');
+    // 在这里添加处理点击事件的逻辑
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 16),
-          Text('原文：政府正在积极采取措施，以应对日益严重的环境问题，包括加强环保法规的执行力度，提高公众环保意识，并推动绿色能源的发展。'),
-          SizedBox(height: 16),
-          Text('改写：政府正在加强环保法规，提高公众意识，并推动绿色能源，以应对环境问题。'),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search, color: color),
-                      suffixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '${_controller.text.length}/1000',
-                            style: TextStyle(color: fontColor),
-                          ),
-                          SizedBox(width: 8),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _controller.text.isEmpty ? Colors.purple[100] : color, // 按钮颜色
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
-                            onPressed: _controller.text.isEmpty ? null : () {
-                              // Handle button press
-                            },
-                            child: Icon(Icons.arrow_forward),
-                          ),
-                        ],
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey, // 未hover时的边框颜色
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: color, // hover时的边框颜色
-                        ),
-                      ),
-                      labelText: getI18NKey().select_scenario,
-                      labelStyle: TextStyle(
-                        color: _controller.text.isEmpty ? Colors.purple[100] : color,
-                      ),
-                    ),
-                    onChanged: (text) {
-                      setState(() {}); // 重新渲染以更新按钮颜色
-                    },
-                  ),
-                ),
-              ],
-            ),
+          Text(
+            '印象AI',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
             children: [
-              ElevatedButton.icon(
-                onPressed: () => _handleButtonPress('替换'),
-                icon: Icon(Icons.swap_horiz),
-                label: Text('替换'),
+              QuickInsertButton(
+                icon: Icons.auto_fix_high,
+                label: 'AI 帮我写',
+                onPressed: () => _handleButtonClick('AI 帮我写'),
               ),
-              SizedBox(height: 8),
-              ElevatedButton.icon(
-                onPressed: () => _handleButtonPress('插入'),
-                icon: Icon(Icons.add),
-                label: Text('插入'),
+              QuickInsertButton(
+                icon: Icons.lightbulb,
+                label: '头脑风暴',
+                onPressed: () => _handleButtonClick('头脑风暴'),
               ),
-              SizedBox(height: 8),
-              ElevatedButton.icon(
-                onPressed: () => _handleButtonPress('继续写作'),
-                icon: Icon(Icons.edit),
-                label: Text('继续写作'),
+              QuickInsertButton(
+                icon: Icons.edit,
+                label: '写文章',
+                onPressed: () => _handleButtonClick('写文章'),
               ),
-              SizedBox(height: 8),
-              ElevatedButton.icon(
-                onPressed: () => _handleButtonPress('放弃'),
-                icon: Icon(Icons.clear),
-                label: Text('放弃'),
+              QuickInsertButton(
+                icon: Icons.list,
+                label: '提纲',
+                onPressed: () => _handleButtonClick('提纲'),
+              ),
+              QuickInsertButton(
+                icon: Icons.book,
+                label: '小红书',
+                onPressed: () => _handleButtonClick('小红书'),
+              ),
+              QuickInsertButton(
+                icon: Icons.more_horiz,
+                label: '更多',
+                onPressed: () => _handleButtonClick('更多'),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class QuickInsertButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+
+  QuickInsertButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(20),
+            // primary: Colors.white,
+            // onPrimary: Colors.purple,
+          ),
+          child: Icon(icon, color: Colors.purple),
+        ),
+        SizedBox(height: 8),
+        Text(
+          label,
+          style: TextStyle(color: Colors.purple),
+        ),
+      ],
     );
   }
 }

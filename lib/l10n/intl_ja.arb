@@ -1,4 +1,66 @@
 {
+  "ai_write_for_me": "AI 書いてもらう",
+  "ai_write_for_me_prompt": "AIが私に書くのを助けられる内容を教えてください。",
+  "ai_placeholder": "AIで何を書きますか？",
+
+  "brainstorm": "ブレインストーミング",
+  "brainstorm_prompt": "テーマに関するブレインストーミングを手伝ってください...",
+  "brainstorm_placeholder": "（例）地球温暖化に対する少なくとも5つの解決策を提供してください。",
+
+  "write_article": "記事を書く",
+  "write_article_prompt": "…についての記事を書くのを手伝ってください。",
+  "write_article_placeholder": "（例）環境保護をテーマにした、1000語程度の前向きなスタイルの文章を書いてください。タイトルも付けてください。",
+
+  "outline": "アウトライン",
+  "outline_prompt": "…についてのアウトラインを作成してください。",
+  "outline_placeholder": "（例）環境保護をテーマにしたアウトラインを作成してください。",
+
+  "xiaohongshu": "小紅書",
+  "xiaohongshu_prompt": "小紅書の投稿を作成するのを手伝ってください。内容は...",
+  "xiaohongshu_placeholder": "AIで何を書きますか？",
+
+  "more": "もっと見る",
+  "more_prompt": "他のライティングオプションを提供してください。",
+  "timehello": "{appname} AI",
+  "ai_write_what": "AIで何を書きますか？",
+  "ai_write_what_prompt": "AIが私に書くのを助けられる内容を教えてください。",
+
+  "manage": "管理",
+  "manage_prompt": "管理オプションを開いてください。",
+
+  "ai_scenario": "AIライティングシナリオ",
+  "ai_scenario_prompt": "ライティングシナリオを選択してください。",
+
+  "brainstorm": "ブレインストーミング",
+  "brainstorm_prompt": "テーマに関するブレインストーミングを手伝ってください...",
+
+  "write_article": "記事を書く",
+  "write_article_prompt": "…についての記事を書くのを手伝ってください。",
+
+  "outline": "アウトライン",
+  "outline_prompt": "…についてのアウトラインを作成してください。",
+
+  "xiaohongshu": "小紅書",
+  "xiaohongshu_prompt": "小紅書の投稿を作成するのを手伝ってください。内容は...",
+
+  "speech": "スピーチ",
+  "speech_prompt": "…についてのスピーチを書くのを手伝ってください。",
+
+  "announcement": "通知",
+  "announcement_prompt": "通知を書くのを手伝ってください。内容は...",
+
+  "write_essay": "作文を書く",
+  "write_essay_prompt": "作文を書くのを手伝ってください。題目は...",
+  "more": "もっと見る",
+  "more_prompt": "他のライティングオプションを提供してください。",
+  "history_record": "履歴",
+  "history_record_prompt": "履歴を表示します。",
+  "write_article_history": "記事を書く 時間の記事",
+  "write_article_history_prompt": "以前に書いた記事「時間の記事」を確認して編集してください。",
+  "xiaohongshu_history": "小紅書 小紅書の投稿を書く",
+  "xiaohongshu_history_prompt": "以前に書いた小紅書の投稿「小紅書の投稿を書く」を確認して編集してください。",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "文字制限: 0/1000",
   "continue_writing_prompt_with_text": "以下の内容に基づいて続けて執筆してください:\n\n{existing_text}\n\n次に:",
   "replace": "置換",
   "insert": "挿入",

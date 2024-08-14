@@ -2,10 +2,14 @@ import 'dart:convert';
 
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/components/AIAppflowyEditorWidget.dart';
+import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/desktop_editor.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/mobile_editor.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
+import '../../../models/ChatGptMessageModel.dart';
+import '../../../util/ChatGptManager.dart';
 import '../../../util/Utility.dart';
 
 class Editor extends StatefulWidget {
@@ -85,6 +89,7 @@ class _EditorState extends State<Editor> {
 
   @override
   Widget build(BuildContext context) {
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~charCount:" + (wordCountService?.selectionCounters.charCount ?? 0).toString());
     return Stack(
       children: [
         ColoredBox(
@@ -169,6 +174,46 @@ class _EditorState extends State<Editor> {
             ),
           ),
         ),
+        if((wordCount ?? 0) == 0)
+        Container(margin: EdgeInsets.only(top: 120), child: AIAppflowyEditorWidget(onTap: (CheckButtonStateModel model) {
+          showAISearchBarMenuWithoutText(context: context, editorState: this.editorState!, prompt: model.value + "", title: model.title ?? "",  onSubmit: ( text, prompt) async {
+          List<Map<String, String>> list = [
+            {"role": "user", "content": text}
+          ];
+            ChatGptMessageModel chatGptMessageModelGpt =
+                await ChatGptManager.getInstance().sendMessages(
+                scene: "chat",
+                // chatGptFolderModel: _curChatGptFolderModel,
+                // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                systemMessage: prompt,
+                messages: list);
+            print("chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
+            if (chatGptMessageModelGpt?.text != null) {
+              return chatGptMessageModelGpt?.text;
+            }
+            return null;
+          }, onContinue: (String aiText,  String originText) async{
+            ChatGptMessageModel chatGptMessageModelGpt =
+                await ChatGptManager.getInstance().sendMessages(
+                scene: "chat",
+                // chatGptFolderModel: _curChatGptFolderModel,
+                // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                systemMessage: aiText,
+                messages: [
+                  {"role": "user", "content": originText}
+                ]);
+            print(
+                "chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
+            if (chatGptMessageModelGpt?.text != null) {
+              return originText + "\n" + (chatGptMessageModelGpt?.text ?? "");
+            }
+            return null;
+          }, onCopy: (text) {
+            Utility.copyToClipboard(text);
+          }, placeholder: model.content ?? "");
+          // print('Button clicked: $model');
+          // editorState?.insertText(model);
+        },))
       ],
     );
   }

@@ -267,46 +267,48 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m111(money) => "${money} 후";
 
-  static String m112(date) => "${date} 데이터";
+  static String m112(appname) => "${appname} AI";
 
-  static String m113(num) => "총 ${num}";
+  static String m113(date) => "${date} 데이터";
 
-  static String m114(num) => "총 ${num} 토마토";
+  static String m114(num) => "총 ${num}";
 
-  static String m115(trainee) =>
+  static String m115(num) => "총 ${num} 토마토";
+
+  static String m116(trainee) =>
       "주의하세요, 실제 상황에 따라 적절하게 행동하세요. ${trainee}의 답변에 만족하지 않는 경우, 더 자세한 명령을 제공하여 ${trainee}에게 시간을 계획하도록 도와줄 수 있습니다.";
 
-  static String m116(trainee) => "${trainee}의 조언";
+  static String m117(trainee) => "${trainee}의 조언";
 
-  static String m117(time) => "마지막 업데이트 시간:${time}";
+  static String m118(time) => "마지막 업데이트 시간:${time}";
 
-  static String m118(listing, title) =>
+  static String m119(listing, title) =>
       "목록 \'${listing}\'에 작업 \'${title}\' 업데이트";
 
-  static String m119(title) => "작업 \'${title}\' 업데이트";
+  static String m120(title) => "작업 \'${title}\' 업데이트";
 
-  static String m120(value) => "가치:${value}";
+  static String m121(value) => "가치:${value}";
 
-  static String m121(value) => "${value}\$/시간";
+  static String m122(value) => "${value}\$/시간";
 
-  static String m122(version) => "현재 버전 ${version}";
+  static String m123(version) => "현재 버전 ${version}";
 
-  static String m123(appName) => "\"${appName}\"에 오신 것을 환영합니다";
+  static String m124(appName) => "\"${appName}\"에 오신 것을 환영합니다";
 
-  static String m124(wordCount, charCount) =>
+  static String m125(wordCount, charCount) =>
       "단어 수: ${wordCount}, 문자 수: ${charCount}";
 
-  static String m125(diary) => "일기 \'${diary}\'를 작성했습니다";
+  static String m126(diary) => "일기 \'${diary}\'를 작성했습니다";
 
-  static String m126(diary) => "노트 \'${diary}\'를 작성했습니다";
+  static String m127(diary) => "노트 \'${diary}\'를 작성했습니다";
 
-  static String m127(text) => "${text}은(는) 비워 둘 수 없습니다";
+  static String m128(text) => "${text}은(는) 비워 둘 수 없습니다";
 
-  static String m128(month, year) => "${year}년 ${month}월";
+  static String m129(month, year) => "${year}년 ${month}월";
 
-  static String m129(name) => "당신이 설정한 체크인 미션 \'${name}\'이 시작되었습니다. 체크인을 해주세요";
+  static String m130(name) => "당신이 설정한 체크인 미션 \'${name}\'이 시작되었습니다. 체크인을 해주세요";
 
-  static String m130(name) => "당신의 \'${name}\' 작업 알림이 시작되었습니다. 준비하세요";
+  static String m131(name) => "당신의 \'${name}\' 작업 알림이 시작되었습니다. 준비하세요";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -349,6 +351,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI 생성"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI 도우미"),
+        "ai_placeholder":
+            MessageLookupByLibrary.simpleMessage("AI로 무엇을 작성할까요?"),
+        "ai_scenario": MessageLookupByLibrary.simpleMessage("AI 글쓰기 시나리오"),
+        "ai_scenario_prompt":
+            MessageLookupByLibrary.simpleMessage("글쓰기 시나리오를 선택해 주세요."),
+        "ai_write_for_me": MessageLookupByLibrary.simpleMessage("AI 나를 위해 글쓰기"),
+        "ai_write_for_me_prompt": MessageLookupByLibrary.simpleMessage(
+            "AI가 저를 도와서 작성할 수 있는 내용을 알려주세요."),
+        "ai_write_what": MessageLookupByLibrary.simpleMessage("AI로 무엇을 작성할까요?"),
+        "ai_write_what_prompt": MessageLookupByLibrary.simpleMessage(
+            "AI가 저를 도와서 작성할 수 있는 내용을 알려주세요."),
         "alert": MessageLookupByLibrary.simpleMessage("알림"),
         "alertMessage1":
             MessageLookupByLibrary.simpleMessage("토마토 수는 0이 될 수 없습니다"),
@@ -379,6 +392,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "analytics": MessageLookupByLibrary.simpleMessage("분석"),
         "anki_card_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: What is th, folder_id: null, flomo_object_id: null, type: 2, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 2, wqbWrongQuestionContent: What is the past tense form of the irregular verb \"go\"?\n\n, wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: The past tense of \"go\" is \"went\". Example: He went to the store yesterday.\n\nThis card helps learners memorize and practice the past tense forms of common irregular verbs in English., wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
+        "announcement": MessageLookupByLibrary.simpleMessage("공지사항"),
+        "announcement_prompt": MessageLookupByLibrary.simpleMessage(
+            "공지사항을 작성하는 데 도움을 주세요. 내용은..."),
         "answer": MessageLookupByLibrary.simpleMessage("답변"),
         "appThmeSetting": MessageLookupByLibrary.simpleMessage("테마 색상 패널 설정"),
         "app_name": MessageLookupByLibrary.simpleMessage("시간 관리국 ToDo"),
@@ -424,6 +440,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("이 기간의 청구서"),
         "billing_day": MessageLookupByLibrary.simpleMessage("청구일"),
         "bold": MessageLookupByLibrary.simpleMessage(""),
+        "brainstorm": MessageLookupByLibrary.simpleMessage("브레인스토밍"),
+        "brainstorm_placeholder": MessageLookupByLibrary.simpleMessage(
+            "(예) 지구 온난화에 대한 최소 5가지 해결책을 제시해 주세요."),
+        "brainstorm_prompt":
+            MessageLookupByLibrary.simpleMessage("주제에 대해 브레인스토밍을 도와주세요..."),
         "browse": MessageLookupByLibrary.simpleMessage("클릭하여 브라우징"),
         "browser_not_support_multiline": MessageLookupByLibrary.simpleMessage(
             "브라우저에서는 여러 줄 입력을 지원하지 않습니다. 더 나은 경험을 위해 클라이언트를 다운로드할 수 있습니다."),
@@ -452,6 +473,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "cause_analysis": MessageLookupByLibrary.simpleMessage("원인 분석"),
         "change_background": MessageLookupByLibrary.simpleMessage("배경 변경"),
         "change_bg": MessageLookupByLibrary.simpleMessage("배경 선택"),
+        "character_limit": MessageLookupByLibrary.simpleMessage("0/1000"),
+        "character_limit_prompt":
+            MessageLookupByLibrary.simpleMessage("문자 제한: 0/1000"),
         "chat": MessageLookupByLibrary.simpleMessage("채팅"),
         "chatgpt": MessageLookupByLibrary.simpleMessage("AI"),
         "chatgpt_ai_username_huawei":
@@ -867,6 +891,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "highlight": MessageLookupByLibrary.simpleMessage(""),
         "hint_search_chat": MessageLookupByLibrary.simpleMessage("채팅 기록 검색"),
         "history_event": MessageLookupByLibrary.simpleMessage("역사적 사건"),
+        "history_record": MessageLookupByLibrary.simpleMessage("기록"),
+        "history_record_prompt":
+            MessageLookupByLibrary.simpleMessage("기록을 확인하세요."),
         "hour": MessageLookupByLibrary.simpleMessage("시간"),
         "hour3": MessageLookupByLibrary.simpleMessage("시"),
         "hourAndMin": m55,
@@ -989,6 +1016,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lottery": MessageLookupByLibrary.simpleMessage("추첨"),
         "lyubichs": MessageLookupByLibrary.simpleMessage("리유비치 기간"),
         "manage": MessageLookupByLibrary.simpleMessage("관리"),
+        "manage_prompt": MessageLookupByLibrary.simpleMessage("관리 옵션을 열어주세요."),
         "manual": MessageLookupByLibrary.simpleMessage("수동"),
         "manual_create": MessageLookupByLibrary.simpleMessage("수동 생성"),
         "mar": MessageLookupByLibrary.simpleMessage("3월"),
@@ -1074,6 +1102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("이번 달 완료된 토마토 수"),
         "monthsLater": MessageLookupByLibrary.simpleMessage("개월 후"),
         "more": MessageLookupByLibrary.simpleMessage("더"),
+        "more_prompt":
+            MessageLookupByLibrary.simpleMessage("더 많은 글쓰기 옵션을 제공해 주세요."),
         "move_to_next": MessageLookupByLibrary.simpleMessage("오른쪽으로 이동"),
         "move_to_previous": MessageLookupByLibrary.simpleMessage("왼쪽으로 이동"),
         "multi_select": MessageLookupByLibrary.simpleMessage("다중 선택"),
@@ -1247,6 +1277,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "원본 텍스트: 정부는 점점 심각해지는 환경 문제에 대응하기 위해 적극적인 조치를 취하고 있으며, 환경 규제 강화, 대중의 환경 인식 제고, 녹색 에너지 개발을 촉진하고 있습니다."),
         "other_login_mode": MessageLookupByLibrary.simpleMessage("다른 방식으로 전환"),
         "others": MessageLookupByLibrary.simpleMessage("기타"),
+        "outline": MessageLookupByLibrary.simpleMessage("개요"),
+        "outline_placeholder":
+            MessageLookupByLibrary.simpleMessage("(예) 환경 보호를 주제로 개요를 작성해 주세요."),
+        "outline_prompt":
+            MessageLookupByLibrary.simpleMessage("...에 대한 개요를 작성해 주세요."),
         "overdue_buffer": MessageLookupByLibrary.simpleMessage("연체 버퍼:"),
         "password": MessageLookupByLibrary.simpleMessage("비밀번호"),
         "passwordNotEmpty":
@@ -1543,6 +1578,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "smsVerificationCode":
             MessageLookupByLibrary.simpleMessage("SMS 인증 코드"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("녹음"),
+        "speech": MessageLookupByLibrary.simpleMessage("연설문"),
+        "speech_prompt": MessageLookupByLibrary.simpleMessage(
+            "...에 대한 연설문을 작성하는 데 도움을 주세요."),
         "startFocusing": MessageLookupByLibrary.simpleMessage("집중 시작"),
         "startResting": MessageLookupByLibrary.simpleMessage("휴식 시작"),
         "start_date": MessageLookupByLibrary.simpleMessage("시작 날짜"),
@@ -1609,6 +1647,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("시간이 아직 안 왔으니 출근할 수 없습니다"),
         "time_segment": MessageLookupByLibrary.simpleMessage("시간 구간"),
         "timefocused": MessageLookupByLibrary.simpleMessage("집중한 시간"),
+        "timehello": m112,
         "timeline": MessageLookupByLibrary.simpleMessage("타임라인"),
         "timelineview": MessageLookupByLibrary.simpleMessage("타임라인 뷰"),
         "timer": MessageLookupByLibrary.simpleMessage("타이머"),
@@ -1616,7 +1655,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tipsAlertTone": MessageLookupByLibrary.simpleMessage("알림 벨소리"),
         "title": MessageLookupByLibrary.simpleMessage("제목"),
         "title_consume": MessageLookupByLibrary.simpleMessage("소비 금액"),
-        "title_data": m112,
+        "title_data": m113,
         "to_login": MessageLookupByLibrary.simpleMessage("ログインページへ"),
         "today": MessageLookupByLibrary.simpleMessage("오늘"),
         "today_data": MessageLookupByLibrary.simpleMessage("오늘의 데이터"),
@@ -1649,13 +1688,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalTimeMinute": MessageLookupByLibrary.simpleMessage("총 시간(분)"),
         "total_focus_duration": MessageLookupByLibrary.simpleMessage("총 집중 시간"),
         "total_focus_time": MessageLookupByLibrary.simpleMessage("집중 시간"),
-        "total_maju": m113,
+        "total_maju": m114,
         "total_tasks_count":
             MessageLookupByLibrary.simpleMessage("전체 작업 수(토마토 수)"),
-        "total_tomatoes": m114,
+        "total_tomatoes": m115,
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("토마토 총 수"),
-        "trainee_advice_notice": m115,
-        "trainee_give_your_advice": m116,
+        "trainee_advice_notice": m116,
+        "trainee_give_your_advice": m117,
         "training_plan_edit": MessageLookupByLibrary.simpleMessage("클릭하여 편집"),
         "transaction": MessageLookupByLibrary.simpleMessage("금융 거래"),
         "translate": MessageLookupByLibrary.simpleMessage("번역"),
@@ -1699,9 +1738,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_bill": MessageLookupByLibrary.simpleMessage("청구서 업데이트"),
         "update_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("신용카드 청구서 업데이트"),
-        "update_last_time": m117,
-        "update_name_mission": m118,
-        "update_name_mission2": m119,
+        "update_last_time": m118,
+        "update_name_mission": m119,
+        "update_name_mission2": m120,
         "update_now": MessageLookupByLibrary.simpleMessage("지금 업데이트"),
         "update_success": MessageLookupByLibrary.simpleMessage("업데이트 성공"),
         "update_time_last_time":
@@ -1716,9 +1755,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_privacy_protocol_title":
             MessageLookupByLibrary.simpleMessage("사용자 개인정보 보호 정책"),
         "username": MessageLookupByLibrary.simpleMessage("사용자 이름"),
-        "value": m120,
-        "value_per_hour": m121,
-        "version_num": m122,
+        "value": m121,
+        "value_per_hour": m122,
+        "version_num": m123,
         "vertical": MessageLookupByLibrary.simpleMessage("세로"),
         "view": MessageLookupByLibrary.simpleMessage("보기"),
         "view_only": MessageLookupByLibrary.simpleMessage("보기만 가능"),
@@ -1744,7 +1783,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "week_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("이번 주 완료된 토마토 수"),
         "welcome": MessageLookupByLibrary.simpleMessage("환영합니다"),
-        "welcome_to_time_department": m123,
+        "welcome_to_time_department": m124,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage("반복 여부"),
         "who_can_view_edit_files":
             MessageLookupByLibrary.simpleMessage("누가 파일을 볼/편집할 수 있습니까"),
@@ -1752,9 +1791,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("누가 파일을 볼/편집할 수 있습니까"),
         "wholeComepleteTime":
             MessageLookupByLibrary.simpleMessage("완료 총 시간(분)"),
-        "word_count_and_char_count": m124,
+        "word_count_and_char_count": m125,
         "write_a_title": MessageLookupByLibrary.simpleMessage("제목을 작성하시겠습니까?"),
+        "write_article": MessageLookupByLibrary.simpleMessage("기사 작성"),
+        "write_article_history":
+            MessageLookupByLibrary.simpleMessage("기사 작성 시간 기사"),
+        "write_article_history_prompt": MessageLookupByLibrary.simpleMessage(
+            "이전에 작성한 기사를 확인하고 편집해 주세요: 시간 기사."),
+        "write_article_placeholder": MessageLookupByLibrary.simpleMessage(
+            "(예) 환경 보호를 주제로, 긍정적인 톤으로 1000자 정도의 기사를 작성하고 제목을 달아주세요."),
+        "write_article_prompt":
+            MessageLookupByLibrary.simpleMessage("...에 대한 기사를 작성하는 데 도움을 주세요."),
         "write_diary": MessageLookupByLibrary.simpleMessage("일기 작성"),
+        "write_essay": MessageLookupByLibrary.simpleMessage("에세이 작성"),
+        "write_essay_prompt":
+            MessageLookupByLibrary.simpleMessage("에세이를 작성하는 데 도움을 주세요. 주제는..."),
         "write_your_clockin_feedback":
             MessageLookupByLibrary.simpleMessage("당신의 생각을 적어보세요"),
         "wrong_question_book": MessageLookupByLibrary.simpleMessage("잘못된 질문 책"),
@@ -1765,22 +1816,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrong_question_knowledge_points":
             MessageLookupByLibrary.simpleMessage("잘못된 질문 지식 포인트"),
         "wrong_thinking": MessageLookupByLibrary.simpleMessage("잘못된 생각"),
-        "wrote_a_diary": m125,
-        "wrote_a_note": m126,
-        "xxx_cannot_be_empty": m127,
+        "wrote_a_diary": m126,
+        "wrote_a_note": m127,
+        "xiaohongshu": MessageLookupByLibrary.simpleMessage("샤오홍슈"),
+        "xiaohongshu_history":
+            MessageLookupByLibrary.simpleMessage("샤오홍슈 샤오홍슈 게시물 작성 도와주세요"),
+        "xiaohongshu_history_prompt": MessageLookupByLibrary.simpleMessage(
+            "이전에 작성한 샤오홍슈 게시물을 확인하고 편집해 주세요: 샤오홍슈 게시물 작성 도와주세요."),
+        "xiaohongshu_placeholder":
+            MessageLookupByLibrary.simpleMessage("AI로 무엇을 작성할까요?"),
+        "xiaohongshu_prompt": MessageLookupByLibrary.simpleMessage(
+            "샤오홍슈 게시물을 작성하는 데 도움을 주세요. 내용은..."),
+        "xxx_cannot_be_empty": m128,
         "year": MessageLookupByLibrary.simpleMessage("년"),
         "year_duration_completed":
             MessageLookupByLibrary.simpleMessage("올해의 총 집중 시간(분)"),
         "year_mission_completed":
             MessageLookupByLibrary.simpleMessage("올해 완료된 작업 수"),
-        "year_month": m128,
+        "year_month": m129,
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("올해 완료된 토마토 수"),
         "yes": MessageLookupByLibrary.simpleMessage("예"),
-        "your_clockin_mission_with_name_has_begun": m129,
+        "your_clockin_mission_with_name_has_begun": m130,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("당신이 만든 수업입니다"),
-        "your_mission_with_name_has_begun": m130,
+        "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage("당신의 개인 시간 관리자"),
         "yuan": MessageLookupByLibrary.simpleMessage("원")
       };

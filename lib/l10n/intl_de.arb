@@ -1,4 +1,66 @@
 {
+  "ai_write_for_me": "KI Schreibe für mich",
+  "ai_write_for_me_prompt": "Bitte teilen Sie mir mit, was die KI für mich schreiben kann.",
+  "ai_placeholder": "KI, was soll ich schreiben?",
+
+  "brainstorm": "Brainstorming",
+  "brainstorm_prompt": "Bitte helfen Sie mir beim Brainstorming zum Thema...",
+  "brainstorm_placeholder": "(Beispiel) Bitte geben Sie mindestens 5 Lösungen für die globale Erwärmung an.",
+
+  "write_article": "Artikel schreiben",
+  "write_article_prompt": "Bitte helfen Sie mir, einen Artikel über... zu schreiben.",
+  "write_article_placeholder": "(Beispiel) Bitte schreiben Sie einen 1000 Wörter langen, positiv gestimmten Artikel zum Thema Umweltschutz und geben Sie ihm einen Titel.",
+
+  "outline": "Gliederung",
+  "outline_prompt": "Bitte erstellen Sie eine Gliederung zum Thema...",
+  "outline_placeholder": "(Beispiel) Bitte erstellen Sie eine Gliederung zum Thema Umweltschutz.",
+
+  "xiaohongshu": "Xiaohongshu",
+  "xiaohongshu_prompt": "Bitte helfen Sie mir, einen Xiaohongshu-Beitrag zu schreiben, der Inhalt ist...",
+  "xiaohongshu_placeholder": "KI, was soll ich schreiben?",
+
+  "more": "Mehr",
+  "more_prompt": "Bitte geben Sie weitere Schreiboptionen an.",
+  "timehello": "{appname} KI",
+  "ai_write_what": "KI, was soll ich schreiben?",
+  "ai_write_what_prompt": "Bitte teilen Sie mir mit, was die KI für mich schreiben kann.",
+
+  "manage": "Verwalten",
+  "manage_prompt": "Bitte öffnen Sie die Verwaltungsoptionen.",
+
+  "ai_scenario": "KI-Schreibszenarien",
+  "ai_scenario_prompt": "Bitte wählen Sie ein Schreibszenario aus.",
+
+  "brainstorm": "Brainstorming",
+  "brainstorm_prompt": "Bitte helfen Sie mir beim Brainstorming zum Thema...",
+
+  "write_article": "Artikel schreiben",
+  "write_article_prompt": "Bitte helfen Sie mir, einen Artikel über... zu schreiben.",
+
+  "outline": "Gliederung",
+  "outline_prompt": "Bitte erstellen Sie eine Gliederung zum Thema...",
+
+  "xiaohongshu": "Xiaohongshu",
+  "xiaohongshu_prompt": "Bitte helfen Sie mir, einen Xiaohongshu-Beitrag zu schreiben, der Inhalt ist...",
+
+  "speech": "Rede",
+  "speech_prompt": "Bitte helfen Sie mir, eine Rede über... zu schreiben.",
+
+  "announcement": "Ankündigung",
+  "announcement_prompt": "Bitte helfen Sie mir, eine Ankündigung zu schreiben, der Inhalt ist...",
+
+  "write_essay": "Aufsatz schreiben",
+  "write_essay_prompt": "Bitte helfen Sie mir, einen Aufsatz zu schreiben, das Thema ist...",
+  "more": "Mehr",
+  "more_prompt": "Bitte geben Sie weitere Schreiboptionen an.",
+  "history_record": "Verlauf",
+  "history_record_prompt": "Verlauf anzeigen.",
+  "write_article_history": "Artikel schreiben Artikel über Zeit",
+  "write_article_history_prompt": "Bitte sehen Sie sich den zuvor geschriebenen Artikel an und bearbeiten Sie ihn: Artikel über Zeit.",
+  "xiaohongshu_history": "Xiaohongshu Xiaohongshu-Beitrag schreiben",
+  "xiaohongshu_history_prompt": "Bitte sehen Sie sich den zuvor geschriebenen Xiaohongshu-Beitrag an und bearbeiten Sie ihn: Xiaohongshu-Beitrag schreiben.",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "Zeichenlimit: 0/1000",
   "continue_writing_prompt_with_text": "Bitte schreibe basierend auf dem folgenden Inhalt weiter:\n\n{existing_text}\n\nAls Nächstes:",
   "replace": "Ersetzen",
   "insert": "Einfügen",

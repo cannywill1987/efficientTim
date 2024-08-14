@@ -1,4 +1,66 @@
 {
+  "ai_write_for_me": "AI 나를 위해 글쓰기",
+  "ai_write_for_me_prompt": "AI가 저를 도와서 작성할 수 있는 내용을 알려주세요.",
+  "ai_placeholder": "AI로 무엇을 작성할까요?",
+
+  "brainstorm": "브레인스토밍",
+  "brainstorm_prompt": "주제에 대해 브레인스토밍을 도와주세요...",
+  "brainstorm_placeholder": "(예) 지구 온난화에 대한 최소 5가지 해결책을 제시해 주세요.",
+
+  "write_article": "기사 작성",
+  "write_article_prompt": "...에 대한 기사를 작성하는 데 도움을 주세요.",
+  "write_article_placeholder": "(예) 환경 보호를 주제로, 긍정적인 톤으로 1000자 정도의 기사를 작성하고 제목을 달아주세요.",
+
+  "outline": "개요",
+  "outline_prompt": "...에 대한 개요를 작성해 주세요.",
+  "outline_placeholder": "(예) 환경 보호를 주제로 개요를 작성해 주세요.",
+
+  "xiaohongshu": "샤오홍슈",
+  "xiaohongshu_prompt": "샤오홍슈 게시물을 작성하는 데 도움을 주세요. 내용은...",
+  "xiaohongshu_placeholder": "AI로 무엇을 작성할까요?",
+
+  "more": "더보기",
+  "more_prompt": "더 많은 글쓰기 옵션을 제공해 주세요.",
+  "timehello": "{appname} AI",
+  "ai_write_what": "AI로 무엇을 작성할까요?",
+  "ai_write_what_prompt": "AI가 저를 도와서 작성할 수 있는 내용을 알려주세요.",
+
+  "manage": "관리",
+  "manage_prompt": "관리 옵션을 열어주세요.",
+
+  "ai_scenario": "AI 글쓰기 시나리오",
+  "ai_scenario_prompt": "글쓰기 시나리오를 선택해 주세요.",
+
+  "brainstorm": "브레인스토밍",
+  "brainstorm_prompt": "주제에 대해 브레인스토밍을 도와주세요...",
+
+  "write_article": "기사 작성",
+  "write_article_prompt": "...에 대한 기사를 작성하는 데 도움을 주세요.",
+
+  "outline": "개요",
+  "outline_prompt": "...에 대한 개요를 작성해 주세요.",
+
+  "xiaohongshu": "샤오홍슈",
+  "xiaohongshu_prompt": "샤오홍슈 게시물을 작성하는 데 도움을 주세요. 내용은...",
+
+  "speech": "연설문",
+  "speech_prompt": "...에 대한 연설문을 작성하는 데 도움을 주세요.",
+
+  "announcement": "공지사항",
+  "announcement_prompt": "공지사항을 작성하는 데 도움을 주세요. 내용은...",
+
+  "write_essay": "에세이 작성",
+  "write_essay_prompt": "에세이를 작성하는 데 도움을 주세요. 주제는...",
+  "more": "더보기",
+  "more_prompt": "더 많은 글쓰기 옵션을 제공해 주세요.",
+  "history_record": "기록",
+  "history_record_prompt": "기록을 확인하세요.",
+  "write_article_history": "기사 작성 시간 기사",
+  "write_article_history_prompt": "이전에 작성한 기사를 확인하고 편집해 주세요: 시간 기사.",
+  "xiaohongshu_history": "샤오홍슈 샤오홍슈 게시물 작성 도와주세요",
+  "xiaohongshu_history_prompt": "이전에 작성한 샤오홍슈 게시물을 확인하고 편집해 주세요: 샤오홍슈 게시물 작성 도와주세요.",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "문자 제한: 0/1000",
   "continue_writing_prompt_with_text": "다음 내용을 바탕으로 글쓰기를 계속하세요:\n\n{existing_text}\n\n다음:",
   "replace": "교체",
   "insert": "삽입",

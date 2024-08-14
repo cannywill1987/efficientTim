@@ -102,7 +102,7 @@ class DownloadListwidget extends StatelessWidget {
                         Utility.popNavigator(context);
                       },
                       content:
-                          "https://timehello.oss-cn-hongkong.aliyuncs.com/app/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86%E5%B1%80ToDo.exe");
+                          "https://oss.timerbell.com/app/timerbell.exe");
                 },
                 child: NewVerstionWidget(currentVersion: Params.curVersion,
                     newVersion: Params.curLatestVersionWin,shouldShowRedDotParam: DeviceInfoManagement.isWindows(),

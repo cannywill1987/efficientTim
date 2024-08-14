@@ -1975,6 +1975,71 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getAIPrompts() {
+    List<CheckButtonStateModel> list = [];
+    const double size = 30;
+
+    list.add(CheckButtonStateModel(
+      code: 'ai_write',
+      checkIcon: Icon(Icons.auto_fix_high, size: size, color: Colors.purple),
+      uncheckIcon: Icon(Icons.auto_fix_high, size: size, color: Colors.grey),
+      title: getI18NKey().ai_write_for_me,
+      content: getI18NKey().ai_placeholder,
+      value: getI18NKey().ai_write_for_me_prompt,
+      isCheck: true,
+    ));
+
+    list.add(CheckButtonStateModel(
+      code: 'brainstorm',
+      checkIcon: Icon(Icons.lightbulb, size: size, color: Colors.purple),
+      uncheckIcon: Icon(Icons.lightbulb, size: size, color: Colors.grey),
+      title: getI18NKey().brainstorm,
+      content: getI18NKey().brainstorm_placeholder,
+      value: getI18NKey().brainstorm_prompt,
+      isCheck: false,
+    ));
+
+    list.add(CheckButtonStateModel(
+      code: 'write_article',
+      checkIcon: Icon(Icons.edit, size: size, color: Colors.purple),
+      uncheckIcon: Icon(Icons.edit, size: size, color: Colors.grey),
+      title: getI18NKey().write_article,
+      content: getI18NKey().write_article_placeholder,
+      value: getI18NKey().write_article_prompt,
+      isCheck: false,
+    ));
+
+    list.add(CheckButtonStateModel(
+      code: 'outline',
+      checkIcon: Icon(Icons.list, size: size, color: Colors.purple),
+      uncheckIcon: Icon(Icons.list, size: size, color: Colors.grey),
+      title: getI18NKey().outline,
+      content: getI18NKey().outline_placeholder,
+      value: getI18NKey().outline_prompt,
+      isCheck: false,
+    ));
+if(Utility.isChina())
+    list.add(CheckButtonStateModel(
+      code: 'xiaohongshu',
+      checkIcon: Icon(Icons.book, size: size, color: Colors.purple),
+      uncheckIcon: Icon(Icons.book, size: size, color: Colors.grey),
+      title: getI18NKey().xiaohongshu,
+      content: getI18NKey().xiaohongshu_placeholder,
+      value: getI18NKey().xiaohongshu_prompt,
+      isCheck: false,
+    ));
+
+    // list.add(CheckButtonStateModel(
+    //   code: 'more',
+    //   checkIcon: Icon(Icons.more_horiz, size: size, color: Colors.purple),
+    //   uncheckIcon: Icon(Icons.more_horiz, size: size, color: Colors.grey),
+    //   title: getI18NKey().more,
+    //   isCheck: false,
+    // ));
+
+    return list;
+  }
+
   static List<CheckButtonStateModel> getPCSettingButtonList() {
     List<CheckButtonStateModel> list = [];
     const double size = 30;

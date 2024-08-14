@@ -1,4 +1,65 @@
-{
+{"ai_write_for_me": "IA Écrire pour moi",
+  "ai_write_for_me_prompt": "Veuillez me dire ce que l'IA peut m'aider à écrire.",
+  "ai_placeholder": "Qu'est-ce que je devrais écrire avec l'IA ?",
+
+  "brainstorm": "Remue-méninges",
+  "brainstorm_prompt": "Veuillez m'aider à faire un remue-méninges sur le sujet de...",
+  "brainstorm_placeholder": "(Exemple) Veuillez fournir au moins 5 solutions pour le réchauffement climatique.",
+
+  "write_article": "Écrire un article",
+  "write_article_prompt": "Veuillez m'aider à écrire un article sur...",
+  "write_article_placeholder": "(Exemple) Veuillez écrire un article de 1000 mots, positif, sur le thème de la protection de l'environnement et lui donner un titre.",
+
+  "outline": "Plan",
+  "outline_prompt": "Veuillez m'aider à établir un plan sur le sujet de...",
+  "outline_placeholder": "(Exemple) Veuillez établir un plan sur le thème de la protection de l'environnement.",
+
+  "xiaohongshu": "Xiaohongshu",
+  "xiaohongshu_prompt": "Veuillez m'aider à écrire un post Xiaohongshu, le contenu est...",
+  "xiaohongshu_placeholder": "Qu'est-ce que je devrais écrire avec l'IA ?",
+
+  "more": "Plus",
+  "more_prompt": "Veuillez fournir plus d'options d'écriture.",
+  "timehello": "{appname} IA",
+  "ai_write_what": "Qu'est-ce que je devrais écrire avec l'IA ?",
+  "ai_write_what_prompt": "Veuillez me dire ce que l'IA peut m'aider à écrire.",
+
+  "manage": "Gérer",
+  "manage_prompt": "Veuillez ouvrir les options de gestion.",
+
+  "ai_scenario": "Scénario d'écriture IA",
+  "ai_scenario_prompt": "Veuillez choisir un scénario d'écriture.",
+
+  "brainstorm": "Remue-méninges",
+  "brainstorm_prompt": "Veuillez m'aider à faire un remue-méninges sur le sujet de...",
+
+  "write_article": "Écrire un article",
+  "write_article_prompt": "Veuillez m'aider à écrire un article sur...",
+
+  "outline": "Plan",
+  "outline_prompt": "Veuillez m’aider à établir un plan sur le sujet de…",
+
+  "xiaohongshu": "Xiaohongshu",
+  "xiaohongshu_prompt": "Veuillez m’aider à écrire un post Xiaohongshu, le contenu est…",
+
+  "speech": "Discours",
+  "speech_prompt": "Veuillez m’aider à écrire un discours sur le sujet de…",
+
+  "announcement": "Annonce",
+  "announcement_prompt": "Veuillez m’aider à écrire une annonce, le contenu est…",
+
+  "write_essay": "Écrire un essai",
+  "write_essay_prompt": "Veuillez m’aider à écrire un essai, le sujet est…",
+  "more": "Plus",
+  "more_prompt": "Veuillez fournir plus d’options d’écriture.",
+  "history_record": "Historique",
+  "history_record_prompt": "Voir l’historique.",
+  "write_article_history": "Écrire un article L’article du temps",
+  "write_article_history_prompt": "Veuillez consulter et éditer l’article précédemment écrit : L’article du temps.",
+  "xiaohongshu_history": "Xiaohongshu Aidez-moi à écrire un post Xiaohongshu",
+  "xiaohongshu_history_prompt": "Veuillez consulter et éditer le post Xiaohongshu précédemment écrit : Aidez-moi à écrire un post Xiaohongshu.",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "Limite de caractères : 0/1000",
   "continue_writing_prompt_with_text": "Veuillez continuer à écrire en vous basant sur le contenu suivant:\n\n{existing_text}\n\nEnsuite:",
   "replace": "Remplacer",
   "insert": "Insérer",

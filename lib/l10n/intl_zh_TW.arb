@@ -1,4 +1,66 @@
 {
+  "ai_write_for_me": "AI 幫我寫",
+  "ai_write_for_me_prompt": "請告訴我AI可以幫我寫些什麼。",
+  "ai_placeholder": "AI幫我寫什麼",
+
+  "brainstorm": "頭腦風暴",
+  "brainstorm_prompt": "請幫我進行頭腦風暴，主題是...",
+  "brainstorm_placeholder": "(例)請為全球氣候變暖提供至少5個方案",
+
+  "write_article": "寫文章",
+  "write_article_prompt": "請幫我寫一篇關於...的文章。",
+  "write_article_placeholder": "(例)請以環保為主題，字數1000字左右，寫作風格積極樂觀，並取一個標題",
+
+  "outline": "提綱",
+  "outline_prompt": "請幫我列出一個關於...的提綱。",
+  "outline_placeholder": "(例)請以環保為主題列出提綱",
+
+  "xiaohongshu": "小紅書",
+  "xiaohongshu_prompt": "請幫我寫一篇小紅書文案，內容是...",
+  "xiaohongshu_placeholder": "AI幫我寫什麼",
+
+  "more": "更多",
+  "more_prompt": "請提供更多的寫作選項。",
+  "timehello": "{appname} AI",
+  "ai_write_what": "AI幫我寫什麼",
+  "ai_write_what_prompt": "請告訴我AI可以幫我寫些什麼。",
+
+  "manage": "管理",
+  "manage_prompt": "請打開管理選項。",
+
+  "ai_scenario": "AI寫作場景",
+  "ai_scenario_prompt": "請選擇一個寫作場景。",
+
+  "brainstorm": "頭腦風暴",
+  "brainstorm_prompt": "請幫我進行頭腦風暴，主題是...",
+
+  "write_article": "寫文章",
+  "write_article_prompt": "請幫我寫一篇關於...的文章。",
+
+  "outline": "提綱",
+  "outline_prompt": "請幫我列出一個關於...的提綱。",
+
+  "xiaohongshu": "小紅書",
+  "xiaohongshu_prompt": "請幫我寫一篇小紅書文案，內容是...",
+
+  "speech": "演講稿",
+  "speech_prompt": "請幫我寫一篇關於...的演講稿。",
+
+  "announcement": "通知公告",
+  "announcement_prompt": "請幫我寫一則通知公告，內容是...",
+
+  "write_essay": "寫作文",
+  "write_essay_prompt": "請幫我寫一篇作文，題目是...",
+  "more": "更多",
+  "more_prompt": "請提供更多的寫作選項。",
+  "history_record": "歷史記錄",
+  "history_record_prompt": "查看歷史記錄。",
+  "write_article_history": "寫文章 時間的文章",
+  "write_article_history_prompt": "請查看並編輯之前寫的文章：時間的文章。",
+  "xiaohongshu_history": "小紅書 幫我寫小紅書文案",
+  "xiaohongshu_history_prompt": "請查看並編輯之前寫的小紅書文案：幫我寫小紅書文案。",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "字符限制：0/1000",
   "continue_writing_prompt_with_text": "請根據以下內容繼續寫作：\n\n{existing_text}\n\n接下來：",
   "replace": "替換",
   "insert": "插入",

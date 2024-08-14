@@ -276,47 +276,49 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m111(money) => "${money} later";
 
-  static String m112(date) => "${date}\'s data";
+  static String m112(appname) => "${appname} AI";
 
-  static String m113(num) => "Total ${num}";
+  static String m113(date) => "${date}\'s data";
 
-  static String m114(num) => "Total ${num} tomatoes";
+  static String m114(num) => "Total ${num}";
 
-  static String m115(trainee) =>
+  static String m115(num) => "Total ${num} tomatoes";
+
+  static String m116(trainee) =>
       "Please note, act according to your actual situation. If you are not satisfied with ${trainee}\'s response, you can communicate with ${trainee} to give more detailed commands to help you plan your time.";
 
-  static String m116(trainee) => "${trainee}\'s advice";
+  static String m117(trainee) => "${trainee}\'s advice";
 
-  static String m117(time) => "Last update time:${time}";
+  static String m118(time) => "Last update time:${time}";
 
-  static String m118(listing, title) =>
+  static String m119(listing, title) =>
       "in the listing \'${listing}\' update a mission \'${title}\'";
 
-  static String m119(title) => "Update mission \'${title}\'";
+  static String m120(title) => "Update mission \'${title}\'";
 
-  static String m120(value) => "value:${value}";
+  static String m121(value) => "value:${value}";
 
-  static String m121(value) => "${value}\$/hour";
+  static String m122(value) => "${value}\$/hour";
 
-  static String m122(version) => "Current version ${version}";
+  static String m123(version) => "Current version ${version}";
 
-  static String m123(appName) => "Welcome to \"${appName}\"";
+  static String m124(appName) => "Welcome to \"${appName}\"";
 
-  static String m124(wordCount, charCount) =>
+  static String m125(wordCount, charCount) =>
       "Word count: ${wordCount}, character count: ${charCount}";
 
-  static String m125(diary) => "wrote a diary:${diary}";
+  static String m126(diary) => "wrote a diary:${diary}";
 
-  static String m126(diary) => "wrote a not:${diary}";
+  static String m127(diary) => "wrote a not:${diary}";
 
-  static String m127(text) => "${text} cannot be empty";
+  static String m128(text) => "${text} cannot be empty";
 
-  static String m128(month, year) => "${month},${year}";
+  static String m129(month, year) => "${month},${year}";
 
-  static String m129(name) =>
+  static String m130(name) =>
       "Your clock-in task \'${name}\' has started. Please come and clock in.";
 
-  static String m130(name) => "The mission ${name} has begun, please prepare";
+  static String m131(name) => "The mission ${name} has begun, please prepare";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -363,6 +365,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI Create"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI Helper"),
+        "ai_placeholder": MessageLookupByLibrary.simpleMessage(
+            "What should I write with AI?"),
+        "ai_scenario":
+            MessageLookupByLibrary.simpleMessage("AI Writing Scenario"),
+        "ai_scenario_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please select a writing scenario."),
+        "ai_write_for_me":
+            MessageLookupByLibrary.simpleMessage("AI Write for Me"),
+        "ai_write_for_me_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please tell me what AI can help me write."),
+        "ai_write_what": MessageLookupByLibrary.simpleMessage(
+            "What should I write with AI?"),
+        "ai_write_what_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please tell me what AI can help me write."),
         "alert": MessageLookupByLibrary.simpleMessage("Remind"),
         "alertMessage1": MessageLookupByLibrary.simpleMessage(
             "The number of tomatoes cannot be 0"),
@@ -396,6 +412,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "analytics": MessageLookupByLibrary.simpleMessage("analyze"),
         "anki_card_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: What is th, folder_id: null, flomo_object_id: null, type: 2, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 2, wqbWrongQuestionContent: What is the past tense form of the irregular verb \"go\"?\n\n, wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: The past tense of \"go\" is \"went\". Example: He went to the store yesterday.\n\nThis card helps learners memorize and practice the past tense forms of common irregular verbs in English.\n\n, wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
+        "announcement": MessageLookupByLibrary.simpleMessage("Announcement"),
+        "announcement_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write an announcement, the content is..."),
         "answer": MessageLookupByLibrary.simpleMessage("Answer"),
         "appThmeSetting":
             MessageLookupByLibrary.simpleMessage("Theme color panel matching"),
@@ -468,6 +487,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bill this statement"),
         "billing_day": MessageLookupByLibrary.simpleMessage("Billing day"),
         "bold": MessageLookupByLibrary.simpleMessage("Bold"),
+        "brainstorm": MessageLookupByLibrary.simpleMessage("Brainstorm"),
+        "brainstorm_placeholder": MessageLookupByLibrary.simpleMessage(
+            "(Example) Please provide at least 5 solutions for global warming."),
+        "brainstorm_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me brainstorm on the topic of..."),
         "browse": MessageLookupByLibrary.simpleMessage("Browse"),
         "browser_not_support_multiline": MessageLookupByLibrary.simpleMessage(
             "The browser does not support multiline input. For a better experience, you can download the client."),
@@ -505,6 +529,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_background":
             MessageLookupByLibrary.simpleMessage("Change background"),
         "change_bg": MessageLookupByLibrary.simpleMessage("Background"),
+        "character_limit": MessageLookupByLibrary.simpleMessage("0/1000"),
+        "character_limit_prompt":
+            MessageLookupByLibrary.simpleMessage("Character limit: 0/1000"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chatgpt": MessageLookupByLibrary.simpleMessage("GPT"),
         "chatgpt_ai_username_huawei":
@@ -1133,6 +1160,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search chat history"),
         "history_event":
             MessageLookupByLibrary.simpleMessage("Historical event"),
+        "history_record":
+            MessageLookupByLibrary.simpleMessage("History Record"),
+        "history_record_prompt":
+            MessageLookupByLibrary.simpleMessage("View history records."),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hour3": MessageLookupByLibrary.simpleMessage("Time"),
         "hourAndMin": m55,
@@ -1294,6 +1325,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ltr": MessageLookupByLibrary.simpleMessage("LTR"),
         "lyubichs": MessageLookupByLibrary.simpleMessage("Lyubichs duration"),
         "manage": MessageLookupByLibrary.simpleMessage("Manage"),
+        "manage_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please open the management options."),
         "manual": MessageLookupByLibrary.simpleMessage("Manual"),
         "manual_create": MessageLookupByLibrary.simpleMessage("Manual Create"),
         "mar": MessageLookupByLibrary.simpleMessage("Mar"),
@@ -1390,6 +1423,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "The number of tomatoes completed this month"),
         "monthsLater": MessageLookupByLibrary.simpleMessage("months later"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
+        "more_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please provide more writing options."),
         "move_to_next": MessageLookupByLibrary.simpleMessage("Move Right"),
         "move_to_previous": MessageLookupByLibrary.simpleMessage("Move Left"),
         "multi_select": MessageLookupByLibrary.simpleMessage("Multi select"),
@@ -1583,6 +1618,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "other_login_mode":
             MessageLookupByLibrary.simpleMessage("Other login model"),
         "others": MessageLookupByLibrary.simpleMessage("others"),
+        "outline": MessageLookupByLibrary.simpleMessage("Outline"),
+        "outline_placeholder": MessageLookupByLibrary.simpleMessage(
+            "(Example) Please list an outline on the theme of environmental protection."),
+        "outline_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me list an outline about..."),
         "overdue_buffer": MessageLookupByLibrary.simpleMessage("overdue"),
         "password": MessageLookupByLibrary.simpleMessage("password"),
         "passwordNotEmpty":
@@ -1944,6 +1984,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SMS verification code"),
         "sound_recording":
             MessageLookupByLibrary.simpleMessage("sound recording"),
+        "speech": MessageLookupByLibrary.simpleMessage("Speech"),
+        "speech_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a speech about..."),
         "startFocusing": MessageLookupByLibrary.simpleMessage("start to focus"),
         "startResting": MessageLookupByLibrary.simpleMessage("start to rest"),
         "start_date": MessageLookupByLibrary.simpleMessage("Start Date"),
@@ -2020,6 +2063,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The time has not arrived, you cannot clock in"),
         "time_segment": MessageLookupByLibrary.simpleMessage("Time segment"),
         "timefocused": MessageLookupByLibrary.simpleMessage("Focus Duration"),
+        "timehello": m112,
         "timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
         "timelineview": MessageLookupByLibrary.simpleMessage("Timeline view"),
         "timer": MessageLookupByLibrary.simpleMessage("timer"),
@@ -2038,7 +2082,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "title": MessageLookupByLibrary.simpleMessage("Title"),
         "title_consume":
             MessageLookupByLibrary.simpleMessage("Amount of consumption"),
-        "title_data": m112,
+        "title_data": m113,
         "toDoPlaceholder": MessageLookupByLibrary.simpleMessage("To-do"),
         "to_login": MessageLookupByLibrary.simpleMessage("Go to Login Page"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
@@ -2078,14 +2122,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total focus time"),
         "total_focus_time":
             MessageLookupByLibrary.simpleMessage("focus duration"),
-        "total_maju": m113,
+        "total_maju": m114,
         "total_tasks_count":
             MessageLookupByLibrary.simpleMessage("total tasks(Total Tomatoes)"),
-        "total_tomatoes": m114,
+        "total_tomatoes": m115,
         "total_tomotoes":
             MessageLookupByLibrary.simpleMessage("Total Tomatoes"),
-        "trainee_advice_notice": m115,
-        "trainee_give_your_advice": m116,
+        "trainee_advice_notice": m116,
+        "trainee_give_your_advice": m117,
         "training_plan_edit":
             MessageLookupByLibrary.simpleMessage("Training Plan Edit"),
         "transaction": MessageLookupByLibrary.simpleMessage("trans."),
@@ -2136,9 +2180,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_bill": MessageLookupByLibrary.simpleMessage("Update bill"),
         "update_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("Update credit card bill"),
-        "update_last_time": m117,
-        "update_name_mission": m118,
-        "update_name_mission2": m119,
+        "update_last_time": m118,
+        "update_name_mission": m119,
+        "update_name_mission2": m120,
         "update_now":
             MessageLookupByLibrary.simpleMessage("update immediately"),
         "update_success":
@@ -2163,9 +2207,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "user_privacy_protocol_title":
             MessageLookupByLibrary.simpleMessage("User Privacy Agreement"),
         "username": MessageLookupByLibrary.simpleMessage("username"),
-        "value": m120,
-        "value_per_hour": m121,
-        "version_num": m122,
+        "value": m121,
+        "value_per_hour": m122,
+        "version_num": m123,
         "vertical": MessageLookupByLibrary.simpleMessage("Portrait"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "view_only": MessageLookupByLibrary.simpleMessage("View only"),
@@ -2192,7 +2236,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "week_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Completed Pomodoros this week"),
         "welcome": MessageLookupByLibrary.simpleMessage("welcome"),
-        "welcome_to_time_department": m123,
+        "welcome_to_time_department": m124,
         "whether_to_repeat":
             MessageLookupByLibrary.simpleMessage("Whether to repeat or not"),
         "who_can_view_edit_files":
@@ -2201,9 +2245,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can view/edit files"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage(
             "Total time to complete (minutes)"),
-        "word_count_and_char_count": m124,
+        "word_count_and_char_count": m125,
         "write_a_title": MessageLookupByLibrary.simpleMessage("Write a title?"),
+        "write_article": MessageLookupByLibrary.simpleMessage("Write Article"),
+        "write_article_history": MessageLookupByLibrary.simpleMessage(
+            "Write Article Time\'s Article"),
+        "write_article_history_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please view and edit the previously written article: Time\'s Article."),
+        "write_article_placeholder": MessageLookupByLibrary.simpleMessage(
+            "(Example) Please write a 1000-word, positive article on the theme of environmental protection and give it a title."),
+        "write_article_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write an article about..."),
         "write_diary": MessageLookupByLibrary.simpleMessage("write diary"),
+        "write_essay": MessageLookupByLibrary.simpleMessage("Write Essay"),
+        "write_essay_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write an essay, the topic is..."),
         "write_your_clockin_feedback":
             MessageLookupByLibrary.simpleMessage("Write down your thoughts"),
         "wrong_question_book":
@@ -2216,22 +2272,31 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wrong question knowledge points"),
         "wrong_thinking":
             MessageLookupByLibrary.simpleMessage("Wrong thinking"),
-        "wrote_a_diary": m125,
-        "wrote_a_note": m126,
-        "xxx_cannot_be_empty": m127,
+        "wrote_a_diary": m126,
+        "wrote_a_note": m127,
+        "xiaohongshu": MessageLookupByLibrary.simpleMessage("Xiaohongshu"),
+        "xiaohongshu_history": MessageLookupByLibrary.simpleMessage(
+            "Xiaohongshu Help me write Xiaohongshu post"),
+        "xiaohongshu_history_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please view and edit the previously written Xiaohongshu post: Help me write Xiaohongshu post."),
+        "xiaohongshu_placeholder": MessageLookupByLibrary.simpleMessage(
+            "What should I write with AI?"),
+        "xiaohongshu_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a Xiaohongshu post, the content is..."),
+        "xxx_cannot_be_empty": m128,
         "year": MessageLookupByLibrary.simpleMessage("Year"),
         "year_duration_completed": MessageLookupByLibrary.simpleMessage(
             "Duration this year (minutes)"),
         "year_mission_completed": MessageLookupByLibrary.simpleMessage(
             "Number of tasks completed this year"),
-        "year_month": m128,
+        "year_month": m129,
         "year_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "The number of tomatoes completed this year"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
-        "your_clockin_mission_with_name_has_begun": m129,
+        "your_clockin_mission_with_name_has_begun": m130,
         "your_created_class": MessageLookupByLibrary.simpleMessage(
             "This is a class you created yourself"),
-        "your_mission_with_name_has_begun": m130,
+        "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Your personal time management expert"),
         "yuan": MessageLookupByLibrary.simpleMessage("RMB")

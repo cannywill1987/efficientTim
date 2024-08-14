@@ -50,6 +50,386 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `AI Write for Me`
+  String get ai_write_for_me {
+    return Intl.message(
+      'AI Write for Me',
+      name: 'ai_write_for_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please tell me what AI can help me write.`
+  String get ai_write_for_me_prompt {
+    return Intl.message(
+      'Please tell me what AI can help me write.',
+      name: 'ai_write_for_me_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What should I write with AI?`
+  String get ai_placeholder {
+    return Intl.message(
+      'What should I write with AI?',
+      name: 'ai_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Brainstorm`
+  String get brainstorm {
+    return Intl.message(
+      'Brainstorm',
+      name: 'brainstorm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me brainstorm on the topic of...`
+  String get brainstorm_prompt {
+    return Intl.message(
+      'Please help me brainstorm on the topic of...',
+      name: 'brainstorm_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(Example) Please provide at least 5 solutions for global warming.`
+  String get brainstorm_placeholder {
+    return Intl.message(
+      '(Example) Please provide at least 5 solutions for global warming.',
+      name: 'brainstorm_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write Article`
+  String get write_article {
+    return Intl.message(
+      'Write Article',
+      name: 'write_article',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write an article about...`
+  String get write_article_prompt {
+    return Intl.message(
+      'Please help me write an article about...',
+      name: 'write_article_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(Example) Please write a 1000-word, positive article on the theme of environmental protection and give it a title.`
+  String get write_article_placeholder {
+    return Intl.message(
+      '(Example) Please write a 1000-word, positive article on the theme of environmental protection and give it a title.',
+      name: 'write_article_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outline`
+  String get outline {
+    return Intl.message(
+      'Outline',
+      name: 'outline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me list an outline about...`
+  String get outline_prompt {
+    return Intl.message(
+      'Please help me list an outline about...',
+      name: 'outline_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(Example) Please list an outline on the theme of environmental protection.`
+  String get outline_placeholder {
+    return Intl.message(
+      '(Example) Please list an outline on the theme of environmental protection.',
+      name: 'outline_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xiaohongshu`
+  String get xiaohongshu {
+    return Intl.message(
+      'Xiaohongshu',
+      name: 'xiaohongshu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a Xiaohongshu post, the content is...`
+  String get xiaohongshu_prompt {
+    return Intl.message(
+      'Please help me write a Xiaohongshu post, the content is...',
+      name: 'xiaohongshu_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What should I write with AI?`
+  String get xiaohongshu_placeholder {
+    return Intl.message(
+      'What should I write with AI?',
+      name: 'xiaohongshu_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide more writing options.`
+  String get more_prompt {
+    return Intl.message(
+      'Please provide more writing options.',
+      name: 'more_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{appname} AI`
+  String timehello(Object appname) {
+    return Intl.message(
+      '$appname AI',
+      name: 'timehello',
+      desc: '',
+      args: [appname],
+    );
+  }
+
+  /// `What should I write with AI?`
+  String get ai_write_what {
+    return Intl.message(
+      'What should I write with AI?',
+      name: 'ai_write_what',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please tell me what AI can help me write.`
+  String get ai_write_what_prompt {
+    return Intl.message(
+      'Please tell me what AI can help me write.',
+      name: 'ai_write_what_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage`
+  String get manage {
+    return Intl.message(
+      'Manage',
+      name: 'manage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please open the management options.`
+  String get manage_prompt {
+    return Intl.message(
+      'Please open the management options.',
+      name: 'manage_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Writing Scenario`
+  String get ai_scenario {
+    return Intl.message(
+      'AI Writing Scenario',
+      name: 'ai_scenario',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select a writing scenario.`
+  String get ai_scenario_prompt {
+    return Intl.message(
+      'Please select a writing scenario.',
+      name: 'ai_scenario_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speech`
+  String get speech {
+    return Intl.message(
+      'Speech',
+      name: 'speech',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a speech about...`
+  String get speech_prompt {
+    return Intl.message(
+      'Please help me write a speech about...',
+      name: 'speech_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Announcement`
+  String get announcement {
+    return Intl.message(
+      'Announcement',
+      name: 'announcement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write an announcement, the content is...`
+  String get announcement_prompt {
+    return Intl.message(
+      'Please help me write an announcement, the content is...',
+      name: 'announcement_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write Essay`
+  String get write_essay {
+    return Intl.message(
+      'Write Essay',
+      name: 'write_essay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write an essay, the topic is...`
+  String get write_essay_prompt {
+    return Intl.message(
+      'Please help me write an essay, the topic is...',
+      name: 'write_essay_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History Record`
+  String get history_record {
+    return Intl.message(
+      'History Record',
+      name: 'history_record',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View history records.`
+  String get history_record_prompt {
+    return Intl.message(
+      'View history records.',
+      name: 'history_record_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write Article Time's Article`
+  String get write_article_history {
+    return Intl.message(
+      'Write Article Time\'s Article',
+      name: 'write_article_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please view and edit the previously written article: Time's Article.`
+  String get write_article_history_prompt {
+    return Intl.message(
+      'Please view and edit the previously written article: Time\'s Article.',
+      name: 'write_article_history_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xiaohongshu Help me write Xiaohongshu post`
+  String get xiaohongshu_history {
+    return Intl.message(
+      'Xiaohongshu Help me write Xiaohongshu post',
+      name: 'xiaohongshu_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please view and edit the previously written Xiaohongshu post: Help me write Xiaohongshu post.`
+  String get xiaohongshu_history_prompt {
+    return Intl.message(
+      'Please view and edit the previously written Xiaohongshu post: Help me write Xiaohongshu post.',
+      name: 'xiaohongshu_history_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0/1000`
+  String get character_limit {
+    return Intl.message(
+      '0/1000',
+      name: 'character_limit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Character limit: 0/1000`
+  String get character_limit_prompt {
+    return Intl.message(
+      'Character limit: 0/1000',
+      name: 'character_limit_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please continue writing based on the following content:\n\n{existing_text}\n\nNext:`
   String continue_writing_prompt_with_text(Object existing_text) {
     return Intl.message(
@@ -335,16 +715,6 @@ class S {
     return Intl.message(
       'Explain',
       name: 'explain',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Manage`
-  String get manage {
-    return Intl.message(
-      'Manage',
-      name: 'manage',
       desc: '',
       args: [],
     );
@@ -3666,16 +4036,6 @@ class S {
     return Intl.message(
       'Search chat history',
       name: 'hint_search_chat',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `More`
-  String get more {
-    return Intl.message(
-      'More',
-      name: 'more',
       desc: '',
       args: [],
     );

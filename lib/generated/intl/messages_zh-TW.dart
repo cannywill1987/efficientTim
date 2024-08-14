@@ -28,13 +28,28 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m57(wordCount, charCount) =>
       "(選中的) 字數: ${wordCount}, 字符數: ${charCount}";
 
-  static String m124(wordCount, charCount) =>
+  static String m112(appname) => "${appname} AI";
+
+  static String m125(wordCount, charCount) =>
       "字數: ${wordCount}, 字符數: ${charCount}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addYourLink": MessageLookupByLibrary.simpleMessage("添加連結"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
+        "ai_placeholder": MessageLookupByLibrary.simpleMessage("AI幫我寫什麼"),
+        "ai_scenario": MessageLookupByLibrary.simpleMessage("AI寫作場景"),
+        "ai_scenario_prompt":
+            MessageLookupByLibrary.simpleMessage("請選擇一個寫作場景。"),
+        "ai_write_for_me": MessageLookupByLibrary.simpleMessage("AI 幫我寫"),
+        "ai_write_for_me_prompt":
+            MessageLookupByLibrary.simpleMessage("請告訴我AI可以幫我寫些什麼。"),
+        "ai_write_what": MessageLookupByLibrary.simpleMessage("AI幫我寫什麼"),
+        "ai_write_what_prompt":
+            MessageLookupByLibrary.simpleMessage("請告訴我AI可以幫我寫些什麼。"),
+        "announcement": MessageLookupByLibrary.simpleMessage("通知公告"),
+        "announcement_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一則通知公告，內容是..."),
         "attachment": MessageLookupByLibrary.simpleMessage("附件"),
         "auto": MessageLookupByLibrary.simpleMessage("自動"),
         "backgroundColor": MessageLookupByLibrary.simpleMessage("背景顏色"),
@@ -49,9 +64,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "backgroundColorRed": MessageLookupByLibrary.simpleMessage("紅色背景"),
         "backgroundColorYellow": MessageLookupByLibrary.simpleMessage("黃色背景"),
         "bold": MessageLookupByLibrary.simpleMessage("粗體"),
+        "brainstorm": MessageLookupByLibrary.simpleMessage("頭腦風暴"),
+        "brainstorm_placeholder":
+            MessageLookupByLibrary.simpleMessage("(例)請為全球氣候變暖提供至少5個方案"),
+        "brainstorm_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我進行頭腦風暴，主題是..."),
         "bulletedList": MessageLookupByLibrary.simpleMessage("無序列表"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "caseSensitive": MessageLookupByLibrary.simpleMessage("區分大小寫"),
+        "character_limit": MessageLookupByLibrary.simpleMessage("0/1000"),
+        "character_limit_prompt":
+            MessageLookupByLibrary.simpleMessage("字符限制：0/1000"),
         "checkbox": MessageLookupByLibrary.simpleMessage("核取方塊"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("選取圖像檔案"),
         "choose_attachment": MessageLookupByLibrary.simpleMessage("選擇附件"),
@@ -108,6 +131,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "hexValue": MessageLookupByLibrary.simpleMessage("十六進位值"),
         "highlight": MessageLookupByLibrary.simpleMessage("高亮"),
         "highlightColor": MessageLookupByLibrary.simpleMessage("高亮顏色"),
+        "history_record": MessageLookupByLibrary.simpleMessage("歷史記錄"),
+        "history_record_prompt":
+            MessageLookupByLibrary.simpleMessage("查看歷史記錄。"),
         "image": MessageLookupByLibrary.simpleMessage("圖片"),
         "imageLoadFailed": MessageLookupByLibrary.simpleMessage("無法載入圖像"),
         "improve_writing": MessageLookupByLibrary.simpleMessage("改進寫作"),
@@ -134,9 +160,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("正在載入"),
         "ltr": MessageLookupByLibrary.simpleMessage("自左至右"),
         "manage": MessageLookupByLibrary.simpleMessage("管理"),
+        "manage_prompt": MessageLookupByLibrary.simpleMessage("請打開管理選項。"),
         "mobileHeading1": MessageLookupByLibrary.simpleMessage("一級標題"),
         "mobileHeading2": MessageLookupByLibrary.simpleMessage("二級標題"),
         "mobileHeading3": MessageLookupByLibrary.simpleMessage("三級標題"),
+        "more": MessageLookupByLibrary.simpleMessage("更多"),
+        "more_prompt": MessageLookupByLibrary.simpleMessage("請提供更多的寫作選項。"),
         "nextMatch": MessageLookupByLibrary.simpleMessage("下一相符項"),
         "noFindResult": MessageLookupByLibrary.simpleMessage("無相符項"),
         "numberedList": MessageLookupByLibrary.simpleMessage("有序列表"),
@@ -144,6 +173,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "openLink": MessageLookupByLibrary.simpleMessage("打開連結"),
         "original_text": MessageLookupByLibrary.simpleMessage(
             "原文：政府正在積極採取措施，以應對日益嚴重的環境問題，包括加強環保法規的執行力度，提高公眾環保意識，並推動綠色能源的發展。"),
+        "outline": MessageLookupByLibrary.simpleMessage("提綱"),
+        "outline_placeholder":
+            MessageLookupByLibrary.simpleMessage("(例)請以環保為主題列出提綱"),
+        "outline_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出一個關於...的提綱。"),
         "paste": MessageLookupByLibrary.simpleMessage("貼上"),
         "please_select_attachment":
             MessageLookupByLibrary.simpleMessage("請選擇附件"),
@@ -175,6 +209,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("請簡化所選段落的語言，使其更易於理解。"),
         "slashPlaceHolder":
             MessageLookupByLibrary.simpleMessage("輸入 / 以插入内容，或開始鍵入"),
+        "speech": MessageLookupByLibrary.simpleMessage("演講稿"),
+        "speech_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇關於...的演講稿。"),
         "strikethrough": MessageLookupByLibrary.simpleMessage("刪除線"),
         "summarize": MessageLookupByLibrary.simpleMessage("總結"),
         "summarize_prompt":
@@ -188,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "textAlignLeft": MessageLookupByLibrary.simpleMessage("靠左對齊"),
         "textAlignRight": MessageLookupByLibrary.simpleMessage("靠右對齊"),
         "textColor": MessageLookupByLibrary.simpleMessage("文字顏色"),
+        "timehello": m112,
         "tint1": MessageLookupByLibrary.simpleMessage("色調1"),
         "tint2": MessageLookupByLibrary.simpleMessage("色調2"),
         "tint3": MessageLookupByLibrary.simpleMessage("色調3"),
@@ -211,6 +249,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
         "urlImage": MessageLookupByLibrary.simpleMessage("網路圖片"),
         "url_attachment": MessageLookupByLibrary.simpleMessage("URL附件"),
-        "word_count_and_char_count": m124
+        "word_count_and_char_count": m125,
+        "write_article": MessageLookupByLibrary.simpleMessage("寫文章"),
+        "write_article_history":
+            MessageLookupByLibrary.simpleMessage("寫文章 時間的文章"),
+        "write_article_history_prompt":
+            MessageLookupByLibrary.simpleMessage("請查看並編輯之前寫的文章：時間的文章。"),
+        "write_article_placeholder": MessageLookupByLibrary.simpleMessage(
+            "(例)請以環保為主題，字數1000字左右，寫作風格積極樂觀，並取一個標題"),
+        "write_article_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇關於...的文章。"),
+        "write_essay": MessageLookupByLibrary.simpleMessage("寫作文"),
+        "write_essay_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇作文，題目是..."),
+        "xiaohongshu": MessageLookupByLibrary.simpleMessage("小紅書"),
+        "xiaohongshu_history":
+            MessageLookupByLibrary.simpleMessage("小紅書 幫我寫小紅書文案"),
+        "xiaohongshu_history_prompt":
+            MessageLookupByLibrary.simpleMessage("請查看並編輯之前寫的小紅書文案：幫我寫小紅書文案。"),
+        "xiaohongshu_placeholder":
+            MessageLookupByLibrary.simpleMessage("AI幫我寫什麼"),
+        "xiaohongshu_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇小紅書文案，內容是...")
       };
 }

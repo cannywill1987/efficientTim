@@ -1,4 +1,67 @@
 {
+  "ai_write_for_me": "AI 帮我写",
+  "ai_write_for_me_prompt": "请告诉我AI可以帮我写些什么。",
+  "ai_placeholder": "AI帮我写什么",
+
+  "brainstorm": "头脑风暴",
+  "brainstorm_prompt": "请帮我进行头脑风暴，主题是...",
+  "brainstorm_placeholder": "(例)请为全球气候变暖提供至少5个方案",
+
+  "write_article": "写文章",
+  "write_article_prompt": "请帮我写一篇关于...的文章。",
+  "write_article_placeholder": "(例)请以环保为主题，字数1000字左右，写作风格积极乐观，并取一个标题",
+
+  "outline": "提纲",
+  "outline_prompt": "请帮我列出一个关于...的提纲。",
+  "outline_placeholder": "(例)请以环保为主题主题列出提纲",
+
+
+  "xiaohongshu": "小红书",
+  "xiaohongshu_prompt": "请帮我写一篇小红书文案，内容是...",
+  "xiaohongshu_placeholder": "AI帮我写什么",
+
+  "more": "更多",
+  "more_prompt": "请提供更多的写作选项。",
+  "timehello": "{appname} AI",
+  "ai_write_what": "AI帮我写什么",
+  "ai_write_what_prompt": "请告诉我AI可以帮我写些什么。",
+
+  "manage": "管理",
+  "manage_prompt": "请打开管理选项。",
+
+  "ai_scenario": "AI写作场景",
+  "ai_scenario_prompt": "请选择一个写作场景。",
+
+  "brainstorm": "头脑风暴",
+  "brainstorm_prompt": "请帮我进行头脑风暴，主题是...",
+
+  "write_article": "写文章",
+  "write_article_prompt": "请帮我写一篇关于...的文章。",
+
+  "outline": "提纲",
+  "outline_prompt": "请帮我列出一个关于...的提纲。",
+
+  "xiaohongshu": "小红书",
+  "xiaohongshu_prompt": "请帮我写一篇小红书文案，内容是...",
+
+  "speech": "演讲稿",
+  "speech_prompt": "请帮我写一篇关于...的演讲稿。",
+
+  "announcement": "通知公告",
+  "announcement_prompt": "请帮我写一则通知公告，内容是...",
+
+  "write_essay": "写作文",
+  "write_essay_prompt": "请帮我写一篇作文，题目是...",
+  "more": "更多",
+  "more_prompt": "请提供更多的写作选项。",
+  "history_record": "历史记录",
+  "history_record_prompt": "查看历史记录。",
+  "write_article_history": "写文章 时间的文章",
+  "write_article_history_prompt": "请查看并编辑之前写的文章：时间的文章。",
+  "xiaohongshu_history": "小红书 帮我写小红书文案",
+  "xiaohongshu_history_prompt": "请查看并编辑之前写的小红书文案：帮我写小红书文案。",
+  "character_limit": "0/1000",
+  "character_limit_prompt": "字符限制：0/1000",
   "continue_writing_prompt_with_text": "请根据以下内容继续写作：\n\n{existing_text}\n\n接下来：",
   "replace": "替换",
   "insert": "插入",
