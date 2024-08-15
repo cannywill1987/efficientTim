@@ -1,4 +1,62 @@
 {
+  "ai_title": "시간 관리 AI",
+  "speech": "연설",
+  "speech_prompt": "연설에 대해 도와주세요...",
+  "speech_placeholder": "연설의 주제 또는 내용을 입력하세요...",
+
+  "write_essay_placeholder": "에세이의 제목 또는 주제를 입력하세요...",
+
+  "announcement": "공지사항",
+  "announcement_prompt": "공지사항 작성을 도와주세요, 내용은...",
+  "announcement_placeholder": "공지사항의 구체적인 내용을 입력하세요...",
+
+  "modern_poetry": "현대시",
+  "modern_poetry_prompt": "현대시를 작성해 주세요, 주제는...",
+  "modern_poetry_placeholder": "현대시의 주제를 입력하세요...",
+
+  "creative_story": "창작 이야기",
+  "creative_story_prompt": "창작 이야기를 작성해 주세요, 줄거리는...",
+  "creative_story_placeholder": "창작 이야기의 줄거리나 주제를 입력하세요...",
+
+  "meeting_agenda": "회의 안건",
+  "meeting_agenda_prompt": "회의 안건을 작성해 주세요, 회의 주제는...",
+  "meeting_agenda_placeholder": "회의 안건의 주제나 내용을 입력하세요...",
+
+  "todo_list": "할 일 목록",
+  "todo_list_prompt": "오늘의 할 일 목록을 작성해 주세요...",
+  "todo_list_placeholder": "오늘의 할 일을 입력하세요...",
+
+  "emoji_conversion": "이모지 변환",
+  "emoji_conversion_prompt": "다음 텍스트를 이모지로 변환해 주세요:...",
+  "emoji_conversion_placeholder": "이모지로 변환할 텍스트를 입력하세요...",
+
+  "leave_reason": "휴가 사유",
+  "leave_reason_prompt": "휴가 사유 작성을 도와주세요, 이유는...",
+  "leave_reason_placeholder": "휴가 사유를 입력하세요...",
+
+  "pros_and_cons": "장단점 목록",
+  "pros_and_cons_prompt": "어떤 주제에 대한 장단점을 작성해 주세요, 주제는...",
+  "pros_and_cons_placeholder": "장단점을 분석할 주제를 입력하세요...",
+
+  "press_release": "보도 자료",
+  "press_release_prompt": "보도 자료를 작성해 주세요, 내용은...",
+  "press_release_placeholder": "보도 자료의 내용 또는 주제를 입력하세요...",
+
+  "advertising_copy": "광고 문안",
+  "advertising_copy_prompt": "광고 문안을 작성해 주세요, 제품은...",
+  "advertising_copy_placeholder": "광고 문안의 제품 또는 서비스를 입력하세요...",
+
+  "job_description": "직무 설명",
+  "job_description_prompt": "직무 설명을 작성해 주세요, 직위는...",
+  "job_description_placeholder": "직위와 책임을 입력하세요...",
+
+  "interview_questions": "인터뷰 질문",
+  "interview_questions_prompt": "인터뷰 질문을 작성해 주세요, 인터뷰 대상자는...",
+  "interview_questions_placeholder": "인터뷰 대상자 및 관련 질문을 입력하세요...",
+
+  "food_reviews": "음식 리뷰",
+  "food_reviews_prompt": "음식 리뷰를 작성해 주세요, 레스토랑은...",
+  "food_reviews_placeholder": "리뷰할 레스토랑과 요리를 입력하세요...",
   "ai_write_for_me": "AI 나를 위해 글쓰기",
   "ai_write_for_me_prompt": "AI가 저를 도와서 작성할 수 있는 내용을 알려주세요.",
   "ai_placeholder": "AI로 무엇을 작성할까요?",

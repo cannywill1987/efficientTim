@@ -19,10 +19,11 @@ class Editor extends StatefulWidget {
     this.onUploadCallback,
     required this.jsonString,
     required this.onEditorStateChange,
+    this.focusNode,
     this.editorStyle,
     this.textDirection = TextDirection.ltr,
   });
-
+  final FocusNode? focusNode;
   final Function? onAttachmentUploadCallback;
   final Function? onUploadCallback;
   final Future<String> jsonString;
@@ -43,6 +44,7 @@ class _EditorState extends State<Editor> {
 
   @override
   void didUpdateWidget(covariant Editor oldWidget) {
+
     if (oldWidget.jsonString != widget.jsonString) {
       editorState = null;
       isInitialized = false;
@@ -50,7 +52,7 @@ class _EditorState extends State<Editor> {
     super.didUpdateWidget(oldWidget);
   }
 
-  int wordCount = 0;
+  int wordCount = 1;
   int charCount = 0;
 
   int selectedWordCount = 0;
@@ -132,10 +134,10 @@ class _EditorState extends State<Editor> {
                 if (PlatformExtension.isDesktopOrWeb) {
                   return DesktopEditor(
                     editorState: editorState!,
-                    textDirection: widget.textDirection,
+                    textDirection: widget.textDirection, focusNode: this.widget.focusNode,
                   );
                 } else if (PlatformExtension.isMobile) {
-                  return MobileEditor(editorState: editorState!);
+                  return MobileEditor(editorState: editorState!, focusNode: this.widget.focusNode,);
                 }
               }
 
@@ -176,45 +178,112 @@ class _EditorState extends State<Editor> {
         ),
         if((wordCount ?? 0) == 0)
         Container(margin: EdgeInsets.only(top: 120), child: AIAppflowyEditorWidget(onTap: (CheckButtonStateModel model) {
-          showAISearchBarMenuWithoutText(context: context, editorState: this.editorState!, prompt: model.value + "", title: model.title ?? "",  onSubmit: ( text, prompt) async {
-          List<Map<String, String>> list = [
-            {"role": "user", "content": text}
-          ];
-            ChatGptMessageModel chatGptMessageModelGpt =
-                await ChatGptManager.getInstance().sendMessages(
-                scene: "chat",
-                // chatGptFolderModel: _curChatGptFolderModel,
-                // systemMessage: CONSTANTS.getSystemMessage(aiText),
-                systemMessage: prompt,
-                messages: list);
-            print("chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
-            if (chatGptMessageModelGpt?.text != null) {
-              return chatGptMessageModelGpt?.text;
-            }
-            return null;
-          }, onContinue: (String aiText,  String originText) async{
-            ChatGptMessageModel chatGptMessageModelGpt =
-                await ChatGptManager.getInstance().sendMessages(
-                scene: "chat",
-                // chatGptFolderModel: _curChatGptFolderModel,
-                // systemMessage: CONSTANTS.getSystemMessage(aiText),
-                systemMessage: aiText,
-                messages: [
-                  {"role": "user", "content": originText}
-                ]);
-            print(
-                "chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
-            if (chatGptMessageModelGpt?.text != null) {
-              return originText + "\n" + (chatGptMessageModelGpt?.text ?? "");
-            }
-            return null;
-          }, onCopy: (text) {
-            Utility.copyToClipboard(text);
-          }, placeholder: model.content ?? "");
+          if(model.code == 'more') {
+            onClickSearchBarMenuWithMoreText(context, model);
+            return;
+          } else {
+            onClickSearchBarMenuWithoutText(context, model);
+          }
           // print('Button clicked: $model');
           // editorState?.insertText(model);
         },))
       ],
     );
+  }
+
+  void onClickSearchBarMenuWithMoreText(BuildContext context, CheckButtonStateModel model) {
+    showMoreAISearchBarMenuWithoutText(context: context,
+        editorState: this.editorState!,
+        prompt: (model.value ?? "") + "",
+        title: "",
+        onSubmit: (text, prompt) async {
+          List<Map<String, String>> list = [
+            {"role": "user", "content": text}
+          ];
+          ChatGptMessageModel chatGptMessageModelGpt =
+          await ChatGptManager.getInstance().sendMessages(
+              scene: "chat",
+              // chatGptFolderModel: _curChatGptFolderModel,
+              // systemMessage: CONSTANTS.getSystemMessage(aiText),
+              systemMessage: prompt,
+              messages: list);
+          print("chatGptMessageModelGpt:${chatGptMessageModelGpt
+              .toJson()}");
+          if (chatGptMessageModelGpt?.text != null) {
+            return chatGptMessageModelGpt?.text;
+          }
+          return null;
+        },
+        onContinue: (String aiText, String originText) async {
+          ChatGptMessageModel chatGptMessageModelGpt =
+          await ChatGptManager.getInstance().sendMessages(
+              scene: "chat",
+              // chatGptFolderModel: _curChatGptFolderModel,
+              // systemMessage: CONSTANTS.getSystemMessage(aiText),
+              systemMessage: aiText,
+              messages: [
+                {"role": "user", "content": originText}
+              ]);
+          print(
+              "chatGptMessageModelGpt:${chatGptMessageModelGpt
+                  .toJson()}");
+          if (chatGptMessageModelGpt?.text != null) {
+            return originText + "\n" +
+                (chatGptMessageModelGpt?.text ?? "");
+          }
+          return null;
+        },
+        onCopy: (text) {
+          Utility.copyToClipboard(text);
+        },
+        placeholder: model.content ?? "");
+  }
+
+  void onClickSearchBarMenuWithoutText(BuildContext context, CheckButtonStateModel model) {
+    showAISearchBarMenuWithoutText(context: context,
+        editorState: this.editorState!,
+        prompt: model.value + "",
+        title: model.title ?? "",
+        onSubmit: (text, prompt) async {
+          List<Map<String, String>> list = [
+            {"role": "user", "content": text}
+          ];
+          ChatGptMessageModel chatGptMessageModelGpt =
+          await ChatGptManager.getInstance().sendMessages(
+              scene: "chat",
+              // chatGptFolderModel: _curChatGptFolderModel,
+              // systemMessage: CONSTANTS.getSystemMessage(aiText),
+              systemMessage: prompt,
+              messages: list);
+          print("chatGptMessageModelGpt:${chatGptMessageModelGpt
+              .toJson()}");
+          if (chatGptMessageModelGpt?.text != null) {
+            return chatGptMessageModelGpt?.text;
+          }
+          return null;
+        },
+        onContinue: (String aiText, String originText) async {
+          ChatGptMessageModel chatGptMessageModelGpt =
+          await ChatGptManager.getInstance().sendMessages(
+              scene: "chat",
+              // chatGptFolderModel: _curChatGptFolderModel,
+              // systemMessage: CONSTANTS.getSystemMessage(aiText),
+              systemMessage: aiText,
+              messages: [
+                {"role": "user", "content": originText}
+              ]);
+          print(
+              "chatGptMessageModelGpt:${chatGptMessageModelGpt
+                  .toJson()}");
+          if (chatGptMessageModelGpt?.text != null) {
+            return originText + "\n" +
+                (chatGptMessageModelGpt?.text ?? "");
+          }
+          return null;
+        },
+        onCopy: (text) {
+          Utility.copyToClipboard(text);
+        },
+        placeholder: model.content ?? "");
   }
 }

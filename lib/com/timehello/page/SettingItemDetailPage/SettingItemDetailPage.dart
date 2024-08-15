@@ -60,6 +60,7 @@ import 'components/TagsGridViewWidget.dart';
  */
 class SettingItemDetailPage extends BaseWidget {
   int fromNormal = 0; //0是正常创建更新 1表示CreateAIChatGptMissionPage不需要刷新数据，直接更新即可
+  int defaultTab = 0;
   MissionModel missionModel;
   Function? popOkCallback;
   Function? onClickDeleteCallback;
@@ -67,6 +68,7 @@ class SettingItemDetailPage extends BaseWidget {
   SettingItemDetailPage(
       {Key? key,
       this.fromNormal = 0,
+        this.defaultTab = 0,
       this.onClickDeleteCallback,
       required this.missionModel,
       this.popOkCallback})
@@ -74,7 +76,7 @@ class SettingItemDetailPage extends BaseWidget {
 
   @override
   BaseWidgetState<BaseWidget> getState() {
-    return _SettingItemDetailPageWidgetState();
+    return _SettingItemDetailPageWidgetState(curTab: fromNormal == 1 ? 2: defaultTab);
   }
 }
 
@@ -86,6 +88,7 @@ class _SettingItemDetailPageWidgetState<T>
   List<CheckButtonStateModel> tabList = CONSTANTS.getMissionDetailSetting();
   int curTab = 0;
   FolderModel? folderModel;
+  GlobalKey<ComposedRichEditorWidgetState>? composedRichEditorWidgetGlobalKey = GlobalKey<ComposedRichEditorWidgetState>();
   GlobalKey<SubmissionSliverListState>? submissionSliverListStateGlobalKey =
       GlobalKey();
 
@@ -93,7 +96,7 @@ class _SettingItemDetailPageWidgetState<T>
   bool isNeedUpdateBmob =
       false; //是否需要更新BMOB 需要更新就EventBus发送广播让MssionPage重新发起requestData请求
 
-  _SettingItemDetailPageWidgetState() {}
+  _SettingItemDetailPageWidgetState({this.curTab = 0}) {}
 
   @override
   void onCreate() {
@@ -486,9 +489,11 @@ class _SettingItemDetailPageWidgetState<T>
         //   color: Color(0xffe0e0e0),
         // ),
         CustomTabBarWidget(
+          checkIndex: curTab,
           list: tabList,
           onCheckedListener: (int index) {
             Utility.setDesktopMiddileMissionPage(context, isVisible: true);
+            composedRichEditorWidgetGlobalKey?.currentState?.unfocus();
             this.curTab = index;
             updateUI();
           },
@@ -1337,6 +1342,7 @@ class _SettingItemDetailPageWidgetState<T>
     return [
       Expanded(
         child: ComposedRichEditorWidget(
+          key: composedRichEditorWidgetGlobalKey,
           title: getI18NKey().note_plain,
           onTapOk: () {},
           missionModel: this.widget.missionModel,

@@ -63,7 +63,9 @@ class AppflowyPage extends BaseWidget {
   final bool isDebug;
   final Function? onSaveCallback;
   final Function? onUploadCallback;
-  const AppflowyPage({super.key, this.isDebug = false, this.onUploadCallback, this.onSaveCallback, this.fileName = 'example1111123'});
+  final FocusNode? focusNode;
+  // final FocusNode? focusNode;
+  const AppflowyPage({super.key, this.focusNode, this.isDebug = false, this.onUploadCallback, this.onSaveCallback, this.fileName = 'example1111123'});
 
   // @override
   // State<HomePage> createState() => _HomePageState();
@@ -81,6 +83,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
   WidgetBuilder? _widgetBuilder;
   late EditorState _editorState;
   late Future<String> _jsonString;
+  FocusNode focusNode = FocusNode();
   String? topText;
   // bool isLoading = false;
   bool isEnable = false;
@@ -94,6 +97,10 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
     this.initData();
     this.forceAppBarVisible = false;
     this.isAppBarVisible = false;
+  }
+
+  unfocus() {
+    focusNode.unfocus();
   }
 
   // void updateEditMode(EditorEditModeEnum editModeEnum) {
@@ -204,6 +211,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
           : (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/mobile_example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/mobile_example.json'));
       _widgetBuilder = (context) => Editor(
         jsonString: _jsonString,
+          focusNode: focusNode,
         onEditorStateChange: (editorState) {
           _editorState = editorState;
         },
@@ -347,6 +355,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
       () {
         _widgetBuilder = (context) => Editor(
               jsonString: _jsonString,
+            focusNode: this.widget.focusNode,
             onAttachmentUploadCallback: (path) async {
               try {
                 // final appDocDir = await getApplicationDocumentsDirectory();

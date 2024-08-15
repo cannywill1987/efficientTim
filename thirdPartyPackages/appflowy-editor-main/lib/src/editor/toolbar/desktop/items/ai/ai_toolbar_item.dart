@@ -1,5 +1,6 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:appflowy_editor/src/editor/toolbar/desktop/items/ai/ai_search_content.dart';
+import 'package:appflowy_editor/src/editor/toolbar/desktop/items/ai/ai_search_content_with_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,9 @@ import 'ai_content_confirm.dart';
 const _menuWidth = 300;
 const _hasTextHeight = 244;
 const _noTextHeight = 150;
+//lzb组件宽度
+const double mobileWidth = 400;
+const double tabletWidth = 600;
 // lzb ai toolbar item
 // final ToolbarItem aiItem = ToolbarItem(
 //   id: 'editor.ai',
@@ -32,16 +36,29 @@ const _noTextHeight = 150;
 //   },
 // );
 
-void showAISearchBarMenuWithoutText({
-    required BuildContext context,
-    required EditorState editorState,
-    required String prompt,
-    required String title,
-    required String placeholder,
-    // bool isHighlight,
-    Function? onSubmit,
-    Function? onContinue,
-    Function? onCopy,
+/**
+ * 通过尺寸判断是不是手机
+ */
+bool isHandsetBySize({required BuildContext context}) {
+  const kTabletBreakpoint = 768.0;
+  double width = MediaQuery.of(context).size.width;
+  if (width < kTabletBreakpoint) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void showMoreAISearchBarMenuWithoutText({
+  required BuildContext context,
+  required EditorState editorState,
+  required String prompt,
+  required String title,
+  required String placeholder,
+  // bool isHighlight,
+  Function? onSubmit,
+  Function? onContinue,
+  Function? onCopy,
 }) {
   // Since link format is only available for single line selection,
   // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
@@ -79,12 +96,98 @@ void showAISearchBarMenuWithoutText({
   overlay = FullScreenOverlayEntry(
     top: height / 2 - 200,
     bottom: bottom,
-    left: width / 2 - 300,
+    left: width / 2 - (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
     right: right,
     dismissCallback: () => keepEditorFocusNotifier.decrease(),
     builder: (context) {
       return Container(
-          width: 600,
+          width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
+          height: isHandsetBySize(context: context) ? 400 : 600,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(8)),
+          child: AISearchContentWithListWidget(
+            // title: title,
+            // prompt: prompt,
+            // placeholder: placeholder,
+            onSubmit: (prompt, aiText) async {
+              String res = await onSubmit?.call(aiText, prompt);
+              showAIConfirmMenu(
+                  context: context,
+                  editorState: editorState,
+                  selection: null,
+                  isHighlight: false,
+                  text: res,
+                  prompt: prompt,
+                  onSubmit: onSubmit,
+                  onContinue: onContinue,
+                  onCopy: onCopy);
+
+              // showAIConfirmMenu(context, editorState, prompt, false,
+              //     res, null, onSubmit, onContinue, onCopy);
+              // showAIConfirmMenu(context, editorState, selection, isHighlight,
+              //     res, onSubmit, onContinue, onCopy);
+              dismissOverlay();
+            },
+          ));
+    },
+  ).build();
+
+  Overlay.of(context, rootOverlay: true).insert(overlay!);
+}
+
+void showAISearchBarMenuWithoutText({
+  required BuildContext context,
+  required EditorState editorState,
+  required String prompt,
+  required String title,
+  required String placeholder,
+  // bool isHighlight,
+  Function? onSubmit,
+  Function? onContinue,
+  Function? onCopy,
+}) {
+  // Since link format is only available for single line selection,
+  // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
+  // final texts = editorState.getTextInSelection(selection);
+  // String text = texts.join('\n');
+  // get link address if the selection is already a link
+  String? linkText;
+  // if (isHighlight) {
+  //   linkText = editorState.getDeltaAttributeValueInSelection(
+  //     BuiltInAttributeKey.href,
+  //     selection,
+  //   );
+  // }
+
+  final (left, top, right, bottom) = _getPosition(editorState, linkText);
+  double width = MediaQuery.of(context).size.width;
+  double height = MediaQuery.of(context).size.height;
+  // get node, index and length for formatting text when the link is removed
+  // final node = editorState.getNodeAtPath(selection.end.path);
+  // if (node == null) {
+  //   return;
+  // }
+  // final index = selection.normalized.startIndex;
+  // final length = selection.length;
+
+  OverlayEntry? overlay;
+
+  void dismissOverlay() {
+    keepEditorFocusNotifier.decrease();
+    overlay?.remove();
+    overlay = null;
+  }
+
+  keepEditorFocusNotifier.increase();
+  overlay = FullScreenOverlayEntry(
+    top: height / 2 - 200,
+    bottom: bottom,
+    left: width / 2  - (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
+    right: right,
+    dismissCallback: () => keepEditorFocusNotifier.decrease(),
+    builder: (context) {
+      return Container(
+          width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
           // height: 600,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(8)),
@@ -94,8 +197,16 @@ void showAISearchBarMenuWithoutText({
             placeholder: placeholder,
             onSubmit: (prompt, aiText) async {
               String res = await onSubmit?.call(aiText, prompt);
-              showAIConfirmMenu(context: context, editorState: editorState, selection: null, isHighlight: false,
-                  text: res, prompt: prompt, onSubmit: onSubmit, onContinue: onContinue, onCopy: onCopy);
+              showAIConfirmMenu(
+                  context: context,
+                  editorState: editorState,
+                  selection: null,
+                  isHighlight: false,
+                  text: res,
+                  prompt: prompt,
+                  onSubmit: onSubmit,
+                  onContinue: onContinue,
+                  onCopy: onCopy);
 
               // showAIConfirmMenu(context, editorState, prompt, false,
               //     res, null, onSubmit, onContinue, onCopy);
@@ -117,7 +228,7 @@ void showAIMenu(
   bool isHighlight,
   Function? onSubmit,
   Function? onContinue,
-    Function? onCopy,
+  Function? onCopy,
 ) {
   // Since link format is only available for single line selection,
   // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
@@ -159,15 +270,23 @@ void showAIMenu(
     dismissCallback: () => keepEditorFocusNotifier.decrease(),
     builder: (context) {
       return Container(
-          width: 400,
+          width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
           height: 600,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(8)),
           child: AIContentWidget(
             onSubmit: (aiText) async {
               String res = await onSubmit?.call(aiText, text);
-              showAIConfirmMenu(context: context, editorState: editorState, selection: selection, isHighlight: isHighlight,
-                  text: res, prompt: null, onSubmit: onSubmit, onContinue: onContinue, onCopy: onCopy);
+              showAIConfirmMenu(
+                  context: context,
+                  editorState: editorState,
+                  selection: selection,
+                  isHighlight: isHighlight,
+                  text: res,
+                  prompt: null,
+                  onSubmit: onSubmit,
+                  onContinue: onContinue,
+                  onCopy: onCopy);
               dismissOverlay();
             },
           ));
@@ -177,7 +296,7 @@ void showAIMenu(
   Overlay.of(context, rootOverlay: true).insert(overlay!);
 }
 
-void showAIConfirmMenu( {
+void showAIConfirmMenu({
   required BuildContext context,
   required EditorState editorState,
   Selection? selection,
@@ -186,25 +305,23 @@ void showAIConfirmMenu( {
   String? prompt,
   Function? onSubmit,
   Function? onContinue,
-    Function? onCopy,
-}
-) {
+  Function? onCopy,
+}) {
   // Since link format is only available for single line selection,
   // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
   // final texts = editorState.getTextInSelection(selection);
   // String text = texts.join('\n');
   // get link address if the selection is already a link
   String? linkText;
-    OverlayEntry? overlay;
-    final (left, top, right, bottom) = _getPosition(editorState, linkText);
-  if(selection != null) {
+  OverlayEntry? overlay;
+  final (left, top, right, bottom) = _getPosition(editorState, linkText);
+  if (selection != null) {
     if (isHighlight) {
       linkText = editorState.getDeltaAttributeValueInSelection(
         BuiltInAttributeKey.href,
         selection,
       );
     }
-
 
     // get node, index and length for formatting text when the link is removed
     final node = editorState.getNodeAtPath(selection!.end.path);
@@ -213,7 +330,6 @@ void showAIConfirmMenu( {
     }
     // final index = selection.normalized.startIndex;
     // final length = selection.length;
-
   }
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
@@ -228,13 +344,13 @@ void showAIConfirmMenu( {
   overlay = FullScreenOverlayEntry(
     top: height / 2 - 200,
     bottom: bottom,
-    left: width / 2 - 200,
+    left: width / 2 - (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
     right: right,
     dismissCallback: () => keepEditorFocusNotifier.decrease(),
     builder: (context) {
       return Container(
-          width: 400,
-          height: 600,
+          width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
+          height: isHandsetBySize(context: context) ? 400 : 600,
           // decoration: BoxDecoration(
           //     color: Colors.white, borderRadius: BorderRadius.circular(8)),
           child: AiContentConfirmWidget(
@@ -261,10 +377,22 @@ void showAIConfirmMenu( {
             },
             onContinue: (text) async {
               print('继续写作');
-              String res = await onContinue?.call(i18nInstanceLocal.continue_writing_prompt + "-" + (prompt ?? ""),  text);
+              String res = await onContinue?.call(
+                  i18nInstanceLocal.continue_writing_prompt +
+                      "-" +
+                      (prompt ?? ""),
+                  text);
               text = res;
-              showAIConfirmMenu(context: context, editorState: editorState, selection: selection, isHighlight: isHighlight,
-                  text: res, prompt: null, onSubmit: onSubmit, onContinue: onContinue, onCopy: onCopy);
+              showAIConfirmMenu(
+                  context: context,
+                  editorState: editorState,
+                  selection: selection,
+                  isHighlight: isHighlight,
+                  text: res,
+                  prompt: null,
+                  onSubmit: onSubmit,
+                  onContinue: onContinue,
+                  onCopy: onCopy);
               // showAIConfirmMenu(context, editorState, selection, isHighlight,
               //     res, null, onSubmit, onContinue,onCopy);
             },
@@ -275,8 +403,16 @@ void showAIConfirmMenu( {
             onSubmit: (aiText) async {
               String res = await onSubmit?.call(aiText, text);
               dismissOverlay();
-              showAIConfirmMenu(context: context, editorState: editorState, selection: selection, isHighlight: isHighlight,
-                  text: res, prompt: null, onSubmit: onSubmit, onContinue: onContinue, onCopy: onCopy);
+              showAIConfirmMenu(
+                  context: context,
+                  editorState: editorState,
+                  selection: selection,
+                  isHighlight: isHighlight,
+                  text: res,
+                  prompt: null,
+                  onSubmit: onSubmit,
+                  onContinue: onContinue,
+                  onCopy: onCopy);
               // showAIConfirmMenu(context, editorState, selection, isHighlight,
               //     res, null, onSubmit, onContinue,onCopy);
             },
@@ -293,7 +429,7 @@ void showAIConfirmMenu( {
   String? linkText,
 ) {
   Rect rect = Rect.fromLTRB(0, 0, 0, 0);
-  if(editorState.selectionRects().length > 0) {
+  if (editorState.selectionRects().length > 0) {
     rect = editorState.selectionRects().first;
   }
 

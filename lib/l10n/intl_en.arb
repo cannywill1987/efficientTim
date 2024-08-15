@@ -1,4 +1,62 @@
 {
+  "ai_title": "Timerbell todo AI",
+  "speech": "Speech",
+  "speech_prompt": "Please help me write a speech about...",
+  "speech_placeholder": "Please enter the theme or content of the speech...",
+
+  "write_essay_placeholder": "Please enter the title or theme of the essay...",
+
+  "announcement": "Announcement",
+  "announcement_prompt": "Please help me write an announcement, the content is...",
+  "announcement_placeholder": "Please enter the specific content of the announcement...",
+
+  "modern_poetry": "Modern Poetry",
+  "modern_poetry_prompt": "Please help me write a modern poem, the theme is...",
+  "modern_poetry_placeholder": "Please enter the theme of the modern poem...",
+
+  "creative_story": "Creative Story",
+  "creative_story_prompt": "Please help me write a creative story, the plot is...",
+  "creative_story_placeholder": "Please enter the plot or theme of the creative story...",
+
+  "meeting_agenda": "Meeting Agenda",
+  "meeting_agenda_prompt": "Please help me list a meeting agenda, the meeting topic is...",
+  "meeting_agenda_placeholder": "Please enter the theme or content of the meeting agenda...",
+
+  "todo_list": "To-Do List",
+  "todo_list_prompt": "Please help me list today's to-do list...",
+  "todo_list_placeholder": "Please enter today's to-do items...",
+
+  "emoji_conversion": "Emoji Conversion",
+  "emoji_conversion_prompt": "Please help me convert the following text to emojis:...",
+  "emoji_conversion_placeholder": "Please enter the text to be converted to emojis...",
+
+  "leave_reason": "Leave Reason",
+  "leave_reason_prompt": "Please help me write a leave reason, the reason is...",
+  "leave_reason_placeholder": "Please enter the reason for leave...",
+
+  "pros_and_cons": "Pros and Cons",
+  "pros_and_cons_prompt": "Please help me list the pros and cons of a topic, the topic is...",
+  "pros_and_cons_placeholder": "Please enter the topic for which the pros and cons need to be analyzed...",
+
+  "press_release": "Press Release",
+  "press_release_prompt": "Please help me write a press release, the content is...",
+  "press_release_placeholder": "Please enter the content or theme of the press release...",
+
+  "advertising_copy": "Advertising Copy",
+  "advertising_copy_prompt": "Please help me write an advertising copy, the product is...",
+  "advertising_copy_placeholder": "Please enter the product or service for the advertising copy...",
+
+  "job_description": "Job Description",
+  "job_description_prompt": "Please help me write a job description, the title is...",
+  "job_description_placeholder": "Please enter the job title and responsibilities...",
+
+  "interview_questions": "Interview Questions",
+  "interview_questions_prompt": "Please help me list interview questions, the interviewee is...",
+  "interview_questions_placeholder": "Please enter the interviewee and relevant questions...",
+
+  "food_reviews": "Food Reviews",
+  "food_reviews_prompt": "Please help me write a food review, the restaurant is...",
+  "food_reviews_placeholder": "Please enter the restaurant and dishes for the review...",
   "ai_write_for_me": "AI Write for Me",
   "ai_write_for_me_prompt": "Please tell me what AI can help me write.",
   "ai_placeholder": "What should I write with AI?",

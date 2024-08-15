@@ -36,6 +36,7 @@ class ComposedRichEditorWidget extends StatefulWidget {
   SaveModeEnum saveModeEnum;
   Function onTapOk;
   MissionModel missionModel;
+  FocusNode? focusNode;
 
   // WQBWrongQuestBookSceneEnum wqbSceneEnum = WQBWrongQuestBookSceneEnum.knowledge_point;
 
@@ -43,6 +44,7 @@ class ComposedRichEditorWidget extends StatefulWidget {
       {Key? key,
       required this.onTapOk,
       // required this.wqbSceneEnum,
+        this.focusNode,
       required this.title,
       required this.saveModeEnum,
       required this.missionModel})
@@ -551,6 +553,9 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
     this.missionModel.noteBigUrls = bigImageList;
     this.missionModel.noteOriginUrls = originalImageList;
     updateUi();
+  }
+  unfocus() {
+    appflowyPageStateKey.currentState?.unfocus();
   }
 
   Widget getWidget() {

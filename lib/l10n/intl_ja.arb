@@ -1,4 +1,62 @@
 {
+  "ai_title": "時間管理AI",
+  "speech": "スピーチ",
+  "speech_prompt": "スピーチについて手伝ってください...",
+  "speech_placeholder": "スピーチのテーマまたは内容を入力してください...",
+
+  "write_essay_placeholder": "作文のタイトルまたはテーマを入力してください...",
+
+  "announcement": "通知",
+  "announcement_prompt": "通知の作成を手伝ってください、内容は...",
+  "announcement_placeholder": "通知の具体的な内容を入力してください...",
+
+  "modern_poetry": "現代詩",
+  "modern_poetry_prompt": "現代詩を書いてください、テーマは...",
+  "modern_poetry_placeholder": "現代詩のテーマを入力してください...",
+
+  "creative_story": "創作ストーリー",
+  "creative_story_prompt": "創作ストーリーを書いてください、ストーリーは...",
+  "creative_story_placeholder": "創作ストーリーのプロットやテーマを入力してください...",
+
+  "meeting_agenda": "会議アジェンダ",
+  "meeting_agenda_prompt": "会議のアジェンダをリストしてください、会議のテーマは...",
+  "meeting_agenda_placeholder": "会議のアジェンダのテーマや内容を入力してください...",
+
+  "todo_list": "やることリスト",
+  "todo_list_prompt": "今日のやることリストをリストしてください...",
+  "todo_list_placeholder": "今日のやるべきことを入力してください...",
+
+  "emoji_conversion": "絵文字変換",
+  "emoji_conversion_prompt": "次のテキストを絵文字に変換してください：...",
+  "emoji_conversion_placeholder": "絵文字に変換するテキストを入力してください...",
+
+  "leave_reason": "休暇理由",
+  "leave_reason_prompt": "休暇の理由を作成してください、理由は...",
+  "leave_reason_placeholder": "休暇の理由を入力してください...",
+
+  "pros_and_cons": "長所と短所",
+  "pros_and_cons_prompt": "あるテーマの長所と短所をリストしてください、テーマは...",
+  "pros_and_cons_placeholder": "長所と短所を分析する必要があるテーマを入力してください...",
+
+  "press_release": "プレスリリース",
+  "press_release_prompt": "プレスリリースを書いてください、内容は...",
+  "press_release_placeholder": "プレスリリースの内容やテーマを入力してください...",
+
+  "advertising_copy": "広告コピー",
+  "advertising_copy_prompt": "広告コピーを書いてください、製品は...",
+  "advertising_copy_placeholder": "広告コピーの製品またはサービスを入力してください...",
+
+  "job_description": "職務記述書",
+  "job_description_prompt": "職務記述書を書いてください、役職は...",
+  "job_description_placeholder": "役職名と責任を入力してください...",
+
+  "interview_questions": "インタビュー質問",
+  "interview_questions_prompt": "インタビュー質問をリストしてください、インタビュー対象者は...",
+  "interview_questions_placeholder": "インタビュー対象者と関連する質問を入力してください...",
+
+  "food_reviews": "レストランレビュー",
+  "food_reviews_prompt": "レストランレビューを書いてください、レストランは...",
+  "food_reviews_placeholder": "レビューするレストランと料理を入力してください...",
   "ai_write_for_me": "AI 書いてもらう",
   "ai_write_for_me_prompt": "AIが私に書くのを助けられる内容を教えてください。",
   "ai_placeholder": "AIで何を書きますか？",

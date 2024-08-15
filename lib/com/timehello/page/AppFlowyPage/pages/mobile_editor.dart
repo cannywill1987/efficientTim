@@ -7,11 +7,14 @@ class MobileEditor extends StatefulWidget {
   const MobileEditor({
     super.key,
     required this.editorState,
+    this.focusNode,
     this.editorStyle,
   });
 
   final EditorState editorState;
   final EditorStyle? editorStyle;
+  final FocusNode? focusNode;
+
 
   @override
   State<MobileEditor> createState() => _MobileEditorState();
@@ -19,7 +22,7 @@ class MobileEditor extends StatefulWidget {
 
 class _MobileEditorState extends State<MobileEditor> {
   EditorState get editorState => widget.editorState;
-
+  FocusNode focusNode = FocusNode();
   late final EditorScrollController editorScrollController;
 
   late EditorStyle editorStyle;
@@ -28,7 +31,7 @@ class _MobileEditorState extends State<MobileEditor> {
   @override
   void initState() {
     super.initState();
-
+    // focusNode.unfocus();
     editorScrollController = EditorScrollController(
       editorState: editorState,
       shrinkWrap: false,
@@ -90,6 +93,8 @@ class _MobileEditorState extends State<MobileEditor> {
               },
               child: AppFlowyEditor(
                 editorStyle: editorStyle,
+                autoFocus: true,
+                focusNode: focusNode,
                 editorState: editorState,
                 editorScrollController: editorScrollController,
                 blockComponentBuilders: blockComponentBuilders,

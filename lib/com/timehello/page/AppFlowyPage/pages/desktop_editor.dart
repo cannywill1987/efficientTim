@@ -18,10 +18,11 @@ class DesktopEditor extends StatefulWidget {
     super.key,
     this.padding = 20,
     this.headerWidget,
+    this.focusNode,
     required this.editorState,
     this.textDirection = TextDirection.ltr,
   });
-
+  final FocusNode? focusNode;
   final Widget? headerWidget;
   final EditorState editorState;
   final TextDirection textDirection;
@@ -157,6 +158,7 @@ class _DesktopEditorState extends State<DesktopEditor> {
           blockComponentBuilders: blockComponentBuilders,
           commandShortcutEvents: commandShortcuts,
           editorStyle: editorStyle,
+          autoFocus: true,
           enableAutoComplete: true,
           autoCompleteTextProvider: _buildAutoCompleteTextProvider,
           header: this.widget.headerWidget,

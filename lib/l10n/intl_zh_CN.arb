@@ -1,4 +1,60 @@
 {
+  "ai_title": "时间管理局AI",
+  "speech": "演讲稿",
+  "speech_prompt": "请帮我写一篇关于...的演讲稿。",
+  "speech_placeholder": "请输入演讲稿的主题或内容...",
+  "write_essay_placeholder": "请输入作文的题目或主题...",
+
+  "announcement": "通知公告",
+  "announcement_prompt": "请帮我写一则通知公告，内容是...",
+  "announcement_placeholder": "请输入通知公告的具体内容...",
+  "modern_poetry": "现代诗",
+  "modern_poetry_prompt": "请帮我写一首现代诗，主题是...",
+  "modern_poetry_placeholder": "请输入现代诗的主题...",
+
+  "creative_story": "创意故事",
+  "creative_story_prompt": "请帮我写一个创意故事，故事情节是...",
+  "creative_story_placeholder": "请输入创意故事的情节或主题...",
+
+  "meeting_agenda": "会议议程",
+  "meeting_agenda_prompt": "请帮我列出一个会议议程，会议主题是...",
+  "meeting_agenda_placeholder": "请输入会议议程的主题或内容...",
+
+  "todo_list": "待办事项列表",
+  "todo_list_prompt": "请帮我列出今天的待办事项列表...",
+  "todo_list_placeholder": "请输入今天的待办事项...",
+
+  "emoji_conversion": "表情符号转换",
+  "emoji_conversion_prompt": "请帮我将以下文字转换为表情符号：...",
+  "emoji_conversion_placeholder": "请输入需要转换为表情符号的文字...",
+
+  "leave_reason": "请假理由",
+  "leave_reason_prompt": "请帮我写一份请假理由，原因是...",
+  "leave_reason_placeholder": "请输入请假的原因...",
+
+  "pros_and_cons": "优缺点列表",
+  "pros_and_cons_prompt": "请帮我列出某个主题的优缺点，主题是...",
+  "pros_and_cons_placeholder": "请输入需要分析优缺点的主题...",
+
+  "press_release": "新闻稿",
+  "press_release_prompt": "请帮我写一篇新闻稿，内容是...",
+  "press_release_placeholder": "请输入新闻稿的内容或主题...",
+
+  "advertising_copy": "广告文案",
+  "advertising_copy_prompt": "请帮我写一份广告文案，产品是...",
+  "advertising_copy_placeholder": "请输入广告文案的产品或服务...",
+
+  "job_description": "职位描述",
+  "job_description_prompt": "请帮我写一份职位描述，职位名称是...",
+  "job_description_placeholder": "请输入职位描述的职位名称和职责...",
+
+  "interview_questions": "采访问题",
+  "interview_questions_prompt": "请帮我列出采访问题，采访对象是...",
+  "interview_questions_placeholder": "请输入采访对象及其相关问题...",
+
+  "food_reviews": "美食点评",
+  "food_reviews_prompt": "请帮我写一篇美食点评，餐馆是...",
+  "food_reviews_placeholder": "请输入美食点评的餐馆和菜品...",
   "ai_write_for_me": "AI 帮我写",
   "ai_write_for_me_prompt": "请告诉我AI可以帮我写些什么。",
   "ai_placeholder": "AI帮我写什么",

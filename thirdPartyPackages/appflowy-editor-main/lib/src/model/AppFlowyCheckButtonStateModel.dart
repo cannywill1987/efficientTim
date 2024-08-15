@@ -19,6 +19,128 @@ class AppFlowyCheckButtonStateModel {
   String? uncheckIconUrl;
   AppFlowyCheckButtonStateModel({this.code, this.value, this.title, this.content, this.isCheck = false, this.color, this.checkIconUrl, this.uncheckIconUrl, this.checkIcon, this.uncheckIcon});
 
+  static List<AppFlowyCheckButtonStateModel> getAIMoreListPrompts() {
+    List<AppFlowyCheckButtonStateModel> list = [];
+    return list;
+  }
+
+  static List<AppFlowyCheckButtonStateModel> getAIListPrompts() {
+    List<AppFlowyCheckButtonStateModel> list = [];
+    const double size = 20;
+    const Color activeColor = Colors.purple;
+    const Color inactiveColor = Colors.grey;
+
+    return [
+      AppFlowyCheckButtonStateModel(
+        code: 'modern_poetry',
+        checkIcon: Icon(Icons.bookmark, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.bookmark, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.modern_poetry,
+        content: i18nInstanceLocal.modern_poetry_placeholder,
+        value: i18nInstanceLocal.modern_poetry_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'creative_story',
+        checkIcon: Icon(Icons.lightbulb, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.lightbulb, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.creative_story,
+        content: i18nInstanceLocal.creative_story_placeholder,
+        value: i18nInstanceLocal.creative_story_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'meeting_agenda',
+        checkIcon: Icon(Icons.event_note, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.event_note, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.meeting_agenda,
+        content: i18nInstanceLocal.meeting_agenda_placeholder,
+        value: i18nInstanceLocal.meeting_agenda_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'todo_list',
+        checkIcon: Icon(Icons.check_box, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.check_box, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.todo_list,
+        content: i18nInstanceLocal.todo_list_placeholder,
+        value: i18nInstanceLocal.todo_list_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'emoji_conversion',
+        checkIcon: Icon(Icons.emoji_emotions, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.emoji_emotions, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.emoji_conversion,
+        content: i18nInstanceLocal.emoji_conversion_placeholder,
+        value: i18nInstanceLocal.emoji_conversion_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'leave_reason',
+        checkIcon: Icon(Icons.event_busy, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.event_busy, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.leave_reason,
+        content: i18nInstanceLocal.leave_reason_placeholder,
+        value: i18nInstanceLocal.leave_reason_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'pros_and_cons',
+        checkIcon: Icon(Icons.view_list, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.view_list, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.pros_and_cons,
+        content: i18nInstanceLocal.pros_and_cons_placeholder,
+        value: i18nInstanceLocal.pros_and_cons_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'press_release',
+        checkIcon: Icon(Icons.article, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.article, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.press_release,
+        content: i18nInstanceLocal.press_release_placeholder,
+        value: i18nInstanceLocal.press_release_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'advertising_copy',
+        checkIcon: Icon(Icons.campaign, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.campaign, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.advertising_copy,
+        content: i18nInstanceLocal.advertising_copy_placeholder,
+        value: i18nInstanceLocal.advertising_copy_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'job_description',
+        checkIcon: Icon(Icons.description, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.description, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.job_description,
+        content: i18nInstanceLocal.job_description_placeholder,
+        value: i18nInstanceLocal.job_description_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'interview_questions',
+        checkIcon: Icon(Icons.question_answer, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.question_answer, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.interview_questions,
+        content: i18nInstanceLocal.interview_questions_placeholder,
+        value: i18nInstanceLocal.interview_questions_prompt,
+        isCheck: true,
+      ),
+      AppFlowyCheckButtonStateModel(
+        code: 'food_reviews',
+        checkIcon: Icon(Icons.restaurant, size: size, color: activeColor),
+        uncheckIcon: Icon(Icons.restaurant, size: size, color: inactiveColor),
+        title: i18nInstanceLocal.food_reviews,
+        content: i18nInstanceLocal.food_reviews_placeholder,
+        value: i18nInstanceLocal.food_reviews_prompt,
+        isCheck: true,
+      ),
+    ];
+  }
 
   static List<AppFlowyCheckButtonStateModel> getModelList() {
     List<AppFlowyCheckButtonStateModel> models = [];

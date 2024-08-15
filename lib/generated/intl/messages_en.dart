@@ -360,6 +360,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("Administrator"),
         "advanced_permissions": MessageLookupByLibrary.simpleMessage(
             "Advanced permissions: can set restrictions on copying, commenting, etc."),
+        "advertising_copy":
+            MessageLookupByLibrary.simpleMessage("Advertising Copy"),
+        "advertising_copy_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the product or service for the advertising copy..."),
+        "advertising_copy_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write an advertising copy, the product is..."),
         "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("agree"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
@@ -371,6 +377,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("AI Writing Scenario"),
         "ai_scenario_prompt": MessageLookupByLibrary.simpleMessage(
             "Please select a writing scenario."),
+        "ai_title": MessageLookupByLibrary.simpleMessage("Timerbell todo AI"),
         "ai_write_for_me":
             MessageLookupByLibrary.simpleMessage("AI Write for Me"),
         "ai_write_for_me_prompt": MessageLookupByLibrary.simpleMessage(
@@ -413,6 +420,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "anki_card_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: What is th, folder_id: null, flomo_object_id: null, type: 2, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 2, wqbWrongQuestionContent: What is the past tense form of the irregular verb \"go\"?\n\n, wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: The past tense of \"go\" is \"went\". Example: He went to the store yesterday.\n\nThis card helps learners memorize and practice the past tense forms of common irregular verbs in English.\n\n, wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
         "announcement": MessageLookupByLibrary.simpleMessage("Announcement"),
+        "announcement_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the specific content of the announcement..."),
         "announcement_prompt": MessageLookupByLibrary.simpleMessage(
             "Please help me write an announcement, the content is..."),
         "answer": MessageLookupByLibrary.simpleMessage("Answer"),
@@ -836,6 +845,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_time": MessageLookupByLibrary.simpleMessage("Create Time"),
         "create_xxx": m34,
         "creating_date": MessageLookupByLibrary.simpleMessage("create date"),
+        "creative_story":
+            MessageLookupByLibrary.simpleMessage("Creative Story"),
+        "creative_story_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the plot or theme of the creative story..."),
+        "creative_story_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a creative story, the plot is..."),
         "credit_bag": MessageLookupByLibrary.simpleMessage("Card bag"),
         "credit_limit": MessageLookupByLibrary.simpleMessage("Credit limit"),
         "curAnalytics": MessageLookupByLibrary.simpleMessage("Charts"),
@@ -931,6 +946,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("E-mail can not be empty"),
         "embedCode": MessageLookupByLibrary.simpleMessage("Embed Code"),
+        "emoji_conversion":
+            MessageLookupByLibrary.simpleMessage("Emoji Conversion"),
+        "emoji_conversion_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the text to be converted to emojis..."),
+        "emoji_conversion_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me convert the following text to emojis:..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("Enter a pattern"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
@@ -1046,6 +1067,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "fontColorPurple": MessageLookupByLibrary.simpleMessage("Purple"),
         "fontColorRed": MessageLookupByLibrary.simpleMessage("Red"),
         "fontColorYellow": MessageLookupByLibrary.simpleMessage("Yellow"),
+        "food_reviews": MessageLookupByLibrary.simpleMessage("Food Reviews"),
+        "food_reviews_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the restaurant and dishes for the review..."),
+        "food_reviews_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a food review, the restaurant is..."),
         "four_pws": MessageLookupByLibrary.simpleMessage(
             "Please enter a 4-digit digital password"),
         "four_quadrant": MessageLookupByLibrary.simpleMessage("Quadrant"),
@@ -1203,6 +1229,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "insert_event": MessageLookupByLibrary.simpleMessage("insert event"),
         "insert_success":
             MessageLookupByLibrary.simpleMessage("insert successfully"),
+        "interview_questions":
+            MessageLookupByLibrary.simpleMessage("Interview Questions"),
+        "interview_questions_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the interviewee and relevant questions..."),
+        "interview_questions_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me list interview questions, the interviewee is..."),
         "invalid_mobile_number":
             MessageLookupByLibrary.simpleMessage("Invalid Mobile Number"),
         "isDelayed": MessageLookupByLibrary.simpleMessage("Is Delayed"),
@@ -1220,6 +1252,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("January to December"),
         "jan_to_dec_desc": MessageLookupByLibrary.simpleMessage(
             "Create a group from January to December"),
+        "job_description":
+            MessageLookupByLibrary.simpleMessage("Job Description"),
+        "job_description_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the job title and responsibilities..."),
+        "job_description_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a job description, the title is..."),
         "join_days": MessageLookupByLibrary.simpleMessage("Join Days"),
         "join_group_code":
             MessageLookupByLibrary.simpleMessage("Enter the list number"),
@@ -1240,6 +1278,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "lastWeek": MessageLookupByLibrary.simpleMessage("last week"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
         "leave_group": MessageLookupByLibrary.simpleMessage("Leave the group"),
+        "leave_reason": MessageLookupByLibrary.simpleMessage("Leave Reason"),
+        "leave_reason_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the reason for leave..."),
+        "leave_reason_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a leave reason, the reason is..."),
         "level1_num_10":
             MessageLookupByLibrary.simpleMessage("Difficulty 1: 10 words"),
         "level1_show_words": MessageLookupByLibrary.simpleMessage(
@@ -1345,6 +1388,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "may": MessageLookupByLibrary.simpleMessage("May"),
         "mayFull": MessageLookupByLibrary.simpleMessage("May"),
         "me": MessageLookupByLibrary.simpleMessage("Me"),
+        "meeting_agenda":
+            MessageLookupByLibrary.simpleMessage("Meeting Agenda"),
+        "meeting_agenda_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the theme or content of the meeting agenda..."),
+        "meeting_agenda_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me list a meeting agenda, the meeting topic is..."),
         "memo_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: Weekend Shopping List - November 5, folder_id: null, flomo_object_id: null, type: 3, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 0, wqbWrongQuestionContent: , wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: Content:\n\nFresh Fruits: Apples (around 2 kg), Oranges (1 net), Dragon Fruit (2 pcs)\nVegetables: Spinach (1 bunch), Tomatoes (5 pcs), Cucumbers (3 pcs)\nMeats: Chicken breast (500g), Beef steaks (2 pcs)\nSnacks: Potato Chips (2 bags), Chocolate (100g)\nHousehold Items: Hand soap (1 bottle), Dishwashing liquid (1 bottle), Toilet paper (1 pack)\nBeverages: Milk (1 carton), Green tea (1 pack)\n\nNotes:\n\nCheck for valid coupons and membership discounts\nPrefer organic products and eco-friendly packaging\nComplete shopping by 6:00 PM, wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
         "memorandum": MessageLookupByLibrary.simpleMessage("memorandum"),
@@ -1401,6 +1450,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "mobileHeading1": MessageLookupByLibrary.simpleMessage("Heading 1"),
         "mobileHeading2": MessageLookupByLibrary.simpleMessage("Heading 2"),
         "mobileHeading3": MessageLookupByLibrary.simpleMessage("Heading 3"),
+        "modern_poetry": MessageLookupByLibrary.simpleMessage("Modern Poetry"),
+        "modern_poetry_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the theme of the modern poem..."),
+        "modern_poetry_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a modern poem, the theme is..."),
         "modify_name_listing": m72,
         "modify_name_tag": m73,
         "module_filtering_setting":
@@ -1726,6 +1780,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "postpone": MessageLookupByLibrary.simpleMessage("Postpone to today"),
         "practice": MessageLookupByLibrary.simpleMessage("Train"),
         "present_value_dialog": m99,
+        "press_release": MessageLookupByLibrary.simpleMessage("Press Release"),
+        "press_release_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the content or theme of the press release..."),
+        "press_release_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me write a press release, the content is..."),
         "preview": MessageLookupByLibrary.simpleMessage("Preview"),
         "previewTime": MessageLookupByLibrary.simpleMessage("Estimated Time"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage(
@@ -1760,6 +1819,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "private": MessageLookupByLibrary.simpleMessage("private"),
         "projectStatistic":
             MessageLookupByLibrary.simpleMessage("Project Statistics"),
+        "pros_and_cons": MessageLookupByLibrary.simpleMessage("Pros and Cons"),
+        "pros_and_cons_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the topic for which the pros and cons need to be analyzed..."),
+        "pros_and_cons_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me list the pros and cons of a topic, the topic is..."),
         "public_course":
             MessageLookupByLibrary.simpleMessage("Training Program"),
         "publish": MessageLookupByLibrary.simpleMessage("Publish"),
@@ -1985,6 +2049,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sound_recording":
             MessageLookupByLibrary.simpleMessage("sound recording"),
         "speech": MessageLookupByLibrary.simpleMessage("Speech"),
+        "speech_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the theme or content of the speech..."),
         "speech_prompt": MessageLookupByLibrary.simpleMessage(
             "Please help me write a speech about..."),
         "startFocusing": MessageLookupByLibrary.simpleMessage("start to focus"),
@@ -2100,6 +2166,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "todo_list": MessageLookupByLibrary.simpleMessage("To-Do List"),
         "todo_list_desc": MessageLookupByLibrary.simpleMessage(
             "Clear and concise, constantly reminding"),
+        "todo_list_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter today\'s to-do items..."),
+        "todo_list_prompt": MessageLookupByLibrary.simpleMessage(
+            "Please help me list today\'s to-do list..."),
         "todo_listing": MessageLookupByLibrary.simpleMessage("To-Do List"),
         "tokenExpired": MessageLookupByLibrary.simpleMessage(
             "Login invalid, please log in again"),
@@ -2258,6 +2328,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please help me write an article about..."),
         "write_diary": MessageLookupByLibrary.simpleMessage("write diary"),
         "write_essay": MessageLookupByLibrary.simpleMessage("Write Essay"),
+        "write_essay_placeholder": MessageLookupByLibrary.simpleMessage(
+            "Please enter the title or theme of the essay..."),
         "write_essay_prompt": MessageLookupByLibrary.simpleMessage(
             "Please help me write an essay, the topic is..."),
         "write_your_clockin_feedback":

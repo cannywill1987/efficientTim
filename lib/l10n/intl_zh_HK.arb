@@ -1,4 +1,62 @@
 {
+  "ai_title": "時間管理AI",
+  "speech": "演講稿",
+  "speech_prompt": "請幫我寫一篇關於...的演講稿。",
+  "speech_placeholder": "請輸入演講稿的主題或內容...",
+
+  "write_essay_placeholder": "請輸入作文的題目或主題...",
+
+  "announcement": "通知公告",
+  "announcement_prompt": "請幫我寫一則通知公告，內容是...",
+  "announcement_placeholder": "請輸入通知公告的具體內容...",
+
+  "modern_poetry": "現代詩",
+  "modern_poetry_prompt": "請幫我寫一首現代詩，主題是...",
+  "modern_poetry_placeholder": "請輸入現代詩的主題...",
+
+  "creative_story": "創意故事",
+  "creative_story_prompt": "請幫我寫一個創意故事，故事情節是...",
+  "creative_story_placeholder": "請輸入創意故事的情節或主題...",
+
+  "meeting_agenda": "會議議程",
+  "meeting_agenda_prompt": "請幫我列出一個會議議程，會議主題是...",
+  "meeting_agenda_placeholder": "請輸入會議議程的主題或內容...",
+
+  "todo_list": "待辦事項列表",
+  "todo_list_prompt": "請幫我列出今天的待辦事項列表...",
+  "todo_list_placeholder": "請輸入今天的待辦事項...",
+
+  "emoji_conversion": "表情符號轉換",
+  "emoji_conversion_prompt": "請幫我將以下文字轉換為表情符號：...",
+  "emoji_conversion_placeholder": "請輸入需要轉換為表情符號的文字...",
+
+  "leave_reason": "請假理由",
+  "leave_reason_prompt": "請幫我寫一份請假理由，原因是...",
+  "leave_reason_placeholder": "請輸入請假的原因...",
+
+  "pros_and_cons": "優缺點列表",
+  "pros_and_cons_prompt": "請幫我列出某個主題的優缺點，主題是...",
+  "pros_and_cons_placeholder": "請輸入需要分析優缺點的主題...",
+
+  "press_release": "新聞稿",
+  "press_release_prompt": "請幫我寫一篇新聞稿，內容是...",
+  "press_release_placeholder": "請輸入新聞稿的內容或主題...",
+
+  "advertising_copy": "廣告文案",
+  "advertising_copy_prompt": "請幫我寫一份廣告文案，產品是...",
+  "advertising_copy_placeholder": "請輸入廣告文案的產品或服務...",
+
+  "job_description": "職位描述",
+  "job_description_prompt": "請幫我寫一份職位描述，職位名稱是...",
+  "job_description_placeholder": "請輸入職位描述的職位名稱和職責...",
+
+  "interview_questions": "採訪問題",
+  "interview_questions_prompt": "請幫我列出採訪問題，採訪對象是...",
+  "interview_questions_placeholder": "請輸入採訪對象及其相關問題...",
+
+  "food_reviews": "美食點評",
+  "food_reviews_prompt": "請幫我寫一篇美食點評，餐館是...",
+  "food_reviews_placeholder": "請輸入美食點評的餐館和菜品...",
   "ai_write_for_me": "AI 幫我寫",
   "ai_write_for_me_prompt": "請告訴我AI可以幫我寫些什麼。",
   "ai_placeholder": "AI幫我寫什麼",

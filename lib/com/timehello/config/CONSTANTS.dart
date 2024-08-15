@@ -2018,27 +2018,29 @@ class CONSTANTS {
       value: getI18NKey().outline_prompt,
       isCheck: false,
     ));
-if(Utility.isChina())
+    if(Utility.isChina())
+      list.add(CheckButtonStateModel(
+        code: 'xiaohongshu',
+        checkIcon: Icon(Icons.book, size: size, color: Colors.purple),
+        uncheckIcon: Icon(Icons.book, size: size, color: Colors.grey),
+        title: getI18NKey().xiaohongshu,
+        content: getI18NKey().xiaohongshu_placeholder,
+        value: getI18NKey().xiaohongshu_prompt,
+        isCheck: false,
+      ));
+
     list.add(CheckButtonStateModel(
-      code: 'xiaohongshu',
-      checkIcon: Icon(Icons.book, size: size, color: Colors.purple),
-      uncheckIcon: Icon(Icons.book, size: size, color: Colors.grey),
-      title: getI18NKey().xiaohongshu,
-      content: getI18NKey().xiaohongshu_placeholder,
-      value: getI18NKey().xiaohongshu_prompt,
+      code: 'more',
+      checkIcon: Icon(Icons.more_horiz, size: size, color: Colors.purple),
+      uncheckIcon: Icon(Icons.more_horiz, size: size, color: Colors.grey),
+      title: getI18NKey().more,
       isCheck: false,
     ));
 
-    // list.add(CheckButtonStateModel(
-    //   code: 'more',
-    //   checkIcon: Icon(Icons.more_horiz, size: size, color: Colors.purple),
-    //   uncheckIcon: Icon(Icons.more_horiz, size: size, color: Colors.grey),
-    //   title: getI18NKey().more,
-    //   isCheck: false,
-    // ));
-
     return list;
   }
+
+
 
   static List<CheckButtonStateModel> getPCSettingButtonList() {
     List<CheckButtonStateModel> list = [];

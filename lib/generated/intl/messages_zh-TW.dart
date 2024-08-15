@@ -36,11 +36,17 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addYourLink": MessageLookupByLibrary.simpleMessage("添加連結"),
+        "advertising_copy": MessageLookupByLibrary.simpleMessage("廣告文案"),
+        "advertising_copy_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入廣告文案的產品或服務..."),
+        "advertising_copy_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一份廣告文案，產品是..."),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_placeholder": MessageLookupByLibrary.simpleMessage("AI幫我寫什麼"),
         "ai_scenario": MessageLookupByLibrary.simpleMessage("AI寫作場景"),
         "ai_scenario_prompt":
             MessageLookupByLibrary.simpleMessage("請選擇一個寫作場景。"),
+        "ai_title": MessageLookupByLibrary.simpleMessage("時間管理AI"),
         "ai_write_for_me": MessageLookupByLibrary.simpleMessage("AI 幫我寫"),
         "ai_write_for_me_prompt":
             MessageLookupByLibrary.simpleMessage("請告訴我AI可以幫我寫些什麼。"),
@@ -48,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ai_write_what_prompt":
             MessageLookupByLibrary.simpleMessage("請告訴我AI可以幫我寫些什麼。"),
         "announcement": MessageLookupByLibrary.simpleMessage("通知公告"),
+        "announcement_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入通知公告的具體內容..."),
         "announcement_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一則通知公告，內容是..."),
         "attachment": MessageLookupByLibrary.simpleMessage("附件"),
@@ -94,6 +102,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "copyLink": MessageLookupByLibrary.simpleMessage("複製連結"),
         "copy_and_share": MessageLookupByLibrary.simpleMessage("複製鏈接分享給其他小夥伴"),
         "copy_and_share_with_title": m21,
+        "creative_story": MessageLookupByLibrary.simpleMessage("創意故事"),
+        "creative_story_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入創意故事的情節或主題..."),
+        "creative_story_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一個創意故事，故事情節是..."),
         "customColor": MessageLookupByLibrary.simpleMessage("自定義顏色"),
         "cut": MessageLookupByLibrary.simpleMessage("剪下"),
         "datetime": MessageLookupByLibrary.simpleMessage("日期時間"),
@@ -104,6 +117,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "editLink": MessageLookupByLibrary.simpleMessage("修改連結"),
         "edit_options": MessageLookupByLibrary.simpleMessage("編輯選項"),
         "embedCode": MessageLookupByLibrary.simpleMessage("代碼塊"),
+        "emoji_conversion": MessageLookupByLibrary.simpleMessage("表情符號轉換"),
+        "emoji_conversion_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入需要轉換為表情符號的文字..."),
+        "emoji_conversion_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我將以下文字轉換為表情符號：..."),
         "emptySearchBoxHint": MessageLookupByLibrary.simpleMessage("鍵入尋找内容"),
         "enrich": MessageLookupByLibrary.simpleMessage("更豐富"),
         "enrich_prompt": MessageLookupByLibrary.simpleMessage("請使所選段落更加豐富和詳細。"),
@@ -124,6 +142,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "fontColorPurple": MessageLookupByLibrary.simpleMessage("紫色"),
         "fontColorRed": MessageLookupByLibrary.simpleMessage("紅色"),
         "fontColorYellow": MessageLookupByLibrary.simpleMessage("黃色"),
+        "food_reviews": MessageLookupByLibrary.simpleMessage("美食點評"),
+        "food_reviews_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入美食點評的餐館和菜品..."),
+        "food_reviews_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇美食點評，餐館是..."),
         "give_up": MessageLookupByLibrary.simpleMessage("放棄"),
         "heading1": MessageLookupByLibrary.simpleMessage("一級標題"),
         "heading2": MessageLookupByLibrary.simpleMessage("二級標題"),
@@ -143,7 +166,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "incorrectLink": MessageLookupByLibrary.simpleMessage("連結錯誤"),
         "input": MessageLookupByLibrary.simpleMessage("輸入"),
         "insert": MessageLookupByLibrary.simpleMessage("插入"),
+        "interview_questions": MessageLookupByLibrary.simpleMessage("採訪問題"),
+        "interview_questions_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入採訪對象及其相關問題..."),
+        "interview_questions_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出採訪問題，採訪對象是..."),
         "italic": MessageLookupByLibrary.simpleMessage("斜體"),
+        "job_description": MessageLookupByLibrary.simpleMessage("職位描述"),
+        "job_description_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入職位描述的職位名稱和職責..."),
+        "job_description_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一份職位描述，職位名稱是..."),
+        "leave_reason": MessageLookupByLibrary.simpleMessage("請假理由"),
+        "leave_reason_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入請假的原因..."),
+        "leave_reason_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一份請假理由，原因是..."),
         "lightLightTint1": MessageLookupByLibrary.simpleMessage("紫色"),
         "lightLightTint2": MessageLookupByLibrary.simpleMessage("粉紅色"),
         "lightLightTint3": MessageLookupByLibrary.simpleMessage("淺粉紅色"),
@@ -161,9 +199,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "ltr": MessageLookupByLibrary.simpleMessage("自左至右"),
         "manage": MessageLookupByLibrary.simpleMessage("管理"),
         "manage_prompt": MessageLookupByLibrary.simpleMessage("請打開管理選項。"),
+        "meeting_agenda": MessageLookupByLibrary.simpleMessage("會議議程"),
+        "meeting_agenda_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入會議議程的主題或內容..."),
+        "meeting_agenda_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出一個會議議程，會議主題是..."),
         "mobileHeading1": MessageLookupByLibrary.simpleMessage("一級標題"),
         "mobileHeading2": MessageLookupByLibrary.simpleMessage("二級標題"),
         "mobileHeading3": MessageLookupByLibrary.simpleMessage("三級標題"),
+        "modern_poetry": MessageLookupByLibrary.simpleMessage("現代詩"),
+        "modern_poetry_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入現代詩的主題..."),
+        "modern_poetry_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一首現代詩，主題是..."),
         "more": MessageLookupByLibrary.simpleMessage("更多"),
         "more_prompt": MessageLookupByLibrary.simpleMessage("請提供更多的寫作選項。"),
         "nextMatch": MessageLookupByLibrary.simpleMessage("下一相符項"),
@@ -181,7 +229,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "paste": MessageLookupByLibrary.simpleMessage("貼上"),
         "please_select_attachment":
             MessageLookupByLibrary.simpleMessage("請選擇附件"),
+        "press_release": MessageLookupByLibrary.simpleMessage("新聞稿"),
+        "press_release_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入新聞稿的內容或主題..."),
+        "press_release_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇新聞稿，內容是..."),
         "previousMatch": MessageLookupByLibrary.simpleMessage("上一相符項"),
+        "pros_and_cons": MessageLookupByLibrary.simpleMessage("優缺點列表"),
+        "pros_and_cons_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入需要分析優缺點的主題..."),
+        "pros_and_cons_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出某個主題的優缺點，主題是..."),
         "quote": MessageLookupByLibrary.simpleMessage("引文"),
         "regex": MessageLookupByLibrary.simpleMessage("正規表示式"),
         "regexError": MessageLookupByLibrary.simpleMessage("正規錯誤"),
@@ -210,6 +268,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "slashPlaceHolder":
             MessageLookupByLibrary.simpleMessage("輸入 / 以插入内容，或開始鍵入"),
         "speech": MessageLookupByLibrary.simpleMessage("演講稿"),
+        "speech_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入演講稿的主題或內容..."),
         "speech_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一篇關於...的演講稿。"),
         "strikethrough": MessageLookupByLibrary.simpleMessage("刪除線"),
@@ -235,6 +295,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "tint7": MessageLookupByLibrary.simpleMessage("色調7"),
         "tint8": MessageLookupByLibrary.simpleMessage("色調8"),
         "tint9": MessageLookupByLibrary.simpleMessage("色調9"),
+        "todo_list": MessageLookupByLibrary.simpleMessage("待辦事項列表"),
+        "todo_list_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入今天的待辦事項..."),
+        "todo_list_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出今天的待辦事項列表..."),
         "translate": MessageLookupByLibrary.simpleMessage("翻譯"),
         "translate_prompt":
             MessageLookupByLibrary.simpleMessage("請將所選段落翻譯成英文。"),
@@ -260,6 +325,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "write_article_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一篇關於...的文章。"),
         "write_essay": MessageLookupByLibrary.simpleMessage("寫作文"),
+        "write_essay_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入作文的題目或主題..."),
         "write_essay_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一篇作文，題目是..."),
         "xiaohongshu": MessageLookupByLibrary.simpleMessage("小紅書"),

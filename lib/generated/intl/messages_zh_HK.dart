@@ -335,6 +335,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("管理員"),
         "advanced_permissions":
             MessageLookupByLibrary.simpleMessage("高級權限：可設置禁止複製、註釋等"),
+        "advertising_copy": MessageLookupByLibrary.simpleMessage("廣告文案"),
+        "advertising_copy_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入廣告文案的產品或服務..."),
+        "advertising_copy_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一份廣告文案，產品是..."),
         "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
@@ -344,6 +349,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ai_scenario": MessageLookupByLibrary.simpleMessage("AI寫作場景"),
         "ai_scenario_prompt":
             MessageLookupByLibrary.simpleMessage("請選擇一個寫作場景。"),
+        "ai_title": MessageLookupByLibrary.simpleMessage("時間管理AI"),
         "ai_write_for_me": MessageLookupByLibrary.simpleMessage("AI 幫我寫"),
         "ai_write_for_me_prompt":
             MessageLookupByLibrary.simpleMessage("請告訴我AI可以幫我寫些什麼。"),
@@ -376,6 +382,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "anki_card_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: What is th, folder_id: null, flomo_object_id: null, type: 2, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 2, wqbWrongQuestionContent: What is the past tense form of the irregular verb \"go\"?\n\n, wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: The past tense of \"go\" is \"went\". Example: He went to the store yesterday.\n\nThis card helps learners memorize and practice the past tense forms of common irregular verbs in English., wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
         "announcement": MessageLookupByLibrary.simpleMessage("通知公告"),
+        "announcement_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入通知公告的具體內容..."),
         "announcement_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一則通知公告，內容是..."),
         "answer": MessageLookupByLibrary.simpleMessage("答案"),
@@ -594,6 +602,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_time": MessageLookupByLibrary.simpleMessage("創建時間"),
         "create_xxx": m34,
         "creating_date": MessageLookupByLibrary.simpleMessage("創建日期"),
+        "creative_story": MessageLookupByLibrary.simpleMessage("創意故事"),
+        "creative_story_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入創意故事的情節或主題..."),
+        "creative_story_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一個創意故事，故事情節是..."),
         "credit_bag": MessageLookupByLibrary.simpleMessage("卡包"),
         "credit_limit": MessageLookupByLibrary.simpleMessage("信用額度"),
         "curAnalytics": MessageLookupByLibrary.simpleMessage("實時數據"),
@@ -670,6 +683,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "editing": MessageLookupByLibrary.simpleMessage("編輯中"),
         "email": MessageLookupByLibrary.simpleMessage("郵箱"),
         "emailCannotBeNull": MessageLookupByLibrary.simpleMessage("郵箱不能為空"),
+        "emoji_conversion": MessageLookupByLibrary.simpleMessage("表情符號轉換"),
+        "emoji_conversion_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入需要轉換為表情符號的文字..."),
+        "emoji_conversion_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我將以下文字轉換為表情符號：..."),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("寫一句鼓勵自己的話吧~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("加密"),
@@ -750,6 +768,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "focusing_music": MessageLookupByLibrary.simpleMessage("專注中音樂"),
         "folder": MessageLookupByLibrary.simpleMessage("檔案夾"),
         "folder_name": MessageLookupByLibrary.simpleMessage("文件夾名"),
+        "food_reviews": MessageLookupByLibrary.simpleMessage("美食點評"),
+        "food_reviews_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入美食點評的餐館和菜品..."),
+        "food_reviews_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇美食點評，餐館是..."),
         "four_pws": MessageLookupByLibrary.simpleMessage("請輸入4位數數字密碼"),
         "four_quadrant": MessageLookupByLibrary.simpleMessage("四象限"),
         "four_quadrant_priority1":
@@ -870,6 +893,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "insert": MessageLookupByLibrary.simpleMessage("插入"),
         "insert_event": MessageLookupByLibrary.simpleMessage("插入事件"),
         "insert_success": MessageLookupByLibrary.simpleMessage("插入成功"),
+        "interview_questions": MessageLookupByLibrary.simpleMessage("採訪問題"),
+        "interview_questions_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入採訪對象及其相關問題..."),
+        "interview_questions_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出採訪問題，採訪對象是..."),
         "invalid_mobile_number": MessageLookupByLibrary.simpleMessage("手機號不正確"),
         "isDelayed": MessageLookupByLibrary.simpleMessage("是否延期"),
         "isEditable": MessageLookupByLibrary.simpleMessage("所有用戶共享編輯狀態"),
@@ -882,6 +910,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("一月至十二月"),
         "jan_to_dec_desc":
             MessageLookupByLibrary.simpleMessage("創建一年從一月到十二月的分組"),
+        "job_description": MessageLookupByLibrary.simpleMessage("職位描述"),
+        "job_description_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入職位描述的職位名稱和職責..."),
+        "job_description_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一份職位描述，職位名稱是..."),
         "join_days": MessageLookupByLibrary.simpleMessage("加入天數"),
         "join_group_code": MessageLookupByLibrary.simpleMessage("輸入清單號碼"),
         "join_group_code_desc":
@@ -898,6 +931,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "lastWeek": MessageLookupByLibrary.simpleMessage("上週"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("近7天"),
         "leave_group": MessageLookupByLibrary.simpleMessage("退出群組"),
+        "leave_reason": MessageLookupByLibrary.simpleMessage("請假理由"),
+        "leave_reason_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入請假的原因..."),
+        "leave_reason_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一份請假理由，原因是..."),
         "level1_num_10": MessageLookupByLibrary.simpleMessage("難度1:10個單詞"),
         "level1_show_words": MessageLookupByLibrary.simpleMessage("難度1:邊聽邊看"),
         "level2_hide_leftpart_words":
@@ -967,6 +1005,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "may": MessageLookupByLibrary.simpleMessage("五月"),
         "mayFull": MessageLookupByLibrary.simpleMessage("五月"),
         "me": MessageLookupByLibrary.simpleMessage("我"),
+        "meeting_agenda": MessageLookupByLibrary.simpleMessage("會議議程"),
+        "meeting_agenda_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入會議議程的主題或內容..."),
+        "meeting_agenda_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出一個會議議程，會議主題是..."),
         "memo_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: 周末購物清單 - 11月5日, folder_id: null, flomo_object_id: null, type: 3, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 0, wqbWrongQuestionContent: , wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: 新鮮水果：蘋果（約2公斤）、橙子（1網兜）、火龍果（2個）\n蔬菜：菠菜（1把）、西紅柿（5個）、黃瓜（3根）\n肉類：雞胸肉（500克）、牛排（2片）\n零食：薯片（2包）、巧克力（100克）\n日用品：洗手液（1瓶）、洗潔精（1瓶）、衛生紙（1提）\n飲料：牛奶（1盒）、綠茶（1包）\n備註：\n\n檢查優惠券和會員卡是否有效\n儘量選擇有機產品和環保包裝\n18:00前完成購物, wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
         "memorandum": MessageLookupByLibrary.simpleMessage("備忘錄"),
@@ -1012,6 +1055,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "mission_value": MessageLookupByLibrary.simpleMessage("任務價值"),
         "mission_value_toast": m71,
         "missioncompleted": MessageLookupByLibrary.simpleMessage("已完成任務"),
+        "modern_poetry": MessageLookupByLibrary.simpleMessage("現代詩"),
+        "modern_poetry_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入現代詩的主題..."),
+        "modern_poetry_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一首現代詩，主題是..."),
         "modify_name_listing": m72,
         "modify_name_tag": m73,
         "module_filtering_setting":
@@ -1290,6 +1338,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "postpone": MessageLookupByLibrary.simpleMessage("順延到今天"),
         "practice": MessageLookupByLibrary.simpleMessage("訓練"),
         "present_value_dialog": m99,
+        "press_release": MessageLookupByLibrary.simpleMessage("新聞稿"),
+        "press_release_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入新聞稿的內容或主題..."),
+        "press_release_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我寫一篇新聞稿，內容是..."),
         "preview": MessageLookupByLibrary.simpleMessage("預覽"),
         "previewTime": MessageLookupByLibrary.simpleMessage("預計時間"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("預計番茄數"),
@@ -1317,6 +1370,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "private": MessageLookupByLibrary.simpleMessage("私有"),
         "projectStatistic":
             MessageLookupByLibrary.simpleMessage("Project Statistic"),
+        "pros_and_cons": MessageLookupByLibrary.simpleMessage("優缺點列表"),
+        "pros_and_cons_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入需要分析優缺點的主題..."),
+        "pros_and_cons_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出某個主題的優缺點，主題是..."),
         "public_course": MessageLookupByLibrary.simpleMessage("開放訓練計劃"),
         "publish": MessageLookupByLibrary.simpleMessage("發佈"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("純淨模式"),
@@ -1486,6 +1544,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "smsVerificationCode": MessageLookupByLibrary.simpleMessage("短信驗證碼"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("錄音"),
         "speech": MessageLookupByLibrary.simpleMessage("演講稿"),
+        "speech_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入演講稿的主題或內容..."),
         "speech_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一篇關於...的演講稿。"),
         "startFocusing": MessageLookupByLibrary.simpleMessage("開始專注"),
@@ -1574,6 +1634,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("今天完成番茄數"),
         "todo_list": MessageLookupByLibrary.simpleMessage("待辦事項"),
         "todo_list_desc": MessageLookupByLibrary.simpleMessage("清晰明了，時刻提醒"),
+        "todo_list_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入今天的待辦事項..."),
+        "todo_list_prompt":
+            MessageLookupByLibrary.simpleMessage("請幫我列出今天的待辦事項列表..."),
         "todo_listing": MessageLookupByLibrary.simpleMessage("待辦清單"),
         "tokenExpired": MessageLookupByLibrary.simpleMessage("登錄失效，請重新登錄"),
         "tomato": MessageLookupByLibrary.simpleMessage("番茄"),
@@ -1697,6 +1761,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("請幫我寫一篇關於...的文章。"),
         "write_diary": MessageLookupByLibrary.simpleMessage("寫日記"),
         "write_essay": MessageLookupByLibrary.simpleMessage("寫作文"),
+        "write_essay_placeholder":
+            MessageLookupByLibrary.simpleMessage("請輸入作文的題目或主題..."),
         "write_essay_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我寫一篇作文，題目是..."),
         "write_your_clockin_feedback":

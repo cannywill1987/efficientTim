@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 
+import '../util/ThemeManager.dart';
+import '../util/Utility.dart';
+
 class AIAppflowyEditorWidget extends StatefulWidget {
   Function onTap;
 
@@ -56,7 +59,7 @@ return widgets;
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '印象AI',
+            getI18NKey().ai_title,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
@@ -127,12 +130,12 @@ class QuickInsertButton extends StatelessWidget {
             // primary: Colors.white,
             // onPrimary: Colors.purple,
           ),
-          child: Icon(icon, color: Colors.purple),
+          child: Icon(icon, color: ThemeManager.getInstance().getIconColor()),
         ),
         SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(color: Colors.purple),
+          style: TextStyle(color: ThemeManager.getInstance().getIconColor()),
         ),
       ],
     );

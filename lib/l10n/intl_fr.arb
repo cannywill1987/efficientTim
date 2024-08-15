@@ -1,4 +1,63 @@
-{"ai_write_for_me": "IA Écrire pour moi",
+{
+  "ai_title": "Timerbell todo IA",
+  "speech": "Discours",
+  "speech_prompt": "Veuillez m'aider à rédiger un discours sur...",
+  "speech_placeholder": "Veuillez entrer le thème ou le contenu du discours...",
+
+  "write_essay_placeholder": "Veuillez entrer le titre ou le sujet de la rédaction...",
+
+  "announcement": "Annonce",
+  "announcement_prompt": "Veuillez m'aider à rédiger une annonce, le contenu est...",
+  "announcement_placeholder": "Veuillez entrer le contenu spécifique de l'annonce...",
+
+  "modern_poetry": "Poésie Moderne",
+  "modern_poetry_prompt": "Veuillez m'aider à écrire un poème moderne, le thème est...",
+  "modern_poetry_placeholder": "Veuillez entrer le thème du poème moderne...",
+
+  "creative_story": "Histoire Créative",
+  "creative_story_prompt": "Veuillez m'aider à écrire une histoire créative, l'intrigue est...",
+  "creative_story_placeholder": "Veuillez entrer l'intrigue ou le thème de l'histoire créative...",
+
+  "meeting_agenda": "Ordre du Jour",
+  "meeting_agenda_prompt": "Veuillez m'aider à établir un ordre du jour, le thème de la réunion est...",
+  "meeting_agenda_placeholder": "Veuillez entrer le thème ou le contenu de l'ordre du jour...",
+
+  "todo_list": "Liste de Tâches",
+  "todo_list_prompt": "Veuillez m'aider à lister les tâches d'aujourd'hui...",
+  "todo_list_placeholder": "Veuillez entrer les tâches d'aujourd'hui...",
+
+  "emoji_conversion": "Conversion en Emoji",
+  "emoji_conversion_prompt": "Veuillez m'aider à convertir le texte suivant en emojis :...",
+  "emoji_conversion_placeholder": "Veuillez entrer le texte à convertir en emojis...",
+
+  "leave_reason": "Motif d'Absence",
+  "leave_reason_prompt": "Veuillez m'aider à rédiger un motif d'absence, la raison est...",
+  "leave_reason_placeholder": "Veuillez entrer la raison de l'absence...",
+
+  "pros_and_cons": "Avantages et Inconvénients",
+  "pros_and_cons_prompt": "Veuillez m'aider à lister les avantages et les inconvénients d'un sujet, le sujet est...",
+  "pros_and_cons_placeholder": "Veuillez entrer le sujet à analyser en termes d'avantages et d'inconvénients...",
+
+  "press_release": "Communiqué de Presse",
+  "press_release_prompt": "Veuillez m'aider à rédiger un communiqué de presse, le contenu est...",
+  "press_release_placeholder": "Veuillez entrer le contenu ou le thème du communiqué de presse...",
+
+  "advertising_copy": "Texte Publicitaire",
+  "advertising_copy_prompt": "Veuillez m'aider à rédiger un texte publicitaire, le produit est...",
+  "advertising_copy_placeholder": "Veuillez entrer le produit ou le service pour le texte publicitaire...",
+
+  "job_description": "Description de Poste",
+  "job_description_prompt": "Veuillez m'aider à rédiger une description de poste, le titre est...",
+  "job_description_placeholder": "Veuillez entrer le titre du poste et les responsabilités...",
+
+  "interview_questions": "Questions d'Entrevue",
+  "interview_questions_prompt": "Veuillez m'aider à lister les questions d'entrevue, la personne interviewée est...",
+  "interview_questions_placeholder": "Veuillez entrer la personne interviewée et les questions pertinentes...",
+
+  "food_reviews": "Critiques Culinaires",
+  "food_reviews_prompt": "Veuillez m'aider à rédiger une critique culinaire, le restaurant est...",
+  "food_reviews_placeholder": "Veuillez entrer le restaurant et les plats à critiquer...",
+  "ai_write_for_me": "IA Écrire pour moi",
   "ai_write_for_me_prompt": "Veuillez me dire ce que l'IA peut m'aider à écrire.",
   "ai_placeholder": "Qu'est-ce que je devrais écrire avec l'IA ?",
 

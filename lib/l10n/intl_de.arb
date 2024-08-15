@@ -1,4 +1,63 @@
 {
+  "ai_title": "Timerbell todo AI",
+  "speech": "Rede",
+  "speech_prompt": "Bitte helfen Sie mir, eine Rede zum Thema ... zu schreiben.",
+  "speech_placeholder": "Bitte geben Sie das Thema oder den Inhalt der Rede ein...",
+
+  "write_essay_placeholder": "Bitte geben Sie das Thema oder den Titel des Aufsatzes ein...",
+
+  "announcement": "Ankündigung",
+  "announcement_prompt": "Bitte helfen Sie mir, eine Ankündigung zu schreiben, der Inhalt ist...",
+  "announcement_placeholder": "Bitte geben Sie den genauen Inhalt der Ankündigung ein...",
+
+  "modern_poetry": "Moderne Poesie",
+  "modern_poetry_prompt": "Bitte helfen Sie mir, ein Gedicht zum Thema ... zu schreiben.",
+  "modern_poetry_placeholder": "Bitte geben Sie das Thema der modernen Poesie ein...",
+
+  "creative_story": "Kreative Geschichte",
+  "creative_story_prompt": "Bitte helfen Sie mir, eine kreative Geschichte zu schreiben, die Handlung ist...",
+  "creative_story_placeholder": "Bitte geben Sie die Handlung oder das Thema der kreativen Geschichte ein...",
+
+  "meeting_agenda": "Tagesordnung",
+  "meeting_agenda_prompt": "Bitte helfen Sie mir, eine Tagesordnung für das Thema ... zu erstellen.",
+  "meeting_agenda_placeholder": "Bitte geben Sie das Thema oder den Inhalt der Tagesordnung ein...",
+
+  "todo_list": "Aufgabenliste",
+  "todo_list_prompt": "Bitte helfen Sie mir, die heutige Aufgabenliste zu erstellen...",
+  "todo_list_placeholder": "Bitte geben Sie die heutigen Aufgaben ein...",
+
+  "emoji_conversion": "Emoji-Konvertierung",
+  "emoji_conversion_prompt": "Bitte helfen Sie mir, den folgenden Text in Emojis zu konvertieren: ...",
+  "emoji_conversion_placeholder": "Bitte geben Sie den Text ein, der in Emojis konvertiert werden soll...",
+
+  "leave_reason": "Urlaubsgrund",
+  "leave_reason_prompt": "Bitte helfen Sie mir, einen Urlaubsantrag zu schreiben, der Grund ist...",
+  "leave_reason_placeholder": "Bitte geben Sie den Grund für den Urlaub ein...",
+
+  "pros_and_cons": "Vor- und Nachteile",
+  "pros_and_cons_prompt": "Bitte helfen Sie mir, die Vor- und Nachteile eines Themas zu listen, das Thema ist...",
+  "pros_and_cons_placeholder": "Bitte geben Sie das Thema ein, dessen Vor- und Nachteile analysiert werden sollen...",
+
+  "press_release": "Pressemitteilung",
+  "press_release_prompt": "Bitte helfen Sie mir, eine Pressemitteilung zu schreiben, der Inhalt ist...",
+  "press_release_placeholder": "Bitte geben Sie den Inhalt oder das Thema der Pressemitteilung ein...",
+
+  "advertising_copy": "Werbetext",
+  "advertising_copy_prompt": "Bitte helfen Sie mir, einen Werbetext zu schreiben, das Produkt ist...",
+  "advertising_copy_placeholder": "Bitte geben Sie das Produkt oder die Dienstleistung für den Werbetext ein...",
+
+  "job_description": "Stellenbeschreibung",
+  "job_description_prompt": "Bitte helfen Sie mir, eine Stellenbeschreibung zu schreiben, der Titel ist...",
+  "job_description_placeholder": "Bitte geben Sie den Titel und die Aufgaben der Stellenbeschreibung ein...",
+
+  "interview_questions": "Interviewfragen",
+  "interview_questions_prompt": "Bitte helfen Sie mir, Interviewfragen zu erstellen, die interviewte Person ist...",
+  "interview_questions_placeholder": "Bitte geben Sie die interviewte Person und die relevanten Fragen ein...",
+
+  "food_reviews": "Restaurantbewertungen",
+  "food_reviews_prompt": "Bitte helfen Sie mir, eine Restaurantbewertung zu schreiben, das Restaurant ist...",
+  "food_reviews_placeholder": "Bitte geben Sie das Restaurant und die Gerichte für die Bewertung ein...",
+
   "ai_write_for_me": "KI Schreibe für mich",
   "ai_write_for_me_prompt": "Bitte teilen Sie mir mit, was die KI für mich schreiben kann.",
   "ai_placeholder": "KI, was soll ich schreiben?",

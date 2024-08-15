@@ -344,6 +344,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "administrator": MessageLookupByLibrary.simpleMessage("管理者"),
         "advanced_permissions": MessageLookupByLibrary.simpleMessage(
             "高度な権限：コピー、コメントなどを禁止することができます"),
+        "advertising_copy": MessageLookupByLibrary.simpleMessage("広告コピー"),
+        "advertising_copy_placeholder":
+            MessageLookupByLibrary.simpleMessage("広告コピーの製品またはサービスを入力してください..."),
+        "advertising_copy_prompt":
+            MessageLookupByLibrary.simpleMessage("広告コピーを書いてください、製品は..."),
         "after_date": m0,
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
@@ -353,6 +358,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ai_scenario": MessageLookupByLibrary.simpleMessage("AIライティングシナリオ"),
         "ai_scenario_prompt":
             MessageLookupByLibrary.simpleMessage("ライティングシナリオを選択してください。"),
+        "ai_title": MessageLookupByLibrary.simpleMessage("時間管理AI"),
         "ai_write_for_me": MessageLookupByLibrary.simpleMessage("AI 書いてもらう"),
         "ai_write_for_me_prompt":
             MessageLookupByLibrary.simpleMessage("AIが私に書くのを助けられる内容を教えてください。"),
@@ -388,6 +394,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "anki_card_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: What is th, folder_id: null, flomo_object_id: null, type: 2, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 2, wqbWrongQuestionContent: 不規則動詞「go」の過去形は何ですか？\n\n, wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: 「go」の過去形は「went」です。例：彼は昨日店に行きました。\n\nこのカードは、英語の一般的な不規則動詞の過去形を覚えて練習するのに役立ちます。, wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
         "announcement": MessageLookupByLibrary.simpleMessage("通知"),
+        "announcement_placeholder":
+            MessageLookupByLibrary.simpleMessage("通知の具体的な内容を入力してください..."),
         "announcement_prompt":
             MessageLookupByLibrary.simpleMessage("通知を書くのを手伝ってください。内容は..."),
         "answer": MessageLookupByLibrary.simpleMessage("答え"),
@@ -619,6 +627,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_time": MessageLookupByLibrary.simpleMessage("作成時間"),
         "create_xxx": m34,
         "creating_date": MessageLookupByLibrary.simpleMessage("作成日"),
+        "creative_story": MessageLookupByLibrary.simpleMessage("創作ストーリー"),
+        "creative_story_placeholder": MessageLookupByLibrary.simpleMessage(
+            "創作ストーリーのプロットやテーマを入力してください..."),
+        "creative_story_prompt":
+            MessageLookupByLibrary.simpleMessage("創作ストーリーを書いてください、ストーリーは..."),
         "credit_bag": MessageLookupByLibrary.simpleMessage("カードバッグ"),
         "credit_limit": MessageLookupByLibrary.simpleMessage("信用限度"),
         "curAnalytics": MessageLookupByLibrary.simpleMessage("リアルタイムデータ"),
@@ -698,6 +711,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("メール"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("メールアドレスは空にできません"),
+        "emoji_conversion": MessageLookupByLibrary.simpleMessage("絵文字変換"),
+        "emoji_conversion_placeholder":
+            MessageLookupByLibrary.simpleMessage("絵文字に変換するテキストを入力してください..."),
+        "emoji_conversion_prompt":
+            MessageLookupByLibrary.simpleMessage("次のテキストを絵文字に変換してください：..."),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("自分自身を励ましの言葉を書きましょう~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("暗号化"),
@@ -787,6 +805,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "focusing_music": MessageLookupByLibrary.simpleMessage("集中中の音楽"),
         "folder": MessageLookupByLibrary.simpleMessage("フォルダ"),
         "folder_name": MessageLookupByLibrary.simpleMessage("フォルダ名"),
+        "food_reviews": MessageLookupByLibrary.simpleMessage("レストランレビュー"),
+        "food_reviews_placeholder":
+            MessageLookupByLibrary.simpleMessage("レビューするレストランと料理を入力してください..."),
+        "food_reviews_prompt":
+            MessageLookupByLibrary.simpleMessage("レストランレビューを書いてください、レストランは..."),
         "four_pws": MessageLookupByLibrary.simpleMessage("4桁の数字パスワードを入力してください"),
         "four_quadrant": MessageLookupByLibrary.simpleMessage("四象限"),
         "four_quadrant_priority1":
@@ -912,6 +935,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "insert": MessageLookupByLibrary.simpleMessage("挿入"),
         "insert_event": MessageLookupByLibrary.simpleMessage("イベントを挿入"),
         "insert_success": MessageLookupByLibrary.simpleMessage("挿入成功"),
+        "interview_questions": MessageLookupByLibrary.simpleMessage("インタビュー質問"),
+        "interview_questions_placeholder": MessageLookupByLibrary.simpleMessage(
+            "インタビュー対象者と関連する質問を入力してください..."),
+        "interview_questions_prompt": MessageLookupByLibrary.simpleMessage(
+            "インタビュー質問をリストしてください、インタビュー対象者は..."),
         "invalid_mobile_number":
             MessageLookupByLibrary.simpleMessage("無効な携帯電話番号"),
         "isDelayed": MessageLookupByLibrary.simpleMessage("遅延したか"),
@@ -925,6 +953,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("1月から12月まで"),
         "jan_to_dec_desc":
             MessageLookupByLibrary.simpleMessage("1月から12月までのグループを作成します"),
+        "job_description": MessageLookupByLibrary.simpleMessage("職務記述書"),
+        "job_description_placeholder":
+            MessageLookupByLibrary.simpleMessage("役職名と責任を入力してください..."),
+        "job_description_prompt":
+            MessageLookupByLibrary.simpleMessage("職務記述書を書いてください、役職は..."),
         "join_days": MessageLookupByLibrary.simpleMessage("参加日数"),
         "join_group_code": MessageLookupByLibrary.simpleMessage("リスト番号を入力"),
         "join_group_code_desc":
@@ -943,6 +976,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "lastWeek": MessageLookupByLibrary.simpleMessage("先週"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("過去7日間"),
         "leave_group": MessageLookupByLibrary.simpleMessage("グループを退出する"),
+        "leave_reason": MessageLookupByLibrary.simpleMessage("休暇理由"),
+        "leave_reason_placeholder":
+            MessageLookupByLibrary.simpleMessage("休暇の理由を入力してください..."),
+        "leave_reason_prompt":
+            MessageLookupByLibrary.simpleMessage("休暇の理由を作成してください、理由は..."),
         "level1_num_10": MessageLookupByLibrary.simpleMessage("レベル1：10単語"),
         "level1_show_words":
             MessageLookupByLibrary.simpleMessage("レベル1：聞きながら見る"),
@@ -1018,6 +1056,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "may": MessageLookupByLibrary.simpleMessage("5月"),
         "mayFull": MessageLookupByLibrary.simpleMessage("5月"),
         "me": MessageLookupByLibrary.simpleMessage("私"),
+        "meeting_agenda": MessageLookupByLibrary.simpleMessage("会議アジェンダ"),
+        "meeting_agenda_placeholder":
+            MessageLookupByLibrary.simpleMessage("会議のアジェンダのテーマや内容を入力してください..."),
+        "meeting_agenda_prompt": MessageLookupByLibrary.simpleMessage(
+            "会議のアジェンダをリストしてください、会議のテーマは..."),
         "memo_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, _id: null, indexSearchingStart: -1, state: 0, indexSearchingEnd: -1, background_url: null, title: 週末の買い物リスト - 11月5日, folder_id: null, flomo_object_id: null, type: 3, masterScore: 2.0, update_time: null, causeAnalysis: [{code: confused, weight: 0}, {code: examination, weight: 0}, {code: wrong_thinking, weight: 0}, {code: arithmetic_error, weight: 0}, {code: carelessness, weight: 0}], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 0, wqbWrongQuestionContent: , wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 2, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: 新鮮な果物：リンゴ（約2キロ）、オレンジ（1袋）、ドラゴンフルーツ（2個）\n野菜：ほうれん草（1束）、トマト（5個）、きゅうり（3本）\n肉類：鶏の胸肉（500グラム）、ステーキ（2枚）\nスナック：ポテトチップス（2袋）、チョコレート（100グラム）\n日用品：ハンドソープ（1本）、食器用洗剤（1本）、トイレットペーパー（1パック）\n飲み物：牛乳（1パック）、緑茶（1パック）\n備考：\n\nクーポンとメンバーカードの有効性を確認する\nできるだけオーガニック製品と環境に優しいパッケージを選ぶ\n18:00までに買い物を終える, wqbAnswerRichContentUrl: , content: , device_id: null, tagNames: [], tagIds: null, isFinished: false, color: 4294936576, order_index: null, status: null, priorityStatus: 3, uid: null}"),
         "memorandum": MessageLookupByLibrary.simpleMessage("メモ"),
@@ -1067,6 +1110,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "mission_value": MessageLookupByLibrary.simpleMessage("ミッションの価値"),
         "mission_value_toast": m71,
         "missioncompleted": MessageLookupByLibrary.simpleMessage("完了したミッション"),
+        "modern_poetry": MessageLookupByLibrary.simpleMessage("現代詩"),
+        "modern_poetry_placeholder":
+            MessageLookupByLibrary.simpleMessage("現代詩のテーマを入力してください..."),
+        "modern_poetry_prompt":
+            MessageLookupByLibrary.simpleMessage("現代詩を書いてください、テーマは..."),
         "modify_name_listing": m72,
         "modify_name_tag": m73,
         "module_filtering_setting":
@@ -1367,6 +1415,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "postpone": MessageLookupByLibrary.simpleMessage("今日まで延期"),
         "practice": MessageLookupByLibrary.simpleMessage("トレーニング"),
         "present_value_dialog": m99,
+        "press_release": MessageLookupByLibrary.simpleMessage("プレスリリース"),
+        "press_release_placeholder":
+            MessageLookupByLibrary.simpleMessage("プレスリリースの内容やテーマを入力してください..."),
+        "press_release_prompt":
+            MessageLookupByLibrary.simpleMessage("プレスリリースを書いてください、内容は..."),
         "preview": MessageLookupByLibrary.simpleMessage("プレビュー"),
         "previewTime": MessageLookupByLibrary.simpleMessage("予想時間"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("予想トマト数"),
@@ -1394,6 +1447,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("プライバシーポリシー"),
         "private": MessageLookupByLibrary.simpleMessage("プライベート"),
         "projectStatistic": MessageLookupByLibrary.simpleMessage("プロジェクト統計"),
+        "pros_and_cons": MessageLookupByLibrary.simpleMessage("長所と短所"),
+        "pros_and_cons_placeholder": MessageLookupByLibrary.simpleMessage(
+            "長所と短所を分析する必要があるテーマを入力してください..."),
+        "pros_and_cons_prompt": MessageLookupByLibrary.simpleMessage(
+            "あるテーマの長所と短所をリストしてください、テーマは..."),
         "public_course": MessageLookupByLibrary.simpleMessage("公開トレーニングプラン"),
         "publish": MessageLookupByLibrary.simpleMessage("公開"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("ピュアモード"),
@@ -1568,6 +1626,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "smsVerificationCode": MessageLookupByLibrary.simpleMessage("SMS認証コード"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("録音"),
         "speech": MessageLookupByLibrary.simpleMessage("スピーチ"),
+        "speech_placeholder":
+            MessageLookupByLibrary.simpleMessage("スピーチのテーマまたは内容を入力してください..."),
         "speech_prompt":
             MessageLookupByLibrary.simpleMessage("…についてのスピーチを書くのを手伝ってください。"),
         "startFocusing": MessageLookupByLibrary.simpleMessage("集中を開始"),
@@ -1657,6 +1717,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "todo_list": MessageLookupByLibrary.simpleMessage("ToDoリスト"),
         "todo_list_desc":
             MessageLookupByLibrary.simpleMessage("明確で、常にリマインドします"),
+        "todo_list_placeholder":
+            MessageLookupByLibrary.simpleMessage("今日のやるべきことを入力してください..."),
+        "todo_list_prompt":
+            MessageLookupByLibrary.simpleMessage("今日のやることリストをリストしてください..."),
         "todo_listing": MessageLookupByLibrary.simpleMessage("ToDoリスト"),
         "tokenExpired":
             MessageLookupByLibrary.simpleMessage("ログインが失効しました、再度ログインしてください"),
@@ -1788,6 +1852,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("…についての記事を書くのを手伝ってください。"),
         "write_diary": MessageLookupByLibrary.simpleMessage("日記を書く"),
         "write_essay": MessageLookupByLibrary.simpleMessage("作文を書く"),
+        "write_essay_placeholder":
+            MessageLookupByLibrary.simpleMessage("作文のタイトルまたはテーマを入力してください..."),
         "write_essay_prompt":
             MessageLookupByLibrary.simpleMessage("作文を書くのを手伝ってください。題目は..."),
         "write_your_clockin_feedback":

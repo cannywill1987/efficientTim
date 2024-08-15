@@ -50,6 +50,446 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Timerbell todo AI`
+  String get ai_title {
+    return Intl.message(
+      'Timerbell todo AI',
+      name: 'ai_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speech`
+  String get speech {
+    return Intl.message(
+      'Speech',
+      name: 'speech',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a speech about...`
+  String get speech_prompt {
+    return Intl.message(
+      'Please help me write a speech about...',
+      name: 'speech_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the theme or content of the speech...`
+  String get speech_placeholder {
+    return Intl.message(
+      'Please enter the theme or content of the speech...',
+      name: 'speech_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the title or theme of the essay...`
+  String get write_essay_placeholder {
+    return Intl.message(
+      'Please enter the title or theme of the essay...',
+      name: 'write_essay_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Announcement`
+  String get announcement {
+    return Intl.message(
+      'Announcement',
+      name: 'announcement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write an announcement, the content is...`
+  String get announcement_prompt {
+    return Intl.message(
+      'Please help me write an announcement, the content is...',
+      name: 'announcement_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the specific content of the announcement...`
+  String get announcement_placeholder {
+    return Intl.message(
+      'Please enter the specific content of the announcement...',
+      name: 'announcement_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Modern Poetry`
+  String get modern_poetry {
+    return Intl.message(
+      'Modern Poetry',
+      name: 'modern_poetry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a modern poem, the theme is...`
+  String get modern_poetry_prompt {
+    return Intl.message(
+      'Please help me write a modern poem, the theme is...',
+      name: 'modern_poetry_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the theme of the modern poem...`
+  String get modern_poetry_placeholder {
+    return Intl.message(
+      'Please enter the theme of the modern poem...',
+      name: 'modern_poetry_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creative Story`
+  String get creative_story {
+    return Intl.message(
+      'Creative Story',
+      name: 'creative_story',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a creative story, the plot is...`
+  String get creative_story_prompt {
+    return Intl.message(
+      'Please help me write a creative story, the plot is...',
+      name: 'creative_story_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the plot or theme of the creative story...`
+  String get creative_story_placeholder {
+    return Intl.message(
+      'Please enter the plot or theme of the creative story...',
+      name: 'creative_story_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Meeting Agenda`
+  String get meeting_agenda {
+    return Intl.message(
+      'Meeting Agenda',
+      name: 'meeting_agenda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me list a meeting agenda, the meeting topic is...`
+  String get meeting_agenda_prompt {
+    return Intl.message(
+      'Please help me list a meeting agenda, the meeting topic is...',
+      name: 'meeting_agenda_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the theme or content of the meeting agenda...`
+  String get meeting_agenda_placeholder {
+    return Intl.message(
+      'Please enter the theme or content of the meeting agenda...',
+      name: 'meeting_agenda_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To-Do List`
+  String get todo_list {
+    return Intl.message(
+      'To-Do List',
+      name: 'todo_list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me list today's to-do list...`
+  String get todo_list_prompt {
+    return Intl.message(
+      'Please help me list today\'s to-do list...',
+      name: 'todo_list_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter today's to-do items...`
+  String get todo_list_placeholder {
+    return Intl.message(
+      'Please enter today\'s to-do items...',
+      name: 'todo_list_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Emoji Conversion`
+  String get emoji_conversion {
+    return Intl.message(
+      'Emoji Conversion',
+      name: 'emoji_conversion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me convert the following text to emojis:...`
+  String get emoji_conversion_prompt {
+    return Intl.message(
+      'Please help me convert the following text to emojis:...',
+      name: 'emoji_conversion_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the text to be converted to emojis...`
+  String get emoji_conversion_placeholder {
+    return Intl.message(
+      'Please enter the text to be converted to emojis...',
+      name: 'emoji_conversion_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave Reason`
+  String get leave_reason {
+    return Intl.message(
+      'Leave Reason',
+      name: 'leave_reason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a leave reason, the reason is...`
+  String get leave_reason_prompt {
+    return Intl.message(
+      'Please help me write a leave reason, the reason is...',
+      name: 'leave_reason_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the reason for leave...`
+  String get leave_reason_placeholder {
+    return Intl.message(
+      'Please enter the reason for leave...',
+      name: 'leave_reason_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pros and Cons`
+  String get pros_and_cons {
+    return Intl.message(
+      'Pros and Cons',
+      name: 'pros_and_cons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me list the pros and cons of a topic, the topic is...`
+  String get pros_and_cons_prompt {
+    return Intl.message(
+      'Please help me list the pros and cons of a topic, the topic is...',
+      name: 'pros_and_cons_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the topic for which the pros and cons need to be analyzed...`
+  String get pros_and_cons_placeholder {
+    return Intl.message(
+      'Please enter the topic for which the pros and cons need to be analyzed...',
+      name: 'pros_and_cons_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Press Release`
+  String get press_release {
+    return Intl.message(
+      'Press Release',
+      name: 'press_release',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a press release, the content is...`
+  String get press_release_prompt {
+    return Intl.message(
+      'Please help me write a press release, the content is...',
+      name: 'press_release_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the content or theme of the press release...`
+  String get press_release_placeholder {
+    return Intl.message(
+      'Please enter the content or theme of the press release...',
+      name: 'press_release_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advertising Copy`
+  String get advertising_copy {
+    return Intl.message(
+      'Advertising Copy',
+      name: 'advertising_copy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write an advertising copy, the product is...`
+  String get advertising_copy_prompt {
+    return Intl.message(
+      'Please help me write an advertising copy, the product is...',
+      name: 'advertising_copy_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the product or service for the advertising copy...`
+  String get advertising_copy_placeholder {
+    return Intl.message(
+      'Please enter the product or service for the advertising copy...',
+      name: 'advertising_copy_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job Description`
+  String get job_description {
+    return Intl.message(
+      'Job Description',
+      name: 'job_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a job description, the title is...`
+  String get job_description_prompt {
+    return Intl.message(
+      'Please help me write a job description, the title is...',
+      name: 'job_description_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the job title and responsibilities...`
+  String get job_description_placeholder {
+    return Intl.message(
+      'Please enter the job title and responsibilities...',
+      name: 'job_description_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Interview Questions`
+  String get interview_questions {
+    return Intl.message(
+      'Interview Questions',
+      name: 'interview_questions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me list interview questions, the interviewee is...`
+  String get interview_questions_prompt {
+    return Intl.message(
+      'Please help me list interview questions, the interviewee is...',
+      name: 'interview_questions_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the interviewee and relevant questions...`
+  String get interview_questions_placeholder {
+    return Intl.message(
+      'Please enter the interviewee and relevant questions...',
+      name: 'interview_questions_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Food Reviews`
+  String get food_reviews {
+    return Intl.message(
+      'Food Reviews',
+      name: 'food_reviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please help me write a food review, the restaurant is...`
+  String get food_reviews_prompt {
+    return Intl.message(
+      'Please help me write a food review, the restaurant is...',
+      name: 'food_reviews_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the restaurant and dishes for the review...`
+  String get food_reviews_placeholder {
+    return Intl.message(
+      'Please enter the restaurant and dishes for the review...',
+      name: 'food_reviews_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `AI Write for Me`
   String get ai_write_for_me {
     return Intl.message(
@@ -285,46 +725,6 @@ class S {
     return Intl.message(
       'Please select a writing scenario.',
       name: 'ai_scenario_prompt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Speech`
-  String get speech {
-    return Intl.message(
-      'Speech',
-      name: 'speech',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please help me write a speech about...`
-  String get speech_prompt {
-    return Intl.message(
-      'Please help me write a speech about...',
-      name: 'speech_prompt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Announcement`
-  String get announcement {
-    return Intl.message(
-      'Announcement',
-      name: 'announcement',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please help me write an announcement, the content is...`
-  String get announcement_prompt {
-    return Intl.message(
-      'Please help me write an announcement, the content is...',
-      name: 'announcement_prompt',
       desc: '',
       args: [],
     );
@@ -4266,16 +4666,6 @@ class S {
     return Intl.message(
       'Clear and concise, constantly reminding',
       name: 'todo_list_desc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `To-Do List`
-  String get todo_list {
-    return Intl.message(
-      'To-Do List',
-      name: 'todo_list',
       desc: '',
       args: [],
     );
