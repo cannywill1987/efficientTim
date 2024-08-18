@@ -3,6 +3,7 @@
 ///Package imports
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
@@ -72,7 +73,6 @@ class TimeManagementPage extends StatefulWidget {
 }
 
 class TimeManagementPageState extends State<TimeManagementPage> {
-  TimeManagementPageState();
 
   FolderModel? folderModelSearch;
   List<MissionModel> listMissionModels = [];
@@ -83,6 +83,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
   DateTime? endDateTime;
 
   double missionPageWidth = 300;
+  late FocusNode _focusNode;
 
   //时间轴展示的
   final List<CalendarView> _allowedViewsList = <CalendarView>[
@@ -105,6 +106,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
 
   @override
   void initState() {
+    _focusNode = FocusNode();
     _currentView = CalendarView.week;
     if (widget.folderModel != null) {
       folderModelSearch = widget.folderModel;
@@ -134,238 +136,476 @@ class TimeManagementPageState extends State<TimeManagementPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    if(_focusNode != null) {
+      _focusNode.dispose();
+      // _focusNode = null;
+    }
+  }
+
+  jumpToCurDateLeft() {
+    switch(_calendarController.view) {
+      case CalendarView.day:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.day;
+        break;
+      case CalendarView.week:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 7));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.week;
+        break;
+      case CalendarView.schedule:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 30));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // DateTime newDateTime = dateTime.add(Duration(days: 7));
+
+        // _calendarController.view = CalendarView.schedule;
+        break;
+      case CalendarView.month:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 30));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.month;
+        break;
+      case CalendarView.timelineDay:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        break;
+      case CalendarView.timelineWeek:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        break;
+      case CalendarView.timelineMonth:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.subtract(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.timelineMonth;
+        break;
+      default:
+        // _calendarController.view = CalendarView.week;
+        break;
+    }
+    setState(() {
+
+    });
+  }
+
+  jumpToCurDateRight() {
+    switch(_calendarController.view) {
+      case CalendarView.day:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.day;
+        break;
+      case CalendarView.week:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 7));
+        // _calendarController.displayDate = newDateTime;
+        _calendarController.displayDate = newDateTime;
+        // _calendarController.view = CalendarView.week;
+        break;
+      case CalendarView.schedule:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 30));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // DateTime newDateTime = dateTime.add(Duration(days: 7));
+
+        // _calendarController.view = CalendarView.schedule;
+        break;
+      case CalendarView.month:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 30));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.month;
+        break;
+      case CalendarView.timelineDay:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        break;
+      case CalendarView.timelineWeek:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        break;
+      case CalendarView.timelineMonth:
+        DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+        DateTime newDateTime = dateTime.add(Duration(days: 1));
+        _calendarController.displayDate = newDateTime;
+        _calendarController.selectedDate = newDateTime;
+        // _calendarController.view = CalendarView.timelineMonth;
+        break;
+      default:
+        // _calendarController.view = CalendarView.week;
+        break;
+    }
+    setState(() {
+
+    });
+  }
+
+  void _handleKeyEvent(RawKeyEvent event) {
+    if (event is RawKeyDownEvent) {
+      final key = event.logicalKey;
+
+      // 判断按下的数字键 1-9
+      if (key.keyId == LogicalKeyboardKey.digit1.keyId) {
+        print("Number ${key.keyLabel} pressed");
+        _calendarController.view = CalendarView.day;
+      } else if (key.keyId == LogicalKeyboardKey.digit2.keyId) {
+        _calendarController.view = CalendarView.week;
+      }else if (key.keyId == LogicalKeyboardKey.digit3.keyId) {
+        _calendarController.view = CalendarView.schedule;
+      }else if (key.keyId == LogicalKeyboardKey.digit4.keyId) {
+        _calendarController.view = CalendarView.month;
+      }else if (key.keyId == LogicalKeyboardKey.digit5.keyId) {
+        _calendarController.view = CalendarView.timelineWeek;
+      }else if (key.keyId == LogicalKeyboardKey.digit6.keyId) {
+        _calendarController.view = CalendarView.timelineMonth;
+      } else if (key == LogicalKeyboardKey.keyT) {
+        print("T pressed");
+        DateTime dateTimeNow =  DateTime.now();
+        _calendarController.selectedDate = dateTimeNow;
+        _calendarController.displayDate = dateTimeNow;
+      }
+      // 判断按下的字母键 W, D, T, M
+       else if (key == LogicalKeyboardKey.keyD) {
+        // _calendarController.view = CalendarView.timelineWeek;
+        jumpToCurDateRight();
+        print("CMD/CTRL + W pressed");
+      } else if (key == LogicalKeyboardKey.keyA) {
+        // _calendarController.view = CalendarView.timelineWeek;
+        jumpToCurDateLeft();
+        print("CMD/CTRL + W pressed");
+      }
+
+      // 判断按下的字母键 W, D, T, M
+      // if ((event.isControlPressed && key == LogicalKeyboardKey.keyW) || (event.isMetaPressed && key == LogicalKeyboardKey.keyW)) {
+      //   _calendarController.view = CalendarView.timelineWeek;
+      //   print("CMD/CTRL + W pressed");
+      // } else if ((event.isControlPressed && key == LogicalKeyboardKey.keyM) || (event.isMetaPressed && key == LogicalKeyboardKey.keyM)) {
+      //   _calendarController.view = CalendarView.timelineMonth;
+      //   print("CMD/CTRL + M pressed");
+      // } else if (key == LogicalKeyboardKey.keyW) {
+      //   print("W pressed");
+      //   _calendarController.view = CalendarView.week;
+      // } else if (key == LogicalKeyboardKey.keyD) {
+      //   print("D pressed");
+      //   _calendarController.view = CalendarView.day;
+      // } else if (key == LogicalKeyboardKey.keyT) {
+      //   print("T pressed");
+      //   DateTime dateTimeNow =  DateTime.now();
+      //   _calendarController.selectedDate = dateTimeNow;
+      //   _calendarController.displayDate = dateTimeNow;
+      // } else if (key == LogicalKeyboardKey.keyM) {
+      //   _calendarController.view = CalendarView.month;
+      //   print("M pressed");
+      // } else if (key == LogicalKeyboardKey.keyS) {
+      //   _calendarController.view = CalendarView.schedule;
+      //   print("S pressed");
+      // }
+      // //右
+      // else if (key == LogicalKeyboardKey.arrowRight) {
+      //   print("Right pressed");
+      //   jumpToCurDateRight();
+      //   // DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+      //   // DateTime newDateTime = dateTime.add(Duration(days: 1));
+      //   // _calendarController.displayDate = newDateTime;
+      //   // _calendarController.selectedDate = newDateTime;
+      // }
+      // //左
+      // else if (key == LogicalKeyboardKey.arrowLeft) {
+      //   print("Left pressed");
+      //   jumpToCurDateLeft();
+      //   // DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+      //   // DateTime newDateTime = dateTime.subtract(Duration(days: 1));
+      //   // _calendarController.displayDate = newDateTime;
+      //   // _calendarController.selectedDate = newDateTime;
+      // }
+      // //上
+      // else if (key == LogicalKeyboardKey.arrowUp) {
+      //   print("Up pressed");
+      //   DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+      //   DateTime newDateTime = dateTime.subtract(Duration(days: 7));
+      //   _calendarController.displayDate = newDateTime;
+      //   _calendarController.selectedDate = newDateTime;
+      // }
+      // //下
+      // else if (key == LogicalKeyboardKey.arrowDown) {
+      //   print("Down pressed");
+      //   DateTime dateTime = _calendarController.displayDate ?? DateTime.now();
+      //   DateTime newDateTime = dateTime.add(Duration(days: 7));
+      //   _calendarController.displayDate = newDateTime;
+      //   _calendarController.selectedDate = newDateTime;
+      // }
+      //
+      // // 判断按下 CMD + 空格 (Mac) 或 Ctrl + 空格 (Windows)
+      // if ((event.isMetaPressed && key == LogicalKeyboardKey.space) ||
+      //     (event.isControlPressed && key == LogicalKeyboardKey.space)) {
+      //   print("CMD/CTRL + Space pressed");
+      // }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     // CalendarModel calendarModel = context.watch<GlobalStateEnv>().calendarModel;
     // List<DayModel> dayModelList = Utility.filterDaysModels(
     //     calendarModel?.dayModelList ?? [], folderModelSearch);
 
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      this.missionPageWidth = constraints.maxWidth;
-      return Selector<CalendarMssionEnv, MissionModel?>(
-          selector: (_, env) => env.curSelectedMissionModel,
-          builder: (_, curSelectedMissionModel, __) {
-            return Selector<CalendarMssionEnv, FolderModel?>(
-                selector: (_, env) => env.curSelectedFolderModel,
-                builder: (_, curSelectedFolderModel, __) {
-                  return Selector<CalendarMssionEnv, DateTime?>(
-                      selector: (_, env) => env.startDateTime,
-                      builder: (_, startDateTime, __) {
-                        return Selector<CalendarMssionEnv, DateTime?>(
-                            selector: (_, env) => env.endDateTime,
-                            builder: (_, endDateTime, __) {
-                              this.startDateTime = startDateTime;
-                              this.endDateTime = endDateTime;
-                              return Selector<GlobalStateEnv, CalendarModel?>(
-                                  selector: (_, env) => env.calendarModel,
-                                  builder: (_, calendarModel, __) {
-                                    List<DayModel> dayModelList =
-                                        Utility.filterDaysModels(
-                                            calendarModel?.dayModelList ?? [],
-                                            folderModelSearch);
-                                    _events = _DataSource(
-                                        getAppointmentDetails(dayModelList));
-                                    final Widget calendar =
-                                        _getDragAndDropCalendar(
-                                            _calendarController,
-                                            _events,
-                                            _onViewChanged,
-                                            WidgetManager
-                                                .getAppointmentUIWidget(
-                                                    _calendarController));
-                                    final double screenHeight =
-                                        MediaQuery.of(context).size.height;
 
-                                    return Scaffold(
-                                        body: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        if (widget.folderModel == null)
-                                          CustomMarquee(
-                                            bean:
-                                                MarqueInfo.marqueTimemanagement,
-                                            paddingTop: 0,
+    return RawKeyboardListener(
+      focusNode: _focusNode,
+      onKey: _handleKeyEvent,
+      child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        this.missionPageWidth = constraints.maxWidth;
+        return Selector<CalendarMssionEnv, MissionModel?>(
+            selector: (_, env) => env.curSelectedMissionModel,
+            builder: (_, curSelectedMissionModel, __) {
+              return Selector<CalendarMssionEnv, FolderModel?>(
+                  selector: (_, env) => env.curSelectedFolderModel,
+                  builder: (_, curSelectedFolderModel, __) {
+                    return Selector<CalendarMssionEnv, DateTime?>(
+                        selector: (_, env) => env.startDateTime,
+                        builder: (_, startDateTime, __) {
+                          return Selector<CalendarMssionEnv, DateTime?>(
+                              selector: (_, env) => env.endDateTime,
+                              builder: (_, endDateTime, __) {
+                                this.startDateTime = startDateTime;
+                                this.endDateTime = endDateTime;
+                                return Selector<GlobalStateEnv, CalendarModel?>(
+                                    selector: (_, env) => env.calendarModel,
+                                    builder: (_, calendarModel, __) {
+                                      List<DayModel> dayModelList =
+                                          Utility.filterDaysModels(
+                                              calendarModel?.dayModelList ?? [],
+                                              folderModelSearch);
+                                      _events = _DataSource(
+                                          getAppointmentDetails(dayModelList));
+                                      final Widget calendar =
+                                          _getDragAndDropCalendar(
+                                              _calendarController,
+                                              _events,
+                                              _onViewChanged,
+                                              WidgetManager
+                                                  .getAppointmentUIWidget(
+                                                      _calendarController));
+                                      final double screenHeight =
+                                          MediaQuery.of(context).size.height;
+      
+                                      return Scaffold(
+                                          body: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          if (widget.folderModel == null)
+                                            CustomMarquee(
+                                              bean:
+                                                  MarqueInfo.marqueTimemanagement,
+                                              paddingTop: 0,
+                                            ),
+                                          SizedBox(
+                                            height: 5,
                                           ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        TimeRatioComponent(
-                                          scene: "TimeManagementPage",
-                                          lastChild: widget.folderModel == null
-                                              ? ListingFilterWidget(
-                                                  onTapListener: (data) {
-                                                  this.folderModelSearch = data;
-                                                  context
-                                                      .read<CalendarMssionEnv>()
-                                                      .curSelectedFolderModel = data;
-                                                  // context.read<CalendarMssionEnv().curSelectedFolderModel = data;
-                                                  setState(() {});
-                                                  // this.curSearchingFocusModel = data;
-                                                  // this.requestDatas();
-                                                })
-                                              : null,
-                                          width: this.missionPageWidth,
-                                          startTime: Utility.isHandsetBySize()
-                                              ? this.startDateTime
-                                              : Utility
-                                                  .getStartDateTimeFromCalendar(
-                                                      startDateTime:
-                                                          this.startDateTime,
-                                                      endDateTime:
-                                                          this.endDateTime,
-                                                      displayDateTime:
-                                                          _calendarController
-                                                                  .displayDate ??
-                                                              DateTime.now(),
-                                                      calendarView:
-                                                          _calendarController
-                                                                  .view ??
-                                                              CalendarView
-                                                                  .week),
-                                          endTime: Utility.isHandsetBySize()
-                                              ? this.endDateTime
-                                              : (Utility
-                                                  .getEndDateTimeFromCalendar(
-                                                      startDateTime:
-                                                          this.startDateTime,
-                                                      endDateTime:
-                                                          this.endDateTime,
-                                                      displayDateTime:
-                                                          _calendarController
-                                                                  .displayDate ??
-                                                              DateTime.now(),
-                                                      calendarView:
-                                                          _calendarController
-                                                                  .view ??
-                                                              CalendarView
-                                                                  .week)),
-                                          height: 5,
-                                          // totalTime: 24 * 60 * 60, // 一天的总秒数
-                                          listMissionModels: Utility.getMissionModelsForRatio(
-                                              dayModelList,
-                                              Utility.getStartDateTimeFromCalendar(
-                                                  startDateTime:
-                                                      this.startDateTime,
-                                                  endDateTime: this.endDateTime,
-                                                  displayDateTime:
-                                                      _calendarController
-                                                              .displayDate ??
-                                                          DateTime.now(),
-                                                  calendarView:
-                                                      _calendarController
-                                                              .view ??
-                                                          CalendarView.week),
-                                              Utility.getEndDateTimeFromCalendar(
-                                                  startDateTime:
-                                                      this.startDateTime,
-                                                  endDateTime: this.endDateTime,
-                                                  displayDateTime:
-                                                      _calendarController
-                                                              .displayDate ??
-                                                          DateTime.now(),
-                                                  calendarView:
-                                                      _calendarController
-                                                              .view ??
-                                                          CalendarView.week)),
-                                          // [
-                                          //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
-                                          //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
-                                          //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
-                                          //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
-                                          //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
-                                          // ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Expanded(
-                                          child: Stack(
-                                            children: [
-                                              Row(children: <Widget>[
-                                                Expanded(
-                                                  child: _calendarController
-                                                                  .view ==
-                                                              CalendarView
-                                                                  .month &&
-                                                          screenHeight < 800
-                                                      ? Scrollbar(
-                                                          thumbVisibility: true,
-                                                          controller:
-                                                              _controller,
-                                                          child: ListView(
+                                          TimeRatioComponent(
+                                            scene: "TimeManagementPage",
+                                            lastChild: widget.folderModel == null
+                                                ? ListingFilterWidget(
+                                                    onTapListener: (data) {
+                                                    this.folderModelSearch = data;
+                                                    context
+                                                        .read<CalendarMssionEnv>()
+                                                        .curSelectedFolderModel = data;
+                                                    // context.read<CalendarMssionEnv().curSelectedFolderModel = data;
+                                                    setState(() {});
+                                                    // this.curSearchingFocusModel = data;
+                                                    // this.requestDatas();
+                                                  })
+                                                : null,
+                                            width: this.missionPageWidth,
+                                            startTime: Utility.isHandsetBySize()
+                                                ? this.startDateTime
+                                                : Utility
+                                                    .getStartDateTimeFromCalendar(
+                                                        startDateTime:
+                                                            this.startDateTime,
+                                                        endDateTime:
+                                                            this.endDateTime,
+                                                        displayDateTime:
+                                                            _calendarController
+                                                                    .displayDate ??
+                                                                DateTime.now(),
+                                                        calendarView:
+                                                            _calendarController
+                                                                    .view ??
+                                                                CalendarView
+                                                                    .week),
+                                            endTime: Utility.isHandsetBySize()
+                                                ? this.endDateTime
+                                                : (Utility
+                                                    .getEndDateTimeFromCalendar(
+                                                        startDateTime:
+                                                            this.startDateTime,
+                                                        endDateTime:
+                                                            this.endDateTime,
+                                                        displayDateTime:
+                                                            _calendarController
+                                                                    .displayDate ??
+                                                                DateTime.now(),
+                                                        calendarView:
+                                                            _calendarController
+                                                                    .view ??
+                                                                CalendarView
+                                                                    .week)),
+                                            height: 5,
+                                            // totalTime: 24 * 60 * 60, // 一天的总秒数
+                                            listMissionModels: Utility.getMissionModelsForRatio(
+                                                dayModelList,
+                                                Utility.getStartDateTimeFromCalendar(
+                                                    startDateTime:
+                                                        this.startDateTime,
+                                                    endDateTime: this.endDateTime,
+                                                    displayDateTime:
+                                                        _calendarController
+                                                                .displayDate ??
+                                                            DateTime.now(),
+                                                    calendarView:
+                                                        _calendarController
+                                                                .view ??
+                                                            CalendarView.week),
+                                                Utility.getEndDateTimeFromCalendar(
+                                                    startDateTime:
+                                                        this.startDateTime,
+                                                    endDateTime: this.endDateTime,
+                                                    displayDateTime:
+                                                        _calendarController
+                                                                .displayDate ??
+                                                            DateTime.now(),
+                                                    calendarView:
+                                                        _calendarController
+                                                                .view ??
+                                                            CalendarView.week)),
+                                            // [
+                                            //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
+                                            //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
+                                            //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
+                                            //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
+                                            //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
+                                            // ],
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                Row(children: <Widget>[
+                                                  Expanded(
+                                                    child: _calendarController
+                                                                    .view ==
+                                                                CalendarView
+                                                                    .month &&
+                                                            screenHeight < 800
+                                                        ? Scrollbar(
+                                                            thumbVisibility: true,
                                                             controller:
                                                                 _controller,
-                                                            children: <Widget>[
-                                                              Container(
-                                                                color: ThemeManager
-                                                                        .getInstance()
-                                                                    .getBackgroundColor(
-                                                                        defaultColor:
-                                                                            Colors.white),
-                                                                height: 600,
-                                                                child: calendar,
-                                                              )
-                                                            ],
-                                                          ))
-                                                      : Container(
-                                                          color: ThemeManager
+                                                            child: ListView(
+                                                              controller:
+                                                                  _controller,
+                                                              children: <Widget>[
+                                                                Container(
+                                                                  color: ThemeManager
+                                                                          .getInstance()
+                                                                      .getBackgroundColor(
+                                                                          defaultColor:
+                                                                              Colors.white),
+                                                                  height: 600,
+                                                                  child: calendar,
+                                                                )
+                                                              ],
+                                                            ))
+                                                        : Container(
+                                                            color: ThemeManager
+                                                                    .getInstance()
+                                                                .getBackgroundColor(
+                                                                    defaultColor:
+                                                                        Colors
+                                                                            .white),
+                                                            child: calendar),
+                                                  )
+                                                ]),
+                                                Positioned(
+                                                    bottom: 30,
+                                                    right: 20,
+                                                    child: CircleWidget(
+                                                      onTapListener: (obj) {
+                                                        MissionModel
+                                                            missionModel =
+                                                            MissionModel();
+                                                        missionModel.end_time =
+                                                            CONSTANTS
+                                                                .getDeadLineTme(
+                                                                    (0) + 1);
+                                                        missionModel.folder_id =
+                                                            this
+                                                                .folderModelSearch
+                                                                ?.objectId;
+                                                        if (Utility
+                                                                .isHandsetBySize() ==
+                                                            true) {
+                                                          Utility.pushNavigator(
+                                                              context,
+                                                              CreateMissionPage(
+                                                                  missionModel:
+                                                                      missionModel));
+                                                        } else {
+                                                          DialogManagement
                                                                   .getInstance()
-                                                              .getBackgroundColor(
-                                                                  defaultColor:
-                                                                      Colors
-                                                                          .white),
-                                                          child: calendar),
-                                                )
-                                              ]),
-                                              Positioned(
-                                                  bottom: 30,
-                                                  right: 20,
-                                                  child: CircleWidget(
-                                                    onTapListener: (obj) {
-                                                      MissionModel
-                                                          missionModel =
-                                                          MissionModel();
-                                                      missionModel.end_time =
-                                                          CONSTANTS
-                                                              .getDeadLineTme(
-                                                                  (0) + 1);
-                                                      missionModel.folder_id =
-                                                          this
-                                                              .folderModelSearch
-                                                              ?.objectId;
-                                                      if (Utility
-                                                              .isHandsetBySize() ==
-                                                          true) {
-                                                        Utility.pushNavigator(
-                                                            context,
-                                                            CreateMissionPage(
-                                                                missionModel:
-                                                                    missionModel));
-                                                      } else {
-                                                        DialogManagement
-                                                                .getInstance()
-                                                            .showPCCustomDialog(
-                                                                context:
-                                                                    context,
-                                                                widget: CreateMissionPage(
-                                                                    missionModel:
-                                                                        missionModel));
-                                                      }
-                                                    },
-                                                  )),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ));
-                                  });
-                            });
-                      });
-                });
-          });
-    });
+                                                              .showPCCustomDialog(
+                                                                  context:
+                                                                      context,
+                                                                  widget: CreateMissionPage(
+                                                                      missionModel:
+                                                                          missionModel));
+                                                        }
+                                                      },
+                                                    )),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ));
+                                    });
+                              });
+                        });
+                  });
+            });
+      }),
+    );
   }
 
   /// Update the current view when the view changed and update the scroll view

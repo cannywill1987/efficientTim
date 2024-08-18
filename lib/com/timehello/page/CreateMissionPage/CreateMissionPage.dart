@@ -545,6 +545,7 @@ class _CreateMissionPageWidgetState<T>
                       ],
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TagsGridViewWidget(
                     datas: this.folderModelTags,
                     onTapAddTagListener: (data) {

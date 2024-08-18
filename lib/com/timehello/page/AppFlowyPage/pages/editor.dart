@@ -176,7 +176,7 @@ class _EditorState extends State<Editor> {
             ),
           ),
         ),
-        if((wordCount ?? 0) == 0)
+        if((wordCount ?? 0) == 0 && !Utility.isAndroid())
         Container(margin: EdgeInsets.only(top: 120), child: AIAppflowyEditorWidget(onTap: (CheckButtonStateModel model) {
           if(model.code == 'more') {
             onClickSearchBarMenuWithMoreText(context, model);

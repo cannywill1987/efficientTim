@@ -28,7 +28,6 @@ import 'package:universal_html/html.dart' as html;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../config/ENUMS.dart';
-import 'AppFlowyPage2.dart';
 import 'pages/auto_complete_editor.dart';
 import 'pages/collab_editor.dart';
 import 'pages/collab_selection_editor.dart';
@@ -205,7 +204,9 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
 
   initData() async {
     this.isEnable = false;
+    print("11111111");
     if(this.widget.isDebug) {
+      print("2222222");
       _jsonString = PlatformExtension.isDesktopOrWeb
           ? (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/example.json'))
           : (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/mobile_example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/mobile_example.json'));
@@ -217,6 +218,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
         },
       );
     } else {
+      print("3333333");
       Map? json;
       try {
         json = await AliyunStoreManager.getInstance()
@@ -228,7 +230,9 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
         //     LoadingStatusEnum.error, getI18NKey().download_fail);
         print(e);
       }
-      if (json == null) {
+      print("4444444");
+      if (TextUtil.isEmpty(json)) {
+        print("5555555");
         _loadEditor(
             context,
             Future<String>.value(jsonEncode(
@@ -238,6 +242,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                   .toJson(),
             ).toString()));
       } else {
+        print("6666666");
         // _jsonString = getFileJsonString(ExportFileType.documentJson, mkString);
         _loadEditor(context, Future<String>.value(jsonEncode(json!)));
       }
