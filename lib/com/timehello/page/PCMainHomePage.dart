@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
@@ -9,6 +10,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../components/PCTopMenuWidget.dart';
 import '../util/DeviceInfoManagement.dart';
+import '../util/KeyboardListenerManager.dart';
 import '../util/OverlayManagement.dart';
 import 'DesktopRouter.dart';
 import 'MinePage/MinePage.dart';
@@ -27,6 +29,7 @@ class PCMainHomePage extends BaseWidget {
 const borderColor = Color(0xFF805306);
 
 class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
+
   componentDidMount() {
     OverlayManagement.getInstance()
         .openMissionDetailBottomCounterOverlay(context);
@@ -36,12 +39,31 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
   void initState() {
     super.initState();
     print('initState');
+    Keyboardlistenermanager.getInstance()?.addListener(handleKeyEvent);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    Keyboardlistenermanager.getInstance()?.removeListener(handleKeyEvent);
+
+  }
+
+  bool handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      final key = event.logicalKey;
+      if (key == LogicalKeyboardKey.backquote) {
+        Utility.toggleCurDesktopFolderPageVisibility(context);
+      }
+    }
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    Env env = context.watch<Env>();
+    // Env env = context.watch<Env>();
     // print("111111111111111111");
     // print(env.routerMainContainerData);
     // print("2222222222222222222222");
@@ -49,26 +71,36 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
     //     ? (env.routerMainContainerData?['page'] ?? "")
     //     : "");
 
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        LeftSettingSide(),
-        Expanded(
-            child: Column(mainAxisSize: MainAxisSize.max, children: [
-          Container(
-            decoration: BoxDecoration(
-                color: ThemeManager.getInstance().getNavigationBarColor(defaultColor: ThemeManager.getInstance().getLightDefaultThemeColor()),
-                border: Border(
-                    bottom: BorderSide(color: ThemeManager.getInstance().getLineColor(defaultColor: Color(0xfff0f0f0)), width: 1))),
-            child: PCTopMenuWidget(),
-          ),
-          Expanded(
-              child: getMainPage(env.routerMainContainerData != null
-                  ? (env.routerMainContainerData?['page'] ?? "")
-                  : ""))
-        ]))
-      ],
-    );
+    return Selector<Env, Map?>(
+        selector: (_, env) => env.routerMainContainerData,
+        builder: (_, routerMainContainerData, __) {
+          return Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              LeftSettingSide(),
+              Expanded(
+                  child: Column(mainAxisSize: MainAxisSize.max, children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: ThemeManager.getInstance().getNavigationBarColor(
+                          defaultColor: ThemeManager.getInstance()
+                              .getLightDefaultThemeColor()),
+                      border: Border(
+                          bottom: BorderSide(
+                              color: ThemeManager.getInstance().getLineColor(
+                                  defaultColor: Color(0xfff0f0f0)),
+                              width: 1))),
+                  child: PCTopMenuWidget(),
+                ),
+
+                Expanded(
+                    child:      getMainPage(routerMainContainerData != null
+                                  ? (routerMainContainerData?['page'] ?? "")
+                                  : ""))
+              ]))
+            ],
+          );
+        });
   }
 }
 
@@ -84,7 +116,15 @@ class LeftSettingSide extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = DeviceInfoManagement.getLanguage() == 'zh' ? 55 : 80;
     //页面来自MinePage
-    return Container(width: width, decoration: BoxDecoration(border:  ThemeManager.getInstance().isDark() ? Border(right:BorderSide(color: ThemeManager.getInstance().getLineColor())) : null), child: MinePage());
+    return Container(
+        width: width,
+        decoration: BoxDecoration(
+            border: ThemeManager.getInstance().isDark()
+                ? Border(
+                    right: BorderSide(
+                        color: ThemeManager.getInstance().getLineColor()))
+                : null),
+        child: MinePage());
   }
 }
 
@@ -93,25 +133,37 @@ class LeftSideFolderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: 350,
-        child: Container(
-            decoration: ThemeManager.getInstance().isDark() ? BoxDecoration(
-              color: sidebarColor,
-                border: Border(
-                    right: BorderSide(color: ThemeManager.getInstance().getLineColor(), width: 1))) : null,
-            child: Column(
-              children: [
-                Expanded(
-                    child: Container(
-                        child: FoldersPage(
-                          onTapListener: (Map<dynamic, dynamic> obj) {},
-                        ),
-                        color: Colors.white)),
-                // WindowTitleBarBox(child: MoveWindow()),
-                // Expanded(child: Container())
-              ],
-            )));
+    return Selector<Env, bool>(
+        selector: (_, env) => env.isFolderPageVisible,
+        builder: (_, isFolderPageVisible, __) {
+          if (!isFolderPageVisible) {
+            return SizedBox();
+          }
+          return SizedBox(
+              width: 350,
+              child: Container(
+                  decoration: ThemeManager.getInstance().isDark()
+                      ? BoxDecoration(
+                          color: sidebarColor,
+                          border: Border(
+                              right: BorderSide(
+                                  color:
+                                      ThemeManager.getInstance().getLineColor(),
+                                  width: 1)))
+                      : null,
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: Container(
+                              child: FoldersPage(
+                                onTapListener: (Map<dynamic, dynamic> obj) {},
+                              ),
+                              color: Colors.white)),
+                      // WindowTitleBarBox(child: MoveWindow()),
+                      // Expanded(child: Container())
+                    ],
+                  )));
+        });
   }
 }
 
@@ -146,12 +198,22 @@ class MainContainerSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Env env = context.watch<Env>();
-    return desktopCenterRouter(
-        env.routerMainContainerData != null
-            ? (env.routerMainContainerData?['page'])
-            : page,
-        env.routerMainContainerData ?? {});
+    // Env env = context.watch<Env>();
+    return Selector<Env, Map?>(
+        selector: (_, env) => env.routerMainContainerData,
+        builder: (_, routerMainContainerData, __) {
+          // return Selector<Env, int>(
+          //     selector: (_, env) => env.isFolderPageVisible,
+          //     builder: (_, isFolderPageVisible, __) {
+          //       print(
+          //           "MainContainerSide isFolderPageVisible $isFolderPageVisible");
+          return desktopCenterRouter(
+              routerMainContainerData != null
+                  ? (routerMainContainerData?['page'])
+                  : page,
+              routerMainContainerData ?? {});
+          // });
+        });
   }
 }
 
@@ -172,10 +234,7 @@ class FolderPageMainContainer extends StatelessWidget {
           return desktopCenterRouter(
               routerData != null ? (routerData?['page'] ?? "") : (page ?? ""),
               routerData ?? {});
-        }
-    );
-
-
+        });
   }
 }
 
@@ -197,8 +256,6 @@ class RightSide extends StatelessWidget {
                   ? (routerRightSideData?['page'] ?? "")
                   : "",
               routerRightSideData ?? {});
-        }
-    );
+        });
   }
-
 }

@@ -101,31 +101,37 @@ class PCLeftMenuBarWidgetState extends State<PCLeftMenuBarWidget> {
   }
 
   Widget getItem(Widget icon, Widget iconChecked, String text, String scene, SettingModel settingModel) {
-    Env? env = context?.watch<Env>();
-    String scenePage = env?.routerMainContainerData != null
-        ? (env?.routerMainContainerData?['page'] ?? null)
-        : CONSTANTS.getLeftDesktopMenubar(settingModel: settingModel)[0]["sceneCode"];
+    // Env? env = context?.watch<Env>();
 
-    return InkWell(
-        onTap: () {
-          if (this.widget.onTapListener != null) {
-            this.widget.onTapListener(scene);
-          }
-        },
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          direction: Axis.vertical,
-          children: [
-            scenePage == scene ? iconChecked : icon, //不同长江展示不同icon
-            SizedBox(height: 3),
-            Text(
-              text,
-              maxLines: 1, // 限制行数，例如限制为1行。
-              overflow: TextOverflow.ellipsis, // 当文本超出限定长度时，显示省略号。
-              style: TextStyle(color: Colors.white, fontSize: 14),
-            )
-          ],
-        ));
+    return Selector<Env, Map?>(
+        selector: (_, env) => env.routerMainContainerData,
+        builder: (_, routerMainContainerData, __) {
+          String scenePage = (routerMainContainerData != null
+              ? (routerMainContainerData?['page'] ?? null)
+              : CONSTANTS.getLeftDesktopMenubar(settingModel: settingModel)[0]["sceneCode"]) ?? "TomatoPage";
+          return InkWell(
+              onTap: () {
+                if (this.widget.onTapListener != null) {
+                  this.widget.onTapListener(scene);
+                }
+              },
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                direction: Axis.vertical,
+                children: [
+                  scenePage == scene ? iconChecked : icon, //不同长江展示不同icon
+                  SizedBox(height: 3),
+                  Text(
+                    text,
+                    maxLines: 1, // 限制行数，例如限制为1行。
+                    overflow: TextOverflow.ellipsis, // 当文本超出限定长度时，显示省略号。
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  )
+                ],
+              ));
+        });
+
+
   }
 
   Widget getDivider() {

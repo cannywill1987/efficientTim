@@ -23,21 +23,34 @@ class TimeManagementContainer extends StatefulWidget {
 }
 
 class _TimeManagementContainerState extends State<TimeManagementContainer> {
-
+  bool isLeftBarVisible = true;
   GlobalKey<TimeManagementPageState> TimeManagementPageStateGlobalKey = GlobalKey();
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // print("MyPage: didChangeDependencies - Page dependencies changed or opened again");
+    // 每次页面打开或依赖发生变化时执行的操作
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
+        if(isLeftBarVisible)
         Container(
           width: 300,
           child: CalendarMissionListWidget(onDateRangeSelected:(DateTime? startDateTime, DateTime? endDateTime) {
             TimeManagementPageStateGlobalKey.currentState?.selectDate(startDateTime ?? DateTime.now());
           }),
         ),
-        Expanded(child: TimeManagementPage(key: TimeManagementPageStateGlobalKey)),
+        Expanded(child: TimeManagementPage(key: TimeManagementPageStateGlobalKey, onKeyBackquoteListener: () {
+          setState(() {
+            isLeftBarVisible = !isLeftBarVisible;
+          });
+        },)),
       ],
     );
     // return Selector<CalendarMssionEnv, MissionModel?>(

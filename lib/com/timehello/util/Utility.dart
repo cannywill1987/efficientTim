@@ -1599,6 +1599,12 @@ class Utility {
     }
   }
 
+  static toggleCurDesktopFolderPageVisibility(BuildContext context) {
+    // bool isVisible = !context.read<Env>().isFolderPageVisible;
+    context.read<Env>().isFolderPageVisible = !context.read<Env>().isFolderPageVisible;
+    // context.read<Env>().routerMainContainerData = {isFolderPageVisible: };
+  }
+
   static pushCurFolderModel(BuildContext context,
       {required FolderModel folderModel, required int folderStatus}) {
     context.read<Env>().curFolderSelected = folderModel;

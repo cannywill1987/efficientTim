@@ -32,7 +32,16 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
 
   int _curFolderStatus = 0; //0:正常 1:编辑 2:移动
 
+  bool _isFolderPageVisible = true; //文件夹页面是否可见
+
   UserInfoModel? get userInfoModel => _userInfoModel ?? null;
+
+  bool get isFolderPageVisible => _isFolderPageVisible;
+
+  set isFolderPageVisible(bool value) {
+    _isFolderPageVisible = value;
+    notifyListeners();
+  }
 
   set userInfoModel(UserInfoModel? value) {
     _userInfoModel = value;

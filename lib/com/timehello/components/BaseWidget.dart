@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
@@ -10,6 +11,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../config/Params.dart';
 import '../models/EventFn.dart';
 import '../util/EventCollection.dart';
+import '../util/KeyboardListenerManager.dart';
 import '../util/PrivacyProtocolManager.dart';
 import '../util/ScreenUtil.dart';
 import 'ResponsiveLayout.dart';
@@ -61,6 +63,7 @@ abstract class BaseWidgetState<T extends BaseWidget> extends State<T>
   @override
   void initState() {
     super.initState();
+
     onCreate();
     AnalyticsEventsManager.getInstance()
         .sendAnalyticsEvent(name: "initState_${curPage}");
@@ -194,6 +197,7 @@ abstract class BaseWidgetState<T extends BaseWidget> extends State<T>
   void didUpdateWidget(T oldWidget) {
     print(tag + "didUpdateWidget\n");
     super.didUpdateWidget(oldWidget);
+    // Keyboardlistenermanager.getInstance()?.addListener(handleKeyEvent);
   }
 
   @override
@@ -216,6 +220,7 @@ abstract class BaseWidgetState<T extends BaseWidget> extends State<T>
   void dispose() {
     print(tag + "dispose\n");
     onDes();
+    // Keyboardlistenermanager.getInstance()?.removeListener(handleKeyEvent);
     if (keyboardSubscription != null) {
       keyboardSubscription?.cancel();
       keyboardSubscription = null;

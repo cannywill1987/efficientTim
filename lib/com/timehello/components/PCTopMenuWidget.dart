@@ -90,7 +90,9 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             Spacer(),
             if(!Utility.isProductEnv())
               InkWell(onTap: () {
-                Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
+                Utility.toggleCurDesktopFolderPageVisibility(context);
+
+                // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
                 // final provider = Provider.of<LocaleProvider>(context);
                 // provider.setLocale(    const Locale('fr'));
 
