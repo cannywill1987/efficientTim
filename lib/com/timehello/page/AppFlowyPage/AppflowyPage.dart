@@ -62,9 +62,8 @@ class AppflowyPage extends BaseWidget {
   final bool isDebug;
   final Function? onSaveCallback;
   final Function? onUploadCallback;
-  final FocusNode? focusNode;
   // final FocusNode? focusNode;
-  const AppflowyPage({super.key, this.focusNode, this.isDebug = false, this.onUploadCallback, this.onSaveCallback, this.fileName = 'example1111123'});
+  const AppflowyPage({super.key, this.isDebug = false, this.onUploadCallback, this.onSaveCallback, this.fileName = 'example1111123'});
 
   // @override
   // State<HomePage> createState() => _HomePageState();
@@ -360,7 +359,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
       () {
         _widgetBuilder = (context) => Editor(
               jsonString: _jsonString,
-            focusNode: this.widget.focusNode,
+            focusNode: this.focusNode,
             onAttachmentUploadCallback: (path) async {
               try {
                 // final appDocDir = await getApplicationDocumentsDirectory();

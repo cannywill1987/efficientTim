@@ -22,7 +22,6 @@ class MobileEditor extends StatefulWidget {
 
 class _MobileEditorState extends State<MobileEditor> {
   EditorState get editorState => widget.editorState;
-  FocusNode focusNode = FocusNode();
   late final EditorScrollController editorScrollController;
 
   late EditorStyle editorStyle;
@@ -94,7 +93,7 @@ class _MobileEditorState extends State<MobileEditor> {
               child: AppFlowyEditor(
                 editorStyle: editorStyle,
                 autoFocus: true,
-                focusNode: focusNode,
+                focusNode: this.widget.focusNode,
                 editorState: editorState,
                 editorScrollController: editorScrollController,
                 blockComponentBuilders: blockComponentBuilders,

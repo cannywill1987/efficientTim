@@ -168,73 +168,6 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
           }
         },
       ),
-      // TitleContainerWidget(
-      //     title: this.widget.title ,
-      //     rightPartContainer: Wrap(
-      //       crossAxisAlignment: WrapCrossAlignment.center,
-      //       children: [
-      //         getBlackChecnButtonListWidget(),
-      //         SizedBox(
-      //           width: 10,
-      //         ),
-      //         InkWell(
-      //           onTap: () async {
-      //             //保存走这里
-      //             if (saveModeEnum == SaveModeEnum.normal) {
-      //               saveModeEnum = SaveModeEnum.update;
-      //               jumpToTabIndexForEditMode(0);
-      //             } else if (saveModeEnum == SaveModeEnum.update) {
-      //               await globalSave();
-      //               if (this.widget.saveModeEnum == SaveModeEnum.normal) {
-      //                 await MongoApisManager.getInstance()
-      //                     .update_MissionModel(
-      //                         missionModel: this.widget.missionModel);
-      //               }
-      //             }
-      //             // blackButtonListForReading = this.getWQBEditTypeModelList();
-      //             jumpToTabIndexForNormal(0);
-      //             updateUi();
-      //             // this.widget.onTapEdit.call();
-      //           },
-      //           child: saveModeEnum == SaveModeEnum.save
-      //               ? SizedBox.shrink()
-      //               : Text(
-      //                   saveModeEnum == SaveModeEnum.normal
-      //                       ? getI18NKey().edit
-      //                       : getI18NKey().save,
-      //                   style: TextStyle(color: Colors.red, fontSize: 12),
-      //                 ),
-      //         ),
-      //         SizedBox(
-      //           width: 10,
-      //         ),
-      //         InkWell(
-      //           onTap: () => {
-      //           if(mounted) {
-      //             setState(() {
-      //               this.missionModel = MissionModel.fromJson(
-      //                   this.widget.missionModel.toJson());
-      //               if (saveModeEnum == SaveModeEnum.normal) {
-      //                 saveModeEnum = SaveModeEnum.update;
-      //               } else if (saveModeEnum == SaveModeEnum.update) {
-      //                 // blackButtonListForReading =
-      //                 //     this.getWQBEditTypeModelList();
-      //                 jumpToTabIndexForNormal(0);
-      //                 saveModeEnum = SaveModeEnum.normal;
-      //               }
-      //             })
-      //           }
-      //           },
-      //           child: (saveModeEnum == SaveModeEnum.normal ||
-      //                   saveModeEnum == SaveModeEnum.save)
-      //               ? SizedBox.shrink()
-      //               : Text(
-      //                   getI18NKey().cancel,
-      //                   style: TextStyle(color: Colors.grey, fontSize: 12),
-      //                 ),
-      //         )
-      //       ],
-      //     )),
       Container(
           width: double.infinity,
           height: 1,
@@ -335,6 +268,8 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
   }
 
   void jumpToTabIndexForNormal(index) {
+    unfocus()?.currentState?.unfocus();
+
     if (blackButtonListForReading.length > 0) {
       CheckButtonStateModel checkButtonStateModel =
           blackButtonListForReading[index];
