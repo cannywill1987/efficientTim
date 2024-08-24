@@ -312,7 +312,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                 folderModelWithExtraData.folderModel.tag == 2),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.15,
+          extentRatio: 0.85,
           children: getSlideActions(folderModelWithExtraData),
         ),
         child: getInnerItemWithoutContainer(folderModelWithExtraData, children),
@@ -368,7 +368,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                 this.widget.onTapArchiveListener?.call(_folderModelWithExtraData); // 侧边栏编辑
               }
             },
-            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.orange,
             icon: Icons.archive,  // 添加一个图标
             label: getI18NKey().archive,
             // iconWidget: Utility.getSVGPicture(R.assetsImgIcArchive, size: 20),  // 如果需要自定义图标，可以在此处设置

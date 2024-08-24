@@ -286,7 +286,6 @@ class TimeManagementPageState extends State<TimeManagementPage> {
 
   deactivate() {
     super.deactivate();
-    Keyboardlistenermanager.getInstance()?.removeListener(_handleKeyEvent);
   }
 
   bool _handleKeyEvent(KeyEvent event) {
