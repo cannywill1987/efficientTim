@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/GlobalStateEnv.dart';
 import 'package:time_hello/com/timehello/common/provider/MissionDetailEnv.dart';
@@ -37,6 +38,7 @@ import '../../models/EventFn.dart';
 import '../../models/MusicModel.dart';
 import '../../util/AudioPlayUtil.dart';
 import '../../util/DeviceInfoManagement.dart';
+import '../../util/KeyboardListenerManager.dart';
 import '../../util/SharePreferenceUtil.dart';
 import '../../util/ThemeManager.dart';
 import '../SettingPage/SettingPage.dart';
@@ -387,9 +389,45 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
     OverlayManagement.getInstance()?.removeMissionDetailPageOverlay();
   }
 
+  // ctrl+b&cmd+b begin, 开始专注
+  // ctrl+s&cmd+s stop,停止拴住
+  // ctrl+p&cmd+p pause,暂停专属拴住
+  // ctrl+r&cmd+r resume,继续专注
+  // ctrl+f&cmd+f finish,完成专注
+  // 空格 下一个状态
+  bool handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      final key = event.logicalKey;
+      if ((
+          (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyB)) { // ctrl+b&cmd+b begin, 开始专注 ok
+        CounterManagement.getInstance().startFocusing();
+      } else if (
+      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyS) { // ctrl+s&cmd+s stop,停止拴住 ok
+        CounterManagement.getInstance().stopFromFocusingStatus();
+      } else if (
+      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyP) {  // ctrl+p&cmd+p pause,暂停专属拴住 ok
+        // CounterManagement.getInstance().pauseTimer();
+        CounterManagement.getInstance().nextStatus(true);
+      } else if (
+      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyR) { // ctrl+r&cmd+r resume,继续专注 ok
+        CounterManagement.getInstance().nextStatus(false);
+      } else if (key == LogicalKeyboardKey.space) { // 空格 下一个状态 ok
+        CounterManagement.getInstance().nextStatus(true);
+      }
+      // else if (
+      // (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyF) { // ctrl+f&cmd+f finish,完成专注
+      //   this.onClickFinishItem(this.missionModel);
+      // }
+
+
+    }
+    return false;
+  }
+
   @override
   void initState() {
     super.initState();
+    Keyboardlistenermanager.getInstance()?.addListener(handleKeyEvent);
     // this.drawerDirection = DrawerDirection.down;
     this.shouldShowSafeArea = false;
     this.isAppBarVisible = false;
@@ -408,6 +446,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   @override
   void dispose() {
     super.dispose();
+    Keyboardlistenermanager.getInstance()?.removeListener(handleKeyEvent);
     if (DeviceInfoManagement.isMoible()) {
       DeviceInfoManagement.getInstance()?.setLandScape(false);
     }

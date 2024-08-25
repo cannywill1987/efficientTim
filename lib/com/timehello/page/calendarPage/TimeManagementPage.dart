@@ -333,7 +333,8 @@ class TimeManagementPageState extends State<TimeManagementPage> {
       // if ((event.isControlPressed && key == LogicalKeyboardKey.keyW) || (event.isMetaPressed && key == LogicalKeyboardKey.keyW)) {
       //   _calendarController.view = CalendarView.timelineWeek;
       //   print("CMD/CTRL + W pressed");
-      // } else if ((event.isControlPressed && key == LogicalKeyboardKey.keyM) || (event.isMetaPressed && key == LogicalKeyboardKey.keyM)) {
+      // }
+      // else if ((event.isControlPressed && key == LogicalKeyboardKey.keyM) || (event.isMetaPressed && key == LogicalKeyboardKey.keyM)) {
       //   _calendarController.view = CalendarView.timelineMonth;
       //   print("CMD/CTRL + M pressed");
       // } else if (key == LogicalKeyboardKey.keyW) {
@@ -395,7 +396,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
       //   print("CMD/CTRL + Space pressed");
       // }
     }
-    return true;
+    return false;
   }
 
   @override

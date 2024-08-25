@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:time_hello/com/timehello/components/CustomCloseButton.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
@@ -8,6 +9,8 @@ import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnChangeListener.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
+import 'package:time_hello/com/timehello/util/CounterManagement.dart';
+import 'package:time_hello/com/timehello/util/KeyboardListenerManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -190,6 +193,7 @@ class BottomBarState extends State<BottomBar> {
 
   @override
   void initState() {
+    Keyboardlistenermanager.getInstance()?.addListener(handleKeyEvent);
     this.end_time = CONSTANTS.getDeadLineTme(this.widget.dateStatus + 1);
     eventBus.on<EventFn>().listen((EventFn event) {
       //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
@@ -201,8 +205,39 @@ class BottomBarState extends State<BottomBar> {
     });
   } // 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单
 
+  bool handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      final key = event.logicalKey;
+      if ((
+          (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyB)) { // ctrl+b&cmd+b begin, 开始专注 ok
+        CounterManagement.getInstance().startFocusing();
+      } else if (
+      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyS) { // ctrl+s&cmd+s stop,停止拴住 ok
+        CounterManagement.getInstance().stopFromFocusingStatus();
+      } else if (
+      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyP) {  // ctrl+p&cmd+p pause,暂停专属拴住 ok
+        // CounterManagement.getInstance().pauseTimer();
+        CounterManagement.getInstance().nextStatus(true);
+      } else if (
+      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyR) { // ctrl+r&cmd+r resume,继续专注 ok
+        CounterManagement.getInstance().nextStatus(false);
+      } else if (key == LogicalKeyboardKey.space) { // 空格 下一个状态 ok
+        CounterManagement.getInstance().nextStatus(true);
+      }
+      // else if (
+      // (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyF) { // ctrl+f&cmd+f finish,完成专注
+      //   this.onClickFinishItem(this.missionModel);
+      // }
+
+
+    }
+    return false;
+  }
+
+
   @override
   void dispose() {
+    Keyboardlistenermanager.getInstance()?.addListener(handleKeyEvent);
     _pageController?.dispose();
     super.dispose();
   }

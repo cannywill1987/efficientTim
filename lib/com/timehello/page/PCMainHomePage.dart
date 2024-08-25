@@ -57,7 +57,7 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
         Utility.toggleCurDesktopFolderPageVisibility(context);
       }
     }
-    return true;
+    return false;
   }
 
   @override
