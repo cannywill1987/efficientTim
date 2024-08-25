@@ -3,7 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
+import '../../../../../util/Utility.dart';
 import '../appointment_engine/appointment_helper.dart';
 import '../common/calendar_view_helper.dart';
 import '../common/date_time_engine.dart';
@@ -12,6 +14,7 @@ import '../settings/month_view_settings.dart';
 import '../settings/week_number_style.dart';
 import '../sfcalendar.dart';
 
+//lzb 月视图整个widget
 /// Used to hold the month cell views on calendar month view.
 class MonthViewWidget extends StatefulWidget {
   /// Constructor to create the month view widget to holds month cells for
@@ -1033,7 +1036,6 @@ class _MonthViewRenderObject extends CustomCalendarRenderObject {
       if (rowCount <= 4) {
         textStyle = currentMonthTextStyle;
       }
-
       if (isSameDate(currentVisibleDate, today)) {
         _linePainter.color = todayBackgroundColor;
         textStyle = todayStyle;
@@ -1053,14 +1055,29 @@ class _MonthViewRenderObject extends CustomCalendarRenderObject {
               textStyle.copyWith(decoration: TextDecoration.lineThrough);
         }
       }
+if(Utility.isChina()) {
+  final TextSpan span = TextSpan(
+    text: currentVisibleDate.day.toString(),
+    style: textStyle,
+  );
 
-      final TextSpan span = TextSpan(
-        text: currentVisibleDate.day.toString(),
-        style: textStyle,
-      );
+  final TextSpan dateTextSpan2 = TextSpan(
+    text: " "+Utility.getLunarCalendar(year: currentVisibleDate.year,
+        month: currentVisibleDate.month,
+        day: currentVisibleDate.day),
+    style: TextStyle(color: isCurrentDate ? textStyle.color : (ThemeManager.getInstance().isDark() ? Colors.white : Color(0xffa0a0a0)),
+        fontSize: (textStyle.fontSize ?? 12) - 6),
+  );
 
-      _textPainter.text = span;
+  _textPainter.text = TextSpan(children: [span, dateTextSpan2]);
+} else {
+  final TextSpan span = TextSpan(
+    text: currentVisibleDate.day.toString(),
+    style: textStyle,
+  );
+  _textPainter.text = span;
 
+}
       _textPainter.layout(maxWidth: cellWidth);
 
       //// In web when the mouse hovering the cell, the painter style set as stroke,
@@ -1088,7 +1105,7 @@ class _MonthViewRenderObject extends CustomCalendarRenderObject {
         canvas.drawCircle(
             Offset(xPosition + cellWidth / 2,
                 yPosition + circlePadding + textHeight),
-            textHeight + viewPadding,
+            textHeight + viewPadding + 6,
             _linePainter);
       }
 

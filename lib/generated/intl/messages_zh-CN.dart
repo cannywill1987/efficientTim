@@ -348,12 +348,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI创建"),
         "ai_helper": MessageLookupByLibrary.simpleMessage("AI助手"),
-        "ai_placeholder": MessageLookupByLibrary.simpleMessage("AI帮我写什么"),
+        "ai_placeholder": MessageLookupByLibrary.simpleMessage("帮我写什么"),
         "ai_scenario": MessageLookupByLibrary.simpleMessage("AI写作场景"),
         "ai_scenario_prompt":
             MessageLookupByLibrary.simpleMessage("请选择一个写作场景。"),
         "ai_title": MessageLookupByLibrary.simpleMessage("时间管理局AI"),
-        "ai_write_for_me": MessageLookupByLibrary.simpleMessage("AI 帮我写"),
+        "ai_write_for_me": MessageLookupByLibrary.simpleMessage("帮我写"),
         "ai_write_for_me_prompt":
             MessageLookupByLibrary.simpleMessage("请告诉我AI可以帮我写些什么。"),
         "ai_write_what": MessageLookupByLibrary.simpleMessage("AI帮我写什么"),

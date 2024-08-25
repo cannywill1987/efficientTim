@@ -1,5 +1,4 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/SearchBarWidget.dart';
@@ -14,6 +13,8 @@ import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
 import 'package:time_hello/com/timehello/components/SearchBarWithIconWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/libs/calendar_date_picker3/src/models/calendar_date_picker2_config.dart';
+import 'package:time_hello/com/timehello/libs/calendar_date_picker3/src/widgets/calendar_date_picker2.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
@@ -985,15 +986,16 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
                                                   updateUI();
                                                 })
                                                 : SizedBox.shrink(),
-                                            CalendarDatePicker2(
-                                              config: CalendarDatePicker2Config(
+                                            CalendarDatePicker3(
+                                              config: CalendarDatePicker3Config(
+                                                  // weekdayLabels: ["111", "222", "111", "222", "111", "222", "111", "222"],
                                                 selectedDayHighlightColor:
                                                 ThemeManager.getInstance()
                                                     .getDefautThemeColor(),
                                                 todayTextStyle: TextStyle(
                                                     color: ThemeManager.getInstance()
                                                         .getDefautThemeColor()),
-                                                calendarType: CalendarDatePicker2Type.range,
+                                                calendarType: CalendarDatePicker3Type.range,
                                               ), value: this.startDateTime == null ? [] : (this.startDateTime != null && this.endDateTime != null && this.startDateTime?.year == this.endDateTime?.year && this.startDateTime?.month == endDateTime?.month && this.startDateTime?.day == this.endDateTime?.day) ? [this.startDateTime] : [this.startDateTime, this.endDateTime],
                                               // value: _dates,
                                               onValueChanged: (dates) {

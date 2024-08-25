@@ -295,14 +295,46 @@ class Item extends StatelessWidget {
                           : ThemeManager.getInstance()
                               .getTextColor(defaultColor: Color(0xff5a5c64))),
                 ),
-                Text('$day',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: dayModel.isCurrent
-                            ? Colors.blue
-                            : ThemeManager.getInstance()
-                                .getTextColor(defaultColor: Color(0xff5a5c64)),
-                        fontWeight: FontWeight.bold)),
+                Utility.isChina()
+                    ?RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '$day',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: dayModel.isCurrent
+                              ? Colors.blue
+                              : ThemeManager.getInstance().getTextColor(
+                            defaultColor: Color(0xff5a5c64),
+                          ),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: dayModel.lunarDay ?? "",
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: dayModel.isCurrent
+                              ? Colors.blue
+                              : ThemeManager.getInstance().getTextColor(
+                            defaultColor: Color(0xff5a5c64),
+                          ),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,  // 可选: 如果你需要将文本居中对齐
+                )
+                    : Text('$day',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: dayModel.isCurrent
+                                ? Colors.blue
+                                : ThemeManager.getInstance().getTextColor(
+                                    defaultColor: Color(0xff5a5c64)),
+                            fontWeight: FontWeight.bold)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -602,7 +634,6 @@ class ItemIndividualState extends State<ItemIndividualWidget> {
                                                 crossAxisAlignment:
                                                     WrapCrossAlignment.center,
                                                 children: [
-
                                                   if ((this
                                                               .widget
                                                               .missionModel

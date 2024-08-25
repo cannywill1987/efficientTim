@@ -12,6 +12,7 @@ import 'package:syncfusion_flutter_core/core_internal.dart';
 import 'package:syncfusion_flutter_core/localizations.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../../../../../util/Utility.dart';
 import '../../../calendar.dart';
 import '../appointment_engine/appointment_helper.dart';
 import '../appointment_engine/recurrence_helper.dart';
@@ -8361,6 +8362,7 @@ class _CalendarViewState extends State<_CalendarView>
                 _updateCalendarStateDetails.currentViewVisibleDates
             ? _updateCalendarStateDetails.visibleAppointments
             : null;
+    //月视图整个widget
     _monthView = MonthViewWidget(
         widget.visibleDates,
         widget.calendar.monthViewSettings.numberOfWeeksInView,
@@ -11485,7 +11487,7 @@ class _ViewHeaderViewPainter extends CustomPainter {
         dayTextStyle = viewHeaderDayStyle;
       }
 
-      _updateDayTextPainter(dayTextStyle, width, dayText);
+      _updateDayTextPainter(dayTextStyle, width, dayText, currentDate);
 
       if (yPosition == 0) {
         yPosition = (viewHeaderHeight - _dayTextPainter.height) / 2;
@@ -11610,7 +11612,7 @@ class _ViewHeaderViewPainter extends CustomPainter {
                     : Colors.white38);
       }
 
-      _updateDayTextPainter(dayTextStyle, width, dayText);
+      _updateDayTextPainter(dayTextStyle, width, dayText, currentDate);
 
       final TextSpan dateTextSpan = TextSpan(
         text: dateText,
@@ -11713,7 +11715,7 @@ class _ViewHeaderViewPainter extends CustomPainter {
             canvas, Offset(weekNumberPosition, weekNumberYPosition));
         final double xPosition = isRTL ? (size.width - timeLabelWidth) : 0;
         _updateDayTextPainter(
-            weekNumberTextStyle, timeLabelWidth, localizations.weeknumberLabel);
+            weekNumberTextStyle, timeLabelWidth, localizations.weeknumberLabel, currentDate);
         _dayTextPainter.paint(
             canvas,
             Offset(xPosition + (timeLabelWidth / 2 - _dayTextPainter.width / 2),
@@ -11811,14 +11813,34 @@ class _ViewHeaderViewPainter extends CustomPainter {
     return dayText;
   }
 
+  // 头部时间
   void _updateDayTextPainter(
-      TextStyle dayTextStyle, double width, String dayText) {
-    final TextSpan dayTextSpan = TextSpan(
-      text: dayText,
-      style: dayTextStyle,
-    );
+      TextStyle dayTextStyle, double width, String dayText, DateTime currentDate) {
+    // final TextSpan dayTextSpan = TextSpan(
+    //   text: dayText,
+    //   style: dayTextStyle,
+    // );
 
-    _dayTextPainter.text = dayTextSpan;
+    if(Utility.isChina() && (view == CalendarView.week || view == CalendarView.day)) {
+      final TextSpan dayTextSpan = TextSpan(
+        text: dayText,
+        style: dayTextStyle,
+      );
+      final TextSpan dateTextSpan2 = TextSpan(
+        text: " " + Utility.getLunarCalendar(year: currentDate.year,
+            month: currentDate.month,
+            day: currentDate.day),
+        style: TextStyle(color: dayTextStyle.color!.withOpacity(0.88),
+            fontSize: (dayTextStyle.fontSize ?? 12) - 4),
+      );
+
+      _dayTextPainter.text = TextSpan(children: [dayTextSpan, dateTextSpan2]);
+    } else {
+      _dayTextPainter.text =TextSpan(
+        text: dayText,
+        style: dayTextStyle,
+      );
+    }
     _dayTextPainter.textDirection = TextDirection.ltr;
     _dayTextPainter.textAlign = TextAlign.left;
     _dayTextPainter.textWidthBasis = TextWidthBasis.longestLine;
@@ -12494,6 +12516,7 @@ class _TimeRulerView extends CustomPainter {
       final String time = CalendarViewHelper.getLocalizedString(
           date, timeFormatStrings, locale);
 
+      //lzb week的时间
       final TextSpan span = TextSpan(
         text: time,
         style: timeTextStyle,

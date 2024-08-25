@@ -55,9 +55,9 @@
   "food_reviews": "美食点评",
   "food_reviews_prompt": "请帮我写一篇美食点评，餐馆是...",
   "food_reviews_placeholder": "请输入美食点评的餐馆和菜品...",
-  "ai_write_for_me": "AI 帮我写",
+  "ai_write_for_me": "帮我写",
   "ai_write_for_me_prompt": "请告诉我AI可以帮我写些什么。",
-  "ai_placeholder": "AI帮我写什么",
+  "ai_placeholder": "帮我写什么",
 
   "brainstorm": "头脑风暴",
   "brainstorm_prompt": "请帮我进行头脑风暴，主题是...",

@@ -77,7 +77,13 @@ class ChatGptManager {
         }
       }
     });
-    Utility.openPagePCAndMobile(context, child: CreateAIMissionContainerWidget(list: list,));
+    if(Utility.isHandsetBySize()) {
+      Utility.openPagePCAndMobile(
+          context, child: CreateAIChatGptMissionWidget(listMissionModel: list ?? [],));
+    } else {
+      Utility.openPagePCAndMobile(
+          context, child: CreateAIMissionContainerWidget(list: list,));
+    }
     // DialogManagement.getInstance()
     //     .showCustomDialogWithSmallButtons(context,
     //   okTitle: getI18NKey().i_know,

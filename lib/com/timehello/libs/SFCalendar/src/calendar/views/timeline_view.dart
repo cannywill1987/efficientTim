@@ -6,6 +6,8 @@ import 'package:intl/intl.dart' show DateFormat;
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../../../../../util/ThemeManager.dart';
+import '../../../../../util/Utility.dart';
 import '../appointment_engine/appointment_helper.dart';
 import '../common/calendar_view_helper.dart';
 import '../common/date_time_engine.dart';
@@ -1313,9 +1315,37 @@ class TimelineViewHeaderView extends CustomPainter {
                     : Colors.white38);
       }
 
-      final TextSpan dayTextSpan = TextSpan(text: dayText, style: dayTextStyle);
+      if (Utility.isChina()) {
+        final TextSpan span = TextSpan(
+          text: dayText,
+          style: dayTextStyle,
+        );
 
-      _dayTextPainter.text = dayTextSpan;
+        final TextSpan dateTextSpan2 = TextSpan(
+          text: " " +
+              Utility.getLunarCalendar(
+                  year: currentDate.year,
+                  month: currentDate.month,
+                  day: currentDate.day),
+          style: TextStyle(
+              color: ThemeManager.getInstance().isDark()
+                  ? Colors.white
+                  : Color(0xffa0a0a0),
+              fontSize: (dayTextStyle.fontSize ?? 12) - 6),
+        );
+        _dayTextPainter.text = TextSpan(children: [span, dateTextSpan2]);
+
+        // _textPainter.text = TextSpan(children: [span, dateTextSpan2]);
+      } else {
+        final TextSpan span = TextSpan(
+          text: dayText,
+          style: dayTextStyle,
+        );
+        _dayTextPainter.text = span;
+      }
+
+      // final TextSpan dayTextSpan = TextSpan(text: dayText, style: dayTextStyle);
+
       _dayTextPainter.textDirection = TextDirection.ltr;
       _dayTextPainter.textAlign = TextAlign.left;
       _dayTextPainter.textWidthBasis = TextWidthBasis.longestLine;
