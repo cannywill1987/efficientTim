@@ -35,3 +35,22 @@ Ondersteunt de Vier Kwadranten Werkmethode
 =Volledige functie gratis, verfrissend zonder advertenties, snelle start, essentieel voor academische elites=
 Duizenden tomaat klok wallpapers, getimed push, Feynman leermethode, vier kwadranten, tijdlijn, stemnotities, stemdagboek, schrijfdagboek, notities maken, PC&Mobile synchronisatie alles is heel eenvoudig
 Werkmethode met vier kwadranten
+~~~~~~~~~~~~~~~~~~~~~~
+德语
+Die neue Version unterstützt jetzt Tastenkombinationen, KI-Zusammenfassungen, die Erstellung von Übersichten, Schreibunterstützung und behebt einige Benutzererlebnisprobleme.
+英语
+The new version now supports keyboard shortcuts, AI summaries, overview generation, writing assistance, and fixes some user experience issues.
+法语
+La nouvelle version prend désormais en charge les raccourcis clavier, les résumés par IA, la génération de synthèses, l'assistance à l'écriture et corrige certains problèmes d'expérience utilisateur.
+日语
+新しいバージョンでは、キーボードショートカット、AI要約、概要生成、執筆支援がサポートされ、いくつかのユーザーエクスペリエンスの問題が修正されました。
+韩语
+새 버전에서는 키보드 단축키, AI 요약, 개요 생성, 작성 지원이 가능하며 일부 사용자 경험 문제를 수정했습니다.
+中文繁体
+新版本現在支持快捷鍵，AI 摘要、概述生成、寫作輔助，並修復了一些用戶體驗問題。
+中文简体
+新版本现在支持快捷键， AI 摘要、概述生成、写作辅助，并修复了一些用户体验问题。
+荷兰语
+De nieuwe versie ondersteunt nu sneltoetsen, AI-samenvattingen, het genereren van overzichten, schrijfhulp en verhelpt enkele problemen met de gebruikerservaring.
+意大利语
+La nuova versione ora supporta le scorciatoie da tastiera, i riassunti AI, la generazione di panoramiche, l'assistenza alla scrittura e corregge alcuni problemi di esperienza utente.
