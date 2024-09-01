@@ -1,3 +1,4 @@
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +25,7 @@ import '../../../r.dart';
 import '../common/database/apis/MongoApisManager.dart';
 import '../components/BottomCounterWidget.dart';
 import '../components/CloseButton.dart';
+import '../components/CmdFContainerWidget.dart';
 import '../components/CustomMissionSilverWidget.dart';
 import '../components/EditTitleDialogUtil.dart';
 import '../components/MSNWidget.dart';
@@ -56,7 +58,7 @@ import 'WidgetManager.dart';
 class DialogManagement {
   static DialogManagement? mDialogManagement;
   bool hasRatingBarShow = false;
-
+  AlertDialog? cmdFContainerWidgetDialog = null;
   DialogManagement();
 
   static DialogManagement getInstance() {
@@ -405,6 +407,66 @@ class DialogManagement {
       },
     );
   }
+
+
+  void showAISearchBarMenuWithoutText({
+    required BuildContext context,
+    // bool isHighlight,
+    Function? onSubmit,
+    Function? onContinue,
+    Function? onCopy,
+  }) {
+
+
+    // void dismissOverlay() {
+    //   // keepEditorFocusNotifier.decrease();
+    //   if(cmdFContainerWidgetDialog != null) {
+    //     Navigator.of(context).pop();
+    //     cmdFContainerWidgetDialog = null;
+    //   }
+    // }
+    // dismissOverlay();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return cmdFContainerWidgetDialog = AlertDialog(
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                      width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
+                      // height: 600,
+                      decoration: BoxDecoration(
+                          color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                      child: CmdFContainerWidget())
+                ],
+              );
+            },
+          ),
+          actions: <Widget>[
+
+          ],
+        );
+      },
+    );
+
+    // keepEditorFocusNotifier.increase();
+    // overlay = FullScreenOverlayWidgetEntry(
+    //   top: height / 2 - 200,
+    //   // height: 0,
+    //   left: width / 2  - (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
+    //   // width: 0,
+    //   dismissCallback: () => keepEditorFocusNotifier.decrease(),
+    //   builder: (context) {
+    //
+    //   },
+    // ).build();
+    //
+    // Overlay.of(context, rootOverlay: true).insert(overlay!);
+  }
+
 
   void showMonthDialog(BuildContext context,
       {required String title,

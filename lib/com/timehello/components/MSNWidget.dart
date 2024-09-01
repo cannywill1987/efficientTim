@@ -13,6 +13,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
 
 import '../common/httpclient/HttpManager.dart';
+import '../config/StylesConfig.dart';
 import '../util/LoginManager.dart';
 import '../util/ThemeManager.dart';
 
@@ -130,20 +131,9 @@ class MSNWidgetState extends State<MSNWidget> {
                                 color: Color(0xff8b97a2),
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat'),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField),
-                                    width: 1),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField),
-                                    width: 1),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0)))),
+                          focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                          enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                          border: StylesConfig.buildOutlineInputBorder(),),
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Color(0xff8b97a2),
@@ -209,18 +199,9 @@ class MSNWidgetState extends State<MSNWidget> {
                               color: Color(0xff8b97a2),
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Montserrat'),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField), width: 1),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0))),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ThemeManager.getInstance().getInputBorderColor(defaultColor: ColorsConfig.colorTextField), width: 1),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0)))),
+                        focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                        enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                        border: StylesConfig.buildOutlineInputBorder(),),
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Color(0xff8b97a2),

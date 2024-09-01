@@ -1898,6 +1898,32 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getCmdFButtonList({int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    const double size = 14;
+    list.add(CheckButtonStateModel(
+        code: 'search',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcSearch, size: size),
+        uncheckIcon:
+        Utility.getSVGPicture(R.assetsImgIcSearch, size: size),
+        title: getI18NKey().search,
+        isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        code: 'create',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcMissionCreate, size: size + 4),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcMissionCreate, size: size + 4),
+        title: getI18NKey().create_mission,
+        isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        code: 'AI',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: size),
+        uncheckIcon:
+        Utility.getSVGPicture(R.assetsImgIcAiHelper, size: size),
+        title: getI18NKey().ai,
+        isCheck: defaultVal == 2));
+    return list;
+  }
+
   static List<CheckButtonStateModel> getViewsButtonList({int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     const double size = 14;

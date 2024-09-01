@@ -1,10 +1,12 @@
 
+import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/MissionDetailEnv.dart';
 import 'package:time_hello/com/timehello/components/BackNavigator.dart';
 import 'package:time_hello/com/timehello/components/EditTitleDialogUtil.dart';
+import 'package:time_hello/com/timehello/components/ai/ai_content_confirm.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
@@ -13,9 +15,12 @@ import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 
 import '../../../main.dart';
+import '../components/AISearchBar.dart';
 import '../components/BottomCounterWidget.dart';
 import '../components/CloseButton.dart';
+import '../components/CmdFContainerWidget.dart';
 import '../components/ConfirmDialogWidget.dart';
+import '../components/FullScreenOverlayWidgetEntry.dart';
 import '../components/NineLoterryWidget.dart';
 import '../components/SelectBgDialog.dart';
 import '../components/SelectMoneyPerHourOfMeDialogUtil.dart';
@@ -566,4 +571,131 @@ class OverlayManagement {
       this?.lotteryNineGridViewEntry = null;
     }
   }
+
+  void showAIConfirmMenu({
+    required BuildContext context,
+    // Function callback,
+    // required EditorState editorState,
+    // Selection? selection,
+    bool isHighlight = false,
+    String? text,
+    String? prompt,
+    Function? onSubmit,
+    Function? onContinue,
+    Function? onCopy,
+  }) {
+    // Since link format is only available for single line selection,
+    // the first rect(also the only rect) is used as the starting reference point for the [overlay] position
+    // final texts = editorState.getTextInSelection(selection);
+    // String text = texts.join('\n');
+    // get link address if the selection is already a link
+    String? linkText;
+    OverlayEntry? overlay;
+    // final (left, top, right, bottom) = _getPosition(editorState, linkText);
+    // if (selection != null) {
+    //   // if (isHighlight) {
+    //   //   linkText = editorState.getDeltaAttributeValueInSelection(
+    //   //     BuiltInAttributeKey.href,
+    //   //     selection,
+    //   //   );
+    //   // }
+    //
+    //   // get node, index and length for formatting text when the link is removed
+    //   final node = editorState.getNodeAtPath(selection!.end.path);
+    //   if (node == null) {
+    //     return;
+    //   }
+    //   // final index = selection.normalized.startIndex;
+    //   // final length = selection.length;
+    // }
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    void dismissOverlay() {
+      keepEditorFocusNotifier.decrease();
+      overlay?.remove();
+      overlay = null;
+    }
+
+    keepEditorFocusNotifier.increase();
+    overlay = FullScreenOverlayWidgetEntry(
+      top: height / 2 - 200,
+      // height: 0,
+      left: width / 2 - (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
+      // width: 0,
+      dismissCallback: () => keepEditorFocusNotifier.decrease(),
+      builder: (context) {
+        return Container(
+            width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
+            height: isHandsetBySize(context: context) ? 400 : 600,
+            child: AiContentConfirmWidget(
+              // shouldShowReplace: selection != null,
+              text: text ?? "",
+              onCopy: (text) {
+                print('复制');
+                onCopy?.call(text);
+                dismissOverlay();
+                // _controller.text = this.widget.text;
+              },
+              onReplace: (text) {
+                print('替换');
+                // editorState.replaceTextAtPosition(text, selection: selection!);
+              },
+              onInsert: (text) {
+                print('插入');
+                // editorState.insertTextAtLastCurrentSelection(
+                //   text,
+                //   // position: selection.end,
+                //   // forceInsert: true
+                // );
+                // setState({});
+              },
+              onContinue: (text) async {
+                print('继续写作');
+                String res = await onContinue?.call(
+                    i18nInstanceLocal.continue_writing_prompt +
+                        "-" +
+                        (prompt ?? ""),
+                    text);
+                text = res;
+                showAIConfirmMenu(
+                    context: context,
+                    // editorState: editorState,
+                    // selection: selection,
+                    isHighlight: isHighlight,
+                    text: res,
+                    prompt: null,
+                    onSubmit: onSubmit,
+                    onContinue: onContinue,
+                    onCopy: onCopy);
+                // showAIConfirmMenu(context, editorState, selection, isHighlight,
+                //     res, null, onSubmit, onContinue,onCopy);
+              },
+              onGiveUp: (text) {
+                print('放弃');
+                dismissOverlay();
+              },
+              onSubmit: (aiText) async {
+                String res = await onSubmit?.call(aiText, text);
+                dismissOverlay();
+                showAIConfirmMenu(
+                    context: context,
+                    // editorState: editorState,
+                    // selection: selection,
+                    isHighlight: isHighlight,
+                    text: res,
+                    prompt: null,
+                    onSubmit: onSubmit,
+                    onContinue: onContinue,
+                    onCopy: onCopy);
+                // showAIConfirmMenu(context, editorState, selection, isHighlight,
+                //     res, null, onSubmit, onContinue,onCopy);
+              },
+            ));
+      },
+    ).build();
+
+    Overlay.of(context, rootOverlay: true).insert(overlay!);
+  }
+
 }

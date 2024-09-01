@@ -11,6 +11,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../../config/StylesConfig.dart';
 import '../../../util/ThemeManager.dart';
 
 class PCAccountWidget extends StatefulWidget{
@@ -96,16 +97,9 @@ class PCAccountWidgetState<T> extends State<PCAccountWidget> {
                     },
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder( //未选中时候的颜色
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide(color: ThemeManager.getInstance().getInputBorderColor(defaultColor: Color(0xffe0e0e0)),),
-                        ),
-                        focusedBorder: OutlineInputBorder( //选中时外边框颜色
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide(color: ThemeManager.getInstance().getInputBorderColor(defaultColor: Color(0xffe0e0e0)),),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                        focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                        enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                        border: StylesConfig.buildOutlineInputBorder(),
                         contentPadding: EdgeInsets.only(left: 10)
                     ),
                   )))

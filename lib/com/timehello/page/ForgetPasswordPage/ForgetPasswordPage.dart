@@ -206,26 +206,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                                 color: Color(0xff8b97a2),
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat'),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ThemeManager.getInstance()
-                                        .getInputBorderColor(
-                                            defaultColor:
-                                                ColorsConfig.colorTextField),
-                                    width: 1),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ThemeManager.getInstance()
-                                        .getInputBorderColor(
-                                            defaultColor:
-                                                ColorsConfig.colorTextField),
-                                    width: 1),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0)))),
+                          focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                          enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                          border: StylesConfig.buildOutlineInputBorder(),),
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Color(0xff8b97a2),
@@ -292,26 +275,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                               color: Color(0xff8b97a2),
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Montserrat'),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ThemeManager.getInstance()
-                                      .getInputBorderColor(
-                                          defaultColor:
-                                              ColorsConfig.colorTextField),
-                                  width: 1),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0))),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ThemeManager.getInstance()
-                                      .getInputBorderColor(
-                                          defaultColor:
-                                              ColorsConfig.colorTextField),
-                                  width: 1),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0)))),
+                        focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                        enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                        border: StylesConfig.buildOutlineInputBorder(),),
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Color(0xff8b97a2),
@@ -479,18 +445,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                 color: Color(0xff8b97a2),
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Montserrat'),
-            enabledBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorsConfig.colorTextField, width: 1),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0))),
-            focusedBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorsConfig.colorTextField, width: 1),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0)))),
+          focusedBorder: StylesConfig.buildOutlineInputBorder(),
+          enabledBorder: StylesConfig.buildOutlineInputBorder(),
+          border: StylesConfig.buildOutlineInputBorder(),),
         initialCountryCode: DeviceInfoManagement.getCountryCode(),
         onChanged: (phone) async {
           this.countryIOSCode = phone.countryISOCode;
@@ -532,18 +489,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                 color: Color(0xff8b97a2),
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Montserrat'),
-            enabledBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorsConfig.colorTextField, width: 1),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0))),
-            focusedBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorsConfig.colorTextField, width: 1),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0)))),
+          focusedBorder: StylesConfig.buildOutlineInputBorder(),
+          enabledBorder: StylesConfig.buildOutlineInputBorder(),
+          border: StylesConfig.buildOutlineInputBorder(),),
         style: TextStyle(
             fontFamily: 'Montserrat',
             color: Color(0xff8b97a2),

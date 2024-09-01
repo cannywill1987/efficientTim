@@ -333,6 +333,8 @@ class R {
   static final String assetsImgIcLockscreenView = 'assets/img/ic_lockscreen_view.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_logo_orange.png)
   static final String assetsImgIcLogoOrange = 'assets/img/ic_logo_orange.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_mission_create.svg)
+  static final String assetsImgIcMissionCreate = 'assets/img/ic_mission_create.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_card_new_black.svg)
   static final String assetsImgIcCardNewBlack = 'assets/img/ic_card_new_black.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_add_column_left.png)
@@ -551,6 +553,8 @@ class R {
   static final String assetsImgMastercard = 'assets/img/mastercard.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_emoji3.png)
   static final String assetsImgIcEmoji3 = 'assets/img/ic_emoji3.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_search.svg)
+  static final String assetsImgIcSearch = 'assets/img/ic_search.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_theme.svg)
   static final String assetsImgIcTheme = 'assets/img/ic_theme.svg';
   /// ![](http://127.0.0.1:123/assets/img/bg_addnote.svg)

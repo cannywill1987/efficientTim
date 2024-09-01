@@ -36,7 +36,7 @@ class Params {
 
   static final int RINGTONE_DURATION = 10000;
   static final String mOssUrl = "http://oss.timerbell.com";
-  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
+  static final String mBaseUrl = env == EnvEnum.dev ? "http://172.20.10.4:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
   static final String mMemberBaseUrl = "";
   static final String MSN_REGISTER_SCENE = "MSN_REGISTER_SCENE";

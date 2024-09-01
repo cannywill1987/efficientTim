@@ -208,32 +208,51 @@ class BottomBarState extends State<BottomBar> {
   bool handleKeyEvent(KeyEvent event) {
     if (event is KeyDownEvent) {
       final key = event.logicalKey;
-      if ((
-          (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyB)) { // ctrl+b&cmd+b begin, 开始专注 ok
+      if (((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyB)) {
+        // ctrl+b&cmd+b begin, 开始专注 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().startFocusing();
-      } else if (
-      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyS) { // ctrl+s&cmd+s stop,停止拴住 ok
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyS) {
+        // ctrl+s&cmd+s stop,停止拴住 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().stopFromFocusingStatus();
-      } else if (
-      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyP) {  // ctrl+p&cmd+p pause,暂停专属拴住 ok
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyP) {
+        // ctrl+p&cmd+p pause,暂停专属拴住 ok
         // CounterManagement.getInstance().pauseTimer();
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().nextStatus(true);
-      } else if (
-      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyR) { // ctrl+r&cmd+r resume,继续专注 ok
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyR) {
+        // ctrl+r&cmd+r resume,继续专注 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().nextStatus(false);
-      } else if (key == LogicalKeyboardKey.space) { // 空格 下一个状态 ok
+      } else if (key == LogicalKeyboardKey.space) {
+        // 空格 下一个状态 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().nextStatus(true);
       }
       // else if (
       // (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyF) { // ctrl+f&cmd+f finish,完成专注
       //   this.onClickFinishItem(this.missionModel);
       // }
-
-
     }
     return false;
   }
-
 
   @override
   void dispose() {
@@ -449,8 +468,10 @@ class BottomBarState extends State<BottomBar> {
             width: 5,
           ),
           new Text(
-              end_time == null ? getI18NKey().none : CONSTANTS.getWeekDayString(
-                  Utility.getDateTimeModelFromTimeStamp(end_time ?? 0)),
+              end_time == null
+                  ? getI18NKey().none
+                  : CONSTANTS.getWeekDayString(
+                      Utility.getDateTimeModelFromTimeStamp(end_time ?? 0)),
               style: TextStyle(
                   color: ThemeManager.getInstance()
                       .getTextColor(defaultColor: Colors.black87),

@@ -38,11 +38,12 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
   FolderModel? folderModel;
   String? text; //text是默认值 目前没用
   Widget? childAfterInputWidget; //在输入框后面的widget
-
+  bool shouldShowFolderIcons = true;
   HeaderStatsAndInputWidget(
       {Key? key,
       List? datas,
       this.onTapUpListener,
+        this.shouldShowFolderIcons = true,
       this.onTapDownListener,
       this.onChangeListener,
       this.childAfterInputWidget,
@@ -176,6 +177,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               margin: EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin, 10,
                   CONSTANTS.missionPageMargin, 0),
               child: HeaderInputWidget(
+                  shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
                   folderModel: this.widget.folderModel ?? FolderModel(),
                   key: HeaderInputStateGlobalKey,
                   onChangeListener: this.widget.onChangeListener,
@@ -203,9 +205,11 @@ class HeaderInputWidget extends StatefulWidget {
   FolderModel? folderModel;
   Function? onTapUpListener;
   Function? onTapDownListener;
+  bool shouldShowFolderIcons = true;
 
   HeaderInputWidget(
       {Key? key,
+      this.shouldShowFolderIcons = true,
       this.onDesktopSubmitListener,
       this.onTapUpListener,
       this.onTapDownListener,
@@ -390,7 +394,7 @@ class HeaderInputState extends State<HeaderInputWidget> {
                       height: 25,
                       color: ColorsConfig.dividerLine,
                     ),
-                    Utility.isHandsetBySize()
+                    !(Utility.isHandsetBySize() == false && this.widget.shouldShowFolderIcons == true)
                         ? SizedBox.shrink()
                         : Container(
                         key: ValueKey('container6'),

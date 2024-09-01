@@ -438,6 +438,7 @@ flutter:
     - assets/img/ic_guangda_bank.png
     - assets/img/ic_lockscreen_view.svg
     - assets/img/ic_logo_orange.png
+    - assets/img/ic_mission_create.svg
     - assets/img/ic_card_new_black.svg
     - assets/img/ic_add_column_left.png
     - assets/img/ic_google.svg
@@ -547,6 +548,7 @@ flutter:
     - assets/img/ic_submission.svg
     - assets/img/mastercard.png
     - assets/img/ic_emoji3.png
+    - assets/img/ic_search.svg
     - assets/img/ic_theme.svg
     - assets/img/bg_addnote.svg
     - assets/img/ic_jiangsu_bank.png

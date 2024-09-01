@@ -23,6 +23,7 @@ import '../config/ENUMS.dart';
 import '../config/EVENTNAME.dart';
 import '../models/EventFn.dart';
 import '../models/MissionModel.dart';
+import '../util/AnalyticsEventsManager.dart';
 import '../util/CloudSharepreferenceManagement.dart';
 import '../util/LoginManager.dart';
 import '../util/NumTimesAppOpenManager.dart';
@@ -201,6 +202,10 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
     try {
       Params.isFirstTime = await CloudSharepreferenceManagement.getInstance()
           .getBool("IsFirstTime", true);
+      if (Params.isFirstTime == true) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "SplashPage","eventType": "uv"});
+      }
+
       //没登录 历史没数据 且是第一次
       // Params.hasGuidMissionDataInit == false &&
       //     isFirstTime == true &&

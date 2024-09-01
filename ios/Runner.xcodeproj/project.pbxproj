@@ -13,7 +13,6 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		DF08745329B791A800DB3B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF08745229B791A800DB3B71 /* GoogleService-Info.plist */; };
 		DF23FFEA2A826F2900521243 /* WorklogMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF23FFE92A826F2900521243 /* WorklogMonitor.swift */; };
 		DF2DA3B12A5C0B1E0051005D /* FlutterViewControllerRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2DA3B02A5C0B1D0051005D /* FlutterViewControllerRoot.swift */; };
 		DF39E1052AEBD13C00BDE323 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5784F29E69F55006ED7EA /* WidgetKit.framework */; };
@@ -202,6 +201,7 @@
 		DF86A3842ACD504D006D3F87 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A30D2ACD46DB006D3F87 /* Color+Extension.swift */; };
 		DF86A3852ACD505F006D3F87 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF86A3052ACD46DB006D3F87 /* Localizable.strings */; };
 		DF86A3862ACD50DD006D3F87 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DF2ACD440A006D3F87 /* FlomoMissionModel.swift */; };
+		DF8A3D322C83253600B41B8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF8A3D312C83253600B41B8C /* GoogleService-Info.plist */; };
 		DF8CE52E2BF22F3D00308AE1 /* img.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8CE52D2BF22F3D00308AE1 /* img.xcassets */; };
 		DFBF30ED2869D1810091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
 		DFC181212BBAC35100B60D77 /* MyDeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFC181182BBAC35000B60D77 /* MyDeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -395,7 +395,6 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF08745229B791A800DB3B71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF23FFE92A826F2900521243 /* WorklogMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorklogMonitor.swift; sourceTree = "<group>"; };
 		DF2DA3AC2A56F7CD0051005D /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF2DA3B02A5C0B1D0051005D /* FlutterViewControllerRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlutterViewControllerRoot.swift; sourceTree = "<group>"; };
@@ -537,6 +536,7 @@
 		DF86A37A2ACD5033006D3F87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF86A3822ACD503A006D3F87 /* ClockInExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClockInExtension.entitlements; sourceTree = "<group>"; };
 		DF86A3872ACD99D7006D3F87 /* IslandExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IslandExtension.entitlements; sourceTree = "<group>"; };
+		DF8A3D312C83253600B41B8C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF8CE52D2BF22F3D00308AE1 /* img.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = img.xcassets; sourceTree = "<group>"; };
 		DFBAFB2D2B1D9E8F00DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		DFBAFB2E2B1D9E8F00DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -842,6 +842,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				DF8A3D312C83253600B41B8C /* GoogleService-Info.plist */,
 				DFC1816E2BBBE2E200B60D77 /* RunnerRelease.entitlements */,
 				DF81CAC92BB30E3000E2842E /* ViewModels */,
 				DF39E11B2AEBD20700BDE323 /* components */,
@@ -851,7 +852,6 @@
 				DF7ADE932A54438800BBCD90 /* TencentOpenApi_IOS_Bundle.bundle */,
 				DF7ADE8F2A54193500BBCD90 /* TencentOpenAPI.framework */,
 				DFFF222F2A3F01E000D11750 /* ThirdPartyLib */,
-				DF08745229B791A800DB3B71 /* GoogleService-Info.plist */,
 				DFFB435F2863781E004083F6 /* Param */,
 				DFFB435A286377F5004083F6 /* Util */,
 				DFFB43572861C0FE004083F6 /* Runner.entitlements */,
@@ -1676,7 +1676,6 @@
 			files = (
 				DF86A31B2ACD46DB006D3F87 /* LottieFile.json in Resources */,
 				DFE9F1EB284CD3F000F67260 /* vc in Resources */,
-				DF08745329B791A800DB3B71 /* GoogleService-Info.plist in Resources */,
 				DF86A3152ACD46DB006D3F87 /* Assets.xcassets in Resources */,
 				DFE9F1F5284CD46000F67260 /* InfoPlist.strings in Resources */,
 				DF81CA792BB2FD5500E2842E /* View.xib in Resources */,
@@ -1686,6 +1685,7 @@
 				DF53ECC1284E4E2200A342A7 /* AliyunEmasServices-Info.plist in Resources */,
 				DF7ADE942A54438800BBCD90 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
+				DF8A3D322C83253600B41B8C /* GoogleService-Info.plist in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

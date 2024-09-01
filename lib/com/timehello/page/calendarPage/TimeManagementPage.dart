@@ -293,38 +293,62 @@ class TimeManagementPageState extends State<TimeManagementPage> {
       final key = event.logicalKey;
 
       // 判断按下的数字键 1-9
-      if (key.keyId == LogicalKeyboardKey.digit1.keyId) {
+      if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key.keyId == LogicalKeyboardKey.digit1.keyId) {
         print("Number ${key.keyLabel} pressed");
         _calendarController.view = CalendarView.day;
-      } else if (key.keyId == LogicalKeyboardKey.digit2.keyId) {
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key.keyId == LogicalKeyboardKey.digit2.keyId) {
         _calendarController.view = CalendarView.week;
-      }else if (key.keyId == LogicalKeyboardKey.digit3.keyId) {
+      }else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key.keyId == LogicalKeyboardKey.digit3.keyId) {
         _calendarController.view = CalendarView.schedule;
-      }else if (key.keyId == LogicalKeyboardKey.digit4.keyId) {
+      }else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key.keyId == LogicalKeyboardKey.digit4.keyId) {
         _calendarController.view = CalendarView.month;
-      }else if (key.keyId == LogicalKeyboardKey.digit5.keyId) {
+      }else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key.keyId == LogicalKeyboardKey.digit5.keyId) {
         _calendarController.view = CalendarView.timelineWeek;
-      }else if (key.keyId == LogicalKeyboardKey.digit6.keyId) {
+      }else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key.keyId == LogicalKeyboardKey.digit6.keyId) {
         _calendarController.view = CalendarView.timelineMonth;
-      } else if (key == LogicalKeyboardKey.backquote) {
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key == LogicalKeyboardKey.backquote) {
         this.widget?.onKeyBackquoteListener?.call();
-        // print("T pressed");
-        // DateTime dateTimeNow =  DateTime.now();
-        // _calendarController.selectedDate = dateTimeNow;
-        // _calendarController.displayDate = dateTimeNow;
-      }else if (key == LogicalKeyboardKey.keyT) {
+      }else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key == LogicalKeyboardKey.keyT) {
         print("T pressed");
         DateTime dateTimeNow =  DateTime.now();
         _calendarController.selectedDate = dateTimeNow;
         _calendarController.displayDate = dateTimeNow;
       }
       // 判断按下的字母键 W, D, T, M
-       else if (key == LogicalKeyboardKey.keyD) {
-        // _calendarController.view = CalendarView.timelineWeek;
+       else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key == LogicalKeyboardKey.keyD) {
         jumpToCurDateRight();
         print("CMD/CTRL + W pressed");
-      } else if (key == LogicalKeyboardKey.keyA) {
-        // _calendarController.view = CalendarView.timelineWeek;
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft) )&& key == LogicalKeyboardKey.keyA) {
         jumpToCurDateLeft();
         print("CMD/CTRL + W pressed");
       }

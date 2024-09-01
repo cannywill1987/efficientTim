@@ -36,6 +36,14 @@ class StylesConfig {
   width: 1),
   );
 
+  static OutlineInputBorder buildOutlineInputBorder() {
+      return OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.purple, // 未hover时的边框颜色
+        ),
+      );
+  }
+
   static OutlineInputBorder enableBorderSide = OutlineInputBorder(
     borderSide: BorderSide(
         color: ThemeManager.getInstance().getInputBorderColor(),

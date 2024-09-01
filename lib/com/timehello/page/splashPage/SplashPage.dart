@@ -22,6 +22,7 @@ import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/FamousSentenceWidget.dart';
 import '../../config/ColorsConfig.dart';
 import '../../config/Params.dart';
+import '../../util/AnalyticsEventsManager.dart';
 import '../../util/GetResourceDeliveryManager.dart';
 import '../WebviewPage/WebviewPage.dart';
 
@@ -51,6 +52,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
   void initData() async {
     //登录初始化token等数据
     // AnalyticsEventsManager.getInstance().sendAnalyticsEvent(name:"SplashPage");
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "SplashPage","eventType": "pv"});
 
 
     await LoginManager.getInstance().init();

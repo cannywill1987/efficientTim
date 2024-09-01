@@ -9,6 +9,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../config/ColorsConfig.dart';
 import '../config/Params.dart';
+import '../config/StylesConfig.dart';
 import '../models/EventFn.dart';
 
 /**
@@ -209,16 +210,9 @@ class ThemeManager {
                 hintStyle: TextStyle(color: Colors.white),
                 labelStyle: TextStyle(color: Colors.white),
                 errorStyle: TextStyle(color: Colors.red),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ThemeManager.getInstance()
-                          .getInputBorderColor(defaultColor: Colors.white)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ThemeManager.getInstance()
-                          .getInputBorderColor(defaultColor: Colors.white)),
-                ),
+            focusedBorder: StylesConfig.buildOutlineInputBorder(),
+            enabledBorder: StylesConfig.buildOutlineInputBorder(),
+            border: StylesConfig.buildOutlineInputBorder(),
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: ThemeManager.getInstance()

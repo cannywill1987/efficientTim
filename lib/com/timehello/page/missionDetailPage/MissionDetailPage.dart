@@ -317,7 +317,8 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -349,7 +350,8 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -398,28 +400,48 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   bool handleKeyEvent(KeyEvent event) {
     if (event is KeyDownEvent) {
       final key = event.logicalKey;
-      if ((
-          (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyB)) { // ctrl+b&cmd+b begin, 开始专注 ok
+      if (((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyB)) {
+        // ctrl+b&cmd+b begin, 开始专注 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().startFocusing();
-      } else if (
-      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||  HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyS) { // ctrl+s&cmd+s stop,停止拴住 ok
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyS) {
+        // ctrl+s&cmd+s stop,停止拴住 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().stopFromFocusingStatus();
-      } else if (
-      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyP) {  // ctrl+p&cmd+p pause,暂停专属拴住 ok
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyP) {
+        // ctrl+p&cmd+p pause,暂停专属拴住 ok
         // CounterManagement.getInstance().pauseTimer();
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().nextStatus(true);
-      } else if (
-      (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyR) { // ctrl+r&cmd+r resume,继续专注 ok
+      } else if ((HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyR) {
+        // ctrl+r&cmd+r resume,继续专注 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().nextStatus(false);
-      } else if (key == LogicalKeyboardKey.space) { // 空格 下一个状态 ok
+      } else if (key == LogicalKeyboardKey.space) {
+        // 空格 下一个状态 ok
+        if(CounterManagement.getInstance().missionModel  != null)
         CounterManagement.getInstance().nextStatus(true);
       }
       // else if (
       // (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyF) { // ctrl+f&cmd+f finish,完成专注
       //   this.onClickFinishItem(this.missionModel);
       // }
-
-
     }
     return false;
   }
@@ -465,7 +487,8 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   }
 
   void requestMongoDbUpdateData() async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: this.missionModel.folder_id) ==
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: this.missionModel.folder_id) ==
         false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -515,18 +538,20 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
       if (counterManagement.missionModel?.objectId !=
           this.missionModel.objectId) {
         // counterManagement.missionModel?.objectId 表示第一次开始计时
-        if(counterManagement.missionModel?.objectId == null || SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+        if (counterManagement.missionModel?.objectId == null ||
+            SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
           counterManagement.reset();
-        counterManagement.init(
-          counterEnum: this.counterEnum,
-          missionModel: this.missionModel,
-          folderModel: this.folderModel,
-          missionDetailPageState: this,
-        );
-        // CounterManagement.getInstance()!.startTimer();
-        CounterManagement.getInstance().nextStatus(false);
+          counterManagement.init(
+            counterEnum: this.counterEnum,
+            missionModel: this.missionModel,
+            folderModel: this.folderModel,
+            missionDetailPageState: this,
+          );
+          // CounterManagement.getInstance()!.startTimer();
+          CounterManagement.getInstance().nextStatus(false);
         } else {
-          counterManagement.set(missionModel: this.missionModel, folderModel: this.folderModel);
+          counterManagement.set(
+              missionModel: this.missionModel, folderModel: this.folderModel);
         }
       }
     } else {
@@ -807,8 +832,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
 
   void onClickCreateMission(missionModel) {
     OverlayManagement.getInstance().removeSelectDialogOverlay();
-    OverlayManagement.getInstance()
-        .removeSelectSliderVolumeDialogOverlay();
+    OverlayManagement.getInstance().removeSelectSliderVolumeDialogOverlay();
     OverlayManagement.getInstance().removeMissionDetailPageOverlay();
     if (Utility.isHandsetBySize() == true) {
       Utility.pushNavigator(

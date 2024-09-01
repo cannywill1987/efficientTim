@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:time_hello/com/timehello/util/EventCollection.dart';
 
 class AnalyticsEventsManager {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -91,6 +92,7 @@ class AnalyticsEventsManager {
       String sceneType = data['sceneType'] ?? "";
       String eventType = data['eventType'] ?? "";
       String message = data['message'] ?? "";
+      EventCollection.onCollectionJSON(data);
       await analytics.logEvent(
         name: sceneType + '_' + eventType,
         parameters: <String, Object>{

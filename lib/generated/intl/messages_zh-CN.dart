@@ -1054,7 +1054,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loop_setting": MessageLookupByLibrary.simpleMessage("循环设置"),
         "lottery": MessageLookupByLibrary.simpleMessage("抽奖"),
         "ltr": MessageLookupByLibrary.simpleMessage("自左至右"),
-        "lyubichs": MessageLookupByLibrary.simpleMessage("柳比歇斯时长"),
+        "lyubichs": MessageLookupByLibrary.simpleMessage("柳比歇夫时长"),
         "manage": MessageLookupByLibrary.simpleMessage("管理"),
         "manage_prompt": MessageLookupByLibrary.simpleMessage("请打开管理选项。"),
         "manual": MessageLookupByLibrary.simpleMessage("手动"),

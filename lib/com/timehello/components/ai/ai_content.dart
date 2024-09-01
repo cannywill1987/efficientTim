@@ -3,6 +3,8 @@ import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../config/StylesConfig.dart';
+
 class AIContentWidget extends StatefulWidget {
   Function? onSubmit;
 
@@ -63,16 +65,9 @@ class AIContentWidgetState extends State<AIContentWidget> {
                         ),
                       ],
                     ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey, // 未hover时的边框颜色
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: color, // hover时的边框颜色
-                      ),
-                    ),
+                    focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                    enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                    border: StylesConfig.buildOutlineInputBorder(),
                     labelText: i18nInstanceLocal.select_scenario,
                     labelStyle: TextStyle(
                       color: _controller.text.isEmpty ? Colors.purple[100] : color,

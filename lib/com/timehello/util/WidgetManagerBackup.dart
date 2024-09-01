@@ -402,22 +402,9 @@ class WidgetManager2 {
         //重点，必须设置为true，fillColor才有效
         isCollapsed: true,
         //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
-        enabledBorder: OutlineInputBorder(
-          //未选中时候的颜色
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: BorderSide(
-              color: ThemeManager.getInstance()
-                  .getInputPlaceholderColor(defaultColor: Color(0xffffffff))),
-        ),
-        focusedBorder: OutlineInputBorder(
-          //选中时外边框颜色
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: BorderSide(
-              color: ThemeManager.getInstance()
-                  .getInputPlaceholderColor(defaultColor: Color(0xffffffff))),
-        ),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0))),
+        focusedBorder: StylesConfig.buildOutlineInputBorder(),
+        enabledBorder: StylesConfig.buildOutlineInputBorder(),
+        border: StylesConfig.buildOutlineInputBorder(),
       ),
     );
   }
@@ -466,22 +453,9 @@ class WidgetManager2 {
             //重点，必须设置为true，fillColor才有效
             isCollapsed: true,
             //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
-            enabledBorder: OutlineInputBorder(
-              //未选中时候的颜色
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide: BorderSide(
-                color: ThemeManager.getInstance().getInputBorderColor(),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              //选中时外边框颜色
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide: BorderSide(
-                color: ThemeManager.getInstance().getInputBorderColor(),
-              ),
-            ),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            focusedBorder: StylesConfig.buildOutlineInputBorder(),
+            enabledBorder: StylesConfig.buildOutlineInputBorder(),
+            border: StylesConfig.buildOutlineInputBorder(),
           ),
         ));
   }

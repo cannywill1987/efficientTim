@@ -5,6 +5,7 @@ import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/pages/WQBFoldersPage/WQBFoldersPage.dart';
 import 'package:time_hello/com/timehello/page/folderspage/FoldersPage.dart';
+import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -29,7 +30,6 @@ class PCMainHomePage extends BaseWidget {
 const borderColor = Color(0xFF805306);
 
 class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
-
   componentDidMount() {
     OverlayManagement.getInstance()
         .openMissionDetailBottomCounterOverlay(context);
@@ -47,7 +47,6 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
     // TODO: implement dispose
     super.dispose();
     Keyboardlistenermanager.getInstance()?.removeListener(handleKeyEvent);
-
   }
 
   bool handleKeyEvent(KeyEvent event) {
@@ -55,6 +54,13 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
       final key = event.logicalKey;
       if (key == LogicalKeyboardKey.backquote) {
         Utility.toggleCurDesktopFolderPageVisibility(context);
+      } else if (((HardwareKeyboard.instance.logicalKeysPressed
+          .contains(LogicalKeyboardKey.metaLeft) ||
+          HardwareKeyboard.instance.logicalKeysPressed
+              .contains(LogicalKeyboardKey.controlLeft)) &&
+          key == LogicalKeyboardKey.keyF)) {
+        DialogManagement.getInstance()?.showAISearchBarMenuWithoutText(context: context, );
+          print("space");
       }
     }
     return false;
@@ -92,11 +98,10 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
                               width: 1))),
                   child: PCTopMenuWidget(),
                 ),
-
                 Expanded(
-                    child:      getMainPage(routerMainContainerData != null
-                                  ? (routerMainContainerData?['page'] ?? "")
-                                  : ""))
+                    child: getMainPage(routerMainContainerData != null
+                        ? (routerMainContainerData?['page'] ?? "")
+                        : ""))
               ]))
             ],
           );

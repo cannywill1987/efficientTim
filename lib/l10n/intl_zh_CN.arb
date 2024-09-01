@@ -368,7 +368,7 @@
   "num_mission_percent": "{num}任务/{total}总任务",
   "total_tomatoes": "{num}总番茄",
   "num_tomatoes": "{num}番茄",
-  "lyubichs": "柳比歇斯时长",
+  "lyubichs": "柳比歇夫时长",
   "do_it_now_desc": "现在做代表现在马上做的任务，设置现在做将会有倒计时。",
   "focus_switch_title":"新任务重新计时",
   "focus_switch_desc":"专注中切换任务是否重启计数器",
