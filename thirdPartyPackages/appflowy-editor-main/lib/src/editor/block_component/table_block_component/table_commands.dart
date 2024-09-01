@@ -16,14 +16,14 @@ final List<CommandShortcutEvent> tableCommands = [
 
 final CommandShortcutEvent enterInTableCell = CommandShortcutEvent(
   key: 'Don\'t add new line in table cell',
-  getDescription: () => AppFlowyEditorL10n.current.cmdTableLineBreak,
+  getDescription: () => i18nInstanceLocal.cmdTableLineBreak,
   command: 'enter',
   handler: _enterInTableCellHandler,
 );
 
 final CommandShortcutEvent leftInTableCell = CommandShortcutEvent(
   key: 'Move to left cell if its at start of current cell',
-  getDescription: () => AppFlowyEditorL10n
+  getDescription: () => i18nInstanceLocal
       .current.cmdTableMoveToLeftCellIfItsAtStartOfCurrentCell,
   command: 'arrow left',
   handler: _leftInTableCellHandler,
@@ -31,7 +31,7 @@ final CommandShortcutEvent leftInTableCell = CommandShortcutEvent(
 
 final CommandShortcutEvent rightInTableCell = CommandShortcutEvent(
   key: 'Move to right cell if its at the end of current cell',
-  getDescription: () => AppFlowyEditorL10n
+  getDescription: () => i18nInstanceLocal
       .current.cmdTableMoveToRightCellIfItsAtTheEndOfCurrentCell,
   command: 'arrow right',
   handler: _rightInTableCellHandler,
@@ -40,7 +40,7 @@ final CommandShortcutEvent rightInTableCell = CommandShortcutEvent(
 final CommandShortcutEvent upInTableCell = CommandShortcutEvent(
   key: 'Move to up cell at same offset',
   getDescription: () =>
-      AppFlowyEditorL10n.current.cmdTableMoveToUpCellAtSameOffset,
+      i18nInstanceLocal.cmdTableMoveToUpCellAtSameOffset,
   command: 'arrow up',
   handler: _upInTableCellHandler,
 );
@@ -48,21 +48,21 @@ final CommandShortcutEvent upInTableCell = CommandShortcutEvent(
 final CommandShortcutEvent downInTableCell = CommandShortcutEvent(
   key: 'Move to down cell at same offset',
   getDescription: () =>
-      AppFlowyEditorL10n.current.cmdTableMoveToDownCellAtSameOffset,
+      i18nInstanceLocal.cmdTableMoveToDownCellAtSameOffset,
   command: 'arrow down',
   handler: _downInTableCellHandler,
 );
 
 final CommandShortcutEvent tabInTableCell = CommandShortcutEvent(
   key: 'Navigate around the cells at same offset',
-  getDescription: () => AppFlowyEditorL10n.current.cmdTableNavigateCells,
+  getDescription: () => i18nInstanceLocal.cmdTableNavigateCells,
   command: 'tab',
   handler: _tabInTableCellHandler,
 );
 
 final CommandShortcutEvent shiftTabInTableCell = CommandShortcutEvent(
   key: 'Navigate around the cells at same offset in reverse',
-  getDescription: () => AppFlowyEditorL10n.current.cmdTableNavigateCellsReverse,
+  getDescription: () => i18nInstanceLocal.cmdTableNavigateCellsReverse,
   command: 'shift+tab',
   handler: _shiftTabInTableCellHandler,
 );
@@ -70,7 +70,7 @@ final CommandShortcutEvent shiftTabInTableCell = CommandShortcutEvent(
 final CommandShortcutEvent backSpaceInTableCell = CommandShortcutEvent(
   key: 'Stop at the beginning of the cell',
   getDescription: () =>
-      AppFlowyEditorL10n.current.cmdTableStopAtTheBeginningOfTheCell,
+      i18nInstanceLocal.cmdTableStopAtTheBeginningOfTheCell,
   command: 'backspace',
   handler: _backspaceInTableCellHandler,
 );

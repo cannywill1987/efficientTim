@@ -59,7 +59,7 @@ class _LinkMenuState extends State<LinkMenu> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           EditorOverlayTitle(
-            text: AppFlowyEditorL10n.current.addYourLink,
+            text: i18nInstanceLocal.addYourLink,
           ),
           const SizedBox(height: 16.0),
           _buildInput(),
@@ -67,17 +67,17 @@ class _LinkMenuState extends State<LinkMenu> {
           if (widget.linkText != null) ...[
             _buildIconButton(
               iconName: 'link',
-              text: AppFlowyEditorL10n.current.openLink,
+              text: i18nInstanceLocal.openLink,
               onPressed: widget.onOpenLink,
             ),
             _buildIconButton(
               iconName: 'copy',
-              text: AppFlowyEditorL10n.current.copyLink,
+              text: i18nInstanceLocal.copyLink,
               onPressed: widget.onCopyLink,
             ),
             _buildIconButton(
               iconName: 'delete',
-              text: AppFlowyEditorL10n.current.removeLink,
+              text: i18nInstanceLocal.removeLink,
               onPressed: widget.onRemoveLink,
             ),
           ],
@@ -102,7 +102,7 @@ class _LinkMenuState extends State<LinkMenu> {
         controller: _textEditingController,
         onFieldSubmitted: widget.onSubmitted,
         decoration: InputDecoration(
-          hintText: AppFlowyEditorL10n.current.urlHint,
+          hintText: i18nInstanceLocal.urlHint,
           contentPadding: const EdgeInsets.all(16.0),
           isDense: true,
           suffixIcon: IconButton(
@@ -121,7 +121,7 @@ class _LinkMenuState extends State<LinkMenu> {
         ),
         validator: (value) {
           if (value == null || value.isEmpty || !isURL(value)) {
-            return AppFlowyEditorL10n.current.incorrectLink;
+            return i18nInstanceLocal.incorrectLink;
           }
           return null;
         },

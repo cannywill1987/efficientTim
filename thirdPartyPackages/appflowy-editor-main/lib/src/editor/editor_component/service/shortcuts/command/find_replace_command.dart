@@ -76,7 +76,7 @@ CommandShortcutEvent openFindDialog({
 }) =>
     CommandShortcutEvent(
       key: 'show the find dialog',
-      getDescription: () => AppFlowyEditorL10n.current.cmdOpenFind,
+      getDescription: () => i18nInstanceLocal.cmdOpenFind,
       command: 'ctrl+f',
       macOSCommand: 'cmd+f',
       handler: (editorState) => _showFindAndReplaceDialog(
@@ -94,7 +94,7 @@ CommandShortcutEvent openReplaceDialog({
 }) =>
     CommandShortcutEvent(
       key: 'show the find and replace dialog',
-      getDescription: () => AppFlowyEditorL10n.current.cmdOpenFindAndReplace,
+      getDescription: () => i18nInstanceLocal.cmdOpenFindAndReplace,
       command: 'ctrl+h',
       macOSCommand: 'cmd+h',
       handler: (editorState) => _showFindAndReplaceDialog(

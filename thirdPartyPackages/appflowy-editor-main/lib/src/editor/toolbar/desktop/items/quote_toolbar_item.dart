@@ -13,7 +13,7 @@ final ToolbarItem quoteItem = ToolbarItem(
       isHighlight: isHighlight,
       highlightColor: highlightColor,
       iconColor: iconColor,
-      tooltip: AppFlowyEditorL10n.current.quote,
+      tooltip: i18nInstanceLocal.quote,
       onPressed: () => editorState.formatNode(
         selection,
         (node) => node.copyWith(

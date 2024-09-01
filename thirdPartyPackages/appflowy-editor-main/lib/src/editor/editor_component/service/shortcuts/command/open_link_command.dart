@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 ///
 final CommandShortcutEvent openInlineLinkCommand = CommandShortcutEvent(
   key: 'open inline link',
-  getDescription: () => AppFlowyEditorL10n.current.cmdOpenLink,
+  getDescription: () => i18nInstanceLocal.cmdOpenLink,
   command: 'alt+enter',
   handler: _openInlineLink,
 );

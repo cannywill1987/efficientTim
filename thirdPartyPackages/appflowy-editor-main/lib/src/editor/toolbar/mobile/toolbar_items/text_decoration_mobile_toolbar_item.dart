@@ -32,22 +32,22 @@ class _TextDecorationMenuState extends State<_TextDecorationMenu> {
   final textDecorations = [
     TextDecorationUnit(
       icon: AFMobileIcons.bold,
-      label: AppFlowyEditorL10n.current.bold,
+      label: i18nInstanceLocal.bold,
       name: AppFlowyRichTextKeys.bold,
     ),
     TextDecorationUnit(
       icon: AFMobileIcons.italic,
-      label: AppFlowyEditorL10n.current.italic,
+      label: i18nInstanceLocal.italic,
       name: AppFlowyRichTextKeys.italic,
     ),
     TextDecorationUnit(
       icon: AFMobileIcons.underline,
-      label: AppFlowyEditorL10n.current.underline,
+      label: i18nInstanceLocal.underline,
       name: AppFlowyRichTextKeys.underline,
     ),
     TextDecorationUnit(
       icon: AFMobileIcons.strikethrough,
-      label: AppFlowyEditorL10n.current.strikethrough,
+      label: i18nInstanceLocal.strikethrough,
       name: AppFlowyRichTextKeys.strikethrough,
     ),
   ];

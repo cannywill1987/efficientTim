@@ -157,7 +157,7 @@ class _FindMenuState extends State<FindMenu> {
 
   final findTextEditingController = TextEditingController();
 
-  String message = AppFlowyEditorLocalizations.current.emptySearchBoxHint;
+  String message = i18nInstanceLocal.emptySearchBoxHint;
 
   bool showReplaceMenu = false;
   bool caseSensitive = false;
@@ -236,7 +236,7 @@ class _FindMenuState extends State<FindMenu> {
               });
             },
             decoration: _buildInputDecoration(
-              widget.localizations?.find ?? AppFlowyEditorL10n.current.find,
+              widget.localizations?.find ?? i18nInstanceLocal.find,
             ),
           ),
         ),
@@ -255,7 +255,7 @@ class _FindMenuState extends State<FindMenu> {
           onPressed: () => widget.searchService.navigateToMatch(moveUp: true),
           icon: const Icon(Icons.arrow_upward),
           tooltip: widget.localizations?.previousMatch ??
-              AppFlowyEditorL10n.current.previousMatch,
+              i18nInstanceLocal.previousMatch,
         ),
         // next match button
         FindAndReplaceMenuIconButton(
@@ -263,14 +263,14 @@ class _FindMenuState extends State<FindMenu> {
           onPressed: () => widget.searchService.navigateToMatch(),
           icon: const Icon(Icons.arrow_downward),
           tooltip: widget.localizations?.nextMatch ??
-              AppFlowyEditorL10n.current.nextMatch,
+              i18nInstanceLocal.nextMatch,
         ),
         FindAndReplaceMenuIconButton(
           iconButtonKey: const Key('closeButton'),
           onPressed: widget.onDismiss,
           icon: const Icon(Icons.close),
           tooltip: widget.localizations?.close ??
-              AppFlowyEditorL10n.current.closeFind,
+              i18nInstanceLocal.closeFind,
         ),
         // regex button
         if (showRegexButton)
@@ -288,7 +288,7 @@ class _FindMenuState extends State<FindMenu> {
               height: 20,
               color: widget.searchService.regex ? Colors.black : Colors.grey,
             ),
-            tooltip: AppFlowyEditorL10n.current.regex,
+            tooltip: i18nInstanceLocal.regex,
           ),
         // case sensitive button
         if (showCaseSensitiveButton)
@@ -309,7 +309,7 @@ class _FindMenuState extends State<FindMenu> {
                   ? Colors.black
                   : Colors.grey,
             ),
-            tooltip: AppFlowyEditorL10n.current.caseSensitive,
+            tooltip: i18nInstanceLocal.caseSensitive,
           ),
       ],
     );
@@ -326,12 +326,12 @@ class _FindMenuState extends State<FindMenu> {
 
     switch (error) {
       case 'Regex':
-        message = AppFlowyEditorLocalizations.current.regexError;
+        message = i18nInstanceLocal.regexError;
       case 'Empty':
-        message = AppFlowyEditorLocalizations.current.emptySearchBoxHint;
+        message = i18nInstanceLocal.emptySearchBoxHint;
       default:
         message = widget.localizations?.noResult ??
-            AppFlowyEditorLocalizations.current.noFindResult;
+            i18nInstanceLocal.noFindResult;
     }
 
     _setState();
@@ -392,7 +392,7 @@ class _ReplaceMenuState extends State<ReplaceMenu> {
             },
             decoration: _buildInputDecoration(
               widget.localizations?.replace ??
-                  AppFlowyEditorL10n.current.replace,
+                  i18nInstanceLocal.replace,
             ),
           ),
         ),
@@ -401,7 +401,7 @@ class _ReplaceMenuState extends State<ReplaceMenu> {
           onPressed: _replaceSelectedWord,
           icon: const Icon(Icons.find_replace),
           tooltip: widget.localizations?.replace ??
-              AppFlowyEditorL10n.current.replace,
+              i18nInstanceLocal.replace,
         ),
         FindAndReplaceMenuIconButton(
           iconButtonKey: const Key('replaceAllButton'),
@@ -410,7 +410,7 @@ class _ReplaceMenuState extends State<ReplaceMenu> {
           ),
           icon: const Icon(Icons.change_circle_outlined),
           tooltip: widget.localizations?.replaceAll ??
-              AppFlowyEditorL10n.current.replaceAll,
+              i18nInstanceLocal.replaceAll,
         ),
       ],
     );

@@ -141,7 +141,7 @@ class _MobileLinkMenuState extends State<MobileLinkMenu> {
                       ),
                     ),
                     child: Text(
-                      AppFlowyEditorL10n.current.cancel,
+                      i18nInstanceLocal.cancel,
                     ),
                   ),
                 ),
@@ -169,7 +169,7 @@ class _MobileLinkMenuState extends State<MobileLinkMenu> {
                       ),
                     ),
                     child: Text(
-                      AppFlowyEditorL10n.current.done,
+                      i18nInstanceLocal.done,
                     ),
                   ),
                 ),

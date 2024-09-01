@@ -21,7 +21,7 @@ final List<CommandShortcutEvent> arrowLeftKeys = [
 // move the cursor forward one character
 final CommandShortcutEvent moveCursorLeftCommand = CommandShortcutEvent(
   key: 'move the cursor backward one character',
-  getDescription: () => AppFlowyEditorL10n.current.cmdMoveCursorLeft,
+  getDescription: () => i18nInstanceLocal.cmdMoveCursorLeft,
   command: 'arrow left',
   handler: _arrowLeftCommandHandler,
 );
@@ -43,7 +43,7 @@ CommandShortcutEventHandler _arrowLeftCommandHandler = (editorState) {
 // move the cursor to the beginning of the block
 final CommandShortcutEvent moveCursorToBeginCommand = CommandShortcutEvent(
   key: 'move the cursor at the start of line',
-  getDescription: () => AppFlowyEditorL10n.current.cmdMoveCursorLineStart,
+  getDescription: () => i18nInstanceLocal.cmdMoveCursorLineStart,
   command: 'home',
   macOSCommand: 'cmd+arrow left',
   handler: _moveCursorToBeginCommandHandler,
@@ -66,7 +66,7 @@ CommandShortcutEventHandler _moveCursorToBeginCommandHandler = (editorState) {
 // move the cursor to the left word
 final CommandShortcutEvent moveCursorToLeftWordCommand = CommandShortcutEvent(
   key: 'move the cursor to the left word',
-  getDescription: () => AppFlowyEditorL10n.current.cmdMoveCursorWordLeft,
+  getDescription: () => i18nInstanceLocal.cmdMoveCursorWordLeft,
   command: 'ctrl+arrow left',
   macOSCommand: 'alt+arrow left',
   handler: _moveCursorToLeftWordCommandHandler,
@@ -126,7 +126,7 @@ CommandShortcutEventHandler _moveCursorToLeftWordCommandHandler =
 final CommandShortcutEvent moveCursorLeftWordSelectCommand =
     CommandShortcutEvent(
   key: 'move the cursor to select the left word',
-  getDescription: () => AppFlowyEditorL10n.current.cmdMoveCursorWordLeftSelect,
+  getDescription: () => i18nInstanceLocal.cmdMoveCursorWordLeftSelect,
   command: 'ctrl+shift+arrow left',
   macOSCommand: 'alt+shift+arrow left',
   handler: _moveCursorLeftWordSelectCommandHandler,
@@ -161,7 +161,7 @@ CommandShortcutEventHandler _moveCursorLeftWordSelectCommandHandler =
 // selects only one character
 final CommandShortcutEvent moveCursorLeftSelectCommand = CommandShortcutEvent(
   key: 'move the cursor left select',
-  getDescription: () => AppFlowyEditorL10n.current.cmdMoveCursorLeftSelect,
+  getDescription: () => i18nInstanceLocal.cmdMoveCursorLeftSelect,
   command: 'shift+arrow left',
   handler: _moveCursorLeftSelectCommandHandler,
 );
@@ -190,7 +190,7 @@ CommandShortcutEventHandler _moveCursorLeftSelectCommandHandler =
 //
 final CommandShortcutEvent moveCursorBeginSelectCommand = CommandShortcutEvent(
   key: 'move cursor to select till start of line',
-  getDescription: () => AppFlowyEditorL10n.current.cmdMoveCursorLineStartSelect,
+  getDescription: () => i18nInstanceLocal.cmdMoveCursorLineStartSelect,
   command: 'shift+home',
   macOSCommand: 'cmd+shift+arrow left',
   handler: _moveCursorBeginSelectCommandHandler,

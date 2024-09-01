@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 ///   - web
 final CommandShortcutEvent showLinkMenuCommand = CommandShortcutEvent(
   key: 'link menu',
-  getDescription: () => AppFlowyEditorL10n.current.cmdConvertToLink,
+  getDescription: () => i18nInstanceLocal.cmdConvertToLink,
   command: 'ctrl+k',
   macOSCommand: 'cmd+k',
   handler: _showLinkMenu,

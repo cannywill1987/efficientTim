@@ -14,7 +14,7 @@ final ToolbarItem paragraphItem = ToolbarItem(
       isHighlight: isHighlight,
       highlightColor: highlightColor,
       iconColor: iconColor,
-      tooltip: AppFlowyEditorL10n.current.text,
+      tooltip: i18nInstanceLocal.text,
       onPressed: () => editorState.formatNode(
         selection,
         (node) => node.copyWith(

@@ -22,7 +22,7 @@ ToolbarItem buildTextColorItem({
         isHighlight: isHighlight,
         highlightColor: highlightColor,
         iconColor: iconColor,
-        tooltip: AppFlowyEditorL10n.current.textColor,
+        tooltip: i18nInstanceLocal.textColor,
         onPressed: () {
           bool showClearButton = false;
           nodes.allSatisfyInSelection(

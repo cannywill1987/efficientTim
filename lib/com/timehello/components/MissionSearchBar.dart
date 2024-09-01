@@ -10,11 +10,14 @@ import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 
+import '../config/CONSTANTS.dart';
 import '../config/Params.dart';
+import '../models/CheckButtonStateModel.dart';
 import '../models/EventFn.dart';
 import '../models/SessionMissionModel.dart';
 import '../page/SettingItemDetailPage/SettingItemDetailPage.dart';
 import '../page/missionPage/componnents/GridMissionSilverList.dart';
+import '../page/missionPage/componnents/MultiSelectHandleWidget.dart';
 import '../util/ChatGroupManager.dart';
 import '../util/CounterManagement.dart';
 import '../util/DialogManagement.dart';
@@ -22,6 +25,7 @@ import '../util/OverlayManagement.dart';
 import '../util/SharePreferenceUtil.dart';
 import '../util/ThemeManager.dart';
 import '../util/Utility.dart';
+import 'ExportMissionListDialogUtil.dart';
 import 'SectionTitleWidget.dart';
 
 class MissionSearchBar extends StatefulWidget {
@@ -49,6 +53,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
   List<MissionModel> datas = [];
   List<SessionMissionModel>? listSessionMissionModel;
   MultiSelectModeEnum multiSelectModeEnum = MultiSelectModeEnum.normal;
+  List<MissionModel>? curListMissionModels = [];
 
   @override
   void initState() {
@@ -61,6 +66,15 @@ class MissionSearchBarState extends State<MissionSearchBar> {
     _controller.dispose();
     super.dispose();
   }
+
+  void resetMultiSelectModeEnum() {
+    this.curListMissionModels?.forEach((element) {
+      element.isSelected = false;
+    });
+    this.multiSelectModeEnum = MultiSelectModeEnum.normal;
+    updateUI();
+  }
+
 
   requestList(String searchWord) {
     // 请求列表
@@ -90,6 +104,63 @@ class MissionSearchBarState extends State<MissionSearchBar> {
       height: 500,
       child: Column(
         children: <Widget>[
+          this.multiSelectModeEnum == MultiSelectModeEnum.normal
+              ? SizedBox.shrink()
+              : Positioned(
+              bottom: 0,
+              child: MultiSelectHandleWidget(
+                missionModelList: this.curListMissionModels ?? [],
+                onClickUpdateTimeDoItNow: (datas) async {
+                  Utility.onClickUpdateTimeDoItNow(context, datas);
+                },
+                onClickDelete: (datas) async {
+                  await MongoApisManager.getInstance()
+                      .batchDelete_MissionModel(listParam: datas);
+                  requestList(curSearchWords);
+                },
+                onClickExport: (datas) {
+                  TextEditingController textEditingController =
+                  TextEditingController();
+                  String s = Utility.getContentFromMissionList(
+                      datas: datas ?? [],
+                      listCheckButtonModel:
+                      CONSTANTS.getExportButtonsList());
+                  textEditingController.text = s;
+                  ExportMissionListDialogUtil.show(context,
+                      textEditingController: textEditingController,
+                      onTapListener: (res) {
+                        List<CheckButtonStateModel> data = res['data'];
+                        MissionOrderEnum missionOrderEnum = res['enum'];
+                        String s = Utility.getContentFromMissionList(
+                            datas: Utility.getMissionModelListAfterOrder(
+                                missionOrderEnum, datas ?? []),
+                            listCheckButtonModel: data);
+                        textEditingController.text = s;
+                        updateUI();
+                      }, export: (data) {
+                        Utility.showToastMsg(
+                            context: context,
+                            msg: getI18NKey().offer_next_version);
+                      });
+                },
+                onClickFinish: (datas) async {
+                  await MongoApisManager.getInstance()
+                      ?.batchUpdate_MissionModelWithParams(
+                      listMissionModel: datas);
+                  requestList(curSearchWords);
+
+                },
+                onClickUnFinish: (datas) async {
+                  await MongoApisManager.getInstance()
+                      ?.batchUpdate_MissionModelWithParams(
+                      listMissionModel: datas);
+                  requestList(curSearchWords);
+
+                },
+                onClickClose: (datas) async {
+                  resetMultiSelectModeEnum();
+                },
+              )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -281,6 +352,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
    * 跳转到设置叶敏
    */
   void onClickMissionSetting(data) {
+    DialogManagement.getInstance().hideDialog(context);
     Utility.popupDesktopRightNavigator(context);
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
@@ -450,9 +522,11 @@ class MissionSearchBarState extends State<MissionSearchBar> {
       list.add(SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
           return GridMissionSilverListItem(
-            multiSelectModeEnum: MultiSelectModeEnum.multiSelect,
-            // isSlideEnable: this.widget.isSlideEnable ?? false,
-            // onTapListener: this.widget.onTapListener,
+            multiSelectModeEnum: this.multiSelectModeEnum,
+            isSlideEnable: Utility.isHandsetBySize(),
+            onTapListener: (data) {
+              onClickMissionSetting(data);
+            },
             index: index,
             missionModel: sessionMissionModel.datas?[index],
             onTapDoItNow: onTapDoItNow,
