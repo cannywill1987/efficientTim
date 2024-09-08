@@ -833,6 +833,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("次のテキストを絵文字に変換してください：..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("パターンを入力してください"),
+        "en": MessageLookupByLibrary.simpleMessage("英語"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("自分自身を励ましの言葉を書きましょう~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("暗号化"),
@@ -865,6 +866,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("完全なカード番号を入力してください"),
         "enterRealName": MessageLookupByLibrary.simpleMessage("本名を入力してください"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("金額を入力してください"),
+        "es": MessageLookupByLibrary.simpleMessage("スペイン語"),
         "event": MessageLookupByLibrary.simpleMessage("イベント"),
         "everyDayOnce": m44,
         "everyone_can_edit": MessageLookupByLibrary.simpleMessage("誰でも編集可能"),
@@ -970,6 +972,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "four_seasons_step2": MessageLookupByLibrary.simpleMessage("第2四半期"),
         "four_seasons_step3": MessageLookupByLibrary.simpleMessage("第3四半期"),
         "four_seasons_step4": MessageLookupByLibrary.simpleMessage("第4四半期"),
+        "fr": MessageLookupByLibrary.simpleMessage("フランス語"),
         "fragment_listing": MessageLookupByLibrary.simpleMessage("フラグメントリスト"),
         "free_open": MessageLookupByLibrary.simpleMessage("無料公開"),
         "frequency": MessageLookupByLibrary.simpleMessage("頻度"),
@@ -983,6 +986,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_image": MessageLookupByLibrary.simpleMessage("画像を生成"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("QRコードを生成"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("優しいリマインダー"),
+        "german": MessageLookupByLibrary.simpleMessage("ドイツ語"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("認証コードを取得"),
         "get_train_plan_successful": m51,
         "get_training_plan":
@@ -1080,6 +1084,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting": MessageLookupByLibrary.simpleMessage("指向性プッシュ設定"),
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "指向性プッシュ設定を開くと、タスクの完了通知の状況を通知するのに役立ちます"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("1月"),
         "janFull": MessageLookupByLibrary.simpleMessage("1月"),
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("1月から12月まで"),
@@ -1103,8 +1108,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("このバージョンをスキップ"),
         "jun": MessageLookupByLibrary.simpleMessage("6月"),
         "junFull": MessageLookupByLibrary.simpleMessage("6月"),
+        "ko": MessageLookupByLibrary.simpleMessage("韓国語"),
         "label": MessageLookupByLibrary.simpleMessage("ラベル"),
         "landscape": MessageLookupByLibrary.simpleMessage("横画面"),
+        "language": MessageLookupByLibrary.simpleMessage("言語"),
+        "language_setting": MessageLookupByLibrary.simpleMessage("言語設定"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("先週"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("過去7日間"),
         "leave_group": MessageLookupByLibrary.simpleMessage("グループを退出する"),
@@ -1987,6 +1995,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_name_mission2": m120,
         "update_now": MessageLookupByLibrary.simpleMessage("すぐに更新"),
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
+        "update_success_restart":
+            MessageLookupByLibrary.simpleMessage("設定が成功しました。再起動してください。"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("最新の更新時間"),
         "upload": MessageLookupByLibrary.simpleMessage("アップロード"),
@@ -2093,6 +2103,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_mission_with_name_has_begun": m131,
         "your_time_prof":
             MessageLookupByLibrary.simpleMessage("あなたのパーソナルタイムマネージャー"),
-        "yuan": MessageLookupByLibrary.simpleMessage("元")
+        "yuan": MessageLookupByLibrary.simpleMessage("元"),
+        "zh_cn": MessageLookupByLibrary.simpleMessage("簡体字中国語"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁体字中国語")
       };
 }

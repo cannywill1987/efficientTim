@@ -6,7 +6,8 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.uat; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static Locale? local; // 本机语言
   static String curVersion = '3.5.1';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
@@ -54,6 +55,7 @@ class Params {
   static String ACTION_UPDATE_LISTVIEW = 'ACTION_UPDATE_LISTVIEW'; //用于更新Foldertage的silver list,但
   static String ACTION_UPDATE_SETTING_ITEM_DETAIL = 'ACTION_UPDATE_SETTING_ITEM_DETAIL';  //
   static String ACTION_UPDATE_TIME_MANAGEMENT_PAGE = 'ACTION_UPDATE_TIME_MANAGEMENT_PAGE';  //
+  static String ACTION_UPDATE_ALL_UI = 'ACTION_UPDATE_ALL_UI';  //
 
   static String ACTION_UPDATE_FLOMO_LISTVIEW = 'ACTION_UPDATE_FLOMO_LISTVIEW'; //用于更新Foldertage的silver list,但
 
@@ -220,8 +222,8 @@ class ShareprefrenceKeys {
   static String TimeRatioProgressSortEnumKey = "zefczefzejfjizefji";
   static String curSelectedFindWidgetScene = "curSelectedFindWidgetScene1"; //桌面当前选择组件
   static String curSelectedFindWidgetIndex = "curSelectedFindWidgetIndwx1"; //桌面当前选择组件
-  static String curLocaleLanguage = "curLocaleSelected"; //桌面当前选择组件
-  static String curLocaleCountryCode = "curLocaleCountryCode"; //桌面当前选择组件
+  static String curLocaleLanguage = "curLocaleSelected123"; //桌面当前选择组件
+  static String curLocaleCountryCode = "curLocaleCountryCode321"; //桌面当前选择组件
 
 }
 

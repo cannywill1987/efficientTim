@@ -1524,6 +1524,16 @@ class CONSTANTS {
   // "de": "German",
   // "fr": "French",
   // "es": "Spanish",
+  static String getCurLanguage({String? countryCode, String? languageCode = ""}) {
+    List<CheckButtonStateModel> list = getLanguageList();
+    for (CheckButtonStateModel model in list) {
+      if (model.code == languageCode && model.content == countryCode) {
+        return model.title ?? '';
+      }
+    }
+    return '';
+  }
+
   static List<CheckButtonStateModel> getLanguageList({bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(

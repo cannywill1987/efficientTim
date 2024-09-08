@@ -2272,6 +2272,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("update immediately"),
         "update_success":
             MessageLookupByLibrary.simpleMessage("update completed"),
+        "update_success_restart": MessageLookupByLibrary.simpleMessage(
+            "Settings updated successfully, please restart"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("Latest Update Time"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),

@@ -229,9 +229,10 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             Icons.settings,
             size: 20,
           ),
-          title: "测试用2",
+          title: "测试用2" + ' countryCode:' + (Params.local?.countryCode ?? '')  + ' languageCode:'+ (Params.local?.languageCode ?? ''),
           onTapListener: () async {
-            ScreenLockManager.getInstance().showPasword();
+            Utility.showToastMsg(context: context, msg: ' countryCode:' + (Params.local?.countryCode ?? '')  + ' languageCode:'+ (Params.local?.languageCode ?? ''));
+            // ScreenLockManager.getInstance().showPasword();
             // screenLockCreate(
             //   context: context,
             //   onConfirmed: (value) {

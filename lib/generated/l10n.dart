@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Cannot Reorder for Ungrouped`
+  String get cannot_reorder_for_group {
+    return Intl.message(
+      'Cannot Reorder for Ungrouped',
+      name: 'cannot_reorder_for_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings updated successfully, please restart`
+  String get update_success_restart {
+    return Intl.message(
+      'Settings updated successfully, please restart',
+      name: 'update_success_restart',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Language Setting`
   String get language_setting {
     return Intl.message(
@@ -5336,16 +5356,6 @@ class S {
     return Intl.message(
       'Select Background Color',
       name: 'select_background_color',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cannot Reorder for Ungrouped`
-  String get cannot_reorder_for_group {
-    return Intl.message(
-      'Cannot Reorder for Ungrouped',
-      name: 'cannot_reorder_for_group',
       desc: '',
       args: [],
     );
@@ -14134,6 +14144,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'ko'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'HK'),
+      Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
       Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'TW'),
     ];

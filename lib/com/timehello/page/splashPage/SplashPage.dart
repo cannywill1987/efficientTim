@@ -305,6 +305,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
   @override
   void initState() {
     super.initState();
+    // S.load(Locale('zh', 'CN'));
     // loadLocal();
     // sets theme mode to dark
     // AdaptiveTheme.of(context).setDark();

@@ -27,7 +27,6 @@ import 'package:time_hello/com/timehello/util/NumTimesAppOpenManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
-import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:wakelock/wakelock.dart';
@@ -50,6 +49,7 @@ import 'com/timehello/util/LocaleProvider.dart';
 import 'com/timehello/util/LoginManager.dart';
 import 'com/timehello/util/NotificationManager.dart';
 import 'com/timehello/util/SharePreferenceUtil.dart';
+import 'com/timehello/util/TextUtil.dart';
 import 'com/timehello/util/TickTimeManager.dart';
 import 'generated/l10n.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -66,7 +66,7 @@ void main() async {
   } catch (e) {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
-  if (!Utility.isXiaoMi()) {
+  if(!Utility.isXiaoMi()) {
     await FirebaseAuthManager.initialized();
   }
 
@@ -77,6 +77,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => Env()),
     ChangeNotifierProvider(create: (_) => GlobalStateEnv()),
     ChangeNotifierProvider(create: (_) => CalendarMssionEnv()),
+
   ], child: MyApp()));
   // }, onError: (error, stackTrace) {
   //   //  自定义处理错误
@@ -100,7 +101,7 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
   // print('1111111111111 initThirdparty');
   //初始化如果依赖sharePreference
   if (PrivacyProtocolManager.getInstance().isProtocolAgreed(context) == true) {
-    if (Utility.isXiaoMi()) {
+    if(Utility.isXiaoMi()) {
       await FirebaseAuthManager.initialized();
     }
 
@@ -197,12 +198,13 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     //   EasyLoadingManager.getInstance().showLoading();
     // }
 
+
     HtmlUtility.dismissLoading();
     try {
       //app 生命周期
       SystemChannels.lifecycle.setMessageHandler((msg) async {
         switch (msg) {
-          // 从后台切换到前台，界面可见
+        // 从后台切换到前台，界面可见
           case "AppLifecycleState.resumed":
             break;
 // 界面不可见，后台运行中
@@ -283,30 +285,25 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     print(
         "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     print("code has been refreshed！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
-    print(
-        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "code has been refreshed");
-    return Selector<LocaleProvider, Locale>(
-        selector: (_, LocaleProvider) => LocaleProvider.locale,
-        builder: (_, locale, __) {
-          // Locale locale = Locale('de', 'DE');
-          // Locale locale = Locale('fr', 'FR');
-          // Locale locale = Locale('ja', 'JP');
-          // Locale locale = Locale('zh', 'CN');
-          // Locale locale = Locale('de', 'DE');
-          // Locale locale = Locale('ko', 'KR');
-          String curLocal = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: 'en');
+    Locale? local = null;
+          String curLocal = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: '');
           String curLocalCountry = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleCountryCode, defaultVal: '');
-          // S.load(locale = Locale.fromSubtags(languageCode: curLocal ?? '', countryCode: TextUtil.isEmpty(curLocalCountry) ? null : curLocalCountry));
-          S.load(locale = Locale.fromSubtags(languageCode: 'zh', countryCode: 'Hant'));
-          // S.load(locale = Locale.fromSubtags(languageCode: curLocal ?? '', countryCode: TextUtil.isEmpty(curLocalCountry) ? null : curLocalCountry));
+          if(!TextUtil.isEmpty(curLocal) || !TextUtil.isEmpty(curLocalCountry)) {
+            S.load(local = Locale.fromSubtags(languageCode: curLocal ?? '',
+                countryCode: TextUtil.isEmpty(curLocalCountry)
+                    ? null
+                    : curLocalCountry));
+          }
+    // local = Locale('fr');
           return AdaptiveTheme(
             light: ThemeManager.getInstance().getLightThemeData(),
             dark: ThemeManager.getInstance().getDarkThemeData(),
             initial: ThemeManager.getInstance().getThemeMode(),
-            builder: (lightTheme, darkTheme) => MaterialApp(
-              theme: ThemeManager.getInstance().getThemeMode() ==
-                      AdaptiveThemeMode.light
+            builder: (lightTheme, darkTheme) =>   MaterialApp(
+              theme:
+              ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
                   ? lightTheme
                   : darkTheme,
               // theme: ThemeManager.getInstance().getThemeData(),
@@ -320,9 +317,30 @@ class _MyAppState extends BaseWidgetState<MyApp> {
               //     textTheme: CupertinoTextThemeData(), // This is required
               //   ),
               // ),
-                locale: locale,
-              // locale:const Locale('deDE'),
-              // locale:const Locale.fromSubtags( languageCode: 'de',  countryCode: 'DE'),
+              locale:local,
+              // const Locale.fromSubtags(
+              //   languageCode: 'en')
+              // ,
+              // 自动检测设备语言
+              localeResolutionCallback: (locale, supportedLocales) {
+                // 检查设备当前语言是否在支持的语言列表中
+                Params.local = locale;
+                // Utility.showToastMsg(context: context, msg: "countryCode:" + (locale?.countryCode ?? '') + ' locale:' + (locale?.languageCode ?? ''));
+                for (var supportedLocale in supportedLocales) {
+                  if(locale?.languageCode == 'zh') { // 中文走这里 因为有繁体
+                    if (supportedLocale.languageCode == locale?.languageCode &&
+                        supportedLocale.countryCode == locale?.countryCode) {
+                      return supportedLocale;
+                    }
+                  } else {
+                    if (supportedLocale.languageCode == locale?.languageCode) { //外语直接语言
+                      return supportedLocale;
+                    }
+                  }
+                }
+                // 如果设备语言不支持，默认使用英文
+                return supportedLocales.first;
+              },
               localizationsDelegates: const [
                 // 很强大的记事本
                 // AppFlowyEditorLocalizations.delegate,
@@ -333,64 +351,19 @@ class _MyAppState extends BaseWidgetState<MyApp> {
                 SfGlobalLocalizations.delegate,
                 S.delegate
               ],
-              // localeResolutionCallback: (locale, supportedLocales) {
-              //   for (var supportedLocale in supportedLocales) {
-              //     if (supportedLocale.languageCode == locale?.languageCode &&
-              //         supportedLocale.countryCode == locale?.countryCode) {
-              //       return supportedLocale;
-              //     }
-              //   }
-              //   return supportedLocales.first; // 默认语言
-              // },
-              // locales are the locales of the device
-              // supportedLocales are the app supported locales
-              localeListResolutionCallback: (locales, supportedLocales) {
-                // We map the supported locales to language codes
-                // note that this is completely optional and this logic can be changed as you like
-                final supportedLanguageCodes =
-                supportedLocales.map((e) => e.languageCode);
-                if (locales != null) {
-                  // we iterate over the locales and find the first one that is supported
-                  for (final locale in locales) {
-                    if (supportedLanguageCodes.contains(locale.languageCode)) {
-                      return locale;
-                    }
-                  }
-                }
-
-                // if we didn't find a supported language, we return the Italian language
-                return const Locale('en');
-              },
-
-              // locale: locale,
+              // locale: Locale("en"),
               supportedLocales: [
                 // ...L10n.all,
-                Locale("en"),
-                // 英语
-                Locale("zh"),
-                //中文
-                Locale("zh_HK"),
-                //香港
-                Locale("zh_TW"),
-                //台湾
-                Locale("de"),
-                //de
-                //韩语
-                Locale("ko"),
-
-                // const Locale.fromSubtags(languageCode: 'ko'),
-                // Locale("ko"),
-                //韩语
-                Locale("ja"),
-                //日语
-                // Locale('hi'),
-                Locale('fr'),
-                // Locale('it'),
-                // Locale('es'),
-                // Locale('pt'),
-                // Locale('de'),
-                // Locale('no'),
-
+                Locale("en"), // 英语 默认选择第一个
+                Locale("zh", 'CN'), //台湾
+                Locale("zh"), //中文
+                Locale("zh", 'HK'), //香港
+                Locale("zh", 'TW'), //台湾
+                Locale("zh", 'Hant'), //台湾
+                Locale("fr"), //法语
+                Locale("de"), //de
+                Locale("ko"), //韩语
+                Locale("ja"), //日语
                 //日语
                 // const Locale.fromSubtags(languageCode: 'ja'),
                 //
@@ -409,10 +382,10 @@ class _MyAppState extends BaseWidgetState<MyApp> {
                 // // generic traditional Chinese 'zh_Hant'
                 // const Locale.fromSubtags(
                 //     languageCode: 'zh',  countryCode: 'CN'),
-                // 'zh_Hans_CN'
-                // const Locale.fromSubtags(
-                //     languageCode: 'zh',  countryCode: 'TW'),
-                // 'zh_Hant_TW'
+                // // 'zh_Hans_CN'
+                // // const Locale.fromSubtags(
+                // //     languageCode: 'zh',  countryCode: 'TW'),
+                // // 'zh_Hant_TW'
                 // const Locale.fromSubtags(
                 //     languageCode: 'zh',  countryCode: 'HK'),
                 // 'zh_Hant_HK'
@@ -429,6 +402,6 @@ class _MyAppState extends BaseWidgetState<MyApp> {
               },
             ),
           );
-        });
+
   }
 }

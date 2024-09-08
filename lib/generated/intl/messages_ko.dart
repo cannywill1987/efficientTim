@@ -837,6 +837,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emoji_conversion_prompt":
             MessageLookupByLibrary.simpleMessage("다음 텍스트를 이모지로 변환해 주세요:..."),
         "emptySearchBoxHint": MessageLookupByLibrary.simpleMessage("패턴을 입력하세요"),
+        "en": MessageLookupByLibrary.simpleMessage("영어"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("자신을 격려하는 말을 적어보세요~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("암호화"),
@@ -869,6 +870,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("전체 카드 번호를 입력하세요"),
         "enterRealName": MessageLookupByLibrary.simpleMessage("실제 이름을 입력하세요"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("금액을 입력하세요"),
+        "es": MessageLookupByLibrary.simpleMessage("스페인어"),
         "event": MessageLookupByLibrary.simpleMessage("이벤트"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -975,6 +977,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "four_seasons_step2": MessageLookupByLibrary.simpleMessage("제2분기"),
         "four_seasons_step3": MessageLookupByLibrary.simpleMessage("제3분기"),
         "four_seasons_step4": MessageLookupByLibrary.simpleMessage("제4분기"),
+        "fr": MessageLookupByLibrary.simpleMessage("프랑스어"),
         "fragment_listing": MessageLookupByLibrary.simpleMessage("조각 목록"),
         "free_open": MessageLookupByLibrary.simpleMessage("무료 공개"),
         "frequency": MessageLookupByLibrary.simpleMessage("빈도"),
@@ -988,6 +991,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_image": MessageLookupByLibrary.simpleMessage("이미지 생성"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("QR 코드 생성"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("친절한 알림"),
+        "german": MessageLookupByLibrary.simpleMessage("독일어"),
         "getVerificationCode":
             MessageLookupByLibrary.simpleMessage("인증 코드 받기 클릭"),
         "get_train_plan_successful": m51,
@@ -1091,6 +1095,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "방향성 푸시 설정을 켜면 작업 완료 알림을 받을 수 있습니다"),
         "italic": MessageLookupByLibrary.simpleMessage(""),
+        "ja": MessageLookupByLibrary.simpleMessage("일본어"),
         "jan": MessageLookupByLibrary.simpleMessage("1월"),
         "janFull": MessageLookupByLibrary.simpleMessage("1월"),
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("1월부터 12월까지"),
@@ -1114,8 +1119,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("이 버전 건너뛰기"),
         "jun": MessageLookupByLibrary.simpleMessage("6월"),
         "junFull": MessageLookupByLibrary.simpleMessage("6월"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("라벨"),
         "landscape": MessageLookupByLibrary.simpleMessage("가로"),
+        "language": MessageLookupByLibrary.simpleMessage("언어"),
+        "language_setting": MessageLookupByLibrary.simpleMessage("언어 설정"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("지난 주"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("최근 7일"),
         "leave_group": MessageLookupByLibrary.simpleMessage("그룹 나가기"),
@@ -1994,6 +2002,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_name_mission2": m120,
         "update_now": MessageLookupByLibrary.simpleMessage("지금 업데이트"),
         "update_success": MessageLookupByLibrary.simpleMessage("업데이트 성공"),
+        "update_success_restart":
+            MessageLookupByLibrary.simpleMessage("설정 성공, 다시 시작하십시오"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("최신 업데이트 시간"),
         "upload": MessageLookupByLibrary.simpleMessage("업로드"),
@@ -2099,6 +2109,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("당신이 만든 수업입니다"),
         "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage("당신의 개인 시간 관리자"),
-        "yuan": MessageLookupByLibrary.simpleMessage("원")
+        "yuan": MessageLookupByLibrary.simpleMessage("원"),
+        "zh_cn": MessageLookupByLibrary.simpleMessage("중국어 간체"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("중국어 번체")
       };
 }

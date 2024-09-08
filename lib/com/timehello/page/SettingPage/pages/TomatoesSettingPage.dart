@@ -28,10 +28,13 @@ import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../../../r.dart';
 import '../../../components/InputNumber.dart';
+import '../../../models/EventFn.dart';
 import '../../../util/LocaleProvider.dart';
 import '../../../util/TextUtil.dart';
+import '../../../util/ThemeManager.dart';
 
 class TomatoesSettingPage extends BaseWidget {
   PageFromEnum pageFrom;
@@ -53,9 +56,16 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
   List<MusicModel>? listMusicModels; //音乐列表
   List<MusicModel>? listFocusingAndRestingMusicModels; //专注中休息中列表
   bool isNotificationOn = false;
+  String localLanguageCode = '';
+  String localCountryCode = '';
 
   @override
   void initState() {
+
+    localLanguageCode = SharePreferenceUtil.getSyncInstance().getString(
+        key: ShareprefrenceKeys.curLocaleLanguage);
+    localCountryCode = SharePreferenceUtil.getSyncInstance().getString(
+        key: ShareprefrenceKeys.curLocaleCountryCode);
     this.isAppBarVisible = false;
     musicModelFinishResting =
         SharePreferenceUtil.getSyncInstance().getFinishRestingMusicModel();
@@ -79,8 +89,22 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
               Utility.getResourceDeliveryItemFromList('ringbell', response)
                       ?.deliveryList ??
                   []);
-    });
+      // String curLocal = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: 'en');
+      // String curLocalCountry = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleCountryCode, defaultVal: '');
+      // S.load( Locale.fromSubtags(languageCode: curLocal ?? '', countryCode: TextUtil.isEmpty(curLocalCountry) ? null : curLocalCountry));
+      eventBus.fire(Params.ACTION_UPDATE_GLOBAL_THEME);
+      eventBus.fire(Params.ACTION_UPDATE_GLOBAL_THEME);
+
+                });
     this.requestNotificationStatus();
+    eventBus.on<EventFn>().listen((EventFn event) {
+      //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
+      if (event.type == Params.ACTION_UPDATE_ALL_UI) {
+        setState(() {
+
+        });
+      }
+    });
   }
 
   @override
@@ -227,17 +251,50 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
           rightPartContainer: CustomPopupWidget(
             list: CONSTANTS.getLanguageList(),
             onSelected: (CheckButtonStateModel v) {
-              String localLanguage = v.code ?? 'en';
-              String localCountryCode = v.content ?? '';
-              SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curLocaleLanguage , content: localLanguage);
-              SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curLocaleCountryCode , content: localCountryCode);
+               localLanguageCode = v.code ?? 'en';
+               localCountryCode = v.content ?? '';
+              SharePreferenceUtil.getSyncInstance().setString(
+                  key: ShareprefrenceKeys.curLocaleLanguage,
+                  content: localLanguageCode);
+              SharePreferenceUtil.getSyncInstance().setString(
+                  key: ShareprefrenceKeys.curLocaleCountryCode,
+                  content: localCountryCode);
               // final provider = Provider.of<LocaleProvider>(context);
-              Locale locale = Locale.fromSubtags(languageCode: localLanguage ?? '', countryCode: TextUtil.isEmpty(localCountryCode) ? null : localCountryCode);
+              Locale locale = Locale.fromSubtags(
+                  languageCode: localLanguageCode ?? '',
+                  countryCode: TextUtil.isEmpty(localCountryCode)
+                      ? null
+                      : localCountryCode);
               // provider.setLocale(    const Locale('fr'));
-              context.read<LocaleProvider>().setLocale(    locale);
-
+               updateUI();
+              context.read<LocaleProvider>().setLocale(locale);
+              Utility.showToastMsg(msg: getI18NKey().update_success_restart);
             },
-            child: Text("123"),
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: 24,
+                decoration: BoxDecoration(
+                    color: ThemeManager.getInstance().getDefautThemeColor(),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runAlignment: WrapAlignment.center,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 4,
+                    ),
+                    new Text(
+                      CONSTANTS.getCurLanguage(countryCode: localCountryCode, languageCode: localLanguageCode),
+                      maxLines: 1,
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14),
+                    )
+                  ],
+                )),
           ),
           icon: Container(
               padding: EdgeInsets.only(right: 10),

@@ -16,6 +16,7 @@ import 'package:video_player/video_player.dart';
 
 import '../beans/IPApiLocationBean.dart';
 import '../config/ENUMS.dart';
+import '../config/Params.dart';
 
 class DeviceInfoManagement {
   static DeviceInfoManagement? mDeviceInfoManagement;
@@ -153,6 +154,10 @@ class DeviceInfoManagement {
 
   String getModel() {
     return _deviceData['model'] ?? '';
+  }
+
+  static Locale? getMachaneLocal() {
+    return Params.local;
   }
 
   static String getCountryCode() {

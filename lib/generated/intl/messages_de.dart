@@ -988,6 +988,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte helfen Sie mir, den folgenden Text in Emojis zu konvertieren: ..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("Muster eingeben"),
+        "en": MessageLookupByLibrary.simpleMessage("Englisch"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
             "Schreiben Sie einen Satz, um sich selbst zu ermutigen~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("Verschlüsseln"),
@@ -1024,6 +1025,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte geben Sie den echten Namen ein"),
         "enter_amount": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie den Betrag ein"),
+        "es": MessageLookupByLibrary.simpleMessage("Spanisch"),
         "event": MessageLookupByLibrary.simpleMessage("Ereignis"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -1148,6 +1150,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Drittes Quartal"),
         "four_seasons_step4":
             MessageLookupByLibrary.simpleMessage("Viertes Quartal"),
+        "fr": MessageLookupByLibrary.simpleMessage("Französisch"),
         "fragment_listing":
             MessageLookupByLibrary.simpleMessage("Fragmentliste"),
         "free_open": MessageLookupByLibrary.simpleMessage("kostenlos öffnen"),
@@ -1167,6 +1170,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("QR-Code generieren"),
         "gently_remind":
             MessageLookupByLibrary.simpleMessage("Freundliche Tipps"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Klicken Sie auf den Authentifizierungscode"),
         "get_train_plan_successful": m51,
@@ -1291,6 +1295,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Schalten Sie zielgerichtete Push-Einstellungen ein, die Ihnen helfen werden, über die Fertigstellung Ihrer Aufgaben informiert zu werden"),
         "italic": MessageLookupByLibrary.simpleMessage("kursiv"),
+        "ja": MessageLookupByLibrary.simpleMessage("Japanisch"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("Januar"),
         "jan_to_dec":
@@ -1318,8 +1323,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "überspringen Sie diese Version"),
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("Juni"),
+        "ko": MessageLookupByLibrary.simpleMessage("Koreanisch"),
         "label": MessageLookupByLibrary.simpleMessage("Etikett"),
         "landscape": MessageLookupByLibrary.simpleMessage("Querformat"),
+        "language": MessageLookupByLibrary.simpleMessage("Sprache"),
+        "language_setting":
+            MessageLookupByLibrary.simpleMessage("Spracheinstellung"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("letzte Woche"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("letzte 7 Tage"),
         "leave_group": MessageLookupByLibrary.simpleMessage("Gruppe verlassen"),
@@ -2350,6 +2359,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("sofort aktualisieren"),
         "update_success": MessageLookupByLibrary.simpleMessage(
             "Aktualisierung abgeschlossen"),
+        "update_success_restart": MessageLookupByLibrary.simpleMessage(
+            "Einstellung erfolgreich, bitte neu starten"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("Letzte Aktualisierungszeit"),
         "upload": MessageLookupByLibrary.simpleMessage("Hochladen"),
@@ -2468,6 +2479,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Ihr persönlicher Zeitmanagement-Experte"),
-        "yuan": MessageLookupByLibrary.simpleMessage("RMB")
+        "yuan": MessageLookupByLibrary.simpleMessage("RMB"),
+        "zh_cn":
+            MessageLookupByLibrary.simpleMessage("Vereinfachtes Chinesisch"),
+        "zh_tw":
+            MessageLookupByLibrary.simpleMessage("Traditionelles Chinesisch")
       };
 }

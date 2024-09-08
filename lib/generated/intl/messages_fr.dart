@@ -1000,6 +1000,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Veuillez m\'aider à convertir le texte suivant en emojis :..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("Entrez un motif"),
+        "en": MessageLookupByLibrary.simpleMessage("Anglais"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
             "Écrivez une phrase pour vous encourager~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("Chiffrer"),
@@ -1035,6 +1036,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veuillez entrer le vrai nom"),
         "enter_amount":
             MessageLookupByLibrary.simpleMessage("Veuillez entrer le montant"),
+        "es": MessageLookupByLibrary.simpleMessage("Espagnol"),
         "event": MessageLookupByLibrary.simpleMessage("événement"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -1161,6 +1163,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Troisième trimestre"),
         "four_seasons_step4":
             MessageLookupByLibrary.simpleMessage("Quatrième trimestre"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing":
             MessageLookupByLibrary.simpleMessage("Liste de fragments"),
         "free_open": MessageLookupByLibrary.simpleMessage("ouverture gratuite"),
@@ -1179,6 +1182,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Générer un code QR"),
         "gently_remind":
             MessageLookupByLibrary.simpleMessage("Conseils gentils"),
+        "german": MessageLookupByLibrary.simpleMessage("Allemand"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Cliquez pour le code d\'authentification"),
         "get_train_plan_successful": m51,
@@ -1303,6 +1307,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Activez les paramètres de poussée ciblée, qui vous aideront à être informé de l\'achèvement de vos tâches"),
         "italic": MessageLookupByLibrary.simpleMessage("Italique"),
+        "ja": MessageLookupByLibrary.simpleMessage("Japonais"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("Janvier"),
         "jan_to_dec":
@@ -1331,8 +1336,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("passer à cette version"),
         "jun": MessageLookupByLibrary.simpleMessage("Juin"),
         "junFull": MessageLookupByLibrary.simpleMessage("Juin"),
+        "ko": MessageLookupByLibrary.simpleMessage("Coréen"),
         "label": MessageLookupByLibrary.simpleMessage("Étiquette"),
         "landscape": MessageLookupByLibrary.simpleMessage("Paysage"),
+        "language": MessageLookupByLibrary.simpleMessage("Langue"),
+        "language_setting":
+            MessageLookupByLibrary.simpleMessage("Paramètre de langue"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("semaine dernière"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
         "leave_group":
@@ -2379,6 +2388,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("mettre à jour maintenant"),
         "update_success":
             MessageLookupByLibrary.simpleMessage("mise à jour terminée"),
+        "update_success_restart": MessageLookupByLibrary.simpleMessage(
+            "Paramètres modifiés avec succès, veuillez redémarrer"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("Dernière mise à jour"),
         "upload": MessageLookupByLibrary.simpleMessage("Télécharger"),
@@ -2496,6 +2507,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Votre expert en gestion du temps personnel"),
-        "yuan": MessageLookupByLibrary.simpleMessage("RMB")
+        "yuan": MessageLookupByLibrary.simpleMessage("RMB"),
+        "zh_cn": MessageLookupByLibrary.simpleMessage("Chinois simplifié"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("Chinois traditionnel")
       };
 }
