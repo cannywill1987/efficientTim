@@ -27,6 +27,7 @@ import 'package:time_hello/com/timehello/util/NumTimesAppOpenManager.dart';
 import 'package:time_hello/com/timehello/util/PrivacyProtocolManager.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:wakelock/wakelock.dart';
@@ -65,7 +66,7 @@ void main() async {
   } catch (e) {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
-  if(!Utility.isXiaoMi()) {
+  if (!Utility.isXiaoMi()) {
     await FirebaseAuthManager.initialized();
   }
 
@@ -76,7 +77,6 @@ void main() async {
     ChangeNotifierProvider(create: (_) => Env()),
     ChangeNotifierProvider(create: (_) => GlobalStateEnv()),
     ChangeNotifierProvider(create: (_) => CalendarMssionEnv()),
-
   ], child: MyApp()));
   // }, onError: (error, stackTrace) {
   //   //  自定义处理错误
@@ -100,7 +100,7 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
   // print('1111111111111 initThirdparty');
   //初始化如果依赖sharePreference
   if (PrivacyProtocolManager.getInstance().isProtocolAgreed(context) == true) {
-    if(Utility.isXiaoMi()) {
+    if (Utility.isXiaoMi()) {
       await FirebaseAuthManager.initialized();
     }
 
@@ -197,13 +197,12 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     //   EasyLoadingManager.getInstance().showLoading();
     // }
 
-
     HtmlUtility.dismissLoading();
     try {
       //app 生命周期
       SystemChannels.lifecycle.setMessageHandler((msg) async {
         switch (msg) {
-        // 从后台切换到前台，界面可见
+          // 从后台切换到前台，界面可见
           case "AppLifecycleState.resumed":
             break;
 // 界面不可见，后台运行中
@@ -289,94 +288,147 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "code has been refreshed");
     return Selector<LocaleProvider, Locale>(
         selector: (_, LocaleProvider) => LocaleProvider.locale,
-    builder: (_, local, __) {
+        builder: (_, locale, __) {
+          // Locale locale = Locale('de', 'DE');
+          // Locale locale = Locale('fr', 'FR');
+          // Locale locale = Locale('ja', 'JP');
+          // Locale locale = Locale('zh', 'CN');
+          // Locale locale = Locale('de', 'DE');
+          // Locale locale = Locale('ko', 'KR');
+          String curLocal = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: 'en');
+          String curLocalCountry = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleCountryCode, defaultVal: '');
+          // S.load(locale = Locale.fromSubtags(languageCode: curLocal ?? '', countryCode: TextUtil.isEmpty(curLocalCountry) ? null : curLocalCountry));
+          S.load(locale = Locale.fromSubtags(languageCode: 'zh', countryCode: 'Hant'));
+          // S.load(locale = Locale.fromSubtags(languageCode: curLocal ?? '', countryCode: TextUtil.isEmpty(curLocalCountry) ? null : curLocalCountry));
+          return AdaptiveTheme(
+            light: ThemeManager.getInstance().getLightThemeData(),
+            dark: ThemeManager.getInstance().getDarkThemeData(),
+            initial: ThemeManager.getInstance().getThemeMode(),
+            builder: (lightTheme, darkTheme) => MaterialApp(
+              theme: ThemeManager.getInstance().getThemeMode() ==
+                      AdaptiveThemeMode.light
+                  ? lightTheme
+                  : darkTheme,
+              // theme: ThemeManager.getInstance().getThemeData(),
+              debugShowCheckedModeBanner: false,
+              navigatorKey: navigatorKey,
+              builder: EasyLoading.init(),
+              navigatorObservers: getObservers(),
+              // darkTheme: ThemeData(
+              //   visualDensity: VisualDensity.adaptivePlatformDensity, //用于适配不同机型
+              //   cupertinoOverrideTheme: const CupertinoThemeData(
+              //     textTheme: CupertinoTextThemeData(), // This is required
+              //   ),
+              // ),
+                locale: locale,
+              // locale:const Locale('deDE'),
+              // locale:const Locale.fromSubtags( languageCode: 'de',  countryCode: 'DE'),
+              localizationsDelegates: const [
+                // 很强大的记事本
+                // AppFlowyEditorLocalizations.delegate,
+                //用于国际化
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate, // This is required
+                SfGlobalLocalizations.delegate,
+                S.delegate
+              ],
+              // localeResolutionCallback: (locale, supportedLocales) {
+              //   for (var supportedLocale in supportedLocales) {
+              //     if (supportedLocale.languageCode == locale?.languageCode &&
+              //         supportedLocale.countryCode == locale?.countryCode) {
+              //       return supportedLocale;
+              //     }
+              //   }
+              //   return supportedLocales.first; // 默认语言
+              // },
+              // locales are the locales of the device
+              // supportedLocales are the app supported locales
+              localeListResolutionCallback: (locales, supportedLocales) {
+                // We map the supported locales to language codes
+                // note that this is completely optional and this logic can be changed as you like
+                final supportedLanguageCodes =
+                supportedLocales.map((e) => e.languageCode);
+                if (locales != null) {
+                  // we iterate over the locales and find the first one that is supported
+                  for (final locale in locales) {
+                    if (supportedLanguageCodes.contains(locale.languageCode)) {
+                      return locale;
+                    }
+                  }
+                }
 
+                // if we didn't find a supported language, we return the Italian language
+                return const Locale('en');
+              },
 
-    return AdaptiveTheme(
-      light: ThemeManager.getInstance().getLightThemeData(),
-      dark: ThemeManager.getInstance().getDarkThemeData(),
-      initial: ThemeManager.getInstance().getThemeMode(),
-      builder: (lightTheme, darkTheme) =>   MaterialApp(
-        theme:
-        ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
-            ? lightTheme
-            : darkTheme,
-        // theme: ThemeManager.getInstance().getThemeData(),
-        debugShowCheckedModeBanner: false,
-        navigatorKey: navigatorKey,
-        builder: EasyLoading.init(),
-        navigatorObservers: getObservers(),
-        // darkTheme: ThemeData(
-        //   visualDensity: VisualDensity.adaptivePlatformDensity, //用于适配不同机型
-        //   cupertinoOverrideTheme: const CupertinoThemeData(
-        //     textTheme: CupertinoTextThemeData(), // This is required
-        //   ),
-        // ),
-        // locale:
-        // const Locale.fromSubtags(
-        //   languageCode: 'en')
-        // ,
+              // locale: locale,
+              supportedLocales: [
+                // ...L10n.all,
+                Locale("en"),
+                // 英语
+                Locale("zh"),
+                //中文
+                Locale("zh_HK"),
+                //香港
+                Locale("zh_TW"),
+                //台湾
+                Locale("de"),
+                //de
+                //韩语
+                Locale("ko"),
 
-        localizationsDelegates: const [
-          // 很强大的记事本
-          // AppFlowyEditorLocalizations.delegate,
-          //用于国际化
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate, // This is required
-          SfGlobalLocalizations.delegate,
-          S.delegate
-        ],
-        // locale: Locale("en"),
-        supportedLocales: [
-          // ...L10n.all,
-          Locale("en"), // 英语
-          Locale("zh"), //中文
-          Locale("zh_HK"), //香港
-          Locale("zh_TW"), //台湾
-          Locale("fr"), //法语
-          Locale("de"), //de
-          Locale("ko"), //韩语
-          Locale("ja"), //日语
-          //日语
-          const Locale.fromSubtags(languageCode: 'ja'),
+                // const Locale.fromSubtags(languageCode: 'ko'),
+                // Locale("ko"),
+                //韩语
+                Locale("ja"),
+                //日语
+                // Locale('hi'),
+                Locale('fr'),
+                // Locale('it'),
+                // Locale('es'),
+                // Locale('pt'),
+                // Locale('de'),
+                // Locale('no'),
 
-          //韩语
-          const Locale.fromSubtags(languageCode: 'ko'),
-          //德语
-          const Locale.fromSubtags(languageCode: 'de'),
-          // 法语
-          const Locale.fromSubtags(languageCode: 'fr'),
-
-          const Locale.fromSubtags(languageCode: 'zh'),
-          // generic Chinese 'zh'
-          // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-          // // generic simplified Chinese 'zh_Hans'
-          // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-          // generic traditional Chinese 'zh_Hant'
-          const Locale.fromSubtags(
-              languageCode: 'zh',  countryCode: 'CN'),
-          // 'zh_Hans_CN'
-          // const Locale.fromSubtags(
-          //     languageCode: 'zh',  countryCode: 'TW'),
-          // 'zh_Hant_TW'
-          const Locale.fromSubtags(
-              languageCode: 'zh',  countryCode: 'HK'),
-          // 'zh_Hant_HK'
-        ],
-        title: appName,
-        // theme: ThemeData(
-        //     primaryColor: Colors.black
-        // ),
-        home: SplashPage(),
-        routes: {
-          "unregister": (BuildContext context) => new UnregisterPage(),
-          // web会以hash展示  https://www.timerbell.com/#unregister
-          // "BottomTabBarHome": (BuildContext context) => new BottomTabBarHome(),
-        },
-      ),
-    );
-  });
-
-}
+                //日语
+                // const Locale.fromSubtags(languageCode: 'ja'),
+                //
+                // //韩语
+                // const Locale.fromSubtags(languageCode: 'ko'),
+                // //德语
+                // const Locale.fromSubtags(languageCode: 'de'),
+                // // 法语
+                // const Locale.fromSubtags(languageCode: 'fr'),
+                //
+                // const Locale.fromSubtags(languageCode: 'zh'),
+                // // generic Chinese 'zh'
+                // // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+                // // // generic simplified Chinese 'zh_Hans'
+                // // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+                // // generic traditional Chinese 'zh_Hant'
+                // const Locale.fromSubtags(
+                //     languageCode: 'zh',  countryCode: 'CN'),
+                // 'zh_Hans_CN'
+                // const Locale.fromSubtags(
+                //     languageCode: 'zh',  countryCode: 'TW'),
+                // 'zh_Hant_TW'
+                // const Locale.fromSubtags(
+                //     languageCode: 'zh',  countryCode: 'HK'),
+                // 'zh_Hant_HK'
+              ],
+              title: appName,
+              // theme: ThemeData(
+              //     primaryColor: Colors.black
+              // ),
+              home: SplashPage(),
+              routes: {
+                "unregister": (BuildContext context) => new UnregisterPage(),
+                // web会以hash展示  https://www.timerbell.com/#unregister
+                // "BottomTabBarHome": (BuildContext context) => new BottomTabBarHome(),
+              },
+            ),
+          );
+        });
+  }
 }

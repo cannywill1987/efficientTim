@@ -90,12 +90,12 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             Spacer(),
             if(!Utility.isProductEnv())
               InkWell(onTap: () {
-                Utility.toggleCurDesktopFolderPageVisibility(context);
-
+                // Utility.toggleCurDesktopFolderPageVisibility(context);
+getI18NKey().all_mission;
                 // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
                 // final provider = Provider.of<LocaleProvider>(context);
                 // provider.setLocale(    const Locale('fr'));
-
+                // context.read<LocaleProvider>().setLocale(    const Locale('fr'));
                 // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
                 // FirebaseStoreManager.getInstance().setString(data: "11111111111111111");
                 // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);

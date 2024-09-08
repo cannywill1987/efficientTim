@@ -37,7 +37,7 @@ class WidgetManager {
       // width: 5,
       // ));
       listWidget.add(TextSpan(
-          text: "  #" + (folderModel.title ?? ""),
+          text: "#" + (folderModel.title ?? ""),
           style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: fontSize,
@@ -190,6 +190,30 @@ class WidgetManager {
 
   static double getWidgetHeight(GlobalKey globalKey) {
     return globalKey.currentContext?.size?.height ?? 0;
+  }
+
+  static List<WidgetSpan> getIsNoteWidget(MissionModel missionModel) {
+    List<WidgetSpan> listWidget = [];
+    final double space = 5;
+    listWidget.add(WidgetSpan(child: SizedBox(width: space)));
+    if (TextUtil.isEmpty(missionModel.newRichEditorUrl) &&
+        (missionModel.noteRecordUrls?.length ?? 0) == 0 &&
+        (missionModel.noteRecordUrls?.length ?? 0) == 0) {
+      return listWidget;
+    }
+    if (!TextUtil.isEmpty(missionModel.newRichEditorUrl)) {
+      listWidget.add(WidgetSpan(child: Icon(Icons.note_alt, color: Color(0xffa0a0a0), size: 15)));
+      listWidget.add(WidgetSpan(child: SizedBox(width: space)));
+    }
+    if ((missionModel.noteRecordUrls?.length ?? 0) > 0) {
+      listWidget.add(WidgetSpan(child: Icon(Icons.record_voice_over, color: Color(0xffa0a0a0), size: 15)));
+      listWidget.add(WidgetSpan(child: SizedBox(width: space)));
+    }
+    if ((missionModel.noteRecordUrls?.length ?? 0) > 0) {
+      listWidget.add(WidgetSpan(child: Icon(Icons.attach_file, color: Color(0xffa0a0a0), size: 15)));
+      listWidget.add(WidgetSpan(child: SizedBox(width: space)));
+    }
+    return listWidget;
   }
 
   static Widget getLoadingWidget() {

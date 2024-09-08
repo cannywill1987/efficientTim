@@ -353,7 +353,7 @@ class MongoDbQuery<T> {
     Map<String, dynamic> map = await MongoDbDio.getInstance().get(url, data: getParams());
     MongoDbResults mongoDbResults = MongoDbResults.fromJson(map["data"] ?? {});
     Utility.print(mongoDbResults.results);
-    return mongoDbResults.results!;
+    return mongoDbResults.results ?? [];
   }
 
   ///获取请求参数

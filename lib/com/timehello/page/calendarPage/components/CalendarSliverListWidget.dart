@@ -676,7 +676,10 @@ class ItemIndividualState extends State<ItemIndividualWidget> {
                                           ...WidgetManager.getTagsWidgetSpan(
                                               this.widget.missionModel ??
                                                   MissionModel(),
-                                              fontSize: 12)
+                                              fontSize: 12),
+                                          ...WidgetManager.getIsNoteWidget(
+                                            this.widget.missionModel ?? MissionModel(),
+                                          ),
                                         ])),
                               ))),
                       GestureDetector(

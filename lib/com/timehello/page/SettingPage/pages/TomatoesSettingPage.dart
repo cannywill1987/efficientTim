@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/beans/ResourceLocationInfoBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.dart';
+import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/SectionHeaderWidget.dart';
 import 'package:time_hello/com/timehello/components/SelectMinutesDialogUtil.dart';
 import 'package:time_hello/com/timehello/components/SelectMoneySettingDialogUtil.dart';
@@ -14,7 +16,9 @@ import 'package:time_hello/com/timehello/components/SettingMenuItem.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
+import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/MusicModel.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
@@ -26,6 +30,8 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../../../r.dart';
 import '../../../components/InputNumber.dart';
+import '../../../util/LocaleProvider.dart';
+import '../../../util/TextUtil.dart';
 
 class TomatoesSettingPage extends BaseWidget {
   PageFromEnum pageFrom;
@@ -204,6 +210,38 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
       SectionHeaderWidget(
         title: getI18NKey().tomatoClockSetting,
       ),
+      SettingMenuItem(
+          title: getI18NKey().language_setting,
+          // description: getI18NKey().consump_present_description,
+          // onTapListener: (data) {
+          //   SelectPresentDialogUtil.show(context,
+          //       title: "", content: "", isCheckButtonShow: false);
+          //   // SelectMoneySettingDialogUtil.show(context,
+          //   //     title: getI18NKey().localmoney_made_per_minute,
+          //   //     initVal: SharePreferenceUtil.getSyncInstance().getLocalMoney(),
+          //   //     okCallBack: (val) {
+          //   //       SharePreferenceUtil.getSyncInstance().setLocalMoney(val);
+          //   //       this.updateUI();
+          //   //     });
+          // },
+          rightPartContainer: CustomPopupWidget(
+            list: CONSTANTS.getLanguageList(),
+            onSelected: (CheckButtonStateModel v) {
+              String localLanguage = v.code ?? 'en';
+              String localCountryCode = v.content ?? '';
+              SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curLocaleLanguage , content: localLanguage);
+              SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curLocaleCountryCode , content: localCountryCode);
+              // final provider = Provider.of<LocaleProvider>(context);
+              Locale locale = Locale.fromSubtags(languageCode: localLanguage ?? '', countryCode: TextUtil.isEmpty(localCountryCode) ? null : localCountryCode);
+              // provider.setLocale(    const Locale('fr'));
+              context.read<LocaleProvider>().setLocale(    locale);
+
+            },
+            child: Text("123"),
+          ),
+          icon: Container(
+              padding: EdgeInsets.only(right: 10),
+              child: Utility.getSVGPicture(R.assetsImgIcPresent, size: 15))),
       Utility.isProductEnv() == true
           ? SizedBox.shrink()
           : SettingMenuItem(
@@ -445,7 +483,8 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
               ),
               icon: Container(
                   padding: EdgeInsets.only(right: 10),
-                  child: Utility.getSVGPicture(R.assetsImgIcRepeativeOrange, size: 12))),
+                  child: Utility.getSVGPicture(R.assetsImgIcRepeativeOrange,
+                      size: 12))),
       this.widget.pageFrom == PageFromEnum.MissionDetailPage
           ? SizedBox.shrink()
           : SettingMenuItem(

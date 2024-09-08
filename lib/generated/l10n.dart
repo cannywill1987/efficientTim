@@ -50,6 +50,166 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Language Setting`
+  String get language_setting {
+    return Intl.message(
+      'Language Setting',
+      name: 'language_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chinese Simplified`
+  String get zh_cn {
+    return Intl.message(
+      'Chinese Simplified',
+      name: 'zh_cn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chinese Traditional`
+  String get zh_tw {
+    return Intl.message(
+      'Chinese Traditional',
+      name: 'zh_tw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get en {
+    return Intl.message(
+      'English',
+      name: 'en',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `German`
+  String get german {
+    return Intl.message(
+      'German',
+      name: 'german',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Japanese`
+  String get ja {
+    return Intl.message(
+      'Japanese',
+      name: 'ja',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Korean`
+  String get ko {
+    return Intl.message(
+      'Korean',
+      name: 'ko',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `French`
+  String get fr {
+    return Intl.message(
+      'French',
+      name: 'fr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spanish`
+  String get es {
+    return Intl.message(
+      'Spanish',
+      name: 'es',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the question you want to ask`
+  String get please_input_question {
+    return Intl.message(
+      'Please enter the question you want to ask',
+      name: 'please_input_question',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the mission title you want to search`
+  String get please_input_search_mission {
+    return Intl.message(
+      'Please enter the mission title you want to search',
+      name: 'please_input_search_mission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subtask`
+  String get multi_subtask {
+    return Intl.message(
+      'Subtask',
+      name: 'multi_subtask',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image saved successfully`
+  String get save_img_success {
+    return Intl.message(
+      'Image saved successfully',
+      name: 'save_img_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saving image`
+  String get saving_img {
+    return Intl.message(
+      'Saving image',
+      name: 'saving_img',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Rich Editor`
+  String get new_rich_editor {
+    return Intl.message(
+      'New Rich Editor',
+      name: 'new_rich_editor',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Timerbell todo AI`
   String get ai_title {
     return Intl.message(
@@ -3086,46 +3246,6 @@ class S {
     return Intl.message(
       'undo',
       name: 'cmdUndo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `保存图片成功`
-  String get save_img_success {
-    return Intl.message(
-      '保存图片成功',
-      name: 'save_img_success',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `图片保存中`
-  String get saving_img {
-    return Intl.message(
-      '图片保存中',
-      name: 'saving_img',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `新富文本`
-  String get new_rich_editor {
-    return Intl.message(
-      '新富文本',
-      name: 'new_rich_editor',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `子任务`
-  String get multi_subtask {
-    return Intl.message(
-      '子任务',
-      name: 'multi_subtask',
       desc: '',
       args: [],
     );
@@ -14014,6 +14134,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'ko'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'HK'),
+      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'TW'),
     ];
   }

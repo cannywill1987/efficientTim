@@ -125,7 +125,7 @@ class FlomoWeekendWidget extends StatelessWidget {
                             : TextStyle(
                             color: this.colorCheck, fontSize: fontSize2),
                       ),
-
+                      if(Utility.isChina())
                       Text(dayModel?.lunarDay ?? "",
                         textAlign: TextAlign.center,
                         style: dayModel.isCheck

@@ -346,6 +346,7 @@ class LoginManager {
     //   await PermissionManager.getInstance().requestStoragePermission();
     // }
     Map map = await FirebaseAuthManager.getInstance().signInWithApple();
+
     print(map);
     loginUtil?.doRegisterWithEmail(
         shouldShowLoading: true,

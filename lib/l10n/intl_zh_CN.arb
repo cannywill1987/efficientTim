@@ -1,4 +1,12 @@
 {
+  "@@locale": "zh-CN",
+  "please_input_question": "请输入你想要问的问题",
+  "please_input_search_mission": "请输入你想搜索的任务标题",
+  "multi_subtask": "子任务",
+  "save_img_success": "保存图片成功",
+  "saving_img": "图片保存中",
+  "new_rich_editor": "新富文本",
+  "multi_subtask": "子任务",
   "ai_title": "时间管理局AI",
   "speech": "演讲稿",
   "speech_prompt": "请帮我写一篇关于...的演讲稿。",
@@ -171,7 +179,7 @@
   "save_success": "保存成功",
   "upload_success": "上传成功",
   "upload_error": "上传失败",
-  "@@locale": "zh-CN",
+
   "bold": "粗体",
   "@bold": {},
   "bulletedList": "无序列表",

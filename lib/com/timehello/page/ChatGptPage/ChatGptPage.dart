@@ -47,10 +47,14 @@ import 'components/ChatGptListView.dart';
 class ChatGptPage extends BaseWidget {
   PageGPTFromEnum pageGPTFromEnum = PageGPTFromEnum.RightBarPage;
   String fid = "";
+  bool createNewMission = false;
+  String message = '';
 
   ChatGptPage(
       {Key? key,
       String fid = "",
+      this.createNewMission = false,
+      this.message = '',
       PageGPTFromEnum pageGPTFromEnum = PageGPTFromEnum.RightBarPage})
       : super(key: key) {
     this.fid = fid;
@@ -108,6 +112,9 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
   @override
   void initState() {
     // this.requestDatas();
+    if (this.widget.createNewMission == true) {
+      createAndSendMsg(this.widget.message);
+    }
     this.isAppBarVisible = false;
     this.forceAppBarVisible = false;
     curCheckButtonStateModel = listCheckButtonStateModel[0];
@@ -152,10 +159,10 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
         }
       }
     } else {
-      if(!TextUtil.isEmpty(_curChatGptFolderModel?.objectId)) {
+      if (!TextUtil.isEmpty(_curChatGptFolderModel?.objectId)) {
         this.listChatGptMessageModels = MongoApisManager.getInstance()
             .getChatGptMessageModelListByObjectId(
-            _curChatGptFolderModel?.objectId ?? "");
+                _curChatGptFolderModel?.objectId ?? "");
       } else {
         this.listChatGptMessageModels = [];
       }
@@ -163,18 +170,19 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     // toBottom();
   }
 
-
   /**
    * AIHelperPage创建文件夹 没消息才创建
    */
   Future<void> createFolder(String text) async {
-    if(this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage && this.listChatGptMessageModels.length == 0) {
+    if (this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage &&
+        this.listChatGptMessageModels.length == 0) {
       ChatGptFolderModel chatGptFolderModel = ChatGptFolderModel();
       chatGptFolderModel.title = text;
       // text = Utility.getPromptsText(text:text, prompts: item?.resourceContent ?? "");
       // chatGptFolderModel.prompt = item?.resourceContent;
       // chatGptFolderModel.promptTitle = item?.resourceTitle;
-      MongoDbSaved? res = await MongoApisManager.getInstance().insertChatGptFolderModel(chatGptFolderModel: chatGptFolderModel);
+      MongoDbSaved? res = await MongoApisManager.getInstance()
+          .insertChatGptFolderModel(chatGptFolderModel: chatGptFolderModel);
       chatGptFolderModel.objectId = res?.objectId ?? "";
       this._curChatGptFolderModel = chatGptFolderModel;
       context.read<Env>().curChatGptFolderModel = chatGptFolderModel;
@@ -188,10 +196,16 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     });
   }
 
-  // @override
-  // void didUpdateWidget(Widget oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  // }
+  @override
+  void didUpdateWidget(ChatGptPage oldWidget) {
+    // super.didUpdateWidget(oldWidget);
+    if (true == this.widget.createNewMission &&
+        oldWidget.message != this.widget.message) {
+      if (this.widget.createNewMission == true) {
+        createAndSendMsg(this.widget.message);
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -220,55 +234,56 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
                     CustomMarquee(
                       bean: MarqueInfo.marqueGPTPage,
                     ),
-                    if(this.widget.pageGPTFromEnum == PageGPTFromEnum.RightBarPage)
-                    ChatGptHeaderWidget(
-                      key: ValueKey("ejzifizejf"),
-                      onTapListener: (CheckButtonStateModel model) async {
-                        switch (model.code) {
-                          case 'chat':
-                            showPage(page: ChatGptPageEnum.chatGptPage);
-                            break;
-                          case 'more':
-                            showPage(page: ChatGptPageEnum.morePage);
-                            break;
-                          case 'previous_chat':
-                            showPage(page: ChatGptPageEnum.historyPage);
-                            break;
-                          case 'new_chat':
-                            // ChatGptMessageModel? chatGptMessageModelCurSelected =
-                            //     MongoApisManager.getInstance()
-                            //         .getCurChatGptMessageModel();
-                            //如果当前选中的是文件夹在编辑中 且没有内容为空 就不需要重新创建一个空的ChatGptMessageModel 直接打开页面就好了
-                            // if (chatGptMessageModelCurSelected != null &&
-                            //     TextUtil.isEmpty(
-                            //             chatGptMessageModelCurSelected.folderTitle) ==
-                            //         true) {
-                            //   this.chatGptMessageModelCurSelected = chatGptMessageModelCurSelected;
-                            // } else {
-                            await createEmptyChatGptMessageModel();
-                            // }
-                            showPage(page: ChatGptPageEnum.chatGptPage);
-                            break;
-                          case 'close':
-                            if (this.chatGptPageEnum ==
-                                    ChatGptPageEnum.chatGptPage ||
-                                this.chatGptPageEnum ==
-                                    ChatGptPageEnum.morePage) {
-                              Utility.popupDesktopRightNavigator(context);
-                            } else {
+                    if (this.widget.pageGPTFromEnum ==
+                        PageGPTFromEnum.RightBarPage)
+                      ChatGptHeaderWidget(
+                        key: ValueKey("ejzifizejf"),
+                        onTapListener: (CheckButtonStateModel model) async {
+                          switch (model.code) {
+                            case 'chat':
                               showPage(page: ChatGptPageEnum.chatGptPage);
-                            }
-                            break;
-                        }
-                      },
-                      chatGptPageEnum: this.chatGptPageEnum,
-                    ),
+                              break;
+                            case 'more':
+                              showPage(page: ChatGptPageEnum.morePage);
+                              break;
+                            case 'previous_chat':
+                              showPage(page: ChatGptPageEnum.historyPage);
+                              break;
+                            case 'new_chat':
+                              // ChatGptMessageModel? chatGptMessageModelCurSelected =
+                              //     MongoApisManager.getInstance()
+                              //         .getCurChatGptMessageModel();
+                              //如果当前选中的是文件夹在编辑中 且没有内容为空 就不需要重新创建一个空的ChatGptMessageModel 直接打开页面就好了
+                              // if (chatGptMessageModelCurSelected != null &&
+                              //     TextUtil.isEmpty(
+                              //             chatGptMessageModelCurSelected.folderTitle) ==
+                              //         true) {
+                              //   this.chatGptMessageModelCurSelected = chatGptMessageModelCurSelected;
+                              // } else {
+                              await createEmptyChatGptMessageModel();
+                              // }
+                              showPage(page: ChatGptPageEnum.chatGptPage);
+                              break;
+                            case 'close':
+                              if (this.chatGptPageEnum ==
+                                      ChatGptPageEnum.chatGptPage ||
+                                  this.chatGptPageEnum ==
+                                      ChatGptPageEnum.morePage) {
+                                Utility.popupDesktopRightNavigator(context);
+                              } else {
+                                showPage(page: ChatGptPageEnum.chatGptPage);
+                              }
+                              break;
+                          }
+                        },
+                        chatGptPageEnum: this.chatGptPageEnum,
+                      ),
                     (this.widget.pageGPTFromEnum ==
                                 PageGPTFromEnum.AIHelperPage &&
                             listChatGptMessageModels.length == 0)
-                        ? Expanded(
-                            child: GPTRoleGridViewPage(
-                            onClickCreated: (text, ChatGptFolderModel chatGptFolderModel) {
+                        ? Expanded(child: GPTRoleGridViewPage(
+                            onClickCreated:
+                                (text, ChatGptFolderModel chatGptFolderModel) {
                               this._curChatGptFolderModel = chatGptFolderModel;
                               onClickSendMsg(text);
                             },
@@ -278,18 +293,21 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
                       ChatInputWidget(
                           key: chatInputWidgetStateGlobalKey,
                           listSuggest: curCheckButtonStateModel?.list ?? [],
-                          headerWidget: this.widget.pageGPTFromEnum == PageGPTFromEnum.RightBarPage ? IconButtonListWidget(
-                            wrapMode: WrapModeEnum.wrap,
-                            initIndex: 0,
-                            list: listCheckButtonStateModel,
-                            onTapListener: (obj) {
-                              curCheckButtonStateModel =
-                                  listCheckButtonStateModel[obj['index']];
-                              chatInputWidgetStateGlobalKey.currentState
-                                  ?.refresh();
-                              updateUI();
-                            },
-                          ) : SizedBox.shrink(),
+                          headerWidget: this.widget.pageGPTFromEnum ==
+                                  PageGPTFromEnum.RightBarPage
+                              ? IconButtonListWidget(
+                                  wrapMode: WrapModeEnum.wrap,
+                                  initIndex: 0,
+                                  list: listCheckButtonStateModel,
+                                  onTapListener: (obj) {
+                                    curCheckButtonStateModel =
+                                        listCheckButtonStateModel[obj['index']];
+                                    chatInputWidgetStateGlobalKey.currentState
+                                        ?.refresh();
+                                    updateUI();
+                                  },
+                                )
+                              : SizedBox.shrink(),
                           onClickSendMsg: (val) {
                             this.onClickSendMsg(val);
                           }),
@@ -297,6 +315,17 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
                 );
               });
         });
+  }
+
+  /**
+   * 创建一个空的ChatGptMessageModel
+   */
+  createAndSendMsg(String msg) async {
+    listChatGptMessageModels = [];
+    updateUI();
+    await createEmptyChatGptMessageModel();
+    onClickSendMsg(msg);
+    this.widget.message = '';
   }
 
   Future<void> createEmptyChatGptMessageModel() async {
@@ -308,7 +337,7 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     chatGptMessageModel.modelType = 1;
     chatGptMessageModel.username =
         chatGptMessageModel.fid = _curChatGptFolderModel?.objectId;
-        LoginManager.getInstance().getUserBean().username;
+    LoginManager.getInstance().getUserBean().username;
     chatGptMessageModel.avatar =
         LoginManager.getInstance().getUserBean().avatar;
     MongoDbSaved? res = await MongoApisManager.getInstance()
@@ -436,6 +465,13 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     List<String> listText = [];
     bool hasCallback = false;
     List<ChatGptMessageModel> listChatGptMessageModels = [];
+    // if(listChatGptMessageModels.length == 0) {
+    //   ChatGptMessageModel chatGptMessageModelGpt = ChatGptMessageModel();
+    //   chatGptMessageModelGpt.content = latestMessage;
+    //   chatGptMessageModelGpt.isUser = true;
+    //   listChatGptMessageModels.add(chatGptMessageModelGpt);
+    //   return list;
+    // }
     for (int i = this.listChatGptMessageModels.length - 1; i >= 0; i--) {
       ChatGptMessageModel chatGptMessageModelGpt =
           this.listChatGptMessageModels[i];
@@ -453,7 +489,7 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
             listChatGptMessageModels[i];
         bool isUser = chatGptMessageModelGpt.isUser ?? true;
         String text = chatGptMessageModelGpt.text ?? "";
-    // || listText.contains(text)
+        // || listText.contains(text)
         if (TextUtil.isEmpty(text)) {
           continue;
         }
@@ -477,7 +513,8 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
 
   void onClickSendMsg(String value) async {
     if (TextUtil.isEmpty(value)) {
-      Utility.showToastMsg(context: context, msg: getI18NKey().comment_not_empty);
+      Utility.showToastMsg(
+          context: context, msg: getI18NKey().comment_not_empty);
       return;
     }
     await createFolder(value);
@@ -517,9 +554,11 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
     try {
       chatGptMessageModelGpt = await ChatGptManager.getInstance().sendMessages(
         scene: curCheckButtonStateModel?.code,
-          chatGptFolderModel: _curChatGptFolderModel,
-        systemMessage:  CONSTANTS
-            .getSystemMessage(this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage ? "" : getI18NKey().gpt_role(getI18NKey().app_name)),
+        chatGptFolderModel: _curChatGptFolderModel,
+        systemMessage: CONSTANTS.getSystemMessage(
+            this.widget.pageGPTFromEnum == PageGPTFromEnum.AIHelperPage
+                ? ""
+                : getI18NKey().gpt_role(getI18NKey().app_name)),
         messages: getChatMessageList(latestMessage: value),
       );
     } catch (e) {

@@ -40,10 +40,8 @@ class ThirdPartyLoginWidget extends StatelessWidget {
                 (isChina == false))
              InkWell(
                 onTap: () async {
-                  // EasyLoadingManager.getInstance().showLoading();
                   await LoginManager.getInstance()
                       .thirdPartyLoginWithGoogle(context);
-                  // EasyLoadingManager.getInstance().hideLoading();
                   this.onTapGoogle();
                 },
                 child: Container(
@@ -81,6 +79,7 @@ class ThirdPartyLoginWidget extends StatelessWidget {
                 (isChina == false)))
         InkWell(
           onTap: () async {
+
             await LoginManager.getInstance()
                 .thirdPartyLoginWithApple(context);
           },

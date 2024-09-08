@@ -42,7 +42,16 @@ bool isFocusing = false;
   void initState() {
     // TODO: implement initState
     super.initState();
-    curScene = list[0].code ?? "";
+    try {
+      curScene = SharePreferenceUtil.getSyncInstance().getString(
+          key: ShareprefrenceKeys.curSelectedFindWidgetScene,
+          defaultVal: list[0].code ?? "");
+      curIndex = SharePreferenceUtil.getSyncInstance().getInt(
+          key: ShareprefrenceKeys.curSelectedFindWidgetIndex, defaultVal: 0);
+    } catch(e) {
+      print("error: $e");
+    }
+    // curScene = list[0].code ?? "";
   }
 
   void onClick(type, data) async {
@@ -61,7 +70,8 @@ bool isFocusing = false;
             CheckButtonStateModel model = obj['data'];
             this.curScene = model?.code ?? "";
             this.curIndex = obj['index'];
-
+            SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curSelectedFindWidgetScene, content: this.curScene);
+            SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.curSelectedFindWidgetIndex, value: this.curIndex);
             setState(() {});
           },
         ),
@@ -71,10 +81,18 @@ bool isFocusing = false;
           CreateMissionContainerWidget(),
         if (this.curScene == 'AI')
           AISearchBar(
-            title: "搜索title",
-            prompt: "搜索prompt",
-            placeholder: "搜索placeholder",
+            title: getI18NKey().ai_helper,
+            prompt: "",
+            placeholder: getI18NKey().please_input_question,
             onSubmit: (prompt, aiText) async {
+              if(TextUtil.isEmpty(aiText)) {
+                Utility.showToastMsg(msg: "请输入搜索内容");
+                return;
+              }
+              DialogManagement.getInstance().hideDialog(context);
+              Utility.popupDesktopRightNavigator(context);
+              Utility.openRightSideDesktopNavigator(
+                  context, 'ChatGptPage', {"createNewMission": true, "message": aiText});
             },
           ),
       ],

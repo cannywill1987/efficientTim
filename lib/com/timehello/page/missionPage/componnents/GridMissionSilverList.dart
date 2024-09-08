@@ -254,12 +254,16 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                           )),
                       ...WidgetManager.getTagsWidgetSpan(
                           _missionModel ?? MissionModel(),
-                          fontSize: 12)
+                          fontSize: 12),
+                      ...WidgetManager.getIsNoteWidget(
+                        _missionModel ?? MissionModel(),
+                      ),
                     ])),
                 if ((_missionModel?.subMissions?.length ?? 0) > 0)
                   SubmissionColumnList(
                     missionModel: _missionModel ?? MissionModel(),
                   ),
+
               ]),
           flex: 3),
       // Spacer(),

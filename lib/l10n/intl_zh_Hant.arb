@@ -1,5 +1,5 @@
 {
-  "@@locale": "zh_HK",
+  "@@locale": "zh_Hant",
   "underline": "底線",
   "fontColorDefault": "預設",
   "fontColorGray": "灰色",
@@ -463,7 +463,7 @@
   "please_confirm_your_password": "請確認您的密碼",
   "lock_screen_password_setting": "鎖屏密碼設置",
   "please_create_ur_password": "請創建您的密碼",
-"please_enter_ur_password": "請輸入您的密碼",
+  "please_enter_ur_password": "請輸入您的密碼",
   "report2": "舉報",
   "create_chat": "創建會話",
   "please_input_first_gpt_sentence": "請輸入您想問的問題",
@@ -1310,7 +1310,7 @@
   "volume": "音量",
 
 
-  
+
   "missionModelDate3": "{year}年{month}月",
   "missionModelDate2": "{year}年{month}月{day}日",
   "missionModelDate": "{year}年{month}月{day}日,{weekday}",

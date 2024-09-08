@@ -19,7 +19,7 @@ class SectionTitleWidget extends StatelessWidget {
     // TODO: implement build
     return Container(
         padding: EdgeInsets.fromLTRB(5, 4, 5, 7),
-        color: ThemeManager.getInstance().getBackgroundColor(context: context, defaultColor: ColorsConfig.standardPageBackground),
+        color: ThemeManager.getInstance().getCardBackgroundColor(),
         alignment: Alignment(-1, 1),
         child: Row(
           children: [

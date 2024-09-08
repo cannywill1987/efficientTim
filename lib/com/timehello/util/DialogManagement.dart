@@ -430,6 +430,7 @@ class DialogManagement {
       context: context,
       builder: (BuildContext context) {
         return cmdFContainerWidgetDialog = AlertDialog(
+            backgroundColor:ThemeManager.getInstance().getCardBackgroundColor(),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Column(
@@ -439,7 +440,7 @@ class DialogManagement {
                       width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
                       // height: 600,
                       decoration: BoxDecoration(
-                          color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                          color: ThemeManager.getInstance().getCardBackgroundColor(), borderRadius: BorderRadius.circular(8)),
                       child: CmdFContainerWidget())
                 ],
               );

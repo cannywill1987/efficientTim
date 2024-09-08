@@ -68,9 +68,10 @@ class MissionSearchBarState extends State<MissionSearchBar> {
   }
 
   void resetMultiSelectModeEnum() {
-    this.curListMissionModels?.forEach((element) {
-      element.isSelected = false;
-    });
+    // this.curListMissionModels?.forEach((element) {
+    //   element.isSelected = false;
+    // });
+    this.curListMissionModels = [];
     this.multiSelectModeEnum = MultiSelectModeEnum.normal;
     updateUI();
   }
@@ -100,8 +101,9 @@ class MissionSearchBarState extends State<MissionSearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height - 200;
     return Container(
-      height: 500,
+      height: height,
       child: Column(
         children: <Widget>[
           this.multiSelectModeEnum == MultiSelectModeEnum.normal
@@ -115,7 +117,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                 },
                 onClickDelete: (datas) async {
                   await MongoApisManager.getInstance()
-                      .batchDelete_MissionModel(listParam: datas);
+                      .batchDelete_MissionModel(listParam: curListMissionModels);
                   requestList(curSearchWords);
                 },
                 onClickExport: (datas) {
@@ -133,7 +135,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                         MissionOrderEnum missionOrderEnum = res['enum'];
                         String s = Utility.getContentFromMissionList(
                             datas: Utility.getMissionModelListAfterOrder(
-                                missionOrderEnum, datas ?? []),
+                                missionOrderEnum, curListMissionModels ?? []),
                             listCheckButtonModel: data);
                         textEditingController.text = s;
                         updateUI();
@@ -146,14 +148,14 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                 onClickFinish: (datas) async {
                   await MongoApisManager.getInstance()
                       ?.batchUpdate_MissionModelWithParams(
-                      listMissionModel: datas);
+                      listMissionModel: curListMissionModels ?? []);
                   requestList(curSearchWords);
 
                 },
                 onClickUnFinish: (datas) async {
                   await MongoApisManager.getInstance()
                       ?.batchUpdate_MissionModelWithParams(
-                      listMissionModel: datas);
+                      listMissionModel: curListMissionModels ?? []);
                   requestList(curSearchWords);
 
                 },
@@ -174,7 +176,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                           .onSubmit
                           ?.call(this.widget.prompt!, _controller.text);
                     },
-                    style: TextStyle(color: Color(0xff404040)),
+                    style: TextStyle(color: ThemeManager.getInstance().getTextColor()),
 
                     decoration: InputDecoration(
 
@@ -183,12 +185,12 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                       // ),
                       // focusColor: Colors.purple,
                       // labelText: "134",
-                      label: Text(this.widget.placeholder ?? ""),
+                      label: Text(getI18NKey().please_input_search_mission),
                       floatingLabelStyle: TextStyle(
                         color: Colors.purple,
                       ),
                       labelStyle:
-                          TextStyle(color: Color(0xffa0a0a0), fontSize: 14),
+                      TextStyle(color: Color(0xffa0a0a0), fontSize: 14),
                       prefixIcon: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -212,7 +214,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                               child: Text(
                                 this.widget.title!,
                                 style:
-                                    TextStyle(color: Colors.purple, fontSize: 12),
+                                TextStyle(color: Colors.purple, fontSize: 12),
                               ),
                             ),
                           if (this.widget.title != null)
@@ -221,44 +223,44 @@ class MissionSearchBarState extends State<MissionSearchBar> {
                             ),
                         ],
                       ),
-                      suffixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '${_controller.text.length}/1000',
-                            style: TextStyle(color: color),
-                          ),
-                          SizedBox(width: 8),
-                          //圆形
-                          ElevatedButton(
-                            clipBehavior: Clip.antiAlias,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _controller.text.isEmpty
-                                  ? Colors.purple[100]
-                                  : color,
-                              // 按钮颜色
-                              disabledBackgroundColor: _controller.text.isEmpty
-                                  ? Colors.purple[100]
-                                  : color,
-                              // 按钮颜色
-                              // foregroundColor: _controller.text.isEmpty ? Colors.purple[100] : color, // 文字颜色
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
-                            onPressed: _controller.text.isEmpty
-                                ? null
-                                : () {
-                                    // Handle button press
-                                    // this.widget.onSubmit?.call(_controller.text);
-                                    this.widget.onSubmit?.call(
-                                        this.widget.prompt!, _controller.text);
-                                  },
-                            child: Icon(Icons.arrow_forward),
-                          ),
-                          SizedBox(width: 8)
-                        ],
-                      ),
+                      // suffixIcon: Row(
+                      //   mainAxisSize: MainAxisSize.min,
+                      //   children: [
+                      //     Text(
+                      //       '${_controller.text.length}/1000',
+                      //       style: TextStyle(color: color),
+                      //     ),
+                      //     // SizedBox(width: 8),
+                      //     // //圆形
+                      //     // ElevatedButton(
+                      //     //   clipBehavior: Clip.antiAlias,
+                      //     //   style: ElevatedButton.styleFrom(
+                      //     //     backgroundColor: _controller.text.isEmpty
+                      //     //         ? Colors.purple[100]
+                      //     //         : color,
+                      //     //     // 按钮颜色
+                      //     //     disabledBackgroundColor: _controller.text.isEmpty
+                      //     //         ? Colors.purple[100]
+                      //     //         : color,
+                      //     //     // 按钮颜色
+                      //     //     // foregroundColor: _controller.text.isEmpty ? Colors.purple[100] : color, // 文字颜色
+                      //     //     shape: RoundedRectangleBorder(
+                      //     //       borderRadius: BorderRadius.circular(18.0),
+                      //     //     ),
+                      //     //   ),
+                      //     //   onPressed: _controller.text.isEmpty
+                      //     //       ? null
+                      //     //       : () {
+                      //     //     // Handle button press
+                      //     //     // this.widget.onSubmit?.call(_controller.text);
+                      //     //     this.widget.onSubmit?.call(
+                      //     //         this.widget.prompt!, _controller.text);
+                      //     //   },
+                      //     //   child: Icon(Icons.arrow_forward),
+                      //     // ),
+                      //     SizedBox(width: 8)
+                      //   ],
+                      // ),
                       focusedBorder: StylesConfig.buildOutlineInputBorder(),
                       enabledBorder: StylesConfig.buildOutlineInputBorder(),
                       border: StylesConfig.buildOutlineInputBorder(),
@@ -292,6 +294,7 @@ class MissionSearchBarState extends State<MissionSearchBar> {
         ],
       ),
     );
+
   }
 
 
@@ -498,7 +501,16 @@ class MissionSearchBarState extends State<MissionSearchBar> {
     }
   }
 
-  onTapMultiSelectListener(data) async {
+  onTapMultiSelectListener(MissionModel? data) async {
+    if(data?.isSelected == true) {
+      if(data != null) {
+        curListMissionModels?.add(data!);
+      }
+    } else {
+      if(data != null) {
+        curListMissionModels?.remove(data);
+      }
+    }
     if (data == null) {
       if (this.multiSelectModeEnum == MultiSelectModeEnum.normal) {
         this.multiSelectModeEnum = MultiSelectModeEnum.multiSelect;
@@ -543,9 +555,11 @@ class MissionSearchBarState extends State<MissionSearchBar> {
             onTapFinishListener: (data) {
               onClickFinishItem(data);
             },
-            onTapMultiSelectListener: (MissionModel? list) {
+            onTapMultiSelectListener: (MissionModel? missionModel) {
               // this.onClick('onTapMultiSelectListener', list);
-              onTapMultiSelectListener(list);
+              // if(list == null) {
+              onTapMultiSelectListener(missionModel);
+              // }
             },
             onTapPlayListener: (data) {
               FolderModel? folderModel = Utility.getFolderModelByObjId(data.folder_id);

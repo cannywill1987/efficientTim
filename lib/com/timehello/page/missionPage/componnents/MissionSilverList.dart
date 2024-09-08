@@ -17,6 +17,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
 
 import '../../../common/database/apis/MongoApisManager.dart';
+import '../../../components/IsNoteWidget.dart';
 import '../../../components/ListingSecurityWidget.dart';
 import '../../../components/MissionCountDownTextWidget.dart';
 import '../../../components/SubmissionColumnList.dart';
@@ -266,7 +267,10 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                           )),
                       ...WidgetManager.getTagsWidgetSpan(
                           _missionModel ?? MissionModel(),
-                          fontSize: 14)
+                          fontSize: 14),
+                      ...WidgetManager.getIsNoteWidget(
+                          _missionModel ?? MissionModel(),
+                          ),
                     ])),
                 if ((_missionModel?.subMissions?.length ?? 0) > 0)
                   SubmissionColumnList(

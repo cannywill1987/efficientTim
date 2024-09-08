@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../config/StylesConfig.dart';
+import '../util/ThemeManager.dart';
 
 
 class AISearchBar extends StatefulWidget {
@@ -74,7 +75,7 @@ class AISearchBarState extends State<AISearchBar> {
                   onSubmitted: (text) {
                     this.widget.onSubmit?.call(this.widget.prompt!, _controller.text);
                   },
-                  style: TextStyle(color: Color(0xff404040)),
+                  style: TextStyle(color: ThemeManager.getInstance().getTextColor()),
                   decoration: InputDecoration(
                     // labelText: "134",
                     label: Text(this.widget.placeholder ?? ""),

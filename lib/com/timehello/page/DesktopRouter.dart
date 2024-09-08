@@ -313,6 +313,8 @@ Widget desktopRightRouter(String page, Map data) {
     case 'ChatGptPage':
       return getContainer(ChatGptPage(
         key: ValueKey("ejzifjf123zefzef"),
+        createNewMission: data?['createNewMission'] ?? false,
+        message: data?['message'] ?? "",
       ));
     case 'GroupChatPage':
       return getContainer(GroupChatPage(

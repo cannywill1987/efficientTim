@@ -299,7 +299,6 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
   @override
   void onClick(type, data) {}
   // loadLocal() {
-  //   S.load(Locale('zh', 'HK'));
   //   // AppFlowyEditorLocalizations.load(Locale('zh', 'HK'));
   // }
 

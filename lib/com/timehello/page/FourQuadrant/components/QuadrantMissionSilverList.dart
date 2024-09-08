@@ -443,7 +443,10 @@ class QuadrantMissionSilverListItemState
                               )),
                           ...WidgetManager.getTagsWidgetSpan(
                               _missionModel ?? MissionModel(),
-                              fontSize: 13)
+                              fontSize: 13),
+                          ...WidgetManager.getIsNoteWidget(
+                            _missionModel ?? MissionModel(),
+                          ),
                         ])),
                 if ((_missionModel?.subMissions?.length ?? 0) > 0)
                   SubmissionColumnList(

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 // import 'package:flutter_facebook_auth_platform_interface/flutter_facebook_auth_platform_interface.dart' as FBinterface;
@@ -132,6 +133,7 @@ class FirebaseAuthManager {
   Future<Map> signInWithGoogle() async {
     // Trigger the authentication flow
     try {
+      EasyLoadingManager.getInstance().showLoading();
       final GoogleSignInAccount? googleUser = await GoogleSignIn(
         scopes: <String>[
           'email',
@@ -165,6 +167,7 @@ class FirebaseAuthManager {
         // "avatar": photoUrl
       };
     } catch (e) {
+      EasyLoadingManager.getInstance().hideLoading();
       print(e);
     }
     return {};
@@ -194,9 +197,12 @@ class FirebaseAuthManager {
     //   await auth.signInWithPopup(appleProvider);
     // } else {
     try {
+      EasyLoadingManager.getInstance().showLoading();
+
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithProvider(appleProvider);
 
+      // EasyLoadingManager.getInstance().
       String email = userCredential.user?.email ?? "";
       String displayName = userCredential.user?.displayName ?? "";
 
@@ -208,6 +214,7 @@ class FirebaseAuthManager {
       };
     } catch (e) {
       print(e);
+      EasyLoadingManager.getInstance().hideLoading();
       return {};
     }
     // }

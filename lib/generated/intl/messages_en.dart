@@ -954,6 +954,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please help me convert the following text to emojis:..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("Enter a pattern"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
             "Write a sentence to encourage yourself~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("Encrypt"),
@@ -990,6 +991,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter real name"),
         "enter_amount":
             MessageLookupByLibrary.simpleMessage("Please enter the amount"),
+        "es": MessageLookupByLibrary.simpleMessage("Spanish"),
         "event": MessageLookupByLibrary.simpleMessage("event"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -1111,6 +1113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Third Quarter"),
         "four_seasons_step4":
             MessageLookupByLibrary.simpleMessage("Fourth Quarter"),
+        "fr": MessageLookupByLibrary.simpleMessage("French"),
         "fragment_listing":
             MessageLookupByLibrary.simpleMessage("Fragment List"),
         "free_open": MessageLookupByLibrary.simpleMessage("free_open"),
@@ -1128,6 +1131,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_qr_code":
             MessageLookupByLibrary.simpleMessage("Generate QR code"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("Kind tips"),
+        "german": MessageLookupByLibrary.simpleMessage("German"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Click for authentication code"),
         "get_train_plan_successful": m51,
@@ -1246,6 +1250,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Turn on targeted push settings, which will help you to be notified of the completion of your tasks"),
         "italic": MessageLookupByLibrary.simpleMessage("Italic"),
+        "ja": MessageLookupByLibrary.simpleMessage("Japanese"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("January"),
         "jan_to_dec":
@@ -1273,8 +1278,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("skip this version"),
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("June"),
+        "ko": MessageLookupByLibrary.simpleMessage("Korean"),
         "label": MessageLookupByLibrary.simpleMessage("Label"),
         "landscape": MessageLookupByLibrary.simpleMessage("Landscape"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "language_setting":
+            MessageLookupByLibrary.simpleMessage("Language Setting"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("last week"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
         "leave_group": MessageLookupByLibrary.simpleMessage("Leave the group"),
@@ -1482,7 +1491,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "move_to_next": MessageLookupByLibrary.simpleMessage("Move Right"),
         "move_to_previous": MessageLookupByLibrary.simpleMessage("Move Left"),
         "multi_select": MessageLookupByLibrary.simpleMessage("Multi select"),
-        "multi_subtask": MessageLookupByLibrary.simpleMessage("子任务"),
+        "multi_subtask": MessageLookupByLibrary.simpleMessage("Subtask"),
         "multi_view": MessageLookupByLibrary.simpleMessage("Multiple Views"),
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "Quadrants, categories, lists, groups, timelines, schedules, Gantt charts, calendars - various views to meet all your needs"),
@@ -1502,7 +1511,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Username needs to be set"),
         "network_error": MessageLookupByLibrary.simpleMessage("Network error"),
         "new_card": MessageLookupByLibrary.simpleMessage("New Card"),
-        "new_rich_editor": MessageLookupByLibrary.simpleMessage("新富文本"),
+        "new_rich_editor":
+            MessageLookupByLibrary.simpleMessage("New Rich Editor"),
         "newline": m81,
         "nextMatch": MessageLookupByLibrary.simpleMessage("Next match"),
         "nextMission": MessageLookupByLibrary.simpleMessage("Next task:"),
@@ -1747,6 +1757,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("please input mobile"),
         "please_input_password":
             MessageLookupByLibrary.simpleMessage("please input password"),
+        "please_input_question": MessageLookupByLibrary.simpleMessage(
+            "Please enter the question you want to ask"),
+        "please_input_search_mission": MessageLookupByLibrary.simpleMessage(
+            "Please enter the mission title you want to search"),
         "please_input_the_mission_title":
             MessageLookupByLibrary.simpleMessage("please input the task title"),
         "please_input_title":
@@ -1961,10 +1975,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Save as Template"),
         "save_fail": MessageLookupByLibrary.simpleMessage("Save failed"),
         "save_failure": MessageLookupByLibrary.simpleMessage("Save Failed"),
-        "save_img_success": MessageLookupByLibrary.simpleMessage("保存图片成功"),
+        "save_img_success":
+            MessageLookupByLibrary.simpleMessage("Image saved successfully"),
         "save_success": MessageLookupByLibrary.simpleMessage("Save Successful"),
         "saving": MessageLookupByLibrary.simpleMessage("Saving"),
-        "saving_img": MessageLookupByLibrary.simpleMessage("图片保存中"),
+        "saving_img": MessageLookupByLibrary.simpleMessage("Saving image"),
         "schedule": MessageLookupByLibrary.simpleMessage("Calendar"),
         "screen_rorate": MessageLookupByLibrary.simpleMessage("Rotate screen"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -2371,6 +2386,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Your personal time management expert"),
-        "yuan": MessageLookupByLibrary.simpleMessage("RMB")
+        "yuan": MessageLookupByLibrary.simpleMessage("RMB"),
+        "zh_cn": MessageLookupByLibrary.simpleMessage("Chinese Simplified"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("Chinese Traditional")
       };
 }

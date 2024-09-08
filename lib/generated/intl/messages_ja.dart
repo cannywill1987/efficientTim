@@ -317,6 +317,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addBillReminder":
             MessageLookupByLibrary.simpleMessage("請求書を追加し、返済をリマインドし、期限を避ける"),
         "addMissions2": MessageLookupByLibrary.simpleMessage("ミッションを追加..."),
+        "addYourLink": MessageLookupByLibrary.simpleMessage("リンクを追加"),
         "add_bill": MessageLookupByLibrary.simpleMessage("請求書を追加する"),
         "add_content": MessageLookupByLibrary.simpleMessage("ノートを始める"),
         "add_credit_card_bill":
@@ -422,6 +423,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("戻る"),
         "back_card": MessageLookupByLibrary.simpleMessage("バックカード"),
         "background": MessageLookupByLibrary.simpleMessage("壁紙"),
+        "backgroundColor": MessageLookupByLibrary.simpleMessage("背景色"),
+        "backgroundColorBlue": MessageLookupByLibrary.simpleMessage("青色の背景"),
+        "backgroundColorBrown": MessageLookupByLibrary.simpleMessage("茶色の背景"),
+        "backgroundColorDefault":
+            MessageLookupByLibrary.simpleMessage("デフォルトの背景"),
+        "backgroundColorGray": MessageLookupByLibrary.simpleMessage("灰色の背景"),
+        "backgroundColorGreen": MessageLookupByLibrary.simpleMessage("緑色の背景"),
+        "backgroundColorOrange":
+            MessageLookupByLibrary.simpleMessage("オレンジの背景"),
+        "backgroundColorPink": MessageLookupByLibrary.simpleMessage("ピンクの背景"),
+        "backgroundColorPurple": MessageLookupByLibrary.simpleMessage("紫色の背景"),
+        "backgroundColorRed": MessageLookupByLibrary.simpleMessage("赤色の背景"),
+        "backgroundColorYellow": MessageLookupByLibrary.simpleMessage("黄色の背景"),
         "background_auto_mode":
             MessageLookupByLibrary.simpleMessage("壁紙自動切り替え"),
         "background_change_auto_prompt_off":
@@ -471,6 +485,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "card": MessageLookupByLibrary.simpleMessage("カード"),
         "card_number": MessageLookupByLibrary.simpleMessage("カード番号"),
         "carelessness": MessageLookupByLibrary.simpleMessage("不注意"),
+        "caseSensitive": MessageLookupByLibrary.simpleMessage("大文字小文字を区別"),
         "cause_analysis": MessageLookupByLibrary.simpleMessage("原因分析"),
         "change_background": MessageLookupByLibrary.simpleMessage("背景を切り替える"),
         "change_bg": MessageLookupByLibrary.simpleMessage("壁紙を選択"),
@@ -486,8 +501,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "chatgpt_desc_huawei":
             MessageLookupByLibrary.simpleMessage("あなたの質問はここで答えを見つけることができます"),
         "chatgpt_huawei": MessageLookupByLibrary.simpleMessage("AIアシスタント"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage("画像を選択"),
         "choose_attachment": MessageLookupByLibrary.simpleMessage("添付ファイルを選択"),
         "chronograph": MessageLookupByLibrary.simpleMessage("ストップウォッチ"),
+        "clearHighlightColor":
+            MessageLookupByLibrary.simpleMessage("ハイライトの色をクリア"),
         "click_copy_qq": MessageLookupByLibrary.simpleMessage("QQ番号をコピー"),
         "click_to_view": MessageLookupByLibrary.simpleMessage("クリックして表示"),
         "clock_in": MessageLookupByLibrary.simpleMessage("打刻"),
@@ -495,12 +513,98 @@ class MessageLookup extends MessageLookupByLibrary {
         "clockin_n_days_continuously": m8,
         "clockin_n_days_totally": m9,
         "close": MessageLookupByLibrary.simpleMessage("閉じる"),
+        "closeFind": MessageLookupByLibrary.simpleMessage("閉じる"),
         "close_all_cycle_mission":
             MessageLookupByLibrary.simpleMessage("すべてのサイクルミッションを閉じる"),
         "close_multi": MessageLookupByLibrary.simpleMessage("複数選択を閉じる"),
         "cloud_sync": MessageLookupByLibrary.simpleMessage("クラウド同期"),
         "cloud_sync_content":
             MessageLookupByLibrary.simpleMessage("クロスエンドデータ同期用"),
+        "cmdConvertToLink": MessageLookupByLibrary.simpleMessage("リンクに変換"),
+        "cmdConvertToParagraph": MessageLookupByLibrary.simpleMessage("段落に変換"),
+        "cmdCopySelection": MessageLookupByLibrary.simpleMessage("選択範囲をコピー"),
+        "cmdCutSelection": MessageLookupByLibrary.simpleMessage("選択範囲を切り取る"),
+        "cmdDeleteLeft": MessageLookupByLibrary.simpleMessage("左の文字を削除"),
+        "cmdDeleteLineLeft": MessageLookupByLibrary.simpleMessage("行の先頭まで削除"),
+        "cmdDeleteRight": MessageLookupByLibrary.simpleMessage("右の文字を削除"),
+        "cmdDeleteWordLeft": MessageLookupByLibrary.simpleMessage("左の単語を削除"),
+        "cmdDeleteWordRight": MessageLookupByLibrary.simpleMessage("右の単語を削除"),
+        "cmdExitEditing": MessageLookupByLibrary.simpleMessage("編集モードを終了"),
+        "cmdIndent": MessageLookupByLibrary.simpleMessage("インデント"),
+        "cmdMoveCursorBottom":
+            MessageLookupByLibrary.simpleMessage("カーソルを一番下に移動"),
+        "cmdMoveCursorBottomSelect":
+            MessageLookupByLibrary.simpleMessage("ファイルの終わりまで全選択"),
+        "cmdMoveCursorDown": MessageLookupByLibrary.simpleMessage("カーソルを下に移動"),
+        "cmdMoveCursorDownSelect": MessageLookupByLibrary.simpleMessage("下に選択"),
+        "cmdMoveCursorLeft": MessageLookupByLibrary.simpleMessage("カーソルを左に移動"),
+        "cmdMoveCursorLeftSelect": MessageLookupByLibrary.simpleMessage("左に選択"),
+        "cmdMoveCursorLineEnd":
+            MessageLookupByLibrary.simpleMessage("行末にカーソルを移動"),
+        "cmdMoveCursorLineEndSelect":
+            MessageLookupByLibrary.simpleMessage("行末まで選択"),
+        "cmdMoveCursorLineStart":
+            MessageLookupByLibrary.simpleMessage("行頭にカーソルを移動"),
+        "cmdMoveCursorLineStartSelect":
+            MessageLookupByLibrary.simpleMessage("行頭まで選択"),
+        "cmdMoveCursorRight": MessageLookupByLibrary.simpleMessage("カーソルを右に移動"),
+        "cmdMoveCursorRightSelect":
+            MessageLookupByLibrary.simpleMessage("右に選択"),
+        "cmdMoveCursorTop": MessageLookupByLibrary.simpleMessage("カーソルを一番上に移動"),
+        "cmdMoveCursorTopSelect":
+            MessageLookupByLibrary.simpleMessage("ファイルの最初まで全選択"),
+        "cmdMoveCursorUp": MessageLookupByLibrary.simpleMessage("カーソルを上に移動"),
+        "cmdMoveCursorUpSelect": MessageLookupByLibrary.simpleMessage("上に選択"),
+        "cmdMoveCursorWordLeft":
+            MessageLookupByLibrary.simpleMessage("左の単語にカーソルを移動"),
+        "cmdMoveCursorWordLeftSelect":
+            MessageLookupByLibrary.simpleMessage("左の単語を選択"),
+        "cmdMoveCursorWordRight":
+            MessageLookupByLibrary.simpleMessage("右の単語にカーソルを移動"),
+        "cmdMoveCursorWordRightSelect":
+            MessageLookupByLibrary.simpleMessage("右の単語を選択"),
+        "cmdOpenFind": MessageLookupByLibrary.simpleMessage("検索を開く"),
+        "cmdOpenFindAndReplace":
+            MessageLookupByLibrary.simpleMessage("検索と置換を開く"),
+        "cmdOpenLink": MessageLookupByLibrary.simpleMessage("リンクを開く"),
+        "cmdOpenLinks": MessageLookupByLibrary.simpleMessage("リンクを開く"),
+        "cmdOutdent": MessageLookupByLibrary.simpleMessage("インデント解除"),
+        "cmdPasteContent": MessageLookupByLibrary.simpleMessage("内容を貼り付け"),
+        "cmdPasteContentAsPlainText":
+            MessageLookupByLibrary.simpleMessage("プレーンテキストとして内容を貼り付け"),
+        "cmdRedo": MessageLookupByLibrary.simpleMessage("やり直し"),
+        "cmdScrollPageDown":
+            MessageLookupByLibrary.simpleMessage("ページを下にスクロール"),
+        "cmdScrollPageUp": MessageLookupByLibrary.simpleMessage("ページを上にスクロール"),
+        "cmdScrollToBottom": MessageLookupByLibrary.simpleMessage("一番下までスクロール"),
+        "cmdScrollToTop": MessageLookupByLibrary.simpleMessage("一番上までスクロール"),
+        "cmdSelectAll": MessageLookupByLibrary.simpleMessage("すべて選択"),
+        "cmdTableLineBreak": MessageLookupByLibrary.simpleMessage("表: 改行追加"),
+        "cmdTableMoveToDownCellAtSameOffset":
+            MessageLookupByLibrary.simpleMessage("同じオフセットで下のセルに移動"),
+        "cmdTableMoveToLeftCellIfItsAtStartOfCurrentCell":
+            MessageLookupByLibrary.simpleMessage("現在のセルの先頭なら左のセルに移動"),
+        "cmdTableMoveToRightCellIfItsAtTheEndOfCurrentCell":
+            MessageLookupByLibrary.simpleMessage("現在のセルの終わりなら右のセルに移動"),
+        "cmdTableMoveToUpCellAtSameOffset":
+            MessageLookupByLibrary.simpleMessage("同じオフセットで上のセルに移動"),
+        "cmdTableNavigateCells":
+            MessageLookupByLibrary.simpleMessage("セル内をナビゲート"),
+        "cmdTableNavigateCellsReverse":
+            MessageLookupByLibrary.simpleMessage("逆方向にセルをナビゲート"),
+        "cmdTableStopAtTheBeginningOfTheCell":
+            MessageLookupByLibrary.simpleMessage("セルの先頭で停止"),
+        "cmdToggleBold": MessageLookupByLibrary.simpleMessage("太字に切り替え"),
+        "cmdToggleCode": MessageLookupByLibrary.simpleMessage("コードに切り替え"),
+        "cmdToggleHighlight":
+            MessageLookupByLibrary.simpleMessage("ハイライトに切り替え"),
+        "cmdToggleItalic": MessageLookupByLibrary.simpleMessage("イタリックに切り替え"),
+        "cmdToggleStrikethrough":
+            MessageLookupByLibrary.simpleMessage("取り消し線に切り替え"),
+        "cmdToggleTodoList":
+            MessageLookupByLibrary.simpleMessage("To-doリストに切り替え"),
+        "cmdToggleUnderline": MessageLookupByLibrary.simpleMessage("下線に切り替え"),
+        "cmdUndo": MessageLookupByLibrary.simpleMessage("元に戻す"),
         "code_dynamic_code_incorrect":
             MessageLookupByLibrary.simpleMessage("動的コードが正しくありません"),
         "code_user_exist": MessageLookupByLibrary.simpleMessage("ユーザーは既に存在します"),
@@ -508,6 +612,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ユーザーが存在しません"),
         "code_user_password_not_correct":
             MessageLookupByLibrary.simpleMessage("アカウントまたはパスワードが正しくありません"),
+        "colAddAfter": MessageLookupByLibrary.simpleMessage("後に列を追加"),
+        "colAddBefore": MessageLookupByLibrary.simpleMessage("前に列を追加"),
+        "colClear": MessageLookupByLibrary.simpleMessage("内容をクリア"),
+        "colDuplicate": MessageLookupByLibrary.simpleMessage("列を複製"),
+        "colRemove": MessageLookupByLibrary.simpleMessage("列を削除"),
         "color_optional": MessageLookupByLibrary.simpleMessage("色(必須)"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("7日以内"),
         "comment": MessageLookupByLibrary.simpleMessage("コメント"),
@@ -574,6 +683,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuously": MessageLookupByLibrary.simpleMessage("継続中"),
         "convert_to_note": MessageLookupByLibrary.simpleMessage("ノートに変換"),
         "copy": MessageLookupByLibrary.simpleMessage("コピー"),
+        "copyLink": MessageLookupByLibrary.simpleMessage("リンクをコピー"),
         "copy_and_share":
             MessageLookupByLibrary.simpleMessage("リンクをコピーして他の人と共有する"),
         "copy_and_share_with_title": m21,
@@ -639,7 +749,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentRingTone": m35,
         "current_amount": MessageLookupByLibrary.simpleMessage("現在の金額"),
         "custom": MessageLookupByLibrary.simpleMessage("カスタム"),
+        "customColor": MessageLookupByLibrary.simpleMessage("カスタムカラー"),
         "customize": MessageLookupByLibrary.simpleMessage("カスタマイズ"),
+        "cut": MessageLookupByLibrary.simpleMessage("切り取り"),
         "daily_completion_times":
             MessageLookupByLibrary.simpleMessage("毎日の完成回数"),
         "daily_end_time": MessageLookupByLibrary.simpleMessage("毎日の終了時間"),
@@ -690,10 +802,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("数字のパスワードが間違っています"),
         "discard": MessageLookupByLibrary.simpleMessage("破棄"),
         "dismiss_group": MessageLookupByLibrary.simpleMessage("グループを解散する"),
+        "divider": MessageLookupByLibrary.simpleMessage("区切り"),
         "do_it_now": MessageLookupByLibrary.simpleMessage("今すぐやる"),
         "do_it_now_desc": MessageLookupByLibrary.simpleMessage(
             "今すぐやるは、今すぐやるべきタスクを意味します。「今すぐやる」を設定すると、カウントダウンが始まります。"),
         "dollar": MessageLookupByLibrary.simpleMessage("\$"),
+        "done": MessageLookupByLibrary.simpleMessage("完了"),
         "dont_remind_again": MessageLookupByLibrary.simpleMessage("再度表示しない"),
         "download_fail": MessageLookupByLibrary.simpleMessage("ダウンロードに失敗しました"),
         "downloading_please_wait":
@@ -701,6 +815,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "each": MessageLookupByLibrary.simpleMessage("毎"),
         "eachSpace": MessageLookupByLibrary.simpleMessage("毎"),
         "edit": MessageLookupByLibrary.simpleMessage("編集"),
+        "editLink": MessageLookupByLibrary.simpleMessage("リンクを編集"),
         "edit_fail": MessageLookupByLibrary.simpleMessage("編集失敗"),
         "edit_options": MessageLookupByLibrary.simpleMessage("編集オプション"),
         "edit_sharing": MessageLookupByLibrary.simpleMessage("共有を編集"),
@@ -716,6 +831,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("絵文字に変換するテキストを入力してください..."),
         "emoji_conversion_prompt":
             MessageLookupByLibrary.simpleMessage("次のテキストを絵文字に変換してください：..."),
+        "emptySearchBoxHint":
+            MessageLookupByLibrary.simpleMessage("パターンを入力してください"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("自分自身を励ましの言葉を書きましょう~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("暗号化"),
@@ -805,6 +922,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "focusing_music": MessageLookupByLibrary.simpleMessage("集中中の音楽"),
         "folder": MessageLookupByLibrary.simpleMessage("フォルダ"),
         "folder_name": MessageLookupByLibrary.simpleMessage("フォルダ名"),
+        "fontColorBlue": MessageLookupByLibrary.simpleMessage("青色"),
+        "fontColorBrown": MessageLookupByLibrary.simpleMessage("茶色"),
+        "fontColorDefault": MessageLookupByLibrary.simpleMessage("デフォルト"),
+        "fontColorGray": MessageLookupByLibrary.simpleMessage("灰色"),
+        "fontColorGreen": MessageLookupByLibrary.simpleMessage("緑色"),
+        "fontColorOrange": MessageLookupByLibrary.simpleMessage("オレンジ"),
+        "fontColorPink": MessageLookupByLibrary.simpleMessage("ピンク"),
+        "fontColorPurple": MessageLookupByLibrary.simpleMessage("紫色"),
+        "fontColorRed": MessageLookupByLibrary.simpleMessage("赤色"),
+        "fontColorYellow": MessageLookupByLibrary.simpleMessage("黄色"),
         "food_reviews": MessageLookupByLibrary.simpleMessage("レストランレビュー"),
         "food_reviews_placeholder":
             MessageLookupByLibrary.simpleMessage("レビューするレストランと料理を入力してください..."),
@@ -896,7 +1023,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "header_input_placeholder_with_title": m54,
         "heavy": MessageLookupByLibrary.simpleMessage("重い"),
         "hello": MessageLookupByLibrary.simpleMessage("こんにちは"),
+        "hexValue": MessageLookupByLibrary.simpleMessage("16進数値"),
         "hidden": MessageLookupByLibrary.simpleMessage("非表示"),
+        "highlightColor": MessageLookupByLibrary.simpleMessage("ハイライトの色"),
         "hint_search_chat": MessageLookupByLibrary.simpleMessage("チャット履歴を検索"),
         "history_event": MessageLookupByLibrary.simpleMessage("歴史的な出来事"),
         "history_record": MessageLookupByLibrary.simpleMessage("履歴"),
@@ -910,11 +1039,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "i_know": MessageLookupByLibrary.simpleMessage("了解しました"),
         "icon": MessageLookupByLibrary.simpleMessage("アイコン"),
         "image": MessageLookupByLibrary.simpleMessage("画像"),
+        "imageLoadFailed":
+            MessageLookupByLibrary.simpleMessage("画像を読み込めませんでした"),
         "improve_writing": MessageLookupByLibrary.simpleMessage("執筆を改善する"),
         "improve_writing_prompt": MessageLookupByLibrary.simpleMessage(
             "選択した段落を改善し、より明確で表現力豊かにしてください。"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7日後"),
         "in_selection_word_count_and_char_count": m57,
+        "incorrectLink": MessageLookupByLibrary.simpleMessage("無効なリンク"),
         "input": MessageLookupByLibrary.simpleMessage("入力"),
         "inputSmsVerificationCode":
             MessageLookupByLibrary.simpleMessage("SMS認証コードを入力"),
@@ -994,9 +1126,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("レベル4：すべての単語を隠す"),
         "level5_write_words": MessageLookupByLibrary.simpleMessage("レベル5：書き取り"),
         "light": MessageLookupByLibrary.simpleMessage("軽い"),
+        "lightLightTint1": MessageLookupByLibrary.simpleMessage("紫色"),
+        "lightLightTint2": MessageLookupByLibrary.simpleMessage("ピンク"),
+        "lightLightTint3": MessageLookupByLibrary.simpleMessage("ライトピンク"),
+        "lightLightTint4": MessageLookupByLibrary.simpleMessage("オレンジ"),
+        "lightLightTint5": MessageLookupByLibrary.simpleMessage("黄色"),
+        "lightLightTint6": MessageLookupByLibrary.simpleMessage("ライム"),
+        "lightLightTint7": MessageLookupByLibrary.simpleMessage("緑色"),
+        "lightLightTint8": MessageLookupByLibrary.simpleMessage("アクア"),
+        "lightLightTint9": MessageLookupByLibrary.simpleMessage("青色"),
         "light_mode": MessageLookupByLibrary.simpleMessage("明亮模式"),
         "link": MessageLookupByLibrary.simpleMessage("リンク"),
+        "linkAddressHint": MessageLookupByLibrary.simpleMessage("URLを入力してください"),
+        "linkText": MessageLookupByLibrary.simpleMessage("テキスト"),
+        "linkTextHint": MessageLookupByLibrary.simpleMessage("テキストを入力してください"),
         "list": MessageLookupByLibrary.simpleMessage("リスト"),
+        "listItemPlaceholder": MessageLookupByLibrary.simpleMessage("リスト項目"),
         "listing": MessageLookupByLibrary.simpleMessage("リスト"),
         "listing_icon_optional":
             MessageLookupByLibrary.simpleMessage("リストアイコン(必須)"),
@@ -1034,6 +1179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "long_rest_interval": MessageLookupByLibrary.simpleMessage("長時間の休憩間隔"),
         "loop_setting": MessageLookupByLibrary.simpleMessage("ループ設定"),
         "lottery": MessageLookupByLibrary.simpleMessage("抽選"),
+        "ltr": MessageLookupByLibrary.simpleMessage("左から右"),
         "lyubichs": MessageLookupByLibrary.simpleMessage("リュビチの期間"),
         "manage": MessageLookupByLibrary.simpleMessage("管理する"),
         "manage_prompt":
@@ -1110,6 +1256,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "mission_value": MessageLookupByLibrary.simpleMessage("ミッションの価値"),
         "mission_value_toast": m71,
         "missioncompleted": MessageLookupByLibrary.simpleMessage("完了したミッション"),
+        "mobileHeading1": MessageLookupByLibrary.simpleMessage("見出し1"),
+        "mobileHeading2": MessageLookupByLibrary.simpleMessage("見出し2"),
+        "mobileHeading3": MessageLookupByLibrary.simpleMessage("見出し3"),
         "modern_poetry": MessageLookupByLibrary.simpleMessage("現代詩"),
         "modern_poetry_placeholder":
             MessageLookupByLibrary.simpleMessage("現代詩のテーマを入力してください..."),
@@ -1141,6 +1290,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "move_to_next": MessageLookupByLibrary.simpleMessage("右に移動"),
         "move_to_previous": MessageLookupByLibrary.simpleMessage("左に移動"),
         "multi_select": MessageLookupByLibrary.simpleMessage("複数選択"),
+        "multi_subtask": MessageLookupByLibrary.simpleMessage("サブタスク"),
         "multi_view": MessageLookupByLibrary.simpleMessage("複数ビュー"),
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "四象限、カテゴリ、リスト、グループ、タイムライン、スケジュール、ガントチャート、カレンダーなど、さまざまなビューであらゆるニーズに対応します"),
@@ -1159,7 +1309,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "network_error": MessageLookupByLibrary.simpleMessage(
             "ネットワークエラー（複数回の試行が失敗した場合は、再度ログインしてください）"),
         "new_card": MessageLookupByLibrary.simpleMessage("新しいカード"),
+        "new_rich_editor":
+            MessageLookupByLibrary.simpleMessage("新しいリッチテキストエディター"),
         "newline": m81,
+        "nextMatch": MessageLookupByLibrary.simpleMessage("次の一致"),
         "nextMission": MessageLookupByLibrary.simpleMessage("次のミッション:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("次へ"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("来週"),
@@ -1167,6 +1320,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "next_page": MessageLookupByLibrary.simpleMessage("次のページ"),
         "next_time": MessageLookupByLibrary.simpleMessage("次回"),
         "no": MessageLookupByLibrary.simpleMessage("いいえ"),
+        "noFindResult": MessageLookupByLibrary.simpleMessage("結果なし"),
         "no_auth": MessageLookupByLibrary.simpleMessage("権限がありません"),
         "no_data": MessageLookupByLibrary.simpleMessage("データなし"),
         "no_delayed_task": MessageLookupByLibrary.simpleMessage("遅延タスクなし"),
@@ -1208,6 +1362,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "note_prompt": MessageLookupByLibrary.simpleMessage(
             "{createdAt: null, updatedAt: null, indexSearchingStart: null, state: 0, indexSearchingEnd: null, background_url: null, title: 1.右上の[デスクトップウィジェットに設定]をクリックします 2. Android、iPhone、Macでデスクトップウィジェットを設定できます, folder_id: null, flomo_object_id: null, type: 1, masterScore: 1.0, update_time: 1699019619215, causeAnalysis: [], wqbTypeKnowledgePoint: 0, wqbKnowledgeContent: , wqbKnowledgeRichContentUrl: , wqbKnowledgeRecordUrls: [], wqbKnowledgeSmallUrls: [], wqbKnowledgeBigUrls: [], wqbKnowledgeOriginUrls: [], wqbTypeWrongQuestion: 0, wqbWrongQuestionContent: , wqbWrongQuestionRichContentUrl: , wqbWrongQuestionRecordUrls: [], wqbWrongQuestionSmallUrls: [], wqbWrongQuestionBigUrls: [], wqbWrongQuestionOriginUrls: [], wqbTypeAnswer: 0, wqbAnswerRecordUrls: [], wqbAnswerSmallUrls: [], wqbAnswerBigUrls: [], wqbAnswerOriginUrls: [], wqbAnswerContent: , wqbAnswerRichContentUrl: , content: 1.右上の[デスクトップウィジェットに設定]をクリックします\n2. Android、iPhone、Macでデスクトップウィジェットを設定できます\n1111, device_id: B5CC32ED-595A-54B7-A814-7BC911FBD2D4, tagNames: [], tagIds: null, isFinished: null, color: 4291946748, order_index: 4, status: null, priorityStatus: null, uid: 0aa14757-7695-4e52-9b23-45f839a16715}"),
         "note_short": MessageLookupByLibrary.simpleMessage("ノート"),
+        "note_text": MessageLookupByLibrary.simpleMessage("ノート"),
         "notification0":
             MessageLookupByLibrary.simpleMessage("時間が来ました、明日の計画を立てましょう"),
         "notification1": MessageLookupByLibrary.simpleMessage(
@@ -1293,6 +1448,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "only_me": MessageLookupByLibrary.simpleMessage("自分だけ"),
         "only_share_with_friends":
             MessageLookupByLibrary.simpleMessage("友達のみに共有"),
+        "opacity": MessageLookupByLibrary.simpleMessage("不透明度"),
+        "openLink": MessageLookupByLibrary.simpleMessage("リンクを開く"),
         "open_sticky_note": MessageLookupByLibrary.simpleMessage("付箋を開く"),
         "optional": MessageLookupByLibrary.simpleMessage("任意"),
         "optional_with_parenthese":
@@ -1334,6 +1491,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ファイルを共有する際にパスワードが必要です"),
         "password_set_success":
             MessageLookupByLibrary.simpleMessage("パスワードが正常に設定されました"),
+        "paste": MessageLookupByLibrary.simpleMessage("貼り付け"),
         "pause": MessageLookupByLibrary.simpleMessage("一時停止"),
         "pc_not_available": MessageLookupByLibrary.simpleMessage(
             "この機能はMACまたはPCでは利用できません、スマートフォンで操作してください"),
@@ -1383,6 +1541,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("まず携帯番号を入力してください"),
         "please_input_password":
             MessageLookupByLibrary.simpleMessage("まずパスワードを入力してください"),
+        "please_input_question":
+            MessageLookupByLibrary.simpleMessage("質問を入力してください"),
+        "please_input_search_mission":
+            MessageLookupByLibrary.simpleMessage("検索したいタスクのタイトルを入力してください"),
         "please_input_the_mission_title":
             MessageLookupByLibrary.simpleMessage("タスクのタイトルを入力してください"),
         "please_input_title":
@@ -1423,6 +1585,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "preview": MessageLookupByLibrary.simpleMessage("プレビュー"),
         "previewTime": MessageLookupByLibrary.simpleMessage("予想時間"),
         "previewTomatoesNum": MessageLookupByLibrary.simpleMessage("予想トマト数"),
+        "previousMatch": MessageLookupByLibrary.simpleMessage("前の一致"),
         "previous_match": MessageLookupByLibrary.simpleMessage("前の一致"),
         "previous_page": MessageLookupByLibrary.simpleMessage("前のページ"),
         "print": MessageLookupByLibrary.simpleMessage("印刷"),
@@ -1479,6 +1642,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "recommended_Target": MessageLookupByLibrary.simpleMessage("推奨目標"),
         "record": MessageLookupByLibrary.simpleMessage("録音"),
         "refuse": MessageLookupByLibrary.simpleMessage("拒否"),
+        "regex": MessageLookupByLibrary.simpleMessage("正規表現"),
+        "regexError": MessageLookupByLibrary.simpleMessage("正規表現エラー"),
         "register": MessageLookupByLibrary.simpleMessage("登録"),
         "registerStep1":
             MessageLookupByLibrary.simpleMessage("電話番号を入力して登録を完了し、効率的な生活を楽しむ"),
@@ -1488,6 +1653,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "remarks_optional": MessageLookupByLibrary.simpleMessage("備考（任意）"),
         "remind": MessageLookupByLibrary.simpleMessage("リマインダー"),
         "reminder": MessageLookupByLibrary.simpleMessage("リマインダー"),
+        "removeLink": MessageLookupByLibrary.simpleMessage("リンクを削除"),
         "remove_user": MessageLookupByLibrary.simpleMessage("ユーザーを削除"),
         "rename": MessageLookupByLibrary.simpleMessage("名前を変更する"),
         "repaid": MessageLookupByLibrary.simpleMessage("返済済み"),
@@ -1507,6 +1673,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repetiveValue": MessageLookupByLibrary.simpleMessage("繰り返しの日付"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("繰り返しの曜日"),
         "replace": MessageLookupByLibrary.simpleMessage("置換"),
+        "replaceAll": MessageLookupByLibrary.simpleMessage("すべて置き換え"),
         "replace_all": MessageLookupByLibrary.simpleMessage("すべて置換"),
         "reply": MessageLookupByLibrary.simpleMessage("返信"),
         "report2": MessageLookupByLibrary.simpleMessage("報告する"),
@@ -1516,6 +1683,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "request_permission": MessageLookupByLibrary.simpleMessage("権限を申請する"),
         "requesting_please_wait":
             MessageLookupByLibrary.simpleMessage("リクエスト中、お待ちください"),
+        "resetToDefaultColor":
+            MessageLookupByLibrary.simpleMessage("デフォルトの色にリセット"),
         "reset_password_has_been_sent": MessageLookupByLibrary.simpleMessage(
             "パスワードリセットのメールがあなたのメールアドレスに送信されました"),
         "reset_pwd": MessageLookupByLibrary.simpleMessage("パスワードをリセット"),
@@ -1547,6 +1716,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_prompts_chatgpt_msg": MessageLookupByLibrary.simpleMessage(
             "あなたにスマート入力法の役割を果たしてもらいたい、プロンプトに基づいてユーザーが入力する可能性のあるフレーズの配列List<String>を返します、配列は最大20個、ユーザーの入力した単語を必ず含む必要があります(注意:政治的な歴史については議論しない)"),
         "role_time_manager": MessageLookupByLibrary.simpleMessage("プランナー"),
+        "rowAddAfter": MessageLookupByLibrary.simpleMessage("後に行を追加"),
+        "rowAddBefore": MessageLookupByLibrary.simpleMessage("前に行を追加"),
+        "rowClear": MessageLookupByLibrary.simpleMessage("内容をクリア"),
+        "rowDuplicate": MessageLookupByLibrary.simpleMessage("行を複製"),
+        "rowRemove": MessageLookupByLibrary.simpleMessage("行を削除"),
+        "rtl": MessageLookupByLibrary.simpleMessage("右から左"),
         "rules_for_ai": MessageLookupByLibrary.simpleMessage("AIのルール"),
         "rusty": MessageLookupByLibrary.simpleMessage("錆びた"),
         "sales": MessageLookupByLibrary.simpleMessage("販売"),
@@ -1558,8 +1733,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_as_template": MessageLookupByLibrary.simpleMessage("テンプレートとして保存"),
         "save_fail": MessageLookupByLibrary.simpleMessage("保存に失敗しました"),
         "save_failure": MessageLookupByLibrary.simpleMessage("保存に失敗しました"),
+        "save_img_success":
+            MessageLookupByLibrary.simpleMessage("画像の保存に成功しました"),
         "save_success": MessageLookupByLibrary.simpleMessage("保存成功"),
         "saving": MessageLookupByLibrary.simpleMessage("保存中"),
+        "saving_img": MessageLookupByLibrary.simpleMessage("画像を保存中"),
         "schedule": MessageLookupByLibrary.simpleMessage("スケジュール"),
         "screen_rorate": MessageLookupByLibrary.simpleMessage("画面を回転"),
         "search": MessageLookupByLibrary.simpleMessage("検索"),
@@ -1622,6 +1800,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "six_hours": MessageLookupByLibrary.simpleMessage("6時間"),
         "six_months": MessageLookupByLibrary.simpleMessage("6ヶ月"),
         "skilled": MessageLookupByLibrary.simpleMessage("熟練"),
+        "slashPlaceHolder": MessageLookupByLibrary.simpleMessage(
+            "/を入力してブロックを挿入するか、入力を開始してください"),
         "slide_left_right": MessageLookupByLibrary.simpleMessage("左右にスライド可能"),
         "smsVerificationCode": MessageLookupByLibrary.simpleMessage("SMS認証コード"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("録音"),
@@ -1664,6 +1844,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "選択した段落の書き方を、形式的、非形式的、学術的、またはユーモラスなど、別のスタイルに変更してください。"),
         "switch_timer_mode_success":
             MessageLookupByLibrary.simpleMessage("タイマーモードに切り替え成功、次回から有効"),
+        "table": MessageLookupByLibrary.simpleMessage("テーブル"),
         "tag": MessageLookupByLibrary.simpleMessage("タグ"),
         "tagNames": MessageLookupByLibrary.simpleMessage("タグ名"),
         "target_details": MessageLookupByLibrary.simpleMessage("目標詳細"),
@@ -1674,6 +1855,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "task": MessageLookupByLibrary.simpleMessage("タスク"),
         "task_activity": MessageLookupByLibrary.simpleMessage("タスク活動"),
         "tasks_list": MessageLookupByLibrary.simpleMessage("タスクリスト"),
+        "textAlignCenter": MessageLookupByLibrary.simpleMessage("中央揃え"),
+        "textAlignLeft": MessageLookupByLibrary.simpleMessage("左揃え"),
+        "textAlignRight": MessageLookupByLibrary.simpleMessage("右揃え"),
+        "textColor": MessageLookupByLibrary.simpleMessage("テキストの色"),
         "theme": MessageLookupByLibrary.simpleMessage("テーマ"),
         "thirty_mins": MessageLookupByLibrary.simpleMessage("30分"),
         "thisWeek": MessageLookupByLibrary.simpleMessage("今週"),
@@ -1699,10 +1884,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "timelineview": MessageLookupByLibrary.simpleMessage("タイムラインビュー"),
         "timer": MessageLookupByLibrary.simpleMessage("タイマー"),
         "times": MessageLookupByLibrary.simpleMessage("回"),
+        "tint1": MessageLookupByLibrary.simpleMessage("ティント1"),
+        "tint2": MessageLookupByLibrary.simpleMessage("ティント2"),
+        "tint3": MessageLookupByLibrary.simpleMessage("ティント3"),
+        "tint4": MessageLookupByLibrary.simpleMessage("ティント4"),
+        "tint5": MessageLookupByLibrary.simpleMessage("ティント5"),
+        "tint6": MessageLookupByLibrary.simpleMessage("ティント6"),
+        "tint7": MessageLookupByLibrary.simpleMessage("ティント7"),
+        "tint8": MessageLookupByLibrary.simpleMessage("ティント8"),
+        "tint9": MessageLookupByLibrary.simpleMessage("ティント9"),
         "tipsAlertTone": MessageLookupByLibrary.simpleMessage("アラート音"),
         "title": MessageLookupByLibrary.simpleMessage("タイトル"),
         "title_consume": MessageLookupByLibrary.simpleMessage("消費金額"),
         "title_data": m113,
+        "toDoPlaceholder": MessageLookupByLibrary.simpleMessage("やること"),
         "to_login": MessageLookupByLibrary.simpleMessage("ログインページへ"),
         "today": MessageLookupByLibrary.simpleMessage("今日"),
         "today_data": MessageLookupByLibrary.simpleMessage("今日のデータ"),
@@ -1760,6 +1955,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unarchive": MessageLookupByLibrary.simpleMessage("アーカイブを解除"),
         "uncomplete_plan_classification":
             MessageLookupByLibrary.simpleMessage("未完了の計画の分類"),
+        "underline": MessageLookupByLibrary.simpleMessage("下線"),
         "unfinished": MessageLookupByLibrary.simpleMessage("未完了"),
         "unit": MessageLookupByLibrary.simpleMessage("単位"),
         "unitMissions": MessageLookupByLibrary.simpleMessage("ミッション単位"),
@@ -1793,11 +1989,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
         "update_time_last_time":
             MessageLookupByLibrary.simpleMessage("最新の更新時間"),
+        "upload": MessageLookupByLibrary.simpleMessage("アップロード"),
+        "uploadImage": MessageLookupByLibrary.simpleMessage("画像をアップロード"),
         "upload_attachment":
             MessageLookupByLibrary.simpleMessage("添付ファイルをアップロード"),
         "upload_error": MessageLookupByLibrary.simpleMessage("アップロードに失敗しました"),
         "upload_success": MessageLookupByLibrary.simpleMessage("アップロードに成功しました"),
         "uploading_pic": MessageLookupByLibrary.simpleMessage("画像をアップロード中"),
+        "urlHint": MessageLookupByLibrary.simpleMessage("URL"),
+        "urlImage": MessageLookupByLibrary.simpleMessage("URL"),
         "url_attachment": MessageLookupByLibrary.simpleMessage("URL添付ファイル"),
         "user_exist_reset_password":
             MessageLookupByLibrary.simpleMessage("ユーザーが存在します。パスワードをリセットできます"),

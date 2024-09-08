@@ -210,6 +210,9 @@ class _CustomAppointmentWidgetState extends State<CustomAppointmentWidget> {
               ),
             ),
             ...WidgetManager.getTagsWidgetSpan(missionModel ?? MissionModel()),
+            ...WidgetManager.getIsNoteWidget(
+              missionModel ?? MissionModel(),
+            ),
           ],
         ),
       ),

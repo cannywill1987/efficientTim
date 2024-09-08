@@ -4,7 +4,7 @@ class LocaleProvider with ChangeNotifier {
   Locale? _locale;
 
   Locale get locale {
-    return _locale ?? const Locale('zh');
+    return _locale ?? const Locale('en');
   }
 
   void setLocale(Locale locale) {
