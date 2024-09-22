@@ -41,6 +41,7 @@ import '../../models/EventFn.dart';
 import '../../util/ChatGroupManager.dart';
 import '../../util/DialogManagement.dart';
 import '../../util/JumpNavigator.dart';
+import '../AddFilterPage/AddFilterPage.dart';
 import '../CreateShareFolderPage/CreateShareFolderPage.dart';
 import '../RichEditor/RichEditorPage.dart';
 import '../missionPage/MissionPage.dart';
@@ -64,6 +65,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   List<FolderModel> _folderModelList = [];
   List<String> listOrderFolderModelObjectId = [];
   List<String> listOrderFolderModelObjectIdOtherFolder = []; // 其他文件夹的排序
+  List<String> listOrderFolderModelObjectIdFilterer = []; // 过滤器
   List<String> listOrderFolderModelObjectIdArchived = []; // 归档
   List<String> listOrderFolderModelObjectIdOtherFolderArchived =
       []; // 其他文件夹的排序 归档
@@ -72,6 +74,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   List<FolderModelWithExtraData> listDatasNormal = []; // 今天 明天 现在做列表
   List<FolderModelWithExtraData> listDatasListing = []; // 今天 明天 现在做列表
   List<FolderModelWithExtraData> listDatasTags = []; // 今天 明天 现在做列表
+  List<FolderModelWithExtraData> listDatasFilteres = []; // 过滤器
   List<FolderModelWithExtraData> listDatasArchive = []; // 今天 明天 现在做列表
   bool isAddingFolder = false;
 
@@ -183,9 +186,29 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       case 'onTapCreateTagListener': //创建tag
         onTapCreateTagListener();
         break;
+      case 'onTapCreateFilterListener': //创建筛选器
+        onTapCreateFilterListener();
+        break;
+      case 'onTapEditFilterListener': //创建筛选器
+        onTapEditFilterListener(data);
+        break;
       case 'onTapMore': //PC端点击更多
         onClickPCMore(data);
         break;
+    }
+  }
+
+  void onTapEditFilterListener(FolderModelWithExtraData data) {
+    if (Utility.isHandsetBySize()) {
+      Utility.pushNavigator(
+          context,
+          new AddFilterPage(
+            folderModel: data.folderModel, pageModeEnum: PageModeEnum.edit,
+          ),
+          callback: (res) {});
+    } else {
+      Utility.pushDesktopNavigator(context, 'CreateFilterFolderPage',
+          {'PageEnum': PageModeEnum.edit, 'folderModel': data.folderModel});
     }
   }
 
@@ -286,6 +309,24 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     });
   }
 
+  void onTapCreateFilterListener() {
+    FolderModel folderModel = FolderModel();
+    folderModel.tag = 2; //1-normal 2-tag 3-circle
+    folderModel.color = CONSTANTS.getColors()[0].color;
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_tag","description": "创建标签",});
+    if (Utility.isHandsetBySize()) {
+      Utility.pushNavigator(
+          context,
+          new AddFilterPage(
+            folderModel: folderModel, pageModeEnum: PageModeEnum.create,
+          ),
+          callback: (res) {});
+    } else {
+      Utility.pushDesktopNavigator(context, 'CreateFilterFolderPage',
+          {'PageEnum': PageModeEnum.create, 'folderModel': folderModel});
+    }
+  }
+
   void onTapCreateTagListener() {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 2; //1-normal 2-tag 3-circle
@@ -306,6 +347,10 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   }
 
   void onClickEditItem(FolderModelWithExtraData data) {
+    if(data.folderModel.tag == 4) {
+      onTapEditFilterListener(data);
+      return;
+    }
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
@@ -682,11 +727,22 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                     this.listOrderFolderModelObjectIdOtherFolder),
             key: ValueKey('menu_silver_list_2'),
             folderPageViewEnum: FolderPageViewEnum.listing_unarchive),
+
+        FolderSectionTitleWidget(
+            title: getI18NKey().filterer,
+            onClick: () {
+              this.onClick('onTapCreateFilterListener', {});
+            }),
+        getMenuSliverList(
+            list: this.listDatasFilteres,
+            key: ValueKey('menu_silver_list_3we'),
+            folderPageViewEnum: FolderPageViewEnum.filterer),
         FolderSectionTitleWidget(
             title: getI18NKey().tag,
             onClick: () {
               this.onClick('onTapCreateTagListener', {});
             }),
+
         getMenuSliverList(
             list: this.listDatasTags,
             key: ValueKey('menu_silver_list_3'),
@@ -1010,6 +1066,11 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         folderPageViewEnum: FolderPageViewEnum.tag,
         isMobile: screenType == ScreenType.Handset,
         calendarModel: calendarModel);
+    listDatasFilteres = CONSTANTS.getMenuList(this._folderModelList,
+        folderPageViewEnum: FolderPageViewEnum.filterer,
+        isMobile: screenType == ScreenType.Handset,
+        calendarModel: calendarModel);
+
     listDatasArchive = CONSTANTS.getMenuList(this._folderModelList,
         folderPageViewEnum: FolderPageViewEnum.listing_archive,
         isMobile: screenType == ScreenType.Handset,

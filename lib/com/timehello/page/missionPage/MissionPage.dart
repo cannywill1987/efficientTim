@@ -1074,13 +1074,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         this.missionDataViewTypeEnum == MissionDataViewTypeEnum.list
             ? this.buildListWidget(
                 Utility.getListAfterOrder(
-                        missionOrderEnum, _missionModelListUnFinished) ??
+                        missionOrderEnum, _missionModelListUnFinished, -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
                     [],
                 false)
             : this.buildGridWidget(Utility.getListAfterOrder(
                     MissionOrderEnum.orderByWords,
                     this.curListMissionModels ?? [],
-                    folderStatusIsArchived) ??
+                    folderStatusIsArchived, this.widget.folderModel.filterConditionMapBean?.listingId) ??
                 []));
 
     if (this.widget.folderStatusDate != 4 &&
@@ -1098,7 +1098,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   this.widget.folderStatusDate != 6)
               ? []
               : (Utility.getListAfterOrder(
-                      missionOrderEnum, _missionModelListFinished) ??
+                      missionOrderEnum, _missionModelListFinished, -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
                   []),
           true));
     } else {}
@@ -1594,7 +1594,20 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     } catch (e) {}
     List<MissionModel> datas = [];
     curListMissionModels = [];
-    if (this.widget.folderModel?.tag == 2) {
+    if (this.widget.folderModel?.tag == 4) {
+      curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
+          .getInt(
+          key: ShareprefrenceKeys.listAndGridView +
+              this.widget.folderStatusDate.toString() +
+              (this.widget.folderModel?.objectId ?? ""),
+          defaultVal: 1);
+      missionDataViewTypeEnum =
+      MissionDataViewTypeEnum.values[curIndexListViewAndGridView];
+      datas = MongoApisManager.getInstance()
+          .queryWhereEqual_missionDataByFilterConditionBean(
+          filterConditionBean: this.widget.folderModel?.filterConditionMapBean ??
+              FilterConditionBean());
+    }  else if (this.widget.folderModel?.tag == 2) {
       curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
           .getInt(
               key: ShareprefrenceKeys.listAndGridView +

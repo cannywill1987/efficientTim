@@ -1,3 +1,14 @@
+enum TimeUnitEnum {
+  days,
+  hours,
+  minutes,
+}
+
+enum SelectTypeEnum {
+  single,
+  multiple,
+}
+
 enum LoadingStatusEnum {
   normal,
   loading,
@@ -118,6 +129,7 @@ enum PageModeEnum { create, edit, delete }
 enum MultiSelectModeEnum { normal, multiSelect }
 
 enum FolderPageViewEnum {
+  filterer, //筛选
   tag,
   listing_unarchive,
   listing_archive,

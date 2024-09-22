@@ -20,6 +20,7 @@ import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../util/AnalyticsEventsManager.dart';
+import 'AddFilterPage/AddFilterPage.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
 import 'FlomoPage/FlomoPCContainerPage.dart';
 import 'FourQuadrant/FourQuadrantPage.dart';
@@ -248,6 +249,11 @@ void reportEvent(String? page) {
  */
 Widget desktopCenterRouter(String page, Map data) {
   switch (page) {
+    case 'CreateFilterFolderPage':
+      return getListWithLeftSideWidget(AddFilterPage(
+          folderModel: data['folderModel'],
+          pageModeEnum: data['PageEnum'],
+          ));
     case 'CreateFolderPage':
       return getListWithLeftSideWidget(CreateFolderPage(
           folderModel: data['folderModel'],

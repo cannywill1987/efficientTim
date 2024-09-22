@@ -835,16 +835,17 @@ class MongoApisManager {
     }
     return true;
   }
+
   List<MissionModel> queryWhereEqual_missionDataByEndTime2(
       {int? start_endTime,
-        int? end_endTime,
-        List<MissionModel>? listMissionModels,
-        DateTime? curDayModelDateTime,
-        // int? time_mode,
-        String? fid,
-        bool? isFinished,
-        int? repetiveType = null,
-        callback}) {
+      int? end_endTime,
+      List<MissionModel>? listMissionModels,
+      DateTime? curDayModelDateTime,
+      // int? time_mode,
+      String? fid,
+      bool? isFinished,
+      int? repetiveType = null,
+      callback}) {
     List<MissionModel> list = [];
     List<MissionModel> listMissionModelsTmp =
         listMissionModels ?? this.listMissionModels;
@@ -873,66 +874,71 @@ class MongoApisManager {
             }
           }
         } else {
-          if(model.repetiveType == 1) {
+          if (model.repetiveType == 1) {
             int repetiveValue = model.repetiveValue ?? 0;
             DateTime dateTime = Utility.getYearMonthAndDayDateTimeByTimestamp(
                 model?.end_time ?? 0);
             if (((dateTime.millisecondsSinceEpoch -
-                (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
-                (repetiveValue * 24 * 60 * 60 * 1000) ==
-                0) &&
+                            (curDayModelDateTime?.millisecondsSinceEpoch ??
+                                0)) %
+                        (repetiveValue * 24 * 60 * 60 * 1000) ==
+                    0) &&
                 ((model?.end_time == null) ||
                     ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
                         (model?.end_time ?? 0)))) {
               // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
-                if (repetiveType == null || model.repetiveType == repetiveType) {
-                  if (fid == null || model.folder_id == fid) {
-                    // if(time_mode == null || model.time_mode == time_mode) {
-                    if (isFinished == null || model.isFinished == isFinished) {
-                      list.add(model);
-                    }
-                    // }
+              if (repetiveType == null || model.repetiveType == repetiveType) {
+                if (fid == null || model.folder_id == fid) {
+                  // if(time_mode == null || model.time_mode == time_mode) {
+                  if (isFinished == null || model.isFinished == isFinished) {
+                    list.add(model);
                   }
+                  // }
                 }
-
+              }
             }
-          } else if(model.repetiveType == 2) {
+          } else if (model.repetiveType == 2) {
             int dailyStartTime = model?.daily_start_time ?? 0;
             int dailyEndTime = model?.daily_end_time ?? 0;
             Utility.getDateTimeFromTimeStamp(start_endTime);
             DateTime startDateTime = Utility.getDateTimeFromTimeStamp(DateTime(
-                curDayModelDateTime?.year ?? 0,
-                curDayModelDateTime?.month ?? 0,
-                curDayModelDateTime?.day ?? 0,
-                curDayModelDateTime?.hour ?? 0)
-                .millisecondsSinceEpoch +
+                        curDayModelDateTime?.year ?? 0,
+                        curDayModelDateTime?.month ?? 0,
+                        curDayModelDateTime?.day ?? 0,
+                        curDayModelDateTime?.hour ?? 0)
+                    .millisecondsSinceEpoch +
                 (dailyStartTime ?? 0));
             DateTime endDateTime = Utility.getDateTimeFromTimeStamp(DateTime(
-                curDayModelDateTime?.year ?? 0,
-                curDayModelDateTime?.month ?? 0,
-                curDayModelDateTime?.day ?? 0,
-                curDayModelDateTime?.hour ?? 0)
-                .millisecondsSinceEpoch +
+                        curDayModelDateTime?.year ?? 0,
+                        curDayModelDateTime?.month ?? 0,
+                        curDayModelDateTime?.day ?? 0,
+                        curDayModelDateTime?.hour ?? 0)
+                    .millisecondsSinceEpoch +
                 (dailyEndTime ?? 0));
-            DateTime curModelDateTime = dailyStartTime != 0 ? startDateTime : endDateTime;
+            DateTime curModelDateTime =
+                dailyStartTime != 0 ? startDateTime : endDateTime;
             DateTime dt = Utility.getDateTimeFromTimeStamp(start_endTime);
             int weekDay = dt.weekday;
-            if(Utility.includeWeekDay(repetiveWeekDay: model?.repetiveWeekDay ?? [], weekDay: weekDay)) {
-
-              if(model.end_time == null || model.end_time == 0 || (model.end_time! >= end_endTime ))
-                if (repetiveType == null || model.repetiveType == repetiveType) {
-                  if (fid == null || model.folder_id == fid) {
-                    if (isFinished == null || model.isFinished == isFinished) {
-                      list.add(model);
-                    }
+            if (Utility.includeWeekDay(
+                repetiveWeekDay: model?.repetiveWeekDay ?? [],
+                weekDay: weekDay)) {
+              if (model.end_time == null ||
+                  model.end_time == 0 ||
+                  (model.end_time! >= end_endTime)) if (repetiveType ==
+                      null ||
+                  model.repetiveType == repetiveType) {
+                if (fid == null || model.folder_id == fid) {
+                  if (isFinished == null || model.isFinished == isFinished) {
+                    list.add(model);
                   }
                 }
+              }
             }
-          } else    if(model.repetiveType == 3) {
+          } else if (model.repetiveType == 3) {
             // DateTime dateTimeDayModel = curDayModelDateTime ?? DateTime.now();
             DateTime dateTimeMissionModel =
-            Utility.getYearMonthAndDayDateTimeByTimestamp(
-                model?.end_time ?? 0);
+                Utility.getYearMonthAndDayDateTimeByTimestamp(
+                    model?.end_time ?? 0);
 
             int yearMissionModel = dateTimeMissionModel.year;
             int monthMissionModel = dateTimeMissionModel.month;
@@ -940,10 +946,11 @@ class MongoApisManager {
             int totalMonthDayModel = yearMissionModel * 12 + monthMissionModel;
 
             int repetiveValueMissionModel = model?.repetiveValue ?? 0;
-            int totalMonthMissionModel = yearMissionModel * 12 + monthMissionModel;
+            int totalMonthMissionModel =
+                yearMissionModel * 12 + monthMissionModel;
 
             if ((totalMonthMissionModel - totalMonthDayModel) %
-                (repetiveValueMissionModel) ==
+                    (repetiveValueMissionModel) ==
                 0) {
               DateTime dateTimeDayModel = curDayModelDateTime ?? DateTime.now();
               int yearDayModel = dateTimeDayModel.year;
@@ -951,7 +958,7 @@ class MongoApisManager {
               int dayDayModel = dateTimeDayModel.day;
               int totalMonthDayModel = yearDayModel * 12 + monthDayModel;
               if ((totalMonthMissionModel - totalMonthDayModel) %
-                  (repetiveValueMissionModel) ==
+                      (repetiveValueMissionModel) ==
                   0) {
                 if (dayMissionModel == dayDayModel) {
                   if (repetiveType == null ||
@@ -969,29 +976,29 @@ class MongoApisManager {
               }
             }
 
-              // if (dayMissionModel == dayDayModel) {
-              //   //~~~~~~~~~~~
-              //   if (((dateTime.millisecondsSinceEpoch -
-              //       (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
-              //       (repetiveValue * 24 * 60 * 60 * 1000) ==
-              //       0) &&
-              //       ((model?.end_time == null) ||
-              //           ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
-              //               (model?.end_time ?? 0)))) {
-              //     // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
-              //     if (repetiveType == null || model.repetiveType == repetiveType) {
-              //       if (fid == null || model.folder_id == fid) {
-              //         // if(time_mode == null || model.time_mode == time_mode) {
-              //         if (isFinished == null || model.isFinished == isFinished) {
-              //           list.add(model);
-              //         }
-              //         // }
-              //       }
-              //     }
-              //
-              //   }
-              //   //~~~~~~~~~~
-              // }
+            // if (dayMissionModel == dayDayModel) {
+            //   //~~~~~~~~~~~
+            //   if (((dateTime.millisecondsSinceEpoch -
+            //       (curDayModelDateTime?.millisecondsSinceEpoch ?? 0)) %
+            //       (repetiveValue * 24 * 60 * 60 * 1000) ==
+            //       0) &&
+            //       ((model?.end_time == null) ||
+            //           ((curDayModelDateTime?.millisecondsSinceEpoch ?? 1) <=
+            //               (model?.end_time ?? 0)))) {
+            //     // if(model.end_time == null || model.end_time == 0 || (start_endTime != null && model.end_time! >= start_endTime && end_endTime != null && model.end_time! <= end_endTime ))
+            //     if (repetiveType == null || model.repetiveType == repetiveType) {
+            //       if (fid == null || model.folder_id == fid) {
+            //         // if(time_mode == null || model.time_mode == time_mode) {
+            //         if (isFinished == null || model.isFinished == isFinished) {
+            //           list.add(model);
+            //         }
+            //         // }
+            //       }
+            //     }
+            //
+            //   }
+            //   //~~~~~~~~~~
+            // }
             // }
             //
             // int repetiveValue = model.repetiveValue ?? 0;
@@ -1016,11 +1023,12 @@ class MongoApisManager {
             //   }
 
             // }
-          } else{
-            if(start_endTime != null && model.end_time! >= start_endTime) {
+          } else {
+            if (start_endTime != null && model.end_time! >= start_endTime) {
               if (end_endTime != null && model.end_time! <= end_endTime) {
                 // model.ic
-                if (repetiveType == null || model.repetiveType == repetiveType) {
+                if (repetiveType == null ||
+                    model.repetiveType == repetiveType) {
                   if (fid == null || model.folder_id == fid) {
                     // if(time_mode == null || model.time_mode == time_mode) {
                     if (isFinished == null || model.isFinished == isFinished) {
@@ -1444,6 +1452,103 @@ class MongoApisManager {
     return list;
   }
 
+  List<MissionModel> queryWhereEqual_missionDataByFilterConditionBean(
+      {required FilterConditionBean filterConditionBean}) {
+    // {priority: [0, 1, 2, 3], keyword: '', missionType: 1, startTime: 0, endTime:  1000, listingId: [string, string, string]}
+    int dateType = filterConditionBean?.dateType ??
+        0; // 1-今天 2 明天 3 本周 4 自定义(n天内) 5 自定义(时间段) 0 无
+    int valueDays = filterConditionBean.value ?? 0;
+    int valueDaysBefore = filterConditionBean.valueBefore ?? 0;
+    int valueDaysAfter = filterConditionBean.valueAfter ?? 0;
+    List prioritys = filterConditionBean.priority ?? [];
+    String keyword = filterConditionBean.keyword ?? "";
+    // int missionType = filterConditionBean.missionType ?? 0;
+    int startTime = dateType == 1
+        ? Utility.getTodayStartTime().millisecondsSinceEpoch
+        : dateType == 2
+            ? Utility.getTomorrowStartTime().millisecondsSinceEpoch
+            : dateType == 3
+                ? Utility.getWeekStartTime().millisecondsSinceEpoch
+                : dateType == 4
+                    ? Utility.getNDaysAgoStartTimeByMilliseconds(valueDaysBefore)
+                        .millisecondsSinceEpoch
+                    : dateType == 5 ? (filterConditionBean.startTime == 0 || filterConditionBean.startTime == null )  ? DateTime.now().millisecondsSinceEpoch : (filterConditionBean?.startTime ?? DateTime.now().millisecondsSinceEpoch) : 0;
+    int endTime = dateType == 1
+        ? Utility.getTodayEndTime().millisecondsSinceEpoch
+        : dateType == 2
+            ? Utility.getTomorrowEndTime().millisecondsSinceEpoch
+            : dateType == 3
+                ? Utility.getWeekEndTime().millisecondsSinceEpoch
+                : dateType == 4
+                    ? Utility.getNDaysAfterEndTimeByMilliseconds(valueDaysAfter)
+                        .millisecondsSinceEpoch
+                    : dateType == 5 ? (filterConditionBean.endTime == 0 || filterConditionBean.endTime == null )  ? DateTime.now().millisecondsSinceEpoch : (filterConditionBean?.endTime ?? DateTime.now().millisecondsSinceEpoch) : 0;
+    List listingFolderId = filterConditionBean.listingId ?? [];
+    List<MissionModel> list = [];
+    for (int i = 0; i < this.listMissionModels.length; i++) {
+      MissionModel model = this.listMissionModels[i];
+      if(model.title == '大于今天范围') {
+        print('大于今天范围');
+      }
+      if(model.title == '支持多语言') {
+        print('支持多语言');
+      }
+      if(model.title == '7天后过滤') {
+        print('7天后过滤');
+      }
+
+      if (listingFolderId.length == 0 ||
+          listingFolderId.indexOf(model.folder_id) != -1) {
+        //如果没有筛选文件夹
+        if (Utility.isDateTimeIntersectionByMilliSeconds(startTime, endTime, model.start_time, model.end_time)) {
+
+          if (prioritys.indexOf(model.priorityStatus ?? 3) != -1 ||
+              prioritys.length == 0) {
+            if (keyword.isNotEmpty) {
+              if (model.title?.indexOf(keyword) != -1) {
+                list.add(model);
+              }
+            } else {
+              list.add(model);
+            }
+          }
+        }else if((startTime == null || startTime ==0) && (endTime == null || endTime == 0)) {
+          //没有时间筛选
+          if (prioritys.indexOf(model.priorityStatus ?? 3) != -1 ||
+              prioritys.length == 0) {
+            if (keyword.isNotEmpty) {
+              if (model.title?.indexOf(keyword) != -1) {
+                list.add(model);
+              }
+            } else {
+              list.add(model);
+            }
+          }
+        }
+      }
+
+      // if (prioritys.indexOf(model.priorityStatus) != -1 || prioritys.length == 0) {
+      //
+      //   if (keyword.isNotEmpty) {
+      //     if (model.title?.indexOf(keyword) != -1) {
+      //       list.add(model);
+      //     }
+      //   } else {
+      //     list.add(model);
+      //   }
+      // }
+    }
+
+    // List<MissionModel> list = [];
+    // for (int i = 0; i < this.listMissionModels.length; i++) {
+    //   MissionModel model = this.listMissionModels[i];
+    //   if (model.tagNames != null && model.tagNames?.indexOf(tagName) != -1) {
+    //     list.add(model);
+    //   }
+    // }
+    return list;
+  }
+
   List<MissionModel> queryWhereEqual_missionDataByTagName(
       {required String tagName}) {
     if (TextUtil.isEmpty(tagName)) {
@@ -1823,7 +1928,7 @@ class MongoApisManager {
       list2.add(queryUid);
     }
     // list2.add(queryDeviceId);
-    if(list2.length == 1) {
+    if (list2.length == 1) {
       queryUidAndDeviceId = list2[0];
     } else {
       queryUidAndDeviceId.or(list2);
@@ -1878,7 +1983,7 @@ class MongoApisManager {
     //   list.addAll(listSharingFolderModel);
     // }
     query.and(list);
-    if(listSharingFolderModel.length > 0) {
+    if (listSharingFolderModel.length > 0) {
       queryOr.or(listSharingFolderModel);
       queryAll.or([query, queryOr]);
     } else {
@@ -1929,7 +2034,8 @@ class MongoApisManager {
     //批量解密需要解密的 cryptoVersion=0的 -1不需要解密
     missionModels = await CryptoManager.getInstance()
         .batchDecryptMissionModels(missionModels);
-    if(missionModels != null && missionModels.length == 0 &&
+    if (missionModels != null &&
+        missionModels.length == 0 &&
         Params.isFirstTime == true) {
       CloudSharepreferenceManagement.getInstance()
           .setBool("IsFirstTime", false);
@@ -1999,7 +2105,7 @@ class MongoApisManager {
     }
     list2.add(queryDeviceId);
 
-    if(list2.length == 1) {
+    if (list2.length == 1) {
       queryUidAndDeviceId = list2[0];
     } else {
       queryUidAndDeviceId.or(list2);
@@ -2181,7 +2287,7 @@ class MongoApisManager {
     }
     list2.add(queryDeviceId);
 
-    if(list2.length == 1) {
+    if (list2.length == 1) {
       queryUidAndDeviceId = list2[0];
     } else {
       queryUidAndDeviceId.or(list2);
@@ -2741,7 +2847,9 @@ class MongoApisManager {
     List<dynamic> data = await query.queryObjects();
     List<FolderModel> folderModelList = [];
     try {
-      folderModelList = data.map((i) => FolderModel.fromJson(i)).toList();
+      folderModelList = data.map((i) {
+        return FolderModel.fromJson(i);
+      }).toList();
     } catch (e) {
       Utility.print(e);
     }
@@ -3100,7 +3208,8 @@ class MongoApisManager {
     return folderModelList.length > 0 ? true : false;
   }
 
-  Future<bool> isTagNameExist_folderModel({required FolderModel folderModel, callback}) async {
+  Future<bool> isTagNameExist_folderModel(
+      {required FolderModel folderModel, callback}) async {
     MongoDbQuery<FolderModel> query = MongoDbQuery();
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
         ? ''
@@ -3119,7 +3228,8 @@ class MongoApisManager {
         data.map((i) => FolderModel.fromJson(i)).toList();
     for (FolderModel folderModel in folderModelList) {
       if (folderModel != null) {
-        if(folderModel.title == folderModel.title && folderModel.tag == folderModel.tag) {
+        if (folderModel.title == folderModel.title &&
+            folderModel.tag == folderModel.tag) {
           return true;
         }
         // print(folderModel.objectId);
@@ -3140,7 +3250,7 @@ class MongoApisManager {
     //   FolderModel folderModelTmp = folderModelList[0];
     //   return (folderModelTmp.title == folderModel.title && folderModelTmp.tag == folderModel.tag) ? true : false;
     // } else {
-      return false;
+    return false;
     // }
   }
 
@@ -3742,11 +3852,15 @@ class MongoApisManager {
       if (callback != null) {
         callback(bmobSaved);
       }
-      int insertMissionCount = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.insertMissionCount, defaultVal: 0);
-      if(insertMissionCount == 3) {
-        DialogManagement.showRatingDialog(Utility.getGlobalContext(), scene: EVENTNAME.INSERT_MISSION);
+      int insertMissionCount = SharePreferenceUtil.getSyncInstance()
+          .getInt(key: ShareprefrenceKeys.insertMissionCount, defaultVal: 0);
+      if (insertMissionCount == 3) {
+        DialogManagement.showRatingDialog(Utility.getGlobalContext(),
+            scene: EVENTNAME.INSERT_MISSION);
       }
-      SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.insertMissionCount, value: insertMissionCount + 1);
+      SharePreferenceUtil.getSyncInstance().setInt(
+          key: ShareprefrenceKeys.insertMissionCount,
+          value: insertMissionCount + 1);
       String? objectId = bmobSaved?.objectId;
       if (objectId?.isEmpty == false) {
         // String id = Utility.getObjectIdWithId(objectId ?? "");
@@ -4268,13 +4382,13 @@ class MongoApisManager {
 
   Future<MongoDbSaved?> copy_MissionModel(
       {required MissionModel missionModel,
-        bool shouldCheckPermission = true,
-        bool shouldQueryMissionModel = true,
-        Function? callback}) async {
+      bool shouldCheckPermission = true,
+      bool shouldQueryMissionModel = true,
+      Function? callback}) async {
     if (shouldCheckPermission == true &&
         ChatGroupManager.isFolderModelEnabled(
-            folderId: missionModel.folder_id ?? "",
-            uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                folderId: missionModel.folder_id ?? "",
+                uid: LoginManager.getInstance().userBean.uid ?? "") ==
             false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -4286,7 +4400,7 @@ class MongoApisManager {
     missionModel.noteOriginUrls = [];
     missionModel.noteRichContentUrl = ""; //知识点错题本 如果是富文本就是Url
     missionModel.noteRecordUrls = []; //录音url
-    missionModel.subMissionModels=[];
+    missionModel.subMissionModels = [];
 
     // eventBus.fire(Params.ACTION_UPDATE_SETTING_ITEM_DETAIL, {"objectId": missionModel.objectId});
     try {
@@ -4319,29 +4433,29 @@ class MongoApisManager {
       if (TextUtil.isEmpty(missionModelTmp.folder_id) == true) {
         MongoDbSaved? res = await MongoApisManager.getInstance()
             .insertTimelineMissionModel(
-            missionModel: Utility.getTimelineMissionModelFromMissionModel(
-                icon: Icons.check_circle.codePoint,
-                color: Colors.greenAccent.value,
-                missionModel: missionModel,
-                sceneType: "mission",
-                eventType: "copy_mission",
-                timelineMessage: getI18NKey()
-                    .update_name_mission2(missionModel.title ?? "?")));
+                missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                    icon: Icons.check_circle.codePoint,
+                    color: Colors.greenAccent.value,
+                    missionModel: missionModel,
+                    sceneType: "mission",
+                    eventType: "copy_mission",
+                    timelineMessage: getI18NKey()
+                        .update_name_mission2(missionModel.title ?? "?")));
       } else {
         FolderModel? folderModel = MongoApisManager.getInstance()
-            .queryWhereEqualFolderModelByObjectId(
-            objectId: missionModelTmp.folder_id) ??
+                .queryWhereEqualFolderModelByObjectId(
+                    objectId: missionModelTmp.folder_id) ??
             null;
         MongoDbSaved? res = await MongoApisManager.getInstance()
             .insertTimelineMissionModel(
-            missionModel: Utility.getTimelineMissionModelFromMissionModel(
-                icon: Icons.check_circle.codePoint,
-                color: Colors.greenAccent.value,
-                missionModel: missionModel,
-                sceneType: "mission",
-                eventType: "copy_mission",
-                timelineMessage: getI18NKey().copy_mission_model(
-                    missionModel.title ?? "")));
+                missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                    icon: Icons.check_circle.codePoint,
+                    color: Colors.greenAccent.value,
+                    missionModel: missionModel,
+                    sceneType: "mission",
+                    eventType: "copy_mission",
+                    timelineMessage: getI18NKey()
+                        .copy_mission_model(missionModel.title ?? "")));
       }
 //如果计数中需要更新missionModel
 //       CounterManagement.getInstance().updateMissionModel(missionModel);
@@ -4351,8 +4465,8 @@ class MongoApisManager {
       // if (callback != null) {
       //   callback(mongoDbSaved);
       // }
-        context?.read<GlobalStateEnv>().listMissionModels =
-            this.listMissionModels;
+      context?.read<GlobalStateEnv>().listMissionModels =
+          this.listMissionModels;
       Utility.initCalendarModel();
       // print("修改一条数据成功：${mongoDbSaved.message}");
       return mongoDbSaved;
@@ -4361,6 +4475,7 @@ class MongoApisManager {
       return null;
     }
   }
+
   ///修改一条数据
   Future<MongoDbUpdated?> update_MissionModel(
       {required MissionModel missionModel,

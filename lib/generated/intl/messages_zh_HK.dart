@@ -453,6 +453,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculateTomatoesTime": m7,
         "calendar": MessageLookupByLibrary.simpleMessage("日程"),
         "calendar2": MessageLookupByLibrary.simpleMessage("日曆"),
+        "calendar_view_shortcuts":
+            MessageLookupByLibrary.simpleMessage("日曆視圖快捷鍵"),
         "camera_permission_description":
             MessageLookupByLibrary.simpleMessage("為了能夠使用拍照功能，需要您授權相機權限"),
         "can_edit": MessageLookupByLibrary.simpleMessage("可編輯"),
@@ -462,6 +464,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("取消管理員"),
         "cannot_handle_myself": MessageLookupByLibrary.simpleMessage("無法處理自己"),
+        "cannot_reorder_for_group":
+            MessageLookupByLibrary.simpleMessage("無法對未分組的項目重新排序"),
         "capture_a_photo": MessageLookupByLibrary.simpleMessage("拍照"),
         "capture_a_video": MessageLookupByLibrary.simpleMessage("錄製視頻"),
         "card": MessageLookupByLibrary.simpleMessage("卡片"),
@@ -867,7 +871,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_numbers_with_value": m48,
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("專注時間段分佈"),
+        "focus_pause": MessageLookupByLibrary.simpleMessage("暫停專注"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("專注設置"),
+        "focus_start": MessageLookupByLibrary.simpleMessage("開始專注"),
+        "focus_stop": MessageLookupByLibrary.simpleMessage("停止專注"),
         "focus_switch_desc":
             MessageLookupByLibrary.simpleMessage("專注中切換任務是否重啟計數器"),
         "focus_switch_title": MessageLookupByLibrary.simpleMessage("新任務重新計時"),
@@ -932,6 +939,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "friday": MessageLookupByLibrary.simpleMessage("週五"),
         "fridayShort": MessageLookupByLibrary.simpleMessage("五"),
         "front_card": MessageLookupByLibrary.simpleMessage("正面卡片"),
+        "fullscreen": MessageLookupByLibrary.simpleMessage("全屏"),
         "gallery": MessageLookupByLibrary.simpleMessage("相簿"),
         "game1_time_usage": m49,
         "game2_ranking_text": m50,
@@ -1383,6 +1391,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("僅我分享的好友"),
         "opacity": MessageLookupByLibrary.simpleMessage("透明度"),
         "openLink": MessageLookupByLibrary.simpleMessage("打開鏈接"),
+        "open_search_taskbar":
+            MessageLookupByLibrary.simpleMessage("打開 搜索框和創建任務工具欄"),
         "open_sticky_note": MessageLookupByLibrary.simpleMessage("打開便簽"),
         "optional": MessageLookupByLibrary.simpleMessage("可選"),
         "optional_with_parenthese":
@@ -1490,6 +1500,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_select_month": MessageLookupByLibrary.simpleMessage("請選擇搜索月份"),
         "please_select_year_to_search":
             MessageLookupByLibrary.simpleMessage("請選擇搜索年份"),
+        "pomodoro_shortcuts": MessageLookupByLibrary.simpleMessage("番茄鐘快捷鍵"),
         "popup_invisible3": MessageLookupByLibrary.simpleMessage("隱藏"),
         "popup_select1": MessageLookupByLibrary.simpleMessage("有內容顯示"),
         "popup_visible2": MessageLookupByLibrary.simpleMessage("顯示"),
@@ -1748,9 +1759,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("週日"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("日"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("超級筆記"),
+        "super_tool_shortcuts": MessageLookupByLibrary.simpleMessage("超級工具快捷鍵"),
         "switch_chronograph_mode_success":
             MessageLookupByLibrary.simpleMessage("成功切換至秒表模式，下次生效"),
         "switch_font": MessageLookupByLibrary.simpleMessage("切換字體"),
+        "switch_mode": MessageLookupByLibrary.simpleMessage("切換模式"),
         "switch_style": MessageLookupByLibrary.simpleMessage("切換風格"),
         "switch_style_prompt": MessageLookupByLibrary.simpleMessage(
             "請將所選段落轉換為另一種寫作風格，例如正式、非正式、學術或幽默。"),
@@ -1827,6 +1840,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("請輸入今天的待辦事項..."),
         "todo_list_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我列出今天的待辦事項列表..."),
+        "todo_list_shortcuts": MessageLookupByLibrary.simpleMessage("待辦清單頁快捷鍵"),
         "todo_listing": MessageLookupByLibrary.simpleMessage("待辦清單"),
         "tokenExpired": MessageLookupByLibrary.simpleMessage("登錄失效，請重新登錄"),
         "tomato": MessageLookupByLibrary.simpleMessage("番茄"),

@@ -227,9 +227,9 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                           child: Wrap(
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              SizedBox(
-                                width: 8,
-                              ),
+                              // SizedBox(
+                              //   width: 8,
+                              // ),
                               if ((_missionModel?.subMissions?.length ?? 0) >
                                   0) ...[
                                 Utility.getSVGPicture(R.assetsImgIcSubmission,
@@ -252,6 +252,7 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                               ],
                             ],
                           )),
+
                       ...WidgetManager.getTagsWidgetSpan(
                           _missionModel ?? MissionModel(),
                           fontSize: 12),

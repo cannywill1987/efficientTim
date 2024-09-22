@@ -125,7 +125,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 typedef void OnError(Exception exception);
 
-
 S getI18NKey([BuildContext? context]) {
   return S.of(context ?? Utility.getGlobalContext());
 }
@@ -1601,7 +1600,8 @@ class Utility {
 
   static toggleCurDesktopFolderPageVisibility(BuildContext context) {
     // bool isVisible = !context.read<Env>().isFolderPageVisible;
-    context.read<Env>().isFolderPageVisible = !context.read<Env>().isFolderPageVisible;
+    context.read<Env>().isFolderPageVisible =
+        !context.read<Env>().isFolderPageVisible;
     // context.read<Env>().routerMainContainerData = {isFolderPageVisible: };
   }
 
@@ -1611,11 +1611,10 @@ class Utility {
     context.read<Env>().curFolderStatus = folderStatus;
   }
 
-  static setDesktopMiddileMissionPage(BuildContext context, {isVisible = true}) {
-    if(Utility.isHandsetBySize() == false) {
-      context
-          .read<Env>()
-          .isMiddleMissionPageVisible = isVisible;
+  static setDesktopMiddileMissionPage(BuildContext context,
+      {isVisible = true}) {
+    if (Utility.isHandsetBySize() == false) {
+      context.read<Env>().isMiddleMissionPageVisible = isVisible;
     }
   }
 
@@ -2171,10 +2170,15 @@ class Utility {
    */
   static List<SessionMissionModel>? getListAfterOrder(
       MissionOrderEnum missionOrderEnum, List<MissionModel> list,
-      [int folderStatus = -1]) {
+      [int folderStatus = -1, List<String>? listFolderIds]) {
+
     if (missionOrderEnum == MissionOrderEnum.orderByWords) {
+    List<FolderModel> listFolderModels = CONSTANTS.folderModelList;
+    if(listFolderIds != null) {
+      listFolderModels = listFolderModels.where((element) => listFolderIds.contains(element.objectId)).toList();
+    }
       return Utility.parseMissionModelsToSessionMissionMidelListByFolderName(
-          list, CONSTANTS.folderModelList, folderStatus);
+          list, listFolderModels, folderStatus);
     } else if (missionOrderEnum == MissionOrderEnum.orderByPriority) {
       return Utility.parseMissionModelsToSessionMissionMidelListByPriority(
           list);
@@ -2182,8 +2186,12 @@ class Utility {
       return Utility.parseMissionModelsToSessionMissionMidelListByDateTime(
           list);
     } else if (missionOrderEnum == MissionOrderEnum.orderByTag) {
+      List<FolderModel> listFolderModels = MongoApisManager.getInstance().listFolderModels;
+      if(listFolderIds != null) {
+        listFolderModels = listFolderModels.where((element) => listFolderIds.contains(element.objectId)).toList();
+      }
       return Utility.parseMissionModelsToSessionMissionMidelListByTag(
-          list, MongoApisManager.getInstance().listFolderModels);
+          list, listFolderModels);
     }
     return null;
   }
@@ -5404,7 +5412,7 @@ class Utility {
         //     .difference(dateTimeStart)
         //     .inMilliseconds;
         duration =
-            (missionModel?.end_time ?? 0)- (missionModel?.start_time ?? 0);
+            (missionModel?.end_time ?? 0) - (missionModel?.start_time ?? 0);
       }
       missionModel.localDuration = duration;
       missionModel.localDurationString =
@@ -6089,7 +6097,8 @@ class Utility {
    * 是否有alert
    */
   static bool isAlertOn(MissionModel missionModel) {
-    if (missionModel.alert_time != null || (missionModel?.alert_time ?? 0) > 0) {
+    if (missionModel.alert_time != null ||
+        (missionModel?.alert_time ?? 0) > 0) {
       return true;
     }
     return false;
@@ -6644,6 +6653,166 @@ class Utility {
       });
     }
     return listMissionModels;
+  }
+
+  static DateTime getTodayStartTime() {
+    DateTime dateTime = DateTime.now();
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0);
+  }
+
+  static DateTime getTodayEndTime() {
+    DateTime dateTime = DateTime.now();
+    return DateTime(
+        dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 59);
+  }
+
+  static DateTime getTomorrowStartTime() {
+    DateTime dateTime = DateTime.now();
+    return DateTime(
+        dateTime.year, dateTime.month, dateTime.day + 1, 0, 0, 0, 0);
+  }
+
+  static DateTime getTomorrowEndTime() {
+    DateTime dateTime = DateTime.now();
+    return DateTime(
+        dateTime.year, dateTime.month, dateTime.day + 1, 23, 59, 59, 59);
+  }
+
+  static DateTime getWeekStartTime() {
+    DateTime dateTime = DateTime.now();
+    int weekDay = dateTime.weekday;
+    DateTime dateTimeStart = dateTime.subtract(Duration(days: weekDay - 1));
+    return DateTime(
+        dateTimeStart.year, dateTimeStart.month, dateTimeStart.day, 0, 0, 0, 0);
+  }
+
+  static DateTime getWeekEndTime() {
+    DateTime dateTime = DateTime.now();
+    int weekDay = dateTime.weekday;
+    DateTime dateTimeEnd = dateTime.add(Duration(days: 7 - weekDay));
+    return DateTime(
+        dateTimeEnd.year, dateTimeEnd.month, dateTimeEnd.day, 23, 59, 59, 59);
+  }
+
+  static DateTime getNDaysAgoStartTimeByMilliseconds(int n) {
+    DateTime dateTime = DateTime.now();
+    DateTime dateTimeStart = dateTime.subtract(Duration(milliseconds: n));
+    return DateTime(
+        dateTimeStart.year, dateTimeStart.month, dateTimeStart.day, 0, 0, 0, 0);
+  }
+
+  static DateTime getNDaysAgoStartTime(int n) {
+    DateTime dateTime = DateTime.now();
+    DateTime dateTimeStart = dateTime.subtract(Duration(days: n));
+    return DateTime(
+        dateTimeStart.year, dateTimeStart.month, dateTimeStart.day, 0, 0, 0, 0);
+  }
+
+  static DateTime getNDaysAgoEndTime(int n) {
+    DateTime dateTime = DateTime.now();
+    DateTime dateTimeEnd = dateTime.subtract(Duration(days: n));
+    return DateTime(
+        dateTimeEnd.year, dateTimeEnd.month, dateTimeEnd.day, 23, 59, 59, 59);
+  }
+
+  static DateTime getNDaysAfterEndTimeByMilliseconds(int n) {
+    DateTime dateTime = DateTime.now();
+    DateTime dateTimeEnd = dateTime.add(Duration(milliseconds: n));
+    return DateTime(
+        dateTimeEnd.year, dateTimeEnd.month, dateTimeEnd.day, 23, 59, 59, 59);
+  }
+
+  static DateTime getNDaysAfterEndTime(int n) {
+    DateTime dateTime = DateTime.now();
+    DateTime dateTimeEnd = dateTime.add(Duration(days: n));
+    return DateTime(
+        dateTimeEnd.year, dateTimeEnd.month, dateTimeEnd.day, 23, 59, 59, 59);
+  }
+
+  /**
+   * dateTime1Start 是 设置好的时间 不能为空
+   * dateTime1End 是 设置好的时间 可以为空
+   * dateTime2Start 是 任务的开始时间 可以为空
+   * dateTime2End 是 任务的结束时间 不能为空
+   */
+  static bool isDateTimeIntersectionByMilliSeconds(
+      int? dateTimeSetting1Start,
+      int? dateTimeSetting1End,
+      int? dateTimeMission2Start,
+      int? dateTimeMission2End) {
+    if(dateTimeMission2Start == 0) {
+      dateTimeMission2Start = null;
+    }
+    if(dateTimeSetting1Start == 0) {
+      dateTimeSetting1Start = null;
+    }
+    if(dateTimeSetting1End == 0) {
+      dateTimeSetting1End = null;
+    }
+    if ((dateTimeMission2Start == null && dateTimeMission2End == null) &&
+        (dateTimeSetting1Start != null || dateTimeSetting1End != null)) {
+      // 任务没设置时间 但是设置了时间 任务没有开始时间
+      return false;
+    }
+
+    if ((dateTimeMission2Start != null && dateTimeMission2End != null) &&
+        (dateTimeSetting1Start == null || dateTimeSetting1End == null)) {
+      // 任务没设置时间 但是设置了时间 任务没有开始时间
+      return false;
+    }
+    // if (dateTimeSetting1Start != null && dateTimeSetting1End != null) {
+    //   return true;
+    // }
+    // dateTime1Start 不为空 dateTime1End为空 dateTime2Start为空 dateTime2End为空 计算是否有交叉值
+    if (dateTimeSetting1Start != null &&
+        dateTimeSetting1End == null &&
+        dateTimeMission2Start != null &&
+        dateTimeMission2End != null) {
+      //任务没有设置时间
+      if (dateTimeSetting1Start >= dateTimeMission2End) {
+        return true;
+      }
+      return false;
+    }
+    if (dateTimeSetting1Start != null &&
+        dateTimeSetting1End != null &&
+        dateTimeMission2Start == null &&
+        dateTimeMission2End != null) {
+      //任务没有设置时间
+      if (dateTimeSetting1Start <= dateTimeMission2End) {
+        return true;
+      }
+    }
+    if (dateTimeSetting1Start != null &&
+        dateTimeSetting1End != null &&
+        dateTimeMission2Start != null &&
+        dateTimeMission2End != null) {
+      //任务没有设置时间
+      if (
+      // Case 1: First interval fully contains the second interval.
+      (dateTimeSetting1Start <= dateTimeMission2Start &&
+          dateTimeSetting1End >= dateTimeMission2End) ||
+
+          // Case 2: Intervals overlap.
+          (dateTimeSetting1Start <= dateTimeMission2End &&
+              dateTimeSetting1End >= dateTimeMission2Start)
+      ) {
+        return true;
+      }
+      return false;
+    }
+
+    if (dateTimeSetting1Start != null &&
+        dateTimeSetting1End != null &&
+        dateTimeMission2Start == null &&
+        dateTimeMission2End != null) {
+      //任务没有设置时间
+      if (dateTimeSetting1Start <= dateTimeMission2End) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**

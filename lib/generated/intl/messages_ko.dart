@@ -474,6 +474,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculateTomatoesTime": m7,
         "calendar": MessageLookupByLibrary.simpleMessage("일정"),
         "calendar2": MessageLookupByLibrary.simpleMessage("달력"),
+        "calendar_view_shortcuts":
+            MessageLookupByLibrary.simpleMessage("달력 보기 단축키"),
         "camera_permission_description": MessageLookupByLibrary.simpleMessage(
             "사진 촬영 기능을 사용하려면 카메라 권한을 부여해야 합니다"),
         "can_edit": MessageLookupByLibrary.simpleMessage("편집 가능"),
@@ -485,6 +487,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("관리자 취소"),
         "cannot_handle_myself":
             MessageLookupByLibrary.simpleMessage("자신을 처리할 수 없음"),
+        "cannot_reorder_for_group":
+            MessageLookupByLibrary.simpleMessage("그룹화되지 않은 항목을 재정렬할 수 없습니다"),
         "capture_a_photo": MessageLookupByLibrary.simpleMessage("사진 찍기"),
         "capture_a_video": MessageLookupByLibrary.simpleMessage("비디오 촬영"),
         "card": MessageLookupByLibrary.simpleMessage("카드"),
@@ -916,7 +920,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_numbers_with_value": m48,
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("집중 시간 분포"),
+        "focus_pause": MessageLookupByLibrary.simpleMessage("집중 일시 정지"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("집중 설정"),
+        "focus_start": MessageLookupByLibrary.simpleMessage("집중 시작"),
+        "focus_stop": MessageLookupByLibrary.simpleMessage("집중 중지"),
         "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
             "집중하는 동안 작업을 전환하면 타이머가 재설정됩니까"),
         "focus_switch_title":
@@ -984,6 +991,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "friday": MessageLookupByLibrary.simpleMessage("금요일"),
         "fridayShort": MessageLookupByLibrary.simpleMessage("금"),
         "front_card": MessageLookupByLibrary.simpleMessage("앞면 카드"),
+        "fullscreen": MessageLookupByLibrary.simpleMessage("전체 화면"),
         "gallery": MessageLookupByLibrary.simpleMessage("갤러리"),
         "game1_time_usage": m49,
         "game2_ranking_text": m50,
@@ -1465,6 +1473,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("친구에게만 공유"),
         "opacity": MessageLookupByLibrary.simpleMessage("불투명도"),
         "openLink": MessageLookupByLibrary.simpleMessage("링크 열기"),
+        "open_search_taskbar":
+            MessageLookupByLibrary.simpleMessage("검색 창과 작업 도구 모음 열기"),
         "open_sticky_note": MessageLookupByLibrary.simpleMessage("메모 열기"),
         "optional": MessageLookupByLibrary.simpleMessage("선택 사항"),
         "optional_with_parenthese":
@@ -1582,6 +1592,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("검색할 월을 선택하세요"),
         "please_select_year_to_search":
             MessageLookupByLibrary.simpleMessage("검색할 연도를 선택하세요"),
+        "pomodoro_shortcuts": MessageLookupByLibrary.simpleMessage("뽀모도로 단축키"),
         "popup_invisible3": MessageLookupByLibrary.simpleMessage("숨기기"),
         "popup_select1": MessageLookupByLibrary.simpleMessage("내용 보이기"),
         "popup_visible2": MessageLookupByLibrary.simpleMessage("보이기"),
@@ -1848,9 +1859,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("일요일"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("일"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("슈퍼 노트북"),
+        "super_tool_shortcuts":
+            MessageLookupByLibrary.simpleMessage("슈퍼 도구 단축키"),
         "switch_chronograph_mode_success": MessageLookupByLibrary.simpleMessage(
             "스톱워치 모드로 성공적으로 전환되었습니다. 다음에 적용됩니다"),
         "switch_font": MessageLookupByLibrary.simpleMessage("폰트 전환"),
+        "switch_mode": MessageLookupByLibrary.simpleMessage("모드 전환"),
         "switch_style": MessageLookupByLibrary.simpleMessage("스타일 변경"),
         "switch_style_prompt": MessageLookupByLibrary.simpleMessage(
             "선택한 단락의 글쓰기 스타일을 공식적, 비공식적, 학술적 또는 유머러스 등으로 변경하세요."),
@@ -1930,6 +1944,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("오늘의 할 일을 입력하세요..."),
         "todo_list_prompt":
             MessageLookupByLibrary.simpleMessage("오늘의 할 일 목록을 작성해 주세요..."),
+        "todo_list_shortcuts":
+            MessageLookupByLibrary.simpleMessage("할일 목록 단축키"),
         "todo_listing": MessageLookupByLibrary.simpleMessage("할 일 목록"),
         "tokenExpired":
             MessageLookupByLibrary.simpleMessage("로그인이 만료되었습니다. 다시 로그인 해주세요"),

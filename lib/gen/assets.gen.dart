@@ -15,11 +15,18 @@ class $AssetsAppFlowyDemoGen {
   /// File path: assets/appFlowyDemo/example.json
   String get example => 'assets/appFlowyDemo/example.json';
 
+  /// File path: assets/appFlowyDemo/example_cn.json
+  String get exampleCn => 'assets/appFlowyDemo/example_cn.json';
+
   /// File path: assets/appFlowyDemo/mobile_example.json
   String get mobileExample => 'assets/appFlowyDemo/mobile_example.json';
 
+  /// File path: assets/appFlowyDemo/mobile_example_cn.json
+  String get mobileExampleCn => 'assets/appFlowyDemo/mobile_example_cn.json';
+
   /// List of all assets
-  List<String> get values => [example, mobileExample];
+  List<String> get values =>
+      [example, exampleCn, mobileExample, mobileExampleCn];
 }
 
 class $AssetsImgGen {
@@ -482,6 +489,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_expand_right.svg
   String get icExpandRight => 'assets/img/ic_expand_right.svg';
 
+  /// File path: assets/img/ic_export.svg
+  String get icExport => 'assets/img/ic_export.svg';
+
   /// File path: assets/img/ic_eye_close.svg
   String get icEyeClose => 'assets/img/ic_eye_close.svg';
 
@@ -690,6 +700,9 @@ class $AssetsImgGen {
   AssetGenImage get icMinshengBank =>
       const AssetGenImage('assets/img/ic_minsheng_bank.png');
 
+  /// File path: assets/img/ic_mission_create.svg
+  String get icMissionCreate => 'assets/img/ic_mission_create.svg';
+
   /// File path: assets/img/ic_money1.svg
   String get icMoney1 => 'assets/img/ic_money1.svg';
 
@@ -833,6 +846,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_screenrotation.svg
   String get icScreenrotation => 'assets/img/ic_screenrotation.svg';
 
+  /// File path: assets/img/ic_search.svg
+  String get icSearch => 'assets/img/ic_search.svg';
+
   /// File path: assets/img/ic_secure.svg
   String get icSecure => 'assets/img/ic_secure.svg';
 
@@ -846,6 +862,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_shanghai_nongshang_bank.png
   AssetGenImage get icShanghaiNongshangBank =>
       const AssetGenImage('assets/img/ic_shanghai_nongshang_bank.png');
+
+  /// File path: assets/img/ic_shortcut.svg
+  String get icShortcut => 'assets/img/ic_shortcut.svg';
 
   /// File path: assets/img/ic_splash_duck.png
   AssetGenImage get icSplashDuck =>
@@ -982,6 +1001,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_visa_bank.png
   AssetGenImage get icVisaBank =>
       const AssetGenImage('assets/img/ic_visa_bank.png');
+
+  /// File path: assets/img/ic_visible.svg
+  String get icVisible => 'assets/img/ic_visible.svg';
 
   /// File path: assets/img/ic_voice_diary.svg
   String get icVoiceDiary => 'assets/img/ic_voice_diary.svg';
@@ -1220,6 +1242,7 @@ class $AssetsImgGen {
         icError,
         icExpandLeft,
         icExpandRight,
+        icExport,
         icEyeClose,
         icEyeSlash,
         icFacebook,
@@ -1283,6 +1306,7 @@ class $AssetsImgGen {
         icMemoryCard,
         icMethod,
         icMinshengBank,
+        icMissionCreate,
         icMoney1,
         icMoney2,
         icMoney3,
@@ -1329,10 +1353,12 @@ class $AssetsImgGen {
         icRightPanel,
         icSafari,
         icScreenrotation,
+        icSearch,
         icSecure,
         icSetting,
         icShanghaiBank,
         icShanghaiNongshangBank,
+        icShortcut,
         icSplashDuck,
         icStarttimeOrange,
         icStatistic,
@@ -1376,6 +1402,7 @@ class $AssetsImgGen {
         icViewListview,
         icViewTimeline,
         icVisaBank,
+        icVisible,
         icVoiceDiary,
         icVoiceNote,
         icVolume,

@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/SelectObjectTypeModel.dart';
 import 'package:time_hello/com/timehello/page/createFolderPage/components/ColorsGridViewWidget.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../models/PresentModel.dart';
@@ -230,32 +231,41 @@ class _WQBCreateFolderPageState<T> extends BaseWidgetState<WQBCreateFolderPage> 
                       : this.widget.folderModel.color)
                 ))
               : SizedBox(),
-          Container(
+          InkWell(onTap: () {
+            if (TextUtil.isEmpty(this.widget.folderModel.title)) {
+              Utility.showToastMsg(msg: getI18NKey().pleaseInputTitle);
+              return;
+            }
+            if (this.widget.folderModel.color <= 0) {
+              Utility.showToastMsg(msg: getI18NKey().pleaseSelectColor);
+              return;
+            }
+            if (this.widget.pageEnum == PageModeEnum.create) {
+              this.onClick(
+                  'onClickCreateFolder', this.widget.folderModel);
+            } else {
+              this.onClick(
+                  'onClickUpdateFolder', this.widget.folderModel);
+            }
+          },child: Container(
               margin: EdgeInsets.only(top: 20),
               width: 260,
               height: 45,
-              child: ElevatedButton(
-                  child: Text(
-                    this.widget.pageEnum == PageModeEnum.create ? getI18NKey().create : getI18NKey().update,
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  onPressed: () {
-                    if (TextUtil.isEmpty(this.widget.folderModel.title)) {
-                      Utility.showToastMsg(msg: getI18NKey().pleaseInputTitle);
-                      return;
-                    }
-                    if (this.widget.folderModel.color <= 0) {
-                      Utility.showToastMsg(msg: getI18NKey().pleaseSelectColor);
-                      return;
-                    }
-                    if (this.widget.pageEnum == PageModeEnum.create) {
-                      this.onClick(
-                          'onClickCreateFolder', this.widget.folderModel);
-                    } else {
-                      this.onClick(
-                          'onClickUpdateFolder', this.widget.folderModel);
-                    }
-                  })),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color:
+                ThemeManager.getInstance().getButtonBackgroundColor(),
+                // gradient: LinearGradient(
+                //     colors:
+                //         ThemeManager.getInstance().getButtonLinearGradientBackgroundColor()),
+              ),
+              child: Text(
+                this.widget.pageEnum == PageModeEnum.create
+                    ? getI18NKey().create
+                    : getI18NKey().update,
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              )),),
           SizedBox(height:20)
         ],
       ),

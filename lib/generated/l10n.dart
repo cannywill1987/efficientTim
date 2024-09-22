@@ -50,11 +50,251 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `添加过滤器`
+  String get add_filterer {
+    return Intl.message(
+      '添加过滤器',
+      name: 'add_filterer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `过滤器名称`
+  String get filter_name {
+    return Intl.message(
+      '过滤器名称',
+      name: 'filter_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `输入任务关键词`
+  String get please_input_keyword {
+    return Intl.message(
+      '输入任务关键词',
+      name: 'please_input_keyword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `关键词`
+  String get keyword {
+    return Intl.message(
+      '关键词',
+      name: 'keyword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `本周`
+  String get this_week {
+    return Intl.message(
+      '本周',
+      name: 'this_week',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `天后`
+  String get after_n_days {
+    return Intl.message(
+      '天后',
+      name: 'after_n_days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `天前`
+  String get before_n_days {
+    return Intl.message(
+      '天前',
+      name: 'before_n_days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `最近n天`
+  String get lastest_n_days {
+    return Intl.message(
+      '最近n天',
+      name: 'lastest_n_days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `n天前`
+  String get n_days_ago {
+    return Intl.message(
+      'n天前',
+      name: 'n_days_ago',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `过滤器`
+  String get filterer {
+    return Intl.message(
+      '过滤器',
+      name: 'filterer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `快捷键设置`
+  String get shortcut_setting {
+    return Intl.message(
+      '快捷键设置',
+      name: 'shortcut_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Cannot Reorder for Ungrouped`
   String get cannot_reorder_for_group {
     return Intl.message(
       'Cannot Reorder for Ungrouped',
       name: 'cannot_reorder_for_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Super Tool Shortcuts`
+  String get super_tool_shortcuts {
+    return Intl.message(
+      'Super Tool Shortcuts',
+      name: 'super_tool_shortcuts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Search Bar and Create Task Toolbar`
+  String get open_search_taskbar {
+    return Intl.message(
+      'Open Search Bar and Create Task Toolbar',
+      name: 'open_search_taskbar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Todo List Shortcuts`
+  String get todo_list_shortcuts {
+    return Intl.message(
+      'Todo List Shortcuts',
+      name: 'todo_list_shortcuts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fullscreen`
+  String get fullscreen {
+    return Intl.message(
+      'Fullscreen',
+      name: 'fullscreen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar View Shortcuts`
+  String get calendar_view_shortcuts {
+    return Intl.message(
+      'Calendar View Shortcuts',
+      name: 'calendar_view_shortcuts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch Mode`
+  String get switch_mode {
+    return Intl.message(
+      'Switch Mode',
+      name: 'switch_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get today {
+    return Intl.message(
+      'Today',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `previous page`
+  String get previous_page {
+    return Intl.message(
+      'previous page',
+      name: 'previous_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `next page`
+  String get next_page {
+    return Intl.message(
+      'next page',
+      name: 'next_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pomodoro Shortcuts`
+  String get pomodoro_shortcuts {
+    return Intl.message(
+      'Pomodoro Shortcuts',
+      name: 'pomodoro_shortcuts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Focus`
+  String get focus_start {
+    return Intl.message(
+      'Start Focus',
+      name: 'focus_start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stop Focus`
+  String get focus_stop {
+    return Intl.message(
+      'Stop Focus',
+      name: 'focus_stop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pause Focus`
+  String get focus_pause {
+    return Intl.message(
+      'Pause Focus',
+      name: 'focus_pause',
       desc: '',
       args: [],
     );
@@ -12259,26 +12499,6 @@ class S {
     );
   }
 
-  /// `previous page`
-  String get previous_page {
-    return Intl.message(
-      'previous page',
-      name: 'previous_page',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `next page`
-  String get next_page {
-    return Intl.message(
-      'next page',
-      name: 'next_page',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `focus end ringtone`
   String get focus_finished_ringtone {
     return Intl.message(
@@ -13936,16 +14156,6 @@ class S {
     return Intl.message(
       'Are you sure to delete?\nNote: Deleted tasks cannot be recovered',
       name: 'confirmToDelete',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Today`
-  String get today {
-    return Intl.message(
-      'Today',
-      name: 'today',
       desc: '',
       args: [],
     );

@@ -26,11 +26,14 @@ import '../models/WQBFolderModel.dart';
  * 公共组件的管理
  */
 class WidgetManager {
-  static List<TextSpan> getTagsWidgetSpan(MissionModel missionModel, {double fontSize = 12}) {
+  static List<InlineSpan> getTagsWidgetSpan(MissionModel missionModel, {double fontSize = 12}) {
     // List<TextSpan> listTextSpan = [];
     List<FolderModel> list = CONSTANTS
         .getFolderModelListFromStringList(missionModel.tagNames?.split(','));
-    List<TextSpan> listWidget = [];
+    List<InlineSpan> listWidget = [];
+    if(list.length > 0) {
+      listWidget.add(WidgetSpan(child: SizedBox(width: 5,)));
+    }
     for (int i = 0; i < list.length; i++) {
       FolderModel folderModel = list[i];
       // listWidget.add(SizedBox(
@@ -194,7 +197,7 @@ class WidgetManager {
 
   static List<WidgetSpan> getIsNoteWidget(MissionModel missionModel) {
     List<WidgetSpan> listWidget = [];
-    final double space = 5;
+    final double space = 3;
     listWidget.add(WidgetSpan(child: SizedBox(width: space)));
     if (TextUtil.isEmpty(missionModel.newRichEditorUrl) &&
         (missionModel.noteRecordUrls?.length ?? 0) == 0 &&

@@ -20,7 +20,8 @@ class InputNumber extends StatefulWidget {
   OnValueChangeListener onValueChangeListener;
   String unit;
   int defaultVal;
-  InputNumber({Key? key, this.defaultVal: 1, required this.onValueChangeListener, required this.unit})
+  int minVal;
+  InputNumber({Key? key, this.minVal = 1, this.defaultVal: 1, required this.onValueChangeListener, required this.unit})
       : super(key: key);
 
   @override
@@ -141,7 +142,7 @@ class InputNumberState extends State<InputNumber> {
 
   void decrement() {
     setState(() {
-      if (counter > 1) counter--;
+      if (counter > this.widget.minVal) counter--;
       this.widget.onValueChangeListener(counter, duration);
     });
   }

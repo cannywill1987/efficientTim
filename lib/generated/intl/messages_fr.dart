@@ -532,6 +532,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculateTomatoesTime": m7,
         "calendar": MessageLookupByLibrary.simpleMessage("Calendrier"),
         "calendar2": MessageLookupByLibrary.simpleMessage("Calendrier"),
+        "calendar_view_shortcuts":
+            MessageLookupByLibrary.simpleMessage("Raccourcis Vue Calendrier"),
         "camera_permission_description": MessageLookupByLibrary.simpleMessage(
             "Pour pouvoir utiliser la fonction de photographie, nous avons besoin de votre autorisation pour accéder à l\'appareil photo"),
         "can_edit": MessageLookupByLibrary.simpleMessage("Peut éditer"),
@@ -544,6 +546,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Annuler le statut d\'administrateur"),
         "cannot_handle_myself":
             MessageLookupByLibrary.simpleMessage("Je ne peux pas me gérer"),
+        "cannot_reorder_for_group": MessageLookupByLibrary.simpleMessage(
+            "Impossible de réorganiser les éléments non groupés"),
         "capture_a_photo":
             MessageLookupByLibrary.simpleMessage("Prendre une photo"),
         "capture_a_video":
@@ -1093,8 +1097,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage(
                 "Focus on time period distribution"),
+        "focus_pause": MessageLookupByLibrary.simpleMessage("Pause Focus"),
         "focus_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de focus"),
+        "focus_start": MessageLookupByLibrary.simpleMessage("Commencer Focus"),
+        "focus_stop": MessageLookupByLibrary.simpleMessage("Arrêter Focus"),
         "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
             "Le changement de tâche pendant la concentration réinitialise-t-il le chronomètre?"),
         "focus_switch_title": MessageLookupByLibrary.simpleMessage(
@@ -1171,6 +1178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "friday": MessageLookupByLibrary.simpleMessage("Ven"),
         "fridayShort": MessageLookupByLibrary.simpleMessage("Ven"),
         "front_card": MessageLookupByLibrary.simpleMessage("Carte de face"),
+        "fullscreen": MessageLookupByLibrary.simpleMessage("Plein écran"),
         "gallery": MessageLookupByLibrary.simpleMessage("Galerie"),
         "game1_time_usage": m49,
         "game2_ranking_text": m50,
@@ -1728,6 +1736,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Partager uniquement avec des amis"),
         "opacity": MessageLookupByLibrary.simpleMessage("Opacité"),
         "openLink": MessageLookupByLibrary.simpleMessage("Ouvrir le lien"),
+        "open_search_taskbar": MessageLookupByLibrary.simpleMessage(
+            "Ouvrir la barre de recherche et la barre de création de tâche"),
         "open_sticky_note":
             MessageLookupByLibrary.simpleMessage("Ouvrir une note"),
         "optional": MessageLookupByLibrary.simpleMessage("optionnel"),
@@ -1857,6 +1867,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Veuillez sélectionner le mois de recherche"),
         "please_select_year_to_search": MessageLookupByLibrary.simpleMessage(
             "Veuillez sélectionner l\'année de recherche"),
+        "pomodoro_shortcuts":
+            MessageLookupByLibrary.simpleMessage("Raccourcis Pomodoro"),
         "popup_invisible3": MessageLookupByLibrary.simpleMessage("Cacher"),
         "popup_select1":
             MessageLookupByLibrary.simpleMessage("Afficher le contenu"),
@@ -2197,10 +2209,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("Dim"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("Dim"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("S-Note"),
+        "super_tool_shortcuts":
+            MessageLookupByLibrary.simpleMessage("Raccourcis Super Outil"),
         "switch_chronograph_mode_success": MessageLookupByLibrary.simpleMessage(
             "Passer en mode chronomètre, fonctionnera la prochaine fois"),
         "switch_font":
             MessageLookupByLibrary.simpleMessage("Changer de police"),
+        "switch_mode": MessageLookupByLibrary.simpleMessage("Changer de mode"),
         "switch_style":
             MessageLookupByLibrary.simpleMessage("Changer de style"),
         "switch_style_prompt": MessageLookupByLibrary.simpleMessage(
@@ -2295,6 +2310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Veuillez entrer les tâches d\'aujourd\'hui..."),
         "todo_list_prompt": MessageLookupByLibrary.simpleMessage(
             "Veuillez m\'aider à lister les tâches d\'aujourd\'hui..."),
+        "todo_list_shortcuts":
+            MessageLookupByLibrary.simpleMessage("Raccourcis Liste des tâches"),
         "todo_listing": MessageLookupByLibrary.simpleMessage("Liste de tâches"),
         "tokenExpired": MessageLookupByLibrary.simpleMessage(
             "Connexion invalide, veuillez vous reconnecter"),

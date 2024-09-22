@@ -1,5 +1,5 @@
 {
-  "@@locale": "zh_Hans_CN",
+  "@@locale": "zh_CN",
   "cannot_reorder_for_group": "无法对未分组的项目重新排序",
 
   "super_tool_shortcuts": "超级工具快捷键",

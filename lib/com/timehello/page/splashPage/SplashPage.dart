@@ -24,6 +24,8 @@ import '../../config/ColorsConfig.dart';
 import '../../config/Params.dart';
 import '../../util/AnalyticsEventsManager.dart';
 import '../../util/GetResourceDeliveryManager.dart';
+import '../AddFilterPage/AddFilterPage.dart';
+import '../ShortcutsPage/ShortcutsPage.dart';
 import '../WebviewPage/WebviewPage.dart';
 
 class SplashPage extends BaseWidget {
@@ -475,7 +477,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, ChatGptPage());
                   // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: '', password: '',));
                   // Utility.pushReplacement(context, Test6Page());
+                  // Utility.pushReplacement(context, ShortcutsPage());
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, AddFilterPage());
                   // Utility.pushReplacement(context, AppflowyPage());
                   // Utility.pushReplacement(context, GroupChatSharingWidget());
                   // Utility.pushReplacement(context, MainContainerWidget());

@@ -36,7 +36,7 @@ class FolderModel extends MongoDbObject {
       end_time; //设置的预期完成时间 默认空是0 isFinished = false 计划到期日 isFinished = true 实际到期日
   int? update_time;
   int? create_time;
-  int? tag; //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来
+  int? tag; //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器
   int color = 0;
   int? tagColor;
   int? icon = 0; //左侧图标
@@ -67,6 +67,28 @@ class FolderModel extends MongoDbObject {
   // bool? isFoldedForFolder = false; //是否折叠 如果tag是3
   List<String>? folderModelObjectIdOrderList =
       []; //当folderModel代表文件夹时 用于folderModel objectId的排序
+  int? filterType = 0; // 0 - 没有过滤 1 - 过滤
+  Map<String, dynamic>? _filterConditionMap; //{priority: [0, 1, 2, 3], keyword: '', missionType: 1, startTime: 0, endTime:  1000, listingId: [string, string, string]}
+  @JsonKey(ignore: true)
+  FilterConditionBean? _filterConditionMapBean; //{value: 1, unit: 0-days 1-hours 2-minutes,priority: [0, 1, 2, 3], keyword: '', missionType: 1, startTime: 0, endTime:  1000, listingId: [string, string, string]}
+  @JsonKey(ignore: true)
+  OnlineStatusEnum? onlineStatusEnum;
+
+
+  @JsonKey(ignore: true)
+  set filterConditionMapBean(FilterConditionBean? value) {
+    _filterConditionMapBean = value;
+    if(value != null)
+    _filterConditionMap = value?.toJson();
+  }
+
+  @JsonKey(ignore: true)
+  FilterConditionBean? get filterConditionMapBean {
+    if (_filterConditionMapBean == null) {
+      _filterConditionMapBean = FilterConditionBean.fromJson(_filterConditionMap ?? {});
+    }
+    return _filterConditionMapBean;
+  }
 
   set userInfo(Map<String, dynamic>? value) {
     _userInfo = value;
@@ -93,6 +115,18 @@ class FolderModel extends MongoDbObject {
   // List? get adminUserInfo {
   //   return _adminUserInfo;
   // }
+
+  //{priority: [0, 1, 2, 3], keyword: '', missionType: 1, startTime: 0, endTime:  1000, listingId: [string, string, string]}
+  set filterConditionMap(Map<String, dynamic>? value) {
+    if(value != null) {
+      _filterConditionMap = value;
+      _filterConditionMapBean = FilterConditionBean.fromJson(value ?? {});
+    }
+  }
+
+  Map<String, dynamic>? get filterConditionMap {
+    return _filterConditionMap;
+  }
 
   set otherUserInfo(List? value) {
     _otherUserInfo = value;
@@ -148,4 +182,42 @@ class FolderModel extends MongoDbObject {
 // Person({this.firstName, this.lastName, this.dateOfBirth});
 // factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 // Map<String, dynamic> toJson() => _$PersonToJson(this);
+}
+
+// {priority: [0, 1, 2, 3], keyword: '', missionType: 1, startTime: 0, endTime:  1000, listingId: [string, string, string]}
+@JsonSerializable(nullable: false)
+class FilterConditionBean {
+  List<int>? priority; // 0, 1, 2, 3
+  String? keyword;
+  int? missionType;
+  int? startTime;
+  int? endTime;
+  int? dateType; // 1-今天 2 明天 3 本周 4 自定义(n天前) 5 自定义(时间段) 0 无
+  int? value;
+  int? valueBefore; //
+  int? valueAfter;
+  int? unit; // 0-days 1-hours 2-minutes
+  List<String>? listingId;
+  FilterConditionBean({
+     this.priority,
+     this.keyword,
+     this.missionType,
+     this.startTime,
+    this.valueBefore,
+    this.valueAfter,
+     this.endTime,
+     this.listingId,
+    this.unit,
+    this.value,
+  });
+
+
+  factory FilterConditionBean.fromJson(Map<String, dynamic> json) {
+    return _$FilterConditionBeanFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$FilterConditionBeanToJson(this);
+  }
+
 }

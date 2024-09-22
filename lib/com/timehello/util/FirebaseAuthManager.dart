@@ -41,14 +41,16 @@ class FirebaseAuthManager {
         options: DefaultFirebaseOptions.currentPlatform,
       );
     } else {
-      await Firebase.initializeApp(
-        options: FirebaseOptions(
-          apiKey: "xxx",
-          appId: "xxx",
-          messagingSenderId: "xxx",
-          projectId: "xxx",
-        ),
-      );
+      if(!Utility.isChina() || Utility.isProductEnv() == false) {
+        await Firebase.initializeApp(
+          options: FirebaseOptions(
+            apiKey: "xxx",
+            appId: "xxx",
+            messagingSenderId: "xxx",
+            projectId: "xxx",
+          ),
+        );
+      }
     }
   }
 
@@ -197,7 +199,7 @@ class FirebaseAuthManager {
     //   await auth.signInWithPopup(appleProvider);
     // } else {
     try {
-      EasyLoadingManager.getInstance().showLoading();
+      // EasyLoadingManager.getInstance().showLoading();
 
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithProvider(appleProvider);
@@ -214,7 +216,7 @@ class FirebaseAuthManager {
       };
     } catch (e) {
       print(e);
-      EasyLoadingManager.getInstance().hideLoading();
+      // EasyLoadingManager.getInstance().hideLoading();
       return {};
     }
     // }

@@ -348,6 +348,7 @@ class LoginManager {
     Map map = await FirebaseAuthManager.getInstance().signInWithApple();
 
     print(map);
+    if(map.length > 0)
     loginUtil?.doRegisterWithEmail(
         shouldShowLoading: true,
         context: context,

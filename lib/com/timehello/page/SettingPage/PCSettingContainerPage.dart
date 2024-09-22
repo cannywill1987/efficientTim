@@ -3,6 +3,7 @@ import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/page/SettingPage/SettingPage.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 
+import '../ShortcutsPage/ShortcutsPage.dart';
 import 'pages/FilterMenuSettingPage.dart';
 import 'pages/ModuleFilterMenuSettingPage.dart';
 import 'pages/PCLeftSettingPage.dart';
@@ -41,7 +42,7 @@ class PCSettingContainerPageState extends State<PCSettingContainerPage> {
                 ? TomatoesSettingPage(
                     pageFrom: PageFromEnum.Normal,
                   )
-                : this.theme == "filtering_setting" ? FilterMenuSettingPage() :ModuleFilterMenuSettingPage() )
+                : this.theme == "filtering_setting" ? FilterMenuSettingPage() : this.theme == "shortcut_setting" ? ShortcutsPage(): ModuleFilterMenuSettingPage() )
       ],
     );
   }

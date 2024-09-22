@@ -49,7 +49,9 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) => FolderModel()
       (json['folderModelObjectIdOrderList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList()
+  ..filterType = (json['filterType'] as num?)?.toInt()
   ..userInfo = json['userInfo'] as Map<String, dynamic>?
+  ..filterConditionMap = json['filterConditionMap'] as Map<String, dynamic>?
   ..otherUserInfo = json['otherUserInfo'] as List<dynamic>?;
 
 Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
@@ -90,6 +92,42 @@ Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
       'folderStatus': instance.folderStatus,
       'cryptoVersion': instance.cryptoVersion,
       'folderModelObjectIdOrderList': instance.folderModelObjectIdOrderList,
+      'filterType': instance.filterType,
       'userInfo': instance.userInfo,
+      'filterConditionMap': instance.filterConditionMap,
       'otherUserInfo': instance.otherUserInfo,
+    };
+
+FilterConditionBean _$FilterConditionBeanFromJson(Map<String, dynamic> json) =>
+    FilterConditionBean(
+      priority: (json['priority'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
+      keyword: json['keyword'] as String?,
+      missionType: (json['missionType'] as num?)?.toInt(),
+      startTime: (json['startTime'] as num?)?.toInt(),
+      valueBefore: (json['valueBefore'] as num?)?.toInt(),
+      valueAfter: (json['valueAfter'] as num?)?.toInt(),
+      endTime: (json['endTime'] as num?)?.toInt(),
+      listingId: (json['listingId'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      unit: (json['unit'] as num?)?.toInt(),
+      value: (json['value'] as num?)?.toInt(),
+    )..dateType = (json['dateType'] as num?)?.toInt();
+
+Map<String, dynamic> _$FilterConditionBeanToJson(
+        FilterConditionBean instance) =>
+    <String, dynamic>{
+      'priority': instance.priority,
+      'keyword': instance.keyword,
+      'missionType': instance.missionType,
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
+      'dateType': instance.dateType,
+      'value': instance.value,
+      'valueBefore': instance.valueBefore,
+      'valueAfter': instance.valueAfter,
+      'unit': instance.unit,
+      'listingId': instance.listingId,
     };

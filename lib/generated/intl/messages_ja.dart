@@ -470,6 +470,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculateTomatoesTime": m7,
         "calendar": MessageLookupByLibrary.simpleMessage("スケジュール"),
         "calendar2": MessageLookupByLibrary.simpleMessage("カレンダー"),
+        "calendar_view_shortcuts":
+            MessageLookupByLibrary.simpleMessage("カレンダー ビュー ショートカット"),
         "camera_permission_description": MessageLookupByLibrary.simpleMessage(
             "写真機能を使用するためには、カメラの権限を許可する必要があります"),
         "can_edit": MessageLookupByLibrary.simpleMessage("編集可能"),
@@ -480,6 +482,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("管理者を解除"),
         "cannot_handle_myself":
             MessageLookupByLibrary.simpleMessage("自分自身を処理できません"),
+        "cannot_reorder_for_group":
+            MessageLookupByLibrary.simpleMessage("グループ化されていないものを並び替えることはできません"),
         "capture_a_photo": MessageLookupByLibrary.simpleMessage("写真を撮る"),
         "capture_a_video": MessageLookupByLibrary.simpleMessage("ビデオを録画"),
         "card": MessageLookupByLibrary.simpleMessage("カード"),
@@ -912,7 +916,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_numbers_with_value": m48,
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("集中時間帯の分布"),
+        "focus_pause": MessageLookupByLibrary.simpleMessage("集中を一時停止"),
         "focus_setting": MessageLookupByLibrary.simpleMessage("集中設定"),
+        "focus_start": MessageLookupByLibrary.simpleMessage("集中開始"),
+        "focus_stop": MessageLookupByLibrary.simpleMessage("集中停止"),
         "focus_switch_desc": MessageLookupByLibrary.simpleMessage(
             "フォーカス中にタスクを切り替えるとタイマーはリセットされますか"),
         "focus_switch_title":
@@ -979,6 +986,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "friday": MessageLookupByLibrary.simpleMessage("金曜日"),
         "fridayShort": MessageLookupByLibrary.simpleMessage("金"),
         "front_card": MessageLookupByLibrary.simpleMessage("フロントカード"),
+        "fullscreen": MessageLookupByLibrary.simpleMessage("全画面"),
         "gallery": MessageLookupByLibrary.simpleMessage("ギャラリー"),
         "game1_time_usage": m49,
         "game2_ranking_text": m50,
@@ -1458,6 +1466,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("友達のみに共有"),
         "opacity": MessageLookupByLibrary.simpleMessage("不透明度"),
         "openLink": MessageLookupByLibrary.simpleMessage("リンクを開く"),
+        "open_search_taskbar":
+            MessageLookupByLibrary.simpleMessage("検索バーとタスク作成ツールバーを開く"),
         "open_sticky_note": MessageLookupByLibrary.simpleMessage("付箋を開く"),
         "optional": MessageLookupByLibrary.simpleMessage("任意"),
         "optional_with_parenthese":
@@ -1579,6 +1589,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("検索する月を選択してください"),
         "please_select_year_to_search":
             MessageLookupByLibrary.simpleMessage("検索する年を選択してください"),
+        "pomodoro_shortcuts":
+            MessageLookupByLibrary.simpleMessage("ポモドーロ ショートカット"),
         "popup_invisible3": MessageLookupByLibrary.simpleMessage("非表示"),
         "popup_select1": MessageLookupByLibrary.simpleMessage("内容を表示"),
         "popup_visible2": MessageLookupByLibrary.simpleMessage("表示"),
@@ -1844,9 +1856,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("日曜日"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("日"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("スーパーノートブック"),
+        "super_tool_shortcuts":
+            MessageLookupByLibrary.simpleMessage("スーパー ツール ショートカット"),
         "switch_chronograph_mode_success":
             MessageLookupByLibrary.simpleMessage("ストップウォッチモードに切り替え成功、次回から有効"),
         "switch_font": MessageLookupByLibrary.simpleMessage("フォントを切り替え"),
+        "switch_mode": MessageLookupByLibrary.simpleMessage("モード切り替え"),
         "switch_style": MessageLookupByLibrary.simpleMessage("スタイルを変更する"),
         "switch_style_prompt": MessageLookupByLibrary.simpleMessage(
             "選択した段落の書き方を、形式的、非形式的、学術的、またはユーモラスなど、別のスタイルに変更してください。"),
@@ -1924,6 +1939,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("今日のやるべきことを入力してください..."),
         "todo_list_prompt":
             MessageLookupByLibrary.simpleMessage("今日のやることリストをリストしてください..."),
+        "todo_list_shortcuts":
+            MessageLookupByLibrary.simpleMessage("ToDoリスト ショートカット"),
         "todo_listing": MessageLookupByLibrary.simpleMessage("ToDoリスト"),
         "tokenExpired":
             MessageLookupByLibrary.simpleMessage("ログインが失効しました、再度ログインしてください"),

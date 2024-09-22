@@ -709,22 +709,26 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
     if (iconType != null) {
       switch (iconType) {
         case 0:
-          return Icon(
-              (_folderModel.tag == 0 ||
-                  _folderModel.tag == false ||
-                  _folderModel.tag == null)
-                  ? Icons.calendar_today //今天
-                  : _folderModel.tag == 1
-                  ? IconData(_folderModel.icon ?? 0,
-                  fontFamily: 'MaterialIcons') //任务folder
-                  : Icons.local_offer, //标签
-              color: (_folderModel.tag == 0 ||
-                  _folderModel.tag == false ||
-                  _folderModel.tag == null)
-                  ? Colors.pink //todo 这个是干啥 应该是默认颜色吧
-                  : Color(_folderModel.color),
-              size: iconSize); //颜色
-          break;
+          if(_folderModel.tag == 4) {
+            return Icon(Icons.filter_alt_outlined, color: Color(_folderModel?.color ?? Colors.red.value), size: iconSize);
+          } else {
+            return Icon(
+                (_folderModel.tag == 0 ||
+                    _folderModel.tag == false ||
+                    _folderModel.tag == null)
+                    ? Icons.calendar_today //今天
+                    : _folderModel.tag == 1
+                    ? IconData(_folderModel.icon ?? 0,
+                    fontFamily: 'MaterialIcons') //任务folder
+                    : Icons.local_offer, //标签
+                color: (_folderModel.tag == 0 ||
+                    _folderModel.tag == false ||
+                    _folderModel.tag == null)
+                    ? Colors.pink //todo 这个是干啥 应该是默认颜色吧
+                    : Color(_folderModel.color),
+                size: iconSize); //颜色
+            break;
+          }
         case 1:
           return Utility.getSVGPicture(R.assetsImgIcToday, size: iconSize);
       // return Icon(Icons.wb_sunny, size: iconSize, color: Colors.green);

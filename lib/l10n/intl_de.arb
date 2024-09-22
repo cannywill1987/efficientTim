@@ -1,5 +1,21 @@
 {
   "@@locale": "de",
+  "cannot_reorder_for_group": "Umsortieren für nicht gruppierte Elemente nicht möglich",
+
+  "super_tool_shortcuts": "Super-Tool-Tastenkombinationen",
+  "open_search_taskbar": "Suchleiste und Aufgabenleiste öffnen",
+  "todo_list_shortcuts": "To-do-Liste-Tastenkombinationen",
+  "fullscreen": "Vollbild",
+  "calendar_view_shortcuts": "Kalenderansicht-Tastenkombinationen",
+  "switch_mode": "Modus wechseln",
+  "today": "Heute",
+  "previous_page": "Vorherige Seite",
+  "next_page": "Nächste Seite",
+  "pomodoro_shortcuts": "Pomodoro-Tastenkombinationen",
+  "focus_start": "Fokus starten",
+  "focus_stop": "Fokus stoppen",
+  "focus_pause": "Fokus pausieren",
+
   "update_success_restart": "Einstellung erfolgreich, bitte neu starten",
   "language_setting": "Spracheinstellung",
   "language": "Sprache",

@@ -1781,15 +1781,15 @@ class CONSTANTS {
     list.add(CheckButtonStateModel(
         title: getI18NKey().four_quadrant_priority2,
         code: "1",
-        isCheck: false));
+        isCheck: true));
     list.add(CheckButtonStateModel(
         title: getI18NKey().four_quadrant_priority3,
         code: "2",
-        isCheck: false));
+        isCheck: true));
     list.add(CheckButtonStateModel(
         title: getI18NKey().four_quadrant_priority4,
         code: "3",
-        isCheck: false));
+        isCheck: true));
     return list;
   }
 
@@ -3519,6 +3519,19 @@ class CONSTANTS {
     return model;
   }
 
+  static FolderTimeModel getFolderTimeByFilter({
+    required FolderModel folderModel,
+  }) {
+    List<MissionModel> datas = [];
+    datas = MongoApisManager.getInstance()
+        .queryWhereEqual_missionDataByFilterConditionBean(
+        filterConditionBean: folderModel?.filterConditionMapBean ??
+            FilterConditionBean());
+
+    FolderTimeModel model = Utility.getFolderTimeModel(datas, -1);
+    return model;
+  }
+
   // 0-就是自己创建的FolderModel 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成
   static FolderTimeModel getFolderTimeByTag({
     required String tagName,
@@ -4131,6 +4144,12 @@ class CONSTANTS {
               folderTimeModel: CONSTANTS.getFolderTimeByTag(
                 tagName: element.title ?? "",
               )));
+        } else   if (folderPageViewEnum == FolderPageViewEnum.filterer && element.tag == 4) {
+          listFolderModel.add(FolderModelWithExtraData(
+              folderModel: element,
+              folderTimeModel: CONSTANTS.getFolderTimeByFilter(
+                 folderModel: element,
+              )));
         } else if (folderPageViewEnum == FolderPageViewEnum.listing_unarchive &&
             (element.tag == 1 || element.tag == 3) &&
             (element.folderStatus == 0 || element.folderStatus == null)) {
@@ -4280,6 +4299,16 @@ class CONSTANTS {
         title: getI18NKey().module_filtering_setting,
         color: 0xff404040,
         checkIcon: Icon(Icons.view_module, size: size),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "shortcut_setting",
+        value: 4,
+        title: getI18NKey().shortcut_setting,
+        color: 0xff404040,
+        checkIcon:
+        Utility.getSVGPicture(R.assetsImgIcShortcut, size: size),
         content: "",
         isCheck: false));
     return list;
@@ -4556,6 +4585,68 @@ class CONSTANTS {
         title: getI18NKey().ai_helper,
         color: 0xff404040,
         checkIcon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: size),
+        content: "",
+        isCheck: false));
+
+    return list;
+  }
+
+  // 1-今天 2 明天 3 本周 4 自定义(n天前) 5 自定义(时间段) 0 无
+  static List<CheckButtonStateModel> getFilterPeriodPageCheckButtonStateModelList(
+      {bool? hasAll = false}) {
+    List<CheckButtonStateModel> list = [];
+    const double size = 16;
+    list.add(CheckButtonStateModel(
+        code: "none",
+        value: 0,
+        title: getI18NKey().none,
+        color: 0xff404040,
+        checkIcon: Icon(Icons.filter_none, size: size),
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "today",
+        value: 1,
+        title: getI18NKey().today,
+        color: 0xff404040,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcToday, size: size),
+        content: "",
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: "tomorrow",
+        value: 2,
+        title: getI18NKey().tomorrow,
+        color: 0xff404040,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcTomorrow, size: size),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "this_week",
+        value: 3,
+        title: getI18NKey().this_week,
+        color: 0xff404040,
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcThisWeek, size: size),
+        content: "",
+        isCheck: false));
+
+
+
+    list.add(CheckButtonStateModel(
+        code: "customize_days_before",
+        value: 4,
+        title: getI18NKey().n_days_ago,
+        color: 0xff404040,
+        checkIcon: Icon(Icons.dashboard_customize, size: size),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "customize_days_period",
+        value: 5,
+        title: getI18NKey().time_segment,
+        color: 0xff404040,
+        checkIcon: Icon(Icons.dashboard_customize, size: size),
         content: "",
         isCheck: false));
 
