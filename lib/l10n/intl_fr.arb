@@ -1,5 +1,16 @@
 {
   "@@locale": "fr",
+  "add_filterer": "Ajouter un filtre",
+  "filter_name": "Nom du filtre",
+  "please_input_keyword": "Veuillez entrer le mot-clé de la tâche",
+  "keyword": "Mot-clé",
+  "this_week": "Cette semaine",
+  "after_n_days": "Dans n jours",
+  "before_n_days": "Il y a n jours",
+  "lastest_n_days": "Les n derniers jours",
+  "n_days_ago": "n jours avant",
+  "filterer": "Filtre",
+  "shortcut_setting": "Raccourci clavier",
   "cannot_reorder_for_group": "Impossible de réorganiser les éléments non groupés",
 
   "super_tool_shortcuts": "Raccourcis Super Outil",

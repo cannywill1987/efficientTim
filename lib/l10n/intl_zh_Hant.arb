@@ -1,5 +1,16 @@
 {
   "@@locale": "zh_Hant",
+  "add_filterer": "添加過濾器",
+  "filter_name": "過濾器名稱",
+  "please_input_keyword": "輸入任務關鍵詞",
+  "keyword": "關鍵詞",
+  "this_week": "本週",
+  "after_n_days": "天後",
+  "before_n_days": "天前",
+  "lastest_n_days": "最近n天",
+  "n_days_ago": "n天前",
+  "filterer": "過濾器",
+  "shortcut_setting": "快捷鍵設置",
   "cannot_reorder_for_group": "無法對未分組的項目重新排序",
 
   "super_tool_shortcuts": "超級工具快捷鍵",

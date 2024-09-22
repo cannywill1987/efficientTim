@@ -373,19 +373,23 @@ class _AddFilterPageState extends State<AddFilterPage> {
               SizedBox(height: 16.0),
 
               // 保存按钮
-              ElevatedButton(
-                onPressed: onclickSaveFilter,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (TextUtil.isEmpty(this.widget.folderModel?.title)) {
-                        return ThemeManager.getInstance().getDefautThemeColor().withOpacity(0.5); // 淡红色
-                      }
-                      return ThemeManager.getInstance().getDefautThemeColor(); // 红色
-                    },
+              Container(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: onclickSaveFilter,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (TextUtil.isEmpty(this.widget.folderModel?.title)) {
+                          return ThemeManager.getInstance().getDefautThemeColor().withOpacity(0.5); // 淡红色
+                        }
+                        return ThemeManager.getInstance().getDefautThemeColor(); // 红色
+                      },
+                    ),
                   ),
+                  child: Text(getI18NKey().save, style: TextStyle(color: Colors.white)),
                 ),
-                child: Text(getI18NKey().save, style: TextStyle(color: Colors.white)),
               ),
             ],
           ),

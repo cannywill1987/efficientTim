@@ -325,6 +325,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("신용카드 청구서 추가"),
         "add_fail": MessageLookupByLibrary.simpleMessage("추가 실패"),
+        "add_filterer": MessageLookupByLibrary.simpleMessage("필터 추가"),
         "add_group": MessageLookupByLibrary.simpleMessage("그룹 추가"),
         "add_group_cannot_reorder":
             MessageLookupByLibrary.simpleMessage("그룹을 추가하면 그룹을 재정렬할 수 없습니다"),
@@ -353,6 +354,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advertising_copy_prompt":
             MessageLookupByLibrary.simpleMessage("광고 문안을 작성해 주세요, 제품은..."),
         "after_date": m0,
+        "after_n_days": MessageLookupByLibrary.simpleMessage("n일 후"),
         "agree": MessageLookupByLibrary.simpleMessage("동의"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI 생성"),
@@ -453,6 +455,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("보류 중"),
         "before_date": m5,
+        "before_n_days": MessageLookupByLibrary.simpleMessage("n일 전"),
         "between_date": m6,
         "bill_day": MessageLookupByLibrary.simpleMessage("청구일"),
         "bill_detail": MessageLookupByLibrary.simpleMessage("청구서 세부사항"),
@@ -893,6 +896,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "feb": MessageLookupByLibrary.simpleMessage("2월"),
         "febFull": MessageLookupByLibrary.simpleMessage("2월"),
         "feedback": MessageLookupByLibrary.simpleMessage("사용자 피드백"),
+        "filter_name": MessageLookupByLibrary.simpleMessage("필터 이름"),
+        "filterer": MessageLookupByLibrary.simpleMessage("필터"),
         "filtering_setting": MessageLookupByLibrary.simpleMessage("필터링 설정"),
         "find": MessageLookupByLibrary.simpleMessage("찾기"),
         "find_new_version": MessageLookupByLibrary.simpleMessage("새 버전 발견"),
@@ -1127,6 +1132,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("이 버전 건너뛰기"),
         "jun": MessageLookupByLibrary.simpleMessage("6월"),
         "junFull": MessageLookupByLibrary.simpleMessage("6월"),
+        "keyword": MessageLookupByLibrary.simpleMessage("키워드"),
         "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("라벨"),
         "landscape": MessageLookupByLibrary.simpleMessage("가로"),
@@ -1134,6 +1140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language_setting": MessageLookupByLibrary.simpleMessage("언어 설정"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("지난 주"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("최근 7일"),
+        "lastest_n_days": MessageLookupByLibrary.simpleMessage("최근 n일"),
         "leave_group": MessageLookupByLibrary.simpleMessage("그룹 나가기"),
         "leave_reason": MessageLookupByLibrary.simpleMessage("휴가 사유"),
         "leave_reason_placeholder":
@@ -1324,6 +1331,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage("내 시간당 수입"),
         "my_ranking": m78,
         "my_ranking_this_time": m79,
+        "n_days_ago": MessageLookupByLibrary.simpleMessage("n일 전"),
         "n_days_overdue": m80,
         "name": MessageLookupByLibrary.simpleMessage("이름"),
         "need_notification_permission_content":
@@ -1558,6 +1566,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("질문을 입력하세요"),
         "please_input_folder_password": m95,
+        "please_input_keyword":
+            MessageLookupByLibrary.simpleMessage("작업 키워드를 입력하세요"),
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("미션 제목을 입력해 주세요"),
         "please_input_mobile_no":
@@ -1811,6 +1821,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_to": MessageLookupByLibrary.simpleMessage("공유"),
         "sharing_course": MessageLookupByLibrary.simpleMessage("강좌 공유"),
         "sharing_listing": MessageLookupByLibrary.simpleMessage("리스트 공유"),
+        "shortcut_setting": MessageLookupByLibrary.simpleMessage("단축키 설정"),
         "shorten": MessageLookupByLibrary.simpleMessage("단축"),
         "shorten_prompt": MessageLookupByLibrary.simpleMessage(
             "선택한 단락을 원래 의미를 유지하면서 더 간결하게 다시 작성하세요."),
@@ -1892,6 +1903,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "this_mission_is_cycle_mission":
             MessageLookupByLibrary.simpleMessage("이 작업은 순환 작업입니다"),
         "this_month_plan": MessageLookupByLibrary.simpleMessage("이번 달 계획"),
+        "this_week": MessageLookupByLibrary.simpleMessage("이번 주"),
         "thisweek": MessageLookupByLibrary.simpleMessage("이번 주"),
         "three_hours": MessageLookupByLibrary.simpleMessage("3시간"),
         "three_months": MessageLookupByLibrary.simpleMessage("세 달"),

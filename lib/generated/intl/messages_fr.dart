@@ -346,6 +346,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_credit_card_bill": MessageLookupByLibrary.simpleMessage(
             "Ajouter une facture de carte de crédit"),
         "add_fail": MessageLookupByLibrary.simpleMessage("échec de l\'ajout"),
+        "add_filterer":
+            MessageLookupByLibrary.simpleMessage("Ajouter un filtre"),
         "add_group": MessageLookupByLibrary.simpleMessage("Ajouter un groupe"),
         "add_group_cannot_reorder": MessageLookupByLibrary.simpleMessage(
             "Impossible de réorganiser lors de l\'ajout d\'un groupe"),
@@ -381,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advertising_copy_prompt": MessageLookupByLibrary.simpleMessage(
             "Veuillez m\'aider à rédiger un texte publicitaire, le produit est..."),
         "after_date": m0,
+        "after_n_days": MessageLookupByLibrary.simpleMessage("Dans n jours"),
         "agree": MessageLookupByLibrary.simpleMessage("accepter"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("Création AI"),
@@ -507,6 +510,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("à déterminer"),
         "before_date": m5,
+        "before_n_days": MessageLookupByLibrary.simpleMessage("Il y a n jours"),
         "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("Facture réglée"),
         "bill_day": MessageLookupByLibrary.simpleMessage("Jour de la facture"),
@@ -1063,6 +1067,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "febFull": MessageLookupByLibrary.simpleMessage("Février"),
         "feedback":
             MessageLookupByLibrary.simpleMessage("retour d\'information"),
+        "filter_name": MessageLookupByLibrary.simpleMessage("Nom du filtre"),
+        "filterer": MessageLookupByLibrary.simpleMessage("Filtre"),
         "filtering_setting":
             MessageLookupByLibrary.simpleMessage("Paramètres de filtrage"),
         "find": MessageLookupByLibrary.simpleMessage("Trouver"),
@@ -1344,6 +1350,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("passer à cette version"),
         "jun": MessageLookupByLibrary.simpleMessage("Juin"),
         "junFull": MessageLookupByLibrary.simpleMessage("Juin"),
+        "keyword": MessageLookupByLibrary.simpleMessage("Mot-clé"),
         "ko": MessageLookupByLibrary.simpleMessage("Coréen"),
         "label": MessageLookupByLibrary.simpleMessage("Étiquette"),
         "landscape": MessageLookupByLibrary.simpleMessage("Paysage"),
@@ -1352,6 +1359,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Paramètre de langue"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("semaine dernière"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
+        "lastest_n_days":
+            MessageLookupByLibrary.simpleMessage("Les n derniers jours"),
         "leave_group":
             MessageLookupByLibrary.simpleMessage("Quitter le groupe"),
         "leave_reason":
@@ -1575,6 +1584,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ma valeur de travail par heure"),
         "my_ranking": m78,
         "my_ranking_this_time": m79,
+        "n_days_ago": MessageLookupByLibrary.simpleMessage("n jours avant"),
         "n_days_overdue": m80,
         "name": MessageLookupByLibrary.simpleMessage("Nom"),
         "need_notification_permission_content":
@@ -1831,6 +1841,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_first_gpt_sentence": MessageLookupByLibrary.simpleMessage(
             "Veuillez saisir votre question"),
         "please_input_folder_password": m95,
+        "please_input_keyword": MessageLookupByLibrary.simpleMessage(
+            "Veuillez entrer le mot-clé de la tâche"),
         "please_input_mission_title": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le titre de la mission"),
         "please_input_mobile_no": MessageLookupByLibrary.simpleMessage(
@@ -2152,6 +2164,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("partage de cours"),
         "sharing_listing":
             MessageLookupByLibrary.simpleMessage("Partager la liste"),
+        "shortcut_setting":
+            MessageLookupByLibrary.simpleMessage("Raccourci clavier"),
         "shorten": MessageLookupByLibrary.simpleMessage("Raccourcir"),
         "shorten_prompt": MessageLookupByLibrary.simpleMessage(
             "Veuillez réécrire le paragraphe sélectionné pour le rendre plus concis tout en conservant son sens original."),
@@ -2250,6 +2264,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Cette tâche est une tâche cyclique"),
         "this_month_plan":
             MessageLookupByLibrary.simpleMessage("Plan de ce mois"),
+        "this_week": MessageLookupByLibrary.simpleMessage("Cette semaine"),
         "thisweek": MessageLookupByLibrary.simpleMessage("cette semaine"),
         "three_hours": MessageLookupByLibrary.simpleMessage("Trois heures"),
         "three_months": MessageLookupByLibrary.simpleMessage("Trois mois"),

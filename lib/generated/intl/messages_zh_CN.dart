@@ -316,6 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_content": MessageLookupByLibrary.simpleMessage("开始做笔记"),
         "add_credit_card_bill": MessageLookupByLibrary.simpleMessage("添加信用卡账单"),
         "add_fail": MessageLookupByLibrary.simpleMessage("添加失败"),
+        "add_filterer": MessageLookupByLibrary.simpleMessage("添加过滤器"),
         "add_group": MessageLookupByLibrary.simpleMessage("添加分组"),
         "add_group_cannot_reorder":
             MessageLookupByLibrary.simpleMessage("添加分组不能分组"),
@@ -344,6 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advertising_copy_prompt":
             MessageLookupByLibrary.simpleMessage("请帮我写一份广告文案，产品是..."),
         "after_date": m0,
+        "after_n_days": MessageLookupByLibrary.simpleMessage("天后"),
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI创建"),
@@ -435,6 +437,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("待定"),
         "before_date": m5,
+        "before_n_days": MessageLookupByLibrary.simpleMessage("天前"),
         "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("本期已还清"),
         "bill_day": MessageLookupByLibrary.simpleMessage("账单日"),
@@ -773,6 +776,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "feb": MessageLookupByLibrary.simpleMessage("二月"),
         "febFull": MessageLookupByLibrary.simpleMessage("二月"),
         "feedback": MessageLookupByLibrary.simpleMessage("用户反馈"),
+        "filter_name": MessageLookupByLibrary.simpleMessage("过滤器名称"),
+        "filterer": MessageLookupByLibrary.simpleMessage("过滤器"),
         "filtering_setting": MessageLookupByLibrary.simpleMessage("过滤设置"),
         "find": MessageLookupByLibrary.simpleMessage("查找"),
         "find_new_version": MessageLookupByLibrary.simpleMessage("发现新版本"),
@@ -993,6 +998,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jump_to_this_version": MessageLookupByLibrary.simpleMessage("跳过本版本"),
         "jun": MessageLookupByLibrary.simpleMessage("六月"),
         "junFull": MessageLookupByLibrary.simpleMessage("六月"),
+        "keyword": MessageLookupByLibrary.simpleMessage("关键词"),
         "ko": MessageLookupByLibrary.simpleMessage("韩语"),
         "label": MessageLookupByLibrary.simpleMessage("标签"),
         "landscape": MessageLookupByLibrary.simpleMessage("横屏"),
@@ -1000,6 +1006,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language_setting": MessageLookupByLibrary.simpleMessage("语言设置"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("上周"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("近7天"),
+        "lastest_n_days": MessageLookupByLibrary.simpleMessage("最近n天"),
         "leave_group": MessageLookupByLibrary.simpleMessage("退群"),
         "leave_reason": MessageLookupByLibrary.simpleMessage("请假理由"),
         "leave_reason_placeholder":
@@ -1181,6 +1188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage("我每小时工作价值"),
         "my_ranking": m78,
         "my_ranking_this_time": m79,
+        "n_days_ago": MessageLookupByLibrary.simpleMessage("n天前"),
         "n_days_overdue": m80,
         "name": MessageLookupByLibrary.simpleMessage("姓名"),
         "need_notification_permission_content":
@@ -1403,6 +1411,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("请输入您想问的问题"),
         "please_input_folder_password": m95,
+        "please_input_keyword": MessageLookupByLibrary.simpleMessage("输入任务关键词"),
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("请输入任务标题"),
         "please_input_mobile_no":
@@ -1649,6 +1658,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_to": MessageLookupByLibrary.simpleMessage("分享到"),
         "sharing_course": MessageLookupByLibrary.simpleMessage("共享课程"),
         "sharing_listing": MessageLookupByLibrary.simpleMessage("共享清单"),
+        "shortcut_setting": MessageLookupByLibrary.simpleMessage("快捷键设置"),
         "shorten": MessageLookupByLibrary.simpleMessage("更简短"),
         "shorten_prompt":
             MessageLookupByLibrary.simpleMessage("请将所选段落改写得更加简短，同时保持原意。"),
@@ -1727,6 +1737,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "this_mission_is_cycle_mission":
             MessageLookupByLibrary.simpleMessage("该任务是循环任务"),
         "this_month_plan": MessageLookupByLibrary.simpleMessage("本月计划"),
+        "this_week": MessageLookupByLibrary.simpleMessage("本周"),
         "thisweek": MessageLookupByLibrary.simpleMessage("本周"),
         "three_hours": MessageLookupByLibrary.simpleMessage("3小时"),
         "three_months": MessageLookupByLibrary.simpleMessage("三个月"),

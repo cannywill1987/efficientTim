@@ -50,110 +50,110 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `添加过滤器`
+  /// `Add Filter`
   String get add_filterer {
     return Intl.message(
-      '添加过滤器',
+      'Add Filter',
       name: 'add_filterer',
       desc: '',
       args: [],
     );
   }
 
-  /// `过滤器名称`
+  /// `Filter Name`
   String get filter_name {
     return Intl.message(
-      '过滤器名称',
+      'Filter Name',
       name: 'filter_name',
       desc: '',
       args: [],
     );
   }
 
-  /// `输入任务关键词`
+  /// `Please input task keyword`
   String get please_input_keyword {
     return Intl.message(
-      '输入任务关键词',
+      'Please input task keyword',
       name: 'please_input_keyword',
       desc: '',
       args: [],
     );
   }
 
-  /// `关键词`
+  /// `Keyword`
   String get keyword {
     return Intl.message(
-      '关键词',
+      'Keyword',
       name: 'keyword',
       desc: '',
       args: [],
     );
   }
 
-  /// `本周`
+  /// `This Week`
   String get this_week {
     return Intl.message(
-      '本周',
+      'This Week',
       name: 'this_week',
       desc: '',
       args: [],
     );
   }
 
-  /// `天后`
+  /// `After n Days`
   String get after_n_days {
     return Intl.message(
-      '天后',
+      'After n Days',
       name: 'after_n_days',
       desc: '',
       args: [],
     );
   }
 
-  /// `天前`
+  /// `Before n Days`
   String get before_n_days {
     return Intl.message(
-      '天前',
+      'Before n Days',
       name: 'before_n_days',
       desc: '',
       args: [],
     );
   }
 
-  /// `最近n天`
+  /// `Latest n Days`
   String get lastest_n_days {
     return Intl.message(
-      '最近n天',
+      'Latest n Days',
       name: 'lastest_n_days',
       desc: '',
       args: [],
     );
   }
 
-  /// `n天前`
+  /// `n Days Ago`
   String get n_days_ago {
     return Intl.message(
-      'n天前',
+      'n Days Ago',
       name: 'n_days_ago',
       desc: '',
       args: [],
     );
   }
 
-  /// `过滤器`
+  /// `Filter`
   String get filterer {
     return Intl.message(
-      '过滤器',
+      'Filter',
       name: 'filterer',
       desc: '',
       args: [],
     );
   }
 
-  /// `快捷键设置`
+  /// `Shortcut Settings`
   String get shortcut_setting {
     return Intl.message(
-      '快捷键设置',
+      'Shortcut Settings',
       name: 'shortcut_setting',
       desc: '',
       args: [],

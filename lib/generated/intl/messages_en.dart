@@ -336,7 +336,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("Add credit card bill"),
         "add_fail": MessageLookupByLibrary.simpleMessage("add failed"),
-        "add_filterer": MessageLookupByLibrary.simpleMessage("添加过滤器"),
+        "add_filterer": MessageLookupByLibrary.simpleMessage("Add Filter"),
         "add_group": MessageLookupByLibrary.simpleMessage("Add group"),
         "add_group_cannot_reorder": MessageLookupByLibrary.simpleMessage(
             "Cannot reorder when adding a group"),
@@ -368,7 +368,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advertising_copy_prompt": MessageLookupByLibrary.simpleMessage(
             "Please help me write an advertising copy, the product is..."),
         "after_date": m0,
-        "after_n_days": MessageLookupByLibrary.simpleMessage("天后"),
+        "after_n_days": MessageLookupByLibrary.simpleMessage("After n Days"),
         "agree": MessageLookupByLibrary.simpleMessage("agree"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI Create"),
@@ -490,7 +490,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("to be determined"),
         "before_date": m5,
-        "before_n_days": MessageLookupByLibrary.simpleMessage("天前"),
+        "before_n_days": MessageLookupByLibrary.simpleMessage("Before n Days"),
         "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("Bill cleared"),
         "bill_day": MessageLookupByLibrary.simpleMessage("Bill day"),
@@ -1018,8 +1018,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "feb": MessageLookupByLibrary.simpleMessage("Feb"),
         "febFull": MessageLookupByLibrary.simpleMessage("February"),
         "feedback": MessageLookupByLibrary.simpleMessage("feedback"),
-        "filter_name": MessageLookupByLibrary.simpleMessage("过滤器名称"),
-        "filterer": MessageLookupByLibrary.simpleMessage("过滤器"),
+        "filter_name": MessageLookupByLibrary.simpleMessage("Filter Name"),
+        "filterer": MessageLookupByLibrary.simpleMessage("Filter"),
         "filtering_setting":
             MessageLookupByLibrary.simpleMessage("Filtering Setting"),
         "find": MessageLookupByLibrary.simpleMessage("Find"),
@@ -1289,7 +1289,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("skip this version"),
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("June"),
-        "keyword": MessageLookupByLibrary.simpleMessage("关键词"),
+        "keyword": MessageLookupByLibrary.simpleMessage("Keyword"),
         "ko": MessageLookupByLibrary.simpleMessage("Korean"),
         "label": MessageLookupByLibrary.simpleMessage("Label"),
         "landscape": MessageLookupByLibrary.simpleMessage("Landscape"),
@@ -1298,7 +1298,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Language Setting"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("last week"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("last 7 days"),
-        "lastest_n_days": MessageLookupByLibrary.simpleMessage("最近n天"),
+        "lastest_n_days": MessageLookupByLibrary.simpleMessage("Latest n Days"),
         "leave_group": MessageLookupByLibrary.simpleMessage("Leave the group"),
         "leave_reason": MessageLookupByLibrary.simpleMessage("Leave Reason"),
         "leave_reason_placeholder": MessageLookupByLibrary.simpleMessage(
@@ -1515,7 +1515,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("My work value per hour"),
         "my_ranking": m78,
         "my_ranking_this_time": m79,
-        "n_days_ago": MessageLookupByLibrary.simpleMessage("n天前"),
+        "n_days_ago": MessageLookupByLibrary.simpleMessage("n Days Ago"),
         "n_days_overdue": m80,
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "need_notification_permission_content":
@@ -1767,7 +1767,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("Please input your question"),
         "please_input_folder_password": m95,
-        "please_input_keyword": MessageLookupByLibrary.simpleMessage("输入任务关键词"),
+        "please_input_keyword":
+            MessageLookupByLibrary.simpleMessage("Please input task keyword"),
         "please_input_mission_title": MessageLookupByLibrary.simpleMessage(
             "Please input the mission title"),
         "please_input_mobile_no":
@@ -2064,7 +2065,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("sharing course"),
         "sharing_listing":
             MessageLookupByLibrary.simpleMessage("Sharing listing"),
-        "shortcut_setting": MessageLookupByLibrary.simpleMessage("快捷键设置"),
+        "shortcut_setting":
+            MessageLookupByLibrary.simpleMessage("Shortcut Settings"),
         "shorten": MessageLookupByLibrary.simpleMessage("Shorten"),
         "shorten_prompt": MessageLookupByLibrary.simpleMessage(
             "Please rewrite the selected paragraph to make it more concise while retaining its original meaning."),
@@ -2153,7 +2155,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This mission is a cycle mission"),
         "this_month_plan":
             MessageLookupByLibrary.simpleMessage("This Month\'s Plan"),
-        "this_week": MessageLookupByLibrary.simpleMessage("本周"),
+        "this_week": MessageLookupByLibrary.simpleMessage("This Week"),
         "thisweek": MessageLookupByLibrary.simpleMessage("this week"),
         "three_hours": MessageLookupByLibrary.simpleMessage("Three hours"),
         "three_months": MessageLookupByLibrary.simpleMessage("Three months"),

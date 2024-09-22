@@ -323,6 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("クレジットカードの請求書を追加する"),
         "add_fail": MessageLookupByLibrary.simpleMessage("追加失敗"),
+        "add_filterer": MessageLookupByLibrary.simpleMessage("フィルターを追加"),
         "add_group": MessageLookupByLibrary.simpleMessage("グループを追加"),
         "add_group_cannot_reorder":
             MessageLookupByLibrary.simpleMessage("グループを追加すると並べ替えできません"),
@@ -351,6 +352,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advertising_copy_prompt":
             MessageLookupByLibrary.simpleMessage("広告コピーを書いてください、製品は..."),
         "after_date": m0,
+        "after_n_days": MessageLookupByLibrary.simpleMessage("n日後"),
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI作成"),
@@ -450,6 +452,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "batch_update_missions": m4,
         "bePening": MessageLookupByLibrary.simpleMessage("保留中"),
         "before_date": m5,
+        "before_n_days": MessageLookupByLibrary.simpleMessage("n日前"),
         "between_date": m6,
         "bill_cleared": MessageLookupByLibrary.simpleMessage("この期間はすでに返済済み"),
         "bill_day": MessageLookupByLibrary.simpleMessage("請求日"),
@@ -888,6 +891,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "feb": MessageLookupByLibrary.simpleMessage("2月"),
         "febFull": MessageLookupByLibrary.simpleMessage("2月"),
         "feedback": MessageLookupByLibrary.simpleMessage("ユーザーフィードバック"),
+        "filter_name": MessageLookupByLibrary.simpleMessage("フィルター名"),
+        "filterer": MessageLookupByLibrary.simpleMessage("フィルター"),
         "filtering_setting": MessageLookupByLibrary.simpleMessage("フィルタリング設定"),
         "find": MessageLookupByLibrary.simpleMessage("検索"),
         "find_new_version":
@@ -1116,6 +1121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("このバージョンをスキップ"),
         "jun": MessageLookupByLibrary.simpleMessage("6月"),
         "junFull": MessageLookupByLibrary.simpleMessage("6月"),
+        "keyword": MessageLookupByLibrary.simpleMessage("キーワード"),
         "ko": MessageLookupByLibrary.simpleMessage("韓国語"),
         "label": MessageLookupByLibrary.simpleMessage("ラベル"),
         "landscape": MessageLookupByLibrary.simpleMessage("横画面"),
@@ -1123,6 +1129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language_setting": MessageLookupByLibrary.simpleMessage("言語設定"),
         "lastWeek": MessageLookupByLibrary.simpleMessage("先週"),
         "last_7_days": MessageLookupByLibrary.simpleMessage("過去7日間"),
+        "lastest_n_days": MessageLookupByLibrary.simpleMessage("最近のn日間"),
         "leave_group": MessageLookupByLibrary.simpleMessage("グループを退出する"),
         "leave_reason": MessageLookupByLibrary.simpleMessage("休暇理由"),
         "leave_reason_placeholder":
@@ -1316,6 +1323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage("私の時間当たりの収入"),
         "my_ranking": m78,
         "my_ranking_this_time": m79,
+        "n_days_ago": MessageLookupByLibrary.simpleMessage("n日前"),
         "n_days_overdue": m80,
         "name": MessageLookupByLibrary.simpleMessage("名前"),
         "need_notification_permission_content":
@@ -1553,6 +1561,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("質問を入力してください"),
         "please_input_folder_password": m95,
+        "please_input_keyword":
+            MessageLookupByLibrary.simpleMessage("タスクのキーワードを入力してください"),
         "please_input_mission_title":
             MessageLookupByLibrary.simpleMessage("タスクのタイトルを入力してください"),
         "please_input_mobile_no":
@@ -1811,6 +1821,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_to": MessageLookupByLibrary.simpleMessage("共有先"),
         "sharing_course": MessageLookupByLibrary.simpleMessage("コースを共有"),
         "sharing_listing": MessageLookupByLibrary.simpleMessage("リストを共有"),
+        "shortcut_setting": MessageLookupByLibrary.simpleMessage("ショートカット設定"),
         "shorten": MessageLookupByLibrary.simpleMessage("短縮する"),
         "shorten_prompt": MessageLookupByLibrary.simpleMessage(
             "選択した段落を元の意味を保持しながら、より簡潔に書き直してください。"),
@@ -1888,6 +1899,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "this_mission_is_cycle_mission":
             MessageLookupByLibrary.simpleMessage("このミッションはサイクルミッションです"),
         "this_month_plan": MessageLookupByLibrary.simpleMessage("今月の計画"),
+        "this_week": MessageLookupByLibrary.simpleMessage("今週"),
         "thisweek": MessageLookupByLibrary.simpleMessage("今週"),
         "three_hours": MessageLookupByLibrary.simpleMessage("3時間"),
         "three_months": MessageLookupByLibrary.simpleMessage("3ヶ月"),

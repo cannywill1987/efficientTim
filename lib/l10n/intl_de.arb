@@ -1,5 +1,16 @@
 {
   "@@locale": "de",
+  "add_filterer": "Filter hinzufügen",
+  "filter_name": "Filtername",
+  "please_input_keyword": "Bitte geben Sie das Schlüsselwort der Aufgabe ein",
+  "keyword": "Schlüsselwort",
+  "this_week": "Diese Woche",
+  "after_n_days": "In n Tagen",
+  "before_n_days": "Vor n Tagen",
+  "lastest_n_days": "Die letzten n Tage",
+  "n_days_ago": "Vor n Tagen",
+  "filterer": "Filter",
+  "shortcut_setting": "Tastenkombinationen",
   "cannot_reorder_for_group": "Umsortieren für nicht gruppierte Elemente nicht möglich",
 
   "super_tool_shortcuts": "Super-Tool-Tastenkombinationen",
