@@ -1,5 +1,7 @@
 {
   "@@locale": "ja",
+  "super_tool": "スーパー ツールバー",
+
   "add_filterer": "フィルターを追加",
   "filter_name": "フィルター名",
   "please_input_keyword": "タスクのキーワードを入力してください",

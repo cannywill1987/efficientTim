@@ -1,5 +1,7 @@
 {
   "@@locale": "ko",
+  "super_tool": "슈퍼 툴바",
+
   "add_filterer": "필터 추가",
   "filter_name": "필터 이름",
   "please_input_keyword": "작업 키워드를 입력하세요",

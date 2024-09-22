@@ -2120,6 +2120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("sun"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("Sun"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("S-Note"),
+        "super_tool": MessageLookupByLibrary.simpleMessage("Super Toolbar"),
         "super_tool_shortcuts":
             MessageLookupByLibrary.simpleMessage("Super Tool Shortcuts"),
         "switch_chronograph_mode_success": MessageLookupByLibrary.simpleMessage(

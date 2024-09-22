@@ -1,5 +1,7 @@
 {
   "@@locale": "de",
+  "super_tool": "Super-Toolbar",
+
   "add_filterer": "Filter hinzufügen",
   "filter_name": "Filtername",
   "please_input_keyword": "Bitte geben Sie das Schlüsselwort der Aufgabe ein",

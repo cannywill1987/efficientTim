@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Super Toolbar`
+  String get super_tool {
+    return Intl.message(
+      'Super Toolbar',
+      name: 'super_tool',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add Filter`
   String get add_filterer {
     return Intl.message(

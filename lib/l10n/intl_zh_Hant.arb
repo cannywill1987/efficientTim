@@ -1,5 +1,7 @@
 {
   "@@locale": "zh_Hant",
+  "super_tool": "超級工具條",
+
   "add_filterer": "添加過濾器",
   "filter_name": "過濾器名稱",
   "please_input_keyword": "輸入任務關鍵詞",

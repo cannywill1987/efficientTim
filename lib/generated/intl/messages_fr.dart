@@ -346,8 +346,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_credit_card_bill": MessageLookupByLibrary.simpleMessage(
             "Ajouter une facture de carte de crédit"),
         "add_fail": MessageLookupByLibrary.simpleMessage("échec de l\'ajout"),
-        "add_filterer":
-            MessageLookupByLibrary.simpleMessage("Ajouter un filtre"),
         "add_group": MessageLookupByLibrary.simpleMessage("Ajouter un groupe"),
         "add_group_cannot_reorder": MessageLookupByLibrary.simpleMessage(
             "Impossible de réorganiser lors de l\'ajout d\'un groupe"),
@@ -2223,6 +2221,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("Dim"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("Dim"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("S-Note"),
+        "super_tool":
+            MessageLookupByLibrary.simpleMessage("Super barre d\'outils"),
         "super_tool_shortcuts":
             MessageLookupByLibrary.simpleMessage("Raccourcis Super Outil"),
         "switch_chronograph_mode_success": MessageLookupByLibrary.simpleMessage(

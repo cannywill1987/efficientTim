@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "super_tool": "Super Toolbar",
+
   "add_filterer": "Add Filter",
   "filter_name": "Filter Name",
   "please_input_keyword": "Please input task keyword",

@@ -1705,6 +1705,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("周日"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("日"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("超级笔记"),
+        "super_tool": MessageLookupByLibrary.simpleMessage("超级工具条"),
         "super_tool_shortcuts": MessageLookupByLibrary.simpleMessage("超级工具快捷键"),
         "switch_chronograph_mode_success":
             MessageLookupByLibrary.simpleMessage("成功切换至秒表模式，下次生效"),

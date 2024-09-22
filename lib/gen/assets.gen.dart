@@ -426,6 +426,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_edit.svg
   String get icEdit => 'assets/img/ic_edit.svg';
 
+  /// File path: assets/img/ic_efficiency.svg
+  String get icEfficiency => 'assets/img/ic_efficiency.svg';
+
   /// File path: assets/img/ic_emoij6.svg
   String get icEmoij6 => 'assets/img/ic_emoij6.svg';
 
@@ -1223,6 +1226,7 @@ class $AssetsImgGen {
         icDocument,
         icDollarGold,
         icEdit,
+        icEfficiency,
         icEmoij6,
         icEmoji1,
         icEmoji1Unselected,

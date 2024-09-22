@@ -1,6 +1,7 @@
 {
   "@@locale": "fr",
-  "add_filterer": "Ajouter un filtre",
+  "super_tool": "Super barre d'outils",
+
   "filter_name": "Nom du filtre",
   "please_input_keyword": "Veuillez entrer le mot-clé de la tâche",
   "keyword": "Mot-clé",

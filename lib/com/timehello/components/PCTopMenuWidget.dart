@@ -15,6 +15,7 @@ import '../util/LocaleProvider.dart';
 import '../util/LoginManager.dart';
 import '../util/Utility.dart';
 import 'ConsumeMoneyButtonWidget.dart';
+import 'CustomIconButton.dart';
 import 'DownloadListwidget.dart';
 import 'MoneyHandlerWidget.dart';
 
@@ -46,71 +47,82 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             SizedBox(
               width: 10,
             ),
-            LoginManager
-                .getInstance()
-                .getUserBean()
-                .totalFocusTimeRanking !=
-                null &&
-                LoginManager
-                    .getInstance()
-                    .getUserBean()
-                    .totalFocusTimeRanking! >=
-                    0
-                ? Wrap(
-              direction: Axis.vertical,
-              children: [
-                Text(
-                  getI18NKey().my_ranking(LoginManager
-                      .getInstance()
-                      .getUserBean()
-                      .totalFocusTimeRanking
-                      .toString()),
-                  style: TextStyle(
-                      color: ThemeManager.getInstance()
-                          .getTextColor(defaultColor: Color(0xffa0a0a0)),
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  getI18NKey().total_focus_time +
-                      Utility.formatHourAndMin(LoginManager
-                          .getInstance()
-                          ?.getUserBean()
-                          ?.totalFocusTime ??
-                          0),
-                  style: TextStyle(
-                      color: ThemeManager.getInstance()
-                          .getTextColor(defaultColor: Color(0xffa0a0a0)),
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                )
-              ],
-            )
-                : SizedBox.shrink(),
-            Spacer(),
-            if(!Utility.isProductEnv())
-              InkWell(onTap: () {
-                // Utility.toggleCurDesktopFolderPageVisibility(context);
-getI18NKey().all_mission;
-                // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
-                // final provider = Provider.of<LocaleProvider>(context);
-                // provider.setLocale(    const Locale('fr'));
-                // context.read<LocaleProvider>().setLocale(    const Locale('fr'));
-                // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
-                // FirebaseStoreManager.getInstance().setString(data: "11111111111111111");
-                // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
-                // DialogManagement.getInstance().showSearchFriendGroupWidget();
-              }, child: Text("测试"),),
-            if(!Utility.isProductEnv())
-              SizedBox(width: 30,),
-            if(!Utility.isProductEnv())
-              InkWell(onTap: () {
-                FirebaseStoreManager.getInstance().getString();
-                // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
 
-                // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
-                // DialogManagement.getInstance().showSearchFriendGroupWidget();
-              }, child: Text("测试2"),),
+            LoginManager.getInstance().getUserBean().totalFocusTimeRanking !=
+                        null &&
+                    LoginManager.getInstance()
+                            .getUserBean()
+                            .totalFocusTimeRanking! >=
+                        0
+                ? Wrap(
+                    direction: Axis.vertical,
+                    children: [
+                      Text(
+                        getI18NKey().my_ranking(LoginManager.getInstance()
+                            .getUserBean()
+                            .totalFocusTimeRanking
+                            .toString()),
+                        style: TextStyle(
+                            color: ThemeManager.getInstance()
+                                .getTextColor(defaultColor: Color(0xffa0a0a0)),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        getI18NKey().total_focus_time +
+                            Utility.formatHourAndMin(LoginManager.getInstance()
+                                    ?.getUserBean()
+                                    ?.totalFocusTime ??
+                                0),
+                        style: TextStyle(
+                            color: ThemeManager.getInstance()
+                                .getTextColor(defaultColor: Color(0xffa0a0a0)),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )
+                : SizedBox.shrink(),
+            SizedBox(width: 10,),
+            CustomIconButton(
+              onPressed: () {
+                DialogManagement.getInstance()?.showAISearchBarMenuWithoutText(context: context, );
+              },
+              icon: Utility.getSVGPicture(R.assetsImgIcEfficiency, size: 13),
+              title: getI18NKey().super_tool,
+            ),
+            Spacer(),
+            if (!Utility.isProductEnv())
+              InkWell(
+                onTap: () {
+                  // Utility.toggleCurDesktopFolderPageVisibility(context);
+                  getI18NKey().all_mission;
+                  // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
+                  // final provider = Provider.of<LocaleProvider>(context);
+                  // provider.setLocale(    const Locale('fr'));
+                  // context.read<LocaleProvider>().setLocale(    const Locale('fr'));
+                  // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
+                  // FirebaseStoreManager.getInstance().setString(data: "11111111111111111");
+                  // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
+                  // DialogManagement.getInstance().showSearchFriendGroupWidget();
+                },
+                child: Text("测试"),
+              ),
+            if (!Utility.isProductEnv())
+              SizedBox(
+                width: 30,
+              ),
+            if (!Utility.isProductEnv())
+              InkWell(
+                onTap: () {
+                  FirebaseStoreManager.getInstance().getString();
+                  // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
+
+                  // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
+                  // DialogManagement.getInstance().showSearchFriendGroupWidget();
+                },
+                child: Text("测试2"),
+              ),
             // Expanded(
             //   child: Container(),
             // ),
@@ -136,13 +148,14 @@ getI18NKey().all_mission;
                 //   Utility.openRightSideDesktopNavigator(
                 //       context, 'ChatGptPage', {});
               },
-              child: Utility.getSVGPicture(R.assetsImgIcUnlockscreen,
-                  size: 18
-                // , color: ThemeManager.getInstance().getDefautThemeColor()
-              ),
+              child: Utility.getSVGPicture(R.assetsImgIcUnlockscreen, size: 18
+                  // , color: ThemeManager.getInstance().getDefautThemeColor()
+                  ),
             ),
-            SizedBox(width: 10,),
-            if(ABTestSetting.isOpenAiOn == true)
+            SizedBox(
+              width: 10,
+            ),
+            if (ABTestSetting.isOpenAiOn == true)
               InkWell(
                 onTap: () {
                   if (ABTestSetting.isOpenAiOn == true)

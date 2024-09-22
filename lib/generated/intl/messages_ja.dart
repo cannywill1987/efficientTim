@@ -1867,6 +1867,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sunday": MessageLookupByLibrary.simpleMessage("日曜日"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("日"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("スーパーノートブック"),
+        "super_tool": MessageLookupByLibrary.simpleMessage("スーパー ツールバー"),
         "super_tool_shortcuts":
             MessageLookupByLibrary.simpleMessage("スーパー ツール ショートカット"),
         "switch_chronograph_mode_success":
