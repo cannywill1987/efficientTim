@@ -122,7 +122,7 @@ enum ChatGptPageEnum {
   none,
 }
 
-enum MissionDataViewTypeEnum { list, grid, timeline }
+enum MissionDataViewTypeEnum { list, grid, timeline, table }
 
 enum PageModeEnum { create, edit, delete }
 

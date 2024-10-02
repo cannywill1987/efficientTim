@@ -8,6 +8,7 @@
 
 #include <audioplayers_windows/audioplayers_windows_plugin.h>
 #include <cloud_firestore/cloud_firestore_plugin_c_api.h>
+#include <desktop_window/desktop_window_plugin.h>
 #include <dynamic_color/dynamic_color_plugin_c_api.h>
 #include <file_saver/file_saver_plugin.h>
 #include <file_selector_windows/file_selector_windows.h>
@@ -26,6 +27,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("AudioplayersWindowsPlugin"));
   CloudFirestorePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("CloudFirestorePluginCApi"));
+  DesktopWindowPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("DesktopWindowPlugin"));
   DynamicColorPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("DynamicColorPluginCApi"));
   FileSaverPluginRegisterWithRegistrar(

@@ -42,6 +42,7 @@ import '../../components/CustomMarquee.dart';
 import '../../components/CustomTextField.dart';
 import '../../components/ExportMissionListDialogUtil.dart';
 import '../../components/ListingSecurityWidget.dart';
+import '../../components/MissionTableContainerWidget.dart';
 import '../../components/SearchBarWidget.dart';
 import '../../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../../models/CalendarModel.dart';
@@ -108,6 +109,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   List<MissionModel>? curListMissionModels = [];
   GlobalKey<HeaderStatsAndInputWidgetState>? HeaderWidgetStateGlobalKey =
       GlobalKey();
+  GlobalKey<HeaderStatsAndInputWidgetState>? HeaderWidgetStateGlobalKeyForTable =
+  GlobalKey();
   GlobalKey<CheckButtonListWithIconWidgetState>?
       checkButtonListWithIconWidgetKey = GlobalKey();
   int timestampCur = 0;
@@ -622,6 +625,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
         });
     HeaderWidgetStateGlobalKey?.currentState?.resetData();
+    HeaderWidgetStateGlobalKeyForTable?.currentState?.resetData();
   }
 
   /**
@@ -780,7 +784,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     child: Container(
                       key: ValueKey('Container2'),
                       color: ThemeManager.getInstance().getBackgroundColor(),
-                      child: CustomScrollView(
+                      child: this.missionDataViewTypeEnum == MissionDataViewTypeEnum.table ? Column(children: getTableSilverListWidget(),) : CustomScrollView(
                         controller: _scrollController,
                         key: ValueKey('CustomScrollView1'),
                         slivers: getSilverListWidget(),
@@ -973,6 +977,91 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     );
   }
 
+  List<Widget> getTableSilverListWidget() {
+    List<Widget> listWidget = [];
+    listWidget.add(
+      //头部title
+      Container(
+        constraints: BoxConstraints(
+          minHeight: 60,
+          maxHeight:
+              Utility.isHandsetBySize() && isSearchBarVisible ? 100.0 : 60,
+        ),
+        child: getHeaderWidget(),
+        //是否固定头布局 默认false
+      ),
+    );
+
+    if (this.widget.folderStatusDate != 6) {
+      //已完成不需要加头部
+      // if (headerWidget == null) {
+      listWidget.add(HeaderStatsAndInputWidget(
+        shouldSliver: false,
+          key: HeaderWidgetStateGlobalKeyForTable,
+          childAfterInputWidget: Utility.isHandsetBySize() &&
+              !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
+              ? null
+              : getBottomBar(context, isVisible: this.isFocusing),
+          //移动端key要唯一 否则每次经过这里都会实例化 造成移动端输入框点击焦点后键盘自动隐藏 pc端要新的globalkey 否则头部headerwidget无法显示
+          onTapUpListener: () {},
+          onTapDownListener: () {},
+          folderTimeModel: _folderTimeModel,
+          folderModel: this.widget.folderModel?.tag == 1
+              ? this.widget.folderModel
+              : null,
+          onChangeListener: (data, numTomatoes) {
+            this.numTomatoes = numTomatoes;
+            this._title = data;
+            if ((this._title?.length ?? 0) > 0) {
+              this.isFocusing = true;
+            } else {
+              this.isFocusing = false;
+            }
+            updateUI();
+          },
+          //这个好像用不上
+          onDesktopSubmitListener: (data, numTomtoes) {
+            this._numberTomatoes = numTomtoes;
+            this.onClick('onClickSubmit', data);
+          },
+          onSubmitListener: (data) {
+            this._numberTomatoes = data['numTomatoes'];
+            FolderModel folderModel = data['folderModel'];
+            if (folderModel != null) {
+              this._circleColor = folderModel.color;
+              this._circleTitle = folderModel.title;
+              this._circleIcon = Icon(
+                  IconData(folderModel.icon ?? 0, fontFamily: 'MaterialIcons'),
+                  size: 25,
+                  color: Color(this._circleColor ?? 0xffff8800));
+              this._folderModelObjId = folderModel.objectId;
+            }
+            this.onClick('onClickSubmit', data);
+          }));
+    }
+    listWidget.add(SizedBox(
+      height: 10,
+    ));
+    listWidget.add(Expanded(
+      child: Container(child: this.buildMissionTableContainerWidget(
+          (SharePreferenceUtil.getSyncInstance().getCompleteMissionVisible() ==
+              false &&
+              this.widget.folderStatusDate != 6)
+              ? []
+              : (Utility.getListAfterOrder(
+              missionOrderEnum, this.curListMissionModels ?? [], -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
+              [])),),
+    ));
+
+    // if (this.missionDataViewTypeEnum == MissionDataViewTypeEnum.table) {
+    //   listWidget.addAll();
+    // } else {}
+
+    return [
+      ...listWidget,
+    ];
+  }
+
   List<Widget> getSilverListWidget() {
     List<Widget> listWidget = [];
     listWidget.add(
@@ -1039,49 +1128,23 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
     //CustomScrollView加固定高度 10
     listWidget.add(SliverPadding(padding: EdgeInsets.only(top: 10)));
-    // listWidget.add(SliverPadding(padding: EdgeInsets.only(top: 10),));
-    // listWidget.add(SliverToBoxAdapter(
-    //   child: Center(
-    //     child: TimeRatioComponent(
-    //       width: this.missionPageWidth,
-    //       height: 5,
-    //       totalTime: 24 * 60 * 60, // 一天的总秒数
-    //       listMissionModels: this.curListMissionModels ?? [],
-    //       // [
-    //       //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
-    //       //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
-    //       //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
-    //       //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
-    //       //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
-    //       // ],
-    //     ),
-    //   ),
-    // ));
-
-    // listWidget.add(SliverToBoxAdapter(child:       Center(
-    //   child: StorageUsageBar(
-    //     totalStorage: 1400,
-    //     usedStorage: 487.86,
-    //     sections: [
-    //       StorageSection('文稿', Colors.red, 200.0),
-    //       StorageSection('应用程序', Colors.orange, 100.0),
-    //       StorageSection('开发者', Colors.yellow, 50.0),
-    //       StorageSection('其他用户与共享', Colors.green, 20.0),
-    //       StorageSection('正在计算...', Colors.grey, 117.86),
-    //     ],
-    //   ),),));
-    listWidget.addAll(
-        this.missionDataViewTypeEnum == MissionDataViewTypeEnum.list
-            ? this.buildListWidget(
-                Utility.getListAfterOrder(
-                        missionOrderEnum, _missionModelListUnFinished, -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
-                    [],
-                false)
-            : this.buildGridWidget(Utility.getListAfterOrder(
+    listWidget.addAll(this.missionDataViewTypeEnum ==
+            MissionDataViewTypeEnum.list
+        ? this.buildListWidget(
+            Utility.getListAfterOrder(missionOrderEnum, _missionModelListUnFinished, -1, this.widget.folderModel.filterConditionMapBean?.listingId) ??
+                [],
+            false)
+        : this.buildGridWidget(Utility.getListAfterOrder(
                     MissionOrderEnum.orderByWords,
                     this.curListMissionModels ?? [],
-                    folderStatusIsArchived, this.widget.folderModel.filterConditionMapBean?.listingId) ??
-                []));
+                    folderStatusIsArchived,
+                    this
+                        .widget
+                        .folderModel
+                        .filterConditionMapBean
+                        ?.listingId) ??
+                [])
+            );
 
     if (this.widget.folderStatusDate != 4 &&
         (this.missionDataViewTypeEnum == MissionDataViewTypeEnum.list)) {
@@ -1098,10 +1161,21 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   this.widget.folderStatusDate != 6)
               ? []
               : (Utility.getListAfterOrder(
-                      missionOrderEnum, _missionModelListFinished, -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
+                      missionOrderEnum,
+                      _missionModelListFinished,
+                      -1,
+                      this
+                          .widget
+                          .folderModel
+                          .filterConditionMapBean
+                          ?.listingId) ??
                   []),
           true));
     } else {}
+
+    // if (this.missionDataViewTypeEnum == MissionDataViewTypeEnum.table) {
+    //   listWidget.addAll();
+    // } else {}
 
     return [
       ...listWidget,
@@ -1338,6 +1412,14 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                           "description": "分类",
                         });
                         missionDataViewTypeEnum = MissionDataViewTypeEnum.grid;
+                      } else if (item.code == "table") {
+                        AnalyticsEventsManager.getInstance()
+                            .sendAnalyticsEventMap({
+                          "sceneType": "missionpage",
+                          "eventType": "missionpage_table",
+                          "description": "表格",
+                        });
+                        missionDataViewTypeEnum = MissionDataViewTypeEnum.table;
                       }
                       SharePreferenceUtil.getSyncInstance().setInt(
                           key: ShareprefrenceKeys.listAndGridView +
@@ -1461,6 +1543,18 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         },
       ),
     );
+  }
+
+  Widget buildMissionTableContainerWidget(
+      List<SessionMissionModel> list) {
+    List<MissionModel> listMissionModels = [];
+    list.forEach((SessionMissionModel sessionMissionModel) {
+      listMissionModels.addAll(sessionMissionModel.datas ?? []);
+    });
+    return Container(
+        child: MissionTableContainerWidget(
+          listMissionModels: listMissionModels,
+        ));
   }
 
   List<Widget> buildGridWidget(List<SessionMissionModel> list) {
@@ -1597,17 +1691,18 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     if (this.widget.folderModel?.tag == 4) {
       curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
           .getInt(
-          key: ShareprefrenceKeys.listAndGridView +
-              this.widget.folderStatusDate.toString() +
-              (this.widget.folderModel?.objectId ?? ""),
-          defaultVal: 1);
+              key: ShareprefrenceKeys.listAndGridView +
+                  this.widget.folderStatusDate.toString() +
+                  (this.widget.folderModel?.objectId ?? ""),
+              defaultVal: 1);
       missionDataViewTypeEnum =
-      MissionDataViewTypeEnum.values[curIndexListViewAndGridView];
+          MissionDataViewTypeEnum.values[curIndexListViewAndGridView];
       datas = MongoApisManager.getInstance()
           .queryWhereEqual_missionDataByFilterConditionBean(
-          filterConditionBean: this.widget.folderModel?.filterConditionMapBean ??
-              FilterConditionBean());
-    }  else if (this.widget.folderModel?.tag == 2) {
+              filterConditionBean:
+                  this.widget.folderModel?.filterConditionMapBean ??
+                      FilterConditionBean());
+    } else if (this.widget.folderModel?.tag == 2) {
       curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
           .getInt(
               key: ShareprefrenceKeys.listAndGridView +

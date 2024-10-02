@@ -39,10 +39,12 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
   String? text; //text是默认值 目前没用
   Widget? childAfterInputWidget; //在输入框后面的widget
   bool shouldShowFolderIcons = true;
+  bool shouldSliver = true;
   HeaderStatsAndInputWidget(
       {Key? key,
       List? datas,
       this.onTapUpListener,
+        this.shouldSliver = true,
         this.shouldShowFolderIcons = true,
       this.onTapDownListener,
       this.onChangeListener,
@@ -88,7 +90,122 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
   @override
   Widget build(BuildContext context) {
     //声明一个自变量，用来存储传递过来的参数
+    if(this.widget.shouldSliver) {
+      return getSliverList();
+    } else {
+      return getUnsliverList();
+    }
+  }
 
+  Widget getUnsliverList() {
+     return Container(
+       child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: ThemeManager.getInstance()
+                  .getCardBackgroundColor(defaultColor: Colors.white),
+              border: Border.all(
+                width: 1.0,
+                color: ThemeManager.getInstance()
+                    .getCardBackgroundColor(defaultColor: Color(0xfff0f0f0)),
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            ),
+            margin: Utility.isHandsetBySize()
+                ? EdgeInsets.fromLTRB(
+                CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0)
+                : EdgeInsets.fromLTRB(
+                CONSTANTS.missionPageMargin, 0, CONSTANTS.missionPageMargin, 0),
+            height: 100,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  key: ValueKey('Expanded332'),
+                  child: HeaderItemWidget(
+                    key: ValueKey('HeaderItemWidget32'),
+                    shouldShowMins: true,
+                    title: getI18NKey().previewTime,
+                    value: this
+                        .widget
+                        .folderTimeModel
+                        ?.previewTimeString
+                        .toString() ??
+                        "",
+                  ),
+                  flex: 1,
+                ),
+                Expanded(
+                  key: ValueKey('Expanded132'),
+                  child: HeaderItemWidget(
+                    key: ValueKey('HeaderItemWidget132'),
+                    shouldShowMins: false,
+                    title: getI18NKey().missionToBeComplete,
+                    value: this
+                        .widget
+                        .folderTimeModel
+                        ?.numMissionToFinished
+                        .toString() ??
+                        "",
+                  ),
+                  flex: 1,
+                ),
+                Expanded(
+                  key: ValueKey('Expanded1322'),
+                  child: HeaderItemWidget(
+                    key: ValueKey('HeaderItemWidget1322'),
+                    shouldShowMins: true,
+                    title: getI18NKey().timefocused,
+                    value: this
+                        .widget
+                        .folderTimeModel
+                        ?.finishedTimeString
+                        .toString() ??
+                        "",
+                  ),
+                  flex: 1,
+                ),
+                Expanded(
+                  key: ValueKey('Expanded13223'),
+                  child: HeaderItemWidget(
+                    key: ValueKey('HeaderItemWidget1324'),
+                    shouldShowMins: false,
+                    title: getI18NKey().missioncompleted,
+                    value: this
+                        .widget
+                        .folderTimeModel
+                        ?.numMissionFinished
+                        .toString() ??
+                        "",
+                  ),
+                  flex: 1,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            key: ValueKey('Container1322'),
+            margin: EdgeInsets.fromLTRB(
+                CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
+            child: HeaderInputWidget(
+              shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
+              folderModel: this.widget.folderModel ?? FolderModel(),
+              key: HeaderInputStateGlobalKey,
+              onChangeListener: this.widget.onChangeListener,
+              text: this.widget.text,
+              onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
+              onSubmitListener: this.widget.onSubmitListener,
+            ),
+          ),
+          this.widget.childAfterInputWidget == null
+              ? SizedBox.shrink()
+              : this.widget.childAfterInputWidget!,
+        ],
+           ),
+     );
+  }
+
+  SliverList getSliverList() {
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, index) {
         if (index == 0) {

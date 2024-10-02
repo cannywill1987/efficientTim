@@ -1,5 +1,9 @@
 {
   "@@locale": "en",
+"time_mode": "模式",
+  "submisssion": "子任务",
+  "table": "表格",
+
   "super_tool": "Super Toolbar",
 
   "add_filterer": "Add Filter",

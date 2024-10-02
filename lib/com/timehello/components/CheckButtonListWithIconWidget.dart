@@ -91,7 +91,12 @@ class CheckButtonListWithIconWidgetState
 
   void setCurIndex(int index) {
     initModelListState();
-    list[index].isCheck = true;
+    try {
+      list[index].isCheck = true;
+    } catch (e) {
+      list[list.length - 1].isCheck = true;
+      print(e);
+    }
     if(mounted)
     setState(() {
 

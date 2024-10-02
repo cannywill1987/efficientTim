@@ -50,6 +50,36 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `模式`
+  String get time_mode {
+    return Intl.message(
+      '模式',
+      name: 'time_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `子任务`
+  String get submisssion {
+    return Intl.message(
+      '子任务',
+      name: 'submisssion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Table`
+  String get table {
+    return Intl.message(
+      'Table',
+      name: 'table',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Super Toolbar`
   String get super_tool {
     return Intl.message(
@@ -2766,16 +2796,6 @@ class S {
     return Intl.message(
       'Divider',
       name: 'divider',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Table`
-  String get table {
-    return Intl.message(
-      'Table',
-      name: 'table',
       desc: '',
       args: [],
     );

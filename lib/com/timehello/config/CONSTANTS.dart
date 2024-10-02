@@ -924,6 +924,20 @@ class CONSTANTS {
           color: colorChecked,
           size: fontSize,
         )));
+    list.add(CheckButtonStateModel(
+        code: "table",
+        title: getI18NKey().table,
+        isCheck: false,
+        uncheckIcon: Icon(
+          Icons.table_view,
+          color: ThemeManager.getInstance().getUncheckIconColor(),
+          size: fontSize,
+        ),
+        checkIcon: Icon(
+          Icons.table_view,
+          color: colorChecked,
+          size: fontSize,
+        )));
     list[defaultCheckedIndex].isCheck = true;
     return list;
   }

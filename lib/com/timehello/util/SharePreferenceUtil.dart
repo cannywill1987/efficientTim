@@ -80,6 +80,24 @@ class SharePreferenceUtil {
     }
   }
 
+  void setDouble({required String key, required double value}) {
+    if(mSharedPreferences != null) {
+      mSharedPreferences?.setDouble(key, value);
+    }
+  }
+
+  double getDouble({required String key, double defaultVal = 0}) {
+    try {
+      if (mSharedPreferences == null || key == null) {
+        return defaultVal;
+      }
+      return mSharedPreferences?.getDouble(key) ?? defaultVal;
+    } catch(e) {
+      return defaultVal;
+    }
+  }
+
+
   void setBool({required String key, required bool val}) {
     if(mSharedPreferences != null) {
       mSharedPreferences?.setBool(key, val);

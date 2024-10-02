@@ -2109,6 +2109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "strikethrough": MessageLookupByLibrary.simpleMessage("Strikethrough"),
         "sub_task_add_newline": MessageLookupByLibrary.simpleMessage(
             "Subtask - Add&update By Clicking Enter"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("子任务"),
         "submit": MessageLookupByLibrary.simpleMessage("submit"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage(
@@ -2167,6 +2168,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("Finished Time "),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("time"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("模式"),
         "time_not_arrive_cannot_clcokin": MessageLookupByLibrary.simpleMessage(
             "The time has not arrived, you cannot clock in"),
         "time_segment": MessageLookupByLibrary.simpleMessage("Time segment"),

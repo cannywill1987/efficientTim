@@ -512,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  desktop_window:
+    dependency: "direct overridden"
+    description:
+      name: desktop_window
+      sha256: "6256fb6feb7b5ec1311c76a3503f89202825bfe92c0458ec5fe7a728ffa216d5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   device_info:
     dependency: transitive
     description:
@@ -1508,6 +1516,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  jiffy:
+    dependency: transitive
+    description:
+      name: jiffy
+      sha256: "3497caaa36d36a29033e66803c9739ce6bccbc7e241ca46070f76ee9e6f6eb0c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.1"
   js:
     dependency: transitive
     description:
@@ -2410,6 +2426,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "24.2.9"
+  syncfusion_flutter_datagrid:
+    dependency: "direct overridden"
+    description:
+      name: syncfusion_flutter_datagrid
+      sha256: "0ac1c54467ef2c1099943207dfd95748da94c900104e37fbaa346668a120c02d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.2.9"
+  syncfusion_flutter_datagrid_export:
+    dependency: "direct overridden"
+    description:
+      name: syncfusion_flutter_datagrid_export
+      sha256: ccd910df5f7c719d2619cd15ab8fc781383ba414802f64084f8510d4a6c54134
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.2.9"
   syncfusion_flutter_datepicker:
     dependency: "direct overridden"
     description:
@@ -2418,11 +2450,35 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "24.2.9"
+  syncfusion_flutter_pdf:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_pdf
+      sha256: a9e85bbfd574bb262733b33494240fda38bfeb58553537560ba4b3f54a31418b
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.2.9"
+  syncfusion_flutter_xlsio:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_xlsio
+      sha256: "6020dc5b4765e9850ddf0789fb247c03c10751869af1c888bf9cef2fbabc2389"
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.2.9"
   syncfusion_localizations:
     dependency: "direct overridden"
     description:
       name: syncfusion_localizations
       sha256: "874cbcb1e5a21a0762ccabf96315fe722876e761f3531eed2e47f3694ae6a6dd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.2.9"
+  syncfusion_officecore:
+    dependency: transitive
+    description:
+      name: syncfusion_officecore
+      sha256: "7d172ffe5b995788414faea199ed32fbca60297c9fc27a052711287bb710e3c4"
       url: "https://pub.dev"
     source: hosted
     version: "24.2.9"

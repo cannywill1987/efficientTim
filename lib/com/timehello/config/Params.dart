@@ -184,6 +184,8 @@ class Apis {
 
 //Shareprefrence的key
 class ShareprefrenceKeys {
+  static String missionColumnVisible = "jezijfizjefczf";
+  static String missionColumnWidth = "jeifziefizefzfefz";
   static String insertMissionCount = "jeifziefizef";
   static String needResetPassword = "jewijfizfc";
   static String default9DigitPasswordsNeedShowWhenLoginAppLock = "efzfsace";

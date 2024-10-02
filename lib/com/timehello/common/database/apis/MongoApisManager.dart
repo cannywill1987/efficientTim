@@ -2036,7 +2036,7 @@ class MongoApisManager {
         .batchDecryptMissionModels(missionModels);
     if (missionModels != null &&
         missionModels.length == 0 &&
-        Params.isFirstTime == true) {
+        Params.isFirstTime == true && Params.hasGuidMissionDataInit == true) {
       CloudSharepreferenceManagement.getInstance()
           .setBool("IsFirstTime", false);
       MongoApisManager.getInstance().batchInsert_MissionModels(
