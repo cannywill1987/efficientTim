@@ -153,6 +153,8 @@ class R {
   static final String assetsImgIcYinlianBank = 'assets/img/ic_yinlian_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_emoji1_unselected.png)
   static final String assetsImgIcEmoji1Unselected = 'assets/img/ic_emoji1_unselected.png';
+  /// ![](http://127.0.0.1:123/assets/img/PdfExport.png)
+  static final String assetsImgPdfExport = 'assets/img/PdfExport.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_chrome.svg)
   static final String assetsImgIcChrome = 'assets/img/ic_chrome.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_cloud_sync.svg)
@@ -541,6 +543,8 @@ class R {
   static final String assetsImgAvatar12 = 'assets/img/avatar12.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar06.svg)
   static final String assetsImgAvatar06 = 'assets/img/avatar06.svg';
+  /// ![](http://127.0.0.1:123/assets/img/February.png)
+  static final String assetsImgFebruary = 'assets/img/February.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_listing.svg)
   static final String assetsImgIcListing = 'assets/img/ic_listing.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_beijin_bank.png)

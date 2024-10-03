@@ -1,11 +1,14 @@
 {
   "@@locale": "en",
-"time_mode": "模式",
+  "repeative_by_year": "按年重复",
+  "repeative_by_month": "按月重复",
+  "repeative_by_week": "按周重复",
+  "repeative_by_day": "按日重复",
+  "none": "无",
+  "time_mode": "模式",
   "submisssion": "子任务",
   "table": "表格",
-
   "super_tool": "Super Toolbar",
-
   "add_filterer": "Add Filter",
   "filter_name": "Filter Name",
   "please_input_keyword": "Please input task keyword",

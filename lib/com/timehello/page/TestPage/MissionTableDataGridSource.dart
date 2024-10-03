@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 /// Packages import
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 /// DataGrid import
 // ignore: depend_on_referenced_packages
@@ -15,6 +16,8 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../common/database/apis/MongoApisManager.dart';
+import '../../common/provider/GlobalStateEnv.dart';
+import '../../config/CONSTANTS.dart';
 import '../../models/FolderModel.dart';
 import '../../models/MissionModel.dart';
 import '../../util/TextUtil.dart';
@@ -46,13 +49,17 @@ class MissionTableDataGridSource extends DataGridSource {
   bool isTimeModeVisible = true;
   bool isSubmissionVisible = true;
   bool isRepetiveTypeVisible = true;
+  bool isFinishedDateVisible = true;
   bool isRepeativeDateVisible = true;
   int length = 0;
   dynamic _newCellValue;
+  List<Map<String, dynamic>> columnsOrders;
 
   MissionTableDataGridSource(
-      {required this.listMissionModel,
+      {required this.columnsOrders,
+      required this.listMissionModel,
       required this.isTitleVisible,
+      required this.isFinishedDateVisible,
       required this.isStartTimeVisible,
       required this.isEndTimeVisible,
       required this.isTagNamesVisible,
@@ -86,151 +93,177 @@ class MissionTableDataGridSource extends DataGridSource {
 
   /// Building DataGridRows
   void _buildDataGridRows() {
-    List<DataGridCell> dataGridCells = <DataGridCell>[];
+    // List<DataGridRow> dataGridRows = <DataGridRow>[];
+
     _dataGridRows =
         listMissionModel.map<DataGridRow>((MissionModel missionModel) {
-      FolderModel? folderModel;
-      if (folderModel != null) {
-        folderModel = getFolderModel(missionModel!);
-      }
-      if (isTitleVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'title', value: missionModel?.title ?? ''));
-      }
-      if (isStartTimeVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'start_time',
-            value: missionModel?.start_time.toString() ?? ''));
-      }
-      if (isEndTimeVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'end_time',
-            value: missionModel?.end_time.toString() ?? ''));
-      }
-      if (isTagNamesVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'tagNames', value: missionModel?.tagNames ?? ''));
-      }
-      if (isNoTomotoesFinishedVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'no_tomotoes_finished',
-            value: missionModel?.no_tomotoes_finished.toString() ?? ''));
-      }
-      if (isTotalTomotoesVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'total_tomotoes',
-            value: missionModel?.total_tomotoes.toString() ?? ''));
-      }
-      if (isPriorityStatusVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'priorityStatus',
-            value: missionModel?.priorityStatus.toString() ?? ''));
-      }
-      if (isTomatoDurationVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'tomato_duration',
-            value: missionModel?.tomato_duration.toString() ?? ''));
-      }
-      if (isFolderIdVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'folder_id',
-            value: folderModel?.title.toString() ?? ''));
-      }
-      if (isIsDelayedVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'isDelayed',
-            value: missionModel?.isDelayed == false
-                ? getI18NKey().no
-                : getI18NKey().yes));
-      }
-      if (isTimeModeVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'time_mode',
-            value: missionModel?.time_mode == 1
-                ? getI18NKey().time_segment
-                : getI18NKey().date));
-      }
-      if (isSubmissionVisible) {
-        length++;
-        dataGridCells
-            .add(DataGridCell<String>(columnName: 'submission', value: "子任务"));
-      }
-      if (isRepetiveTypeVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'repetiveType', value: "repetiveType"));
-      }
-      if (isRepeativeDateVisible) {
-        length++;
-        dataGridCells.add(DataGridCell<String>(
-            columnName: 'repeativeDate', value: "repeativeDate"));
-      }
-      print("111111111111111111111111111111111112");
-      print("length MissionDataSource:" + dataGridCells.length.toString());
-      print("111111111111111111111111111111111112");
-
-      return DataGridRow(cells: dataGridCells);
-      // return DataGridRow(cells: <DataGridCell>[
-      //
-      //   DataGridCell<String>(
-      //       columnName: 'title', value: missionModel?.title ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'start_time',
-      //       value: missionModel?.start_time.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'end_time',
-      //       value: missionModel?.end_time.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'tagNames', value: missionModel?.tagNames ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'no_tomotoes_finished',
-      //       value: missionModel?.no_tomotoes_finished.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'total_tomotoes',
-      //       value: missionModel?.total_tomotoes.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'priorityStatus',
-      //       value: missionModel?.priorityStatus.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'tomato_duration',
-      //       value: missionModel?.tomato_duration.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'folder_id',
-      //       value: folderModel?.title.toString() ?? ''),
-      //   DataGridCell<String>(
-      //       columnName: 'isDelayed',
-      //       value: missionModel?.isDelayed == false ? getI18NKey().no : getI18NKey().yes),
-      //   DataGridCell<String>(
-      //       columnName: 'time_mode',
-      //       value: missionModel?.time_mode == 1 ? getI18NKey().time_segment : getI18NKey().date),
-      //   DataGridCell<String>(
-      //       columnName: 'submission',
-      //       value: "子任务"),
-      //   DataGridCell<String>(
-      //       columnName: 'repetiveType',
-      //       value: "repetiveType"),
-      //   DataGridCell<String>(
-      //       columnName: 'repeativeDate',
-      //       value: "repeativeDate"),
-      //
-      //   // DataGridCell<Image>(columnName: 'title', value: missionModel?.title ?? ''),
-      //   // DataGridCell<int>(columnName: 'wins', value: missionModel.wins),
-      //   // DataGridCell<int>(columnName: 'losses', value: missionModel.losses),
-      //   // DataGridCell<double>(columnName: 'pct', value: missionModel.winPercentage),
-      //   // DataGridCell<double>(columnName: 'gb', value: missionModel.gamesBehind),
-      // ]);
+      return setUpDatas(missionModel);
     }).toList();
+  }
+
+  DataGridRow setUpDatas(MissionModel missionModel) {
+    List<DataGridCell> dataGridCells = <DataGridCell>[];
+    length = 0;
+    FolderModel? folderModel = getFolderModel(missionModel!);
+
+    this.columnsOrders.forEach((Map<String, dynamic> d) {
+      String name = d['key'];
+      switch(name) {
+        case 'title':
+          if(isTitleVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'title', value: missionModel?.title ?? ''));
+          }
+          break;
+        case 'isFinished':
+          if(isFinishedDateVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'isFinished',
+                value: missionModel?.isFinished == true
+                    ? getI18NKey().yes
+                    : getI18NKey().no));
+          }
+          break;
+        case 'start_time':
+          if(isStartTimeVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'start_time',
+                value: missionModel.time_mode == 1
+                    ? CONSTANTS.getAlertDateString(
+                    Utility.getDateTimeModelFromTimeStamp(
+                        missionModel?.start_time ?? 0))
+                    : TextUtil.isEmpty(missionModel?.daily_start_time) == false
+                    ? Utility.formatHourAndMin2(
+                    missionModel?.daily_start_time ?? 0)
+                    : getI18NKey().none));
+          }
+          break;
+        case 'end_time':
+          if(isEndTimeVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'end_time',
+                value: missionModel.time_mode == 1
+                    ? CONSTANTS.getAlertDateString(
+                    Utility.getDateTimeModelFromTimeStamp(
+                        missionModel?.end_time ?? 0))
+                    : TextUtil.isEmpty(missionModel?.daily_end_time) == false
+                    ? Utility.formatHourAndMin2(
+                    missionModel?.daily_end_time ?? 0)
+                    : getI18NKey().none));
+          }
+          break;
+        case 'tagNames':
+          if(isTagNamesVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'tagNames', value: missionModel?.tagNames ?? ''));
+          }
+          break;
+        case 'no_tomotoes_finished':
+          if(isNoTomotoesFinishedVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'no_tomotoes_finished',
+                value: missionModel?.no_tomotoes_finished.toString() ?? ''));
+          }
+          break;
+        case 'total_tomotoes':
+          if(isTotalTomotoesVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'total_tomotoes',
+                value: missionModel?.total_tomotoes.toString() ?? ''));
+          }
+          break;
+        case 'priorityStatus':
+          if(isPriorityStatusVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'priorityStatus',
+                value: CONSTANTS
+                    .getPriorityDescByIndex(missionModel?.priorityStatus ?? 0)));
+          }
+          break;
+        case 'tomato_duration':
+          if(isTomatoDurationVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'tomato_duration',
+                value:
+                CONSTANTS.getDurationString(missionModel ?? MissionModel())));
+          }
+          break;
+        case 'folder_id':
+          if(isFolderIdVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'folder_id',
+                value: folderModel?.title.toString() ?? ''));
+          }
+          break;
+        case 'isDelayed':
+          if(isIsDelayedVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'isDelayed',
+                value: missionModel?.isDelayed == false
+                    ? getI18NKey().no
+                    : getI18NKey().yes));
+          }
+          break;
+        case 'time_mode':
+          if(isTimeModeVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'time_mode',
+                value: missionModel?.time_mode == 1
+                    ? getI18NKey().time_segment
+                    : getI18NKey().date));
+          }
+          break;
+        case 'submission':
+          if(isSubmissionVisible) {
+            length++;
+            dataGridCells
+                .add(DataGridCell<String>(columnName: 'submission', value: "子任务"));
+          }
+          break;
+        case 'repetiveType':
+          if(isRepetiveTypeVisible) {
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'repetiveType', value: CONSTANTS.getReativeTypeByIndex(missionModel?.repetiveType ?? 0)));
+          }
+          break;
+        case 'repeativeDate':
+          if(isRepeativeDateVisible) {
+            DateTime? dateTimeNextTime = Utility.getNextDateTime(
+                missionModelParam: missionModel ?? MissionModel(),
+                calendarModel: Utility.getGlobalContext().read<GlobalStateEnv>().calendarModel);
+            String res = CONSTANTS
+              .getRepetiveDateString1(missionModel ?? MissionModel()) + (dateTimeNextTime == null ? "" :   CONSTANTS
+              .getRepetiveDateString2(dateTimeNextTime!));
+            length++;
+            dataGridCells.add(DataGridCell<String>(
+                columnName: 'repeativeDate', value: res));
+          }
+          break;
+
+
+        
+      }
+    });
+
+
+    print("111111111111111111111111111111111112");
+    print("length MissionDataSource:" + dataGridCells.length.toString());
+    print("111111111111111111111111111111111112");
+
+    return DataGridRow(cells: dataGridCells);
   }
 
   // Overrides
@@ -414,7 +447,15 @@ class MissionTableDataGridSource extends DataGridSource {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-
+      if (length > 14)
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          alignment: Alignment.center,
+          child: Text(
+            row.getCells()[14].value.toString(),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       // Container(
       //   padding: const EdgeInsets.all(8.0),
       //   alignment: Alignment.center,

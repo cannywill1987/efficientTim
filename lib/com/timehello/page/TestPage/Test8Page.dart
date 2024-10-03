@@ -34,7 +34,7 @@ class Test8PageState extends State<Test8Page> {
 
   @override
   Widget build(BuildContext context) {
-    return MissionTableContainerWidget(listMissionModels: MongoApisManager.getInstance().listMissionModels ?? [],);
+    return MissionTableContainerWidget(listMissionModels: MongoApisManager.getInstance().listMissionModels ?? [], onClickMissionSetting: (MissionModel ) {  },);
   }
 
 }

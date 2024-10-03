@@ -351,6 +351,7 @@ flutter:
     - assets/img/ic_addlink.svg
     - assets/img/ic_yinlian_bank.png
     - assets/img/ic_emoji1_unselected.png
+    - assets/img/PdfExport.png
     - assets/img/ic_chrome.svg
     - assets/img/ic_cloud_sync.svg
     - assets/img/ic_stop.svg
@@ -545,6 +546,7 @@ flutter:
     - assets/img/ic_bar_chart.svg
     - assets/img/avatar12.svg
     - assets/img/avatar06.svg
+    - assets/img/February.png
     - assets/img/ic_listing.svg
     - assets/img/ic_beijin_bank.png
     - assets/img/avatar07.svg

@@ -22,14 +22,15 @@ import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../util/AnalyticsEventsManager.dart';
 import '../../util/EasyLoadingManager.dart';
 import 'components/registerStep1.dart';
 import 'components/registerStep2.dart';
 
-
 class RegisterPage extends BaseWidget {
   final String defaultVal;
   final int curTab;
+
   const RegisterPage({this.curTab = 0, this.defaultVal = ""}) : super();
 
   @override
@@ -43,6 +44,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     implements LoginResult, Observer {
   GlobalKey<RegisterStep2State> mRegisterStep2GK = GlobalKey();
   GlobalKey<RegisterStep1State> mRegisterStep1GK = GlobalKey();
+
   // TextEditingController? textController1Phone;
   // TextEditingController? textController2Mail;
   String? countryPhoneCode;
@@ -53,38 +55,49 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
   String? _password;
   CrossFadeState curRegisterPage = CrossFadeState.showFirst;
   int curTab = 0;
-  bool isEmailVerifiedValRequest=false;
+  bool isEmailVerifiedValRequest = false;
+  bool hasInputEmail = false;
+  bool hasInputMobile = false;
+
   // bool isLoading = false;
 
   _RegisterPageState({this.curTab = 0});
+
   @override
   void initState() {
     // textController1Phone = TextEditingController();
     // textController2Mail = TextEditingController();
-
     super.initState();
   }
 
   componentDidMount() {
-    if(curTab == 0) {
+    if (curTab == 0) {
       // textController1Phone?.text = widget.defaultVal;
       mRegisterStep1GK.currentState?.setPhone(widget.defaultVal);
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "RegisterPage",
+        "eventType": "view_email",
+        "description": "注册曝光",
+      });
     } else {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "RegisterPage",
+        "eventType": "view_mobile",
+        "description": "注册曝光",
+      });
       // textController2Mail?.text = widget.defaultVal;
       mRegisterStep1GK.currentState?.setEmail(widget.defaultVal);
     }
+
     // mRegisterStep1GK.currentState?.setCurTab(curTab);
     // GoogleMailLoginManager.getInstance().init();
   }
-
 
   dispose() {
     try {
       // textController1Phone?.dispose();
       // textController2Mail?.dispose();
-    } catch(e) {
-
-    }
+    } catch (e) {}
     // GoogleMailLoginManager.getInstance().cancelTimer();
     super.dispose();
   }
@@ -105,7 +118,9 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     // res = await MongoApisManager.getInstance()
     //     .register(this._mobile, this._password);
     // if (res['success'] == true) {
-    if(curTab == 0) {
+    if (curTab == 0) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_click_by_mobile","description": "点击注册",});
+      // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_register_by_mobile","description": "注册按钮",});
       if (TextUtil.isEmpty(this._mobile.toString())) {
         Utility.showToastMsg(msg: getI18NKey().input_mobile);
         return;
@@ -118,20 +133,26 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
         Utility.showToastMsg(msg: getI18NKey().input_correct_mobile);
         return;
       }
-    LoginManager.getInstance().register(
-        mobile: this._mobile,
-        password: this._password,
-        dynamicCode: this._dynamicCode,
-        countryPhoneCode: this.countryPhoneCode,
-        onComplete: this);
+
+      LoginManager.getInstance().register(
+          mobile: this._mobile,
+          password: this._password,
+          dynamicCode: this._dynamicCode,
+          countryPhoneCode: this.countryPhoneCode,
+          onComplete: this);
     } else {
-      String email = await Utility.decryptCTRAES(this._emailEncrypted ?? "", Params.AES_PWD);
-      if(isEmailVerifiedValRequest == false) {
+
+      String email = await Utility.decryptCTRAES(
+          this._emailEncrypted ?? "", Params.AES_PWD);
+      if (isEmailVerifiedValRequest == false) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_click_by_email","description": "点击注册",});
+
         LoginManager.getInstance().registerByEmail(
           context: context,
           email: email,
           password: this._password,
         );
+
         isEmailVerifiedValRequest = true;
         Future.delayed(Duration(seconds: 3), () {
           isEmailVerifiedValRequest = false;
@@ -140,7 +161,6 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
       // GoogleMailLoginManager.getInstance().signIn(email: email, password: this._password, callbackSuccess: () {
       //   Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email, password: this._password ?? ""));
       // });
-
     }
   }
 
@@ -148,6 +168,11 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     if (curRegisterPage == CrossFadeState.showSecond) {
       showRegisterStep1();
     } else {
+      if(this.curTab == 0) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_mobile_back","description": "返回按钮",});
+      } else {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_email_back","description": "返回按钮",});
+      }
       Utility.popNavigator(context, null);
     }
   }
@@ -161,6 +186,11 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
   }
 
   void showRegisterStep2() {
+    if(this.curTab == 0) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_mobile_next_step","description": "手机号下一步按钮",});
+    } else if (this.curTab == 1) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_email_next_step","description": "邮箱下一步按钮",});
+    }
     setState(() {
       curRegisterPage = CrossFadeState.showSecond;
     });
@@ -204,31 +234,57 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
         Expanded(
             child: Container(
                 constraints: BoxConstraints.expand(height: double.infinity),
-                color: ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
+                color: ThemeManager.getInstance()
+                    .getBackgroundColor(defaultColor: Colors.white),
                 child: AnimatedCrossFade(
                     firstChild: RegisterStep1(
-                      curTab: this.curTab,
+                        curTab: this.curTab,
                         key: mRegisterStep1GK,
-                        onTapListener: (String? countryPhoneCode, String? mobile, String? emailEncrypted, int curTab) async {
+                        onTapListener: (String? countryPhoneCode,
+                            String? mobile,
+                            String? emailEncrypted,
+                            int curTab) async {
                           this.curTab = curTab;
-                          if(curTab == 0) {
+                          if (curTab == 0) {
+                            if(hasInputMobile) {
+                              AnalyticsEventsManager.getInstance()
+                                  .sendAnalyticsEventMap({
+                                "sceneType": "RegisterPage",
+                                "eventType": "RegisterPage_input_mobile",
+                                "description": "手机号输入框",
+                              });
+                            }
+                            hasInputMobile = true;
                             EasyLoadingManager.getInstance().showLoading();
-                            HttpManager.getInstance().doPostRequest(
-                                Apis.getDynamicCode,
-                                context: context,
-                                params: {
-                                  "countryPhoneCode":this.countryPhoneCode,
-                                  "mobilePhoneNumber": this._mobile,
-                                  "scene": Params.MSN_REGISTER_SCENE
-                                },
-                                observer: this);
+                            HttpManager.getInstance()
+                                .doPostRequest(Apis.getDynamicCode,
+                                    context: context,
+                                    params: {
+                                      "countryPhoneCode": this.countryPhoneCode,
+                                      "mobilePhoneNumber": this._mobile,
+                                      "scene": Params.MSN_REGISTER_SCENE
+                                    },
+                                    observer: this);
                           } else {
+
+    if(hasInputEmail) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "RegisterPage",
+        "eventType": "RegisterPage_input_email",
+        "description": "邮箱输入框",
+      });
+    }
+    hasInputEmail = true;
                             this._emailEncrypted = emailEncrypted;
-                            String emailP = await Utility.decryptCTRAES(this._emailEncrypted ?? "", Params.AES_PWD);
-                            bool isEmailExist = await GoogleMailLoginManager.getInstance().isEmailExistFromServer(email: emailP);
-                            if(isEmailExist == true) {
+                            String emailP = await Utility.decryptCTRAES(
+                                this._emailEncrypted ?? "", Params.AES_PWD);
+                            bool isEmailExist =
+                                await GoogleMailLoginManager.getInstance()
+                                    .isEmailExistFromServer(email: emailP);
+                            if (isEmailExist == true) {
                               // Utility.showToastMsg(msg: getI18NKey().email_exist);
-                              Utility.popNavigator(context, {"curTab":1,"email": emailP});
+                              Utility.popNavigator(
+                                  context, {"curTab": 1, "email": emailP});
                               return;
                             }
                             this.showRegisterStep2();
@@ -240,8 +296,10 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                         onChanged: (countryPhoneCode, mobile) async {
                           this.countryPhoneCode = countryPhoneCode;
                           this._mobileDecrypted = mobile;
-                          this._mobile =
-                              await Utility.encryptCTRAES(mobile, Params.AES_PWD);
+
+
+                          this._mobile = await Utility.encryptCTRAES(
+                              mobile, Params.AES_PWD);
                         }),
                     secondChild: RegisterStep2(
                         key: mRegisterStep2GK,
@@ -249,6 +307,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                         onTapListener: (data) async {
                           this._dynamicCode = data['msn'];
                           this._password = data['password']; //已经加密
+
                           this.onClick('onClickRegister', null);
                         }),
                     crossFadeState: curRegisterPage,
@@ -259,8 +318,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
           },
           child: Text(
             getI18NKey().back,
-            style: TextStyle(
-                color: ColorsConfig.colorTextField, fontSize: 14),
+            style: TextStyle(color: ColorsConfig.colorTextField, fontSize: 14),
           ),
         ),
         SizedBox(
@@ -292,8 +350,6 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     // Utility.pushAndRemoveUntil(context, MainContainerWidget2(), 'BottomTabBarHome');
   }
 
-
-
   @override
   void update(Observable o, BaseBean response, String scene) async {
     // TODO: implement update
@@ -301,7 +357,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     //   isLoading = false;
     //   LoadingDialogUtil.getInstance().hide();
     // }
-     await EasyLoadingManager.getInstance().hideLoading();
+    await EasyLoadingManager.getInstance().hideLoading();
     if (response.success) {
       if (scene == Apis.getDynamicCode) {
         this.showRegisterStep2();
@@ -311,7 +367,8 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
       //用户已经存在 返回上一页 注入手机号
       Utility.showToastMsg(msg: response.message);
       if (response.code == '0000D2DE') {
-        Utility.popNavigator(context, {"curTab":0,"mobile": _mobileDecrypted});
+        Utility.popNavigator(
+            context, {"curTab": 0, "mobile": _mobileDecrypted});
       }
     }
   }

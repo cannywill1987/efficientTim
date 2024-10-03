@@ -1127,7 +1127,7 @@
   "message": "信息",
   "isFinished": "是否完成",
   "isDelayed": "是否延期",
-  "repetiveType": "是否重复",
+  "repetiveType": "重复类型",
   "repetiveValue": "重复日期",
   "repetiveWeekDay": "重复星期",
   "please_input_mobile_no":"请先输入手机号",

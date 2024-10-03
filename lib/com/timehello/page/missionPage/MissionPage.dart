@@ -1043,14 +1043,14 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       height: 10,
     ));
     listWidget.add(Expanded(
-      child: Container(child: this.buildMissionTableContainerWidget(
+      child: this.buildMissionTableContainerWidget(
           (SharePreferenceUtil.getSyncInstance().getCompleteMissionVisible() ==
               false &&
               this.widget.folderStatusDate != 6)
               ? []
               : (Utility.getListAfterOrder(
               missionOrderEnum, this.curListMissionModels ?? [], -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
-              [])),),
+              [])),
     ));
 
     // if (this.missionDataViewTypeEnum == MissionDataViewTypeEnum.table) {
@@ -1551,10 +1551,12 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     list.forEach((SessionMissionModel sessionMissionModel) {
       listMissionModels.addAll(sessionMissionModel.datas ?? []);
     });
-    return Container(
-        child: MissionTableContainerWidget(
-          listMissionModels: listMissionModels,
-        ));
+    return MissionTableContainerWidget(
+      listMissionModels: listMissionModels, onClickMissionSetting: (obj) {
+      this.onClick(
+          'onClickMissionSetting', obj); //跳转到任务详情页MissionPage开始任务
+    },
+    );
   }
 
   List<Widget> buildGridWidget(List<SessionMissionModel> list) {

@@ -5,6 +5,7 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../../../r.dart';
 import '../config/Params.dart';
+import '../util/AnalyticsEventsManager.dart';
 import '../util/EasyLoadingManager.dart';
 import '../util/LoginManager.dart';
 import '../util/Utility.dart';
@@ -40,6 +41,7 @@ class ThirdPartyLoginWidget extends StatelessWidget {
                 (isChina == false))
              InkWell(
                 onTap: () async {
+                  AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "OnekeyLoginMobile_gmail","description": "一键登录",});
                   await LoginManager.getInstance()
                       .thirdPartyLoginWithGoogle(context);
                   this.onTapGoogle();
@@ -79,7 +81,7 @@ class ThirdPartyLoginWidget extends StatelessWidget {
                 (isChina == false)))
         InkWell(
           onTap: () async {
-
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "OnekeyLoginMobile_apple","description": "一键登录",});
             await LoginManager.getInstance()
                 .thirdPartyLoginWithApple(context);
           },

@@ -184,6 +184,7 @@ class Apis {
 
 //Shareprefrence的key
 class ShareprefrenceKeys {
+  static String missionColumnOrder = "ezjzifjezf";
   static String missionColumnVisible = "jezijfizjefczf";
   static String missionColumnWidth = "jeifziefizefzfefz";
   static String insertMissionCount = "jeifziefizef";

@@ -2700,6 +2700,21 @@ class CONSTANTS {
     return '';
   }
 
+  //3 无优先级  2 低优先级 1 中优先级 0 高优先级
+  static String getPriorityDescByIndex(int priority) {
+    switch (priority) {
+      case 0:
+        return getI18NKey().four_quadrant_priority1_abbr;
+      case 1:
+        return getI18NKey().four_quadrant_priority2_abbr;
+      case 2:
+        return getI18NKey().four_quadrant_priority3_abbr;
+      case 3:
+        return getI18NKey().four_quadrant_priority4_abbr;
+    }
+    return getI18NKey().four_quadrant_priority4_abbr;
+  }
+
   static int getPriorityColor(int priorityIndex) {
     if (priorityIndex == 0) {
       return 0xffdc281e;
@@ -5268,6 +5283,21 @@ class CONSTANTS {
     }
 
     return s;
+  }
+
+  static String getReativeTypeByIndex(int index) {
+    if (index == 0) {
+      return getI18NKey().none;
+    } else if (index == 1) {
+      return getI18NKey().repeative_by_day;
+    } else if (index == 2) {
+      return getI18NKey().repeative_by_week;
+    } else if (index == 3) {
+      return getI18NKey().repeative_by_month;
+    } else if (index == 4) {
+      return getI18NKey().repeative_by_year;
+    }
+    return getI18NKey().none;
   }
 
   static String getRepetiveDateString2(DateTime dateTime) {

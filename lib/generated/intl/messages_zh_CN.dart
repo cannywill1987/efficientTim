@@ -1541,7 +1541,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative3": MessageLookupByLibrary.simpleMessage("艾宾浩斯"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("重复"),
-        "repetiveType": MessageLookupByLibrary.simpleMessage("是否重复"),
+        "repetiveType": MessageLookupByLibrary.simpleMessage("重复类型"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("重复日期"),
         "repetiveWeekDay": MessageLookupByLibrary.simpleMessage("重复星期"),
         "replace": MessageLookupByLibrary.simpleMessage("替换"),

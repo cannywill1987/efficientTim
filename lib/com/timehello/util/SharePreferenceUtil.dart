@@ -63,6 +63,21 @@ class SharePreferenceUtil {
     return mSharedPreferences?.getString(key) ?? defaultVal;
   }
 
+  // 保存字符串列表
+  void setStringList({required String key, required List<String> content}) {
+    if (mSharedPreferences != null) {
+      mSharedPreferences?.setStringList(key, content);
+    }
+  }
+
+// 获取字符串列表
+  List<String> getStringList({required String key, List<String> defaultVal = const []}) {
+    if (mSharedPreferences == null || key == null) {
+      return defaultVal;
+    }
+    return mSharedPreferences?.getStringList(key) ?? defaultVal;
+  }
+
   void setInt({required String key, required int value}) {
     if(mSharedPreferences != null) {
       mSharedPreferences?.setInt(key, value);

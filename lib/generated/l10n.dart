@@ -50,6 +50,56 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `按年重复`
+  String get repeative_by_year {
+    return Intl.message(
+      '按年重复',
+      name: 'repeative_by_year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `按月重复`
+  String get repeative_by_month {
+    return Intl.message(
+      '按月重复',
+      name: 'repeative_by_month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `按周重复`
+  String get repeative_by_week {
+    return Intl.message(
+      '按周重复',
+      name: 'repeative_by_week',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `按日重复`
+  String get repeative_by_day {
+    return Intl.message(
+      '按日重复',
+      name: 'repeative_by_day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `none`
+  String get none {
+    return Intl.message(
+      'none',
+      name: 'none',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `模式`
   String get time_mode {
     return Intl.message(
@@ -8925,16 +8975,6 @@ class S {
     return Intl.message(
       'Reminder',
       name: 'reminder',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `none`
-  String get none {
-    return Intl.message(
-      'none',
-      name: 'none',
       desc: '',
       args: [],
     );

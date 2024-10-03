@@ -448,6 +448,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
   }
 
   void startCountdownTimer() {
+    print("beginCountdown: $_countdownTime");
+
     const oneSec = const Duration(seconds: 1);
 
     var callback = (timer) => {
@@ -455,6 +457,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
             {
               setState(() {
                 if (_countdownTime < 2) {
+                  print("countdownTime: $_countdownTime");
                   _timer?.cancel();
                   _timer = null;
                   // Utility.pushReplacement(context, MinePage());

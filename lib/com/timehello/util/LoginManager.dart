@@ -16,6 +16,7 @@ import '../config/Params.dart';
 import '../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../models/EventFn.dart';
 import '../page/loginPage/LoginPage.dart';
+import 'AnalyticsEventsManager.dart';
 import 'EditFormat.dart';
 import 'LoginUtil.dart';
 import 'SharePreferenceUtil.dart';
@@ -143,10 +144,13 @@ class LoginManager {
       //如果注册了那给调用注册
       // register(email: email, password: password, onComplete: new LoginResult);
       Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success_by_email","description": "注册成功",});
       // Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
       EasyLoadingManager.getInstance().hideLoading();
     }, callbackNeedVerified:() {
       Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success_by_email","description": "注册成功",});
+
     });
   }
 
@@ -329,6 +333,8 @@ class LoginManager {
       await PermissionManager.getInstance().requestStoragePermission();
     }
     Map map = await FirebaseAuthManager.getInstance().signInWithGoogle();
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "OnekeyLoginMobile_gmail_success","description": "一键登录",});
+
     // EasyLoadingManager.getInstance().hideLoading();
     loginUtil?.doRegisterWithEmail(
         shouldShowLoading: true,
@@ -346,7 +352,7 @@ class LoginManager {
     //   await PermissionManager.getInstance().requestStoragePermission();
     // }
     Map map = await FirebaseAuthManager.getInstance().signInWithApple();
-
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "OnekeyLoginMobile_apple_success","description": "一键登录",});
     print(map);
     if(map.length > 0)
     loginUtil?.doRegisterWithEmail(

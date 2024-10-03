@@ -13,6 +13,7 @@ import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import '../components/LoadingDialogUtil.dart';
 import '../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../page/loginPage/LoginPage.dart';
+import 'AnalyticsEventsManager.dart';
 import 'EasyLoadingManager.dart';
 import 'SharePreferenceUtil.dart';
 import 'UserInfoManager.dart';
@@ -36,6 +37,7 @@ class LoginUtil implements Observer {
 
   doAliSdkSecVerifyLogin(BuildContext context) async {
     this.loginResult = loginResult;
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "OnekeyLoginMobile","description": "一键登录",});
     // pc端直接跳转到登录
     // pc端直接跳转到登录 移动端
     if (ChannelEnum.huawei != Params.channelEnum ||
@@ -60,6 +62,7 @@ class LoginUtil implements Observer {
               )}',
             });
             Params.loginTypeEnum = LoginTypeEnum.secVerify;
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "OnekeyLoginMobile_success","description": "一键登录",});
             bool res = handleLoginResult(baseBean, true);
             if (res == true) {
               LoginManager.getInstance()
@@ -151,6 +154,8 @@ class LoginUtil implements Observer {
     if (shouldShowLoading == true) {
       EasyLoadingManager.getInstance().hideLoading();
     }
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success_by_email","description": "注册成功",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success","description": "注册成功",});
     Params.loginTypeEnum = loginTypeEnum;
     bool res = handleLoginResult(baseBean, true);
     if (res == true) {
@@ -240,6 +245,10 @@ class LoginUtil implements Observer {
             loginAndRegisterEnum == LoginAndRegisterEnum.register
             ? true
             : false);
+    if(loginAndRegisterEnum == LoginAndRegisterEnum.register) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success_by_mobile","description": "注册成功",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success","description": "注册成功",});
+    }
     Params.loginTypeEnum = LoginTypeEnum.normal;
     if (shouldShowLoading == true) {
       EasyLoadingManager.getInstance().hideLoading();

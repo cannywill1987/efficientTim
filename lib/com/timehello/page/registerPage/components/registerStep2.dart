@@ -12,6 +12,7 @@ import 'package:time_hello/com/timehello/util/TimerUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
 
+import '../../../util/AnalyticsEventsManager.dart';
 import '../../../util/ThemeManager.dart';
 
 class RegisterStep2 extends StatefulWidget {
@@ -35,6 +36,7 @@ class RegisterStep2 extends StatefulWidget {
 class RegisterStep2State extends State<RegisterStep2> {
   TextEditingController? textController1;
   TextEditingController? textController2;
+  bool hasInputMsn = false;
   String? _msn;
   String? _password;
   final _formKey = new GlobalKey<FormState>();
@@ -43,6 +45,7 @@ class RegisterStep2State extends State<RegisterStep2> {
   int msnTotalTime = 60 * 1000;
   int msnCurTime = 0;
   bool checked = true;
+  bool hasInputPassword = false;
 
   RegisterStep2State() {
     _timerUtil = new TimerUtil(mCurTime: msnTotalTime);
@@ -119,6 +122,10 @@ class RegisterStep2State extends State<RegisterStep2> {
                           children: [
                             TextFormField(
                               onChanged: (String txt) {
+                                if(hasInputMsn == false){
+                                  AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_input_phone_number","description": "手机号输入框",});
+                                }
+                                  hasInputMsn = true;
                                 this._msn = txt;
                               },
                               controller: textController1,
@@ -181,6 +188,26 @@ class RegisterStep2State extends State<RegisterStep2> {
                     child: Stack(children: [
                       TextFormField(
                         onChanged: (String txt) async {
+
+                          if(hasInputPassword == true) {
+                            if (this.widget.curTab == 0) {
+                              AnalyticsEventsManager.getInstance()
+                                  .sendAnalyticsEventMap({
+                                "sceneType": "RegisterPage",
+                                "eventType": "RegisterPage_input_password_by_mobile",
+                                "description": "密码输入框",
+                              });
+                            } else {
+                              AnalyticsEventsManager.getInstance()
+                                  .sendAnalyticsEventMap({
+                                "sceneType": "RegisterPage",
+                                "eventType": "RegisterPage_input_password_by_email",
+                                "description": "密码输入框",
+                              });
+                            }
+                          }
+                           hasInputPassword = true;
+
                           this._password =
                               await Utility.encryptCTRAES(txt, Params.AES_PWD);
                         },
