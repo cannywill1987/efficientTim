@@ -1604,6 +1604,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("按天"),
         "repeative2": MessageLookupByLibrary.simpleMessage("按周"),
         "repeative3": MessageLookupByLibrary.simpleMessage("艾賓浩斯"),
+        "repeative_by_day": MessageLookupByLibrary.simpleMessage("按日重複"),
+        "repeative_by_month": MessageLookupByLibrary.simpleMessage("按月重複"),
+        "repeative_by_week": MessageLookupByLibrary.simpleMessage("按週重複"),
+        "repeative_by_year": MessageLookupByLibrary.simpleMessage("按年重複"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("重複"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("是否重複"),
@@ -1759,6 +1763,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stop_resting_mission_name": m109,
         "sub_task_add_newline":
             MessageLookupByLibrary.simpleMessage("子任務-點換行新增&保存"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("子任務"),
         "submit": MessageLookupByLibrary.simpleMessage("提交"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage("成功複製到剪貼板"),
@@ -1812,6 +1817,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("專注時間"),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("時間管理"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("模式"),
         "time_not_arrive_cannot_clcokin":
             MessageLookupByLibrary.simpleMessage("時間沒到，不可以打卡"),
         "time_segment": MessageLookupByLibrary.simpleMessage("時間段"),
