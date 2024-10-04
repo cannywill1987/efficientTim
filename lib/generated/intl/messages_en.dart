@@ -1921,10 +1921,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("Daily"),
         "repeative2": MessageLookupByLibrary.simpleMessage("Weekly"),
         "repeative3": MessageLookupByLibrary.simpleMessage("Ebbinghaus"),
-        "repeative_by_day": MessageLookupByLibrary.simpleMessage("按日重复"),
-        "repeative_by_month": MessageLookupByLibrary.simpleMessage("按月重复"),
-        "repeative_by_week": MessageLookupByLibrary.simpleMessage("按周重复"),
-        "repeative_by_year": MessageLookupByLibrary.simpleMessage("按年重复"),
+        "repeative_by_day":
+            MessageLookupByLibrary.simpleMessage("repeat by day"),
+        "repeative_by_month":
+            MessageLookupByLibrary.simpleMessage("repeat by month"),
+        "repeative_by_week":
+            MessageLookupByLibrary.simpleMessage("repeat by week"),
+        "repeative_by_year":
+            MessageLookupByLibrary.simpleMessage("repeat by year"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("Repeat"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("Repeative Type"),
@@ -2113,7 +2117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "strikethrough": MessageLookupByLibrary.simpleMessage("Strikethrough"),
         "sub_task_add_newline": MessageLookupByLibrary.simpleMessage(
             "Subtask - Add&update By Clicking Enter"),
-        "submisssion": MessageLookupByLibrary.simpleMessage("子任务"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("subtask"),
         "submit": MessageLookupByLibrary.simpleMessage("submit"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage(
@@ -2172,7 +2176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("Finished Time "),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("time"),
-        "time_mode": MessageLookupByLibrary.simpleMessage("模式"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("mode"),
         "time_not_arrive_cannot_clcokin": MessageLookupByLibrary.simpleMessage(
             "The time has not arrived, you cannot clock in"),
         "time_segment": MessageLookupByLibrary.simpleMessage("Time segment"),

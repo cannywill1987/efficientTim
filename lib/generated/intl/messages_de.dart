@@ -1994,6 +1994,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("Täglich"),
         "repeative2": MessageLookupByLibrary.simpleMessage("Wöchentlich"),
         "repeative3": MessageLookupByLibrary.simpleMessage("Ebbinghaus"),
+        "repeative_by_day":
+            MessageLookupByLibrary.simpleMessage("täglich wiederholen"),
+        "repeative_by_month":
+            MessageLookupByLibrary.simpleMessage("monatlich wiederholen"),
+        "repeative_by_week":
+            MessageLookupByLibrary.simpleMessage("wöchentlich wiederholen"),
+        "repeative_by_year":
+            MessageLookupByLibrary.simpleMessage("jährlich wiederholen"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("Wiederholen"),
         "repetiveType":
@@ -2194,6 +2202,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("durchgestrichen"),
         "sub_task_add_newline": MessageLookupByLibrary.simpleMessage(
             "Unteraufgabe - Hinzufügen&Aktualisieren durch Klicken auf Enter"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("Unteraufgabe"),
         "submit": MessageLookupByLibrary.simpleMessage("einreichen"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage(
@@ -2253,6 +2262,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("Beendete Zeit"),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("Zeit"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("Modus"),
         "time_not_arrive_cannot_clcokin": MessageLookupByLibrary.simpleMessage(
             "Die Zeit ist noch nicht gekommen, Sie können nicht einchecken"),
         "time_segment": MessageLookupByLibrary.simpleMessage("Zeitabschnitt"),

@@ -469,7 +469,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   void dispose() {
     super.dispose();
     Keyboardlistenermanager.getInstance()?.removeListener(handleKeyEvent);
-    if (DeviceInfoManagement.isMoible()) {
+    if (Utility.isHandsetBySize()) {
       DeviceInfoManagement.getInstance()?.setLandScape(false);
     }
     OverlayManagement.getInstance().dismissMissionDetailPageSettingEntry();

@@ -1,7 +1,14 @@
 {
   "@@locale": "ko",
   "super_tool": "슈퍼 툴바",
-
+  "repeative_by_year": "매년 반복",
+  "repeative_by_month": "매월 반복",
+  "repeative_by_week": "매주 반복",
+  "repeative_by_day": "매일 반복",
+  "none": "없음",
+  "time_mode": "모드",
+  "submisssion": "하위 작업",
+  "table": "테이블",
   "add_filterer": "필터 추가",
   "filter_name": "필터 이름",
   "please_input_keyword": "작업 키워드를 입력하세요",

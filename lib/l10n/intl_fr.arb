@@ -1,7 +1,14 @@
 {
   "@@locale": "fr",
   "super_tool": "Super barre d'outils",
-
+  "repeative_by_year": "répéter par année",
+  "repeative_by_month": "répéter par mois",
+  "repeative_by_week": "répéter par semaine",
+  "repeative_by_day": "répéter par jour",
+  "none": "aucun",
+  "time_mode": "mode",
+  "submisssion": "sous-tâche",
+  "table": "tableau",
   "filter_name": "Nom du filtre",
   "please_input_keyword": "Veuillez entrer le mot-clé de la tâche",
   "keyword": "Mot-clé",

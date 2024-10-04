@@ -1697,6 +1697,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("일별"),
         "repeative2": MessageLookupByLibrary.simpleMessage("주별"),
         "repeative3": MessageLookupByLibrary.simpleMessage("에빙하우스"),
+        "repeative_by_day": MessageLookupByLibrary.simpleMessage("매일 반복"),
+        "repeative_by_month": MessageLookupByLibrary.simpleMessage("매월 반복"),
+        "repeative_by_week": MessageLookupByLibrary.simpleMessage("매주 반복"),
+        "repeative_by_year": MessageLookupByLibrary.simpleMessage("매년 반복"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("반복"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("반복 여부"),
@@ -1860,6 +1864,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "strikethrough": MessageLookupByLibrary.simpleMessage(""),
         "sub_task_add_newline":
             MessageLookupByLibrary.simpleMessage("하위 작업 - 점을 눌러 새로운 줄 추가 및 저장"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("하위 작업"),
         "submit": MessageLookupByLibrary.simpleMessage("제출"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage("클립보드에 복사 성공"),
@@ -1915,6 +1920,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("집중 시간"),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("시간 관리"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("모드"),
         "time_not_arrive_cannot_clcokin":
             MessageLookupByLibrary.simpleMessage("시간이 아직 안 왔으니 출근할 수 없습니다"),
         "time_segment": MessageLookupByLibrary.simpleMessage("시간 구간"),

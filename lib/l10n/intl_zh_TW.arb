@@ -1,7 +1,14 @@
 {
   "@@locale": "zh_TW",
   "super_tool": "超級工具條",
-
+  "repeative_by_year": "按年重複",
+  "repeative_by_month": "按月重複",
+  "repeative_by_week": "按週重複",
+  "repeative_by_day": "按日重複",
+  "none": "無",
+  "time_mode": "模式",
+  "submisssion": "子任務",
+  "table": "表格",
   "add_filterer": "添加過濾器",
   "filter_name": "過濾器名稱",
   "please_input_keyword": "輸入任務關鍵詞",

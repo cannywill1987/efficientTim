@@ -2004,6 +2004,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("Quotidien"),
         "repeative2": MessageLookupByLibrary.simpleMessage("Hebdomadaire"),
         "repeative3": MessageLookupByLibrary.simpleMessage("Ebbinghaus"),
+        "repeative_by_day":
+            MessageLookupByLibrary.simpleMessage("répéter par jour"),
+        "repeative_by_month":
+            MessageLookupByLibrary.simpleMessage("répéter par mois"),
+        "repeative_by_week":
+            MessageLookupByLibrary.simpleMessage("répéter par semaine"),
+        "repeative_by_year":
+            MessageLookupByLibrary.simpleMessage("répéter par année"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("Répéter"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("Type répétitif"),
@@ -2210,6 +2218,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "strikethrough": MessageLookupByLibrary.simpleMessage("Barré"),
         "sub_task_add_newline": MessageLookupByLibrary.simpleMessage(
             "Sous-tâche - Ajouter&Mettre à jour en cliquant sur Entrée"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("sous-tâche"),
         "submit": MessageLookupByLibrary.simpleMessage("soumettre"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage(
@@ -2275,6 +2284,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("Heure de fin "),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("temps"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("mode"),
         "time_not_arrive_cannot_clcokin": MessageLookupByLibrary.simpleMessage(
             "Le temps n\'est pas arrivé, vous ne pouvez pas horodater"),
         "time_segment":

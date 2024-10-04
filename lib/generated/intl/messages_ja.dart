@@ -1697,6 +1697,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative1": MessageLookupByLibrary.simpleMessage("日ごと"),
         "repeative2": MessageLookupByLibrary.simpleMessage("週ごと"),
         "repeative3": MessageLookupByLibrary.simpleMessage("エビングハウス"),
+        "repeative_by_day": MessageLookupByLibrary.simpleMessage("毎日繰り返す"),
+        "repeative_by_month": MessageLookupByLibrary.simpleMessage("毎月繰り返す"),
+        "repeative_by_week": MessageLookupByLibrary.simpleMessage("毎週繰り返す"),
+        "repeative_by_year": MessageLookupByLibrary.simpleMessage("毎年繰り返す"),
         "repeative_content": m101,
         "repetive": MessageLookupByLibrary.simpleMessage("繰り返し"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("繰り返しの有無"),
@@ -1857,6 +1861,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stop_resting_mission_name": m109,
         "sub_task_add_newline":
             MessageLookupByLibrary.simpleMessage("サブタスク-ポイントで改行して追加&保存"),
+        "submisssion": MessageLookupByLibrary.simpleMessage("サブタスク"),
         "submit": MessageLookupByLibrary.simpleMessage("提出"),
         "successfully_copied_to_clipboard":
             MessageLookupByLibrary.simpleMessage("クリップボードにコピーしました"),
@@ -1911,6 +1916,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_finished": MessageLookupByLibrary.simpleMessage("集中時間"),
         "time_later": m111,
         "time_management": MessageLookupByLibrary.simpleMessage("時間管理"),
+        "time_mode": MessageLookupByLibrary.simpleMessage("モード"),
         "time_not_arrive_cannot_clcokin":
             MessageLookupByLibrary.simpleMessage("時間が来ていない、打刻できません"),
         "time_segment": MessageLookupByLibrary.simpleMessage("時間帯"),

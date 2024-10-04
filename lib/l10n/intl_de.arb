@@ -1,7 +1,14 @@
 {
   "@@locale": "de",
   "super_tool": "Super-Toolbar",
-
+  "repeative_by_year": "jährlich wiederholen",
+  "repeative_by_month": "monatlich wiederholen",
+  "repeative_by_week": "wöchentlich wiederholen",
+  "repeative_by_day": "täglich wiederholen",
+  "none": "keine",
+  "time_mode": "Modus",
+  "submisssion": "Unteraufgabe",
+  "table": "Tabelle",
   "add_filterer": "Filter hinzufügen",
   "filter_name": "Filtername",
   "please_input_keyword": "Bitte geben Sie das Schlüsselwort der Aufgabe ein",

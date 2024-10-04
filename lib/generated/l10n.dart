@@ -50,40 +50,40 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `按年重复`
+  /// `repeat by year`
   String get repeative_by_year {
     return Intl.message(
-      '按年重复',
+      'repeat by year',
       name: 'repeative_by_year',
       desc: '',
       args: [],
     );
   }
 
-  /// `按月重复`
+  /// `repeat by month`
   String get repeative_by_month {
     return Intl.message(
-      '按月重复',
+      'repeat by month',
       name: 'repeative_by_month',
       desc: '',
       args: [],
     );
   }
 
-  /// `按周重复`
+  /// `repeat by week`
   String get repeative_by_week {
     return Intl.message(
-      '按周重复',
+      'repeat by week',
       name: 'repeative_by_week',
       desc: '',
       args: [],
     );
   }
 
-  /// `按日重复`
+  /// `repeat by day`
   String get repeative_by_day {
     return Intl.message(
-      '按日重复',
+      'repeat by day',
       name: 'repeative_by_day',
       desc: '',
       args: [],
@@ -100,20 +100,20 @@ class S {
     );
   }
 
-  /// `模式`
+  /// `mode`
   String get time_mode {
     return Intl.message(
-      '模式',
+      'mode',
       name: 'time_mode',
       desc: '',
       args: [],
     );
   }
 
-  /// `子任务`
+  /// `subtask`
   String get submisssion {
     return Intl.message(
-      '子任务',
+      'subtask',
       name: 'submisssion',
       desc: '',
       args: [],

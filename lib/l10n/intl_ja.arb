@@ -1,7 +1,14 @@
 {
   "@@locale": "ja",
   "super_tool": "スーパー ツールバー",
-
+  "repeative_by_year": "毎年繰り返す",
+  "repeative_by_month": "毎月繰り返す",
+  "repeative_by_week": "毎週繰り返す",
+  "repeative_by_day": "毎日繰り返す",
+  "none": "なし",
+  "time_mode": "モード",
+  "submisssion": "サブタスク",
+  "table": "テーブル",
   "add_filterer": "フィルターを追加",
   "filter_name": "フィルター名",
   "please_input_keyword": "タスクのキーワードを入力してください",
