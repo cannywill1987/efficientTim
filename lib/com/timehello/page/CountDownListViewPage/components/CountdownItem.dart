@@ -163,6 +163,9 @@ class _CountdownItemState extends State<CountdownItem> {
     ];
   }
 
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   Widget build(BuildContext context) {
     ListTile child = ListTile(
@@ -196,7 +199,7 @@ class _CountdownItemState extends State<CountdownItem> {
           DeviceInfoManagement.isWebMobileBySize(),
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
-        extentRatio: 0.15,
+        extentRatio: ratio,
         children: this.widget.missionModel.isFinished == false
             ? getUnfinishIconSlideActions(this.widget.missionModel)
             : getFinishIconSlideActions(this.widget.missionModel),

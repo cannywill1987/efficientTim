@@ -1165,6 +1165,23 @@ class Utility {
     ][multiple]}';
   }
 
+  static double getRatioForSlider(
+      {BuildContext? context,
+      int numItem = 3,
+      double itemWidth = 100,
+      double height = 100}) {
+    double screenWidth = MediaQuery.of(Utility.getGlobalContext()).size.width;
+    double width = (screenWidth > (numItem * itemWidth))
+        ? (numItem * itemWidth)
+        : screenWidth;
+    double ratio = width / screenWidth;
+    // return ratio > 0.85 ? 0.85 : ratio;
+    return 1;
+    // double screenWidth = MediaQuery.of(context).size.width;
+    // double height = 80;
+    // double ratio = screenWidth / (numItem * itemWidth);
+  }
+
   static void drawArc(Canvas canvas,
       {required double centerX,
       required double centerY,
@@ -2171,12 +2188,13 @@ class Utility {
   static List<SessionMissionModel>? getListAfterOrder(
       MissionOrderEnum missionOrderEnum, List<MissionModel> list,
       [int folderStatus = -1, List<String>? listFolderIds]) {
-
     if (missionOrderEnum == MissionOrderEnum.orderByWords) {
-    List<FolderModel> listFolderModels = CONSTANTS.folderModelList;
-    if(listFolderIds != null) {
-      listFolderModels = listFolderModels.where((element) => listFolderIds.contains(element.objectId)).toList();
-    }
+      List<FolderModel> listFolderModels = CONSTANTS.folderModelList;
+      if (listFolderIds != null) {
+        listFolderModels = listFolderModels
+            .where((element) => listFolderIds.contains(element.objectId))
+            .toList();
+      }
       return Utility.parseMissionModelsToSessionMissionMidelListByFolderName(
           list, listFolderModels, folderStatus);
     } else if (missionOrderEnum == MissionOrderEnum.orderByPriority) {
@@ -2186,9 +2204,12 @@ class Utility {
       return Utility.parseMissionModelsToSessionMissionMidelListByDateTime(
           list);
     } else if (missionOrderEnum == MissionOrderEnum.orderByTag) {
-      List<FolderModel> listFolderModels = MongoApisManager.getInstance().listFolderModels;
-      if(listFolderIds != null) {
-        listFolderModels = listFolderModels.where((element) => listFolderIds.contains(element.objectId)).toList();
+      List<FolderModel> listFolderModels =
+          MongoApisManager.getInstance().listFolderModels;
+      if (listFolderIds != null) {
+        listFolderModels = listFolderModels
+            .where((element) => listFolderIds.contains(element.objectId))
+            .toList();
       }
       return Utility.parseMissionModelsToSessionMissionMidelListByTag(
           list, listFolderModels);
@@ -6740,13 +6761,13 @@ class Utility {
       int? dateTimeSetting1End,
       int? dateTimeMission2Start,
       int? dateTimeMission2End) {
-    if(dateTimeMission2Start == 0) {
+    if (dateTimeMission2Start == 0) {
       dateTimeMission2Start = null;
     }
-    if(dateTimeSetting1Start == 0) {
+    if (dateTimeSetting1Start == 0) {
       dateTimeSetting1Start = null;
     }
-    if(dateTimeSetting1End == 0) {
+    if (dateTimeSetting1End == 0) {
       dateTimeSetting1End = null;
     }
     if ((dateTimeMission2Start == null && dateTimeMission2End == null) &&
@@ -6789,14 +6810,13 @@ class Utility {
         dateTimeMission2End != null) {
       //任务没有设置时间
       if (
-      // Case 1: First interval fully contains the second interval.
-      (dateTimeSetting1Start <= dateTimeMission2Start &&
-          dateTimeSetting1End >= dateTimeMission2End) ||
+          // Case 1: First interval fully contains the second interval.
+          (dateTimeSetting1Start <= dateTimeMission2Start &&
+                  dateTimeSetting1End >= dateTimeMission2End) ||
 
-          // Case 2: Intervals overlap.
-          (dateTimeSetting1Start <= dateTimeMission2End &&
-              dateTimeSetting1End >= dateTimeMission2Start)
-      ) {
+              // Case 2: Intervals overlap.
+              (dateTimeSetting1Start <= dateTimeMission2End &&
+                  dateTimeSetting1End >= dateTimeMission2Start)) {
         return true;
       }
       return false;

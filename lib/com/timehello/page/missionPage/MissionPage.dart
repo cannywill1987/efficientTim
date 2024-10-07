@@ -1551,6 +1551,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     list.forEach((SessionMissionModel sessionMissionModel) {
       listMissionModels.addAll(sessionMissionModel.datas ?? []);
     });
+    print("444444444444444444444444444444");
     return MissionTableContainerWidget(
       listMissionModels: listMissionModels, onClickMissionSetting: (obj) {
       this.onClick(

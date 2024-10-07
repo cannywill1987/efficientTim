@@ -80,6 +80,7 @@ class DialogContent extends StatefulWidget {
    OnTapListener? onTapListener;
    OnTapCreatePresentListener? onTapCreatePresentListener;
   int? maxSelected;
+
   DialogContent(
       {Key? key,
         this.maxSelected,
@@ -181,7 +182,9 @@ class DialogContentState extends State<DialogContent> {
       this.list = list;
     });
   }
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   getContentView() {
     List<Widget> list = [];
     List<SheetDataModel> listModels = this.list ?? [];
@@ -199,7 +202,7 @@ class DialogContentState extends State<DialogContent> {
           key: ValueKey(i),
           startActionPane: ActionPane(
             motion: const DrawerMotion(),
-            extentRatio: 0.15,
+            extentRatio: ratio,
             children: [
               SlidableAction(
                 onPressed: (context) {

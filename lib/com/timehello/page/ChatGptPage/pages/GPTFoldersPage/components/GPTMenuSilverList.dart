@@ -76,7 +76,9 @@ class GPTMenuSilverList extends StatefulWidget {
 class GPTMenuSilverListState extends State<GPTMenuSilverList> {
   double iconSize = 18;
   String curSelectedObjectId = "";
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   void initState() {
     if(this.widget._datas.length > 0) {
@@ -147,7 +149,7 @@ class GPTMenuSilverListState extends State<GPTMenuSilverList> {
         enabled: true,
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.15,
+          extentRatio: ratio,
           children: getSlideActions(_chatGptFolderModel),
         ),
         child: getInnerItemWithoutContainer(_chatGptFolderModel, children),

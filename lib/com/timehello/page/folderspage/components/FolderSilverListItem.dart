@@ -79,7 +79,9 @@ class FolderSilverListItem extends StatefulWidget {
 
 class FolderSilverListItemState extends State<FolderSilverListItem> {
   double iconSize = 18;
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -312,7 +314,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                 folderModelWithExtraData.folderModel.tag == 2),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.85,
+          extentRatio: ratio,
           children: getSlideActions(folderModelWithExtraData),
         ),
         child: getInnerItemWithoutContainer(folderModelWithExtraData, children),

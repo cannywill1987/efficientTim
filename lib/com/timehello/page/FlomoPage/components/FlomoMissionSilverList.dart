@@ -176,6 +176,9 @@ class FlomoMissionSilverListItemState
   Size size = Size(0, 0);
   double percentClocksIn = 0; //打卡比例
 
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   void initState() {
     // TODO: implement initState
@@ -402,7 +405,7 @@ class FlomoMissionSilverListItemState
           _missionModel.isFinished == false,
       startActionPane: ActionPane(
         motion: const DrawerMotion(),
-        extentRatio: 0.15,
+        extentRatio: ratio,
         children: [
           SlidableAction(
             onPressed: (context) {

@@ -307,6 +307,9 @@ class QuadrantMissionSilverListItemState
     return listWidget;
   }
 
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   Container getContainerWithHeight({double? height, required Widget child}) {
     double draggableWidth =
         (ScreenUtil.getScreenW(context) - 50) / 2; //可拖曳组件的宽度
@@ -519,7 +522,7 @@ class QuadrantMissionSilverListItemState
           _missionModel.isFinished == false,
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
-        extentRatio: 0.15,
+        extentRatio: ratio,
         children: <Widget>[
           SlidableAction(
             onPressed: (context) {

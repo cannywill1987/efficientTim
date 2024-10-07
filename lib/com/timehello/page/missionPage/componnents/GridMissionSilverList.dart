@@ -144,7 +144,9 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
   bool isHover = false;
   double height = 125;
   ImageProvider? imageProvider;
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   FolderModel? getFolderModel(MissionModel? missionModel) {
     if (!TextUtil.isEmpty(this.widget._missionModel?.folder_id)) {
       List<FolderModel> wqbFolderModelList = MongoApisManager.getInstance()
@@ -333,7 +335,8 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
           DeviceInfoManagement.isWebMobileBySize(),
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
-        extentRatio: 0.15,
+        extentRatio: ratio,
+
         children: _missionModel?.isFinished == false
             ? getUnfinishIconSlideActions(_missionModel ?? MissionModel())
             : getFinishIconSlideActions(_missionModel ?? MissionModel()),

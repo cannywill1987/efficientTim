@@ -53,7 +53,9 @@ class FolderSectionHeaderWidget extends StatefulWidget {
 class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
   bool isHover = false;
   bool isFoldedForFolder = false;
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   FolderSectionHeaderWidgetState({bool isFoldedForFolder = false}) {
     this.isFoldedForFolder = isFoldedForFolder;
   }
@@ -73,7 +75,7 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
       return Slidable(
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.65,
+          extentRatio: ratio,
           children: getSlideActions(),
         ),
         child: getItem(),

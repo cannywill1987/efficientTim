@@ -738,7 +738,9 @@ class GroupMissionSilverListItemState
     }
     return null;
   }
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   Widget build(BuildContext context) {
     // print("grid mission silver list");
@@ -881,7 +883,7 @@ class GroupMissionSilverListItemState
             DeviceInfoManagement.isWebMobileBySize(),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.15,
+          extentRatio: ratio,
           children: _missionModel?.isFinished == false
               ? getUnfinishIconSlideActions(_missionModel ?? MissionModel())
               : getFinishIconSlideActions(_missionModel ?? MissionModel()),

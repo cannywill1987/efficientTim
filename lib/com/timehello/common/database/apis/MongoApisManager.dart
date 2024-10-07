@@ -1916,8 +1916,6 @@ class MongoApisManager {
 
     MongoDbQuery<MissionModel>? query1, query2, query3, query4, query5, query6;
 
-    // MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
-    // queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
 
     List<MongoDbQuery<MissionModel>> list2 = [];
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
@@ -1927,7 +1925,12 @@ class MongoApisManager {
       queryUid.addWhereEqualTo("uid", uid ?? '');
       list2.add(queryUid);
     }
-    // list2.add(queryDeviceId);
+
+    MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
+    if(!LoginManager.getInstance().isLogin2()) {
+      queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
+      list2.add(queryDeviceId);
+    }
     if (list2.length == 1) {
       queryUidAndDeviceId = list2[0];
     } else {
@@ -2037,6 +2040,7 @@ class MongoApisManager {
     if (missionModels != null &&
         missionModels.length == 0 &&
         Params.isFirstTime == true && Params.hasGuidMissionDataInit == true) {
+      Params.isFirstTime = false;
       CloudSharepreferenceManagement.getInstance()
           .setBool("IsFirstTime", false);
       MongoApisManager.getInstance().batchInsert_MissionModels(

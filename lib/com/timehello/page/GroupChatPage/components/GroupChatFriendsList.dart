@@ -104,7 +104,9 @@ class GroupChatFriendsSliverListItem extends StatefulWidget {
 class _GroupChatFriendsSliverListItemState
     extends State<GroupChatFriendsSliverListItem> {
   bool isHover = false;
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   Widget build(BuildContext context) {
     if ((DeviceInfoManagement.isMoible() == true ||
@@ -118,7 +120,7 @@ class _GroupChatFriendsSliverListItemState
             ChatGroupManager.isGroupManager(folderModel: this.widget.folderModel)),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.15,
+          extentRatio: ratio,
           children: this.getSlideActions(this.widget.folderModel),
         ),
         child: this.getItem(

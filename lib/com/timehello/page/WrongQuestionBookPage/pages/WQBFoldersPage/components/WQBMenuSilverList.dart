@@ -90,7 +90,9 @@ class WQBMenuSilverList extends StatefulWidget {
 class WQBMenuSilverListState extends State<WQBMenuSilverList> {
   double iconSize = 18;
   String curSelectedTitle = "";
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   @override
   void initState() {
     if(this.widget._datas.length > 0) {
@@ -323,7 +325,7 @@ class WQBMenuSilverListState extends State<WQBMenuSilverList> {
                 _folderModelWithExtraData.folderModel.tag == 2),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.15,
+          extentRatio: ratio,
           children: getSlideActions(_folderModelWithExtraData),
         ),
         child: getInnerItemWithoutContainer(_folderModelWithExtraData, children),

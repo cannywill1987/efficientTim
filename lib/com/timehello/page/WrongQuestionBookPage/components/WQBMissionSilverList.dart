@@ -142,7 +142,9 @@ class WQBMissionSilverListItemState extends State<WQBMissionSilverListItem> {
   bool isHover = false;
   double height = 125;
   ImageProvider? imageProvider;
-
+  double ratio = Utility.getRatioForSlider(
+    numItem: 5,
+  );
   /**
    * 标签的widget
    */
@@ -281,7 +283,7 @@ class WQBMissionSilverListItemState extends State<WQBMissionSilverListItem> {
           DeviceInfoManagement.isWebMobileBySize(),
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
-        extentRatio: 0.15,
+        extentRatio: ratio,
         children: _missionModel?.isFinished == false
             ? getUnfinishIconSlideActions(_missionModel ?? WQBMissionModel())
             : getFinishIconSlideActions(_missionModel ?? WQBMissionModel()),
