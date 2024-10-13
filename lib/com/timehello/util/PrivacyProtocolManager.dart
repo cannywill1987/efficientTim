@@ -39,7 +39,7 @@ class PrivacyProtocolManager {
   showDialog(BuildContext context, {required Function onClickLink, required Function okCallback, required Function cancelCallback, required Function jumpCallback}) {
     String lang = Localizations.localeOf(Utility.getGlobalContext()).languageCode;
     bool isProtocolShowed = SharePreferenceUtil.getSyncInstance()
-        .getBool(key: 'isProtocolShowed');
+        .getBool(key: ShareprefrenceKeys.isProtocolShowed);
     // && lang == "zh"
     if (isProtocolShowed ==
         false  && (Utility.isAndroid() == true || Utility.isIOS() == true)) {
@@ -52,15 +52,15 @@ class PrivacyProtocolManager {
           },
           okCallback: () {
             SharePreferenceUtil.getSyncInstance()
-                .setBool(key: 'isProtocolShowed', val: true);
+                .setBool(key: ShareprefrenceKeys.isProtocolShowed, val: true);
             bool isProtocolShowed = SharePreferenceUtil.getSyncInstance()
-                .getBool(key: 'isProtocolShowed');
+                .getBool(key: ShareprefrenceKeys.isProtocolShowed);
             okCallback();
           },
           cancelCallback: () {
             hideDialog(context);
             DialogManagement.getInstance().showProtocolDialog(context,
-                pattern: "隐私权政策",
+                pattern: getI18NKey().privacy_pattern,
                 title: getI18NKey().gently_remind,
                 content: getI18NKey().privacy_protocol_content2,
                 onClickLink: () {

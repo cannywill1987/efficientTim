@@ -32,6 +32,7 @@ import '../../../util/DeviceInfoManagement.dart';
 
 // import 'BottomBar.dart';
 import '../../../util/SharePreferenceUtil.dart';
+import '../../../util/WidgetManager.dart';
 import 'BottomBar.dart';
 import 'GroupAddWidget.dart';
 import 'HeaderStatsAndInputWidget.dart';
@@ -239,11 +240,13 @@ class MissionSilverState extends State<GroupMissionSilverList> {
                 // this.isReodering = true;
                 // this.resetIsReoderingMapping();
                 if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
-                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(
+                      msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 if (this.widget._datasMissionModelUnfinished?.length == index) {
-                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(
+                      msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 isReodering = true;
@@ -264,7 +267,8 @@ class MissionSilverState extends State<GroupMissionSilverList> {
               onReorder: (oldIndex, newIndex) {
                 if (((this.widget._datasMissionModelUnfinished?.length ?? 0) ==
                     oldIndex)) {
-                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(
+                      msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
 
@@ -274,11 +278,13 @@ class MissionSilverState extends State<GroupMissionSilverList> {
                 // }
                 if (this.widget._datasMissionModelUnfinished?.length ==
                     oldIndex) {
-                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(
+                      msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
-                  Utility.showToastMsg(msg: getI18NKey().cannot_reorder_for_group);
+                  Utility.showToastMsg(
+                      msg: getI18NKey().cannot_reorder_for_group);
                   return;
                 }
                 setState(() {
@@ -497,7 +503,7 @@ class MissionSilverState extends State<GroupMissionSilverList> {
           dynamic dailyEndDate,
           int time_mode = 0}) {
         // 0日期模式
-          this._missionModel.time_mode = time_mode;
+        this._missionModel.time_mode = time_mode;
         if (time_mode == 0) {
           this._missionModel.daily_start_time = dailyStartDate;
           this._missionModel.daily_end_time = dailyEndDate;
@@ -738,9 +744,11 @@ class GroupMissionSilverListItemState
     }
     return null;
   }
+
   double ratio = Utility.getRatioForSlider(
     numItem: 5,
   );
+
   @override
   Widget build(BuildContext context) {
     // print("grid mission silver list");
@@ -811,20 +819,69 @@ class GroupMissionSilverListItemState
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    Text(this.widget._missionModel?.title ?? "",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            decoration: _missionModel?.isFinished == true
-                                ? TextDecoration.lineThrough
-                                : null,
-                            decorationStyle: TextDecorationStyle.solid,
-                            decorationColor: ThemeManager.getInstance()
-                                .getTextColor(defaultColor: Color(0xffa0a0a0)),
-                            decorationThickness: 2,
-                            color: ThemeManager.getInstance().getTextColor(
-                                defaultColor: Color(0xff404040)))),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              text: _missionModel?.title ?? "",
+                              // textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  decoration: _missionModel?.isFinished == true
+                                      ? TextDecoration.lineThrough
+                                      : null,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  decorationColor: ThemeManager.getInstance()
+                                      .getTextColor(
+                                          defaultColor: Color(0xffa0a0a0)),
+                                  decorationThickness: 2,
+                                  color: ThemeManager.getInstance()
+                                      .getTextColor(
+                                          defaultColor: Color(0xff404040)))),
+                          WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  if ((_missionModel?.subMissions?.length ??
+                                          0) >
+                                      0) ...[
+                                    Utility.getSVGPicture(
+                                        R.assetsImgIcSubmission,
+                                        size: 14),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      _missionModel?.subMissions?.length
+                                              .toString() ??
+                                          "0",
+                                      textAlign: TextAlign.left,
+                                      style: ThemeManager.getInstance()
+                                          .getTextStyle(
+                                              defaultTextStyle: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14,
+                                                  color: Color(0xff9DA7B2))),
+                                    ),
+                                  ],
+                                ],
+                              )),
+                          ...WidgetManager.getTagsWidgetSpan(
+                              _missionModel ?? MissionModel(),
+                              fontSize: 14),
+                          ...WidgetManager.getIsNoteWidget(
+                            _missionModel ?? MissionModel(),
+                          )
+                        ],
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
                 if ((_missionModel?.subMissions?.length ?? 0) > 0)

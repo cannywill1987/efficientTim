@@ -971,8 +971,10 @@ class DialogManagement {
       {Function? okCallback,
       String? title,
       String? content,
+        String? text,
       String? hint}) async {
-    String text = "";
+    // String text = "";
+    TextEditingController _originPasswordController = TextEditingController(text: text);
     // GlobalKey<CustomMultiInputWidgetState>
     // customMultiInputWidgetStateGlobalKey = GlobalKey();
     // if (TextUtil.isEmpty(folderId) == true) {
@@ -1025,6 +1027,7 @@ class DialogManagement {
               Container(
                 height: 200,
                 child: TextField(
+                  controller: _originPasswordController,
                   onChanged: (val) {
                     text = val;
                   },

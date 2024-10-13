@@ -9,6 +9,7 @@ import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:excel/excel.dart';
 import 'package:intl/intl.dart';
 import 'package:lunar_calendar_converter_new/lunar_solar_converter.dart';
+import 'package:package_info/package_info.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 
@@ -1584,8 +1585,11 @@ class Utility {
   }
 
   static bool isLatestVersion(String version, {bool defaultval = false}) {
-    if (Utility.compareVersion(Params.latestVersion, version) == -1 ||
-        Utility.compareVersion(Params.latestVersion, version) == 0) {
+    if(Utility.compareVersion(Params.curVersion, version) == 0) {
+      return defaultval;
+    }
+    if (Utility.compareVersion(Params.curVersion, version) == -1
+        ) { //
       return true;
     }
     return defaultval;
@@ -4260,6 +4264,14 @@ class Utility {
       exit(0);
     }
   }
+  /// 检查当前版本是否为最新，若不是，则更新
+  static void getCurrentVersion() {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      // this.curVersion = packageInfo.version;
+      Params.curVersion = packageInfo.version;
+    });
+  }
+
 
   static void initMusicModel() async {
     if (SharePreferenceUtil.getSyncInstance().getFinishRestingMusicModel() ==

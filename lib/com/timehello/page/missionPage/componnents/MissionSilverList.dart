@@ -365,8 +365,8 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
     ];
     return Slidable(
       key: ValueKey(_missionModel),
-      // enabled: DeviceInfoManagement.isMoible() == true ||
-      //     DeviceInfoManagement.isWebMobileBySize(),
+      enabled: DeviceInfoManagement.isMoible() == true ||
+          DeviceInfoManagement.isWebMobileBySize(),
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
         extentRatio: ratio,

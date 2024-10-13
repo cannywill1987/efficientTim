@@ -2587,7 +2587,7 @@ class CONSTANTS {
         ),
         'title': getI18NKey().analytics
       });
-    if (settingModel.isAIHelperPageOn == 1)
+    if (settingModel.isAIHelperPageOn == 1 && ABTestSetting.isOpenAiOn)
       list.add({
         'sceneCode': 'AIHelper',
         'icon': Utility.getSVGPicture(R.assetsImgIcAiHelper, size: 20),
@@ -4607,7 +4607,7 @@ class CONSTANTS {
         ),
         content: "",
         isCheck: false));
-
+    if(ABTestSetting.isOpenAiOn)
     list.add(CheckButtonStateModel(
         code: "AIHelper",
         value: 3,

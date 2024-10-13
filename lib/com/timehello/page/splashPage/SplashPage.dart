@@ -28,6 +28,7 @@ import '../AddFilterPage/AddFilterPage.dart';
 import '../ShortcutsPage/ShortcutsPage.dart';
 import '../TestPage/Test7Page.dart';
 import '../TestPage/Test8Page.dart';
+import '../TestPage/Test9Page.dart';
 import '../WebviewPage/WebviewPage.dart';
 
 class SplashPage extends BaseWidget {
@@ -484,6 +485,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, Test6Page());
                   // Utility.pushReplacement(context, ShortcutsPage());
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, PremiumUpgradePage());
+
                   // Utility.pushReplacement(context, Test8Page());
                   //
                   // Utility.pushReplacement(context, AddFilterPage());

@@ -12,6 +12,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 // import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
@@ -140,6 +141,9 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
 
 initDatas() async {
   NumTimesAppOpenManager.getInstance().incTimes();
+  try {
+    Utility.getCurrentVersion();
+  } catch (e) {}
   try {
     Utility.initMusicModel();
   } catch (e) {}

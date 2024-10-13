@@ -293,6 +293,8 @@ class R {
   static final String assetsImgElo = 'assets/img/elo.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_quote_left.svg)
   static final String assetsImgIcQuoteLeft = 'assets/img/ic_quote_left.svg';
+  /// ![](http://127.0.0.1:123/assets/img/bg_guide_buy.jpg)
+  static final String assetsImgBgGuideBuy = 'assets/img/bg_guide_buy.jpg';
   /// ![](http://127.0.0.1:123/assets/img/avatar40.svg)
   static final String assetsImgAvatar40 = 'assets/img/avatar40.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_flower.png)

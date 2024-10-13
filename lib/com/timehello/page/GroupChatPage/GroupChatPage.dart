@@ -78,6 +78,7 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
                     onTap: () {
                       AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_edit_announcement","description": "编辑公告",});
                       DialogManagement.getInstance().showMultiInputDialog(
+                        text: this.folderModel?.introText ?? "",
                           title: getI18NKey().group_announcement,
                           okCallback: (val) async {
                             if (ChatGroupManager.isFolderModelEnabled(
@@ -167,8 +168,7 @@ class _GroupChatPageState extends BaseWidgetState<GroupChatPage> {
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       // color: Colors.white,
       child: SingleChildScrollView(
-        child: Text(
-          // "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        child: SelectableText(
           this.folderModel?.introText ?? "",
           textAlign: TextAlign.start,
           style: TextStyle(fontSize: 14),
