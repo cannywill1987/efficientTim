@@ -306,7 +306,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
     //用于展示 不用于存储 2-今天 明天 即将到来等 3-创建清单
     if ((DeviceInfoManagement.isMoible() == true ||
         DeviceInfoManagement.isWebMobileBySize()) ||
-        folderModelWithExtraData.folderModel.tag == null) {
+        folderModelWithExtraData.folderModel.tag == null || DeviceInfoManagement.isIOS()) {
       return Slidable(
         key: ValueKey(folderModelWithExtraData.folderModel),
         enabled: folderModelWithExtraData.folderModel.tag != null &&

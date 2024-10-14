@@ -36,10 +36,12 @@ class FlomoMissionSilverList extends StatefulWidget {
   OnTapListener? onTapClockInListener;
   FlomoMissionSilverListState? menuSilverListState;
   OnTapEditTitleListener? onTapEditTitleListener;
+  Function? onTapCancelClockInListener;
   OnTapEditListener? onTapEditListener;
   OnTapDeleteListener? onTapDeleteListener;
   late OnDragEndListener onDragEndListener;
   OnTapFinishListener? onTapFinishListener;
+  Function? onTapUnfinishListener;
   OnTapPlayListener? onTapPlayListener;
   bool? isSlideEnable;
   Widget? bottomChild;
@@ -52,7 +54,9 @@ class FlomoMissionSilverList extends StatefulWidget {
       required this.curDateTime,
       String? ymd,
       this.onTapFinishListener,
+       required this.onTapUnfinishListener,
       required OnDragEndListener onDragEndListener,
+        required this.onTapCancelClockInListener,
       this.bottomChild,
       this.onTapDeleteListener,
       this.onTapEditListener,
@@ -110,10 +114,12 @@ class FlomoMissionSilverListState extends State<FlomoMissionSilverList> {
       ymd: this.widget.ymd,
       curDateTime: this.widget.curDateTime,
       missionModel: this.widget._datas[index],
+      onTapCancelClockInListener: this.widget.onTapCancelClockInListener,
       onTapEditTitleListener: this.widget.onTapEditTitleListener,
       onTapEditListener: this.widget.onTapEditListener,
       onTapDeleteListener: this.widget.onTapDeleteListener,
       onTapFinishListener: this.widget.onTapFinishListener,
+      onTapUnfinishListener: this.widget.onTapUnfinishListener,
       onTapPlayListener: this.widget.onTapPlayListener,
     );
   }
@@ -129,6 +135,8 @@ class FlomoMissionSilverListItem extends StatefulWidget {
   late FlomoMissionModel missionModel;
   OnTapFinishListener? onTapFinishListener;
   OnTapEditListener? onTapEditListener;
+  Function? onTapCancelClockInListener;
+  Function? onTapUnfinishListener;
   OnTapListener? onTapClockInListener;
   OnTapDeleteListener? onTapDeleteListener;
   OnTapEditTitleListener? onTapEditTitleListener;
@@ -146,7 +154,9 @@ class FlomoMissionSilverListItem extends StatefulWidget {
       OnTapListener? onTapListener,
       required FlomoMissionModel missionModel,
       int? index,
+        this.onTapUnfinishListener,
       this.onTapEditTitleListener,
+        this.onTapCancelClockInListener,
       this.onTapPlayListener,
       this.onTapFinishListener,
       this.onTapDeleteListener,
@@ -211,7 +221,7 @@ class FlomoMissionSilverListItemState
         key: containerKey,
         // width: percent * draggableWidth,
         // constraints: BoxConstraints(minHeight: height),
-        height: 115,
+        // height: 115,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white),
@@ -401,43 +411,12 @@ class FlomoMissionSilverListItemState
     // }
     return Slidable(
       key: ValueKey(_missionModel),
-      enabled: (DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize()) &&
-          _missionModel.isFinished == false,
+      enabled: (DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize() || DeviceInfoManagement.isIOS())
+          ,
       startActionPane: ActionPane(
         motion: const DrawerMotion(),
         extentRatio: ratio,
-        children: [
-          SlidableAction(
-            onPressed: (context) {
-              if (this.widget.onTapFinishListener != null)
-                this.widget.onTapFinishListener!(_missionModel);
-            },
-            backgroundColor: Colors.lightBlue,
-            foregroundColor: Colors.white,
-            icon: Icons.check,
-            label: 'Finish',  // 添加label以替代旧版中的caption
-          ),
-          SlidableAction(
-            onPressed: (context) {
-              if (this.widget.onTapEditListener != null)
-                this.widget.onTapEditListener!(_missionModel);
-            },
-            backgroundColor: Colors.lightGreen,
-            foregroundColor: Colors.white,
-            icon: Icons.edit,
-            label: 'Edit',  // 添加label以替代旧版中的caption
-          ),
-          SlidableAction(
-            onPressed: (context) {
-              if (this.widget.onTapDeleteListener != null)
-                this.widget.onTapDeleteListener!(_missionModel);
-            },
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
-            label: 'Delete',  // 添加label以替代旧版中的caption
-          ),
-        ],
+        children: _missionModel.isFinished == false ? getUnfinishedSlidableItems(_missionModel) : getFinishedSlidableItems(_missionModel),
       ),
       child: MouseRegion(
         onEnter: (_) {
@@ -454,6 +433,78 @@ class FlomoMissionSilverListItemState
         child: getItem(childrenRow, _missionModel),
       ),
     );
+  }
+
+  List<Widget> getFinishedSlidableItems(FlomoMissionModel _missionModel) {
+    return [
+
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapUnfinishListener != null)
+            this.widget.onTapUnfinishListener!(_missionModel);
+        },
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        icon: Icons.cancel_outlined,
+        label: getI18NKey().unfinished,  // 添加label以替代旧版中的caption
+      ),
+
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapDeleteListener != null)
+            this.widget.onTapDeleteListener!(_missionModel);
+        },
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete,  // 添加label以替代旧版中的caption
+      ),
+    ];
+  }
+
+  List<Widget> getUnfinishedSlidableItems(FlomoMissionModel _missionModel) {
+    return [
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapFinishListener != null)
+              this.widget.onTapFinishListener!(_missionModel);
+          },
+          backgroundColor: Colors.lightBlue,
+          foregroundColor: Colors.white,
+          icon: Icons.check,
+          label: getI18NKey().finish,  // 添加label以替代旧版中的caption
+        ),
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapEditListener != null)
+              this.widget.onTapEditListener!(_missionModel);
+          },
+          backgroundColor: Colors.lightGreen,
+          foregroundColor: Colors.white,
+          icon: Icons.edit,
+          label: getI18NKey().edit,  // 添加label以替代旧版中的caption
+        ),
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapCancelClockInListener != null)
+              this.widget.onTapCancelClockInListener!(_missionModel);
+          },
+          backgroundColor: Colors.grey,
+          foregroundColor: Colors.white,
+          icon: Icons.cancel_outlined,
+          label: getI18NKey().cancel_latest_clockin,  // 添加label以替代旧版中的caption
+        ),
+        SlidableAction(
+          onPressed: (context) {
+            if (this.widget.onTapDeleteListener != null)
+              this.widget.onTapDeleteListener!(_missionModel);
+          },
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+          icon: Icons.delete,
+          label: getI18NKey().delete,  // 添加label以替代旧版中的caption
+        ),
+      ];
   }
 
   Widget getItem(List<Widget> childrenRow, FlomoMissionModel _missionModel) {
@@ -547,8 +598,21 @@ class FlomoMissionSilverListItemState
                           },
                           child: Text(getI18NKey().edit,
                               style:
-                                  TextStyle(color: Colors.green, fontSize: 12)),
+                                  TextStyle(color: Colors.green, fontSize: fontSize)),
                         ),
+                        PopupMenuItem<String>(
+                          value: 'cancel_latest_clockin',
+                          onTap: () {
+                            //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
+                            Future.delayed(Duration(milliseconds: 100), () {
+                              this.widget.onTapCancelClockInListener!(_missionModel);
+                            });
+                          },
+                          child: Text(getI18NKey().cancel_latest_clockin,
+                              style:
+                              TextStyle(color: Colors.grey, fontSize: fontSize)),
+                        ),
+
                         PopupMenuItem<String>(
                           //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
                           value: 'delete',

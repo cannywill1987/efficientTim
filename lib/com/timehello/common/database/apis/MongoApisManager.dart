@@ -3317,7 +3317,7 @@ class MongoApisManager {
   update_FlomoMissionModelClocksIn(
       {required FlomoMissionModel flomoMissionModel,
       String? ymd,
-      Function? callback}) async {
+      Function? callback, bool shouldInc = true}) async {
     if (ymd == null) {
       ymd = Utility.getYMDToday();
     }
@@ -3349,14 +3349,21 @@ class MongoApisManager {
     //         eventType: "clockin_time",
     //         timelineMessage: getI18NKey().create_name_flomo_mission(clockInList.length, flomoMissionModel.daily_num_times, flomoMissionModel.title ?? "?")));
 
-    if (clockInList.length >= flomoMissionModel.daily_num_times) {
+    if (clockInList.length >= flomoMissionModel.daily_num_times && shouldInc == true) {
       return;
     }
-    clockInList.add({
-      "numClock": ((flomoMissionModel.clockIn?.length ?? 0) + 1),
-      "totalClocks": (flomoMissionModel?.daily_num_times ?? 0) + 1,
-      "timestamp": Utility.getTimeStampToday()
-    });
+    if(shouldInc == true) {
+      clockInList.add({
+        "numClock": ((flomoMissionModel.clockIn?.length ?? 0) + 1),
+        "totalClocks": (flomoMissionModel?.daily_num_times ?? 0) + 1,
+        "timestamp": Utility.getTimeStampToday()
+      });
+    } else { //打卡自减1 超过设置为0
+      if(clockInList.length > 0) {
+        clockInList.removeLast();
+      }
+
+    }
     if (flomoMissionModel.clockIn == null) {
       flomoMissionModel.clockIn = {};
     }

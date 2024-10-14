@@ -69,9 +69,9 @@ class MongoDbDio {
       //基地址
       baseUrl: MongoDb.mongoHost,
       //连接服务器的超时时间，单位是毫秒。
-      connectTimeout: Duration(milliseconds: 30000),
+      connectTimeout: Duration(milliseconds: Params.mongoDBTimeout),
       //响应流上前后两次接受到数据的间隔，单位为毫秒。如果两次间隔超过[receiveTimeout]，将会抛出一个[DioErrorType.RECEIVE_TIMEOUT]的异常。
-      receiveTimeout: Duration(milliseconds: 30000),
+      receiveTimeout: Duration(milliseconds: Params.mongoDBTimeout),
       //请求头部
     //      headers: {
     //        "Content-Type": "application/json",

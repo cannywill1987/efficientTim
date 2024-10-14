@@ -289,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m117(trainee) => "${trainee}\'s advice";
 
+  static String m132(title) => "Unfinish clock-in mission \'${title}\'";
+
   static String m118(time) => "Last update time:${time}";
 
   static String m119(listing, title) =>
@@ -524,6 +526,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_view": MessageLookupByLibrary.simpleMessage("Can view"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancel_finish": MessageLookupByLibrary.simpleMessage("Cancel Finish"),
+        "cancel_latest_clockin": MessageLookupByLibrary.simpleMessage("撤销最近打卡"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("Cancel administrator"),
         "cannot_handle_myself":
@@ -2271,6 +2274,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "type_something":
             MessageLookupByLibrary.simpleMessage("Type something..."),
         "unarchive": MessageLookupByLibrary.simpleMessage("Unarchive"),
+        "uncomplete_flomo_mission": m132,
         "uncomplete_plan_classification": MessageLookupByLibrary.simpleMessage(
             "Unfinished plan classification"),
         "underline": MessageLookupByLibrary.simpleMessage("Underline"),

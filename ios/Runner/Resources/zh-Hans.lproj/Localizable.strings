@@ -5,6 +5,7 @@
  Created by 林智彬 on 2023/8/27.
  
  */
+"already_created_time" = "该时间段已经创建";
 "title" = "时间管理局";
 "from" = "从";
 "to" = "到";

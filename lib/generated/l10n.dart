@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `撤销最近打卡`
+  String get cancel_latest_clockin {
+    return Intl.message(
+      '撤销最近打卡',
+      name: 'cancel_latest_clockin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unfinish clock-in mission '{title}'`
+  String uncomplete_flomo_mission(Object title) {
+    return Intl.message(
+      'Unfinish clock-in mission \'$title\'',
+      name: 'uncomplete_flomo_mission',
+      desc: '',
+      args: [title],
+    );
+  }
+
   /// `repeat by year`
   String get repeative_by_year {
     return Intl.message(

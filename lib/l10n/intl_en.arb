@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "cancel_latest_clockin": "撤销最近打卡",
+  "uncomplete_flomo_mission": "Unfinish clock-in mission '{title}'",
   "repeative_by_year": "repeat by year",
   "repeative_by_month": "repeat by month",
   "repeative_by_week": "repeat by week",

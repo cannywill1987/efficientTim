@@ -169,7 +169,7 @@ struct UITimelineCreateView: View {
                 .shadow(radius: 1)
                 Spacer(minLength: 10)
                 if isVisibleError == true {
-                    Text("该时间段已经创建")
+                    Text("already_created_time".localizable())
                     .font(.system(size: 12))
                     .foregroundColor(isVisibleError ? .red : .clear)
                 }

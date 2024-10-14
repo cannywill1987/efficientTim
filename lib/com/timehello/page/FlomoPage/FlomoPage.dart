@@ -162,15 +162,6 @@ class FlomoPageSate extends BaseWidgetState<FlomoPage> {
     listWidget.add(FlomoMissionSilverList(
       ymd: Utility.getYMD(curDateTime),
       onTapClockInListener: (data) async {
-        // DialogManagement.showFlomoRatingDialog(
-        //   context, flomoMissionModel: data, onSubmitted: (val) async {
-        //   await MongoApisManager.getInstance()
-        //       .update_FlomoMissionModelMessage(flomoMissionModel: data,
-        //       ymd: Utility.getYMD(curDateTime),
-        //       satisfaction: val['code'],
-        //       message: val['content']);
-        //   DialogManagement.getInstance().hideDialog(context);
-        // },);
         if(isRequesting == true) {
           return;
         }
@@ -298,7 +289,36 @@ class FlomoPageSate extends BaseWidgetState<FlomoPage> {
             .update_FlomoMissionModel(missionModel: missionModel);
         this.onClick('onClickFinishItem', data); //点击完成任务
       },
-      curDateTime: curDateTime,
+      curDateTime: curDateTime, onTapCancelClockInListener: (missionModel) async {
+      if(isRequesting == true) {
+        return;
+      }
+      isRequesting = true;
+      await MongoApisManager.getInstance()?.update_FlomoMissionModelClocksIn(
+        shouldInc: false,
+          flomoMissionModel: missionModel,
+          ymd: Utility.getYMD(curDateTime),
+          callback: () {
+            updateUI();
+          });
+      isRequesting = false;
+    }, onTapUnfinishListener: (data) async {
+      FlomoMissionModel missionModel = data;
+      await MongoApisManager.getInstance()
+          .insertTimelineMissionModel(
+          missionModel: Utility.getTimelineMissionModelFromMissionModel(
+              icon: Icons.check_circle.codePoint,
+              color: Colors.greenAccent.value,
+              object_id: data?.objectId,
+              sceneType: "mission",
+              eventType: "clockin_time",
+              timelineMessage: getI18NKey().uncomplete_flomo_mission( data.title ?? "?")));
+
+
+      missionModel.isFinished = false;
+      MongoApisManager.getInstance()
+          .update_FlomoMissionModel(missionModel: missionModel);
+    },
     ));
     return listWidget;
   }
