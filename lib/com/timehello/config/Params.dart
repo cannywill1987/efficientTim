@@ -7,8 +7,10 @@ import '../beans/ResourceLocationInfoBean.dart';
 class Params {
   // kDebugMode可以用来做全局开发环境测试
   static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final isMongoDbCacheOn = false; // mongodb的缓存是否开启
+  static final isHttpCacheOn = false; // mongodb的缓存是否开启
   static Locale? local; // 本机语言
-  static int mongoDBTimeout = 30000;
+  static int mongoDBTimeout = 10000;
   static String curVersion = '3.5.1';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';

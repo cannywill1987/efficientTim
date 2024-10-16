@@ -157,20 +157,25 @@ class MongoDbDio {
       }
 
       Utility.print('Get请求结果：' + response.toString());
-      SharePreferenceUtil.getSyncInstance().setHttpCacheDynamic(
-          key: requestUrl + data.toString(), map: response?.data);
-
+      if(Params.isMongoDbCacheOn == true) {
+        SharePreferenceUtil.getSyncInstance().setHttpCacheDynamic(
+            key: requestUrl + data.toString(), map: response?.data);
+      }
       return response?.data;
     } catch (e) {
-      Map res = await SharePreferenceUtil.getSyncInstance()
-          .getHttpCacheDynamic(key: requestUrl + data.toString());
-      EventCollection.onCollection(
-          sceneType: EVENTNAME.SYSTEM,
-          eventType: EVENTNAME.REQUEST_ERROR_MONGODB_ERROR_GET,
-          message: requestUrl,
-          resultType: e.toString());
-      Utility.print(e);
-      return res;
+      if(Params.isMongoDbCacheOn == true) {
+        Map res = await SharePreferenceUtil.getSyncInstance()
+            .getHttpCacheDynamic(key: requestUrl + data.toString());
+        EventCollection.onCollection(
+            sceneType: EVENTNAME.SYSTEM,
+            eventType: EVENTNAME.REQUEST_ERROR_MONGODB_ERROR_GET,
+            message: requestUrl,
+            resultType: e.toString());
+        Utility.print(e);
+        return res;
+      } else {
+        return null;
+      }
     }
   }
 

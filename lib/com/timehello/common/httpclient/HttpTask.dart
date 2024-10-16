@@ -126,7 +126,7 @@ class HttpTask extends Observable {
         shouldShowToast: shouldShowToast,
         params: params,
         callBack: callBack);
-    if (isCachableOn == true) {
+    if (isCachableOn == true && Params.isHttpCacheOn == true) {
       SharePreferenceUtil.getSyncInstance().setHttpCache(
           key: urlTmp + params.toString(), baseBean: res, mode: "GET");
     }
@@ -157,7 +157,7 @@ class HttpTask extends Observable {
         : Params.mBaseUrl + this.mUrl;
     this.scene = scene ?? "";
     mHttpManager?.mHttpTasks.add(this);
-    if (isCachableOn == true) {
+    if (isCachableOn == true && Params.isHttpCacheOn == true) {
       BaseBean resCache = SharePreferenceUtil.getSyncInstance()
           .getHttpCache(key: urlTmp + params.toString(), mode: "GET");
       if (callBack != null) {
@@ -170,7 +170,7 @@ class HttpTask extends Observable {
         shouldShowToast: shouldShowToast,
         params: params,
         callBack: callBack);
-    if (isCachableOn == true) {
+    if (isCachableOn == true && Params.isHttpCacheOn == true) {
       SharePreferenceUtil.getSyncInstance().setHttpCache(
           key: urlTmp + params.toString(), mode: "GET", baseBean: null);
     }
@@ -200,7 +200,7 @@ class HttpTask extends Observable {
         : Params.mBaseUrl + this.mUrl;
     this.scene = scene ?? "";
     mHttpManager?.mHttpTasks.add(this);
-    if (isCachableOn == true) {
+    if (isCachableOn == true && Params.isHttpCacheOn == true) {
       BaseBean resCache = SharePreferenceUtil.getSyncInstance()
           .getHttpCache(key: urlTmp + params.toString(), mode: "POST");
       if (callBack != null) {
@@ -216,7 +216,7 @@ class HttpTask extends Observable {
         isLocalServer: isLocalServer,
         shouldShowToast: shouldShowToast,
         callBack: callBack);
-    if (isCachableOn == true) {
+    if (isCachableOn == true && Params.isHttpCacheOn == true) {
       SharePreferenceUtil.getSyncInstance().setHttpCache(
           key: urlTmp + params.toString(), baseBean: res, mode: "POST");
     }

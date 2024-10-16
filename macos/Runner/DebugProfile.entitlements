@@ -12,7 +12,8 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.timespeed.timehello</string>
+		<string>group.S4CLCWPCGH.com.timespeed.timehello</string>
+		<string>S4CLCWPCGH.com.timespeed.timehello</string>
 	</array>
 	<key>com.apple.security.cs.allow-jit</key>
 	<true/>

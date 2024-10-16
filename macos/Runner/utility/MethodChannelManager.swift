@@ -7,13 +7,15 @@
 //
 import Foundation
 import FlutterMacOS
-
+import WidgetKit
+import SwiftUI
 class MethodChannelManager {
     static let instance:MethodChannelManager = MethodChannelManager()
     var channel:FlutterMethodChannel?;
     var customStatusBarWidget:CustomStatusBarWidget?
     var curCounterStatus: Int?
     var window: MainFlutterWindow?;
+    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData2 : Data = Data()
     static func shareInstance(flutterViewController: FlutterViewController?, window: MainFlutterWindow?) -> MethodChannelManager {
         if (instance.channel == nil) {
             instance.window = window;
@@ -102,6 +104,7 @@ class MethodChannelManager {
                     Task {
                         await primaryData.encodeData();
                     }
+                 
                 } else {
                     // Fallback on earlier versions
                 };
@@ -197,7 +200,7 @@ class MethodChannelManager {
                 
             case "storeMissionList": //创建今天任务
                 let list = (call.arguments as! [[String: Any]]);
-                if list.count == 7 {
+//                if list.count == 7 {
                     var listMissionModels:[MissionModel] = [];
                     //                for index in 0...((call.arguments as AnyObject).length ?? 0) {
                     if list.count > 0 {
@@ -226,11 +229,18 @@ class MethodChannelManager {
                             listMissionModels.append(missionData);
                             print("11111");
                         }
-                    }
+//                    }
                     if #available(iOS 14.0, *) {
                         let primaryData:MissionStoreData = MissionStoreData(missionData: MissionData(listMissionModel: listMissionModels))
                         Task {
                             await primaryData.encodeData();
+//                            var missionData:MissionData?;
+//                            do {
+////                                missionData = try JSONDecoder().decode(MissionData.self, from: primaryData)
+//                                missionData = try JSONDecoder().decode(MissionData.self, from: primaryData2)
+//                            } catch {
+//                                print("Could not write to file")
+//                            }
                         }
                     } else {
                         // Fallback on earlier versions
