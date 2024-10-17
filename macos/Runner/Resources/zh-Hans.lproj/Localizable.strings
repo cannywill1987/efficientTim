@@ -6,7 +6,11 @@
   
 */
 "today" = "今天";
-"clockInToday" = "Clock in today";
+"timer" = "计时器";
+"timer_desc" = "计时器可用于桌面组件实时显示倒计时和正计时";
+"clockInToday" = "今日签到";
+"countDown" = "倒计时";
+"countUp" = "正计时";
 "Quadrant" = "四象限";
 "sunday" = "周日";
 "monday" = "周一";

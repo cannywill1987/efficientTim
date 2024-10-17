@@ -6,6 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
+		<string>group.$(TeamIdentifierPrefix)com.timespeed.timehello</string>
 		<string>$(TeamIdentifierPrefix)com.timespeed.timehello</string>
 	</array>
 </dict>

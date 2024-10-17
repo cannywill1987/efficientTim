@@ -7,6 +7,7 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>$(TeamIdentifierPrefix)com.timespeed.timehello</string>
+		<string>group.$(TeamIdentifierPrefix)com.timespeed.timehello</string>
 	</array>
 	<key>com.apple.security.cs.allow-unsigned-executable-memory</key>
 	<true/>
