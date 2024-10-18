@@ -67,7 +67,7 @@ class MongoDbDio {
       responseDecoder: Utility.getGzipDecoder,
       headers: {"accept-encoding": "gzip"},
       //基地址
-      baseUrl: MongoDb.mongoHost,
+      baseUrl: MongoDb.mongGoHost,
       //连接服务器的超时时间，单位是毫秒。
       connectTimeout: Duration(milliseconds: Params.mongoDBTimeout),
       //响应流上前后两次接受到数据的间隔，单位为毫秒。如果两次间隔超过[receiveTimeout]，将会抛出一个[DioErrorType.RECEIVE_TIMEOUT]的异常。

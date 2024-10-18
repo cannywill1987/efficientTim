@@ -95,8 +95,9 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             if (!Utility.isProductEnv())
               InkWell(
                 onTap: () async {
-                  String password = await Utility.encryptCTRAES("Sf123456", Params.AES_PWD);
-                  print("password: $password");
+                  CounterMethodChannelManager.getInstance().test();
+                  // String password = await Utility.encryptCTRAES("Sf123456", Params.AES_PWD);
+                  // print("password: $password");
                   // Utility.toggleCurDesktopFolderPageVisibility(context);
                   // getI18NKey().all_mission;
                   // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));

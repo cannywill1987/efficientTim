@@ -15,7 +15,8 @@ class MethodChannelManager {
     var customStatusBarWidget:CustomStatusBarWidget?
     var curCounterStatus: Int?
     var window: MainFlutterWindow?;
-    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData2 : Data = Data()
+    @AppStorage("uid", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var uid : String = ""
+//    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData2 : Data = Data()
     static func shareInstance(flutterViewController: FlutterViewController?, window: MainFlutterWindow?) -> MethodChannelManager {
         if (instance.channel == nil) {
             instance.window = window;
@@ -40,6 +41,33 @@ class MethodChannelManager {
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
             switch call.method {
+            case "test":
+                Task {
+                    let res:BaseResponse? = await URLSessionRequest.insertStatsModel(params: [
+                        "title": "111111111111111111",
+                        "type": 0,
+                        "focus_duration": 0,
+                        "tagNames": "",
+                        "category": NSNull(),
+                        "color": 0,
+                        "icon": 0,
+                        "device_id": "B5CC32ED-595A-54B7-A814-7BC911FBD2D4",
+                        "value": 60000.0,
+                        "begin_time": 1729255421071,
+                        "finish_time": 1729255481094,
+                        "duration": 0,
+                        "folder_id": NSNull(),
+                        "mission_id": "66a09799d4c83f07d66e4c23",
+                        "uid": "089f8c2d-85b9-45f1-899c-d1159ca9e6f3"
+                    ])
+                    
+//                    let res:ResourceResponse? = await URLSessionRequest.requestSceneList(scene: "timehello_game");
+                    print("err \(res)")
+                }
+                break;
+            case "setUserBean":
+                uid = (call.arguments as! [[String: Any]])[0]["uid"] as! String;
+                break;
             case "scheduleShutdown":
                 Utility.scheduleShutdown(after: 30000);
                 break;

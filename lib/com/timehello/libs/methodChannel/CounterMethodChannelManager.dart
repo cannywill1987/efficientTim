@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/models/FolderModel.dart';
 // import 'package:secverify_plugin/secverify_UIConfig.dart';
 import 'package:time_hello/com/timehello/models/PushDataModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/NotificationManager.dart';
 import 'package:time_hello/com/timehello/util/PermissionManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -123,6 +124,20 @@ class CounterMethodChannelManager {
     Utility.initChannel(await getBrand());
   }
 
+  void setUserBean() async {
+    // _channel.setMethodCallHandler((MethodCall call) async {
+    //   Map args = call.arguments ?? {};
+    //   triggerOnMethodChannelResponseListener(call.method, args);
+    // });
+    await _channel.invokeMethod('setUserBean', [
+      {"uid": LoginManager.getInstance().isLogin2() ? LoginManager.getInstance().userBean.uid: "" }
+    ]);
+
+    Params.appName = await getAppName();
+    Utility.initChannel(await getBrand());
+  }
+
+
   Future<BaseBean> getLiveActivityData({Function? result}) async {
     if (Utility.isIOS() == true || Utility.isMacOS() == true) {
       String res =
@@ -190,6 +205,14 @@ class CounterMethodChannelManager {
   Future<String> aliyunDeviceId() async {
     try {
       String version = await _channel.invokeMethod('getAliyunDeviceId');
+      return version;
+    } catch (e) {}
+    return "";
+  }
+
+  Future<String> test() async {
+    try {
+      String version = await _channel.invokeMethod('test');
       return version;
     } catch (e) {}
     return "";

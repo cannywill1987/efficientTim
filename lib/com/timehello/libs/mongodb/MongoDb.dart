@@ -1,6 +1,8 @@
+import '../../config/Params.dart';
+
 class MongoDb {
   //Bmob REST API 地址
-  static String mongoHost = "https://api2.bmob.cn";
+  static String mongGoHost = Params.mBaseUrl + "/api";
 
   //Bmob 应用ID，不可泄漏
   static String mongoAppId = "";
@@ -78,7 +80,7 @@ class MongoDb {
 
   //SDK初始化
   static void init(appHost, appId, apiKey) {
-    mongoHost = appHost;
+    mongGoHost = appHost;
     mongoAppId = appId;
     mongoRestApiKey = apiKey;
   }
@@ -91,7 +93,7 @@ class MongoDb {
 
   //SDK初始化，加密请求格式
   static void initEncryption(appHost, secretKey, apiSafe) {
-    mongoHost = appHost;
+    mongGoHost = appHost;
     mongoSecretKey = secretKey;
     mongoApiSafe = apiSafe;
   }

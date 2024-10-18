@@ -388,6 +388,7 @@ class LoginManager {
     userBean.token = userBean.token ?? getUserBean().token; //有些情况后台不会返回token
     SharePreferenceUtil.getSyncInstance().setUserBean(userBean: userBean);
     this.userBean = userBean;
+    CounterMethodChannelManager.getInstance().setUserBean();
   }
 
 /**

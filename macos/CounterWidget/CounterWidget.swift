@@ -49,6 +49,7 @@ struct TimerIntent: AppIntent {
 
             // In the 'reset' case:
             case .reset:
+            
                 TimerManager.isPaused = true
                 TimerManager.timerDuration = TimerManager.isCountingDown ? timerDuration : 0
                 TimerManager.startTime = nil
