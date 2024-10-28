@@ -308,6 +308,26 @@ class Utility {
         return timeStamp;
     }
     
+    static func getMissionModelsFromList(list: NSArray) -> [MissionModel] {
+//        var arrayList:[String] = [];
+        var listMissionModels:[MissionModel] = [];
+
+        for item in list {
+            let itemDict:NSDictionary = item as! NSDictionary;
+            let objectId:String? = itemDict["_id"] as? String;
+            let isDelayed:Bool = itemDict["isDelayed"] as! Bool;
+            let isFinished:Bool = itemDict["isFinished"] as! Bool;
+            let title:String = itemDict["title"] as! String;
+            let background_url:String? = itemDict["background_url"] as? String;
+            let end_time:Int = itemDict["end_time"] as! Int;
+            let priorityStatus:Int? = itemDict["priorityStatus"] as? Int;
+            let color:Int? = itemDict["color"] as? Int ?? 0xffff8800 - 0xff000000;
+            let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+            listMissionModels.append(missionData);
+        }
+        return listMissionModels;
+    }
+    
     /**
      *时间戳得到date
      */
@@ -330,6 +350,18 @@ class Utility {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: action) , object: self, userInfo: ["content": "123"]);
     }
     
+    
+    static func formatTimestampToDateString(timestamp: Int) -> String {
+        // 将 timestamp 从毫秒转换为秒
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000)
+        
+        // 设置日期格式
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        // 将日期对象格式化为字符串
+        return dateFormatter.string(from: date)
+    }
     
     
 }

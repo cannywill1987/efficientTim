@@ -26,16 +26,19 @@ struct FlomoMissionModelList: Codable, Hashable {
 
 
 struct FlomoMissionModel: Codable, Hashable {
+    let objectId: String?
     let title: String?
     let color: Int?
-    let isFinished: Bool?
-    let percent: Double?;
+    var isFinished: Bool?
+    var percent: Double?;
     init(
+        objectId: String?,
         title: String?,
         color: Int?,
         isFinished: Bool?,
         percent: Double?
     ) {
+        self.objectId = objectId
         self.title = title
         self.color = color
         self.percent = percent

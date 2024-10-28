@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum EnvEnum:Int {
-    case dev = 0 //开发
-      case uat = 1 //灰度
-      case prd = 2 //生产
-}
+//enum EnvEnum:Int {
+//    case dev = 0 //开发
+//      case uat = 1 //灰度
+//      case prd = 2 //生产
+//}
 
 enum CounterStatusEnum:Int {
     case focusing=0 //专注中 红色计时中

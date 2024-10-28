@@ -7,6 +7,12 @@ class NetworkRequest {
     
     // 将构造方法私有化，防止外部实例化
     private init() {}
+    
+    func console(pairParameters: [String: Any]) {
+        Task {
+            await self.startRequestWithPost(pairParameters: pairParameters, url: Apis.console)
+        }
+    }
 
     func startRequestWithGet(pairParameters: [String: Any], url: String) async -> [String: Any]? {
         return await startRequest(pairParameters: pairParameters, url: url, method: "GET")
@@ -16,26 +22,29 @@ class NetworkRequest {
         return await startRequest(pairParameters: pairParameters, url: url, method: "POST")
     }
     
+    func startRequestWithPut(pairParameters: [String: Any], url: String) async -> [String: Any]? {
+        return await startRequest(pairParameters: pairParameters, url: url, method: "PUT")
+    }
+    
     private func startRequest(pairParameters: [String: Any], url: String, method: String) async -> [String: Any]? {
         var resDict: [String: Any]?
         let parameters = NetworkRequest.buildParameters(pairParameters: pairParameters)
         let fullURL = "\(Params.mBaseUrl)\(url)"
         
-        if method == "POST" {
-            let postParameters = parameters.dropFirst() // Remove the starting "?"
-            guard let postData = postParameters.data(using: .utf8) else { return nil }
-            
+        if method == "POST" || method == "PUT" {
             if Params.isDebug {
-                print("url is \n\(fullURL)\n\n params is\n \(postParameters)")
+                print("url is \n\(fullURL)\n\n params is\n \(parameters)")
             }
+            
+            guard let postData = try? JSONSerialization.data(withJSONObject: pairParameters, options: []) else { return nil }
             
             var request = URLRequest(url: URL(string: fullURL)!,
                                      cachePolicy: .useProtocolCachePolicy,
                                      timeoutInterval: 60)
-            request.httpMethod = "POST"
+            request.httpMethod = method
             request.httpBody = postData
             request.setValue(String(postData.count), forHTTPHeaderField: "Content-Length")
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
             do {
                 let (data, _) = try await URLSession.shared.data(for: request)
@@ -90,7 +99,9 @@ class NetworkRequest {
             } else if let doubleValue = value as? Double {
                 encodedValue = "\(doubleValue)"
             } else if let boolValue = value as? Bool {
-                encodedValue = boolValue ? "true" : "false"
+                // 不转换为字符串，直接添加到参数中
+                parameterString += "\(key)=\(boolValue)&"
+                continue
             } else {
                 encodedValue = "\(value)"
             }

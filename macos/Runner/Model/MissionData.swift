@@ -41,7 +41,7 @@ func getArrayListThisWeek3(time: TimeInterval, list: [MissionModelList]) -> [Mis
 
 @available(iOS 14.0, *)
 struct MyCalendarMissionStoreData {
-    @AppStorage("CalendarMissionModel", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("CalendarMissionModel", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
     let missionData : MyCalendarMissionData
     func encodeData() async {
         do {
@@ -115,11 +115,13 @@ struct MissionData : Codable, Hashable {
 
 struct MissionModel: Codable, Hashable {
 //    let createdAt, updatedAt, _id, folder_id: String
+    let objectId: String?
     let title: String?
     let lunar: String?
     let end_time: Int?
     let background_url: String?
     let color: Int
+    
 //    let indexSearchingStart, indexSearchingEnd: String?
 //    let device_id, tagNames, tagIds, background_url: String
 //    let no_tomotoes_finished, total_tomotoes, tomato_duration, order_index: Int
@@ -127,7 +129,7 @@ struct MissionModel: Codable, Hashable {
 //    let dateStatus, repetiveType, repetiveValue: Int
 //    let repetiveWeekDay: [Int]
 //    let uid: String
-    let isFinished, isDelayed: Bool?
+    var isFinished, isDelayed: Bool?
 //    let daily_start_time, daily_end_time: String?
 //    let message: String?
     let priorityStatus: Int?
@@ -136,6 +138,7 @@ struct MissionModel: Codable, Hashable {
 //
 //    }
     init(
+        objectId: String?,
 //        createdAt: String,
 //        updatedAt: String,
 //        _id: String,
@@ -170,6 +173,7 @@ struct MissionModel: Codable, Hashable {
 //        repetiveWeekDay: [Int],
 //        uid: String
     ) {
+        self.objectId = objectId
         self.lunar = lunar
 //        self.createdAt = createdAt
 //        self.updatedAt = updatedAt
