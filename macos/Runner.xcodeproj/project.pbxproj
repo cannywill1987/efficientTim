@@ -78,48 +78,48 @@
 		DF8DF2DA2CCF761900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF2D42CCF761900A48994 /* Assets.xcassets */; };
 		DF8DF2DC2CCF761900A48994 /* NewCounterWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF2D72CCF761900A48994 /* NewCounterWidget.swift */; };
 		DF8DF2DD2CCF761900A48994 /* NewCounterWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF2D82CCF761900A48994 /* NewCounterWidgetBundle.swift */; };
-		DF8DF3A52CCF798900A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF3A62CCF798900A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF3B22CCF798B00A48994 /* NewNoteWidget1Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF3BD2CCF799800A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF3BE2CCF799800A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF3CA2CCF799900A48994 /* NewNoteWidget2Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF3D52CCF79E300A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF3D62CCF79E300A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF3E22CCF79E500A48994 /* NewNoteWidget3Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF3ED2CCF79F800A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF3EE2CCF79F800A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF3FA2CCF79F900A48994 /* NewNoteWidget4Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF4052CCF7A0C00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF4062CCF7A0C00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF4122CCF7A0D00A48994 /* NewNoteWidget5Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF41D2CCF7A3B00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF41E2CCF7A3B00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF42A2CCF7A3C00A48994 /* NewNoteWidget6Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF4352CCF7A4900A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF8DF4362CCF7A4900A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF8DF4422CCF7A4B00A48994 /* NewNoteWidget7Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF8DF44E2CCF7A5800A48994 /* NewNoteWidget1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF44B2CCF7A5800A48994 /* NewNoteWidget1.swift */; };
-		DF8DF44F2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF44C2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift */; };
-		DF8DF4502CCF7A5800A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4482CCF7A5800A48994 /* Assets.xcassets */; };
-		DF8DF4582CCF7A5800A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4522CCF7A5800A48994 /* Assets.xcassets */; };
-		DF8DF45A2CCF7A5800A48994 /* NewNoteWidget6.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4552CCF7A5800A48994 /* NewNoteWidget6.swift */; };
-		DF8DF45B2CCF7A5800A48994 /* NewNoteWidget6Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4562CCF7A5800A48994 /* NewNoteWidget6Bundle.swift */; };
-		DF8DF4622CCF7A5900A48994 /* NewNoteWidget5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF45F2CCF7A5900A48994 /* NewNoteWidget5.swift */; };
-		DF8DF4632CCF7A5900A48994 /* NewNoteWidget5Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4602CCF7A5900A48994 /* NewNoteWidget5Bundle.swift */; };
-		DF8DF4642CCF7A5900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF45C2CCF7A5900A48994 /* Assets.xcassets */; };
-		DF8DF46C2CCF7A5900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4662CCF7A5900A48994 /* Assets.xcassets */; };
-		DF8DF46E2CCF7A5900A48994 /* NewNoteWidget2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4692CCF7A5900A48994 /* NewNoteWidget2.swift */; };
-		DF8DF46F2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF46A2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift */; };
-		DF8DF4762CCF7A5900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4702CCF7A5900A48994 /* Assets.xcassets */; };
-		DF8DF4782CCF7A5900A48994 /* NewNoteWidget7.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4732CCF7A5900A48994 /* NewNoteWidget7.swift */; };
-		DF8DF4792CCF7A5900A48994 /* NewNoteWidget7Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4742CCF7A5900A48994 /* NewNoteWidget7Bundle.swift */; };
-		DF8DF4802CCF7A5A00A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF47A2CCF7A5A00A48994 /* Assets.xcassets */; };
-		DF8DF4822CCF7A5A00A48994 /* NewNoteWidget3.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF47D2CCF7A5A00A48994 /* NewNoteWidget3.swift */; };
-		DF8DF4832CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF47E2CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift */; };
-		DF8DF48A2CCF7A5A00A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4842CCF7A5A00A48994 /* Assets.xcassets */; };
-		DF8DF48C2CCF7A5A00A48994 /* NewNoteWidget4.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4872CCF7A5A00A48994 /* NewNoteWidget4.swift */; };
-		DF8DF48D2CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4882CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift */; };
+		DF8DF4932CCFCAE400A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4942CCFCAE400A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF4A02CCFCAE600A48994 /* NewNote1WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4922CCFCAE400A48994 /* NewNote1WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF4AB2CCFCAF800A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4AC2CCFCAF800A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF4B82CCFCAF900A48994 /* NewNote2WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4AA2CCFCAF800A48994 /* NewNote2WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF4C32CCFCB0D00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4C42CCFCB0D00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF4D02CCFCB0E00A48994 /* NewNote3WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4C22CCFCB0D00A48994 /* NewNote3WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF4DB2CCFCB1C00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4DC2CCFCB1C00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF4E82CCFCB1E00A48994 /* NewNote4WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4DA2CCFCB1C00A48994 /* NewNote4WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF4F32CCFCB2B00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4F42CCFCB2B00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF5002CCFCB2D00A48994 /* NewNote5WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4F22CCFCB2B00A48994 /* NewNote5WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF50B2CCFCB3B00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF50C2CCFCB3B00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF5182CCFCB3D00A48994 /* NewNote6WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF50A2CCFCB3B00A48994 /* NewNote6WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF5232CCFCB4A00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF5242CCFCB4A00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF5302CCFCB4B00A48994 /* NewNote7WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF5222CCFCB4900A48994 /* NewNote7WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF53C2CCFCB5400A48994 /* NewNote7Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5392CCFCB5400A48994 /* NewNote7Widget.swift */; };
+		DF8DF53D2CCFCB5400A48994 /* NewNote7WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF53A2CCFCB5400A48994 /* NewNote7WidgetBundle.swift */; };
+		DF8DF53E2CCFCB5400A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF5362CCFCB5400A48994 /* Assets.xcassets */; };
+		DF8DF5462CCFCB5400A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF5402CCFCB5400A48994 /* Assets.xcassets */; };
+		DF8DF5482CCFCB5400A48994 /* NewNote3Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5432CCFCB5400A48994 /* NewNote3Widget.swift */; };
+		DF8DF5492CCFCB5400A48994 /* NewNote3WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5442CCFCB5400A48994 /* NewNote3WidgetBundle.swift */; };
+		DF8DF5502CCFCB5500A48994 /* NewNote4Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF54D2CCFCB5500A48994 /* NewNote4Widget.swift */; };
+		DF8DF5512CCFCB5500A48994 /* NewNote4WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF54E2CCFCB5500A48994 /* NewNote4WidgetBundle.swift */; };
+		DF8DF5522CCFCB5500A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF54A2CCFCB5500A48994 /* Assets.xcassets */; };
+		DF8DF55A2CCFCB5500A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF5542CCFCB5500A48994 /* Assets.xcassets */; };
+		DF8DF55C2CCFCB5500A48994 /* NewNote5Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5572CCFCB5500A48994 /* NewNote5Widget.swift */; };
+		DF8DF55D2CCFCB5500A48994 /* NewNote5WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5582CCFCB5500A48994 /* NewNote5WidgetBundle.swift */; };
+		DF8DF5642CCFCB5600A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF55E2CCFCB5600A48994 /* Assets.xcassets */; };
+		DF8DF5662CCFCB5600A48994 /* NewNote2Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5612CCFCB5600A48994 /* NewNote2Widget.swift */; };
+		DF8DF5672CCFCB5600A48994 /* NewNote2WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5622CCFCB5600A48994 /* NewNote2WidgetBundle.swift */; };
+		DF8DF56E2CCFCB5600A48994 /* NewNote6Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF56B2CCFCB5600A48994 /* NewNote6Widget.swift */; };
+		DF8DF56F2CCFCB5600A48994 /* NewNote6WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF56C2CCFCB5600A48994 /* NewNote6WidgetBundle.swift */; };
+		DF8DF5702CCFCB5600A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF5682CCFCB5600A48994 /* Assets.xcassets */; };
+		DF8DF5782CCFCB5600A48994 /* NewNote1Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5752CCFCB5600A48994 /* NewNote1Widget.swift */; };
+		DF8DF5792CCFCB5600A48994 /* NewNote1WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF5762CCFCB5600A48994 /* NewNote1WidgetBundle.swift */; };
+		DF8DF57A2CCFCB5600A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF5722CCFCB5600A48994 /* Assets.xcassets */; };
 		DFA1A33E2AA233310070DDD7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
 		DFBF30EB2869D0DD0091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DFC8174F2A9CB17E00824F79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
@@ -209,54 +209,54 @@
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = "Flutter Assemble";
 		};
-		DF8DF3B02CCF798B00A48994 /* PBXContainerItemProxy */ = {
+		DF8DF49E2CCFCAE600A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF3A32CCF798900A48994;
-			remoteInfo = NewNoteWidget1Extension;
+			remoteGlobalIDString = DF8DF4912CCFCAE400A48994;
+			remoteInfo = NewNote1WidgetExtension;
 		};
-		DF8DF3C82CCF799900A48994 /* PBXContainerItemProxy */ = {
+		DF8DF4B62CCFCAF900A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF3BB2CCF799800A48994;
-			remoteInfo = NewNoteWidget2Extension;
+			remoteGlobalIDString = DF8DF4A92CCFCAF800A48994;
+			remoteInfo = NewNote2WidgetExtension;
 		};
-		DF8DF3E02CCF79E500A48994 /* PBXContainerItemProxy */ = {
+		DF8DF4CE2CCFCB0E00A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF3D32CCF79E300A48994;
-			remoteInfo = NewNoteWidget3Extension;
+			remoteGlobalIDString = DF8DF4C12CCFCB0D00A48994;
+			remoteInfo = NewNote3WidgetExtension;
 		};
-		DF8DF3F82CCF79F900A48994 /* PBXContainerItemProxy */ = {
+		DF8DF4E62CCFCB1E00A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF3EB2CCF79F800A48994;
-			remoteInfo = NewNoteWidget4Extension;
+			remoteGlobalIDString = DF8DF4D92CCFCB1C00A48994;
+			remoteInfo = NewNote4WidgetExtension;
 		};
-		DF8DF4102CCF7A0D00A48994 /* PBXContainerItemProxy */ = {
+		DF8DF4FE2CCFCB2D00A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF4032CCF7A0C00A48994;
-			remoteInfo = NewNoteWidget5Extension;
+			remoteGlobalIDString = DF8DF4F12CCFCB2B00A48994;
+			remoteInfo = NewNote5WidgetExtension;
 		};
-		DF8DF4282CCF7A3C00A48994 /* PBXContainerItemProxy */ = {
+		DF8DF5162CCFCB3D00A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF41B2CCF7A3B00A48994;
-			remoteInfo = NewNoteWidget6Extension;
+			remoteGlobalIDString = DF8DF5092CCFCB3B00A48994;
+			remoteInfo = NewNote6WidgetExtension;
 		};
-		DF8DF4402CCF7A4B00A48994 /* PBXContainerItemProxy */ = {
+		DF8DF52E2CCFCB4B00A48994 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF8DF4332CCF7A4900A48994;
-			remoteInfo = NewNoteWidget7Extension;
+			remoteGlobalIDString = DF8DF5212CCFCB4900A48994;
+			remoteInfo = NewNote7WidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -277,18 +277,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				DF8DF5182CCFCB3D00A48994 /* NewNote6WidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF23D2CCF750300A48994 /* NewQuadrantWidgetExtension.appex in Embed Foundation Extensions */,
-				DF8DF4422CCF7A4B00A48994 /* NewNoteWidget7Extension.appex in Embed Foundation Extensions */,
-				DF8DF42A2CCF7A3C00A48994 /* NewNoteWidget6Extension.appex in Embed Foundation Extensions */,
-				DF8DF3FA2CCF79F900A48994 /* NewNoteWidget4Extension.appex in Embed Foundation Extensions */,
-				DF8DF3CA2CCF799900A48994 /* NewNoteWidget2Extension.appex in Embed Foundation Extensions */,
 				DF8DF2CE2CCF761400A48994 /* NewCounterWidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF21B2CCF74DF00A48994 /* NewMissionListViewExtension.appex in Embed Foundation Extensions */,
-				DF8DF3B22CCF798B00A48994 /* NewNoteWidget1Extension.appex in Embed Foundation Extensions */,
-				DF8DF3E22CCF79E500A48994 /* NewNoteWidget3Extension.appex in Embed Foundation Extensions */,
+				DF8DF5002CCFCB2D00A48994 /* NewNote5WidgetExtension.appex in Embed Foundation Extensions */,
+				DF8DF4E82CCFCB1E00A48994 /* NewNote4WidgetExtension.appex in Embed Foundation Extensions */,
+				DF8DF4B82CCFCAF900A48994 /* NewNote2WidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF28E2CCF756C00A48994 /* NewCalendarWidgetExtension.appex in Embed Foundation Extensions */,
+				DF8DF4D02CCFCB0E00A48994 /* NewNote3WidgetExtension.appex in Embed Foundation Extensions */,
+				DF8DF5302CCFCB4B00A48994 /* NewNote7WidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF25F2CCF753500A48994 /* NewClockInExtension.appex in Embed Foundation Extensions */,
-				DF8DF4122CCF7A0D00A48994 /* NewNoteWidget5Extension.appex in Embed Foundation Extensions */,
+				DF8DF4A02CCFCAE600A48994 /* NewNote1WidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,48 +400,48 @@
 		DF8DF2D62CCF761900A48994 /* NewCounterWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewCounterWidget.entitlements; sourceTree = "<group>"; };
 		DF8DF2D72CCF761900A48994 /* NewCounterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidget.swift; sourceTree = "<group>"; };
 		DF8DF2D82CCF761900A48994 /* NewCounterWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidgetBundle.swift; sourceTree = "<group>"; };
-		DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget1Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget2Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget3Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget4Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget5Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget6Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget7Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF8DF4482CCF7A5800A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF4492CCF7A5800A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF44A2CCF7A5800A48994 /* NewNoteWidget1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget1.entitlements; sourceTree = "<group>"; };
-		DF8DF44B2CCF7A5800A48994 /* NewNoteWidget1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget1.swift; sourceTree = "<group>"; };
-		DF8DF44C2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget1Bundle.swift; sourceTree = "<group>"; };
-		DF8DF4522CCF7A5800A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF4532CCF7A5800A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF4542CCF7A5800A48994 /* NewNoteWidget6.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget6.entitlements; sourceTree = "<group>"; };
-		DF8DF4552CCF7A5800A48994 /* NewNoteWidget6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget6.swift; sourceTree = "<group>"; };
-		DF8DF4562CCF7A5800A48994 /* NewNoteWidget6Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget6Bundle.swift; sourceTree = "<group>"; };
-		DF8DF45C2CCF7A5900A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF45D2CCF7A5900A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF45E2CCF7A5900A48994 /* NewNoteWidget5.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget5.entitlements; sourceTree = "<group>"; };
-		DF8DF45F2CCF7A5900A48994 /* NewNoteWidget5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget5.swift; sourceTree = "<group>"; };
-		DF8DF4602CCF7A5900A48994 /* NewNoteWidget5Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget5Bundle.swift; sourceTree = "<group>"; };
-		DF8DF4662CCF7A5900A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF4672CCF7A5900A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF4682CCF7A5900A48994 /* NewNoteWidget2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget2.entitlements; sourceTree = "<group>"; };
-		DF8DF4692CCF7A5900A48994 /* NewNoteWidget2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget2.swift; sourceTree = "<group>"; };
-		DF8DF46A2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget2Bundle.swift; sourceTree = "<group>"; };
-		DF8DF4702CCF7A5900A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF4712CCF7A5900A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF4722CCF7A5900A48994 /* NewNoteWidget7.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget7.entitlements; sourceTree = "<group>"; };
-		DF8DF4732CCF7A5900A48994 /* NewNoteWidget7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget7.swift; sourceTree = "<group>"; };
-		DF8DF4742CCF7A5900A48994 /* NewNoteWidget7Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget7Bundle.swift; sourceTree = "<group>"; };
-		DF8DF47A2CCF7A5A00A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF47B2CCF7A5A00A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF47C2CCF7A5A00A48994 /* NewNoteWidget3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget3.entitlements; sourceTree = "<group>"; };
-		DF8DF47D2CCF7A5A00A48994 /* NewNoteWidget3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget3.swift; sourceTree = "<group>"; };
-		DF8DF47E2CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget3Bundle.swift; sourceTree = "<group>"; };
-		DF8DF4842CCF7A5A00A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF8DF4852CCF7A5A00A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8DF4862CCF7A5A00A48994 /* NewNoteWidget4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget4.entitlements; sourceTree = "<group>"; };
-		DF8DF4872CCF7A5A00A48994 /* NewNoteWidget4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget4.swift; sourceTree = "<group>"; };
-		DF8DF4882CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget4Bundle.swift; sourceTree = "<group>"; };
+		DF8DF4922CCFCAE400A48994 /* NewNote1WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote1WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4AA2CCFCAF800A48994 /* NewNote2WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote2WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4C22CCFCB0D00A48994 /* NewNote3WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote3WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4DA2CCFCB1C00A48994 /* NewNote4WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote4WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4F22CCFCB2B00A48994 /* NewNote5WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote5WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF50A2CCFCB3B00A48994 /* NewNote6WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote6WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF5222CCFCB4900A48994 /* NewNote7WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNote7WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF5362CCFCB5400A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF5372CCFCB5400A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF5382CCFCB5400A48994 /* NewNote7Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote7Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF5392CCFCB5400A48994 /* NewNote7Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote7Widget.swift; sourceTree = "<group>"; };
+		DF8DF53A2CCFCB5400A48994 /* NewNote7WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote7WidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF5402CCFCB5400A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF5412CCFCB5400A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF5422CCFCB5400A48994 /* NewNote3Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote3Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF5432CCFCB5400A48994 /* NewNote3Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote3Widget.swift; sourceTree = "<group>"; };
+		DF8DF5442CCFCB5400A48994 /* NewNote3WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote3WidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF54A2CCFCB5500A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF54B2CCFCB5500A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF54C2CCFCB5500A48994 /* NewNote4Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote4Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF54D2CCFCB5500A48994 /* NewNote4Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote4Widget.swift; sourceTree = "<group>"; };
+		DF8DF54E2CCFCB5500A48994 /* NewNote4WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote4WidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF5542CCFCB5500A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF5552CCFCB5500A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF5562CCFCB5500A48994 /* NewNote5Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote5Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF5572CCFCB5500A48994 /* NewNote5Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote5Widget.swift; sourceTree = "<group>"; };
+		DF8DF5582CCFCB5500A48994 /* NewNote5WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote5WidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF55E2CCFCB5600A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF55F2CCFCB5600A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF5602CCFCB5600A48994 /* NewNote2Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote2Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF5612CCFCB5600A48994 /* NewNote2Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote2Widget.swift; sourceTree = "<group>"; };
+		DF8DF5622CCFCB5600A48994 /* NewNote2WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote2WidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF5682CCFCB5600A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF5692CCFCB5600A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF56A2CCFCB5600A48994 /* NewNote6Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote6Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF56B2CCFCB5600A48994 /* NewNote6Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote6Widget.swift; sourceTree = "<group>"; };
+		DF8DF56C2CCFCB5600A48994 /* NewNote6WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote6WidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF5722CCFCB5600A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF5732CCFCB5600A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF5742CCFCB5600A48994 /* NewNote1Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNote1Widget.entitlements; sourceTree = "<group>"; };
+		DF8DF5752CCFCB5600A48994 /* NewNote1Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote1Widget.swift; sourceTree = "<group>"; };
+		DF8DF5762CCFCB5600A48994 /* NewNote1WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNote1WidgetBundle.swift; sourceTree = "<group>"; };
 		DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		DFBF30EA2869D0DD0091B848 /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		DFC817502A9CB17E00824F79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -510,66 +510,66 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3A12CCF798900A48994 /* Frameworks */ = {
+		DF8DF48F2CCFCAE400A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF3A62CCF798900A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF3A52CCF798900A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF4942CCFCAE400A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4932CCFCAE400A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3B92CCF799800A48994 /* Frameworks */ = {
+		DF8DF4A72CCFCAF800A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF3BE2CCF799800A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF3BD2CCF799800A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF4AC2CCFCAF800A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4AB2CCFCAF800A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3D12CCF79E300A48994 /* Frameworks */ = {
+		DF8DF4BF2CCFCB0D00A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF3D62CCF79E300A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF3D52CCF79E300A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF4C42CCFCB0D00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4C32CCFCB0D00A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3E92CCF79F800A48994 /* Frameworks */ = {
+		DF8DF4D72CCFCB1C00A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF3EE2CCF79F800A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF3ED2CCF79F800A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF4DC2CCFCB1C00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4DB2CCFCB1C00A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4012CCF7A0C00A48994 /* Frameworks */ = {
+		DF8DF4EF2CCFCB2B00A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4062CCF7A0C00A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF4052CCF7A0C00A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF4F42CCFCB2B00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4F32CCFCB2B00A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4192CCF7A3B00A48994 /* Frameworks */ = {
+		DF8DF5072CCFCB3B00A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF41E2CCF7A3B00A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF41D2CCF7A3B00A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF50C2CCFCB3B00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF50B2CCFCB3B00A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4312CCF7A4900A48994 /* Frameworks */ = {
+		DF8DF51F2CCFCB4900A48994 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4362CCF7A4900A48994 /* SwiftUI.framework in Frameworks */,
-				DF8DF4352CCF7A4900A48994 /* WidgetKit.framework in Frameworks */,
+				DF8DF5242CCFCB4A00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF5232CCFCB4A00A48994 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,14 +607,14 @@
 				DF8DF2992CCF757700A48994 /* NewClockIn */,
 				DF8DF2AD2CCF757700A48994 /* NewCalendarWidget */,
 				DF8DF2D92CCF761900A48994 /* NewCounterWidget */,
-				DF8DF44D2CCF7A5800A48994 /* NewNoteWidget1 */,
-				DF8DF46B2CCF7A5900A48994 /* NewNoteWidget2 */,
-				DF8DF47F2CCF7A5A00A48994 /* NewNoteWidget3 */,
-				DF8DF4892CCF7A5A00A48994 /* NewNoteWidget4 */,
-				DF8DF4612CCF7A5900A48994 /* NewNoteWidget5 */,
-				DF8DF4572CCF7A5800A48994 /* NewNoteWidget6 */,
-				DF8DF4752CCF7A5900A48994 /* NewNoteWidget7 */,
 				A45AF054F2DD42C254AC9EDA /* Pods */,
+				DF8DF5772CCFCB5600A48994 /* NewNote1Widget */,
+				DF8DF5632CCFCB5600A48994 /* NewNote2Widget */,
+				DF8DF5452CCFCB5400A48994 /* NewNote3Widget */,
+				DF8DF54F2CCFCB5500A48994 /* NewNote4Widget */,
+				DF8DF5592CCFCB5500A48994 /* NewNote5Widget */,
+				DF8DF56D2CCFCB5600A48994 /* NewNote6Widget */,
+				DF8DF53B2CCFCB5400A48994 /* NewNote7Widget */,
 				33CC10EE2044A3C60003C045 /* Products */,
 				333A3C6A24C1D6DCB934E7CA /* Frameworks */,
 				DF4B3A252A43FC1900FA47B8 /* QuadrantWidgetExtension copy-Info.plist */,
@@ -630,13 +630,13 @@
 				DF8DF2512CCF753400A48994 /* NewClockInExtension.appex */,
 				DF8DF2802CCF756B00A48994 /* NewCalendarWidgetExtension.appex */,
 				DF8DF2C02CCF761300A48994 /* NewCounterWidgetExtension.appex */,
-				DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */,
-				DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */,
-				DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */,
-				DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */,
-				DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */,
-				DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */,
-				DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */,
+				DF8DF4922CCFCAE400A48994 /* NewNote1WidgetExtension.appex */,
+				DF8DF4AA2CCFCAF800A48994 /* NewNote2WidgetExtension.appex */,
+				DF8DF4C22CCFCB0D00A48994 /* NewNote3WidgetExtension.appex */,
+				DF8DF4DA2CCFCB1C00A48994 /* NewNote4WidgetExtension.appex */,
+				DF8DF4F22CCFCB2B00A48994 /* NewNote5WidgetExtension.appex */,
+				DF8DF50A2CCFCB3B00A48994 /* NewNote6WidgetExtension.appex */,
+				DF8DF5222CCFCB4900A48994 /* NewNote7WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -823,88 +823,88 @@
 			path = NewCounterWidget;
 			sourceTree = "<group>";
 		};
-		DF8DF44D2CCF7A5800A48994 /* NewNoteWidget1 */ = {
+		DF8DF53B2CCFCB5400A48994 /* NewNote7Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF4482CCF7A5800A48994 /* Assets.xcassets */,
-				DF8DF4492CCF7A5800A48994 /* Info.plist */,
-				DF8DF44A2CCF7A5800A48994 /* NewNoteWidget1.entitlements */,
-				DF8DF44B2CCF7A5800A48994 /* NewNoteWidget1.swift */,
-				DF8DF44C2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift */,
+				DF8DF5362CCFCB5400A48994 /* Assets.xcassets */,
+				DF8DF5372CCFCB5400A48994 /* Info.plist */,
+				DF8DF5382CCFCB5400A48994 /* NewNote7Widget.entitlements */,
+				DF8DF5392CCFCB5400A48994 /* NewNote7Widget.swift */,
+				DF8DF53A2CCFCB5400A48994 /* NewNote7WidgetBundle.swift */,
 			);
-			path = NewNoteWidget1;
+			path = NewNote7Widget;
 			sourceTree = "<group>";
 		};
-		DF8DF4572CCF7A5800A48994 /* NewNoteWidget6 */ = {
+		DF8DF5452CCFCB5400A48994 /* NewNote3Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF4522CCF7A5800A48994 /* Assets.xcassets */,
-				DF8DF4532CCF7A5800A48994 /* Info.plist */,
-				DF8DF4542CCF7A5800A48994 /* NewNoteWidget6.entitlements */,
-				DF8DF4552CCF7A5800A48994 /* NewNoteWidget6.swift */,
-				DF8DF4562CCF7A5800A48994 /* NewNoteWidget6Bundle.swift */,
+				DF8DF5402CCFCB5400A48994 /* Assets.xcassets */,
+				DF8DF5412CCFCB5400A48994 /* Info.plist */,
+				DF8DF5422CCFCB5400A48994 /* NewNote3Widget.entitlements */,
+				DF8DF5432CCFCB5400A48994 /* NewNote3Widget.swift */,
+				DF8DF5442CCFCB5400A48994 /* NewNote3WidgetBundle.swift */,
 			);
-			path = NewNoteWidget6;
+			path = NewNote3Widget;
 			sourceTree = "<group>";
 		};
-		DF8DF4612CCF7A5900A48994 /* NewNoteWidget5 */ = {
+		DF8DF54F2CCFCB5500A48994 /* NewNote4Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF45C2CCF7A5900A48994 /* Assets.xcassets */,
-				DF8DF45D2CCF7A5900A48994 /* Info.plist */,
-				DF8DF45E2CCF7A5900A48994 /* NewNoteWidget5.entitlements */,
-				DF8DF45F2CCF7A5900A48994 /* NewNoteWidget5.swift */,
-				DF8DF4602CCF7A5900A48994 /* NewNoteWidget5Bundle.swift */,
+				DF8DF54A2CCFCB5500A48994 /* Assets.xcassets */,
+				DF8DF54B2CCFCB5500A48994 /* Info.plist */,
+				DF8DF54C2CCFCB5500A48994 /* NewNote4Widget.entitlements */,
+				DF8DF54D2CCFCB5500A48994 /* NewNote4Widget.swift */,
+				DF8DF54E2CCFCB5500A48994 /* NewNote4WidgetBundle.swift */,
 			);
-			path = NewNoteWidget5;
+			path = NewNote4Widget;
 			sourceTree = "<group>";
 		};
-		DF8DF46B2CCF7A5900A48994 /* NewNoteWidget2 */ = {
+		DF8DF5592CCFCB5500A48994 /* NewNote5Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF4662CCF7A5900A48994 /* Assets.xcassets */,
-				DF8DF4672CCF7A5900A48994 /* Info.plist */,
-				DF8DF4682CCF7A5900A48994 /* NewNoteWidget2.entitlements */,
-				DF8DF4692CCF7A5900A48994 /* NewNoteWidget2.swift */,
-				DF8DF46A2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift */,
+				DF8DF5542CCFCB5500A48994 /* Assets.xcassets */,
+				DF8DF5552CCFCB5500A48994 /* Info.plist */,
+				DF8DF5562CCFCB5500A48994 /* NewNote5Widget.entitlements */,
+				DF8DF5572CCFCB5500A48994 /* NewNote5Widget.swift */,
+				DF8DF5582CCFCB5500A48994 /* NewNote5WidgetBundle.swift */,
 			);
-			path = NewNoteWidget2;
+			path = NewNote5Widget;
 			sourceTree = "<group>";
 		};
-		DF8DF4752CCF7A5900A48994 /* NewNoteWidget7 */ = {
+		DF8DF5632CCFCB5600A48994 /* NewNote2Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF4702CCF7A5900A48994 /* Assets.xcassets */,
-				DF8DF4712CCF7A5900A48994 /* Info.plist */,
-				DF8DF4722CCF7A5900A48994 /* NewNoteWidget7.entitlements */,
-				DF8DF4732CCF7A5900A48994 /* NewNoteWidget7.swift */,
-				DF8DF4742CCF7A5900A48994 /* NewNoteWidget7Bundle.swift */,
+				DF8DF55E2CCFCB5600A48994 /* Assets.xcassets */,
+				DF8DF55F2CCFCB5600A48994 /* Info.plist */,
+				DF8DF5602CCFCB5600A48994 /* NewNote2Widget.entitlements */,
+				DF8DF5612CCFCB5600A48994 /* NewNote2Widget.swift */,
+				DF8DF5622CCFCB5600A48994 /* NewNote2WidgetBundle.swift */,
 			);
-			path = NewNoteWidget7;
+			path = NewNote2Widget;
 			sourceTree = "<group>";
 		};
-		DF8DF47F2CCF7A5A00A48994 /* NewNoteWidget3 */ = {
+		DF8DF56D2CCFCB5600A48994 /* NewNote6Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF47A2CCF7A5A00A48994 /* Assets.xcassets */,
-				DF8DF47B2CCF7A5A00A48994 /* Info.plist */,
-				DF8DF47C2CCF7A5A00A48994 /* NewNoteWidget3.entitlements */,
-				DF8DF47D2CCF7A5A00A48994 /* NewNoteWidget3.swift */,
-				DF8DF47E2CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift */,
+				DF8DF5682CCFCB5600A48994 /* Assets.xcassets */,
+				DF8DF5692CCFCB5600A48994 /* Info.plist */,
+				DF8DF56A2CCFCB5600A48994 /* NewNote6Widget.entitlements */,
+				DF8DF56B2CCFCB5600A48994 /* NewNote6Widget.swift */,
+				DF8DF56C2CCFCB5600A48994 /* NewNote6WidgetBundle.swift */,
 			);
-			path = NewNoteWidget3;
+			path = NewNote6Widget;
 			sourceTree = "<group>";
 		};
-		DF8DF4892CCF7A5A00A48994 /* NewNoteWidget4 */ = {
+		DF8DF5772CCFCB5600A48994 /* NewNote1Widget */ = {
 			isa = PBXGroup;
 			children = (
-				DF8DF4842CCF7A5A00A48994 /* Assets.xcassets */,
-				DF8DF4852CCF7A5A00A48994 /* Info.plist */,
-				DF8DF4862CCF7A5A00A48994 /* NewNoteWidget4.entitlements */,
-				DF8DF4872CCF7A5A00A48994 /* NewNoteWidget4.swift */,
-				DF8DF4882CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift */,
+				DF8DF5722CCFCB5600A48994 /* Assets.xcassets */,
+				DF8DF5732CCFCB5600A48994 /* Info.plist */,
+				DF8DF5742CCFCB5600A48994 /* NewNote1Widget.entitlements */,
+				DF8DF5752CCFCB5600A48994 /* NewNote1Widget.swift */,
+				DF8DF5762CCFCB5600A48994 /* NewNote1WidgetBundle.swift */,
 			);
-			path = NewNoteWidget4;
+			path = NewNote1Widget;
 			sourceTree = "<group>";
 		};
 		DFC817532A9CB1AF00824F79 /* Resources */ = {
@@ -958,13 +958,13 @@
 				DF8DF25E2CCF753500A48994 /* PBXTargetDependency */,
 				DF8DF28D2CCF756C00A48994 /* PBXTargetDependency */,
 				DF8DF2CD2CCF761400A48994 /* PBXTargetDependency */,
-				DF8DF3B12CCF798B00A48994 /* PBXTargetDependency */,
-				DF8DF3C92CCF799900A48994 /* PBXTargetDependency */,
-				DF8DF3E12CCF79E500A48994 /* PBXTargetDependency */,
-				DF8DF3F92CCF79F900A48994 /* PBXTargetDependency */,
-				DF8DF4112CCF7A0D00A48994 /* PBXTargetDependency */,
-				DF8DF4292CCF7A3C00A48994 /* PBXTargetDependency */,
-				DF8DF4412CCF7A4B00A48994 /* PBXTargetDependency */,
+				DF8DF49F2CCFCAE600A48994 /* PBXTargetDependency */,
+				DF8DF4B72CCFCAF900A48994 /* PBXTargetDependency */,
+				DF8DF4CF2CCFCB0E00A48994 /* PBXTargetDependency */,
+				DF8DF4E72CCFCB1E00A48994 /* PBXTargetDependency */,
+				DF8DF4FF2CCFCB2D00A48994 /* PBXTargetDependency */,
+				DF8DF5172CCFCB3D00A48994 /* PBXTargetDependency */,
+				DF8DF52F2CCFCB4B00A48994 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -1071,137 +1071,137 @@
 			productReference = DF8DF2C02CCF761300A48994 /* NewCounterWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF3A32CCF798900A48994 /* NewNoteWidget1Extension */ = {
+		DF8DF4912CCFCAE400A48994 /* NewNote1WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF3B42CCF798B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget1Extension" */;
+			buildConfigurationList = DF8DF4A22CCFCAE600A48994 /* Build configuration list for PBXNativeTarget "NewNote1WidgetExtension" */;
 			buildPhases = (
-				DF8DF3A02CCF798900A48994 /* Sources */,
-				DF8DF3A12CCF798900A48994 /* Frameworks */,
-				DF8DF3A22CCF798900A48994 /* Resources */,
+				DF8DF48E2CCFCAE400A48994 /* Sources */,
+				DF8DF48F2CCFCAE400A48994 /* Frameworks */,
+				DF8DF4902CCFCAE400A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget1Extension;
+			name = NewNote1WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget1Extension;
-			productReference = DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */;
+			productName = NewNote1WidgetExtension;
+			productReference = DF8DF4922CCFCAE400A48994 /* NewNote1WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF3BB2CCF799800A48994 /* NewNoteWidget2Extension */ = {
+		DF8DF4A92CCFCAF800A48994 /* NewNote2WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF3CC2CCF799900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget2Extension" */;
+			buildConfigurationList = DF8DF4BA2CCFCAF900A48994 /* Build configuration list for PBXNativeTarget "NewNote2WidgetExtension" */;
 			buildPhases = (
-				DF8DF3B82CCF799800A48994 /* Sources */,
-				DF8DF3B92CCF799800A48994 /* Frameworks */,
-				DF8DF3BA2CCF799800A48994 /* Resources */,
+				DF8DF4A62CCFCAF800A48994 /* Sources */,
+				DF8DF4A72CCFCAF800A48994 /* Frameworks */,
+				DF8DF4A82CCFCAF800A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget2Extension;
+			name = NewNote2WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget2Extension;
-			productReference = DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */;
+			productName = NewNote2WidgetExtension;
+			productReference = DF8DF4AA2CCFCAF800A48994 /* NewNote2WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF3D32CCF79E300A48994 /* NewNoteWidget3Extension */ = {
+		DF8DF4C12CCFCB0D00A48994 /* NewNote3WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF3E42CCF79E500A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget3Extension" */;
+			buildConfigurationList = DF8DF4D22CCFCB0E00A48994 /* Build configuration list for PBXNativeTarget "NewNote3WidgetExtension" */;
 			buildPhases = (
-				DF8DF3D02CCF79E300A48994 /* Sources */,
-				DF8DF3D12CCF79E300A48994 /* Frameworks */,
-				DF8DF3D22CCF79E300A48994 /* Resources */,
+				DF8DF4BE2CCFCB0D00A48994 /* Sources */,
+				DF8DF4BF2CCFCB0D00A48994 /* Frameworks */,
+				DF8DF4C02CCFCB0D00A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget3Extension;
+			name = NewNote3WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget3Extension;
-			productReference = DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */;
+			productName = NewNote3WidgetExtension;
+			productReference = DF8DF4C22CCFCB0D00A48994 /* NewNote3WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF3EB2CCF79F800A48994 /* NewNoteWidget4Extension */ = {
+		DF8DF4D92CCFCB1C00A48994 /* NewNote4WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF3FC2CCF79F900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget4Extension" */;
+			buildConfigurationList = DF8DF4EA2CCFCB1E00A48994 /* Build configuration list for PBXNativeTarget "NewNote4WidgetExtension" */;
 			buildPhases = (
-				DF8DF3E82CCF79F800A48994 /* Sources */,
-				DF8DF3E92CCF79F800A48994 /* Frameworks */,
-				DF8DF3EA2CCF79F800A48994 /* Resources */,
+				DF8DF4D62CCFCB1C00A48994 /* Sources */,
+				DF8DF4D72CCFCB1C00A48994 /* Frameworks */,
+				DF8DF4D82CCFCB1C00A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget4Extension;
+			name = NewNote4WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget4Extension;
-			productReference = DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */;
+			productName = NewNote4WidgetExtension;
+			productReference = DF8DF4DA2CCFCB1C00A48994 /* NewNote4WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF4032CCF7A0C00A48994 /* NewNoteWidget5Extension */ = {
+		DF8DF4F12CCFCB2B00A48994 /* NewNote5WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF4142CCF7A0D00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget5Extension" */;
+			buildConfigurationList = DF8DF5022CCFCB2D00A48994 /* Build configuration list for PBXNativeTarget "NewNote5WidgetExtension" */;
 			buildPhases = (
-				DF8DF4002CCF7A0C00A48994 /* Sources */,
-				DF8DF4012CCF7A0C00A48994 /* Frameworks */,
-				DF8DF4022CCF7A0C00A48994 /* Resources */,
+				DF8DF4EE2CCFCB2B00A48994 /* Sources */,
+				DF8DF4EF2CCFCB2B00A48994 /* Frameworks */,
+				DF8DF4F02CCFCB2B00A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget5Extension;
+			name = NewNote5WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget5Extension;
-			productReference = DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */;
+			productName = NewNote5WidgetExtension;
+			productReference = DF8DF4F22CCFCB2B00A48994 /* NewNote5WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF41B2CCF7A3B00A48994 /* NewNoteWidget6Extension */ = {
+		DF8DF5092CCFCB3B00A48994 /* NewNote6WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF42C2CCF7A3C00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget6Extension" */;
+			buildConfigurationList = DF8DF51A2CCFCB3D00A48994 /* Build configuration list for PBXNativeTarget "NewNote6WidgetExtension" */;
 			buildPhases = (
-				DF8DF4182CCF7A3B00A48994 /* Sources */,
-				DF8DF4192CCF7A3B00A48994 /* Frameworks */,
-				DF8DF41A2CCF7A3B00A48994 /* Resources */,
+				DF8DF5062CCFCB3B00A48994 /* Sources */,
+				DF8DF5072CCFCB3B00A48994 /* Frameworks */,
+				DF8DF5082CCFCB3B00A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget6Extension;
+			name = NewNote6WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget6Extension;
-			productReference = DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */;
+			productName = NewNote6WidgetExtension;
+			productReference = DF8DF50A2CCFCB3B00A48994 /* NewNote6WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF8DF4332CCF7A4900A48994 /* NewNoteWidget7Extension */ = {
+		DF8DF5212CCFCB4900A48994 /* NewNote7WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8DF4442CCF7A4B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget7Extension" */;
+			buildConfigurationList = DF8DF5322CCFCB4B00A48994 /* Build configuration list for PBXNativeTarget "NewNote7WidgetExtension" */;
 			buildPhases = (
-				DF8DF4302CCF7A4900A48994 /* Sources */,
-				DF8DF4312CCF7A4900A48994 /* Frameworks */,
-				DF8DF4322CCF7A4900A48994 /* Resources */,
+				DF8DF51E2CCFCB4900A48994 /* Sources */,
+				DF8DF51F2CCFCB4900A48994 /* Frameworks */,
+				DF8DF5202CCFCB4900A48994 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NewNoteWidget7Extension;
+			name = NewNote7WidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = NewNoteWidget7Extension;
-			productReference = DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */;
+			productName = NewNote7WidgetExtension;
+			productReference = DF8DF5222CCFCB4900A48994 /* NewNote7WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1243,25 +1243,25 @@
 					DF8DF2BF2CCF761300A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF3A32CCF798900A48994 = {
+					DF8DF4912CCFCAE400A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF3BB2CCF799800A48994 = {
+					DF8DF4A92CCFCAF800A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF3D32CCF79E300A48994 = {
+					DF8DF4C12CCFCB0D00A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF3EB2CCF79F800A48994 = {
+					DF8DF4D92CCFCB1C00A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF4032CCF7A0C00A48994 = {
+					DF8DF4F12CCFCB2B00A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF41B2CCF7A3B00A48994 = {
+					DF8DF5092CCFCB3B00A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					DF8DF4332CCF7A4900A48994 = {
+					DF8DF5212CCFCB4900A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
@@ -1297,13 +1297,13 @@
 				DF8DF2502CCF753400A48994 /* NewClockInExtension */,
 				DF8DF27F2CCF756B00A48994 /* NewCalendarWidgetExtension */,
 				DF8DF2BF2CCF761300A48994 /* NewCounterWidgetExtension */,
-				DF8DF3A32CCF798900A48994 /* NewNoteWidget1Extension */,
-				DF8DF3BB2CCF799800A48994 /* NewNoteWidget2Extension */,
-				DF8DF3D32CCF79E300A48994 /* NewNoteWidget3Extension */,
-				DF8DF3EB2CCF79F800A48994 /* NewNoteWidget4Extension */,
-				DF8DF4032CCF7A0C00A48994 /* NewNoteWidget5Extension */,
-				DF8DF41B2CCF7A3B00A48994 /* NewNoteWidget6Extension */,
-				DF8DF4332CCF7A4900A48994 /* NewNoteWidget7Extension */,
+				DF8DF4912CCFCAE400A48994 /* NewNote1WidgetExtension */,
+				DF8DF4A92CCFCAF800A48994 /* NewNote2WidgetExtension */,
+				DF8DF4C12CCFCB0D00A48994 /* NewNote3WidgetExtension */,
+				DF8DF4D92CCFCB1C00A48994 /* NewNote4WidgetExtension */,
+				DF8DF4F12CCFCB2B00A48994 /* NewNote5WidgetExtension */,
+				DF8DF5092CCFCB3B00A48994 /* NewNote6WidgetExtension */,
+				DF8DF5212CCFCB4900A48994 /* NewNote7WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1365,59 +1365,59 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3A22CCF798900A48994 /* Resources */ = {
+		DF8DF4902CCFCAE400A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4502CCF7A5800A48994 /* Assets.xcassets in Resources */,
+				DF8DF57A2CCFCB5600A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3BA2CCF799800A48994 /* Resources */ = {
+		DF8DF4A82CCFCAF800A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF46C2CCF7A5900A48994 /* Assets.xcassets in Resources */,
+				DF8DF5642CCFCB5600A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3D22CCF79E300A48994 /* Resources */ = {
+		DF8DF4C02CCFCB0D00A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4802CCF7A5A00A48994 /* Assets.xcassets in Resources */,
+				DF8DF5462CCFCB5400A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3EA2CCF79F800A48994 /* Resources */ = {
+		DF8DF4D82CCFCB1C00A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF48A2CCF7A5A00A48994 /* Assets.xcassets in Resources */,
+				DF8DF5522CCFCB5500A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4022CCF7A0C00A48994 /* Resources */ = {
+		DF8DF4F02CCFCB2B00A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4642CCF7A5900A48994 /* Assets.xcassets in Resources */,
+				DF8DF55A2CCFCB5500A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF41A2CCF7A3B00A48994 /* Resources */ = {
+		DF8DF5082CCFCB3B00A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4582CCF7A5800A48994 /* Assets.xcassets in Resources */,
+				DF8DF5702CCFCB5600A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4322CCF7A4900A48994 /* Resources */ = {
+		DF8DF5202CCFCB4900A48994 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4762CCF7A5900A48994 /* Assets.xcassets in Resources */,
+				DF8DF53E2CCFCB5400A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1599,66 +1599,66 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3A02CCF798900A48994 /* Sources */ = {
+		DF8DF48E2CCFCAE400A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF44E2CCF7A5800A48994 /* NewNoteWidget1.swift in Sources */,
-				DF8DF44F2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift in Sources */,
+				DF8DF5782CCFCB5600A48994 /* NewNote1Widget.swift in Sources */,
+				DF8DF5792CCFCB5600A48994 /* NewNote1WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3B82CCF799800A48994 /* Sources */ = {
+		DF8DF4A62CCFCAF800A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF46E2CCF7A5900A48994 /* NewNoteWidget2.swift in Sources */,
-				DF8DF46F2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift in Sources */,
+				DF8DF5662CCFCB5600A48994 /* NewNote2Widget.swift in Sources */,
+				DF8DF5672CCFCB5600A48994 /* NewNote2WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3D02CCF79E300A48994 /* Sources */ = {
+		DF8DF4BE2CCFCB0D00A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4822CCF7A5A00A48994 /* NewNoteWidget3.swift in Sources */,
-				DF8DF4832CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift in Sources */,
+				DF8DF5482CCFCB5400A48994 /* NewNote3Widget.swift in Sources */,
+				DF8DF5492CCFCB5400A48994 /* NewNote3WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF3E82CCF79F800A48994 /* Sources */ = {
+		DF8DF4D62CCFCB1C00A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF48C2CCF7A5A00A48994 /* NewNoteWidget4.swift in Sources */,
-				DF8DF48D2CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift in Sources */,
+				DF8DF5502CCFCB5500A48994 /* NewNote4Widget.swift in Sources */,
+				DF8DF5512CCFCB5500A48994 /* NewNote4WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4002CCF7A0C00A48994 /* Sources */ = {
+		DF8DF4EE2CCFCB2B00A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4622CCF7A5900A48994 /* NewNoteWidget5.swift in Sources */,
-				DF8DF4632CCF7A5900A48994 /* NewNoteWidget5Bundle.swift in Sources */,
+				DF8DF55C2CCFCB5500A48994 /* NewNote5Widget.swift in Sources */,
+				DF8DF55D2CCFCB5500A48994 /* NewNote5WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4182CCF7A3B00A48994 /* Sources */ = {
+		DF8DF5062CCFCB3B00A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF45A2CCF7A5800A48994 /* NewNoteWidget6.swift in Sources */,
-				DF8DF45B2CCF7A5800A48994 /* NewNoteWidget6Bundle.swift in Sources */,
+				DF8DF56E2CCFCB5600A48994 /* NewNote6Widget.swift in Sources */,
+				DF8DF56F2CCFCB5600A48994 /* NewNote6WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF8DF4302CCF7A4900A48994 /* Sources */ = {
+		DF8DF51E2CCFCB4900A48994 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8DF4782CCF7A5900A48994 /* NewNoteWidget7.swift in Sources */,
-				DF8DF4792CCF7A5900A48994 /* NewNoteWidget7Bundle.swift in Sources */,
+				DF8DF53C2CCFCB5400A48994 /* NewNote7Widget.swift in Sources */,
+				DF8DF53D2CCFCB5400A48994 /* NewNote7WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1720,40 +1720,40 @@
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = DF8DF2DE2CCF761E00A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF3B12CCF798B00A48994 /* PBXTargetDependency */ = {
+		DF8DF49F2CCFCAE600A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF3A32CCF798900A48994 /* NewNoteWidget1Extension */;
-			targetProxy = DF8DF3B02CCF798B00A48994 /* PBXContainerItemProxy */;
+			target = DF8DF4912CCFCAE400A48994 /* NewNote1WidgetExtension */;
+			targetProxy = DF8DF49E2CCFCAE600A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF3C92CCF799900A48994 /* PBXTargetDependency */ = {
+		DF8DF4B72CCFCAF900A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF3BB2CCF799800A48994 /* NewNoteWidget2Extension */;
-			targetProxy = DF8DF3C82CCF799900A48994 /* PBXContainerItemProxy */;
+			target = DF8DF4A92CCFCAF800A48994 /* NewNote2WidgetExtension */;
+			targetProxy = DF8DF4B62CCFCAF900A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF3E12CCF79E500A48994 /* PBXTargetDependency */ = {
+		DF8DF4CF2CCFCB0E00A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF3D32CCF79E300A48994 /* NewNoteWidget3Extension */;
-			targetProxy = DF8DF3E02CCF79E500A48994 /* PBXContainerItemProxy */;
+			target = DF8DF4C12CCFCB0D00A48994 /* NewNote3WidgetExtension */;
+			targetProxy = DF8DF4CE2CCFCB0E00A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF3F92CCF79F900A48994 /* PBXTargetDependency */ = {
+		DF8DF4E72CCFCB1E00A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF3EB2CCF79F800A48994 /* NewNoteWidget4Extension */;
-			targetProxy = DF8DF3F82CCF79F900A48994 /* PBXContainerItemProxy */;
+			target = DF8DF4D92CCFCB1C00A48994 /* NewNote4WidgetExtension */;
+			targetProxy = DF8DF4E62CCFCB1E00A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF4112CCF7A0D00A48994 /* PBXTargetDependency */ = {
+		DF8DF4FF2CCFCB2D00A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF4032CCF7A0C00A48994 /* NewNoteWidget5Extension */;
-			targetProxy = DF8DF4102CCF7A0D00A48994 /* PBXContainerItemProxy */;
+			target = DF8DF4F12CCFCB2B00A48994 /* NewNote5WidgetExtension */;
+			targetProxy = DF8DF4FE2CCFCB2D00A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF4292CCF7A3C00A48994 /* PBXTargetDependency */ = {
+		DF8DF5172CCFCB3D00A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF41B2CCF7A3B00A48994 /* NewNoteWidget6Extension */;
-			targetProxy = DF8DF4282CCF7A3C00A48994 /* PBXContainerItemProxy */;
+			target = DF8DF5092CCFCB3B00A48994 /* NewNote6WidgetExtension */;
+			targetProxy = DF8DF5162CCFCB3D00A48994 /* PBXContainerItemProxy */;
 		};
-		DF8DF4412CCF7A4B00A48994 /* PBXTargetDependency */ = {
+		DF8DF52F2CCFCB4B00A48994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF8DF4332CCF7A4900A48994 /* NewNoteWidget7Extension */;
-			targetProxy = DF8DF4402CCF7A4B00A48994 /* PBXContainerItemProxy */;
+			target = DF8DF5212CCFCB4900A48994 /* NewNote7WidgetExtension */;
+			targetProxy = DF8DF52E2CCFCB4B00A48994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2756,7 +2756,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF3B52CCF798B00A48994 /* Debug */ = {
+		DF8DF4A32CCFCAE600A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -2771,7 +2771,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget1/NewNoteWidget1.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote1Widget/NewNote1Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2781,8 +2781,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget1/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget1;
+				INFOPLIST_FILE = NewNote1Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote1Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2794,7 +2794,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote1Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -2803,7 +2803,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF3B62CCF798B00A48994 /* Release */ = {
+		DF8DF4A42CCFCAE600A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -2818,7 +2818,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget1/NewNoteWidget1.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote1Widget/NewNote1Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2828,8 +2828,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget1/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget1;
+				INFOPLIST_FILE = NewNote1Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote1Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2840,7 +2840,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote1Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2848,7 +2848,7 @@
 			};
 			name = Release;
 		};
-		DF8DF3B72CCF798B00A48994 /* Profile */ = {
+		DF8DF4A52CCFCAE600A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -2863,7 +2863,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget1/NewNoteWidget1.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote1Widget/NewNote1Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2873,8 +2873,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget1/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget1;
+				INFOPLIST_FILE = NewNote1Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote1Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2885,7 +2885,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote1Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2893,7 +2893,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF3CD2CCF799900A48994 /* Debug */ = {
+		DF8DF4BB2CCFCAF900A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -2908,7 +2908,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget2/NewNoteWidget2.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote2Widget/NewNote2Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2918,8 +2918,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget2/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget2;
+				INFOPLIST_FILE = NewNote2Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote2Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2931,7 +2931,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote2Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -2940,7 +2940,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF3CE2CCF799900A48994 /* Release */ = {
+		DF8DF4BC2CCFCAF900A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -2955,7 +2955,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget2/NewNoteWidget2.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote2Widget/NewNote2Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2965,8 +2965,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget2/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget2;
+				INFOPLIST_FILE = NewNote2Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote2Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2977,7 +2977,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote2Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2985,7 +2985,7 @@
 			};
 			name = Release;
 		};
-		DF8DF3CF2CCF799900A48994 /* Profile */ = {
+		DF8DF4BD2CCFCAF900A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3000,7 +3000,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget2/NewNoteWidget2.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote2Widget/NewNote2Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3010,8 +3010,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget2/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget2;
+				INFOPLIST_FILE = NewNote2Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote2Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3022,7 +3022,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote2Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3030,7 +3030,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF3E52CCF79E500A48994 /* Debug */ = {
+		DF8DF4D32CCFCB0E00A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3045,7 +3045,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget3/NewNoteWidget3.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote3Widget/NewNote3Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3055,8 +3055,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget3/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget3;
+				INFOPLIST_FILE = NewNote3Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote3Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3068,7 +3068,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote3Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -3077,7 +3077,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF3E62CCF79E500A48994 /* Release */ = {
+		DF8DF4D42CCFCB0E00A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3092,7 +3092,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget3/NewNoteWidget3.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote3Widget/NewNote3Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3102,8 +3102,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget3/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget3;
+				INFOPLIST_FILE = NewNote3Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote3Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3114,7 +3114,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote3Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3122,7 +3122,7 @@
 			};
 			name = Release;
 		};
-		DF8DF3E72CCF79E500A48994 /* Profile */ = {
+		DF8DF4D52CCFCB0E00A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3137,7 +3137,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget3/NewNoteWidget3.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote3Widget/NewNote3Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3147,8 +3147,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget3/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget3;
+				INFOPLIST_FILE = NewNote3Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote3Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3159,7 +3159,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote3Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3167,7 +3167,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF3FD2CCF79F900A48994 /* Debug */ = {
+		DF8DF4EB2CCFCB1E00A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3182,7 +3182,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget4/NewNoteWidget4.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote4Widget/NewNote4Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3192,8 +3192,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget4/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget4;
+				INFOPLIST_FILE = NewNote4Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote4Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3205,7 +3205,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote4Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -3214,7 +3214,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF3FE2CCF79F900A48994 /* Release */ = {
+		DF8DF4EC2CCFCB1E00A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3229,7 +3229,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget4/NewNoteWidget4.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote4Widget/NewNote4Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3239,8 +3239,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget4/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget4;
+				INFOPLIST_FILE = NewNote4Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote4Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3251,7 +3251,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote4Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3259,7 +3259,7 @@
 			};
 			name = Release;
 		};
-		DF8DF3FF2CCF79F900A48994 /* Profile */ = {
+		DF8DF4ED2CCFCB1E00A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3274,7 +3274,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget4/NewNoteWidget4.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote4Widget/NewNote4Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3284,8 +3284,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget4/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget4;
+				INFOPLIST_FILE = NewNote4Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote4Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3296,7 +3296,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote4Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3304,7 +3304,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF4152CCF7A0D00A48994 /* Debug */ = {
+		DF8DF5032CCFCB2D00A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3319,7 +3319,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget5/NewNoteWidget5.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote5Widget/NewNote5Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3329,8 +3329,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget5/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget5;
+				INFOPLIST_FILE = NewNote5Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote5Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3342,7 +3342,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote5Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -3351,7 +3351,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF4162CCF7A0D00A48994 /* Release */ = {
+		DF8DF5042CCFCB2D00A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3366,7 +3366,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget5/NewNoteWidget5.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote5Widget/NewNote5Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3376,8 +3376,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget5/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget5;
+				INFOPLIST_FILE = NewNote5Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote5Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3388,7 +3388,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote5Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3396,7 +3396,7 @@
 			};
 			name = Release;
 		};
-		DF8DF4172CCF7A0D00A48994 /* Profile */ = {
+		DF8DF5052CCFCB2D00A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3411,7 +3411,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget5/NewNoteWidget5.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote5Widget/NewNote5Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3421,8 +3421,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget5/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget5;
+				INFOPLIST_FILE = NewNote5Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote5Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3433,7 +3433,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote5Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3441,7 +3441,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF42D2CCF7A3C00A48994 /* Debug */ = {
+		DF8DF51B2CCFCB3D00A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3456,7 +3456,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget6/NewNoteWidget6.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote6Widget/NewNote6Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3466,8 +3466,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget6/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget6;
+				INFOPLIST_FILE = NewNote6Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote6Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3479,7 +3479,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote6Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -3488,7 +3488,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF42E2CCF7A3C00A48994 /* Release */ = {
+		DF8DF51C2CCFCB3D00A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3503,7 +3503,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget6/NewNoteWidget6.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote6Widget/NewNote6Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3513,8 +3513,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget6/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget6;
+				INFOPLIST_FILE = NewNote6Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote6Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3525,7 +3525,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote6Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3533,7 +3533,7 @@
 			};
 			name = Release;
 		};
-		DF8DF42F2CCF7A3C00A48994 /* Profile */ = {
+		DF8DF51D2CCFCB3D00A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3548,7 +3548,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget6/NewNoteWidget6.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote6Widget/NewNote6Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3558,8 +3558,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget6/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget6;
+				INFOPLIST_FILE = NewNote6Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote6Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3570,7 +3570,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote6Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3578,7 +3578,7 @@
 			};
 			name = Profile;
 		};
-		DF8DF4452CCF7A4B00A48994 /* Debug */ = {
+		DF8DF5332CCFCB4B00A48994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3593,7 +3593,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget7/NewNoteWidget7.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote7Widget/NewNote7Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3603,8 +3603,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget7/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget7;
+				INFOPLIST_FILE = NewNote7Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote7Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3616,7 +3616,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget7;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote7Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -3625,7 +3625,7 @@
 			};
 			name = Debug;
 		};
-		DF8DF4462CCF7A4B00A48994 /* Release */ = {
+		DF8DF5342CCFCB4B00A48994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3640,7 +3640,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget7/NewNoteWidget7.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote7Widget/NewNote7Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3650,8 +3650,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget7/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget7;
+				INFOPLIST_FILE = NewNote7Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote7Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3662,7 +3662,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget7;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote7Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3670,7 +3670,7 @@
 			};
 			name = Release;
 		};
-		DF8DF4472CCF7A4B00A48994 /* Profile */ = {
+		DF8DF5352CCFCB4B00A48994 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -3685,7 +3685,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NewNoteWidget7/NewNoteWidget7.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NewNote7Widget/NewNote7Widget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3695,8 +3695,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewNoteWidget7/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget7;
+				INFOPLIST_FILE = NewNote7Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNote7Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3707,7 +3707,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget7;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNote7Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3798,72 +3798,72 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF3B42CCF798B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget1Extension" */ = {
+		DF8DF4A22CCFCAE600A48994 /* Build configuration list for PBXNativeTarget "NewNote1WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF3B52CCF798B00A48994 /* Debug */,
-				DF8DF3B62CCF798B00A48994 /* Release */,
-				DF8DF3B72CCF798B00A48994 /* Profile */,
+				DF8DF4A32CCFCAE600A48994 /* Debug */,
+				DF8DF4A42CCFCAE600A48994 /* Release */,
+				DF8DF4A52CCFCAE600A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF3CC2CCF799900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget2Extension" */ = {
+		DF8DF4BA2CCFCAF900A48994 /* Build configuration list for PBXNativeTarget "NewNote2WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF3CD2CCF799900A48994 /* Debug */,
-				DF8DF3CE2CCF799900A48994 /* Release */,
-				DF8DF3CF2CCF799900A48994 /* Profile */,
+				DF8DF4BB2CCFCAF900A48994 /* Debug */,
+				DF8DF4BC2CCFCAF900A48994 /* Release */,
+				DF8DF4BD2CCFCAF900A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF3E42CCF79E500A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget3Extension" */ = {
+		DF8DF4D22CCFCB0E00A48994 /* Build configuration list for PBXNativeTarget "NewNote3WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF3E52CCF79E500A48994 /* Debug */,
-				DF8DF3E62CCF79E500A48994 /* Release */,
-				DF8DF3E72CCF79E500A48994 /* Profile */,
+				DF8DF4D32CCFCB0E00A48994 /* Debug */,
+				DF8DF4D42CCFCB0E00A48994 /* Release */,
+				DF8DF4D52CCFCB0E00A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF3FC2CCF79F900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget4Extension" */ = {
+		DF8DF4EA2CCFCB1E00A48994 /* Build configuration list for PBXNativeTarget "NewNote4WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF3FD2CCF79F900A48994 /* Debug */,
-				DF8DF3FE2CCF79F900A48994 /* Release */,
-				DF8DF3FF2CCF79F900A48994 /* Profile */,
+				DF8DF4EB2CCFCB1E00A48994 /* Debug */,
+				DF8DF4EC2CCFCB1E00A48994 /* Release */,
+				DF8DF4ED2CCFCB1E00A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF4142CCF7A0D00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget5Extension" */ = {
+		DF8DF5022CCFCB2D00A48994 /* Build configuration list for PBXNativeTarget "NewNote5WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF4152CCF7A0D00A48994 /* Debug */,
-				DF8DF4162CCF7A0D00A48994 /* Release */,
-				DF8DF4172CCF7A0D00A48994 /* Profile */,
+				DF8DF5032CCFCB2D00A48994 /* Debug */,
+				DF8DF5042CCFCB2D00A48994 /* Release */,
+				DF8DF5052CCFCB2D00A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF42C2CCF7A3C00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget6Extension" */ = {
+		DF8DF51A2CCFCB3D00A48994 /* Build configuration list for PBXNativeTarget "NewNote6WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF42D2CCF7A3C00A48994 /* Debug */,
-				DF8DF42E2CCF7A3C00A48994 /* Release */,
-				DF8DF42F2CCF7A3C00A48994 /* Profile */,
+				DF8DF51B2CCFCB3D00A48994 /* Debug */,
+				DF8DF51C2CCFCB3D00A48994 /* Release */,
+				DF8DF51D2CCFCB3D00A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8DF4442CCF7A4B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget7Extension" */ = {
+		DF8DF5322CCFCB4B00A48994 /* Build configuration list for PBXNativeTarget "NewNote7WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF8DF4452CCF7A4B00A48994 /* Debug */,
-				DF8DF4462CCF7A4B00A48994 /* Release */,
-				DF8DF4472CCF7A4B00A48994 /* Profile */,
+				DF8DF5332CCFCB4B00A48994 /* Debug */,
+				DF8DF5342CCFCB4B00A48994 /* Release */,
+				DF8DF5352CCFCB4B00A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

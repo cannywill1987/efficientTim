@@ -1,6 +1,6 @@
 //
-//  NewNoteWidget6.swift
-//  NewNoteWidget6
+//  NewNote3Widget.swift
+//  NewNote3Widget
 //
 //  Created by 林智彬 on 2024/10/28.
 //
@@ -43,7 +43,7 @@ struct SimpleEntry: TimelineEntry {
     let emoji: String
 }
 
-struct NewNoteWidget6EntryView : View {
+struct NewNote3WidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
@@ -59,16 +59,16 @@ struct NewNoteWidget6EntryView : View {
     }
 }
 
-struct NewNoteWidget6: Widget {
-    let kind: String = "NewNoteWidget6"
+struct NewNote3Widget: Widget {
+    let kind: String = "NewNote3Widget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(macOS 14.0, *) {
-                NewNoteWidget6EntryView(entry: entry)
+                NewNote3WidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                NewNoteWidget6EntryView(entry: entry)
+                NewNote3WidgetEntryView(entry: entry)
                     .padding()
                     .background()
             }

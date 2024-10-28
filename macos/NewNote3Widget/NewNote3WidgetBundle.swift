@@ -1,6 +1,6 @@
 //
-//  NewNoteWidget6Bundle.swift
-//  NewNoteWidget6
+//  NewNote3WidgetBundle.swift
+//  NewNote3Widget
 //
 //  Created by 林智彬 on 2024/10/28.
 //
@@ -9,8 +9,8 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct NewNoteWidget6Bundle: WidgetBundle {
+struct NewNote3WidgetBundle: WidgetBundle {
     var body: some Widget {
-        NewNoteWidget6()
+        NewNote3Widget()
     }
 }
