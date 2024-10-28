@@ -6739,12 +6739,14 @@ class MongoApisManager {
               ? ''
               : LoginManager.getInstance().getUserBean().uid;
     });
-    List list = await batch.insertBatch(listParam ?? []);
-    await queryWhereEqual_presentModel(shouldRefresh: true);
-    if (callback != null) {
-      callback(list);
+    if((listParam?.length ?? 0) > 0) {
+      List list = await batch.insertBatch(listParam ?? []);
+      // await queryWhereEqual_presentModel(shouldRefresh: true);
+      if (callback != null) {
+        callback(list);
+      }
+      return list;
     }
-    return list;
   }
 
   insert_SharePrefenceModel(

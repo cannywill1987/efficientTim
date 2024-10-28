@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `国内暂时不支持邮箱注册`
+  String get email_not_supportable {
+    return Intl.message(
+      '国内暂时不支持邮箱注册',
+      name: 'email_not_supportable',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `撤销最近打卡`
   String get cancel_latest_clockin {
     return Intl.message(

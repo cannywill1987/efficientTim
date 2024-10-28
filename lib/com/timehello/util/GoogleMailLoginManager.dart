@@ -76,6 +76,12 @@ class GoogleMailLoginManager {
         email: email,
         password: password,
       );
+
+
+
+      //
+
+
       User? user = userCredential.user;
       String? emailTmp = user?.email;
       bool isEmailVerified = user?.emailVerified ?? false;
@@ -92,6 +98,9 @@ class GoogleMailLoginManager {
         await login(email: email, password: password, callbackSuccess: callbackSuccess, callbackNeedVerified: callbackNeedVerified ?? callbackSuccess, callbackLoginFaile: (e) {
 
         });
+      }
+      if(e.code == "network-request-failed") {
+        Utility.showToastMsg(msg: getI18NKey().email_not_supportable);
       }
       print('Failed with error code: ${e.code}');
       print(e.message);

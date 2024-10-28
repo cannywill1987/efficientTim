@@ -137,17 +137,19 @@ class LoginManager {
       Utility.showToastMsg(msg: getI18NKey().please_input_correct_email);
       return;
     }
-    EasyLoadingManager.getInstance().showLoading();
+    // EasyLoadingManager.getInstance().showLoading();
     // EasyLoadingManager.getInstance().showLoading();
     GoogleMailLoginManager.getInstance().signIn(email: email, password: await Utility.decryptCTRAES(
         password ?? "", Params.AES_PWD), callbackSuccess: () {
       //如果注册了那给调用注册
       // register(email: email, password: password, onComplete: new LoginResult);
+
       Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
       AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success_by_email","description": "注册成功",});
       // Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
       EasyLoadingManager.getInstance().hideLoading();
     }, callbackNeedVerified:() {
+      EasyLoadingManager.getInstance().hideLoading;
       Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
       AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_success_by_email","description": "注册成功",});
 

@@ -61,8 +61,15 @@ class StatsModel extends MongoDbObject{
   //此处与类名一致，由指令自动生成代码
   factory StatsModel.fromJson(Map<String, dynamic> json) {
     StatsModel statsModel = _$StatsModelFromJson(json);
-    //value是默认番茄钟的值， 如果其实时间和结束时间花的时间很多证明期间有展厅 ，以value为准， 小的话证明提前完成
-    statsModel.duration = (json['finish_time'] - json['begin_time']) > json['value'] ? json['value'] : (json['finish_time'] - json['begin_time']);
+    try {
+      //value是默认番茄钟的值， 如果其实时间和结束时间花的时间很多证明期间有展厅 ，以value为准， 小的话证明提前完成
+      statsModel.duration =
+      (json['finish_time'] - json['begin_time']) > json['value']
+          ? json['value']
+          : (json['finish_time'] - json['begin_time']);
+    } catch(e) {
+      print(e);
+    }
     return statsModel;
   }
   //此处与类名一致，由指令自动生成代码

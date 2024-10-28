@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "email_not_supportable":"国内暂时不支持邮箱注册",
   "cancel_latest_clockin": "撤销最近打卡",
   "uncomplete_flomo_mission": "Unfinish clock-in mission '{title}'",
   "repeative_by_year": "repeat by year",

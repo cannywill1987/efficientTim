@@ -240,6 +240,7 @@ class FlomoMissionSilverListItemState
           children: [
             Container(
               width: size.width * percentClocksIn,
+              height: 120,
               color: ThemeManager.getInstance().isDark() ? Color(
                   (this.widget.missionModel.color ?? 0xffff8800) - 0x50000000) : Color(
                   (this.widget.missionModel.color ?? 0xffff8800) - 0xb0000000),

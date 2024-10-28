@@ -953,6 +953,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("E-mail can not be empty"),
+        "email_not_supportable":
+            MessageLookupByLibrary.simpleMessage("国内暂时不支持邮箱注册"),
         "embedCode": MessageLookupByLibrary.simpleMessage("Embed Code"),
         "emoji_conversion":
             MessageLookupByLibrary.simpleMessage("Emoji Conversion"),
