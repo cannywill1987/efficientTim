@@ -1,6 +1,6 @@
 //
-//  NewCounterWidgetBundle.swift
-//  NewCounterWidget
+//  TestWidgetBundle.swift
+//  TestWidget
 //
 //  Created by 林智彬 on 2024/10/28.
 //
@@ -9,8 +9,8 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct NewCounterWidgetBundle: WidgetBundle {
+struct TestWidgetBundle: WidgetBundle {
     var body: some Widget {
-        Test2Widget()
+        QuadrantWidget()
     }
 }

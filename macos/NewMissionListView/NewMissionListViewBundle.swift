@@ -11,6 +11,6 @@ import SwiftUI
 @main
 struct NewMissionListViewBundle: WidgetBundle {
     var body: some Widget {
-        NewMissionListView()
+        MissionListView()
     }
 }

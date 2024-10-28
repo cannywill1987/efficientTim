@@ -11,6 +11,6 @@ import SwiftUI
 @main
 struct NewQuadrantWidgetBundle: WidgetBundle {
     var body: some Widget {
-        NewQuadrantWidget()
+        QuadrantWidget()
     }
 }
