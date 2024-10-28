@@ -78,6 +78,48 @@
 		DF8DF2DA2CCF761900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF2D42CCF761900A48994 /* Assets.xcassets */; };
 		DF8DF2DC2CCF761900A48994 /* NewCounterWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF2D72CCF761900A48994 /* NewCounterWidget.swift */; };
 		DF8DF2DD2CCF761900A48994 /* NewCounterWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF2D82CCF761900A48994 /* NewCounterWidgetBundle.swift */; };
+		DF8DF3A52CCF798900A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF3A62CCF798900A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF3B22CCF798B00A48994 /* NewNoteWidget1Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF3BD2CCF799800A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF3BE2CCF799800A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF3CA2CCF799900A48994 /* NewNoteWidget2Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF3D52CCF79E300A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF3D62CCF79E300A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF3E22CCF79E500A48994 /* NewNoteWidget3Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF3ED2CCF79F800A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF3EE2CCF79F800A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF3FA2CCF79F900A48994 /* NewNoteWidget4Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF4052CCF7A0C00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4062CCF7A0C00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF4122CCF7A0D00A48994 /* NewNoteWidget5Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF41D2CCF7A3B00A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF41E2CCF7A3B00A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF42A2CCF7A3C00A48994 /* NewNoteWidget6Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF4352CCF7A4900A48994 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DF8DF4362CCF7A4900A48994 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DF8DF4422CCF7A4B00A48994 /* NewNoteWidget7Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF8DF44E2CCF7A5800A48994 /* NewNoteWidget1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF44B2CCF7A5800A48994 /* NewNoteWidget1.swift */; };
+		DF8DF44F2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF44C2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift */; };
+		DF8DF4502CCF7A5800A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4482CCF7A5800A48994 /* Assets.xcassets */; };
+		DF8DF4582CCF7A5800A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4522CCF7A5800A48994 /* Assets.xcassets */; };
+		DF8DF45A2CCF7A5800A48994 /* NewNoteWidget6.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4552CCF7A5800A48994 /* NewNoteWidget6.swift */; };
+		DF8DF45B2CCF7A5800A48994 /* NewNoteWidget6Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4562CCF7A5800A48994 /* NewNoteWidget6Bundle.swift */; };
+		DF8DF4622CCF7A5900A48994 /* NewNoteWidget5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF45F2CCF7A5900A48994 /* NewNoteWidget5.swift */; };
+		DF8DF4632CCF7A5900A48994 /* NewNoteWidget5Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4602CCF7A5900A48994 /* NewNoteWidget5Bundle.swift */; };
+		DF8DF4642CCF7A5900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF45C2CCF7A5900A48994 /* Assets.xcassets */; };
+		DF8DF46C2CCF7A5900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4662CCF7A5900A48994 /* Assets.xcassets */; };
+		DF8DF46E2CCF7A5900A48994 /* NewNoteWidget2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4692CCF7A5900A48994 /* NewNoteWidget2.swift */; };
+		DF8DF46F2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF46A2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift */; };
+		DF8DF4762CCF7A5900A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4702CCF7A5900A48994 /* Assets.xcassets */; };
+		DF8DF4782CCF7A5900A48994 /* NewNoteWidget7.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4732CCF7A5900A48994 /* NewNoteWidget7.swift */; };
+		DF8DF4792CCF7A5900A48994 /* NewNoteWidget7Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4742CCF7A5900A48994 /* NewNoteWidget7Bundle.swift */; };
+		DF8DF4802CCF7A5A00A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF47A2CCF7A5A00A48994 /* Assets.xcassets */; };
+		DF8DF4822CCF7A5A00A48994 /* NewNoteWidget3.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF47D2CCF7A5A00A48994 /* NewNoteWidget3.swift */; };
+		DF8DF4832CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF47E2CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift */; };
+		DF8DF48A2CCF7A5A00A48994 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF8DF4842CCF7A5A00A48994 /* Assets.xcassets */; };
+		DF8DF48C2CCF7A5A00A48994 /* NewNoteWidget4.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4872CCF7A5A00A48994 /* NewNoteWidget4.swift */; };
+		DF8DF48D2CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DF4882CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift */; };
 		DFA1A33E2AA233310070DDD7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
 		DFBF30EB2869D0DD0091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DFC8174F2A9CB17E00824F79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
@@ -167,6 +209,55 @@
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = "Flutter Assemble";
 		};
+		DF8DF3B02CCF798B00A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF3A32CCF798900A48994;
+			remoteInfo = NewNoteWidget1Extension;
+		};
+		DF8DF3C82CCF799900A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF3BB2CCF799800A48994;
+			remoteInfo = NewNoteWidget2Extension;
+		};
+		DF8DF3E02CCF79E500A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF3D32CCF79E300A48994;
+			remoteInfo = NewNoteWidget3Extension;
+		};
+		DF8DF3F82CCF79F900A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF3EB2CCF79F800A48994;
+			remoteInfo = NewNoteWidget4Extension;
+		};
+		DF8DF4102CCF7A0D00A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF4032CCF7A0C00A48994;
+			remoteInfo = NewNoteWidget5Extension;
+		};
+		DF8DF4282CCF7A3C00A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF41B2CCF7A3B00A48994;
+			remoteInfo = NewNoteWidget6Extension;
+		};
+		DF8DF4402CCF7A4B00A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8DF4332CCF7A4900A48994;
+			remoteInfo = NewNoteWidget7Extension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -187,10 +278,17 @@
 			dstSubfolderSpec = 13;
 			files = (
 				DF8DF23D2CCF750300A48994 /* NewQuadrantWidgetExtension.appex in Embed Foundation Extensions */,
+				DF8DF4422CCF7A4B00A48994 /* NewNoteWidget7Extension.appex in Embed Foundation Extensions */,
+				DF8DF42A2CCF7A3C00A48994 /* NewNoteWidget6Extension.appex in Embed Foundation Extensions */,
+				DF8DF3FA2CCF79F900A48994 /* NewNoteWidget4Extension.appex in Embed Foundation Extensions */,
+				DF8DF3CA2CCF799900A48994 /* NewNoteWidget2Extension.appex in Embed Foundation Extensions */,
 				DF8DF2CE2CCF761400A48994 /* NewCounterWidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF21B2CCF74DF00A48994 /* NewMissionListViewExtension.appex in Embed Foundation Extensions */,
+				DF8DF3B22CCF798B00A48994 /* NewNoteWidget1Extension.appex in Embed Foundation Extensions */,
+				DF8DF3E22CCF79E500A48994 /* NewNoteWidget3Extension.appex in Embed Foundation Extensions */,
 				DF8DF28E2CCF756C00A48994 /* NewCalendarWidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF25F2CCF753500A48994 /* NewClockInExtension.appex in Embed Foundation Extensions */,
+				DF8DF4122CCF7A0D00A48994 /* NewNoteWidget5Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +400,48 @@
 		DF8DF2D62CCF761900A48994 /* NewCounterWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewCounterWidget.entitlements; sourceTree = "<group>"; };
 		DF8DF2D72CCF761900A48994 /* NewCounterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidget.swift; sourceTree = "<group>"; };
 		DF8DF2D82CCF761900A48994 /* NewCounterWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidgetBundle.swift; sourceTree = "<group>"; };
+		DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget1Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget2Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget3Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget4Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget5Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget6Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewNoteWidget7Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8DF4482CCF7A5800A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF4492CCF7A5800A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF44A2CCF7A5800A48994 /* NewNoteWidget1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget1.entitlements; sourceTree = "<group>"; };
+		DF8DF44B2CCF7A5800A48994 /* NewNoteWidget1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget1.swift; sourceTree = "<group>"; };
+		DF8DF44C2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget1Bundle.swift; sourceTree = "<group>"; };
+		DF8DF4522CCF7A5800A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF4532CCF7A5800A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF4542CCF7A5800A48994 /* NewNoteWidget6.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget6.entitlements; sourceTree = "<group>"; };
+		DF8DF4552CCF7A5800A48994 /* NewNoteWidget6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget6.swift; sourceTree = "<group>"; };
+		DF8DF4562CCF7A5800A48994 /* NewNoteWidget6Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget6Bundle.swift; sourceTree = "<group>"; };
+		DF8DF45C2CCF7A5900A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF45D2CCF7A5900A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF45E2CCF7A5900A48994 /* NewNoteWidget5.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget5.entitlements; sourceTree = "<group>"; };
+		DF8DF45F2CCF7A5900A48994 /* NewNoteWidget5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget5.swift; sourceTree = "<group>"; };
+		DF8DF4602CCF7A5900A48994 /* NewNoteWidget5Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget5Bundle.swift; sourceTree = "<group>"; };
+		DF8DF4662CCF7A5900A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF4672CCF7A5900A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF4682CCF7A5900A48994 /* NewNoteWidget2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget2.entitlements; sourceTree = "<group>"; };
+		DF8DF4692CCF7A5900A48994 /* NewNoteWidget2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget2.swift; sourceTree = "<group>"; };
+		DF8DF46A2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget2Bundle.swift; sourceTree = "<group>"; };
+		DF8DF4702CCF7A5900A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF4712CCF7A5900A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF4722CCF7A5900A48994 /* NewNoteWidget7.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget7.entitlements; sourceTree = "<group>"; };
+		DF8DF4732CCF7A5900A48994 /* NewNoteWidget7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget7.swift; sourceTree = "<group>"; };
+		DF8DF4742CCF7A5900A48994 /* NewNoteWidget7Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget7Bundle.swift; sourceTree = "<group>"; };
+		DF8DF47A2CCF7A5A00A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF47B2CCF7A5A00A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF47C2CCF7A5A00A48994 /* NewNoteWidget3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget3.entitlements; sourceTree = "<group>"; };
+		DF8DF47D2CCF7A5A00A48994 /* NewNoteWidget3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget3.swift; sourceTree = "<group>"; };
+		DF8DF47E2CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget3Bundle.swift; sourceTree = "<group>"; };
+		DF8DF4842CCF7A5A00A48994 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF8DF4852CCF7A5A00A48994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF8DF4862CCF7A5A00A48994 /* NewNoteWidget4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewNoteWidget4.entitlements; sourceTree = "<group>"; };
+		DF8DF4872CCF7A5A00A48994 /* NewNoteWidget4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget4.swift; sourceTree = "<group>"; };
+		DF8DF4882CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteWidget4Bundle.swift; sourceTree = "<group>"; };
 		DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		DFBF30EA2869D0DD0091B848 /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		DFC817502A9CB17E00824F79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -370,6 +510,69 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF8DF3A12CCF798900A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF3A62CCF798900A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF3A52CCF798900A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3B92CCF799800A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF3BE2CCF799800A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF3BD2CCF799800A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3D12CCF79E300A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF3D62CCF79E300A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF3D52CCF79E300A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3E92CCF79F800A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF3EE2CCF79F800A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF3ED2CCF79F800A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4012CCF7A0C00A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4062CCF7A0C00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4052CCF7A0C00A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4192CCF7A3B00A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF41E2CCF7A3B00A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF41D2CCF7A3B00A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4312CCF7A4900A48994 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4362CCF7A4900A48994 /* SwiftUI.framework in Frameworks */,
+				DF8DF4352CCF7A4900A48994 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -404,8 +607,15 @@
 				DF8DF2992CCF757700A48994 /* NewClockIn */,
 				DF8DF2AD2CCF757700A48994 /* NewCalendarWidget */,
 				DF8DF2D92CCF761900A48994 /* NewCounterWidget */,
-				33CC10EE2044A3C60003C045 /* Products */,
+				DF8DF44D2CCF7A5800A48994 /* NewNoteWidget1 */,
+				DF8DF46B2CCF7A5900A48994 /* NewNoteWidget2 */,
+				DF8DF47F2CCF7A5A00A48994 /* NewNoteWidget3 */,
+				DF8DF4892CCF7A5A00A48994 /* NewNoteWidget4 */,
+				DF8DF4612CCF7A5900A48994 /* NewNoteWidget5 */,
+				DF8DF4572CCF7A5800A48994 /* NewNoteWidget6 */,
+				DF8DF4752CCF7A5900A48994 /* NewNoteWidget7 */,
 				A45AF054F2DD42C254AC9EDA /* Pods */,
+				33CC10EE2044A3C60003C045 /* Products */,
 				333A3C6A24C1D6DCB934E7CA /* Frameworks */,
 				DF4B3A252A43FC1900FA47B8 /* QuadrantWidgetExtension copy-Info.plist */,
 			);
@@ -420,6 +630,13 @@
 				DF8DF2512CCF753400A48994 /* NewClockInExtension.appex */,
 				DF8DF2802CCF756B00A48994 /* NewCalendarWidgetExtension.appex */,
 				DF8DF2C02CCF761300A48994 /* NewCounterWidgetExtension.appex */,
+				DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */,
+				DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */,
+				DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */,
+				DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */,
+				DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */,
+				DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */,
+				DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -606,6 +823,90 @@
 			path = NewCounterWidget;
 			sourceTree = "<group>";
 		};
+		DF8DF44D2CCF7A5800A48994 /* NewNoteWidget1 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF4482CCF7A5800A48994 /* Assets.xcassets */,
+				DF8DF4492CCF7A5800A48994 /* Info.plist */,
+				DF8DF44A2CCF7A5800A48994 /* NewNoteWidget1.entitlements */,
+				DF8DF44B2CCF7A5800A48994 /* NewNoteWidget1.swift */,
+				DF8DF44C2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift */,
+			);
+			path = NewNoteWidget1;
+			sourceTree = "<group>";
+		};
+		DF8DF4572CCF7A5800A48994 /* NewNoteWidget6 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF4522CCF7A5800A48994 /* Assets.xcassets */,
+				DF8DF4532CCF7A5800A48994 /* Info.plist */,
+				DF8DF4542CCF7A5800A48994 /* NewNoteWidget6.entitlements */,
+				DF8DF4552CCF7A5800A48994 /* NewNoteWidget6.swift */,
+				DF8DF4562CCF7A5800A48994 /* NewNoteWidget6Bundle.swift */,
+			);
+			path = NewNoteWidget6;
+			sourceTree = "<group>";
+		};
+		DF8DF4612CCF7A5900A48994 /* NewNoteWidget5 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF45C2CCF7A5900A48994 /* Assets.xcassets */,
+				DF8DF45D2CCF7A5900A48994 /* Info.plist */,
+				DF8DF45E2CCF7A5900A48994 /* NewNoteWidget5.entitlements */,
+				DF8DF45F2CCF7A5900A48994 /* NewNoteWidget5.swift */,
+				DF8DF4602CCF7A5900A48994 /* NewNoteWidget5Bundle.swift */,
+			);
+			path = NewNoteWidget5;
+			sourceTree = "<group>";
+		};
+		DF8DF46B2CCF7A5900A48994 /* NewNoteWidget2 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF4662CCF7A5900A48994 /* Assets.xcassets */,
+				DF8DF4672CCF7A5900A48994 /* Info.plist */,
+				DF8DF4682CCF7A5900A48994 /* NewNoteWidget2.entitlements */,
+				DF8DF4692CCF7A5900A48994 /* NewNoteWidget2.swift */,
+				DF8DF46A2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift */,
+			);
+			path = NewNoteWidget2;
+			sourceTree = "<group>";
+		};
+		DF8DF4752CCF7A5900A48994 /* NewNoteWidget7 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF4702CCF7A5900A48994 /* Assets.xcassets */,
+				DF8DF4712CCF7A5900A48994 /* Info.plist */,
+				DF8DF4722CCF7A5900A48994 /* NewNoteWidget7.entitlements */,
+				DF8DF4732CCF7A5900A48994 /* NewNoteWidget7.swift */,
+				DF8DF4742CCF7A5900A48994 /* NewNoteWidget7Bundle.swift */,
+			);
+			path = NewNoteWidget7;
+			sourceTree = "<group>";
+		};
+		DF8DF47F2CCF7A5A00A48994 /* NewNoteWidget3 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF47A2CCF7A5A00A48994 /* Assets.xcassets */,
+				DF8DF47B2CCF7A5A00A48994 /* Info.plist */,
+				DF8DF47C2CCF7A5A00A48994 /* NewNoteWidget3.entitlements */,
+				DF8DF47D2CCF7A5A00A48994 /* NewNoteWidget3.swift */,
+				DF8DF47E2CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift */,
+			);
+			path = NewNoteWidget3;
+			sourceTree = "<group>";
+		};
+		DF8DF4892CCF7A5A00A48994 /* NewNoteWidget4 */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DF4842CCF7A5A00A48994 /* Assets.xcassets */,
+				DF8DF4852CCF7A5A00A48994 /* Info.plist */,
+				DF8DF4862CCF7A5A00A48994 /* NewNoteWidget4.entitlements */,
+				DF8DF4872CCF7A5A00A48994 /* NewNoteWidget4.swift */,
+				DF8DF4882CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift */,
+			);
+			path = NewNoteWidget4;
+			sourceTree = "<group>";
+		};
 		DFC817532A9CB1AF00824F79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +958,13 @@
 				DF8DF25E2CCF753500A48994 /* PBXTargetDependency */,
 				DF8DF28D2CCF756C00A48994 /* PBXTargetDependency */,
 				DF8DF2CD2CCF761400A48994 /* PBXTargetDependency */,
+				DF8DF3B12CCF798B00A48994 /* PBXTargetDependency */,
+				DF8DF3C92CCF799900A48994 /* PBXTargetDependency */,
+				DF8DF3E12CCF79E500A48994 /* PBXTargetDependency */,
+				DF8DF3F92CCF79F900A48994 /* PBXTargetDependency */,
+				DF8DF4112CCF7A0D00A48994 /* PBXTargetDependency */,
+				DF8DF4292CCF7A3C00A48994 /* PBXTargetDependency */,
+				DF8DF4412CCF7A4B00A48994 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -763,6 +1071,139 @@
 			productReference = DF8DF2C02CCF761300A48994 /* NewCounterWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		DF8DF3A32CCF798900A48994 /* NewNoteWidget1Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF3B42CCF798B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget1Extension" */;
+			buildPhases = (
+				DF8DF3A02CCF798900A48994 /* Sources */,
+				DF8DF3A12CCF798900A48994 /* Frameworks */,
+				DF8DF3A22CCF798900A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget1Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget1Extension;
+			productReference = DF8DF3A42CCF798900A48994 /* NewNoteWidget1Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF8DF3BB2CCF799800A48994 /* NewNoteWidget2Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF3CC2CCF799900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget2Extension" */;
+			buildPhases = (
+				DF8DF3B82CCF799800A48994 /* Sources */,
+				DF8DF3B92CCF799800A48994 /* Frameworks */,
+				DF8DF3BA2CCF799800A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget2Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget2Extension;
+			productReference = DF8DF3BC2CCF799800A48994 /* NewNoteWidget2Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF8DF3D32CCF79E300A48994 /* NewNoteWidget3Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF3E42CCF79E500A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget3Extension" */;
+			buildPhases = (
+				DF8DF3D02CCF79E300A48994 /* Sources */,
+				DF8DF3D12CCF79E300A48994 /* Frameworks */,
+				DF8DF3D22CCF79E300A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget3Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget3Extension;
+			productReference = DF8DF3D42CCF79E300A48994 /* NewNoteWidget3Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF8DF3EB2CCF79F800A48994 /* NewNoteWidget4Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF3FC2CCF79F900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget4Extension" */;
+			buildPhases = (
+				DF8DF3E82CCF79F800A48994 /* Sources */,
+				DF8DF3E92CCF79F800A48994 /* Frameworks */,
+				DF8DF3EA2CCF79F800A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget4Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget4Extension;
+			productReference = DF8DF3EC2CCF79F800A48994 /* NewNoteWidget4Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF8DF4032CCF7A0C00A48994 /* NewNoteWidget5Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF4142CCF7A0D00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget5Extension" */;
+			buildPhases = (
+				DF8DF4002CCF7A0C00A48994 /* Sources */,
+				DF8DF4012CCF7A0C00A48994 /* Frameworks */,
+				DF8DF4022CCF7A0C00A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget5Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget5Extension;
+			productReference = DF8DF4042CCF7A0C00A48994 /* NewNoteWidget5Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF8DF41B2CCF7A3B00A48994 /* NewNoteWidget6Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF42C2CCF7A3C00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget6Extension" */;
+			buildPhases = (
+				DF8DF4182CCF7A3B00A48994 /* Sources */,
+				DF8DF4192CCF7A3B00A48994 /* Frameworks */,
+				DF8DF41A2CCF7A3B00A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget6Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget6Extension;
+			productReference = DF8DF41C2CCF7A3B00A48994 /* NewNoteWidget6Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF8DF4332CCF7A4900A48994 /* NewNoteWidget7Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8DF4442CCF7A4B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget7Extension" */;
+			buildPhases = (
+				DF8DF4302CCF7A4900A48994 /* Sources */,
+				DF8DF4312CCF7A4900A48994 /* Frameworks */,
+				DF8DF4322CCF7A4900A48994 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewNoteWidget7Extension;
+			packageProductDependencies = (
+			);
+			productName = NewNoteWidget7Extension;
+			productReference = DF8DF4342CCF7A4900A48994 /* NewNoteWidget7Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -802,6 +1243,27 @@
 					DF8DF2BF2CCF761300A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
+					DF8DF3A32CCF798900A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					DF8DF3BB2CCF799800A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					DF8DF3D32CCF79E300A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					DF8DF3EB2CCF79F800A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					DF8DF4032CCF7A0C00A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					DF8DF41B2CCF7A3B00A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					DF8DF4332CCF7A4900A48994 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 				};
 			};
 			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "Runner" */;
@@ -835,6 +1297,13 @@
 				DF8DF2502CCF753400A48994 /* NewClockInExtension */,
 				DF8DF27F2CCF756B00A48994 /* NewCalendarWidgetExtension */,
 				DF8DF2BF2CCF761300A48994 /* NewCounterWidgetExtension */,
+				DF8DF3A32CCF798900A48994 /* NewNoteWidget1Extension */,
+				DF8DF3BB2CCF799800A48994 /* NewNoteWidget2Extension */,
+				DF8DF3D32CCF79E300A48994 /* NewNoteWidget3Extension */,
+				DF8DF3EB2CCF79F800A48994 /* NewNoteWidget4Extension */,
+				DF8DF4032CCF7A0C00A48994 /* NewNoteWidget5Extension */,
+				DF8DF41B2CCF7A3B00A48994 /* NewNoteWidget6Extension */,
+				DF8DF4332CCF7A4900A48994 /* NewNoteWidget7Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -893,6 +1362,62 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF8DF2DA2CCF761900A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3A22CCF798900A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4502CCF7A5800A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3BA2CCF799800A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF46C2CCF7A5900A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3D22CCF79E300A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4802CCF7A5A00A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3EA2CCF79F800A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF48A2CCF7A5A00A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4022CCF7A0C00A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4642CCF7A5900A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF41A2CCF7A3B00A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4582CCF7A5800A48994 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4322CCF7A4900A48994 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4762CCF7A5900A48994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1074,6 +1599,69 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF8DF3A02CCF798900A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF44E2CCF7A5800A48994 /* NewNoteWidget1.swift in Sources */,
+				DF8DF44F2CCF7A5800A48994 /* NewNoteWidget1Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3B82CCF799800A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF46E2CCF7A5900A48994 /* NewNoteWidget2.swift in Sources */,
+				DF8DF46F2CCF7A5900A48994 /* NewNoteWidget2Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3D02CCF79E300A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4822CCF7A5A00A48994 /* NewNoteWidget3.swift in Sources */,
+				DF8DF4832CCF7A5A00A48994 /* NewNoteWidget3Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF3E82CCF79F800A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF48C2CCF7A5A00A48994 /* NewNoteWidget4.swift in Sources */,
+				DF8DF48D2CCF7A5A00A48994 /* NewNoteWidget4Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4002CCF7A0C00A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4622CCF7A5900A48994 /* NewNoteWidget5.swift in Sources */,
+				DF8DF4632CCF7A5900A48994 /* NewNoteWidget5Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4182CCF7A3B00A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF45A2CCF7A5800A48994 /* NewNoteWidget6.swift in Sources */,
+				DF8DF45B2CCF7A5800A48994 /* NewNoteWidget6Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8DF4302CCF7A4900A48994 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8DF4782CCF7A5900A48994 /* NewNoteWidget7.swift in Sources */,
+				DF8DF4792CCF7A5900A48994 /* NewNoteWidget7Bundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1131,6 +1719,41 @@
 			isa = PBXTargetDependency;
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = DF8DF2DE2CCF761E00A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF3B12CCF798B00A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF3A32CCF798900A48994 /* NewNoteWidget1Extension */;
+			targetProxy = DF8DF3B02CCF798B00A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF3C92CCF799900A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF3BB2CCF799800A48994 /* NewNoteWidget2Extension */;
+			targetProxy = DF8DF3C82CCF799900A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF3E12CCF79E500A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF3D32CCF79E300A48994 /* NewNoteWidget3Extension */;
+			targetProxy = DF8DF3E02CCF79E500A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF3F92CCF79F900A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF3EB2CCF79F800A48994 /* NewNoteWidget4Extension */;
+			targetProxy = DF8DF3F82CCF79F900A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF4112CCF7A0D00A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF4032CCF7A0C00A48994 /* NewNoteWidget5Extension */;
+			targetProxy = DF8DF4102CCF7A0D00A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF4292CCF7A3C00A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF41B2CCF7A3B00A48994 /* NewNoteWidget6Extension */;
+			targetProxy = DF8DF4282CCF7A3C00A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF4412CCF7A4B00A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8DF4332CCF7A4900A48994 /* NewNoteWidget7Extension */;
+			targetProxy = DF8DF4402CCF7A4B00A48994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2133,6 +2756,965 @@
 			};
 			name = Profile;
 		};
+		DF8DF3B52CCF798B00A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget1/NewNoteWidget1.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget1/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget1;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF3B62CCF798B00A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget1/NewNoteWidget1.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget1/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget1;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF3B72CCF798B00A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget1/NewNoteWidget1.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget1/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget1;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF8DF3CD2CCF799900A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget2/NewNoteWidget2.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF3CE2CCF799900A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget2/NewNoteWidget2.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF3CF2CCF799900A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget2/NewNoteWidget2.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF8DF3E52CCF79E500A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget3/NewNoteWidget3.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget3/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget3;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF3E62CCF79E500A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget3/NewNoteWidget3.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget3/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget3;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF3E72CCF79E500A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget3/NewNoteWidget3.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget3/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget3;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF8DF3FD2CCF79F900A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget4/NewNoteWidget4.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget4/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget4;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget4;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF3FE2CCF79F900A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget4/NewNoteWidget4.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget4/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget4;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget4;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF3FF2CCF79F900A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget4/NewNoteWidget4.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget4/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget4;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget4;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF8DF4152CCF7A0D00A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget5/NewNoteWidget5.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget5/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget5;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF4162CCF7A0D00A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget5/NewNoteWidget5.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget5/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget5;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF4172CCF7A0D00A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget5/NewNoteWidget5.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget5/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget5;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF8DF42D2CCF7A3C00A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget6/NewNoteWidget6.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget6/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget6;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF42E2CCF7A3C00A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget6/NewNoteWidget6.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget6/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget6;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF42F2CCF7A3C00A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget6/NewNoteWidget6.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget6/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget6;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
+		DF8DF4452CCF7A4B00A48994 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget7/NewNoteWidget7.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget7/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget7;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF8DF4462CCF7A4B00A48994 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget7/NewNoteWidget7.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget7/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget7;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF8DF4472CCF7A4B00A48994 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewNoteWidget7/NewNoteWidget7.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewNoteWidget7/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewNoteWidget7;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewNoteWidget7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2212,6 +3794,76 @@
 				DF8DF2D12CCF761400A48994 /* Debug */,
 				DF8DF2D22CCF761400A48994 /* Release */,
 				DF8DF2D32CCF761400A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF3B42CCF798B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget1Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF3B52CCF798B00A48994 /* Debug */,
+				DF8DF3B62CCF798B00A48994 /* Release */,
+				DF8DF3B72CCF798B00A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF3CC2CCF799900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget2Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF3CD2CCF799900A48994 /* Debug */,
+				DF8DF3CE2CCF799900A48994 /* Release */,
+				DF8DF3CF2CCF799900A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF3E42CCF79E500A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget3Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF3E52CCF79E500A48994 /* Debug */,
+				DF8DF3E62CCF79E500A48994 /* Release */,
+				DF8DF3E72CCF79E500A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF3FC2CCF79F900A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget4Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF3FD2CCF79F900A48994 /* Debug */,
+				DF8DF3FE2CCF79F900A48994 /* Release */,
+				DF8DF3FF2CCF79F900A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF4142CCF7A0D00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget5Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF4152CCF7A0D00A48994 /* Debug */,
+				DF8DF4162CCF7A0D00A48994 /* Release */,
+				DF8DF4172CCF7A0D00A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF42C2CCF7A3C00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget6Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF42D2CCF7A3C00A48994 /* Debug */,
+				DF8DF42E2CCF7A3C00A48994 /* Release */,
+				DF8DF42F2CCF7A3C00A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8DF4442CCF7A4B00A48994 /* Build configuration list for PBXNativeTarget "NewNoteWidget7Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8DF4452CCF7A4B00A48994 /* Debug */,
+				DF8DF4462CCF7A4B00A48994 /* Release */,
+				DF8DF4472CCF7A4B00A48994 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
