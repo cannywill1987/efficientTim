@@ -8,5 +8,7 @@
 	<array>
 		<string>$(TeamIdentifierPrefix)com.timespeed.timehello</string>
 	</array>
+	<key>com.apple.security.network.client</key>
+	<true/>
 </dict>
 </plist>

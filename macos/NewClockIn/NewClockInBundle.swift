@@ -11,6 +11,6 @@ import SwiftUI
 @main
 struct NewClockInBundle: WidgetBundle {
     var body: some Widget {
-        NewClockIn()
+        NewClockIn2()
     }
 }
