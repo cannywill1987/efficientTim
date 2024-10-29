@@ -9,12 +9,12 @@ import Foundation
 
 enum EnvEnum:Int {
     case dev = 0 //开发
-      case uat = 1 //灰度
-      case prd = 2 //生产
+    case uat = 1 //灰度
+    case prd = 2 //生产
 }
 enum OSEnum:Int {
     case macOS = 0 //开发
-      case iosOS = 1 //灰度
+    case iosOS = 1 //灰度
 }
 
 
@@ -23,11 +23,11 @@ class Params {
     static var curOS = OSEnum.macOS;
     static var isDebug:Bool = env != EnvEnum.prd;
     static var isMACOS:Bool = curOS == OSEnum.macOS;
-
+    
     
     static let deviceId:String = ""
     static let badgeKey = "badgeKey"
-
+    
     static let mBaseUrl: String = {
         switch env {
         case .dev:
