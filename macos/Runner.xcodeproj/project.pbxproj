@@ -370,6 +370,27 @@
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = "Flutter Assemble";
 		};
+		DF8DF7512CD090C500A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF8DF7532CD090C900A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
+		DF8DF7552CD090D000A48994 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
+			remoteInfo = "Flutter Assemble";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1194,6 +1215,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DF8DF7522CD090C500A48994 /* PBXTargetDependency */,
 			);
 			name = LatestNote1WidgetExtension;
 			packageProductDependencies = (
@@ -1213,6 +1235,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DF8DF7542CD090C900A48994 /* PBXTargetDependency */,
 			);
 			name = LatestNote2WidgetExtension;
 			packageProductDependencies = (
@@ -1232,6 +1255,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DF8DF7562CD090D000A48994 /* PBXTargetDependency */,
 			);
 			name = LatestNote3WidgetExtension;
 			packageProductDependencies = (
@@ -1974,6 +1998,21 @@
 			isa = PBXTargetDependency;
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = DF8DF7472CD08E6E00A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF7522CD090C500A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF8DF7512CD090C500A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF7542CD090C900A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF8DF7532CD090C900A48994 /* PBXContainerItemProxy */;
+		};
+		DF8DF7562CD090D000A48994 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
+			targetProxy = DF8DF7552CD090D000A48994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

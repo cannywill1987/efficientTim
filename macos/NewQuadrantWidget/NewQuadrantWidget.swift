@@ -14,7 +14,7 @@ struct TimerManager {
 }
 
 struct Provider: TimelineProvider {
-    @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryDataQuadrant : Data = Data()
+    @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: Params.groupName)) var primaryDataQuadrant : Data = Data()
     
 //    @AppStorage("shouldShowHeader") var shouldShowHeader : Bool = true
     
@@ -85,8 +85,8 @@ struct Provider: TimelineProvider {
 
 // Intent to handle the button action
 struct TimerIntent2: AppIntent {
-    @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryDataQuadrant : Data = Data()
-    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryDataMissionListView : Data = Data()
+    @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: Params.groupName)) var primaryDataQuadrant : Data = Data()
+    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: Params.groupName)) var primaryDataMissionListView : Data = Data()
     
     init() {
         

@@ -27,7 +27,7 @@ func getCurrentTimeStampBySeconds() -> Int{
 // TimerIntent: 用于处理计时器操作的AppIntent，支持启动、暂停、重置等操作
 struct TimerIntent: AppIntent {
     // 使用AppStorage存储计时器时长，适用于共享应用和小组件的状态
-    @AppStorage("timerDuration", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var timerDuration : Int = 1500 // 25分钟
+    @AppStorage("timerDuration", store: UserDefaults(suiteName: Params.groupName)) var timerDuration : Int = 1500 // 25分钟
     
     static var title: LocalizedStringResource = "Timer Task" // 定义Intent的标题
     static var description: IntentDescription = IntentDescription("Manage Timer") // 定义Intent的描述
@@ -127,8 +127,8 @@ enum TimerAction: String, AppEnum {
 
 // Provider: 提供Widget时间线，控制Widget的状态和内容更新
 struct Provider: TimelineProvider {
-    @AppStorage("timerDuration", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var timerDuration : Int = 1500 // 25分钟
-    @AppStorage("uid", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var uid : String = ""
+    @AppStorage("timerDuration", store: UserDefaults(suiteName: Params.groupName)) var timerDuration : Int = 1500 // 25分钟
+    @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
 
     // placeholder: 提供Widget的占位视图
     func placeholder(in context: Context) -> SimpleEntry {
@@ -245,8 +245,8 @@ struct SimpleEntry: TimelineEntry {
 // Test2WidgetEntryView: 定义Widget的视图布局
 struct Test2WidgetEntryView : View {
     var entry: Provider.Entry // 时间线条目
-    @AppStorage("timerDuration", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var timerDuration : Int = 1500 // 25分钟
-    @AppStorage("uid", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var uid : String = ""
+    @AppStorage("timerDuration", store: UserDefaults(suiteName: Params.groupName)) var timerDuration : Int = 1500 // 25分钟
+    @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
 
      // currentDisplayedTime: 获取当前需要显示的时间（暂停时保留当前时间）
     func currentDisplayedTime() -> Int {

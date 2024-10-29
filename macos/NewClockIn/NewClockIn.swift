@@ -10,7 +10,7 @@ import SwiftUI
 import AppIntents
 
 struct Provider: TimelineProvider {
-    @AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), listMissionModel: [])
@@ -67,7 +67,7 @@ struct Provider: TimelineProvider {
 }
 
 struct TimerIntent2: AppIntent {
-    @AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
 
     init() {
         

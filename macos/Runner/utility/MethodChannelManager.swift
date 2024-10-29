@@ -15,7 +15,7 @@ class MethodChannelManager {
     var customStatusBarWidget:CustomStatusBarWidget?
     var curCounterStatus: Int?
     var window: MainFlutterWindow?;
-    @AppStorage("uid", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var uid : String = ""
+    @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
 //    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData2 : Data = Data()
     //@AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
     static func shareInstance(flutterViewController: FlutterViewController?, window: MainFlutterWindow?) -> MethodChannelManager {
@@ -71,7 +71,7 @@ class MethodChannelManager {
                 break;
             case "setUserBean":
                 uid = (call.arguments as! [[String: Any]])[0]["uid"] as! String;
-                UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")?.set(uid, forKey: "uid")
+                UserDefaults(suiteName: Params.groupName)?.set(uid, forKey: "uid")
                 WidgetCenter.shared.reloadAllTimelines()
                 break;
             case "scheduleShutdown":

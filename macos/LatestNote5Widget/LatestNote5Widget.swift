@@ -9,7 +9,7 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    @AppStorage("WQBMissionStoreDataNote5", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("WQBMissionStoreDataNote5", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     
     func placeholder(in context: Context) -> SimpleEntry {
         var data:WQBMissionModel?;

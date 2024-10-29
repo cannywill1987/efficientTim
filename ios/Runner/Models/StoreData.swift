@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StoreData : Codable {
+struct StoreData : Codable, Hashable {
 //    var showText : String
     var title1 : String
     var title2 : String
@@ -18,4 +18,10 @@ struct StoreData : Codable {
     var missionList2 : [String]
     var missionList3 : [String]
     var missionList4 : [String]
+    
+    
+    var missionListMissionModel1 : [MissionModel]?
+    var missionListMissionModel2 : [MissionModel]?
+    var missionListMissionModel3 : [MissionModel]?
+    var missionListMissionModel4 : [MissionModel]?
 }

@@ -14,7 +14,7 @@ import WidgetKit
  */
 @available(iOS 14.0, *)
 struct PrimaryData {
-    @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     let simpleData : StoreData
     func encodeData() async {
         do {
@@ -31,7 +31,7 @@ struct PrimaryData {
 
 @available(iOS 14.0, *)
 struct MissionStoreData {
-    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     let missionData : MissionData
     func encodeData() async {
         do {
@@ -50,7 +50,7 @@ struct MissionStoreData {
 
 @available(iOS 14.0, *)
 struct FlomoMissionStoreData {
-    @AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: "S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     let missionData : FlomoMissionData
     func encodeData() async {
         do {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,8 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		DF23FFEA2A826F2900521243 /* WorklogMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF23FFE92A826F2900521243 /* WorklogMonitor.swift */; };
+		DF2C7F0B2CD0A54B00A95340 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
+		DF2C7F0D2CD0A56D00A95340 /* URLSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */; };
 		DF2DA3B12A5C0B1E0051005D /* FlutterViewControllerRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2DA3B02A5C0B1D0051005D /* FlutterViewControllerRoot.swift */; };
 		DF39E1052AEBD13C00BDE323 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5784F29E69F55006ED7EA /* WidgetKit.framework */; };
 		DF39E1062AEBD13C00BDE323 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5785129E69F55006ED7EA /* SwiftUI.framework */; };
@@ -396,6 +398,8 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF23FFE92A826F2900521243 /* WorklogMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorklogMonitor.swift; sourceTree = "<group>"; };
+		DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionRequest.swift; sourceTree = "<group>"; };
 		DF2DA3AC2A56F7CD0051005D /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF2DA3B02A5C0B1D0051005D /* FlutterViewControllerRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlutterViewControllerRoot.swift; sourceTree = "<group>"; };
 		DF39E1042AEBD13C00BDE323 /* NoteWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NoteWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1249,6 +1253,8 @@
 				DFE5788429E78979006ED7EA /* LiveActivityManager.swift */,
 				DF61B47929E903CF00C13F3A /* Color.swift */,
 				DF23FFE92A826F2900521243 /* WorklogMonitor.swift */,
+				DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */,
+				DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1928,6 +1934,8 @@
 				DF81CA752BB2FD5500E2842E /* UserSettings.swift in Sources */,
 				DFFB435D28637801004083F6 /* Utility.swift in Sources */,
 				DF86A2EB2ACD440A006D3F87 /* TimelineItem.swift in Sources */,
+				DF2C7F0D2CD0A56D00A95340 /* URLSessionRequest.swift in Sources */,
+				DF2C7F0B2CD0A54B00A95340 /* NetworkRequest.swift in Sources */,
 				DF86A3162ACD46DB006D3F87 /* Array+Exteinsion.swift in Sources */,
 				DF81CA772BB2FD5500E2842E /* TImelineViewController.swift in Sources */,
 				DF81CA922BB2FFEE00E2842E /* FamilyActivityModel.swift in Sources */,

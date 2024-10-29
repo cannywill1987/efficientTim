@@ -17,7 +17,7 @@ struct TimerManager {
 // A provider that supplies the timeline data for the widget
 struct Provider: TimelineProvider {
     // Access stored primary data for the widget
-    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryDataMissionListView : Data = Data()
+    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: Params.groupName)) var primaryDataMissionListView : Data = Data()
     // Access additional stored data for the widget (QuadrantWidget)
     
     // Placeholder view used to render a snapshot of the widget during loading or preview in WidgetKit
@@ -78,7 +78,7 @@ struct Provider: TimelineProvider {
 
 // Intent to handle the button action
 struct TimerIntent2: AppIntent {
-    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryDataMissionListView : Data = Data()
+    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: Params.groupName)) var primaryDataMissionListView : Data = Data()
     
     init() {
         
@@ -115,7 +115,7 @@ struct TimerIntent2: AppIntent {
                         }
                         primaryDataMissionListView = data //类似存储在 shareprefrerence
                         
-                        @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryDataQuadrant : Data = Data()
+                        @AppStorage("QuadrantWidget", store: UserDefaults(suiteName: Params.groupName)) var primaryDataQuadrant : Data = Data()
                         guard var storeDataQuadrant = try?
                                 JSONDecoder().decode(StoreData.self, from: primaryDataQuadrant) else {
                             return

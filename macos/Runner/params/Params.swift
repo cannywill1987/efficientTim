@@ -23,7 +23,7 @@ class Params {
     static var curOS = OSEnum.macOS;
     static var isDebug:Bool = env != EnvEnum.prd;
     static var isMACOS:Bool = curOS == OSEnum.macOS;
-    
+    static var groupName:String = "S4CLCWPCGH.com.timespeed.timehello";
     
     static let deviceId:String = ""
     static let badgeKey = "badgeKey"
