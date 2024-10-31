@@ -1,16 +1,16 @@
 //
-//  NoteWidget.swift
-//  NoteWidget
+//  NewNoteWidget.swift
+//  NewNoteWidget
 //
-//  Created by 林智彬 on 2023/10/18.
+//  Created by 林智彬 on 2024/10/15.
 //
 
 import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    @AppStorage("WQBMissionStoreDataNote1", store: UserDefaults(suiteName: "group.com.timespeed.timehello")) var primaryData : Data = Data()
-
+    @AppStorage("WQBMissionStoreDataNote1", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
+    
     func placeholder(in context: Context) -> SimpleEntry {
         var data:WQBMissionModel?;
         do {
@@ -55,6 +55,10 @@ struct Provider: TimelineProvider {
 //        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
+
+//    func relevances() async -> WidgetRelevances<Void> {
+//        // Generate a list containing the contexts this widget is relevant in.
+//    }
 }
 
 struct SimpleEntry: TimelineEntry {
@@ -63,39 +67,32 @@ struct SimpleEntry: TimelineEntry {
 
 }
 
-struct NoteWidgetEntryView : View {
+struct NewNote1WidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
 //        Text("123")
-        NoteViewWidget(missionData: entry.missionData, subTitle: "note1".localizable())
+    NoteViewWidget(missionData: entry.missionData, subTitle: "note2".localizable())
        }
 }
 
-@main
-struct NoteWidget: Widget {
-    let kind: String = "NoteWidget"
+
+struct NewNote2Widget: Widget {
+    let kind: String = "NewNoteWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            NoteWidgetEntryView(entry: entry)
+            if #available(macOS 14.0, *) {
+                NewNote1WidgetEntryView(entry: entry)
+//                    .containerBackground(.fill.tertiary, for: .widget)
+            } else {
+                NewNote1WidgetEntryView(entry: entry)
+                    .padding()
+                    .background()
+            }
         }
-        .contentMarginsDisabled() 
-        .configurationDisplayName("note1".localizable())
+        .contentMarginsDisabled()
+        .configurationDisplayName("note2".localizable())
         .description("note_desc".localizable())
     }
 }
-
-//struct NoteWidget_Previews: PreviewProvider {
-//    @AppStorage("WQBMissionStoreDataNote1", store: UserDefaults(suiteName: "group.com.timespeed.timehello")) var primaryData : Data = Data()
-//    static var previews: some View {
-//        var data:WQBMissionModel?;
-//        do {
-//            data = try JSONDecoder().decode(WQBMissionModel.self, from: primaryData)
-//        } catch {
-//            print("Could not write to file")
-//        }
-//        NoteWidgetEntryView(entry: SimpleEntry(date: Date()))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
-//    }
-//}

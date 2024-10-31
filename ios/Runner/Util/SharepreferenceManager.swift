@@ -33,17 +33,17 @@ class SharepreferenceManager{
     
     // 增加或修改
     func setKeys(value: [String], forKey key: String) {
-        UserDefaults(suiteName: Params.APP_GROUP)?.set(value, forKey: key)
+        UserDefaults(suiteName: Params.groupName)?.set(value, forKey: key)
     }
     
     // 查询
     func getKeys(forKey key: String) -> [String]? {
-        return UserDefaults(suiteName: Params.APP_GROUP)?.array(forKey: key) as? [String]
+        return UserDefaults(suiteName: Params.groupName)?.array(forKey: key) as? [String]
     }
     
     // 删除
     func removeKeys(forKey key: String) {
-        UserDefaults(suiteName: Params.APP_GROUP)?.removeObject(forKey: key)
+        UserDefaults(suiteName: Params.groupName)?.removeObject(forKey: key)
     }
     
     // 增加
@@ -83,7 +83,7 @@ class SharepreferenceManager{
     // 查询
     @available(iOS 15.0, *)
     func getTimelineItems(forKey key: String) -> [TimelineItem]? {
-        guard let data = UserDefaults(suiteName: Params.APP_GROUP)?.data(forKey: key) else { return nil }
+        guard let data = UserDefaults(suiteName: Params.groupName)?.data(forKey: key) else { return nil }
         if #available(iOS 15.0, *) {
             return try? JSONDecoder().decode([TimelineItem].self, from: data)
         } else {
@@ -94,8 +94,8 @@ class SharepreferenceManager{
     
     @available(iOS 15.0, *)
     func getTimelineItem(id: String, forKey key: String) -> TimelineItem? {
-        let userDefault:UserDefaults? = UserDefaults(suiteName: Params.APP_GROUP);
-//        UserDefaults.standard.addSuite(named: Params.APP_GROUP)
+        let userDefault:UserDefaults? = UserDefaults(suiteName: Params.groupName);
+//        UserDefaults.standard.addSuite(named: Params.groupName)
         guard let data = userDefault?.data(forKey: key) else { return nil }
         if #available(iOS 15.0, *) {
             guard let timelineItems = try? JSONDecoder().decode([TimelineItem].self, from: data)  else { return nil }
@@ -112,7 +112,7 @@ class SharepreferenceManager{
     @available(iOS 15.0, *)
     func setTimelineItems(TimelineItems: [TimelineItem], forKey key: String) {
         if let data = try? JSONEncoder().encode(TimelineItems) {
-            UserDefaults(suiteName: Params.APP_GROUP)?.set(data, forKey: key)
+            UserDefaults(suiteName: Params.groupName)?.set(data, forKey: key)
         }
     }
     

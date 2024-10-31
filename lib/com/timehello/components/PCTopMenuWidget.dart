@@ -118,7 +118,7 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             if (!Utility.isProductEnv())
               InkWell(
                 onTap: () {
-                  FirebaseStoreManager.getInstance().getString();
+                  // FirebaseStoreManager.getInstance().getString();
                   // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
 
                   // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);

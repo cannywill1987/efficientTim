@@ -26,7 +26,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
-import 'package:platform_device_id/platform_device_id.dart';
+// import 'package:platform_device_id/platform_device_id.dart';
 
 // import 'package:secverify_plugin/secverify_UIConfig.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -6166,28 +6166,28 @@ class Utility {
     if (DeviceInfoManagement.isWEB() == true) {
       return getUUIDDeviceId();
     }
-    if (Utility.isXiaoMi() == false) {
-      try {
-        deviceId = await PlatformDeviceId.getDeviceId;
-        if (TextUtil.isEmpty(deviceId)) {
-          // deviceId = SharePreferenceUtil.getSyncInstance()
-          //     .getString(key: ShareprefrenceKeys.deviceId);
-          // if (TextUtil.isEmpty(deviceId)) {
-          deviceId = getUUIDDeviceId();
-          // }
-
-          // deviceId = deviceId;
-          // deviceId =
-          //     await CounterMethodChannelManager.getInstance().aliyunDeviceId();
-        }
-        return deviceId ?? '';
-      } on PlatformException {
-        deviceId = '';
-      }
-      return '';
-    } else {
+    // if (Utility.isXiaoMi() == false) {
+    //   try {
+    //     deviceId = await PlatformDeviceId.getDeviceId;
+    //     if (TextUtil.isEmpty(deviceId)) {
+    //       // deviceId = SharePreferenceUtil.getSyncInstance()
+    //       //     .getString(key: ShareprefrenceKeys.deviceId);
+    //       // if (TextUtil.isEmpty(deviceId)) {
+    //       deviceId = getUUIDDeviceId();
+    //       // }
+    //
+    //       // deviceId = deviceId;
+    //       // deviceId =
+    //       //     await CounterMethodChannelManager.getInstance().aliyunDeviceId();
+    //     }
+    //     return deviceId ?? '';
+    //   } on PlatformException {
+    //     deviceId = '';
+    //   }
+    //   return '';
+    // } else {
       return getUUIDDeviceId();
-    }
+    // }
   }
 
   static String getUUIDDeviceId() {

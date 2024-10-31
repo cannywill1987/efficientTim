@@ -25,7 +25,11 @@ class Params {
     static var curOS = OSEnum.macOS;
     static var isDebug:Bool = env != EnvEnum.prd;
     static var isMACOS:Bool = curOS == OSEnum.macOS;
+    static var groupName:String = "group.com.timespeed.timehello";
     
+    static var START_MONITORING = "START_MONITORING";
+    static var END_MONITORING = "END_MONITORING";
+
     
     static let deviceId:String = ""
     static let badgeKey = "badgeKey"
@@ -39,28 +43,9 @@ class Params {
         }
     }()
     
-    static var deviceId: String = "";
-    static var APP_GROUP = "group.com.timespeed.timehello";
-    static var START_MONITORING = "START_MONITORING";
-    static var END_MONITORING = "END_MONITORING";
-
     static var ACTION_HANDLE_NOTIFICATION_PERMISSION: String = "ACTION_HANDLE_NOTIFICATION_PERMISSION";
-//    static let instance:Params = Params()
-//    var deviceId: String = "";
-//    static func shareInstance() -> Params {
-//        return instance;
-//    }
-//    
-//    func setDeviceId(deviceId: String) -> Params {
-//        self.deviceId = deviceId
-//        return .instance;
-//    }
+    static var ACTION_HANDLE_NOTIFICATION_POSTMESSAGE: String = "ACTION_HANDLE_NOTIFICATION_POSTMESSAGE";
 }
-
-class SharePreferenceKey {
-    static var TimelineKey: String = "TimelineKey";
-}
-
 
 struct Apis {
     static let console = "/api/console"
@@ -70,3 +55,8 @@ struct Apis {
     static let updateMissionModelOfFinished = "/api/timehello/updateMissionModelOfFinished" // 任务完成设置
     static let updateFlomoClickInsMissionModel = "/api/timehello/updateFlomoClickInsMissionModel" // 打卡完成设置
 }
+
+class SharePreferenceKey {
+    static var TimelineKey: String = "TimelineKey";
+}
+

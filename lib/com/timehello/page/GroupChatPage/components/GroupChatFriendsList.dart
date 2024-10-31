@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:time_hello/com/timehello/beans/UserInfoBean.dart';
 import 'package:time_hello/com/timehello/components/AvatarWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
+import 'package:time_hello/com/timehello/libs/flutter_slidable/src/action_pane_motions.dart';
+import 'package:time_hello/com/timehello/libs/flutter_slidable/src/actions.dart';
+import 'package:time_hello/com/timehello/libs/flutter_slidable/src/slidable.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';

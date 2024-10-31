@@ -179,6 +179,26 @@ class Utility {
             }
     }
     
+    static func getMissionModelsFromList(list: NSArray) -> [MissionModel] {
+//        var arrayList:[String] = [];
+        var listMissionModels:[MissionModel] = [];
+
+        for item in list {
+            let itemDict:NSDictionary = item as! NSDictionary;
+            let objectId:String? = itemDict["_id"] as? String;
+            let isDelayed:Bool = itemDict["isDelayed"] as! Bool;
+            let isFinished:Bool = itemDict["isFinished"] as! Bool;
+            let title:String = itemDict["title"] as! String;
+            let background_url:String? = itemDict["background_url"] as? String;
+            let end_time:Int = itemDict["end_time"] as! Int;
+            let priorityStatus:Int? = itemDict["priorityStatus"] as? Int;
+            let color:Int? = itemDict["color"] as? Int ?? 0xffff8800 - 0xff000000;
+            let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+            listMissionModels.append(missionData);
+        }
+        return listMissionModels;
+    }
+    
     static func getHourAndMinuteString(from dateComponents: DateComponents) -> String {
         guard let hour = dateComponents.hour, let minute = dateComponents.minute else {
             return ""

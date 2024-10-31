@@ -38,11 +38,11 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     let store = ManagedSettingsStore()
     
     // MARK: 存储要限制的应用信息的变量
-    @AppStorage("value", store: UserDefaults(suiteName: Params.APP_GROUP))
+    @AppStorage("value", store: UserDefaults(suiteName: Params.groupName))
     var value:Int = 1;
     //
     //    // MARK: 存储要限制的应用信息的变量
-    @AppStorage("value", store: UserDefaults(suiteName: Params.APP_GROUP))
+    @AppStorage("value", store: UserDefaults(suiteName: Params.groupName))
     var value2:Int = 2;
     
     func isTodayInWeekend(weekend: [Bool]) -> Bool {

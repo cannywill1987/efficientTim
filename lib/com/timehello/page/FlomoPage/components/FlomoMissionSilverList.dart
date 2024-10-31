@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/components/IconWidget.dart';
 import 'package:time_hello/com/timehello/components/RatingBar.dart';
@@ -10,6 +9,9 @@ import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
+import 'package:time_hello/com/timehello/libs/flutter_slidable/src/action_pane_motions.dart';
+import 'package:time_hello/com/timehello/libs/flutter_slidable/src/actions.dart';
+import 'package:time_hello/com/timehello/libs/flutter_slidable/src/slidable.dart';
 import 'package:time_hello/com/timehello/models/FlomoMissionModel.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';

@@ -24,7 +24,11 @@ import Firebase
             }
         }
         //        FirebaseApp.configure()
-        MethodChannelManager.shareInstance(flutterViewController: self.window.rootViewController as? FlutterViewController);
+        if #available(iOS 14.0, *) {
+            MethodChannelManager.shareInstance(flutterViewController: self.window.rootViewController as? FlutterViewController)
+        } else {
+            // Fallback on earlier versions
+        };
         NotificationCenter.default.addObserver(self, selector: #selector(initNotification(_:)), name:Notification.Name(Params.ACTION_HANDLE_NOTIFICATION_PERMISSION), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleActionButtonClick(notification:)), name: NSNotification.Name("ACTION_BTN_CLICK"), object: nil)

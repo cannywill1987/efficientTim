@@ -11,10 +11,9 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
   firebase_auth
   firebase_core
-  firebase_storage
+  flutter_inappwebview_windows
   pasteboard
   permission_handler_windows
-  platform_device_id_windows
   record_windows
   system_tray
   url_launcher_windows

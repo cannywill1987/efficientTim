@@ -12,7 +12,7 @@ import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/MoneyManager.dart';
 import 'package:time_hello/com/timehello/util/NotificationManager.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import '../beans/BaseBean.dart';
 import '../beans/UserBean.dart';
 import '../common/httpclient/HttpManager.dart';
@@ -390,7 +390,7 @@ class CounterManagement {
       return getI18NKey().continueTxt;
     } else if (CounterStatus.relaxing == counterStatus) {
       // Wakelock.enable();
-      Wakelock.toggle(enable: true);
+      WakelockPlus.toggle(enable: true);
       //休息中
       return getI18NKey().resting;
     } else if (CounterStatus.waitingToFocus == counterStatus) {
@@ -405,7 +405,7 @@ class CounterManagement {
       //等待开始休息
       return getI18NKey().restPausing;
     } else if (CounterStatus.focusing == counterStatus) {
-      Wakelock.toggle(enable: true);
+      WakelockPlus.toggle(enable: true);
       // Wakelock.enable();
       //专注中
       return getI18NKey().focusing;
@@ -646,7 +646,7 @@ class CounterManagement {
                 CONSTANTS.getFocusAndRestingMusicModelList()[0].url!,
             isLocal: true);
       }
-      Wakelock.toggle(enable: true);
+      WakelockPlus.toggle(enable: true);
       this.startTimer(CounterEnum.chronograph);
       MongoApisManager.getInstance().insertTimelineMissionModel(
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
@@ -657,7 +657,7 @@ class CounterManagement {
               missionModel: missionModel ?? MissionModel()));
       counterStatus = CounterStatus.relaxing; //开始放松
     } else if (CounterStatus.pausingFocusing == counterStatus) {
-      Wakelock.toggle(enable: true);
+      WakelockPlus.toggle(enable: true);
       if (SharePreferenceUtil.getSyncInstance().isFocusBGMusicOn()) {
         AudioPlayUtil.getInstance()?.continuePlayer();
       }
@@ -683,7 +683,7 @@ class CounterManagement {
       }
       // }
     } else if (CounterStatus.waitingToFocus == counterStatus) {
-      Wakelock.toggle(enable: true);
+      WakelockPlus.toggle(enable: true);
       startFocusing();
       counterStatus = CounterStatus.focusing; //专注中
     } else if (CounterStatus.pausingRelaixing == counterStatus) {
@@ -919,8 +919,8 @@ class CounterManagement {
    */
   void pauseTimer() {
     CounterMethodChannelManager.getInstance().stopLiveActivity();
-    // Wakelock.disable();
-    Wakelock.toggle(enable: false);
+    // WakelockPlus.disable();
+    WakelockPlus.toggle(enable: false);
 
     if (this.curTimeF != 0) {
       //不为0是人为暂停

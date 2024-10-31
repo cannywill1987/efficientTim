@@ -30,7 +30,9 @@ import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
+
+// import 'package:wakelock/wakelock.dart';
 import 'com/timehello/common/database/apis/MongoApisManager.dart';
 import 'com/timehello/common/provider/Env.dart';
 import 'com/timehello/common/provider/GlobalStateEnv.dart';
@@ -59,7 +61,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (DeviceInfoManagement.isWEB() == false) {
-    Wakelock.enable();
+    // Wakelock.enable();
+    // The following line will enable the Android and iOS wakelock.
+    WakelockPlus.enable();
   }
   //需要加try catch 否则部分机型打不开
   try {
@@ -67,7 +71,7 @@ void main() async {
   } catch (e) {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "error:" + e.toString());
   }
-  if(!Utility.isXiaoMi()) {
+  if (!Utility.isXiaoMi()) {
     await FirebaseAuthManager.initialized();
   }
 
@@ -78,7 +82,6 @@ void main() async {
     ChangeNotifierProvider(create: (_) => Env()),
     ChangeNotifierProvider(create: (_) => GlobalStateEnv()),
     ChangeNotifierProvider(create: (_) => CalendarMssionEnv()),
-
   ], child: MyApp()));
   // }, onError: (error, stackTrace) {
   //   //  自定义处理错误
@@ -102,7 +105,7 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
   // print('1111111111111 initThirdparty');
   //初始化如果依赖sharePreference
   if (PrivacyProtocolManager.getInstance().isProtocolAgreed(context) == true) {
-    if(Utility.isXiaoMi()) {
+    if (Utility.isXiaoMi()) {
       await FirebaseAuthManager.initialized();
     }
 
@@ -202,13 +205,12 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     //   EasyLoadingManager.getInstance().showLoading();
     // }
 
-
     HtmlUtility.dismissLoading();
     try {
       //app 生命周期
       SystemChannels.lifecycle.setMessageHandler((msg) async {
         switch (msg) {
-        // 从后台切换到前台，界面可见
+          // 从后台切换到前台，界面可见
           case "AppLifecycleState.resumed":
             break;
 // 界面不可见，后台运行中
@@ -289,123 +291,137 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     print(
         "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     print("code has been refreshed！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    print(
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "code has been refreshed");
     Locale? local = null;
-          String curLocal = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: '');
-          String curLocalCountry = SharePreferenceUtil.getSyncInstance().getString(key: ShareprefrenceKeys.curLocaleCountryCode, defaultVal: '');
-          if(!TextUtil.isEmpty(curLocal) || !TextUtil.isEmpty(curLocalCountry)) {
-            S.load(local = Locale.fromSubtags(languageCode: curLocal ?? '',
-                countryCode: TextUtil.isEmpty(curLocalCountry)
-                    ? null
-                    : curLocalCountry));
-          }
+    String curLocal = SharePreferenceUtil.getSyncInstance()
+        .getString(key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: '');
+    String curLocalCountry = SharePreferenceUtil.getSyncInstance().getString(
+        key: ShareprefrenceKeys.curLocaleCountryCode, defaultVal: '');
+    if (!TextUtil.isEmpty(curLocal) || !TextUtil.isEmpty(curLocalCountry)) {
+      S.load(local = Locale.fromSubtags(
+          languageCode: curLocal ?? '',
+          countryCode:
+              TextUtil.isEmpty(curLocalCountry) ? null : curLocalCountry));
+    }
     // local = Locale('fr');
-          return AdaptiveTheme(
-            light: ThemeManager.getInstance().getLightThemeData(),
-            dark: ThemeManager.getInstance().getDarkThemeData(),
-            initial: ThemeManager.getInstance().getThemeMode(),
-            builder: (lightTheme, darkTheme) =>   MaterialApp(
-              theme:
-              ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
-                  ? lightTheme
-                  : darkTheme,
-              // theme: ThemeManager.getInstance().getThemeData(),
-              debugShowCheckedModeBanner: false,
-              navigatorKey: navigatorKey,
-              builder: EasyLoading.init(),
-              navigatorObservers: getObservers(),
-              // darkTheme: ThemeData(
-              //   visualDensity: VisualDensity.adaptivePlatformDensity, //用于适配不同机型
-              //   cupertinoOverrideTheme: const CupertinoThemeData(
-              //     textTheme: CupertinoTextThemeData(), // This is required
-              //   ),
-              // ),
-              locale:local,
-              // const Locale.fromSubtags(
-              //   languageCode: 'en')
-              // ,
-              // 自动检测设备语言
-              localeResolutionCallback: (locale, supportedLocales) {
-                // 检查设备当前语言是否在支持的语言列表中
-                Params.local = locale;
-                // Utility.showToastMsg(context: context, msg: "countryCode:" + (locale?.countryCode ?? '') + ' locale:' + (locale?.languageCode ?? ''));
-                for (var supportedLocale in supportedLocales) {
-                  if(locale?.languageCode == 'zh') { // 中文走这里 因为有繁体
-                    if (supportedLocale.languageCode == locale?.languageCode &&
-                        supportedLocale.countryCode == locale?.countryCode) {
-                      return supportedLocale;
-                    }
-                  } else {
-                    if (supportedLocale.languageCode == locale?.languageCode) { //外语直接语言
-                      return supportedLocale;
-                    }
-                  }
-                }
-                // 如果设备语言不支持，默认使用英文
-                return supportedLocales.first;
-              },
-              localizationsDelegates: const [
-                // 很强大的记事本
-                // AppFlowyEditorLocalizations.delegate,
-                //用于国际化
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate, // This is required
-                SfGlobalLocalizations.delegate,
-                S.delegate
-              ],
-              // locale: Locale("en"),
-              supportedLocales: [
-                // ...L10n.all,
-                Locale("en"), // 英语 默认选择第一个
-                Locale("zh", 'CN'), //台湾
-                Locale("zh"), //中文
-                Locale("zh", 'HK'), //香港
-                Locale("zh", 'TW'), //台湾
-                Locale("zh", 'Hant'), //台湾
-                Locale("fr"), //法语
-                Locale("de"), //de
-                Locale("ko"), //韩语
-                Locale("ja"), //日语
-                //日语
-                // const Locale.fromSubtags(languageCode: 'ja'),
-                //
-                // //韩语
-                // const Locale.fromSubtags(languageCode: 'ko'),
-                // //德语
-                // const Locale.fromSubtags(languageCode: 'de'),
-                // // 法语
-                // const Locale.fromSubtags(languageCode: 'fr'),
-                //
-                // const Locale.fromSubtags(languageCode: 'zh'),
-                // // generic Chinese 'zh'
-                // // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-                // // // generic simplified Chinese 'zh_Hans'
-                // // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-                // // generic traditional Chinese 'zh_Hant'
-                // const Locale.fromSubtags(
-                //     languageCode: 'zh',  countryCode: 'CN'),
-                // // 'zh_Hans_CN'
-                // // const Locale.fromSubtags(
-                // //     languageCode: 'zh',  countryCode: 'TW'),
-                // // 'zh_Hant_TW'
-                // const Locale.fromSubtags(
-                //     languageCode: 'zh',  countryCode: 'HK'),
-                // 'zh_Hant_HK'
-              ],
-              title: appName,
-              // theme: ThemeData(
-              //     primaryColor: Colors.black
-              // ),
-              home: SplashPage(),
-              routes: {
-                "unregister": (BuildContext context) => new UnregisterPage(),
-                // web会以hash展示  https://www.timerbell.com/#unregister
-                // "BottomTabBarHome": (BuildContext context) => new BottomTabBarHome(),
-              },
-            ),
-          );
-
+    return AdaptiveTheme(
+      light: ThemeManager.getInstance().getLightThemeData(),
+      dark: ThemeManager.getInstance().getDarkThemeData(),
+      initial: ThemeManager.getInstance().getThemeMode(),
+      builder: (lightTheme, darkTheme) => MaterialApp(
+        theme:
+            ThemeManager.getInstance().getThemeMode() == AdaptiveThemeMode.light
+                ? lightTheme
+                : darkTheme,
+        // theme: ThemeManager.getInstance().getThemeData(),
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        builder: EasyLoading.init(),
+        navigatorObservers: getObservers(),
+        // darkTheme: ThemeData(
+        //   visualDensity: VisualDensity.adaptivePlatformDensity, //用于适配不同机型
+        //   cupertinoOverrideTheme: const CupertinoThemeData(
+        //     textTheme: CupertinoTextThemeData(), // This is required
+        //   ),
+        // ),
+        locale: local,
+        // const Locale.fromSubtags(
+        //   languageCode: 'en')
+        // ,
+        // 自动检测设备语言
+        localeResolutionCallback: (locale, supportedLocales) {
+          // 检查设备当前语言是否在支持的语言列表中
+          Params.local = locale;
+          // Utility.showToastMsg(context: context, msg: "countryCode:" + (locale?.countryCode ?? '') + ' locale:' + (locale?.languageCode ?? ''));
+          for (var supportedLocale in supportedLocales) {
+            if (locale?.languageCode == 'zh') {
+              // 中文走这里 因为有繁体
+              if (supportedLocale.languageCode == locale?.languageCode &&
+                  supportedLocale.countryCode == locale?.countryCode) {
+                return supportedLocale;
+              }
+            } else {
+              if (supportedLocale.languageCode == locale?.languageCode) {
+                //外语直接语言
+                return supportedLocale;
+              }
+            }
+          }
+          // 如果设备语言不支持，默认使用英文
+          return supportedLocales.first;
+        },
+        localizationsDelegates: const [
+          // 很强大的记事本
+          // AppFlowyEditorLocalizations.delegate,
+          //用于国际化
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate, // This is required
+          SfGlobalLocalizations.delegate,
+          S.delegate
+        ],
+        // locale: Locale("en"),
+        supportedLocales: [
+          // ...L10n.all,
+          Locale("en"),
+          // 英语 默认选择第一个
+          Locale("zh", 'CN'),
+          //台湾
+          Locale("zh"),
+          //中文
+          Locale("zh", 'HK'),
+          //香港
+          Locale("zh", 'TW'),
+          //台湾
+          Locale("zh", 'Hant'),
+          //台湾
+          Locale("fr"),
+          //法语
+          Locale("de"),
+          //de
+          Locale("ko"),
+          //韩语
+          Locale("ja"),
+          //日语
+          //日语
+          // const Locale.fromSubtags(languageCode: 'ja'),
+          //
+          // //韩语
+          // const Locale.fromSubtags(languageCode: 'ko'),
+          // //德语
+          // const Locale.fromSubtags(languageCode: 'de'),
+          // // 法语
+          // const Locale.fromSubtags(languageCode: 'fr'),
+          //
+          // const Locale.fromSubtags(languageCode: 'zh'),
+          // // generic Chinese 'zh'
+          // // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+          // // // generic simplified Chinese 'zh_Hans'
+          // // const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+          // // generic traditional Chinese 'zh_Hant'
+          // const Locale.fromSubtags(
+          //     languageCode: 'zh',  countryCode: 'CN'),
+          // // 'zh_Hans_CN'
+          // // const Locale.fromSubtags(
+          // //     languageCode: 'zh',  countryCode: 'TW'),
+          // // 'zh_Hant_TW'
+          // const Locale.fromSubtags(
+          //     languageCode: 'zh',  countryCode: 'HK'),
+          // 'zh_Hant_HK'
+        ],
+        title: appName,
+        // theme: ThemeData(
+        //     primaryColor: Colors.black
+        // ),
+        home: SplashPage(),
+        routes: {
+          "unregister": (BuildContext context) => new UnregisterPage(),
+          // web会以hash展示  https://www.timerbell.com/#unregister
+          // "BottomTabBarHome": (BuildContext context) => new BottomTabBarHome(),
+        },
+      ),
+    );
   }
 }

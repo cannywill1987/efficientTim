@@ -77,7 +77,7 @@ func getItemFromTime(time: TimeInterval, list:[MissionModelList]) -> MissionMode
 }
 
 struct Provider: TimelineProvider {
-    @AppStorage("CalendarMissionModel", store: UserDefaults(suiteName: "group.com.timespeed.timehello")) var primaryData : Data = Data()
+    @AppStorage("CalendarMissionModel", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     
     
     func placeholder(in context: Context) -> SimpleEntry {
@@ -531,7 +531,7 @@ struct MyCalendarWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             MyCalendarWidgetEntryView(entry: entry)
         }
-        .contentMarginsDisabled() 
+        .contentMarginsDisabled()
         .configurationDisplayName("calendar_this_week".localizable())
         .description("")
         .supportedFamilies([ .systemLarge, .systemMedium])

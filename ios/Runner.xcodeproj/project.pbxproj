@@ -16,6 +16,44 @@
 		DF23FFEA2A826F2900521243 /* WorklogMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF23FFE92A826F2900521243 /* WorklogMonitor.swift */; };
 		DF2C7F0B2CD0A54B00A95340 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
 		DF2C7F0D2CD0A56D00A95340 /* URLSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */; };
+		DF2C7F0E2CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F0F2CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F102CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F112CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F122CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F132CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F142CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F152CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F162CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F172CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F182CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F192CD12D6800A95340 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF2C7F1A2CD135E100A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F1B2CD135E100A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F1C2CD1360500A95340 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
+		DF2C7F1D2CD1360500A95340 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
+		DF2C7F1E2CD1360500A95340 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
+		DF2C7F1F2CD1360500A95340 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
+		DF2C7F202CD136D400A95340 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A30D2ACD46DB006D3F87 /* Color+Extension.swift */; };
+		DF2C7F212CD136D400A95340 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A30D2ACD46DB006D3F87 /* Color+Extension.swift */; };
+		DF2C7F222CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F232CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F242CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F252CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F262CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F272CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F282CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F292CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F2A2CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F2B2CD1373100A95340 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
+		DF2C7F3E2CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F3F2CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F402CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F412CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F422CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F432CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F442CD1FCF200A95340 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
+		DF2C7F582CD2191200A95340 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F572CD2191200A95340 /* BaseResponse.swift */; };
 		DF2DA3B12A5C0B1E0051005D /* FlutterViewControllerRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2DA3B02A5C0B1D0051005D /* FlutterViewControllerRoot.swift */; };
 		DF39E1052AEBD13C00BDE323 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5784F29E69F55006ED7EA /* WidgetKit.framework */; };
 		DF39E1062AEBD13C00BDE323 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5785129E69F55006ED7EA /* SwiftUI.framework */; };
@@ -148,7 +186,6 @@
 		DF86A2E22ACD440A006D3F87 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D82ACD440A006D3F87 /* PrimarryData.swift */; };
 		DF86A2E32ACD440A006D3F87 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
 		DF86A2E42ACD440A006D3F87 /* ScreenTimeSelectAppsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DA2ACD440A006D3F87 /* ScreenTimeSelectAppsModel.swift */; };
-		DF86A2E52ACD440A006D3F87 /* MissionStoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DB2ACD440A006D3F87 /* MissionStoreData.swift */; };
 		DF86A2E62ACD440A006D3F87 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DC2ACD440A006D3F87 /* StoreData.swift */; };
 		DF86A2E72ACD440A006D3F87 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DD2ACD440A006D3F87 /* DateModel.swift */; };
 		DF86A2E82ACD440A006D3F87 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2DE2ACD440A006D3F87 /* OnboardingModel.swift */; };
@@ -400,6 +437,7 @@
 		DF23FFE92A826F2900521243 /* WorklogMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorklogMonitor.swift; sourceTree = "<group>"; };
 		DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionRequest.swift; sourceTree = "<group>"; };
+		DF2C7F572CD2191200A95340 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DF2DA3AC2A56F7CD0051005D /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF2DA3B02A5C0B1D0051005D /* FlutterViewControllerRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlutterViewControllerRoot.swift; sourceTree = "<group>"; };
 		DF39E1042AEBD13C00BDE323 /* NoteWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NoteWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,7 +533,6 @@
 		DF86A2D82ACD440A006D3F87 /* PrimarryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimarryData.swift; sourceTree = "<group>"; };
 		DF86A2D92ACD440A006D3F87 /* MissionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionData.swift; sourceTree = "<group>"; };
 		DF86A2DA2ACD440A006D3F87 /* ScreenTimeSelectAppsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenTimeSelectAppsModel.swift; sourceTree = "<group>"; };
-		DF86A2DB2ACD440A006D3F87 /* MissionStoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionStoreData.swift; sourceTree = "<group>"; };
 		DF86A2DC2ACD440A006D3F87 /* StoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreData.swift; sourceTree = "<group>"; };
 		DF86A2DD2ACD440A006D3F87 /* DateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		DF86A2DE2ACD440A006D3F87 /* OnboardingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
@@ -1106,7 +1143,6 @@
 				DF86A2D82ACD440A006D3F87 /* PrimarryData.swift */,
 				DF86A2D92ACD440A006D3F87 /* MissionData.swift */,
 				DF86A2DA2ACD440A006D3F87 /* ScreenTimeSelectAppsModel.swift */,
-				DF86A2DB2ACD440A006D3F87 /* MissionStoreData.swift */,
 				DF86A2DC2ACD440A006D3F87 /* StoreData.swift */,
 				DF86A2DD2ACD440A006D3F87 /* DateModel.swift */,
 				DF86A2DE2ACD440A006D3F87 /* OnboardingModel.swift */,
@@ -1116,6 +1152,7 @@
 				DF81CA662BB2FD5500E2842E /* KeySettings.swift */,
 				DFEB26CA2ADF7D71004FBB7E /* WQBMissionData.swift */,
 				DFC181282BBAC3EC00B60D77 /* MyModel.swift */,
+				DF2C7F572CD2191200A95340 /* BaseResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1970,10 +2007,10 @@
 				DF86A2E92ACD440A006D3F87 /* FlomoMissionModel.swift in Sources */,
 				DF86A2EA2ACD440A006D3F87 /* MainModel.swift in Sources */,
 				DF23FFEA2A826F2900521243 /* WorklogMonitor.swift in Sources */,
+				DF2C7F582CD2191200A95340 /* BaseResponse.swift in Sources */,
 				DFFB435E28637801004083F6 /* MethodChannelManager.swift in Sources */,
 				DF86A2E62ACD440A006D3F87 /* StoreData.swift in Sources */,
 				DFFB436328637833004083F6 /* Enums.swift in Sources */,
-				DF86A2E52ACD440A006D3F87 /* MissionStoreData.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				DF86A31A2ACD46DB006D3F87 /* Colors.swift in Sources */,
 				DFD6EE342A31C15600A7B0DE /* IslandLiveActivity.swift in Sources */,
@@ -1989,11 +2026,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F3E2CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E1092AEBD13C00BDE323 /* NoteWidgetBundle.swift in Sources */,
 				DF39E1172AEBD17F00BDE323 /* WQBMissionData.swift in Sources */,
 				DF39E10B2AEBD13C00BDE323 /* NoteWidget.swift in Sources */,
+				DF2C7F132CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E13B2AECD92A00BDE323 /* Colors.swift in Sources */,
 				DF39E1192AEBD19800BDE323 /* String+Extension.swift in Sources */,
+				DF2C7F252CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E11E2AEBD22700BDE323 /* NoteViewWidget.swift in Sources */,
 				DF39E1182AEBD19000BDE323 /* Color+Extension.swift in Sources */,
 			);
@@ -2003,11 +2043,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F3F2CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E12A2AEBD3BA00BDE323 /* Note2Widget.swift in Sources */,
 				DF39E1BF2AECDC6C00BDE323 /* Color+Extension.swift in Sources */,
 				DF39E13C2AECD92B00BDE323 /* Colors.swift in Sources */,
+				DF2C7F142CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E1392AEBD41400BDE323 /* WQBMissionData.swift in Sources */,
 				DF39E1382AEBD40400BDE323 /* NoteViewWidget.swift in Sources */,
+				DF2C7F262CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E13A2AEBD42B00BDE323 /* String+Extension.swift in Sources */,
 				DF39E1282AEBD3BA00BDE323 /* Note2WidgetBundle.swift in Sources */,
 			);
@@ -2017,11 +2060,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F402CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E1B52AECDC5800BDE323 /* String+Extension.swift in Sources */,
 				DF39E1C02AECDC6C00BDE323 /* Color+Extension.swift in Sources */,
 				DF39E1462AECDB1D00BDE323 /* Note3WidgetBundle.swift in Sources */,
+				DF2C7F152CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E1CB2AECDDB600BDE323 /* Colors.swift in Sources */,
 				DF39E1B02AECDC4F00BDE323 /* WQBMissionData.swift in Sources */,
+				DF2C7F272CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E1C62AECDC8600BDE323 /* NoteViewWidget.swift in Sources */,
 				DF39E1482AECDB1D00BDE323 /* Note3Widget.swift in Sources */,
 			);
@@ -2031,11 +2077,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F412CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E1B62AECDC5900BDE323 /* String+Extension.swift in Sources */,
 				DF39E1C12AECDC6D00BDE323 /* Color+Extension.swift in Sources */,
 				DF39E15F2AECDB6B00BDE323 /* Note4Widget.swift in Sources */,
+				DF2C7F162CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E1CC2AECDDB700BDE323 /* Colors.swift in Sources */,
 				DF39E1B12AECDC5000BDE323 /* WQBMissionData.swift in Sources */,
+				DF2C7F282CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E1C72AECDC8600BDE323 /* NoteViewWidget.swift in Sources */,
 				DF39E15D2AECDB6B00BDE323 /* Note4WidgetBundle.swift in Sources */,
 			);
@@ -2045,11 +2094,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F422CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E1B72AECDC5900BDE323 /* String+Extension.swift in Sources */,
 				DF39E1C42AECDC6F00BDE323 /* Color+Extension.swift in Sources */,
 				DF39E1742AECDBA700BDE323 /* Note5WidgetBundle.swift in Sources */,
+				DF2C7F172CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E1CD2AECDDB700BDE323 /* Colors.swift in Sources */,
 				DF39E1B22AECDC5000BDE323 /* WQBMissionData.swift in Sources */,
+				DF2C7F292CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E1C82AECDC8700BDE323 /* NoteViewWidget.swift in Sources */,
 				DF39E1762AECDBA700BDE323 /* Note5Widget.swift in Sources */,
 			);
@@ -2059,11 +2111,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F432CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E1B82AECDC5A00BDE323 /* String+Extension.swift in Sources */,
 				DF39E1C32AECDC6E00BDE323 /* Color+Extension.swift in Sources */,
 				DF39E18D2AECDBE700BDE323 /* Note6Widget.swift in Sources */,
+				DF2C7F182CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E1CE2AECDDB800BDE323 /* Colors.swift in Sources */,
 				DF39E1B32AECDC5100BDE323 /* WQBMissionData.swift in Sources */,
+				DF2C7F2A2CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E1C92AECDC8700BDE323 /* NoteViewWidget.swift in Sources */,
 				DF39E18B2AECDBE700BDE323 /* Note6WidgetBundle.swift in Sources */,
 			);
@@ -2073,11 +2128,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F442CD1FCF200A95340 /* MissionData.swift in Sources */,
 				DF39E1B92AECDC5A00BDE323 /* String+Extension.swift in Sources */,
 				DF39E1C52AECDC6F00BDE323 /* Color+Extension.swift in Sources */,
 				DF39E1A22AECDC1800BDE323 /* Note7WidgetBundle.swift in Sources */,
+				DF2C7F192CD12D6800A95340 /* Params.swift in Sources */,
 				DF39E1CF2AECDDB800BDE323 /* Colors.swift in Sources */,
 				DF39E1B42AECDC5100BDE323 /* WQBMissionData.swift in Sources */,
+				DF2C7F2B2CD1373100A95340 /* StoreData.swift in Sources */,
 				DF39E1CA2AECDC8800BDE323 /* NoteViewWidget.swift in Sources */,
 				DF39E1A42AECDC1800BDE323 /* Note7Widget.swift in Sources */,
 			);
@@ -2095,9 +2153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F1C2CD1360500A95340 /* NetworkRequest.swift in Sources */,
+				DF2C7F222CD1373100A95340 /* StoreData.swift in Sources */,
 				DF86A31F2ACD490F006D3F87 /* String+Extension.swift in Sources */,
 				DF86A3202ACD492C006D3F87 /* Color+Extension.swift in Sources */,
 				DF86A3032ACD4680006D3F87 /* MissionData.swift in Sources */,
+				DF2C7F0F2CD12D6800A95340 /* Params.swift in Sources */,
 				DF86A2F52ACD443E006D3F87 /* MyCalendarWidgetBundle.swift in Sources */,
 				DF86A2F72ACD443E006D3F87 /* MyCalendarWidget.swift in Sources */,
 			);
@@ -2108,8 +2169,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF86A3392ACD4C66006D3F87 /* String+Extension.swift in Sources */,
+				DF2C7F232CD1373100A95340 /* StoreData.swift in Sources */,
+				DF2C7F202CD136D400A95340 /* Color+Extension.swift in Sources */,
 				DF86A3382ACD4C4B006D3F87 /* MissionData.swift in Sources */,
 				DF86A32B2ACD4C15006D3F87 /* TodayMissionListViewBundle.swift in Sources */,
+				DF2C7F102CD12D6800A95340 /* Params.swift in Sources */,
+				DF2C7F1D2CD1360500A95340 /* NetworkRequest.swift in Sources */,
 				DF86A32D2ACD4C15006D3F87 /* TodayMissionListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2118,10 +2183,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2C7F1E2CD1360500A95340 /* NetworkRequest.swift in Sources */,
+				DF2C7F1A2CD135E100A95340 /* MissionData.swift in Sources */,
 				DF86A36B2ACD4DFD006D3F87 /* String+Extension.swift in Sources */,
 				DF86A36A2ACD4DF1006D3F87 /* StoreData.swift in Sources */,
 				DF86A35C2ACD4D97006D3F87 /* MyQuadrantWidgetBundle.swift in Sources */,
+				DF2C7F112CD12D6800A95340 /* Params.swift in Sources */,
 				DF86A35E2ACD4D97006D3F87 /* MyQuadrantWidget.swift in Sources */,
+				DF2C7F212CD136D400A95340 /* Color+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2131,7 +2200,11 @@
 			files = (
 				DF86A3752ACD5032006D3F87 /* ClockInBundle.swift in Sources */,
 				DF86A3832ACD5045006D3F87 /* String+Extension.swift in Sources */,
+				DF2C7F1F2CD1360500A95340 /* NetworkRequest.swift in Sources */,
 				DF86A3772ACD5032006D3F87 /* ClockIn.swift in Sources */,
+				DF2C7F122CD12D6800A95340 /* Params.swift in Sources */,
+				DF2C7F1B2CD135E100A95340 /* MissionData.swift in Sources */,
+				DF2C7F242CD1373100A95340 /* StoreData.swift in Sources */,
 				DF86A3862ACD50DD006D3F87 /* FlomoMissionModel.swift in Sources */,
 				DF86A3842ACD504D006D3F87 /* Color+Extension.swift in Sources */,
 			);
@@ -2170,6 +2243,7 @@
 				DFE5787229E6A82D006ED7EA /* IslandBundle.swift in Sources */,
 				DFD6EE352A31C17600A7B0DE /* IslandLiveActivity.swift in Sources */,
 				DFE5787629E6A82D006ED7EA /* Island.swift in Sources */,
+				DF2C7F0E2CD12D6800A95340 /* Params.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2398,7 +2472,7 @@
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "时间管理局ToDo";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2413,132 +2487,11 @@
 					"-l\"sqlite3.0\"",
 					"-l\"z\"",
 					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"AVKit\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"DKImagePickerController\"",
-					"-framework",
-					"\"DKPhotoGallery\"",
-					"-framework",
-					"\"FBLPromises\"",
-					"-framework",
-					"\"FMDB\"",
-					"-framework",
-					"\"FirebaseAnalytics\"",
-					"-framework",
-					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreInternal\"",
-					"-framework",
-					"\"FirebaseInstallations\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleAppMeasurementIdentitySupport\"",
-					"-framework",
-					"\"GoogleUtilities\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MBProgressHUD\"",
-					"-framework",
-					"\"MJExtension\"",
-					"-framework",
-					"\"Network\"",
-					"-framework",
-					"\"OrderedSet\"",
-					"-framework",
-					"\"Photos\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"SDWebImage\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"StoreKit\"",
-					"-framework",
-					"\"SwiftyGif\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"TOCropViewController\"",
-					"-framework",
-					"\"Toast\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"audio_session\"",
-					"-framework",
-					"\"camera_avfoundation\"",
-					"-framework",
-					"\"device_info\"",
-					"-framework",
-					"\"device_info_plus\"",
-					"-framework",
-					"\"file_picker\"",
-					"-framework",
-					"\"file_selector_ios\"",
-					"-framework",
-					"\"firebase_analytics\"",
-					"-framework",
-					"\"firebase_core\"",
-					"-framework",
-					"\"flutter_downloader\"",
-					"-framework",
 					"\"flutter_inappwebview\"",
 					"-framework",
-					"\"flutter_keyboard_visibility\"",
+					"\"AVFoundation\"",
 					"-framework",
-					"\"flutter_native_timezone\"",
-					"-framework",
-					"\"fluttertoast\"",
-					"-framework",
-					"\"gallery_saver\"",
-					"-framework",
-					"\"image_cropper\"",
-					"-framework",
-					"\"image_picker_ios\"",
-					"-framework",
-					"\"just_audio\"",
-					"-framework",
-					"\"nanopb\"",
-					"-framework",
-					"\"open_file\"",
-					"-framework",
-					"\"package_info\"",
-					"-framework",
-					"\"pasteboard\"",
-					"-framework",
-					"\"path_provider_foundation\"",
-					"-framework",
-					"\"permission_handler_apple\"",
-					"-framework",
-					"\"platform_device_id\"",
-					"-framework",
-					"\"shared_preferences_foundation\"",
-					"-framework",
-					"\"sign_in_with_apple\"",
-					"-framework",
-					"\"sqflite\"",
-					"-framework",
-					"\"url_launcher_ios\"",
-					"-framework",
-					"\"video_player_avfoundation\"",
-					"-framework",
-					"\"wakelock\"",
-					"-framework",
-					"\"webview_flutter_wkwebview\"",
-					"-fobjc-arc",
-					"-ObjC",
-					"-all_load",
+					"“device_info\" -framework \"AVKit\" -framework \"CoreGraphics\" -framework \"CoreTelephony\" -framework \"DKImagePickerController\" -framework \"DKPhotoGallery\" -framework \"FBLPromises\" -framework \"FMDB\" -framework \"FirebaseAnalytics\" -framework \"FirebaseCore\" -framework \"FirebaseCoreInternal\" -framework \"FirebaseInstallations\" -framework \"Foundation\" -framework \"GoogleAppMeasurement\" -framework \"GoogleAppMeasurementIdentitySupport\" -framework \"GoogleUtilities\" -framework \"ImageIO\" -framework \"MBProgressHUD\" -framework \"MJExtension\" -framework \"Network\" -framework \"OrderedSet\" -framework \"Photos\" -framework \"QuartzCore\" -framework \"SDWebImage\" -framework \"Security\" -framework \"StoreKit\" -framework \"SwiftyGif\" -framework \"SystemConfiguration\" -framework \"TOCropViewController\" -framework \"Toast\" -framework \"UIKit\" -framework \"audio_session\" -framework \"camera_avfoundation\" -framework \"device_info_plus\" -framework \"file_picker\" -framework \"file_selector_ios\" -framework \"firebase_analytics\" -framework \"firebase_core\" -framework \"flutter_downloader\" -framework \"flutter_keyboard_visibility\" -framework \"flutter_native_timezone\" -framework \"fluttertoast\" -framework \"gallery_saver\" -framework \"image_cropper\" -framework \"image_picker_ios\" -framework \"just_audio\" -framework \"nanopb\" -framework \"open_file\" -framework \"package_info\" -framework \"pasteboard\" -framework \"path_provider_foundation\" -framework \"permission_handler_apple\" -framework \"platform_device_id\" -framework \"shared_preferences_foundation\" -framework \"sign_in_with_apple\" -framework \"sqflite\" -framework \"url_launcher_ios\" -framework \"video_player_avfoundation\" -framework \"wakelock\" -framework \"webview_flutter_wkwebview\" -fobjc-arc -ObjC -all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.timespeed.timehello;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2689,7 +2642,7 @@
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "时间管理局ToDo";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2704,132 +2657,11 @@
 					"-l\"sqlite3.0\"",
 					"-l\"z\"",
 					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"AVKit\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"DKImagePickerController\"",
-					"-framework",
-					"\"DKPhotoGallery\"",
-					"-framework",
-					"\"FBLPromises\"",
-					"-framework",
-					"\"FMDB\"",
-					"-framework",
-					"\"FirebaseAnalytics\"",
-					"-framework",
-					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreInternal\"",
-					"-framework",
-					"\"FirebaseInstallations\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleAppMeasurementIdentitySupport\"",
-					"-framework",
-					"\"GoogleUtilities\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MBProgressHUD\"",
-					"-framework",
-					"\"MJExtension\"",
-					"-framework",
-					"\"Network\"",
-					"-framework",
-					"\"OrderedSet\"",
-					"-framework",
-					"\"Photos\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"SDWebImage\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"StoreKit\"",
-					"-framework",
-					"\"SwiftyGif\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"TOCropViewController\"",
-					"-framework",
-					"\"Toast\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"audio_session\"",
-					"-framework",
-					"\"camera_avfoundation\"",
-					"-framework",
-					"\"device_info\"",
-					"-framework",
-					"\"device_info_plus\"",
-					"-framework",
-					"\"file_picker\"",
-					"-framework",
-					"\"file_selector_ios\"",
-					"-framework",
-					"\"firebase_analytics\"",
-					"-framework",
-					"\"firebase_core\"",
-					"-framework",
-					"\"flutter_downloader\"",
-					"-framework",
 					"\"flutter_inappwebview\"",
 					"-framework",
-					"\"flutter_keyboard_visibility\"",
+					"\"AVFoundation\"",
 					"-framework",
-					"\"flutter_native_timezone\"",
-					"-framework",
-					"\"fluttertoast\"",
-					"-framework",
-					"\"gallery_saver\"",
-					"-framework",
-					"\"image_cropper\"",
-					"-framework",
-					"\"image_picker_ios\"",
-					"-framework",
-					"\"just_audio\"",
-					"-framework",
-					"\"nanopb\"",
-					"-framework",
-					"\"open_file\"",
-					"-framework",
-					"\"package_info\"",
-					"-framework",
-					"\"pasteboard\"",
-					"-framework",
-					"\"path_provider_foundation\"",
-					"-framework",
-					"\"permission_handler_apple\"",
-					"-framework",
-					"\"platform_device_id\"",
-					"-framework",
-					"\"shared_preferences_foundation\"",
-					"-framework",
-					"\"sign_in_with_apple\"",
-					"-framework",
-					"\"sqflite\"",
-					"-framework",
-					"\"url_launcher_ios\"",
-					"-framework",
-					"\"video_player_avfoundation\"",
-					"-framework",
-					"\"wakelock\"",
-					"-framework",
-					"\"webview_flutter_wkwebview\"",
-					"-fobjc-arc",
-					"-ObjC",
-					"-all_load",
+					"“device_info\" -framework \"AVKit\" -framework \"CoreGraphics\" -framework \"CoreTelephony\" -framework \"DKImagePickerController\" -framework \"DKPhotoGallery\" -framework \"FBLPromises\" -framework \"FMDB\" -framework \"FirebaseAnalytics\" -framework \"FirebaseCore\" -framework \"FirebaseCoreInternal\" -framework \"FirebaseInstallations\" -framework \"Foundation\" -framework \"GoogleAppMeasurement\" -framework \"GoogleAppMeasurementIdentitySupport\" -framework \"GoogleUtilities\" -framework \"ImageIO\" -framework \"MBProgressHUD\" -framework \"MJExtension\" -framework \"Network\" -framework \"OrderedSet\" -framework \"Photos\" -framework \"QuartzCore\" -framework \"SDWebImage\" -framework \"Security\" -framework \"StoreKit\" -framework \"SwiftyGif\" -framework \"SystemConfiguration\" -framework \"TOCropViewController\" -framework \"Toast\" -framework \"UIKit\" -framework \"audio_session\" -framework \"camera_avfoundation\" -framework \"device_info_plus\" -framework \"file_picker\" -framework \"file_selector_ios\" -framework \"firebase_analytics\" -framework \"firebase_core\" -framework \"flutter_downloader\" -framework \"flutter_keyboard_visibility\" -framework \"flutter_native_timezone\" -framework \"fluttertoast\" -framework \"gallery_saver\" -framework \"image_cropper\" -framework \"image_picker_ios\" -framework \"just_audio\" -framework \"nanopb\" -framework \"open_file\" -framework \"package_info\" -framework \"pasteboard\" -framework \"path_provider_foundation\" -framework \"permission_handler_apple\" -framework \"platform_device_id\" -framework \"shared_preferences_foundation\" -framework \"sign_in_with_apple\" -framework \"sqflite\" -framework \"url_launcher_ios\" -framework \"video_player_avfoundation\" -framework \"wakelock\" -framework \"webview_flutter_wkwebview\" -fobjc-arc -ObjC -all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.timespeed.timehello;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2869,7 +2701,7 @@
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "时间管理局ToDo";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2884,132 +2716,11 @@
 					"-l\"sqlite3.0\"",
 					"-l\"z\"",
 					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"AVKit\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"DKImagePickerController\"",
-					"-framework",
-					"\"DKPhotoGallery\"",
-					"-framework",
-					"\"FBLPromises\"",
-					"-framework",
-					"\"FMDB\"",
-					"-framework",
-					"\"FirebaseAnalytics\"",
-					"-framework",
-					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreInternal\"",
-					"-framework",
-					"\"FirebaseInstallations\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleAppMeasurementIdentitySupport\"",
-					"-framework",
-					"\"GoogleUtilities\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MBProgressHUD\"",
-					"-framework",
-					"\"MJExtension\"",
-					"-framework",
-					"\"Network\"",
-					"-framework",
-					"\"OrderedSet\"",
-					"-framework",
-					"\"Photos\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"SDWebImage\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"StoreKit\"",
-					"-framework",
-					"\"SwiftyGif\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"TOCropViewController\"",
-					"-framework",
-					"\"Toast\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"audio_session\"",
-					"-framework",
-					"\"camera_avfoundation\"",
-					"-framework",
-					"\"device_info\"",
-					"-framework",
-					"\"device_info_plus\"",
-					"-framework",
-					"\"file_picker\"",
-					"-framework",
-					"\"file_selector_ios\"",
-					"-framework",
-					"\"firebase_analytics\"",
-					"-framework",
-					"\"firebase_core\"",
-					"-framework",
-					"\"flutter_downloader\"",
-					"-framework",
 					"\"flutter_inappwebview\"",
 					"-framework",
-					"\"flutter_keyboard_visibility\"",
+					"\"AVFoundation\"",
 					"-framework",
-					"\"flutter_native_timezone\"",
-					"-framework",
-					"\"fluttertoast\"",
-					"-framework",
-					"\"gallery_saver\"",
-					"-framework",
-					"\"image_cropper\"",
-					"-framework",
-					"\"image_picker_ios\"",
-					"-framework",
-					"\"just_audio\"",
-					"-framework",
-					"\"nanopb\"",
-					"-framework",
-					"\"open_file\"",
-					"-framework",
-					"\"package_info\"",
-					"-framework",
-					"\"pasteboard\"",
-					"-framework",
-					"\"path_provider_foundation\"",
-					"-framework",
-					"\"permission_handler_apple\"",
-					"-framework",
-					"\"platform_device_id\"",
-					"-framework",
-					"\"shared_preferences_foundation\"",
-					"-framework",
-					"\"sign_in_with_apple\"",
-					"-framework",
-					"\"sqflite\"",
-					"-framework",
-					"\"url_launcher_ios\"",
-					"-framework",
-					"\"video_player_avfoundation\"",
-					"-framework",
-					"\"wakelock\"",
-					"-framework",
-					"\"webview_flutter_wkwebview\"",
-					"-fobjc-arc",
-					"-ObjC",
-					"-all_load",
+					"“device_info\" -framework \"AVKit\" -framework \"CoreGraphics\" -framework \"CoreTelephony\" -framework \"DKImagePickerController\" -framework \"DKPhotoGallery\" -framework \"FBLPromises\" -framework \"FMDB\" -framework \"FirebaseAnalytics\" -framework \"FirebaseCore\" -framework \"FirebaseCoreInternal\" -framework \"FirebaseInstallations\" -framework \"Foundation\" -framework \"GoogleAppMeasurement\" -framework \"GoogleAppMeasurementIdentitySupport\" -framework \"GoogleUtilities\" -framework \"ImageIO\" -framework \"MBProgressHUD\" -framework \"MJExtension\" -framework \"Network\" -framework \"OrderedSet\" -framework \"Photos\" -framework \"QuartzCore\" -framework \"SDWebImage\" -framework \"Security\" -framework \"StoreKit\" -framework \"SwiftyGif\" -framework \"SystemConfiguration\" -framework \"TOCropViewController\" -framework \"Toast\" -framework \"UIKit\" -framework \"audio_session\" -framework \"camera_avfoundation\" -framework \"device_info_plus\" -framework \"file_picker\" -framework \"file_selector_ios\" -framework \"firebase_analytics\" -framework \"firebase_core\" -framework \"flutter_downloader\" -framework \"flutter_keyboard_visibility\" -framework \"flutter_native_timezone\" -framework \"fluttertoast\" -framework \"gallery_saver\" -framework \"image_cropper\" -framework \"image_picker_ios\" -framework \"just_audio\" -framework \"nanopb\" -framework \"open_file\" -framework \"package_info\" -framework \"pasteboard\" -framework \"path_provider_foundation\" -framework \"permission_handler_apple\" -framework \"platform_device_id\" -framework \"shared_preferences_foundation\" -framework \"sign_in_with_apple\" -framework \"sqflite\" -framework \"url_launcher_ios\" -framework \"video_player_avfoundation\" -framework \"wakelock\" -framework \"webview_flutter_wkwebview\" -fobjc-arc -ObjC -all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.timespeed.timehello;
 				PRODUCT_NAME = "$(TARGET_NAME)";

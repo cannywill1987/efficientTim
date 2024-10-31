@@ -18,7 +18,7 @@ class ScreenTimeVM: ObservableObject {
     private init() {}
 
     // MARK: 存储要限制的应用信息的变量
-    @AppStorage(AppStorageKey.selectionToDiscourage.rawValue, store: UserDefaults(suiteName: Params.APP_GROUP))
+    @AppStorage(AppStorageKey.selectionToDiscourage.rawValue, store: UserDefaults(suiteName: Params.groupName))
     var selectionToDiscourage = FamilyActivitySelection()
     
     // MARK: 存储要限制的应用信息的变量

@@ -16,6 +16,11 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
         popover.behavior = .transient
         return popover
     }()
+    
+    override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+      return true
+    }
+    
     override func applicationDidFinishLaunching(_ notification: Notification) {
         //        NotificationCenter.default.addObserver(self, selector: #selector(initNotification(_:)), name:Notification.Name(Params.ACTION_HANDLE_NOTIFICATION_PERMISSION), object: nil)
         //        startLocalNotification();
