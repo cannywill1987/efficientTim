@@ -27,7 +27,7 @@ struct NoteViewWidget : View {
     var body: some View {
            ZStack {
                // 设置背景色为黄色
-               Color(hex:(missionData?.color ?? 0xfff2b1)).edgesIgnoringSafeArea(.all)
+               Color(hex:UInt((missionData?.color ?? 0xfff2b1))).edgesIgnoringSafeArea(.all)
                
                VStack(alignment: .leading) {
                    // 设置Text的属性

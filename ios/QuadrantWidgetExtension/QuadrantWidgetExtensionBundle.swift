@@ -2,7 +2,7 @@
 //  QuadrantWidgetExtensionBundle.swift
 //  QuadrantWidgetExtension
 //
-//  Created by 林智彬 on 2023/6/9.
+//  Created by 林智彬 on 2024/11/2.
 //
 
 import WidgetKit

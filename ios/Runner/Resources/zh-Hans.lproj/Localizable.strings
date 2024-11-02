@@ -1,10 +1,17 @@
-/* 
+/*
  Localizable.strings
  Runner
  
  Created by 林智彬 on 2023/8/27.
  
  */
+"today" = "今天";
+"timer" = "计时器";
+"timer_desc" = "计时器可用于桌面组件实时显示倒计时和正计时";
+"clockInToday" = "今日签到";
+"countDown" = "倒计时";
+"countUp" = "正计时";
+
 "already_created_time" = "该时间段已经创建";
 "title" = "时间管理局";
 "from" = "从";
