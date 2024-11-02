@@ -72,7 +72,7 @@ struct NewNote1WidgetEntryView : View {
 
     var body: some View {
 //        Text("123")
-    NoteViewWidget(missionData: entry.missionData, subTitle: "note2".localizable())
+    NoteViewWidget(missionData: entry.missionData, subTitle: "note5".localizable())
        }
 }
 

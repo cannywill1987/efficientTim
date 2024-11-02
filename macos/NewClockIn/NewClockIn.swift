@@ -221,7 +221,7 @@ struct NewClockIn2: Widget {
         }
         .contentMarginsDisabled()
         .configurationDisplayName("clockInToday".localizable())
-        .description("2222222211111111111111")
+        .description("")
     }
 }
 

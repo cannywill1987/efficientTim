@@ -5,6 +5,7 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"today_mission" = "今天任务";
 "today" = "今天";
 "timer" = "计时器";
 "timer_desc" = "计时器可用于桌面组件实时显示倒计时和正计时";
