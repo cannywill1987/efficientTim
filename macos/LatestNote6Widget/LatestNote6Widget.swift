@@ -9,7 +9,7 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    @AppStorage("WQBMissionStoreDataNote1", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
+    @AppStorage("WQBMissionStoreDataNote6", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
     
     func placeholder(in context: Context) -> SimpleEntry {
         var data:WQBMissionModel?;
@@ -72,7 +72,7 @@ struct NewNote1WidgetEntryView : View {
 
     var body: some View {
 //        Text("123")
-    NoteViewWidget(missionData: entry.missionData, subTitle: "note2".localizable())
+    NoteViewWidget(missionData: entry.missionData, subTitle: "note6".localizable())
        }
 }
 
@@ -92,7 +92,7 @@ struct NewNote2Widget: Widget {
             }
         }
         .contentMarginsDisabled()
-        .configurationDisplayName("note2".localizable())
+        .configurationDisplayName("note6".localizable())
         .description("note_desc".localizable())
     }
 }

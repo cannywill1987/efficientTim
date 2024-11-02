@@ -253,8 +253,8 @@ struct MissionListView: Widget {
                 .containerBackground(.fill.tertiary, for: .widget) // Background configuration for newer versions
         }
         .contentMarginsDisabled() // Disable default content margins for the widget
-        .configurationDisplayName("My Widget") // Display name for the widget configuration
-        .description("This is an example widget.") // Description for the widget configuration
+        .configurationDisplayName("today_mission".localizable()) // Display name for the widget configuration
+        .description("") // Description for the widget configuration
     }
 }
 
