@@ -258,9 +258,10 @@ class MethodChannelManager {
         case "getLiveActivityData":
             if #available(iOS 17, *) {
                 let attributes = LiveActivityManager.shareInstance().activity?.attributes
+                var state:IslandAttributes.ContentState? = LiveActivityManager.shareInstance().activity?.content.state;
                 //                MethodChannelManager.shareInstance(flutterViewController: nil).channel?.invokeMethod("pushToPage", arguments: ["objectId": attributes?.objectId, "lastStartTime": attributes?.currentTimeStamp, "counterStatusEnum": attributes?.counterStatusEnum, "time": attributes?.time])
                 
-                result("{\"success\": true, \"data\": {\"objectId\": \"\(attributes?.objectId ?? "")\", \"lastStartTime\": \(attributes?.currentTimeStamp ?? 0), \"counterStatusEnum\": \(attributes?.counterStatusEnum ?? 0), \"time\": \(attributes?.time ?? 0)}}")
+                result("{\"success\": true, \"data\": {\"objectId\": \"\(state?.objectId ?? "")\", \"lastStartTime\": \(0), \"counterStatusEnum\": \(state?.counterStatusEnum ?? 0), \"time\": \(0)}}")
                 
             } else {
                 // Fallback on earlier versions
@@ -358,7 +359,7 @@ class MethodChannelManager {
             print("time:" + text + ",status:" + status.description);
             if #available(iOS 16.1, *) {
                 if (LiveActivityManager.shareInstance().curCounterStatus != status){
-//                    LiveActivityManager.shareInstance().curCounterStatus = status
+                    LiveActivityManager.shareInstance().curCounterStatus = status
                     if #available(iOS 16.1, *) {
                         LiveActivityManager.shareInstance().updateActivity(
                             objectId: objectId,

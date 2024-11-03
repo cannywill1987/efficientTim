@@ -52,6 +52,7 @@ struct TimerIntent: AppIntent {
         switch action {
             // In the 'start' case:
             case .start:
+            
                 TimerManager.beginTimestamp = getCurrentTimeStampBySeconds();
                 TimerManager.hasRequest = false;
                 TimerManager.isPaused = false

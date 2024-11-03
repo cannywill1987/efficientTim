@@ -133,9 +133,10 @@ import Firebase
     override func applicationWillEnterForeground(_ application: UIApplication) {
         // 在这里处理应用程序即将进入前台的情况
         if #available(iOS 16.1, *) {
-            let attributes = LiveActivityManager.shareInstance().activity?.attributes
-            MethodChannelManager.shareInstance(flutterViewController: nil).channel?.invokeMethod("pushToPage", arguments: ["objectId": attributes?.objectId, "lastStartTime": attributes?.currentTimeStamp, "counterStatusEnum": attributes?.counterStatusEnum, "time": attributes?.time])
-            print("applicationDidEnterBackground");
+//            let attributes = LiveActivityManager.shareInstance().activity?.activityState
+//            
+//            MethodChannelManager.shareInstance(flutterViewController: nil).channel?.invokeMethod("pushToPage", arguments: ["objectId": attributes?.objectId, "lastStartTime": attributes?.currentTimeStamp, "counterStatusEnum": attributes?.counterStatusEnum, "time": attributes?.time])
+//            print("applicationDidEnterBackground");
         } else {
             // Fallback on earlier versions
         };
