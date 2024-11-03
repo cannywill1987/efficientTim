@@ -25,6 +25,8 @@ class LiveActivityManager {
     static let instance:LiveActivityManager = LiveActivityManager()
     var activity: Activity<IslandAttributes>?;
     var isLaunching: Bool = false;
+    var curCounterStatus: Int?
+    
     static func shareInstance() -> LiveActivityManager {
         if (instance.activity == nil) {
             
@@ -49,7 +51,7 @@ class LiveActivityManager {
 //        Task {
 //             await observeActivity()
 //        }
-        if Utility.isIpad() == false {
+//        if Utility.isIpad() == false {
             //        if let activity = self.activity {
             if ActivityAuthorizationInfo().areActivitiesEnabled {
                 //            let state = IslandAttributes.ContentState(value: 3, startTime: Date().addingTimeInterval(60 * 5), deliveryTimer: Date.now...(Calendar.current.date(byAdding: Calendar.Component.second, value: (Int(1000) ?? 0), to: Date()) ?? Date.now), counterStatusEnum: 0);
@@ -77,18 +79,15 @@ class LiveActivityManager {
                     stopActivity();
                 }
             }
-        }
+//        }
         //        }
     }
     
     @objc func stopActivity() {
-        if Utility.isIpad() == false {
+//        if Utility.isIpad() == false {
             
             if ActivityAuthorizationInfo().areActivitiesEnabled {
-                
-                
                 if let activity = self.activity {
-                    
                     let state = IslandAttributes.ContentState(statusString: "",
                                                               totalTomatees: 0,
                                                               numTomatees: 0,
@@ -97,12 +96,12 @@ class LiveActivityManager {
                     
                     
                     Task {
-                        await self.activity?.end(using:state, dismissalPolicy: .immediate)
+                        await self.activity?.end(dismissalPolicy: .immediate)
                         self.activity = nil
                     }
                 }
             }
-        }
+//        }
     }
     
     func requestLiveActivity(statusString: String,
@@ -110,7 +109,7 @@ class LiveActivityManager {
                              numTomatees: Int,
                              focusedDuration: String,
                              bgUrl: String,title: String, text: String, time: Int, counterStatusEnum: CounterStatusEnum, isCountDown: Bool) {
-        if Utility.isIpad() == false {
+//        if Utility.isIpad() == false {
             
             var countDown = isCountDown;
             if(counterStatusEnum != CounterStatusEnum.focusing) {
@@ -137,7 +136,7 @@ class LiveActivityManager {
                     await self.activity?.update(using: state)
                 }
             }
-        }
+//        }
     }
     
     
@@ -153,7 +152,7 @@ class LiveActivityManager {
         bgUrl: String,
         title: String,text: String, isCountDown: Bool ,time: Int, counterStatusEnum: CounterStatusEnum) {
             //        print("~~~~~~~~~~~~~~~~~~time \(time) and \(counterStatusEnum.rawValue) ")
-            if Utility.isIpad() == false {
+//            if Utility.isIpad() == false {
                 if ActivityAuthorizationInfo().areActivitiesEnabled {
                     if self.activity != nil {
                         switch counterStatusEnum {
@@ -244,12 +243,12 @@ class LiveActivityManager {
                                       bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown)
                     }
                 }
-            }
+//            }
         }
     
     // 更新 Activity
     func observeActivity() async {
-        if Utility.isIpad() == false {
+//        if Utility.isIpad() == false {
             if ActivityAuthorizationInfo().areActivitiesEnabled {
                 
                 // Observe updates for ongoing pizza delivery Live Activities.
@@ -257,7 +256,7 @@ class LiveActivityManager {
                     print("Pizza delivery details: \(activity.attributes)")
                 }
             }
-        }
+//        }
     }
 }
 

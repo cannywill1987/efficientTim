@@ -14,7 +14,7 @@ import SwiftUI
 class MethodChannelManager {
     static let instance:MethodChannelManager = MethodChannelManager()
     var channel:FlutterMethodChannel?;
-    var curCounterStatus: Int?
+    
     @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
     
     static func shareInstance(flutterViewController: FlutterViewController?) -> MethodChannelManager {
@@ -62,7 +62,7 @@ class MethodChannelManager {
             //                static func shareToQQ(title: String, subtitle: String, url: String, iconUrl: String, isOn: Bool) -> TencentOAuth {
             Utility.shareToQQ(title: title, subtitle: subtitle, url: url, iconUrl: mIconUrl, isOn: isOn);
             break;
-case "storeMyCalendarMissionList": //创建任务日志任务
+        case "storeMyCalendarMissionList": //创建任务日志任务
             let list = (call.arguments as! [[String: Any]]);
             var listMissionModels:[MissionModelList] = [];
             //                for index in 0...((call.arguments as AnyObject).length ?? 0) {
@@ -167,7 +167,7 @@ case "storeMyCalendarMissionList": //创建任务日志任务
                 //                    WindowUtility.setMinSize(window: window!, width: 300, height: 150);
             } else {
                 //                    if(window != nil) {
-//                                            WindowUtility.setMinSize(window: window!, width: 1000, height: 800);
+                //                                            WindowUtility.setMinSize(window: window!, width: 1000, height: 800);
                 //                    }
             }
             break;
@@ -179,11 +179,11 @@ case "storeMyCalendarMissionList": //创建任务日志任务
             let color = (call.arguments as! [[String: Any]])[0]["color"] as! Int;
             let priorityStatus = (call.arguments as! [[String: Any]])[0]["priorityStatus"] as? Int ?? 0;
             let order_index = (call.arguments as! [[String: Any]])[0]["order_index"] as? Int ?? -1;
-//                let subtitle = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
+            //                let subtitle = (call.arguments as! [[String: Any]])[0]["subtitle"] as! String;
             let missionModel = WQBMissionModel(key: key, content: content, subtitle: subtitle, priorityStatus: priorityStatus, color: color);
             if #available(iOS 14.0, *) {
                 let missionStoreData:WQBMissionStoreData
-                    missionStoreData  = WQBMissionStoreData(missionData: missionModel)
+                missionStoreData  = WQBMissionStoreData(missionData: missionModel)
                 Task {
                     if order_index == 1 {
                         await missionStoreData.encodeData();
@@ -221,31 +221,31 @@ case "storeMyCalendarMissionList": //创建任务日志任务
                 Task {
                     await primaryData.encodeData();
                 }
-             
+                
             } else {
                 // Fallback on earlier versions
             };
             break;
         case "storeMissionList": //创建今天任务
             let list = (call.arguments as! [[String: Any]]);
-                var listMissionModels:[MissionModel] = [];
-                if list.count > 0 {
-                    for index in 0...list.count - 1 {
-                        let item = list[index]
-                        
-                        let objectId:String? = item["_id"] as? String;
-                        let isDelayed:Bool = item["isDelayed"] as! Bool;
-                        let isFinished:Bool = item["isFinished"] as! Bool;
-                        let title:String = item["title"] as! String;
-                        let background_url:String? = item["background_url"] as? String;
-                        let end_time:Int = item["end_time"] as! Int;
-                        let priorityStatus:Int? = item["priorityStatus"] as? Int;
-                        let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
-                        let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
-                        listMissionModels.append(missionData);
-//                            print("11111");
-                    }
-//                    }
+            var listMissionModels:[MissionModel] = [];
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    
+                    let objectId:String? = item["_id"] as? String;
+                    let isDelayed:Bool = item["isDelayed"] as! Bool;
+                    let isFinished:Bool = item["isFinished"] as! Bool;
+                    let title:String = item["title"] as! String;
+                    let background_url:String? = item["background_url"] as? String;
+                    let end_time:Int = item["end_time"] as! Int;
+                    let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                    let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                    let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                    listMissionModels.append(missionData);
+                    //                            print("11111");
+                }
+                //                    }
                 if #available(iOS 14.0, *) {
                     let primaryData:MissionStoreData = MissionStoreData(missionData: MissionData(listMissionModel: listMissionModels))
                     Task {
@@ -256,40 +256,41 @@ case "storeMyCalendarMissionList": //创建任务日志任务
             }
             break;
         case "getLiveActivityData":
-//            if #available(iOS 16.1, *) {
-//                let attributes = LiveActivityManager.shareInstance().activity?.attributes
-//                //                MethodChannelManager.shareInstance(flutterViewController: nil).channel?.invokeMethod("pushToPage", arguments: ["objectId": attributes?.objectId, "lastStartTime": attributes?.currentTimeStamp, "counterStatusEnum": attributes?.counterStatusEnum, "time": attributes?.time])
-//                
-//                result("{\"success\": true, \"data\": {\"objectId\": \"\(attributes?.objectId ?? "")\", \"lastStartTime\": \(attributes?.currentTimeStamp ?? 0), \"counterStatusEnum\": \(attributes?.counterStatusEnum ?? 0), \"time\": \(attributes?.time ?? 0)}}")
-//                
-//            } else {
-//                // Fallback on earlier versions
-//            }
+            if #available(iOS 17, *) {
+                let attributes = LiveActivityManager.shareInstance().activity?.attributes
+                //                MethodChannelManager.shareInstance(flutterViewController: nil).channel?.invokeMethod("pushToPage", arguments: ["objectId": attributes?.objectId, "lastStartTime": attributes?.currentTimeStamp, "counterStatusEnum": attributes?.counterStatusEnum, "time": attributes?.time])
+                
+                result("{\"success\": true, \"data\": {\"objectId\": \"\(attributes?.objectId ?? "")\", \"lastStartTime\": \(attributes?.currentTimeStamp ?? 0), \"counterStatusEnum\": \(attributes?.counterStatusEnum ?? 0), \"time\": \(attributes?.time ?? 0)}}")
+                
+            } else {
+                // Fallback on earlier versions
+            }
             break;
         case "requestReview":
             Utility.requestReview();
             break;
         case "startLiveActivity":
             //            NotificationCenter.default.post(name: NSNotification.Name( "ACTION_BTN_CLICK") , object: self, userInfo: ["action": "handleStatusBarStopBtn"]);
-//            if #available(iOS 16.1, *) {
-//                //                                LiveActivityManager.shareInstance().startActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
-//            } else {
-//                // Fallback on earlier versions
-//            }
+            if #available(iOS 17.0, *) {
+//                LiveActivityManager.shareInstance().startActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
+            } else {
+                // Fallback on earlier versions
+            }
             break;
         case "stopLiveActivity":
-//            if #available(iOS 16.1, *) {
+            if #available(iOS 17.0, *) {
 //                LiveActivityManager.shareInstance().stopActivity()
-//            } else {
-//                // Fallback on earlier versions
-//            }
+            } else {
+                // Fallback on earlier versions
+            }
             break;
         case "updateLiveActivity":
-//            if #available(iOS 16.1, *) {
-//                //                LiveActivityManager.shareInstance().updateActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
-//            } else {
-//                // Fallback on earlier versions
-//            }
+            print("");
+            //            if #available(iOS 16.1, *) {
+            //                //                LiveActivityManager.shareInstance().updateActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
+            //            } else {
+            //                // Fallback on earlier versions
+            //            }
             break;
         case "pushListNotificationWithWhen":
             let list: Array = (call.arguments as! [[String: Any]]);
@@ -355,22 +356,27 @@ case "storeMyCalendarMissionList": //创建任务日志任务
             let isCountDown: Bool = (call.arguments as! [[String: Any]])[0]["isCountDown"] as! Bool;
             
             print("time:" + text + ",status:" + status.description);
-            if (self.curCounterStatus != status){
-                if #available(iOS 16.1, *) {
-//                    LiveActivityManager.shareInstance().updateActivity(
-//                        objectId: objectId,
-//                        currentTimeStamp: currentTimeStamp,
-//                        statusString: statusString,
-//                        totalTomatees: totalTomatees,
-//                        numTomatees: numTomatees,
-//                        focusedDuration: focusedDuration,
-//                        bgUrl: bgUrl,
-//                        title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none)
-                } else {
-                    // Fallback on earlier versions
+            if #available(iOS 16.1, *) {
+                if (LiveActivityManager.shareInstance().curCounterStatus != status){
+//                    LiveActivityManager.shareInstance().curCounterStatus = status
+                    if #available(iOS 16.1, *) {
+                        LiveActivityManager.shareInstance().updateActivity(
+                            objectId: objectId,
+                            currentTimeStamp: currentTimeStamp,
+                            statusString: statusString,
+                            totalTomatees: totalTomatees,
+                            numTomatees: numTomatees,
+                            focusedDuration: focusedDuration,
+                            bgUrl: bgUrl,
+                            title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none)
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
+                    //                (NSApplication.shared.delegate as! AppDelegate).statusItem.menu = Utility.getStatusBarMenus(counterStatusEnum: CounterStatusEnum(rawValue: status))
                 }
-                
-                //                (NSApplication.shared.delegate as! AppDelegate).statusItem.menu = Utility.getStatusBarMenus(counterStatusEnum: CounterStatusEnum(rawValue: status))
+            } else {
+                // Fallback on earlier versions
             }
             break;
         case "openSetting":

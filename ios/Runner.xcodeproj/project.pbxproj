@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -252,6 +252,51 @@
 		DF9877C82CD6407D00BFCE1C /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
 		DF9877C92CD6487A00BFCE1C /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE2D4D22CD34B5C00DD9BCC /* BaseResponse.swift */; };
 		DF9877CA2CD6488300BFCE1C /* URLSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */; };
+		DF9877D12CD66D9B00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9877CB2CD66D9B00BFCE1C /* Assets.xcassets */; };
+		DF9877D32CD66D9B00BFCE1C /* NewClockInWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877CE2CD66D9B00BFCE1C /* NewClockInWidgetExtension.swift */; };
+		DF9877D42CD66D9B00BFCE1C /* NewClockInWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877CF2CD66D9B00BFCE1C /* NewClockInWidgetExtensionBundle.swift */; };
+		DF9877DA2CD66D9B00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9877D52CD66D9B00BFCE1C /* Assets.xcassets */; };
+		DF9877DC2CD66D9B00BFCE1C /* QuadrantWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877D72CD66D9B00BFCE1C /* QuadrantWidgetExtension.swift */; };
+		DF9877DD2CD66D9B00BFCE1C /* QuadrantWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877D82CD66D9B00BFCE1C /* QuadrantWidgetExtensionBundle.swift */; };
+		DF9877E32CD66D9B00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9877DE2CD66D9B00BFCE1C /* Assets.xcassets */; };
+		DF9877E52CD66D9B00BFCE1C /* LatestNote5Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877E02CD66D9B00BFCE1C /* LatestNote5Widget.swift */; };
+		DF9877E62CD66D9B00BFCE1C /* LatestNote5WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877E12CD66D9B00BFCE1C /* LatestNote5WidgetBundle.swift */; };
+		DF9877EC2CD66D9B00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9877E72CD66D9B00BFCE1C /* Assets.xcassets */; };
+		DF9877EE2CD66D9B00BFCE1C /* LatestCalendarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877E92CD66D9B00BFCE1C /* LatestCalendarWidget.swift */; };
+		DF9877EF2CD66D9B00BFCE1C /* LatestCalendarWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877EA2CD66D9B00BFCE1C /* LatestCalendarWidgetBundle.swift */; };
+		DF9877F52CD66D9B00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9877F02CD66D9B00BFCE1C /* Assets.xcassets */; };
+		DF9877F72CD66D9B00BFCE1C /* NewClockInWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877F22CD66D9B00BFCE1C /* NewClockInWidget.swift */; };
+		DF9877F82CD66D9B00BFCE1C /* NewClockInWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877F32CD66D9B00BFCE1C /* NewClockInWidgetBundle.swift */; };
+		DF9877FE2CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9877F92CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF9878002CD66D9C00BFCE1C /* LatestNote1Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877FB2CD66D9C00BFCE1C /* LatestNote1Widget.swift */; };
+		DF9878012CD66D9C00BFCE1C /* LatestNote1WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9877FC2CD66D9C00BFCE1C /* LatestNote1WidgetBundle.swift */; };
+		DF9878072CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9878022CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF9878092CD66D9C00BFCE1C /* LatestNote3Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878042CD66D9C00BFCE1C /* LatestNote3Widget.swift */; };
+		DF98780A2CD66D9C00BFCE1C /* LatestNote3WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878052CD66D9C00BFCE1C /* LatestNote3WidgetBundle.swift */; };
+		DF9878112CD66D9C00BFCE1C /* NewMissionListViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98780D2CD66D9C00BFCE1C /* NewMissionListViewExtension.swift */; };
+		DF9878122CD66D9C00BFCE1C /* NewMissionListViewExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98780E2CD66D9C00BFCE1C /* NewMissionListViewExtensionBundle.swift */; };
+		DF9878132CD66D9C00BFCE1C /* NewMissionListViewExtensionLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98780F2CD66D9C00BFCE1C /* NewMissionListViewExtensionLiveActivity.swift */; };
+		DF9878142CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF98780B2CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF98781C2CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9878162CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF98781E2CD66D9C00BFCE1C /* NewCounterWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878182CD66D9C00BFCE1C /* NewCounterWidget.swift */; };
+		DF98781F2CD66D9C00BFCE1C /* NewCounterWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878192CD66D9C00BFCE1C /* NewCounterWidgetBundle.swift */; };
+		DF9878202CD66D9C00BFCE1C /* NewCounterWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98781A2CD66D9C00BFCE1C /* NewCounterWidgetLiveActivity.swift */; };
+		DF9878262CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9878212CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF9878282CD66D9C00BFCE1C /* LatestNote4Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878232CD66D9C00BFCE1C /* LatestNote4Widget.swift */; };
+		DF9878292CD66D9C00BFCE1C /* LatestNote4WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878242CD66D9C00BFCE1C /* LatestNote4WidgetBundle.swift */; };
+		DF98782F2CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF98782A2CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF9878312CD66D9C00BFCE1C /* LatestNote2Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98782C2CD66D9C00BFCE1C /* LatestNote2Widget.swift */; };
+		DF9878322CD66D9C00BFCE1C /* LatestNote2WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98782D2CD66D9C00BFCE1C /* LatestNote2WidgetBundle.swift */; };
+		DF9878382CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9878332CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF98783A2CD66D9C00BFCE1C /* LatestNote6Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878352CD66D9C00BFCE1C /* LatestNote6Widget.swift */; };
+		DF98783B2CD66D9C00BFCE1C /* LatestNote6WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9878362CD66D9C00BFCE1C /* LatestNote6WidgetBundle.swift */; };
+		DF9878412CD66D9C00BFCE1C /* LatestNote7Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98783E2CD66D9C00BFCE1C /* LatestNote7Widget.swift */; };
+		DF9878422CD66D9C00BFCE1C /* LatestNote7WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF98783F2CD66D9C00BFCE1C /* LatestNote7WidgetBundle.swift */; };
+		DF9878432CD66D9C00BFCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF98783C2CD66D9C00BFCE1C /* Assets.xcassets */; };
+		DF9878452CD67C5C00BFCE1C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
+		DF9878462CD67CA800BFCE1C /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0A2CD0A54B00A95340 /* NetworkRequest.swift */; };
+		DF9878472CD6850A00BFCE1C /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE5788429E78979006ED7EA /* LiveActivityManager.swift */; };
+		DF98784A2CD6865F00BFCE1C /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A2D92ACD440A006D3F87 /* MissionData.swift */; };
 		DFBD3B712C8F0A2A00371974 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBD3B702C8F0A2A00371974 /* GoogleService-Info.plist */; };
 		DFBF30ED2869D1810091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
 		DFC181212BBAC35100B60D77 /* MyDeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFC181182BBAC35000B60D77 /* MyDeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -563,6 +608,61 @@
 		DF9877262CD6341F00BFCE1C /* NewMissionListViewExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewMissionListViewExtensionExtension.entitlements; sourceTree = "<group>"; };
 		DF9877272CD6342300BFCE1C /* QuadrantWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuadrantWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		DF9877AF2CD63ECF00BFCE1C /* QuadrantWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QuadrantWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF9877CB2CD66D9B00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9877CC2CD66D9B00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9877CD2CD66D9B00BFCE1C /* NewClockInWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewClockInWidgetExtension.entitlements; sourceTree = "<group>"; };
+		DF9877CE2CD66D9B00BFCE1C /* NewClockInWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClockInWidgetExtension.swift; sourceTree = "<group>"; };
+		DF9877CF2CD66D9B00BFCE1C /* NewClockInWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClockInWidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		DF9877D52CD66D9B00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9877D62CD66D9B00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9877D72CD66D9B00BFCE1C /* QuadrantWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantWidgetExtension.swift; sourceTree = "<group>"; };
+		DF9877D82CD66D9B00BFCE1C /* QuadrantWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantWidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		DF9877DE2CD66D9B00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9877DF2CD66D9B00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9877E02CD66D9B00BFCE1C /* LatestNote5Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote5Widget.swift; sourceTree = "<group>"; };
+		DF9877E12CD66D9B00BFCE1C /* LatestNote5WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote5WidgetBundle.swift; sourceTree = "<group>"; };
+		DF9877E72CD66D9B00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9877E82CD66D9B00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9877E92CD66D9B00BFCE1C /* LatestCalendarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCalendarWidget.swift; sourceTree = "<group>"; };
+		DF9877EA2CD66D9B00BFCE1C /* LatestCalendarWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCalendarWidgetBundle.swift; sourceTree = "<group>"; };
+		DF9877F02CD66D9B00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9877F12CD66D9B00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9877F22CD66D9B00BFCE1C /* NewClockInWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClockInWidget.swift; sourceTree = "<group>"; };
+		DF9877F32CD66D9B00BFCE1C /* NewClockInWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClockInWidgetBundle.swift; sourceTree = "<group>"; };
+		DF9877F92CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9877FA2CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9877FB2CD66D9C00BFCE1C /* LatestNote1Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote1Widget.swift; sourceTree = "<group>"; };
+		DF9877FC2CD66D9C00BFCE1C /* LatestNote1WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote1WidgetBundle.swift; sourceTree = "<group>"; };
+		DF9878022CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9878032CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9878042CD66D9C00BFCE1C /* LatestNote3Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote3Widget.swift; sourceTree = "<group>"; };
+		DF9878052CD66D9C00BFCE1C /* LatestNote3WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote3WidgetBundle.swift; sourceTree = "<group>"; };
+		DF98780B2CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF98780C2CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF98780D2CD66D9C00BFCE1C /* NewMissionListViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMissionListViewExtension.swift; sourceTree = "<group>"; };
+		DF98780E2CD66D9C00BFCE1C /* NewMissionListViewExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMissionListViewExtensionBundle.swift; sourceTree = "<group>"; };
+		DF98780F2CD66D9C00BFCE1C /* NewMissionListViewExtensionLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMissionListViewExtensionLiveActivity.swift; sourceTree = "<group>"; };
+		DF9878162CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9878172CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9878182CD66D9C00BFCE1C /* NewCounterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidget.swift; sourceTree = "<group>"; };
+		DF9878192CD66D9C00BFCE1C /* NewCounterWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidgetBundle.swift; sourceTree = "<group>"; };
+		DF98781A2CD66D9C00BFCE1C /* NewCounterWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCounterWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		DF9878212CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9878222CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9878232CD66D9C00BFCE1C /* LatestNote4Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote4Widget.swift; sourceTree = "<group>"; };
+		DF9878242CD66D9C00BFCE1C /* LatestNote4WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote4WidgetBundle.swift; sourceTree = "<group>"; };
+		DF98782A2CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF98782B2CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF98782C2CD66D9C00BFCE1C /* LatestNote2Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote2Widget.swift; sourceTree = "<group>"; };
+		DF98782D2CD66D9C00BFCE1C /* LatestNote2WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote2WidgetBundle.swift; sourceTree = "<group>"; };
+		DF9878332CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9878342CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9878352CD66D9C00BFCE1C /* LatestNote6Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote6Widget.swift; sourceTree = "<group>"; };
+		DF9878362CD66D9C00BFCE1C /* LatestNote6WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote6WidgetBundle.swift; sourceTree = "<group>"; };
+		DF98783C2CD66D9C00BFCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF98783D2CD66D9C00BFCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF98783E2CD66D9C00BFCE1C /* LatestNote7Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote7Widget.swift; sourceTree = "<group>"; };
+		DF98783F2CD66D9C00BFCE1C /* LatestNote7WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote7WidgetBundle.swift; sourceTree = "<group>"; };
 		DFBAFB2D2B1D9E8F00DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		DFBAFB2E2B1D9E8F00DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DFBAFB2F2B1D9E9000DA0EA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -630,116 +730,6 @@
 		ED01931E187D70FE2E5F197D /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		F163CFA66F03710EA90D253F /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DF9875FA2CD6301600BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9875EB2CD6301400BFCE1C /* NewClockInWidgetExtensionExtension */;
-		};
-		DF9876112CD631A600BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876022CD631A500BFCE1C /* LatestCalendarWidgetExtension */;
-		};
-		DF9876282CD631D600BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876192CD631D500BFCE1C /* LatestNote1WidgetExtension */;
-		};
-		DF98763F2CD631ED00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876302CD631EB00BFCE1C /* LatestNote2WidgetExtension */;
-		};
-		DF9876562CD6320700BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876472CD6320600BFCE1C /* LatestNote3WidgetExtension */;
-		};
-		DF98766D2CD6321E00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF98765E2CD6321C00BFCE1C /* LatestNote4WidgetExtension */;
-		};
-		DF9876842CD6322F00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876752CD6322E00BFCE1C /* LatestNote5WidgetExtension */;
-		};
-		DF98769B2CD6324000BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF98768C2CD6323F00BFCE1C /* LatestNote6WidgetExtension */;
-		};
-		DF9876B22CD6325200BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876A32CD6325100BFCE1C /* LatestNote7WidgetExtension */;
-		};
-		DF9876C92CD6328F00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876BA2CD6328D00BFCE1C /* NewClockInWidgetExtension */;
-		};
-		DF9876E22CD632A700BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876D12CD632A600BFCE1C /* NewCounterWidgetExtension */;
-		};
-		DF9876FB2CD632DE00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9876EA2CD632DD00BFCE1C /* NewMissionListViewExtensionExtension */;
-		};
-		DF9877BD2CD63ED100BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF9877AE2CD63ECF00BFCE1C /* QuadrantWidgetExtensionExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		DF9875EF2CD6301400BFCE1C /* NewClockInWidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9875FA2CD6301600BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NewClockInWidgetExtension; sourceTree = "<group>"; };
-		DF9876062CD631A500BFCE1C /* LatestCalendarWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876112CD631A600BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestCalendarWidget; sourceTree = "<group>"; };
-		DF98761D2CD631D500BFCE1C /* LatestNote1Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876282CD631D600BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote1Widget; sourceTree = "<group>"; };
-		DF9876342CD631EC00BFCE1C /* LatestNote2Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF98763F2CD631ED00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote2Widget; sourceTree = "<group>"; };
-		DF98764B2CD6320600BFCE1C /* LatestNote3Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876562CD6320700BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote3Widget; sourceTree = "<group>"; };
-		DF9876622CD6321C00BFCE1C /* LatestNote4Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF98766D2CD6321E00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote4Widget; sourceTree = "<group>"; };
-		DF9876792CD6322E00BFCE1C /* LatestNote5Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876842CD6322F00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote5Widget; sourceTree = "<group>"; };
-		DF9876902CD6323F00BFCE1C /* LatestNote6Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF98769B2CD6324000BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote6Widget; sourceTree = "<group>"; };
-		DF9876A72CD6325100BFCE1C /* LatestNote7Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876B22CD6325200BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = LatestNote7Widget; sourceTree = "<group>"; };
-		DF9876BE2CD6328D00BFCE1C /* NewClockInWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876C92CD6328F00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NewClockInWidget; sourceTree = "<group>"; };
-		DF9876D52CD632A600BFCE1C /* NewCounterWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876E22CD632A700BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NewCounterWidget; sourceTree = "<group>"; };
-		DF9876EE2CD632DD00BFCE1C /* NewMissionListViewExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9876FB2CD632DE00BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NewMissionListViewExtension; sourceTree = "<group>"; };
-		DF9877B22CD63ECF00BFCE1C /* QuadrantWidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DF9877BD2CD63ED100BFCE1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = QuadrantWidgetExtension; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
@@ -949,19 +939,19 @@
 				DFC1811A2BBAC35100B60D77 /* MyDeviceActivityMonitorExtension */,
 				DFC181492BBAD37500B60D77 /* MyDeviceShieldActionExtension */,
 				DF5F2C312BF248740006FCC4 /* ShieldConfigurationExtension */,
-				DF9875EF2CD6301400BFCE1C /* NewClockInWidgetExtension */,
-				DF9876062CD631A500BFCE1C /* LatestCalendarWidget */,
-				DF98761D2CD631D500BFCE1C /* LatestNote1Widget */,
-				DF9876342CD631EC00BFCE1C /* LatestNote2Widget */,
-				DF98764B2CD6320600BFCE1C /* LatestNote3Widget */,
-				DF9876622CD6321C00BFCE1C /* LatestNote4Widget */,
-				DF9876792CD6322E00BFCE1C /* LatestNote5Widget */,
-				DF9876902CD6323F00BFCE1C /* LatestNote6Widget */,
-				DF9876A72CD6325100BFCE1C /* LatestNote7Widget */,
-				DF9876BE2CD6328D00BFCE1C /* NewClockInWidget */,
-				DF9876D52CD632A600BFCE1C /* NewCounterWidget */,
-				DF9876EE2CD632DD00BFCE1C /* NewMissionListViewExtension */,
-				DF9877B22CD63ECF00BFCE1C /* QuadrantWidgetExtension */,
+				DF9877D02CD66D9B00BFCE1C /* NewClockInWidgetExtension */,
+				DF9877EB2CD66D9B00BFCE1C /* LatestCalendarWidget */,
+				DF9877FD2CD66D9C00BFCE1C /* LatestNote1Widget */,
+				DF98782E2CD66D9C00BFCE1C /* LatestNote2Widget */,
+				DF9878062CD66D9C00BFCE1C /* LatestNote3Widget */,
+				DF9878252CD66D9C00BFCE1C /* LatestNote4Widget */,
+				DF9877E22CD66D9B00BFCE1C /* LatestNote5Widget */,
+				DF9878372CD66D9C00BFCE1C /* LatestNote6Widget */,
+				DF9878402CD66D9C00BFCE1C /* LatestNote7Widget */,
+				DF9877F42CD66D9B00BFCE1C /* NewClockInWidget */,
+				DF98781B2CD66D9C00BFCE1C /* NewCounterWidget */,
+				DF9878102CD66D9C00BFCE1C /* NewMissionListViewExtension */,
+				DF9877D92CD66D9B00BFCE1C /* QuadrantWidgetExtension */,
 				97C146EF1CF9000F007C117D /* Products */,
 				CA737BD360CAF83EA1DCD290 /* Pods */,
 				AC9A889261B95059F86EF856 /* Frameworks */,
@@ -1212,6 +1202,152 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		DF9877D02CD66D9B00BFCE1C /* NewClockInWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DF9877CB2CD66D9B00BFCE1C /* Assets.xcassets */,
+				DF9877CC2CD66D9B00BFCE1C /* Info.plist */,
+				DF9877CD2CD66D9B00BFCE1C /* NewClockInWidgetExtension.entitlements */,
+				DF9877CE2CD66D9B00BFCE1C /* NewClockInWidgetExtension.swift */,
+				DF9877CF2CD66D9B00BFCE1C /* NewClockInWidgetExtensionBundle.swift */,
+			);
+			path = NewClockInWidgetExtension;
+			sourceTree = "<group>";
+		};
+		DF9877D92CD66D9B00BFCE1C /* QuadrantWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DF9877D52CD66D9B00BFCE1C /* Assets.xcassets */,
+				DF9877D62CD66D9B00BFCE1C /* Info.plist */,
+				DF9877D72CD66D9B00BFCE1C /* QuadrantWidgetExtension.swift */,
+				DF9877D82CD66D9B00BFCE1C /* QuadrantWidgetExtensionBundle.swift */,
+			);
+			path = QuadrantWidgetExtension;
+			sourceTree = "<group>";
+		};
+		DF9877E22CD66D9B00BFCE1C /* LatestNote5Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9877DE2CD66D9B00BFCE1C /* Assets.xcassets */,
+				DF9877DF2CD66D9B00BFCE1C /* Info.plist */,
+				DF9877E02CD66D9B00BFCE1C /* LatestNote5Widget.swift */,
+				DF9877E12CD66D9B00BFCE1C /* LatestNote5WidgetBundle.swift */,
+			);
+			path = LatestNote5Widget;
+			sourceTree = "<group>";
+		};
+		DF9877EB2CD66D9B00BFCE1C /* LatestCalendarWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9877E72CD66D9B00BFCE1C /* Assets.xcassets */,
+				DF9877E82CD66D9B00BFCE1C /* Info.plist */,
+				DF9877E92CD66D9B00BFCE1C /* LatestCalendarWidget.swift */,
+				DF9877EA2CD66D9B00BFCE1C /* LatestCalendarWidgetBundle.swift */,
+			);
+			path = LatestCalendarWidget;
+			sourceTree = "<group>";
+		};
+		DF9877F42CD66D9B00BFCE1C /* NewClockInWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9877F02CD66D9B00BFCE1C /* Assets.xcassets */,
+				DF9877F12CD66D9B00BFCE1C /* Info.plist */,
+				DF9877F22CD66D9B00BFCE1C /* NewClockInWidget.swift */,
+				DF9877F32CD66D9B00BFCE1C /* NewClockInWidgetBundle.swift */,
+			);
+			path = NewClockInWidget;
+			sourceTree = "<group>";
+		};
+		DF9877FD2CD66D9C00BFCE1C /* LatestNote1Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9877F92CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF9877FA2CD66D9C00BFCE1C /* Info.plist */,
+				DF9877FB2CD66D9C00BFCE1C /* LatestNote1Widget.swift */,
+				DF9877FC2CD66D9C00BFCE1C /* LatestNote1WidgetBundle.swift */,
+			);
+			path = LatestNote1Widget;
+			sourceTree = "<group>";
+		};
+		DF9878062CD66D9C00BFCE1C /* LatestNote3Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9878022CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF9878032CD66D9C00BFCE1C /* Info.plist */,
+				DF9878042CD66D9C00BFCE1C /* LatestNote3Widget.swift */,
+				DF9878052CD66D9C00BFCE1C /* LatestNote3WidgetBundle.swift */,
+			);
+			path = LatestNote3Widget;
+			sourceTree = "<group>";
+		};
+		DF9878102CD66D9C00BFCE1C /* NewMissionListViewExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DF98780B2CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF98780C2CD66D9C00BFCE1C /* Info.plist */,
+				DF98780D2CD66D9C00BFCE1C /* NewMissionListViewExtension.swift */,
+				DF98780E2CD66D9C00BFCE1C /* NewMissionListViewExtensionBundle.swift */,
+				DF98780F2CD66D9C00BFCE1C /* NewMissionListViewExtensionLiveActivity.swift */,
+			);
+			path = NewMissionListViewExtension;
+			sourceTree = "<group>";
+		};
+		DF98781B2CD66D9C00BFCE1C /* NewCounterWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9878162CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF9878172CD66D9C00BFCE1C /* Info.plist */,
+				DF9878182CD66D9C00BFCE1C /* NewCounterWidget.swift */,
+				DF9878192CD66D9C00BFCE1C /* NewCounterWidgetBundle.swift */,
+				DF98781A2CD66D9C00BFCE1C /* NewCounterWidgetLiveActivity.swift */,
+			);
+			path = NewCounterWidget;
+			sourceTree = "<group>";
+		};
+		DF9878252CD66D9C00BFCE1C /* LatestNote4Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9878212CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF9878222CD66D9C00BFCE1C /* Info.plist */,
+				DF9878232CD66D9C00BFCE1C /* LatestNote4Widget.swift */,
+				DF9878242CD66D9C00BFCE1C /* LatestNote4WidgetBundle.swift */,
+			);
+			path = LatestNote4Widget;
+			sourceTree = "<group>";
+		};
+		DF98782E2CD66D9C00BFCE1C /* LatestNote2Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF98782A2CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF98782B2CD66D9C00BFCE1C /* Info.plist */,
+				DF98782C2CD66D9C00BFCE1C /* LatestNote2Widget.swift */,
+				DF98782D2CD66D9C00BFCE1C /* LatestNote2WidgetBundle.swift */,
+			);
+			path = LatestNote2Widget;
+			sourceTree = "<group>";
+		};
+		DF9878372CD66D9C00BFCE1C /* LatestNote6Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF9878332CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF9878342CD66D9C00BFCE1C /* Info.plist */,
+				DF9878352CD66D9C00BFCE1C /* LatestNote6Widget.swift */,
+				DF9878362CD66D9C00BFCE1C /* LatestNote6WidgetBundle.swift */,
+			);
+			path = LatestNote6Widget;
+			sourceTree = "<group>";
+		};
+		DF9878402CD66D9C00BFCE1C /* LatestNote7Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DF98783C2CD66D9C00BFCE1C /* Assets.xcassets */,
+				DF98783D2CD66D9C00BFCE1C /* Info.plist */,
+				DF98783E2CD66D9C00BFCE1C /* LatestNote7Widget.swift */,
+				DF98783F2CD66D9C00BFCE1C /* LatestNote7WidgetBundle.swift */,
+			);
+			path = LatestNote7Widget;
+			sourceTree = "<group>";
+		};
 		DFC1811A2BBAC35100B60D77 /* MyDeviceActivityMonitorExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1369,9 +1505,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF9875EF2CD6301400BFCE1C /* NewClockInWidgetExtension */,
-			);
 			name = NewClockInWidgetExtensionExtension;
 			packageProductDependencies = (
 			);
@@ -1390,9 +1523,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DF9876062CD631A500BFCE1C /* LatestCalendarWidget */,
 			);
 			name = LatestCalendarWidgetExtension;
 			packageProductDependencies = (
@@ -1413,9 +1543,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF98761D2CD631D500BFCE1C /* LatestNote1Widget */,
-			);
 			name = LatestNote1WidgetExtension;
 			packageProductDependencies = (
 			);
@@ -1434,9 +1561,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DF9876342CD631EC00BFCE1C /* LatestNote2Widget */,
 			);
 			name = LatestNote2WidgetExtension;
 			packageProductDependencies = (
@@ -1457,9 +1581,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF98764B2CD6320600BFCE1C /* LatestNote3Widget */,
-			);
 			name = LatestNote3WidgetExtension;
 			packageProductDependencies = (
 			);
@@ -1478,9 +1599,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DF9876622CD6321C00BFCE1C /* LatestNote4Widget */,
 			);
 			name = LatestNote4WidgetExtension;
 			packageProductDependencies = (
@@ -1501,9 +1619,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF9876792CD6322E00BFCE1C /* LatestNote5Widget */,
-			);
 			name = LatestNote5WidgetExtension;
 			packageProductDependencies = (
 			);
@@ -1522,9 +1637,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DF9876902CD6323F00BFCE1C /* LatestNote6Widget */,
 			);
 			name = LatestNote6WidgetExtension;
 			packageProductDependencies = (
@@ -1545,9 +1657,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF9876A72CD6325100BFCE1C /* LatestNote7Widget */,
-			);
 			name = LatestNote7WidgetExtension;
 			packageProductDependencies = (
 			);
@@ -1566,9 +1675,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DF9876BE2CD6328D00BFCE1C /* NewClockInWidget */,
 			);
 			name = NewClockInWidgetExtension;
 			packageProductDependencies = (
@@ -1589,9 +1695,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF9876D52CD632A600BFCE1C /* NewCounterWidget */,
-			);
 			name = NewCounterWidgetExtension;
 			packageProductDependencies = (
 			);
@@ -1611,9 +1714,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				DF9876EE2CD632DD00BFCE1C /* NewMissionListViewExtension */,
-			);
 			name = NewMissionListViewExtensionExtension;
 			packageProductDependencies = (
 			);
@@ -1632,9 +1732,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DF9877B22CD63ECF00BFCE1C /* QuadrantWidgetExtension */,
 			);
 			name = QuadrantWidgetExtensionExtension;
 			packageProductDependencies = (
@@ -1836,6 +1933,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877D12CD66D9B00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877902CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1844,6 +1942,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877EC2CD66D9B00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877912CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1852,6 +1951,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877FE2CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877922CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1860,6 +1960,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF98782F2CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877932CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1868,6 +1969,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9878072CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877942CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1876,6 +1978,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9878262CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877952CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1884,6 +1987,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877E32CD66D9B00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877962CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1892,6 +1996,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9878382CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877972CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1900,6 +2005,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9878432CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877982CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1908,6 +2014,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877F52CD66D9B00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877992CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1916,6 +2023,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF98781C2CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF98779A2CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1924,6 +2032,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9878142CD66D9C00BFCE1C /* Assets.xcassets in Resources */,
 				DF98779B2CD63BC000BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1932,6 +2041,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877DA2CD66D9B00BFCE1C /* Assets.xcassets in Resources */,
 				DF9877C52CD63F3900BFCE1C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2133,6 +2243,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF9877352CD635A900BFCE1C /* MissionData.swift in Sources */,
+				DF9877D32CD66D9B00BFCE1C /* NewClockInWidgetExtension.swift in Sources */,
+				DF9877D42CD66D9B00BFCE1C /* NewClockInWidgetExtensionBundle.swift in Sources */,
 				DF9877762CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
 				DF98775C2CD635FD00BFCE1C /* String+Extension.swift in Sources */,
 				DF98774F2CD635E700BFCE1C /* PrimarryData.swift in Sources */,
@@ -2155,6 +2267,8 @@
 				DF9877432CD635C500BFCE1C /* StoreData.swift in Sources */,
 				DF9877292CD6358D00BFCE1C /* Params.swift in Sources */,
 				DF98776A2CD6362100BFCE1C /* Color+Extension.swift in Sources */,
+				DF9877EE2CD66D9B00BFCE1C /* LatestCalendarWidget.swift in Sources */,
+				DF9877EF2CD66D9B00BFCE1C /* LatestCalendarWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2165,6 +2279,8 @@
 				DF9877372CD635A900BFCE1C /* MissionData.swift in Sources */,
 				DF9877782CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
 				DF98775E2CD635FD00BFCE1C /* String+Extension.swift in Sources */,
+				DF9878002CD66D9C00BFCE1C /* LatestNote1Widget.swift in Sources */,
+				DF9878012CD66D9C00BFCE1C /* LatestNote1WidgetBundle.swift in Sources */,
 				DF9877512CD635E700BFCE1C /* PrimarryData.swift in Sources */,
 				DF9877A42CD63C7E00BFCE1C /* NoteViewWidget.swift in Sources */,
 				DF9877852CD63A5100BFCE1C /* NetworkRequest.swift in Sources */,
@@ -2185,6 +2301,8 @@
 				DF9877522CD635E700BFCE1C /* PrimarryData.swift in Sources */,
 				DF9877A52CD63C7E00BFCE1C /* NoteViewWidget.swift in Sources */,
 				DF9877862CD63A5100BFCE1C /* NetworkRequest.swift in Sources */,
+				DF9878312CD66D9C00BFCE1C /* LatestNote2Widget.swift in Sources */,
+				DF9878322CD66D9C00BFCE1C /* LatestNote2WidgetBundle.swift in Sources */,
 				DF9877452CD635C500BFCE1C /* StoreData.swift in Sources */,
 				DF98772B2CD6358D00BFCE1C /* Params.swift in Sources */,
 				DF98779E2CD63BE900BFCE1C /* WQBMissionData.swift in Sources */,
@@ -2200,6 +2318,8 @@
 				DF98777A2CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
 				DF9877602CD635FD00BFCE1C /* String+Extension.swift in Sources */,
 				DF9877532CD635E700BFCE1C /* PrimarryData.swift in Sources */,
+				DF9878092CD66D9C00BFCE1C /* LatestNote3Widget.swift in Sources */,
+				DF98780A2CD66D9C00BFCE1C /* LatestNote3WidgetBundle.swift in Sources */,
 				DF9877A62CD63C7E00BFCE1C /* NoteViewWidget.swift in Sources */,
 				DF9877872CD63A5100BFCE1C /* NetworkRequest.swift in Sources */,
 				DF9877462CD635C500BFCE1C /* StoreData.swift in Sources */,
@@ -2220,6 +2340,8 @@
 				DF9877A72CD63C7E00BFCE1C /* NoteViewWidget.swift in Sources */,
 				DF9877882CD63A5100BFCE1C /* NetworkRequest.swift in Sources */,
 				DF9877472CD635C500BFCE1C /* StoreData.swift in Sources */,
+				DF9878282CD66D9C00BFCE1C /* LatestNote4Widget.swift in Sources */,
+				DF9878292CD66D9C00BFCE1C /* LatestNote4WidgetBundle.swift in Sources */,
 				DF98772D2CD6358D00BFCE1C /* Params.swift in Sources */,
 				DF9877A02CD63BE900BFCE1C /* WQBMissionData.swift in Sources */,
 				DF98776E2CD6362100BFCE1C /* Color+Extension.swift in Sources */,
@@ -2240,6 +2362,8 @@
 				DF98772E2CD6358D00BFCE1C /* Params.swift in Sources */,
 				DF9877A12CD63BE900BFCE1C /* WQBMissionData.swift in Sources */,
 				DF98776F2CD6362100BFCE1C /* Color+Extension.swift in Sources */,
+				DF9877E52CD66D9B00BFCE1C /* LatestNote5Widget.swift in Sources */,
+				DF9877E62CD66D9B00BFCE1C /* LatestNote5WidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2249,6 +2373,8 @@
 			files = (
 				DF98773C2CD635A900BFCE1C /* MissionData.swift in Sources */,
 				DF98777D2CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
+				DF98783A2CD66D9C00BFCE1C /* LatestNote6Widget.swift in Sources */,
+				DF98783B2CD66D9C00BFCE1C /* LatestNote6WidgetBundle.swift in Sources */,
 				DF9877632CD635FD00BFCE1C /* String+Extension.swift in Sources */,
 				DF9877562CD635E700BFCE1C /* PrimarryData.swift in Sources */,
 				DF9877A92CD63C7E00BFCE1C /* NoteViewWidget.swift in Sources */,
@@ -2264,6 +2390,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9878412CD66D9C00BFCE1C /* LatestNote7Widget.swift in Sources */,
+				DF9878422CD66D9C00BFCE1C /* LatestNote7WidgetBundle.swift in Sources */,
 				DF98773D2CD635A900BFCE1C /* MissionData.swift in Sources */,
 				DF98777E2CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
 				DF9877642CD635FD00BFCE1C /* String+Extension.swift in Sources */,
@@ -2284,6 +2412,8 @@
 				DF98773E2CD635A900BFCE1C /* MissionData.swift in Sources */,
 				DF98777F2CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
 				DF9877652CD635FD00BFCE1C /* String+Extension.swift in Sources */,
+				DF9877F72CD66D9B00BFCE1C /* NewClockInWidget.swift in Sources */,
+				DF9877F82CD66D9B00BFCE1C /* NewClockInWidgetBundle.swift in Sources */,
 				DF9877582CD635E700BFCE1C /* PrimarryData.swift in Sources */,
 				DF98778C2CD63A5100BFCE1C /* NetworkRequest.swift in Sources */,
 				DF98774B2CD635C500BFCE1C /* StoreData.swift in Sources */,
@@ -2299,6 +2429,9 @@
 				DF9877662CD635FD00BFCE1C /* String+Extension.swift in Sources */,
 				DF9877CA2CD6488300BFCE1C /* URLSessionRequest.swift in Sources */,
 				DF9877732CD6362100BFCE1C /* Color+Extension.swift in Sources */,
+				DF98781E2CD66D9C00BFCE1C /* NewCounterWidget.swift in Sources */,
+				DF98781F2CD66D9C00BFCE1C /* NewCounterWidgetBundle.swift in Sources */,
+				DF9878202CD66D9C00BFCE1C /* NewCounterWidgetLiveActivity.swift in Sources */,
 				DF98773F2CD635A900BFCE1C /* MissionData.swift in Sources */,
 				DF9877C92CD6487A00BFCE1C /* BaseResponse.swift in Sources */,
 				DF9877592CD635E700BFCE1C /* PrimarryData.swift in Sources */,
@@ -2321,6 +2454,9 @@
 				DF98778E2CD63A5100BFCE1C /* NetworkRequest.swift in Sources */,
 				DF9877812CD6367C00BFCE1C /* FlomoMissionModel.swift in Sources */,
 				DF9877332CD6358D00BFCE1C /* Params.swift in Sources */,
+				DF9878112CD66D9C00BFCE1C /* NewMissionListViewExtension.swift in Sources */,
+				DF9878122CD66D9C00BFCE1C /* NewMissionListViewExtensionBundle.swift in Sources */,
+				DF9878132CD66D9C00BFCE1C /* NewMissionListViewExtensionLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2328,6 +2464,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9877DC2CD66D9B00BFCE1C /* QuadrantWidgetExtension.swift in Sources */,
+				DF9877DD2CD66D9B00BFCE1C /* QuadrantWidgetExtensionBundle.swift in Sources */,
 				DF9877C62CD63F4500BFCE1C /* MissionData.swift in Sources */,
 				DF9877C22CD63EFF00BFCE1C /* Params.swift in Sources */,
 				DF9877C82CD6407D00BFCE1C /* NetworkRequest.swift in Sources */,
@@ -2369,7 +2507,11 @@
 			files = (
 				DFE5787229E6A82D006ED7EA /* IslandBundle.swift in Sources */,
 				DFD6EE352A31C17600A7B0DE /* IslandLiveActivity.swift in Sources */,
+				DF9878472CD6850A00BFCE1C /* LiveActivityManager.swift in Sources */,
 				DFE5787629E6A82D006ED7EA /* Island.swift in Sources */,
+				DF98784A2CD6865F00BFCE1C /* MissionData.swift in Sources */,
+				DF9878452CD67C5C00BFCE1C /* Params.swift in Sources */,
+				DF9878462CD67CA800BFCE1C /* NetworkRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5172,7 +5314,7 @@
 				INFOPLIST_FILE = Island/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Island;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5213,7 +5355,7 @@
 				INFOPLIST_FILE = Island/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Island;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5251,7 +5393,7 @@
 				INFOPLIST_FILE = Island/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Island;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

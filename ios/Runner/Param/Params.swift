@@ -21,7 +21,7 @@ enum OSEnum:Int {
 
 
 class Params {
-    static var env = EnvEnum.prd;
+    static var env = EnvEnum.dev;
     static var curOS = OSEnum.macOS;
     static var isDebug:Bool = env != EnvEnum.prd;
     static var isMACOS:Bool = curOS == OSEnum.macOS;
@@ -37,7 +37,7 @@ class Params {
     static let mBaseUrl: String = {
         switch env {
         case .dev:
-            return "http://127.0.0.1:9999"
+            return "http://192.168.31.82:9999"
         case .uat, .prd:
             return "https://www.timerbell.com"
         }
