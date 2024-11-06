@@ -838,6 +838,8 @@ class CounterModelRequest {
   String? bgUrl;
   int? numTomatees;
   int? totalTomatees;
+  int focusedDurationInt;
+  int? restingDurationInt;
 
   CounterModelRequest({
     this.objectId = "",
@@ -852,6 +854,8 @@ class CounterModelRequest {
     this.shouldShowRedFocusStatus = false,
     this.status = 0,
     this.text = "",
+    this.focusedDurationInt = 1500,
+    this.restingDurationInt = 300,
   });
 
   Map toJson() => {
@@ -867,5 +871,7 @@ class CounterModelRequest {
         'shouldShowRedFocusStatus': shouldShowRedFocusStatus,
         'status': status,
         'text': text,
+        'focusedDurationInt': focusedDurationInt,
+        'restingDurationInt': restingDurationInt,
       };
 }

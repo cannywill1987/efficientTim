@@ -304,6 +304,10 @@
 		DF989A192CD7AB7100ED9333 /* LiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF989A132CD7AB7100ED9333 /* LiveActivity.swift */; };
 		DF989A1A2CD7AB7100ED9333 /* LiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF989A142CD7AB7100ED9333 /* LiveActivityBundle.swift */; };
 		DF989A1B2CD7AB7100ED9333 /* LiveActivityLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF989A152CD7AB7100ED9333 /* LiveActivityLiveActivity.swift */; };
+		DF989A1C2CD8C1AA00ED9333 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE2D4D22CD34B5C00DD9BCC /* BaseResponse.swift */; };
+		DF989A1D2CD8C52300ED9333 /* URLSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C7F0C2CD0A56D00A95340 /* URLSessionRequest.swift */; };
+		DF989A1E2CD8C58800ED9333 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86A30C2ACD46DB006D3F87 /* String+Extension.swift */; };
+		DF989A1F2CD8C59400ED9333 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF86A3052ACD46DB006D3F87 /* Localizable.strings */; };
 		DFBD3B712C8F0A2A00371974 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBD3B702C8F0A2A00371974 /* GoogleService-Info.plist */; };
 		DFBF30ED2869D1810091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EC2869D1810091B848 /* Params.swift */; };
 		DFC181212BBAC35100B60D77 /* MyDeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFC181182BBAC35000B60D77 /* MyDeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -2145,6 +2149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFE5787829E6A82F006ED7EA /* Assets.xcassets in Resources */,
+				DF989A1F2CD8C59400ED9333 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2592,12 +2597,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFE5787229E6A82D006ED7EA /* IslandBundle.swift in Sources */,
+				DF989A1D2CD8C52300ED9333 /* URLSessionRequest.swift in Sources */,
 				DFD6EE352A31C17600A7B0DE /* IslandLiveActivity.swift in Sources */,
 				DF9878472CD6850A00BFCE1C /* LiveActivityManager.swift in Sources */,
 				DFE5787629E6A82D006ED7EA /* Island.swift in Sources */,
 				DF98784A2CD6865F00BFCE1C /* MissionData.swift in Sources */,
 				DF9878452CD67C5C00BFCE1C /* Params.swift in Sources */,
 				DF9878462CD67CA800BFCE1C /* NetworkRequest.swift in Sources */,
+				DF989A1E2CD8C58800ED9333 /* String+Extension.swift in Sources */,
+				DF989A1C2CD8C1AA00ED9333 /* BaseResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

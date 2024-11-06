@@ -13,7 +13,7 @@ import AppIntents
 struct TimerManager {
     static var beginTimestamp: Int = 0;
     static var endTimestamp: Int = 0;
-    static var timerDuration: Int = 1500 // Default 25 minutes
+    static var timerDuration: Int = 1500 // Default 25 minutes 1500 / 60 
     static var isCountingDown: Bool = true // Indicates whether it's counting down
     static var isPaused: Bool = true // Default state is paused
     static var startTime: Date? // Timer's start time

@@ -16,7 +16,7 @@ import ActivityKit
 ////
 //
 import Foundation
-import Flutter
+//import Flutter
 import UIKit
 import ActivityKit
 
@@ -46,7 +46,7 @@ class LiveActivityManager {
                        totalTomatees: Int,
                        numTomatees: Int,
                        focusedDuration: String,
-                       bgUrl: String,title: String, text: String, time: Int, counterStatusEnum: CounterStatusEnum, isCountDown: Bool) {
+                       bgUrl: String,title: String, text: String, time: Int, counterStatusEnum: CounterStatusEnum, isCountDown: Bool, focusDurationInt: Int, restingDurationInt: Int) {
         //async要用await方法
         //        Task {
         //             await observeActivity()
@@ -62,7 +62,7 @@ class LiveActivityManager {
                     numTomatees: numTomatees,
                     focusedDuration: focusedDuration,
                     bgUrl: bgUrl,
-                    title:title, text: text, value: 3, startTime: Date(), deliveryTimer: Date.now...(Calendar.current.date(byAdding: Calendar.Component.second, value: (time / 1000 ?? 0), to: Date()) ?? Date.now), counterStatusEnum: counterStatusEnum.rawValue ?? 6, isCountingDown: self.isPaused(val: counterStatusEnum.rawValue ?? 6));
+                    title:title, text: text, value: 3, startTime: Date(), deliveryTimer: Date.now...(Calendar.current.date(byAdding: Calendar.Component.second, value: (time / 1000 ?? 0), to: Date()) ?? Date.now), counterStatusEnum: counterStatusEnum.rawValue ?? 6, isCountingDown: isCountDown, timerDuration: (time / 1000 ?? 0), objectId: objectId,isPaused: self.isPaused(val: counterStatusEnum.rawValue ?? 6),focusDurationInt: focusDurationInt, restingDurationInt: restingDurationInt);
                 //            Task {
                 //                await self.activity?.update(using: state)
                 //            }
@@ -77,7 +77,9 @@ class LiveActivityManager {
                 }
                 
             } else {
-                stopActivity();
+                Task {
+                    await stopAllActivity();
+                }
             }
         }
         //        }
@@ -112,12 +114,21 @@ class LiveActivityManager {
         //        }
     }
     
+//    enum CounterStatusEnum:Int {
+//        case focusing=0 //专注中 红色计时中
+//        case pausingFucusing=1 //专注暂停中
+//        case relaxing=2 //休息中 蓝色计时中
+//        case waitingToFocus=3 //等待专注中
+//        case waitingToStartRelaxing=4 //等待休息启动
+//        case pausingRelaixing=5 //暂停休息中
+//        case none=6 //没任何选择
+//    }
     func isPaused(val: Int) -> Bool {
         // 判断传入的值是否为暂停状态
         return val == 1 || val == 5
     }
     
-    func requestLiveActivity(statusString: String,
+    func requestLiveActivity(objectId: String, statusString: String,
                              totalTomatees: Int,
                              numTomatees: Int,
                              focusedDuration: String,
@@ -134,7 +145,7 @@ class LiveActivityManager {
                                                       totalTomatees: totalTomatees,
                                                       numTomatees: numTomatees,
                                                       focusedDuration: focusedDuration,
-                                                      bgUrl: bgUrl,title:title, text:text, value: 3, startTime: Date(), deliveryTimer: Date.now...(Calendar.current.date(byAdding: Calendar.Component.second, value: (time / 1000 ?? 0), to: Date()) ?? Date.now), counterStatusEnum: counterStatusEnum.rawValue ?? 6, isCountingDown: countDown, startTimeForElapse: Date() , isPaused: self.isPaused(val: counterStatusEnum.rawValue ?? 6));
+                                                      bgUrl: bgUrl,title:title, text:text, value: 3, startTime: Date(), deliveryTimer: Date.now...(Calendar.current.date(byAdding: Calendar.Component.second, value: (time / 1000 ?? 0), to: Date()) ?? Date.now), counterStatusEnum: counterStatusEnum.rawValue ?? 6, isCountingDown: countDown, startTimeForElapse: Date() , timerDuration: (time / 1000 ?? 0), objectId: objectId,isPaused: self.isPaused(val: counterStatusEnum.rawValue ?? 6));
             Task {
                 if ActivityAuthorizationInfo().areActivitiesEnabled {
                     await self.stopAllActivity()
@@ -156,7 +167,7 @@ class LiveActivityManager {
                                                       totalTomatees: totalTomatees,
                                                       numTomatees: numTomatees,
                                                       focusedDuration: focusedDuration,
-                                                      bgUrl: bgUrl,title:title, text:text, value: 3, startTime: Date(), deliveryTimer: (Calendar.current.date(byAdding: Calendar.Component.second, value: -(time / 1000 ?? 0), to: Date()) ?? Date.now)...(Calendar.current.date(byAdding: Calendar.Component.second, value: 1000 * 1000 * 1000 + (time / 1000 ?? 0), to: Date()) ?? Date.now), counterStatusEnum: counterStatusEnum.rawValue ?? 6, isCountingDown: countDown, startTimeForElapse: Date() , isPaused: self.isPaused(val: counterStatusEnum.rawValue ?? 6));
+                                                      bgUrl: bgUrl,title:title, text:text, value: 3, startTime: Date(), deliveryTimer: (Calendar.current.date(byAdding: Calendar.Component.second, value: -(time / 1000 ?? 0), to: Date()) ?? Date.now)...(Calendar.current.date(byAdding: Calendar.Component.second, value: 1000 * 1000 * 1000 + (time / 1000 ?? 0), to: Date()) ?? Date.now), counterStatusEnum: counterStatusEnum.rawValue ?? 6, isCountingDown: countDown, startTimeForElapse: Date(), timerDuration: (time / 1000 ?? 0),objectId: objectId, isPaused: self.isPaused(val: counterStatusEnum.rawValue ?? 6));
             Task {
                 await self.activity?.update(using: state)
             }
@@ -185,10 +196,14 @@ class LiveActivityManager {
         numTomatees: Int,
         focusedDuration: String,
         bgUrl: String,
-        title: String,text: String, isCountDown: Bool ,time: Int, counterStatusEnum: CounterStatusEnum) {
+        title: String,text: String, isCountDown: Bool ,time: Int, counterStatusEnum: CounterStatusEnum, focusedDurationInt: Int, restingDurationInt: Int)  {
             //        print("~~~~~~~~~~~~~~~~~~time \(time) and \(counterStatusEnum.rawValue) ")
             //            if Utility.isIpad() == false {
-//            if ActivityAuthorizationInfo().areActivitiesEnabled {
+            if ActivityAuthorizationInfo().areActivitiesEnabled {
+            
+            Task {
+                
+            
                 if self.activity != nil {
                     switch counterStatusEnum {
                     case .focusing:
@@ -196,7 +211,7 @@ class LiveActivityManager {
                             return;
                         }
                         self.isLaunching = true;
-                        requestLiveActivity(statusString: statusString,
+                        requestLiveActivity(objectId: objectId,statusString: statusString,
                                             totalTomatees: totalTomatees,
                                             numTomatees: numTomatees,
                                             focusedDuration: focusedDuration,
@@ -215,14 +230,14 @@ class LiveActivityManager {
                         //                                            numTomatees: numTomatees,
                         //                                            focusedDuration: focusedDuration,
                         //                                            bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown);
-                        stopActivity();
+                        await stopAllActivity()
                         break
                     case .relaxing:
                         if(self.isLaunching == true) {
                             return;
                         }
                         self.isLaunching = true;
-                        requestLiveActivity(statusString: statusString,
+                        requestLiveActivity(objectId: objectId,statusString: statusString,
                                             totalTomatees: totalTomatees,
                                             numTomatees: numTomatees,
                                             focusedDuration: focusedDuration,
@@ -238,7 +253,7 @@ class LiveActivityManager {
                         //                                            numTomatees: numTomatees,
                         //                                            focusedDuration: focusedDuration,
                         //                                            bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown);
-                        stopActivity()
+                        await stopAllActivity()
                         self.isLaunching = false;
                         break
                     case .waitingToStartRelaxing:
@@ -249,7 +264,7 @@ class LiveActivityManager {
                         //                                            numTomatees: numTomatees,
                         //                                            focusedDuration: focusedDuration,
                         //                                            bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown);
-                        stopActivity()
+                        await stopAllActivity()
                         self.isLaunching = false;
                         break
                     case .pausingRelaixing:
@@ -258,10 +273,10 @@ class LiveActivityManager {
                         //                                            numTomatees: numTomatees,
                         //                                            focusedDuration: focusedDuration,
                         //                                            bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown);
-                        stopActivity()
+                        await stopAllActivity()
                         break
                     case .none:
-                        requestLiveActivity(statusString: statusString,
+                        requestLiveActivity(objectId: objectId,statusString: statusString,
                                             totalTomatees: totalTomatees,
                                             numTomatees: numTomatees,
                                             focusedDuration: focusedDuration,
@@ -271,11 +286,12 @@ class LiveActivityManager {
                     
                     
                 }else {
+//                    await stopAllActivity()
                     startActivity(objectId: objectId, currentTimeStamp: currentTimeStamp, statusString: statusString,
                                   totalTomatees: totalTomatees,
                                   numTomatees: numTomatees,
                                   focusedDuration: focusedDuration,
-                                  bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown)
+                                  bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown, focusDurationInt: focusedDurationInt, restingDurationInt: restingDurationInt)
                 }
 //                } else {
 //                    startActivity(objectId: objectId, currentTimeStamp: currentTimeStamp, statusString: statusString,
@@ -284,7 +300,8 @@ class LiveActivityManager {
 //                                  focusedDuration: focusedDuration,
 //                                  bgUrl: bgUrl,title:title, text: text, time: time, counterStatusEnum: counterStatusEnum, isCountDown: isCountDown)
 //                }
-            //            }
+                       }
+        }
         }
     
     // 更新 Activity

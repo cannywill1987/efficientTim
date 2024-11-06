@@ -241,6 +241,8 @@ class CounterManagement {
             statusString: "",
             totalTomatees: missionModel?.total_tomotoes ?? 0,
             numTomatees: missionModel?.no_tomotoes_finished ?? 0,
+            focusedDurationInt: (missionModel?.tomato_duration ?? 1500000) ~/ 1000,
+            restingDurationInt: (SharePreferenceUtil.getSyncInstance().getTomatoRestTime()) ~/ 1000,
             focusedDuration: Utility.formatTimestampHourAndMins(
                 missionModel?.time_finished ?? 0),
             bgUrl: missionModel?.background_url ?? "",

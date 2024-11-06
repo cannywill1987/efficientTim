@@ -342,6 +342,7 @@ class MethodChannelManager {
             result("{\"success\": true, \"data\": \"\"}");
             break;
         case "requestStatusBar":
+            
             let text: String = (call.arguments as! [[String: Any]])[0]["text"] as! String;
             let title: String = (call.arguments as! [[String: Any]])[0]["title"] as! String;
             let status: Int = (call.arguments as! [[String: Any]])[0]["status"] as! Int;
@@ -355,12 +356,13 @@ class MethodChannelManager {
             let time: Int = (call.arguments as! [[String: Any]])[0]["time"] as! Int;
             let shouldShowRedFocusStatus: Bool = (call.arguments as! [[String: Any]])[0]["shouldShowRedFocusStatus"] as! Bool;
             let isCountDown: Bool = (call.arguments as! [[String: Any]])[0]["isCountDown"] as! Bool;
-            
+            let focusedDurationInt: Int = (call.arguments as! [[String: Any]])[0]["focusedDurationInt"] as! Int;
+            let restingDurationInt: Int = (call.arguments as! [[String: Any]])[0]["restingDurationInt"] as! Int;
+
             print("time:" + text + ",status:" + status.description);
             if #available(iOS 16.1, *) {
                 if (LiveActivityManager.shareInstance().curCounterStatus != status){
                     LiveActivityManager.shareInstance().curCounterStatus = status
-                    if #available(iOS 16.1, *) {
                         LiveActivityManager.shareInstance().updateActivity(
                             objectId: objectId,
                             currentTimeStamp: currentTimeStamp,
@@ -369,10 +371,7 @@ class MethodChannelManager {
                             numTomatees: numTomatees,
                             focusedDuration: focusedDuration,
                             bgUrl: bgUrl,
-                            title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none)
-                    } else {
-                        // Fallback on earlier versions
-                    }
+                            title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none, focusedDurationInt: focusedDurationInt, restingDurationInt: restingDurationInt)
                     
                     //                (NSApplication.shared.delegate as! AppDelegate).statusItem.menu = Utility.getStatusBarMenus(counterStatusEnum: CounterStatusEnum(rawValue: status))
                 }
