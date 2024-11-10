@@ -11,11 +11,6 @@ import Foundation
 
 struct FlomoMissionData : Codable, Hashable {
     var listFlomoMissionModelList: [FlomoMissionModelList]
-//    var missionList : [String]
-    
-//    var missionList2 : [String]
-//    var missionList3 : [String]
-//    var missionList4 : [String]
 }
 
 struct FlomoMissionModelList: Codable, Hashable {

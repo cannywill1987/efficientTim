@@ -1,6 +1,6 @@
 //
-//  LatestNote4Widget.swift
-//  LatestNote4Widget
+//  LatestNote1Widget.swift
+//  LatestNote1Widget
 //
 //  Created by 林智彬 on 2024/11/2.
 //
@@ -9,27 +9,50 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
+    @AppStorage("WQBMissionStoreDataNote4", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
+    
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+        var data:WQBMissionModel?;
+        do {
+            data = try JSONDecoder().decode(WQBMissionModel.self, from: primaryData)
+        } catch {
+            print("Could not write to file")
+        }
+        return SimpleEntry(date: Date(), missionData: data)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+        var data:WQBMissionModel?;
+        do {
+            data = try JSONDecoder().decode(WQBMissionModel.self, from: primaryData)
+        } catch {
+            print("Could not write to file")
+        }
+        
+        let entry = SimpleEntry(date: Date(), missionData: data)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+        var data:WQBMissionModel?;
+        do {
+            data = try JSONDecoder().decode(WQBMissionModel.self, from: primaryData)
+        } catch {
+            print("Could not write to file")
+        }
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = SimpleEntry(date: entryDate, missionData: data)
             entries.append(entry)
         }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: .never)
+
+//        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
 
@@ -40,21 +63,17 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    let missionData : WQBMissionModel?
+
 }
 
 struct LatestNote4WidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
-        }
-    }
+//        Text("123")
+    NoteViewWidget(missionData: entry.missionData, subTitle: "note4".localizable())
+       }
 }
 
 struct LatestNote4Widget: Widget {
@@ -71,14 +90,15 @@ struct LatestNote4Widget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .contentMarginsDisabled()
+        .configurationDisplayName("note4".localizable())
+        .description("note_desc".localizable())
     }
 }
-
-#Preview(as: .systemSmall) {
-    LatestNote4Widget()
-} timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
-}
+//
+//#Preview(as: .systemSmall) {
+//    LatestNote1Widget()
+//} timeline: {
+//    SimpleEntry(date: .now, emoji: "😀")
+//    SimpleEntry(date: .now, emoji: "🤩")
+//}

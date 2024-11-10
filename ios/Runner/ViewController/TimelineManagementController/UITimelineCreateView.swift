@@ -242,7 +242,7 @@ struct UITimelineCreateView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
-            }
+            }.preferredColorScheme(.light) // 强制该视图使用浅色模式
         }
     }
 }

@@ -207,10 +207,13 @@ class MethodChannelManager {
                     for index in 0...list.count - 1 {
                         let item = list[index]
                         let time:Int = item["time"] as! Int;
+                        
+                        let entryDate = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
+
                         let datas:[[String: Any]] = item["data"] as? [[String: Any]] ?? [];
                         let count = datas.count - 1;
                         var listFlomoMissionModel: [FlomoMissionModel] = []
-                        if(count > 0) {
+                        if(count >= 0) {
                             for index2 in 0...count {
                                 let item2 = datas[index2]
                                 let objectId:String? = item2["_id"] as? String;
@@ -218,10 +221,13 @@ class MethodChannelManager {
                                 let percent:Double = item2["percent"] as? Double ?? 0;
                                 let color: Int = item2["color"] as? Int ?? 0xffff8800 - 0xff000000;
                                 let isFinished: Bool = item2["isFinished"] as? Bool ?? false;
+                                if (title == "早起") {
+                                                 print("");
+                                             }
                                 listFlomoMissionModel.append(FlomoMissionModel(objectId: objectId, title: title, color: color, isFinished: isFinished, percent: percent))
                             }
                         }
-                        listMissionModels.append(FlomoMissionModelList(time: time, listMissionModel: listFlomoMissionModel))
+                        listMissionModels.append(FlomoMissionModelList(time: time,  listMissionModel: listFlomoMissionModel))
                     }
                 }
                 if #available(iOS 14.0, *) {

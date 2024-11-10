@@ -730,7 +730,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emoji_conversion_prompt":
             MessageLookupByLibrary.simpleMessage("请帮我将以下文字转换为表情符号：..."),
         "emptySearchBoxHint": MessageLookupByLibrary.simpleMessage("输入查找内容"),
-        "en": MessageLookupByLibrary.simpleMessage("英语"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("写一句鼓励自己的话吧~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("加密"),
@@ -758,7 +758,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterFullCardNumber": MessageLookupByLibrary.simpleMessage("请输入完整卡号"),
         "enterRealName": MessageLookupByLibrary.simpleMessage("请输入真实姓名"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("请输入金额"),
-        "es": MessageLookupByLibrary.simpleMessage("西班牙语"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("事件"),
         "everyDayOnce": m44,
         "everyone_can_edit": MessageLookupByLibrary.simpleMessage("所有人可编辑"),
@@ -865,7 +865,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "four_seasons_step2": MessageLookupByLibrary.simpleMessage("第二季度"),
         "four_seasons_step3": MessageLookupByLibrary.simpleMessage("第三季度"),
         "four_seasons_step4": MessageLookupByLibrary.simpleMessage("第四季度"),
-        "fr": MessageLookupByLibrary.simpleMessage("法语"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing": MessageLookupByLibrary.simpleMessage("碎片清单"),
         "free_open": MessageLookupByLibrary.simpleMessage("免费开放"),
         "frequency": MessageLookupByLibrary.simpleMessage("频率"),
@@ -880,7 +880,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_image": MessageLookupByLibrary.simpleMessage("生成图片"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("生成二维码"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("温馨提示"),
-        "german": MessageLookupByLibrary.simpleMessage("德语"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("点击获取验证码"),
         "get_train_plan_successful": m51,
         "get_training_plan": MessageLookupByLibrary.simpleMessage("获取训练方案"),
@@ -976,7 +976,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail":
             MessageLookupByLibrary.simpleMessage("打开定向推送设置，将有助于您通知您的任务完成通知情况"),
         "italic": MessageLookupByLibrary.simpleMessage("斜体"),
-        "ja": MessageLookupByLibrary.simpleMessage("日语"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("一月"),
         "janFull": MessageLookupByLibrary.simpleMessage("一月"),
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("一月到十二月"),
@@ -999,7 +999,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jun": MessageLookupByLibrary.simpleMessage("六月"),
         "junFull": MessageLookupByLibrary.simpleMessage("六月"),
         "keyword": MessageLookupByLibrary.simpleMessage("关键词"),
-        "ko": MessageLookupByLibrary.simpleMessage("韩语"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("标签"),
         "landscape": MessageLookupByLibrary.simpleMessage("横屏"),
         "language": MessageLookupByLibrary.simpleMessage("语言"),
@@ -1967,6 +1967,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_time_prof": MessageLookupByLibrary.simpleMessage("您随身的时间管家"),
         "yuan": MessageLookupByLibrary.simpleMessage("元"),
         "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
-        "zh_tw": MessageLookupByLibrary.simpleMessage("繁体中文")
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

@@ -5,6 +5,14 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"mon" = "월";
+"tue" = "화";
+"wed" = "수";
+"thur" = "목";
+"fri" = "금";
+"sat" = "토";
+"sun" = "일";
+
 "today" = "오늘";
 "clockInToday" = "오늘 출근하기";
 "Quadrant" = "사분면 할 일";

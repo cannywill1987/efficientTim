@@ -5,6 +5,20 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"mon" = "一";
+"tue" = "二";
+"wed" = "三";
+"thur" = "四";
+"fri" = "五";
+"sat" = "六";
+"sun" = "日";
+"today_mission" = "今天任務";
+"today" = "今天";
+"timer" = "計時器";
+"timer_desc" = "計時器可用於桌面組件實時顯示倒計時和正計時";
+"clockInToday" = "今日簽到";
+"countDown" = "倒計時";
+"countUp" = "正計時";
 "today" = "Today";
 "clockInToday" = "Clock in today";
 "Quadrant" = "Quadrant ToDo";

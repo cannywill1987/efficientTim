@@ -31,23 +31,27 @@ struct Provider: TimelineProvider {
             print("Could not write to file")
         }
         let list = flomoMissionData?.listFlomoMissionModelList ?? [];
-        if list.count > 0 {
-            for index in 0...list.count - 1 {
-                let flomoMissionModelList:FlomoMissionModelList = list[index]
-                let time = flomoMissionModelList.time;
-                let entryDate = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
-                let calendar = Calendar.current
-                let entry: SimpleEntry
-                if calendar.isDateInToday(entryDate) {
-                    let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date())
-                    entry = SimpleEntry(date: Date(), listMissionModel: flomoMissionModelList.listMissionModel)
-                    print("entryDate is in today")
-                } else {
-                    entry = SimpleEntry(date: entryDate, listMissionModel: flomoMissionModelList.listMissionModel)
-                    print("entryDate is not in today")
-                }
-                entries.append(entry)
+        var hasToday: Bool = false;
+        for index in 0...list.count - 1 {
+            let flomoMissionModelList:FlomoMissionModelList = list[index]
+            let time = flomoMissionModelList.time;
+            let entryDate = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
+            let calendar = Calendar.current
+            let entry: SimpleEntry
+            if calendar.isDateInToday(entryDate) {
+                let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date())
+                hasToday = true
+                entries.append(SimpleEntry(date: Date(), listMissionModel: flomoMissionModelList.listMissionModel))
+                entry = SimpleEntry(date: Date(), listMissionModel: flomoMissionModelList.listMissionModel)
+                print("entryDate is in today")
+            } else {
+                entry = SimpleEntry(date: entryDate, listMissionModel: flomoMissionModelList.listMissionModel)
+                print("entryDate is not in today")
             }
+            entries.append(entry)
+        }
+        if hasToday == false {
+            entries.append(SimpleEntry(date: Date(), listMissionModel: []))
         }
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)

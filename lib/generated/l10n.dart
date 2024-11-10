@@ -450,20 +450,20 @@ class S {
     );
   }
 
-  /// `Chinese Simplified`
+  /// `简体中文`
   String get zh_cn {
     return Intl.message(
-      'Chinese Simplified',
+      '简体中文',
       name: 'zh_cn',
       desc: '',
       args: [],
     );
   }
 
-  /// `Chinese Traditional`
+  /// `繁體中文`
   String get zh_tw {
     return Intl.message(
-      'Chinese Traditional',
+      '繁體中文',
       name: 'zh_tw',
       desc: '',
       args: [],
@@ -480,50 +480,50 @@ class S {
     );
   }
 
-  /// `German`
+  /// `Deutsch`
   String get german {
     return Intl.message(
-      'German',
+      'Deutsch',
       name: 'german',
       desc: '',
       args: [],
     );
   }
 
-  /// `Japanese`
+  /// `日本語`
   String get ja {
     return Intl.message(
-      'Japanese',
+      '日本語',
       name: 'ja',
       desc: '',
       args: [],
     );
   }
 
-  /// `Korean`
+  /// `한국어`
   String get ko {
     return Intl.message(
-      'Korean',
+      '한국어',
       name: 'ko',
       desc: '',
       args: [],
     );
   }
 
-  /// `French`
+  /// `Français`
   String get fr {
     return Intl.message(
-      'French',
+      'Français',
       name: 'fr',
       desc: '',
       args: [],
     );
   }
 
-  /// `Spanish`
+  /// `Español`
   String get es {
     return Intl.message(
-      'Spanish',
+      'Español',
       name: 'es',
       desc: '',
       args: [],

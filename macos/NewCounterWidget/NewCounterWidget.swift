@@ -247,7 +247,16 @@ struct Test2WidgetEntryView : View {
     var entry: Provider.Entry // 时间线条目
     @AppStorage("timerDuration", store: UserDefaults(suiteName: Params.groupName)) var timerDuration : Int = 1500 // 25分钟
     @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
+    @Environment(\.widgetFamily) var family
 
+    func shouldShowBigButtons() -> Bool {
+        if (family == .systemSmall) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
      // currentDisplayedTime: 获取当前需要显示的时间（暂停时保留当前时间）
     func currentDisplayedTime() -> Int {
         let elapsedTime: Int
@@ -311,16 +320,18 @@ Text(TimerManager.isCountingDown ? "countDown".localizable() : "countUp".localiz
                              .foregroundColor(.green) // 设置按钮颜色为绿色
                      }
                  }
-                 if(TimerManager.isCountingDown && (TimerManager.isPaused || TimerManager.startTime == nil)) {
-                     Button(intent: TimerIntent(action: .addMinute)) {
-                         Image(systemName: "plus.circle") // 显示增加一分钟按钮
-                             .font(.largeTitle) // 使用大标题样式
-                             .foregroundColor(.orange) // 设置按钮颜色为橙色
-                     }
-                     Button(intent: TimerIntent(action: .subtractMinute)) {
-                         Image(systemName: "minus.circle") // 显示减少一分钟按钮
-                             .font(.largeTitle) // 使用大标题样式
-                             .foregroundColor(.purple) // 设置按钮颜色为紫色
+                 if(shouldShowBigButtons()) {
+                     if(TimerManager.isCountingDown && (TimerManager.isPaused || TimerManager.startTime == nil)) {
+                         Button(intent: TimerIntent(action: .addMinute)) {
+                             Image(systemName: "plus.circle") // 显示增加一分钟按钮
+                                 .font(.largeTitle) // 使用大标题样式
+                                 .foregroundColor(.orange) // 设置按钮颜色为橙色
+                         }
+                         Button(intent: TimerIntent(action: .subtractMinute)) {
+                             Image(systemName: "minus.circle") // 显示减少一分钟按钮
+                                 .font(.largeTitle) // 使用大标题样式
+                                 .foregroundColor(.purple) // 设置按钮颜色为紫色
+                         }
                      }
                  }
              }

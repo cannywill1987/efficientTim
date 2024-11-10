@@ -21,6 +21,7 @@ import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannel
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/models/MusicModel.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
+import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/GetResourceDeliveryManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
@@ -63,9 +64,9 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
   void initState() {
 
     localLanguageCode = SharePreferenceUtil.getSyncInstance().getString(
-        key: ShareprefrenceKeys.curLocaleLanguage);
+        key: ShareprefrenceKeys.curLocaleLanguage, defaultVal: DeviceInfoManagement.getLanguage());
     localCountryCode = SharePreferenceUtil.getSyncInstance().getString(
-        key: ShareprefrenceKeys.curLocaleCountryCode);
+        key: DeviceInfoManagement.getCountryCode());
     this.isAppBarVisible = false;
     musicModelFinishResting =
         SharePreferenceUtil.getSyncInstance().getFinishRestingMusicModel();
@@ -298,7 +299,7 @@ class TomatoesSettingPageState extends BaseWidgetState<TomatoesSettingPage> {
           ),
           icon: Container(
               padding: EdgeInsets.only(right: 10),
-              child: Utility.getSVGPicture(R.assetsImgIcPresent, size: 15))),
+              child: Utility.getSVGPicture(R.assetsImgIcLanguage, size: 15))),
       Utility.isProductEnv() == true
           ? SizedBox.shrink()
           : SettingMenuItem(

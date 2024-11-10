@@ -311,6 +311,13 @@ class CounterMethodChannelManager {
                 missionModel: model,
                 ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
             listFlomoMissionModel.add(item);
+            if(model.title == "早起") {
+              print("早期");
+            }
+            item["percent"] = Utility.getPercentOfNumClocksIn(
+                missionModel: model,
+                ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
+
           });
           listTmp.add({
             "time": element.dateTime?.millisecondsSinceEpoch,

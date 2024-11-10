@@ -996,7 +996,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte helfen Sie mir, den folgenden Text in Emojis zu konvertieren: ..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("Muster eingeben"),
-        "en": MessageLookupByLibrary.simpleMessage("Englisch"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
             "Schreiben Sie einen Satz, um sich selbst zu ermutigen~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("Verschlüsseln"),
@@ -1033,7 +1033,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte geben Sie den echten Namen ein"),
         "enter_amount": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie den Betrag ein"),
-        "es": MessageLookupByLibrary.simpleMessage("Spanisch"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("Ereignis"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -1163,7 +1163,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Drittes Quartal"),
         "four_seasons_step4":
             MessageLookupByLibrary.simpleMessage("Viertes Quartal"),
-        "fr": MessageLookupByLibrary.simpleMessage("Französisch"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing":
             MessageLookupByLibrary.simpleMessage("Fragmentliste"),
         "free_open": MessageLookupByLibrary.simpleMessage("kostenlos öffnen"),
@@ -1309,7 +1309,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Schalten Sie zielgerichtete Push-Einstellungen ein, die Ihnen helfen werden, über die Fertigstellung Ihrer Aufgaben informiert zu werden"),
         "italic": MessageLookupByLibrary.simpleMessage("kursiv"),
-        "ja": MessageLookupByLibrary.simpleMessage("Japanisch"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("Januar"),
         "jan_to_dec":
@@ -1338,7 +1338,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("Juni"),
         "keyword": MessageLookupByLibrary.simpleMessage("Schlüsselwort"),
-        "ko": MessageLookupByLibrary.simpleMessage("Koreanisch"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("Etikett"),
         "landscape": MessageLookupByLibrary.simpleMessage("Querformat"),
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
@@ -2523,9 +2523,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Ihr persönlicher Zeitmanagement-Experte"),
         "yuan": MessageLookupByLibrary.simpleMessage("RMB"),
-        "zh_cn":
-            MessageLookupByLibrary.simpleMessage("Vereinfachtes Chinesisch"),
-        "zh_tw":
-            MessageLookupByLibrary.simpleMessage("Traditionelles Chinesisch")
+        "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

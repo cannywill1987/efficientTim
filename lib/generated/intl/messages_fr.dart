@@ -1006,7 +1006,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Veuillez m\'aider à convertir le texte suivant en emojis :..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("Entrez un motif"),
-        "en": MessageLookupByLibrary.simpleMessage("Anglais"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself": MessageLookupByLibrary.simpleMessage(
             "Écrivez une phrase pour vous encourager~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("Chiffrer"),
@@ -1042,7 +1042,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veuillez entrer le vrai nom"),
         "enter_amount":
             MessageLookupByLibrary.simpleMessage("Veuillez entrer le montant"),
-        "es": MessageLookupByLibrary.simpleMessage("Espagnol"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("événement"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -1194,7 +1194,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Générer un code QR"),
         "gently_remind":
             MessageLookupByLibrary.simpleMessage("Conseils gentils"),
-        "german": MessageLookupByLibrary.simpleMessage("Allemand"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Cliquez pour le code d\'authentification"),
         "get_train_plan_successful": m51,
@@ -1319,7 +1319,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Activez les paramètres de poussée ciblée, qui vous aideront à être informé de l\'achèvement de vos tâches"),
         "italic": MessageLookupByLibrary.simpleMessage("Italique"),
-        "ja": MessageLookupByLibrary.simpleMessage("Japonais"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("Janvier"),
         "jan_to_dec":
@@ -1349,7 +1349,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jun": MessageLookupByLibrary.simpleMessage("Juin"),
         "junFull": MessageLookupByLibrary.simpleMessage("Juin"),
         "keyword": MessageLookupByLibrary.simpleMessage("Mot-clé"),
-        "ko": MessageLookupByLibrary.simpleMessage("Coréen"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("Étiquette"),
         "landscape": MessageLookupByLibrary.simpleMessage("Paysage"),
         "language": MessageLookupByLibrary.simpleMessage("Langue"),
@@ -2550,7 +2550,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Votre expert en gestion du temps personnel"),
         "yuan": MessageLookupByLibrary.simpleMessage("RMB"),
-        "zh_cn": MessageLookupByLibrary.simpleMessage("Chinois simplifié"),
-        "zh_tw": MessageLookupByLibrary.simpleMessage("Chinois traditionnel")
+        "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

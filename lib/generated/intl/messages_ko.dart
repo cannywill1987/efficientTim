@@ -844,7 +844,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emoji_conversion_prompt":
             MessageLookupByLibrary.simpleMessage("다음 텍스트를 이모지로 변환해 주세요:..."),
         "emptySearchBoxHint": MessageLookupByLibrary.simpleMessage("패턴을 입력하세요"),
-        "en": MessageLookupByLibrary.simpleMessage("영어"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("자신을 격려하는 말을 적어보세요~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("암호화"),
@@ -877,7 +877,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("전체 카드 번호를 입력하세요"),
         "enterRealName": MessageLookupByLibrary.simpleMessage("실제 이름을 입력하세요"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("금액을 입력하세요"),
-        "es": MessageLookupByLibrary.simpleMessage("스페인어"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("이벤트"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -989,7 +989,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "four_seasons_step2": MessageLookupByLibrary.simpleMessage("제2분기"),
         "four_seasons_step3": MessageLookupByLibrary.simpleMessage("제3분기"),
         "four_seasons_step4": MessageLookupByLibrary.simpleMessage("제4분기"),
-        "fr": MessageLookupByLibrary.simpleMessage("프랑스어"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing": MessageLookupByLibrary.simpleMessage("조각 목록"),
         "free_open": MessageLookupByLibrary.simpleMessage("무료 공개"),
         "frequency": MessageLookupByLibrary.simpleMessage("빈도"),
@@ -1004,7 +1004,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_image": MessageLookupByLibrary.simpleMessage("이미지 생성"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("QR 코드 생성"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("친절한 알림"),
-        "german": MessageLookupByLibrary.simpleMessage("독일어"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode":
             MessageLookupByLibrary.simpleMessage("인증 코드 받기 클릭"),
         "get_train_plan_successful": m51,
@@ -1108,7 +1108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "방향성 푸시 설정을 켜면 작업 완료 알림을 받을 수 있습니다"),
         "italic": MessageLookupByLibrary.simpleMessage(""),
-        "ja": MessageLookupByLibrary.simpleMessage("일본어"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("1월"),
         "janFull": MessageLookupByLibrary.simpleMessage("1월"),
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("1월부터 12월까지"),
@@ -2145,7 +2145,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage("당신의 개인 시간 관리자"),
         "yuan": MessageLookupByLibrary.simpleMessage("원"),
-        "zh_cn": MessageLookupByLibrary.simpleMessage("중국어 간체"),
-        "zh_tw": MessageLookupByLibrary.simpleMessage("중국어 번체")
+        "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

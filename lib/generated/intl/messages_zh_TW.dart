@@ -802,7 +802,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emoji_conversion_prompt":
             MessageLookupByLibrary.simpleMessage("請幫我將以下文字轉換為表情符號：..."),
         "emptySearchBoxHint": MessageLookupByLibrary.simpleMessage("輸入模式"),
-        "en": MessageLookupByLibrary.simpleMessage("英語"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("寫一句鼓勵自己的話吧~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("加密"),
@@ -830,7 +830,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterFullCardNumber": MessageLookupByLibrary.simpleMessage("請輸入完整卡號"),
         "enterRealName": MessageLookupByLibrary.simpleMessage("請輸入真實姓名"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("請輸入金額"),
-        "es": MessageLookupByLibrary.simpleMessage("西班牙語"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("事件"),
         "everyDayOnce": m44,
         "everyone_can_edit": MessageLookupByLibrary.simpleMessage("所有人可編輯"),
@@ -937,7 +937,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "four_seasons_step2": MessageLookupByLibrary.simpleMessage("第二季"),
         "four_seasons_step3": MessageLookupByLibrary.simpleMessage("第三季"),
         "four_seasons_step4": MessageLookupByLibrary.simpleMessage("第四季"),
-        "fr": MessageLookupByLibrary.simpleMessage("法語"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing": MessageLookupByLibrary.simpleMessage("碎片清單"),
         "free_open": MessageLookupByLibrary.simpleMessage("免費開放"),
         "frequency": MessageLookupByLibrary.simpleMessage("頻率"),
@@ -952,7 +952,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_image": MessageLookupByLibrary.simpleMessage("生成圖片"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("生成二維碼"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("溫馨提示"),
-        "german": MessageLookupByLibrary.simpleMessage("德語"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("點擊獲取驗證碼"),
         "get_train_plan_successful": m51,
         "get_training_plan": MessageLookupByLibrary.simpleMessage("獲取訓練方案"),
@@ -1043,7 +1043,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting": MessageLookupByLibrary.simpleMessage("定向推送設置"),
         "is_push_setting_detail":
             MessageLookupByLibrary.simpleMessage("打開定向推送設置，將有助於您通知您的任務完成通知情況"),
-        "ja": MessageLookupByLibrary.simpleMessage("日語"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("一月"),
         "janFull": MessageLookupByLibrary.simpleMessage("一月"),
         "jan_to_dec": MessageLookupByLibrary.simpleMessage("一月至十二月"),
@@ -1066,7 +1066,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jun": MessageLookupByLibrary.simpleMessage("六月"),
         "junFull": MessageLookupByLibrary.simpleMessage("六月"),
         "keyword": MessageLookupByLibrary.simpleMessage("關鍵詞"),
-        "ko": MessageLookupByLibrary.simpleMessage("韓語"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("標籤"),
         "landscape": MessageLookupByLibrary.simpleMessage("橫屏"),
         "language": MessageLookupByLibrary.simpleMessage("語言"),
@@ -2030,7 +2030,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_mission_with_name_has_begun": m131,
         "your_time_prof": MessageLookupByLibrary.simpleMessage("您隨身的時間管理專家"),
         "yuan": MessageLookupByLibrary.simpleMessage("元"),
-        "zh_cn": MessageLookupByLibrary.simpleMessage("簡體中文"),
+        "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
         "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

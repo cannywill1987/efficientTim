@@ -5,6 +5,23 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+/* 德语 */
+"mon" = "Mo";
+"tue" = "Di";
+"wed" = "Mi";
+"thur" = "Do";
+"fri" = "Fr";
+"sat" = "Sa";
+"sun" = "So";
+
+"today_mission" = "Heutige Mission";
+"today" = "Heute";
+"timer" = "Timer";
+"timer_desc" = "Der Timer kann für Echtzeit-Countdown und Count-Up-Anzeige im Widget verwendet werden.";
+"clockInToday" = "Heute einchecken";
+"countDown" = "Countdown";
+"countUp" = "Count-Up";
+
 "today" = "Heute";
 "clockInToday" = "Heute stempeln";
 "Quadrant" = "Quadrant ToDo";

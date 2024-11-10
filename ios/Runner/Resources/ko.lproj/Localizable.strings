@@ -5,7 +5,22 @@
  Created by 林智彬 on 2023/8/27.
  
  */
-"title" = "TickTick AI";
+"mon" = "월";
+"tue" = "화";
+"wed" = "수";
+"thur" = "목";
+"fri" = "금";
+"sat" = "토";
+"sun" = "일";
+
+"today" = "오늘";
+"timer" = "타이머";
+"timer_desc" = "타이머는 위젯에서 실시간으로 카운트다운 및 카운트업을 표시할 수 있습니다.";
+"clockInToday" = "오늘 체크인";
+"countDown" = "카운트다운";
+"countUp" = "카운트업";
+
+"title" = "Timerbell Todo";
 "from" = "에서";
 "to" = "까지";
 "time" = "시간";

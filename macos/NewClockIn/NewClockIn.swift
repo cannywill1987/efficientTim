@@ -30,7 +30,7 @@ struct Provider: TimelineProvider {
             print("Could not write to file")
         }
         let list = flomoMissionData?.listFlomoMissionModelList ?? [];
-        
+        var hasToday: Bool = false;
         for index in 0...list.count - 1 {
             let flomoMissionModelList:FlomoMissionModelList = list[index]
             let time = flomoMissionModelList.time;
@@ -39,6 +39,8 @@ struct Provider: TimelineProvider {
             let entry: SimpleEntry
             if calendar.isDateInToday(entryDate) {
                 let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date())
+                hasToday = true
+                entries.append(SimpleEntry(date: Date(), listMissionModel: flomoMissionModelList.listMissionModel))
                 entry = SimpleEntry(date: Date(), listMissionModel: flomoMissionModelList.listMissionModel)
                 print("entryDate is in today")
             } else {
@@ -47,22 +49,11 @@ struct Provider: TimelineProvider {
             }
             entries.append(entry)
         }
+        if hasToday == false {
+            entries.append(SimpleEntry(date: Date(), listMissionModel: []))
+        }
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
-        //
-        //
-        
-        //
-        //        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        //        let currentDate = Date()
-        //        for hourOffset in 0 ..< 5 {
-        //            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-        //            let entry = SimpleEntry(date: entryDate)
-        //            entries.append(entry)
-        //        }
-        
-        //        let timeline = Timeline(entries: entries, policy: .atEnd)
-        //        completion(timeline)
     }
 }
 
@@ -293,9 +284,12 @@ struct GridView: View {
             return 8
         case .systemLarge:
             return 18
+        case .systemExtraLarge:
+            18
         @unknown default:
             return 6
         }
+        return 4;
     }
 }
 

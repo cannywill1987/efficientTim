@@ -386,6 +386,7 @@ flutter:
     - assets/img/ic_screenrotation.svg
     - assets/img/ic_add_column_right.png
     - assets/img/ic_right.svg
+    - assets/img/ic_language.svg
     - assets/img/ic_permission_setting.svg
     - assets/img/ic_guide_lottie2.json
     - assets/img/ic_setting.svg

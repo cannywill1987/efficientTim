@@ -1001,7 +1001,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter real name"),
         "enter_amount":
             MessageLookupByLibrary.simpleMessage("Please enter the amount"),
-        "es": MessageLookupByLibrary.simpleMessage("Spanish"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("event"),
         "everyDayOnce": m44,
         "everyone_can_edit":
@@ -1128,7 +1128,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Third Quarter"),
         "four_seasons_step4":
             MessageLookupByLibrary.simpleMessage("Fourth Quarter"),
-        "fr": MessageLookupByLibrary.simpleMessage("French"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing":
             MessageLookupByLibrary.simpleMessage("Fragment List"),
         "free_open": MessageLookupByLibrary.simpleMessage("free_open"),
@@ -1147,7 +1147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_qr_code":
             MessageLookupByLibrary.simpleMessage("Generate QR code"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("Kind tips"),
-        "german": MessageLookupByLibrary.simpleMessage("German"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage(
             "Click for authentication code"),
         "get_train_plan_successful": m51,
@@ -1266,7 +1266,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_push_setting_detail": MessageLookupByLibrary.simpleMessage(
             "Turn on targeted push settings, which will help you to be notified of the completion of your tasks"),
         "italic": MessageLookupByLibrary.simpleMessage("Italic"),
-        "ja": MessageLookupByLibrary.simpleMessage("Japanese"),
+        "ja": MessageLookupByLibrary.simpleMessage("日本語"),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "janFull": MessageLookupByLibrary.simpleMessage("January"),
         "jan_to_dec":
@@ -1295,7 +1295,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
         "junFull": MessageLookupByLibrary.simpleMessage("June"),
         "keyword": MessageLookupByLibrary.simpleMessage("Keyword"),
-        "ko": MessageLookupByLibrary.simpleMessage("Korean"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("Label"),
         "landscape": MessageLookupByLibrary.simpleMessage("Landscape"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
@@ -2434,7 +2434,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_time_prof": MessageLookupByLibrary.simpleMessage(
             "Your personal time management expert"),
         "yuan": MessageLookupByLibrary.simpleMessage("RMB"),
-        "zh_cn": MessageLookupByLibrary.simpleMessage("Chinese Simplified"),
-        "zh_tw": MessageLookupByLibrary.simpleMessage("Chinese Traditional")
+        "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

@@ -5,7 +5,22 @@
  Created by 林智彬 on 2023/8/27.
  
  */
-"title" = "TickTick AI";
+"mon" = "Ma";
+"tue" = "Di";
+"wed" = "Wo";
+"thur" = "Do";
+"fri" = "Vr";
+"sat" = "Za";
+"sun" = "Zo";
+
+"today" = "Vandaag";
+"timer" = "Timer";
+"timer_desc" = "De timer kan worden gebruikt voor realtime aftellen en optellen op de widget.";
+"clockInToday" = "Vandaag inchecken";
+"countDown" = "Aftellen";
+"countUp" = "Oplopen";
+
+"title" = "Timerbell Todo";
 "from" = "Van";
 "to" = "Naar";
 "time" = "Tijd";

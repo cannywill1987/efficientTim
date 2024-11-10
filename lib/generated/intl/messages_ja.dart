@@ -840,7 +840,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("次のテキストを絵文字に変換してください：..."),
         "emptySearchBoxHint":
             MessageLookupByLibrary.simpleMessage("パターンを入力してください"),
-        "en": MessageLookupByLibrary.simpleMessage("英語"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "encourage_yourself":
             MessageLookupByLibrary.simpleMessage("自分自身を励ましの言葉を書きましょう~"),
         "encrypt": MessageLookupByLibrary.simpleMessage("暗号化"),
@@ -873,7 +873,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("完全なカード番号を入力してください"),
         "enterRealName": MessageLookupByLibrary.simpleMessage("本名を入力してください"),
         "enter_amount": MessageLookupByLibrary.simpleMessage("金額を入力してください"),
-        "es": MessageLookupByLibrary.simpleMessage("スペイン語"),
+        "es": MessageLookupByLibrary.simpleMessage("Español"),
         "event": MessageLookupByLibrary.simpleMessage("イベント"),
         "everyDayOnce": m44,
         "everyone_can_edit": MessageLookupByLibrary.simpleMessage("誰でも編集可能"),
@@ -984,7 +984,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "four_seasons_step2": MessageLookupByLibrary.simpleMessage("第2四半期"),
         "four_seasons_step3": MessageLookupByLibrary.simpleMessage("第3四半期"),
         "four_seasons_step4": MessageLookupByLibrary.simpleMessage("第4四半期"),
-        "fr": MessageLookupByLibrary.simpleMessage("フランス語"),
+        "fr": MessageLookupByLibrary.simpleMessage("Français"),
         "fragment_listing": MessageLookupByLibrary.simpleMessage("フラグメントリスト"),
         "free_open": MessageLookupByLibrary.simpleMessage("無料公開"),
         "frequency": MessageLookupByLibrary.simpleMessage("頻度"),
@@ -999,7 +999,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generate_image": MessageLookupByLibrary.simpleMessage("画像を生成"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("QRコードを生成"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("優しいリマインダー"),
-        "german": MessageLookupByLibrary.simpleMessage("ドイツ語"),
+        "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("認証コードを取得"),
         "get_train_plan_successful": m51,
         "get_training_plan":
@@ -1122,7 +1122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jun": MessageLookupByLibrary.simpleMessage("6月"),
         "junFull": MessageLookupByLibrary.simpleMessage("6月"),
         "keyword": MessageLookupByLibrary.simpleMessage("キーワード"),
-        "ko": MessageLookupByLibrary.simpleMessage("韓国語"),
+        "ko": MessageLookupByLibrary.simpleMessage("한국어"),
         "label": MessageLookupByLibrary.simpleMessage("ラベル"),
         "landscape": MessageLookupByLibrary.simpleMessage("横画面"),
         "language": MessageLookupByLibrary.simpleMessage("言語"),
@@ -2140,7 +2140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_time_prof":
             MessageLookupByLibrary.simpleMessage("あなたのパーソナルタイムマネージャー"),
         "yuan": MessageLookupByLibrary.simpleMessage("元"),
-        "zh_cn": MessageLookupByLibrary.simpleMessage("簡体字中国語"),
-        "zh_tw": MessageLookupByLibrary.simpleMessage("繁体字中国語")
+        "zh_cn": MessageLookupByLibrary.simpleMessage("简体中文"),
+        "zh_tw": MessageLookupByLibrary.simpleMessage("繁體中文")
       };
 }

@@ -186,7 +186,7 @@ struct UITimelineListView: View {
                         .frame(width: 56, height: 56)
                         .background(Color.orange)
                         .cornerRadius(28)
-                }
+                }.preferredColorScheme(.light) // 强制该视图使用浅色模式
                 .padding()
                 .position(x: geometry.size.width - 60, y: geometry.size.height - 30)
             }

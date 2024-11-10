@@ -5,7 +5,22 @@
  Created by 林智彬 on 2023/8/27.
  
  */
-"title" = "TickTick AI";
+"mon" = "Lun";
+"tue" = "Mar";
+"wed" = "Mer";
+"thur" = "Gio";
+"fri" = "Ven";
+"sat" = "Sab";
+"sun" = "Dom";
+
+"today" = "Oggi";
+"timer" = "Timer";
+"timer_desc" = "Il timer può essere utilizzato per visualizzare il conto alla rovescia e il conteggio in tempo reale sul widget.";
+"clockInToday" = "Registrati oggi";
+"countDown" = "Conto alla rovescia";
+"countUp" = "Conteggio in su";
+
+"title" = "Timerbell Todo";
 "from" = "Da";
 "to" = "A";
 "time" = "Tempo";

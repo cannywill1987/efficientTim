@@ -21,7 +21,7 @@ enum OSEnum:Int {
 
 
 class Params {
-    static var env = EnvEnum.dev;
+    static var env = EnvEnum.prd;
     static var curOS = OSEnum.macOS;
     static var isDebug:Bool = env != EnvEnum.prd;
     static var isMACOS:Bool = curOS == OSEnum.macOS;

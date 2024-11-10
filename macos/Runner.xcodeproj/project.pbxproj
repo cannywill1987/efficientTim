@@ -205,6 +205,18 @@
 		DF8DF74F2CD08E8D00A48994 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DF8DF7502CD08E8D00A48994 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DFA1A33E2AA233310070DDD7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFB8276C2CDC845300B3176D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFB8276D2CDC845300B3176D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFB827792CDC845500B3176D /* NewClockinWeekendWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFB8276B2CDC845300B3176D /* NewClockinWeekendWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DFB8277F2CDC88C300B3176D /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
+		DFB827802CDC88CE00B3176D /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */; };
+		DFB827812CDC88DD00B3176D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFB827822CDC88E800B3176D /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */; };
+		DFB827832CDC895E00B3176D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFB827932CDCFF7F00B3176D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB8278D2CDCFF7F00B3176D /* Assets.xcassets */; };
+		DFB827952CDCFF7F00B3176D /* NewClockinWeekendWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB827902CDCFF7F00B3176D /* NewClockinWeekendWidget.swift */; };
+		DFB827962CDCFF7F00B3176D /* NewClockinWeekendWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB827912CDCFF7F00B3176D /* NewClockinWeekendWidgetBundle.swift */; };
+		DFB827972CE0620600B3176D /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77067C2CC2207E004807EA /* NetworkRequest.swift */; };
 		DFBF30EB2869D0DD0091B848 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DFC8174F2A9CB17E00824F79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
 		DFC817552A9CB1E700824F79 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
@@ -391,6 +403,13 @@
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = "Flutter Assemble";
 		};
+		DFB827772CDC845500B3176D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFB8276A2CDC845300B3176D;
+			remoteInfo = NewClockinWeekendWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -406,7 +425,7 @@
 		};
 		DFDE2DC72A3D5A8E0037815B /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -421,6 +440,7 @@
 				DF8DF25F2CCF753500A48994 /* NewClockInExtension.appex in Embed Foundation Extensions */,
 				DF8DF6D32CD08D6800A48994 /* LatestNote5WidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF7032CD08D8600A48994 /* LatestNote7WidgetExtension.appex in Embed Foundation Extensions */,
+				DFB827792CDC845500B3176D /* NewClockinWeekendWidgetExtension.appex in Embed Foundation Extensions */,
 				DF8DF6BB2CD08D5A00A48994 /* LatestNote4WidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -576,6 +596,12 @@
 		DF8DF72A2CD08D9C00A48994 /* LatestNote5Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote5Widget.swift; sourceTree = "<group>"; };
 		DF8DF72B2CD08D9C00A48994 /* LatestNote5WidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestNote5WidgetBundle.swift; sourceTree = "<group>"; };
 		DFA1A33D2AA233310070DDD7 /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		DFB8276B2CDC845300B3176D /* NewClockinWeekendWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewClockinWeekendWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFB8278D2CDCFF7F00B3176D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFB8278E2CDCFF7F00B3176D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFB8278F2CDCFF7F00B3176D /* NewClockinWeekendWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewClockinWeekendWidget.entitlements; sourceTree = "<group>"; };
+		DFB827902CDCFF7F00B3176D /* NewClockinWeekendWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClockinWeekendWidget.swift; sourceTree = "<group>"; };
+		DFB827912CDCFF7F00B3176D /* NewClockinWeekendWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClockinWeekendWidgetBundle.swift; sourceTree = "<group>"; };
 		DFBF30EA2869D0DD0091B848 /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		DFC817502A9CB17E00824F79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC817522A9CB18300824F79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -706,6 +732,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFB827682CDC845300B3176D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFB8276D2CDC845300B3176D /* SwiftUI.framework in Frameworks */,
+				DFB8276C2CDC845300B3176D /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -748,6 +783,7 @@
 				DF8DF72C2CD08D9C00A48994 /* LatestNote5Widget */,
 				DF8DF7222CD08D9B00A48994 /* LatestNote6Widget */,
 				DF8DF70E2CD08D9B00A48994 /* LatestNote7Widget */,
+				DFB827922CDCFF7F00B3176D /* NewClockinWeekendWidget */,
 				33CC10EE2044A3C60003C045 /* Products */,
 				333A3C6A24C1D6DCB934E7CA /* Frameworks */,
 				DF4B3A252A43FC1900FA47B8 /* QuadrantWidgetExtension copy-Info.plist */,
@@ -770,6 +806,7 @@
 				DF8DF6C52CD08D6700A48994 /* LatestNote5WidgetExtension.appex */,
 				DF8DF6DD2CD08D7500A48994 /* LatestNote6WidgetExtension.appex */,
 				DF8DF6F52CD08D8500A48994 /* LatestNote7WidgetExtension.appex */,
+				DFB8276B2CDC845300B3176D /* NewClockinWeekendWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1040,6 +1077,18 @@
 			path = LatestNote5Widget;
 			sourceTree = "<group>";
 		};
+		DFB827922CDCFF7F00B3176D /* NewClockinWeekendWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DFB8278D2CDCFF7F00B3176D /* Assets.xcassets */,
+				DFB8278E2CDCFF7F00B3176D /* Info.plist */,
+				DFB8278F2CDCFF7F00B3176D /* NewClockinWeekendWidget.entitlements */,
+				DFB827902CDCFF7F00B3176D /* NewClockinWeekendWidget.swift */,
+				DFB827912CDCFF7F00B3176D /* NewClockinWeekendWidgetBundle.swift */,
+			);
+			path = NewClockinWeekendWidget;
+			sourceTree = "<group>";
+		};
 		DFC817532A9CB1AF00824F79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1098,6 +1147,7 @@
 				DF8DF6D22CD08D6800A48994 /* PBXTargetDependency */,
 				DF8DF6EA2CD08D7600A48994 /* PBXTargetDependency */,
 				DF8DF7022CD08D8600A48994 /* PBXTargetDependency */,
+				DFB827782CDC845500B3176D /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -1344,13 +1394,32 @@
 			productReference = DF8DF6F52CD08D8500A48994 /* LatestNote7WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		DFB8276A2CDC845300B3176D /* NewClockinWeekendWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFB8277E2CDC845500B3176D /* Build configuration list for PBXNativeTarget "NewClockinWeekendWidgetExtension" */;
+			buildPhases = (
+				DFB827672CDC845300B3176D /* Sources */,
+				DFB827682CDC845300B3176D /* Frameworks */,
+				DFB827692CDC845300B3176D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewClockinWeekendWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = NewClockinWeekendWidgetExtension;
+			productReference = DFB8276B2CDC845300B3176D /* NewClockinWeekendWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		33CC10E52044A3C60003C045 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
@@ -1404,6 +1473,9 @@
 					DF8DF6F42CD08D8500A48994 = {
 						CreatedOnToolsVersion = 16.0;
 					};
+					DFB8276A2CDC845300B3176D = {
+						CreatedOnToolsVersion = 16.1;
+					};
 				};
 			};
 			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "Runner" */;
@@ -1444,6 +1516,7 @@
 				DF8DF6C42CD08D6700A48994 /* LatestNote5WidgetExtension */,
 				DF8DF6DC2CD08D7500A48994 /* LatestNote6WidgetExtension */,
 				DF8DF6F42CD08D8500A48994 /* LatestNote7WidgetExtension */,
+				DFB8276A2CDC845300B3176D /* NewClockinWeekendWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1570,6 +1643,15 @@
 			files = (
 				DF8DF70F2CD08D9B00A48994 /* Assets.xcassets in Resources */,
 				DF8DF7402CD08E3800A48994 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFB827692CDC845300B3176D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFB827932CDCFF7F00B3176D /* Assets.xcassets in Resources */,
+				DFB827812CDC88DD00B3176D /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1886,6 +1968,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFB827672CDC845300B3176D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFB827972CE0620600B3176D /* NetworkRequest.swift in Sources */,
+				DFB827952CDCFF7F00B3176D /* NewClockinWeekendWidget.swift in Sources */,
+				DFB827962CDCFF7F00B3176D /* NewClockinWeekendWidgetBundle.swift in Sources */,
+				DFB8277F2CDC88C300B3176D /* Params.swift in Sources */,
+				DFB827822CDC88E800B3176D /* Color+Extension.swift in Sources */,
+				DFB827802CDC88CE00B3176D /* FlomoMissionModel.swift in Sources */,
+				DFB827832CDC895E00B3176D /* String+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2013,6 +2109,11 @@
 			isa = PBXTargetDependency;
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = DF8DF7552CD090D000A48994 /* PBXContainerItemProxy */;
+		};
+		DFB827782CDC845500B3176D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFB8276A2CDC845300B3176D /* NewClockinWeekendWidgetExtension */;
+			targetProxy = DFB827772CDC845500B3176D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2495,6 +2596,7 @@
 				INFOPLIST_FILE = NewQuadrantWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NewQuadrantWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2508,6 +2610,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewQuadrantWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2542,6 +2646,7 @@
 				INFOPLIST_FILE = NewQuadrantWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NewQuadrantWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2554,6 +2659,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewQuadrantWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -2587,6 +2694,7 @@
 				INFOPLIST_FILE = NewQuadrantWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NewQuadrantWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2599,6 +2707,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewQuadrantWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -3974,6 +4084,143 @@
 			};
 			name = Profile;
 		};
+		DFB8277A2CDC845500B3176D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewClockinWeekendWidget/NewClockinWeekendWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewClockinWeekendWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewClockinWeekendWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewClockinWeekendWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFB8277B2CDC845500B3176D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewClockinWeekendWidget/NewClockinWeekendWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewClockinWeekendWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewClockinWeekendWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewClockinWeekendWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFB8277C2CDC845500B3176D /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewClockinWeekendWidget/NewClockinWeekendWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewClockinWeekendWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewClockinWeekendWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewClockinWeekendWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4123,6 +4370,16 @@
 				DF8DF7062CD08D8600A48994 /* Debug */,
 				DF8DF7072CD08D8600A48994 /* Release */,
 				DF8DF7082CD08D8600A48994 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFB8277E2CDC845500B3176D /* Build configuration list for PBXNativeTarget "NewClockinWeekendWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFB8277A2CDC845500B3176D /* Debug */,
+				DFB8277B2CDC845500B3176D /* Release */,
+				DFB8277C2CDC845500B3176D /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

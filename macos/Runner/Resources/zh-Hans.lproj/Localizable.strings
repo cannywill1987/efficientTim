@@ -5,6 +5,14 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"mon" = "一";
+"tue" = "二";
+"wed" = "三";
+"thur" = "四";
+"fri" = "五";
+"sat" = "六";
+"sun" = "日";
+
 "today_mission" = "今天任务";
 "today" = "今天";
 "timer" = "计时器";

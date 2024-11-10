@@ -19,7 +19,9 @@ import '../../../../r.dart';
 import '../../beans/ResourceDeliveryInfoBean.dart';
 import '../../beans/ResourceLocationInfoBean.dart';
 import '../../common/provider/GlobalStateEnv.dart';
+import '../../components/ClockInWidget.dart';
 import '../../components/FamousSentenceWidget.dart';
+import '../../components/HabitTrackerApp.dart';
 import '../../config/ColorsConfig.dart';
 import '../../config/Params.dart';
 import '../../util/AnalyticsEventsManager.dart';
@@ -484,6 +486,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: '', password: '',));
                   // Utility.pushReplacement(context, Test6Page());
                   // Utility.pushReplacement(context, ShortcutsPage());
+
+                  // Utility.pushReplacement(context, HabitTrackerApp());
+                  // Utility.pushReplacement(context, ClockInWidget());
                   Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, PremiumUpgradePage());
 

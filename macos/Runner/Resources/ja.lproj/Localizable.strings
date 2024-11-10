@@ -5,6 +5,21 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+/* 日语 */
+"mon" = "月";
+"tue" = "火";
+"wed" = "水";
+"thur" = "木";
+"fri" = "金";
+"sat" = "土";
+"sun" = "日";
+"today_mission" = "今日のミッション";
+"today" = "今日";
+"timer" = "タイマー";
+"timer_desc" = "タイマーはウィジェットでカウントダウンとカウントアップをリアルタイムで表示するために使用できます。";
+"clockInToday" = "今日のチェックイン";
+"countDown" = "カウントダウン";
+"countUp" = "カウントアップ";
 "today" = "今日";
 "clockInToday" = "今日のタイムカード";
 "Quadrant" = "四象限ToDo";
