@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:synchronized/extension.dart';
 import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
@@ -1979,6 +1980,74 @@ class CONSTANTS {
         isCheck: defaultVal == 1));
     return list;
   }
+  // 用于排序
+  static List<CheckButtonStateModel> getSortMissionPagePopupMenuButtonList({int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+
+    list.add(CheckButtonStateModel(
+      code: 'order_by_list',
+      // checkIcon: Icon(Icons.format_list_bulleted, size: 20), // 使用 Icons.xxx 替代
+      // uncheckIcon: Icon(Icons.format_list_bulleted, size: 20),
+      title: getI18NKey().order_by_list,
+      isCheck: defaultVal == 0,
+    ));
+
+    list.add(CheckButtonStateModel(
+      code: 'order_by_time',
+      // checkIcon: Icon(Icons.access_time, size: 20), // 替换为合适的时间图标
+      // uncheckIcon: Icon(Icons.access_time, size: 20),
+      title: getI18NKey().order_by_time,
+      isCheck: defaultVal == 1,
+    ));
+
+    list.add(CheckButtonStateModel(
+      code: 'order_by_mission_priority',
+      // checkIcon: Icon(Icons.priority_high, size: 20), // 替换为优先级图标
+      // uncheckIcon: Icon(Icons.priority_high, size: 20),
+      title: getI18NKey().order_by_mission_priority,
+      isCheck: defaultVal == 2,
+    ));
+
+    list.add(CheckButtonStateModel(
+      code: 'order_by_mission_tag',
+      // checkIcon: Icon(Icons.label, size: 20), // 替换为标签图标
+      // uncheckIcon: Icon(Icons.label, size: 20),
+      title: getI18NKey().order_by_mission_tag,
+      isCheck: defaultVal == 3,
+    ));
+
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getMissionButtonList(
+      {int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    const double size = 14;
+    list.add(CheckButtonStateModel(
+        code: 'export',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcExport, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcExport, size: size),
+        title: getI18NKey().export,
+        isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        code: 'sort',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcSort, size: size - 5, color: ThemeManager.getInstance().getDefautThemeColor()),
+        uncheckIcon:
+        Utility.getSVGPicture(R.assetsImgIcSort, size: size - 5, color: ThemeManager.getInstance().getDefautThemeColor()),
+        title: getI18NKey().sort,
+        isCheck: defaultVal == 1));
+    if(DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
+      list.add(CheckButtonStateModel(
+          code: 'sync',
+          checkIcon: Utility.getSVGPicture(
+              R.assetsImgIcCloudSync, size: size - 5),
+          uncheckIcon:
+          Utility.getSVGPicture(R.assetsImgIcCloudSync, size: size - 5),
+          title: getI18NKey().sync_desktop_widget,
+          isCheck: defaultVal == 1));
+    }
+    return list;
+  }
 
   static List<CheckButtonStateModel> getFourQuadrantButtonList(
       {int defaultVal = 0}) {
@@ -1997,12 +2066,6 @@ class CONSTANTS {
             Utility.getSVGPicture(R.assetsImgIcVisible, size: size - 5),
         title: getI18NKey().visible,
         isCheck: defaultVal == 1));
-    // list.add(CheckButtonStateModel(
-    //     code: 'group',
-    //     checkIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
-    //     uncheckIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
-    //     title: getI18NKey().add_group_listing,
-    //     isCheck: defaultVal == 1));
     return list;
   }
 
@@ -5661,6 +5724,28 @@ class CONSTANTS {
       }
     }
     return listFolderModel;
+  }
+
+  /**
+   * 3 无优先级  2 低优先级 1 中优先级 0 高优先级
+   */
+  static int getPriorityByPriorityEnum(PriorityEnum priorityEnum) {
+    int priority = 0;
+    switch (priorityEnum) {
+      case PriorityEnum.red1:
+        priority = 0;
+        break;
+      case PriorityEnum.yellow2:
+        priority = 1;
+        break;
+      case PriorityEnum.blue3:
+        priority = 2;
+        break;
+      case PriorityEnum.green4:
+        priority = 3;
+        break;
+    }
+    return priority;
   }
 
   /**

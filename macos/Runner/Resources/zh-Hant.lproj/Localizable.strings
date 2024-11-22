@@ -5,6 +5,10 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"configuration_display_name"="智能任務日曆";
+"description"="通過日曆視圖展示任務安排，可輕鬆切換日期、快速完成任務，支持多種尺寸顯示。";
+"customize_mission"="自定義任務";
+
 "mon" = "一";
 "tue" = "二";
 "wed" = "三";

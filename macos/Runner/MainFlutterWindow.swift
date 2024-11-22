@@ -24,7 +24,11 @@ class MainFlutterWindow: NSWindow {
             WindowUtility.setSize(window: self, width: 1400, height: 1100);
             UserDefaults.standard.set(true, forKey: "hasSetWindowSize")
 //        }
-        MethodChannelManager.shareInstance(flutterViewController: flutterViewController, window: self)
+        if #available(macOS 11.0, *) {
+            MethodChannelManager.shareInstance(flutterViewController: flutterViewController, window: self)
+        } else {
+            // Fallback on earlier versions
+        }
         
         self.startLocalEventMoniter();
         self.startGlobalEventMoniter();
@@ -36,16 +40,32 @@ class MainFlutterWindow: NSWindow {
             if event.modifierFlags.contains(.command) && event.modifierFlags.contains(.shift) { //ctrl+shift
                 switch event.keyCode {
                 case 1: //ctrl+shift+s
-                    MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStopBtn", arguments: nil)
+                    if #available(macOS 11.0, *) {
+                        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStopBtn", arguments: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     break
                 case 35: //ctrl+shift+p
-                    MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarPauseBtn", arguments: nil)
+                    if #available(macOS 11.0, *) {
+                        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarPauseBtn", arguments: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     break
                 case 15: //ctrl+shift+p
-                    MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStartBtn", arguments: nil)
+                    if #available(macOS 11.0, *) {
+                        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStartBtn", arguments: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     break
                 case 2: //ctrl+shift+d
-                    MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarDoneBtn", arguments: nil)
+                    if #available(macOS 11.0, *) {
+                        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarDoneBtn", arguments: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     break
                 default:
                     break

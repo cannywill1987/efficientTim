@@ -5758,10 +5758,17 @@ class Utility {
     //重新刷新推送列表
     // CONSTANTS.pushDataModelList.refresh();
     // PushDataModelList pushDataModelList = PushDataModelList();
+    DateTime date = DateTime.now();
+
     //定义时间范围
-    DateTime dateTimeStart = startDateTime ?? new DateTime(2023);
+    // DateTime dateTimeStart = startDateTime ?? new DateTime(2023);
+    // int timestampStart = dateTimeStart.millisecondsSinceEpoch;
+    // DateTime dateTimeEnd = endDateTime ?? new DateTime(2025);
+
+    DateTime dateTimeStart = new DateTime(date.year - 1);
     int timestampStart = dateTimeStart.millisecondsSinceEpoch;
-    DateTime dateTimeEnd = endDateTime ?? new DateTime(2025);
+    DateTime dateTimeEnd = new DateTime(date.year + 2);
+
     int timestampEnd = dateTimeEnd.millisecondsSinceEpoch;
     int timestampNow = getTimeStampToday();
     DateTime dateTimeNowFiltered = getFilterDateTimeFromTimeStamp(timestampNow);
@@ -5931,10 +5938,11 @@ class Utility {
     //重新刷新推送列表
     CONSTANTS.pushDataModelList.refresh();
     // PushDataModelList pushDataModelList = PushDataModelList();
+    DateTime date = DateTime.now();
     //定义时间范围
-    DateTime dateTimeStart = new DateTime(2023);
+    DateTime dateTimeStart = new DateTime(date.year - 1);
     int timestampStart = dateTimeStart.millisecondsSinceEpoch;
-    DateTime dateTimeEnd = new DateTime(2025);
+    DateTime dateTimeEnd = new DateTime(date.year + 2);
     int timestampEnd = dateTimeEnd.millisecondsSinceEpoch;
     int timestampNow = getTimeStampToday();
     DateTime dateTimeNowFiltered = getFilterDateTimeFromTimeStamp(timestampNow);

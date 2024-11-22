@@ -224,20 +224,23 @@ class OverlayManagement {
 
 
   openMissionDetailPageSettingOverlay(BuildContext context,
-      {required double right, required List<CheckButtonStateModel> list, required Function onTapListener}) async {
+      {required double right, double? top, required List<CheckButtonStateModel> list, required Function onTapListener}) async {
+    // var overlayState = Overlay.of(context, rootOverlay: true);
     dismissMissionDetailPageSettingEntry();
     // if(selectValueMoneyOverlayEntry != null){
     //   return;
     // }
-    OverlayEntry overlayEntry = new OverlayEntry(builder: (context) {
+    OverlayEntry overlayEntry =  FullScreenOverlayEntry(builder: (context) {
       return Stack(
         children: [
-          SettingListViewWidget(list: list, onTapListener: onTapListener, right: right,),
+          SettingListViewWidget(list: list, onTapListener: onTapListener, right: right, top: top ?? 40,),
         ],
       );
-    });
+    },    dismissCallback: () => dismissMissionDetailPageSettingEntry(),
+    ).build();;
     navigatorKey.currentState?.overlay
         ?.insert(missionDetailPageSettingEntry = overlayEntry);
+    // overlayState?.insert(this.missionDetailPageSettingEntry = overlayEntry);
   }
 
 

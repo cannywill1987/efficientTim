@@ -5,6 +5,9 @@
  Created by 林智彬 on 2023/8/27.
  
  */
+"configuration_display_name"="智能任务日历";
+"description"="通过日历视图展示任务安排，可轻松切换日期、快速完成任务，支持多种尺寸显示。";
+"customize_mission"="自定义任务";
 "mon" = "一";
 "tue" = "二";
 "wed" = "三";

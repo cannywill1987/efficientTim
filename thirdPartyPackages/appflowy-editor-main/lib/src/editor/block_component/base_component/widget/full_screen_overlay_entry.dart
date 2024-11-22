@@ -28,44 +28,55 @@ class FullScreenOverlayEntry {
     _entry = OverlayEntry(
       builder: (context) {
         final size = MediaQuery.of(context).size;
-        return SizedBox.fromSize(
-          size: size,
-          child: Stack(
-            children: [
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  if (tapToDismiss) {
-                    // remove this from the overlay when tapped the opaque layer
-                    _entry?.remove();
-                    _entry = null;
-                    dismissCallback?.call();
-                  }
-                },
-              ),
-              //lzb 居中
-              if(this.isCenter)
-                Align(
-                  alignment: Alignment(0,-0.5),
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            if (tapToDismiss) {
+              // remove this from the overlay when tapped the opaque layer
+              _entry?.remove();
+              _entry = null;
+              dismissCallback?.call();
+            }
+          },
+          child: SizedBox.fromSize(
+            size: size,
+            child: Stack(
+              children: [
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    if (tapToDismiss) {
+                      // remove this from the overlay when tapped the opaque layer
+                      _entry?.remove();
+                      _entry = null;
+                      dismissCallback?.call();
+                    }
+                  },
+                ),
+                //lzb 居中
+                if(this.isCenter)
+                  Align(
+                    alignment: Alignment(0,-0.5),
+                    child: Material(
+                      // Avoid background color behind the child, so the child can fully control the overlay style
+                      color: Colors.transparent,
+                      child: builder(context),
+                    ),
+                  )
+                else
+                Positioned(
+                  top: top,
+                  bottom: bottom,
+                  left: left,
+                  right: right,
                   child: Material(
                     // Avoid background color behind the child, so the child can fully control the overlay style
                     color: Colors.transparent,
                     child: builder(context),
                   ),
-                )
-              else
-              Positioned(
-                top: top,
-                bottom: bottom,
-                left: left,
-                right: right,
-                child: Material(
-                  // Avoid background color behind the child, so the child can fully control the overlay style
-                  color: Colors.transparent,
-                  child: builder(context),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

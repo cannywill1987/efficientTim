@@ -1,5 +1,10 @@
 {
   "@@locale": "zh_TW",
+  "sort": "排序",
+  "sync_desktop_widget": "同步桌面元件",
+  "sync_desktop_widget_success": "同步桌面元件成功，請確認添加桌面小元件",
+  "email_not_supportable": "國內暫時不支持郵箱註冊",
+  "cancel_latest_clockin": "撤銷最近打卡",
   "super_tool": "超級工具條",
   "repeative_by_year": "按年重複",
   "repeative_by_month": "按月重複",

@@ -1,5 +1,10 @@
 {
   "@@locale": "zh_Hant",
+  "sort": "排序",
+  "sync_desktop_widget": "同步桌面组件",
+  "sync_desktop_widget_success": "同步桌面组件成功，请确认添加桌面小组件",
+  "email_not_supportable":"国内暂时不支持邮箱注册",
+  "cancel_latest_clockin": "撤销最近打卡",
   "super_tool": "超級工具條",
   "repeative_by_year": "按年重複",
   "repeative_by_month": "按月重複",

@@ -544,6 +544,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "cancel_finish":
             MessageLookupByLibrary.simpleMessage("Fertigstellung abbrechen"),
+        "cancel_latest_clockin": MessageLookupByLibrary.simpleMessage(
+            "Letztes Einstempeln widerrufen"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("Administrator absetzen"),
         "cannot_handle_myself": MessageLookupByLibrary.simpleMessage(
@@ -987,6 +989,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("E-Mail"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("E-Mail darf nicht leer sein"),
+        "email_not_supportable": MessageLookupByLibrary.simpleMessage(
+            "E-Mail-Registrierung wird in China derzeit nicht unterstützt"),
         "embedCode": MessageLookupByLibrary.simpleMessage("Code einbetten"),
         "emoji_conversion":
             MessageLookupByLibrary.simpleMessage("Emoji-Konvertierung"),
@@ -2174,6 +2178,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Links und rechts schieben"),
         "smsVerificationCode":
             MessageLookupByLibrary.simpleMessage("SMS-Verifizierungscode"),
+        "sort": MessageLookupByLibrary.simpleMessage("Sortieren"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("Tonaufnahme"),
         "speech": MessageLookupByLibrary.simpleMessage("Rede"),
         "speech_placeholder": MessageLookupByLibrary.simpleMessage(
@@ -2227,6 +2232,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte ändern Sie den Schreibstil des ausgewählten Absatzes, z.B. formell, informell, akademisch oder humorvoll."),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "Wechseln Sie in den Timer-Modus, wird beim nächsten Mal funktionieren"),
+        "sync_desktop_widget": MessageLookupByLibrary.simpleMessage(
+            "Desktop-Widget synchronisieren"),
+        "sync_desktop_widget_success": MessageLookupByLibrary.simpleMessage(
+            "Desktop-Widget erfolgreich synchronisiert, bitte überprüfen Sie die Hinzufügung des Desktop-Widgets"),
         "table": MessageLookupByLibrary.simpleMessage("Tabelle"),
         "tag": MessageLookupByLibrary.simpleMessage("Tag"),
         "tagNames": MessageLookupByLibrary.simpleMessage("Tags"),

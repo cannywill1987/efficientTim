@@ -6,6 +6,10 @@
   
 */
 /* 德语 */
+"configuration_display_name"="Intelligenter Aufgaben-Kalender";
+"description"="Zeigt Aufgaben in der Kalenderansicht an, ermöglicht das einfache Wechseln von Daten, das schnelle Erledigen von Aufgaben und unterstützt verschiedene Größen.";
+"customize_mission"="Aufgaben anpassen";
+
 "mon" = "Mo";
 "tue" = "Di";
 "wed" = "Mi";

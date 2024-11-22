@@ -481,6 +481,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_not_be_empty": MessageLookupByLibrary.simpleMessage("入力欄は空にできません"),
         "can_view": MessageLookupByLibrary.simpleMessage("閲覧可能"),
         "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
+        "cancel_latest_clockin":
+            MessageLookupByLibrary.simpleMessage("最新の打刻をキャンセルする"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("管理者を解除"),
         "cannot_handle_myself":
@@ -833,6 +835,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("メール"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("メールアドレスは空にできません"),
+        "email_not_supportable":
+            MessageLookupByLibrary.simpleMessage("中国では現在、メール登録はサポートされていません"),
         "emoji_conversion": MessageLookupByLibrary.simpleMessage("絵文字変換"),
         "emoji_conversion_placeholder":
             MessageLookupByLibrary.simpleMessage("絵文字に変換するテキストを入力してください..."),
@@ -1839,6 +1843,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "/を入力してブロックを挿入するか、入力を開始してください"),
         "slide_left_right": MessageLookupByLibrary.simpleMessage("左右にスライド可能"),
         "smsVerificationCode": MessageLookupByLibrary.simpleMessage("SMS認証コード"),
+        "sort": MessageLookupByLibrary.simpleMessage("並べ替え"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("録音"),
         "speech": MessageLookupByLibrary.simpleMessage("スピーチ"),
         "speech_placeholder":
@@ -1884,6 +1889,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "選択した段落の書き方を、形式的、非形式的、学術的、またはユーモラスなど、別のスタイルに変更してください。"),
         "switch_timer_mode_success":
             MessageLookupByLibrary.simpleMessage("タイマーモードに切り替え成功、次回から有効"),
+        "sync_desktop_widget":
+            MessageLookupByLibrary.simpleMessage("デスクトップウィジェットを同期する"),
+        "sync_desktop_widget_success": MessageLookupByLibrary.simpleMessage(
+            "デスクトップウィジェットの同期に成功しました。デスクトップウィジェットの追加を確認してください。"),
         "table": MessageLookupByLibrary.simpleMessage("テーブル"),
         "tag": MessageLookupByLibrary.simpleMessage("タグ"),
         "tagNames": MessageLookupByLibrary.simpleMessage("タグ名"),

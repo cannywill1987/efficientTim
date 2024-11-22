@@ -34,6 +34,7 @@ typedef OnDragEndListener = void Function(dynamic obj);
 class QuadrantMissionSilverList extends StatefulWidget {
   List _datas = [];
   OnTapListener? onTapListener;
+  OnTapListener? onTapCreateListener;
   MissionSilverState? menuSilverListState;
   OnTapEditTitleListener? onTapEditTitleListener;
   OnTapEditListener? onTapEditListener;
@@ -58,6 +59,7 @@ class QuadrantMissionSilverList extends StatefulWidget {
       required OnDragEndListener onDragEndListener,
       required this.priorityEnum,
       required this.quadrantWidgetGlobalKey,
+        this.onTapCreateListener,
       this.onTapDeleteListener,
       this.onTapEditListener,
       this.onTapEditTitleListener,

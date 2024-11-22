@@ -171,25 +171,41 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
         Utility.activeApp();
         //        let isRightClickEvent = NSApp.currentEvent?.isRightClick ?? false
         print("start");
-        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStartBtn", arguments: nil)
+        if #available(macOS 11.0, *) {
+            MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStartBtn", arguments: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @objc func handleStatusBarPauseBtn(_ sender: NSStatusBarButton) {
         Utility.activeApp();
         print("pause");
-        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarPauseBtn", arguments: nil)
+        if #available(macOS 11.0, *) {
+            MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarPauseBtn", arguments: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @objc func handleStatusBarStopBtn(_ sender: NSStatusBarButton) {
         Utility.activeApp();
         print("stop")
-        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStopBtn", arguments: nil)
+        if #available(macOS 11.0, *) {
+            MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarStopBtn", arguments: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @objc func handleStatusBarDoneBtn(_ sender: NSStatusBarButton) {
         Utility.activeApp();
         print("done")
-        MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarDoneBtn", arguments: nil)
+        if #available(macOS 11.0, *) {
+            MethodChannelManager.shareInstance(flutterViewController: nil, window: nil).channel?.invokeMethod("handleStatusBarDoneBtn", arguments: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     override func application(_ application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

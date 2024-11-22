@@ -1,5 +1,10 @@
 {
   "@@locale": "ja",
+  "sort": "並べ替え",
+  "sync_desktop_widget": "デスクトップウィジェットを同期する",
+  "sync_desktop_widget_success": "デスクトップウィジェットの同期に成功しました。デスクトップウィジェットの追加を確認してください。",
+  "email_not_supportable": "中国では現在、メール登録はサポートされていません",
+  "cancel_latest_clockin": "最新の打刻をキャンセルする",
   "super_tool": "スーパー ツールバー",
   "repeative_by_year": "毎年繰り返す",
   "repeative_by_month": "毎月繰り返す",

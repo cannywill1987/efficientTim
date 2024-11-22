@@ -5,6 +5,10 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"configuration_display_name"="스마트 작업 캘린더";
+"description"="캘린더 뷰에서 작업을 표시하고, 날짜 전환이 쉽고 작업을 빠르게 완료하며 다양한 크기를 지원합니다.";
+"customize_mission"="작업 사용자 정의";
+
 "mon" = "월";
 "tue" = "화";
 "wed" = "수";

@@ -7,6 +7,7 @@ import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+import '../../../config/CONSTANTS.dart';
 import '../../../config/ENUMS.dart';
 import '../../../config/Params.dart';
 import '../../../models/EventFn.dart';
@@ -16,6 +17,7 @@ import '../../../util/DialogManagement.dart';
 import '../../../util/LoginManager.dart';
 import '../../../util/OverlayManagement.dart';
 import '../../../util/TextUtil.dart';
+import '../../CreateMissionPage/CreateMissionPage.dart';
 import '../../SettingItemDetailPage/SettingItemDetailPage.dart';
 import '../../missionPage/MissionPage.dart';
 import 'QuadrantMissionSilverList.dart';
@@ -34,15 +36,16 @@ class QuadrantWidget extends StatefulWidget {
   bool isHeaderVisible;
   Function onDragingListener;
   Function onDragEndListener;
+
   QuadrantWidget(
       {Key? key,
       required this.priorityEnum,
-        required this.onDragingListener,
+      required this.onDragingListener,
       required this.title,
-        required this.quadrantWidgetGlobalKey,
-        required this.onDragEndListener,
+      required this.quadrantWidgetGlobalKey,
+      required this.onDragEndListener,
       required this.desc,
-        this.isHeaderVisible: true,
+      this.isHeaderVisible: true,
       this.onRefreshListener,
       required this.onRefresh,
       required this.listMissionModelsUnfinished,
@@ -86,21 +89,17 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
 
   void showBorder() {
     this.isShowed = true;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   hideBorder() {
     this.isShowed = false;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   void onDragEndListener(MissionModel? missionMdeo) {
     this.widget.onDragEndListener.call();
-    if(missionMdeo != null) {
+    if (missionMdeo != null) {
       requestMongoDbUpdateData(missionModel: missionMdeo);
     }
   }
@@ -109,8 +108,10 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
 
@@ -130,30 +131,33 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
 
     FolderModel? folderModel = await MongoApisManager.getInstance()
         .queryfolderModelWithFolderId(data.folder_id);
     if (folderModel == null) {
-       folderModel = FolderModel();
+      folderModel = FolderModel();
     }
-      await MongoApisManager.getInstance().insertStatsModel(
-        title: data.title,
-        type: 1,
-        icon: folderModel.icon,
-        color: folderModel.color,
-        mission_id: data.objectId,
-        fid: folderModel.objectId,
-        tagName: data.tagNames,
-        begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-        finish_time: Utility.getTimeStampToday(),
-        value: data.tomato_duration?.toDouble() ?? 0,
-        category: data.title,
-      );
-    await MongoApisManager.getInstance().finishMissionModel(missionModel: data, context: context);
+    await MongoApisManager.getInstance().insertStatsModel(
+      title: data.title,
+      type: 1,
+      icon: folderModel.icon,
+      color: folderModel.color,
+      mission_id: data.objectId,
+      fid: folderModel.objectId,
+      tagName: data.tagNames,
+      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
+      finish_time: Utility.getTimeStampToday(),
+      value: data.tomato_duration?.toDouble() ?? 0,
+      category: data.title,
+    );
+    await MongoApisManager.getInstance()
+        .finishMissionModel(missionModel: data, context: context);
     this.widget.onRefresh();
     CounterManagement counterManagement = CounterManagement.getInstance();
     //不是同一个就重置重新开始计数
@@ -167,8 +171,10 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   }
 
   Future onClickEditTitle(MissionModel data) async {
-    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     DialogManagement.getInstance().showEditTitleDialog(
@@ -176,8 +182,12 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
       data.title = value;
-      if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id, uid: LoginManager.getInstance().userBean.uid ?? "") == false) {
-        Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      if (ChatGroupManager.isFolderModelEnabled(
+              folderId: data.folder_id,
+              uid: LoginManager.getInstance().userBean.uid ?? "") ==
+          false) {
+        Utility.showToastMsg(
+            context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
       }
       await MongoApisManager.getInstance()
@@ -194,8 +204,11 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   }
 
   void requestMongoDbUpdateData({MissionModel? missionModel}) async {
-    if(ChatGroupManager.isFolderModelEnabled(folderId: missionModel?.folder_id) == false) {
-      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: missionModel?.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     await MongoApisManager.getInstance()
@@ -212,8 +225,10 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 跳转到任务详情页MissionPage开始任务
    */
   void onClickMissionStart(MissionModel data) async {
-    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     FolderModel? folderModel = await MongoApisManager.getInstance()
@@ -224,26 +239,26 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data.title != CounterManagement.getInstance().missionModel?.title) {
-      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+      if (SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
         Utility.showAlertDialog(
-          context: context,
-          content: getI18NKey().missionRunningAlert(data.title ?? ""),
-          onConfirm: () {
-            OverlayManagement.getInstance().openMissionDetailPageOverlay(
-                context: context, missionModel: data, folderModel: folderModel);
-            // Utility.pushNavigator(
-            //     context,
-            //     new MissionDetailPage(
-            //       missionModel: data,
-            //       folderModel: this.widget.folderModel,
-            //     ));
-          });
-    } else {
-      OverlayManagement.getInstance().openMissionDetailPageOverlay(
-          context: context,
-          missionModel: data,
-          folderModel: folderModel);
-    }
+            context: context,
+            content: getI18NKey().missionRunningAlert(data.title ?? ""),
+            onConfirm: () {
+              OverlayManagement.getInstance().openMissionDetailPageOverlay(
+                  context: context,
+                  missionModel: data,
+                  folderModel: folderModel);
+              // Utility.pushNavigator(
+              //     context,
+              //     new MissionDetailPage(
+              //       missionModel: data,
+              //       folderModel: this.widget.folderModel,
+              //     ));
+            });
+      } else {
+        OverlayManagement.getInstance().openMissionDetailPageOverlay(
+            context: context, missionModel: data, folderModel: folderModel);
+      }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
           context: context, missionModel: data, folderModel: folderModel);
@@ -260,8 +275,10 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 侧滑点击删除
    */
   Future onClickDeleteItem(data) async {
-    if(ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
     OkCancelResult result = await showOkCancelAlertDialog(
@@ -305,71 +322,110 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints)
-    {
+        builder: (BuildContext context, BoxConstraints constraints) {
       return Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          !this.widget.isHeaderVisible ? SizedBox.shrink() : Container(
-            height: Utility.isHandsetBySize() ? 45 : 50.0,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: ThemeManager.getInstance().isDark() ? ThemeManager.getInstance().getCardBackgroundColor(): null,
-                gradient: ThemeManager.getInstance().isDark() ? null: LinearGradient(colors: Utility.getBGColorByPriority(
-                    this.widget.priorityEnum)),
-                borderRadius: BorderRadius.all(Radius.circular(25))),
-            child: Align(
-              alignment: Alignment.center,
-              child: Wrap(
-                  alignment: WrapAlignment.center,
-                  direction: Axis.vertical,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text(
-                      this.widget.title,
-                      style: TextStyle(
-                          color: Utility.getTextColorByPriority(
-                              this.widget.priorityEnum),
-                          fontSize: Utility.isHandsetBySize() ? 14 : 18),
-                    ),
-                    Text(
-                      this.widget.desc,
-                      style: TextStyle(
-                          color: ThemeManager.getInstance().isDark() ? Color(0xffa0a0a0) : Utility.getSubTextColorByPriority(
-                              this.widget.priorityEnum),
-                          fontSize: Utility.isHandsetBySize() ? 12 : 14),
-                    )
-                  ]),
-            ),
-          ),
-          !this.widget.isHeaderVisible ? SizedBox.shrink() : SizedBox(
-            height: Utility.isHandsetBySize() ? 5 : 8.0,
-          ),
+          !this.widget.isHeaderVisible
+              ? SizedBox.shrink()
+              : Container(
+                  height: Utility.isHandsetBySize() ? 45 : 50.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: ThemeManager.getInstance().isDark()
+                          ? ThemeManager.getInstance().getCardBackgroundColor()
+                          : null,
+                      gradient: ThemeManager.getInstance().isDark()
+                          ? null
+                          : LinearGradient(
+                              colors: Utility.getBGColorByPriority(
+                                  this.widget.priorityEnum)),
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Wrap(
+                        alignment: WrapAlignment.center,
+                        direction: Axis.vertical,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            this.widget.title,
+                            style: TextStyle(
+                                color: Utility.getTextColorByPriority(
+                                    this.widget.priorityEnum),
+                                fontSize: Utility.isHandsetBySize() ? 14 : 18),
+                          ),
+                          Text(
+                            this.widget.desc,
+                            style: TextStyle(
+                                color: ThemeManager.getInstance().isDark()
+                                    ? Color(0xffa0a0a0)
+                                    : Utility.getSubTextColorByPriority(
+                                        this.widget.priorityEnum),
+                                fontSize: Utility.isHandsetBySize() ? 12 : 14),
+                          )
+                        ]),
+                  ),
+                ),
+          !this.widget.isHeaderVisible
+              ? SizedBox.shrink()
+              : SizedBox(
+                  height: Utility.isHandsetBySize() ? 5 : 8.0,
+                ),
           Expanded(
               child: Container(
                   clipBehavior: Clip.antiAlias,
                   // padding: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                      border: !this.isShowed ? null: Border.all(color: Utility.getTextColorByPriority(
-                          this.widget.priorityEnum), width: 1),
+                      border: !this.isShowed
+                          ? null
+                          : Border.all(
+                              color: Utility.getTextColorByPriority(
+                                  this.widget.priorityEnum),
+                              width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: ThemeManager.getInstance().isDark() ? ThemeManager.getInstance().getCardBackgroundColor(): null,
-                      gradient:ThemeManager.getInstance().isDark() ?  null : LinearGradient(
-                          colors: Utility.getBGColorByPriority(
-                              this.widget.priorityEnum))),
+                      color: ThemeManager.getInstance().isDark()
+                          ? ThemeManager.getInstance().getCardBackgroundColor()
+                          : null,
+                      gradient: ThemeManager.getInstance().isDark()
+                          ? null
+                          : LinearGradient(
+                              colors: Utility.getBGColorByPriority(
+                                  this.widget.priorityEnum))),
                   child: CustomScrollView(
-                    slivers: buildList(containerWidth: constraints.maxWidth, containerHeight: constraints.maxHeight),
+                    slivers: buildList(
+                        containerWidth: constraints.maxWidth,
+                        containerHeight: constraints.maxHeight,
+                        onCreateListener: () {
+                          // PriorityEnum priorityEnum = this.widget.priorityEnum;
+                          MissionModel missionModel = MissionModel();
+                          missionModel.end_time =
+                              CONSTANTS.getDeadLineTme((0) + 1);
+                          missionModel.priorityStatus =
+                              CONSTANTS.getPriorityByPriorityEnum(
+                                  this.widget.priorityEnum);
+                          if (Utility.isHandsetBySize() == true) {
+                            Utility.pushNavigator(context,
+                                CreateMissionPage(missionModel: missionModel));
+                          } else {
+                            DialogManagement.getInstance().showPCCustomDialog(
+                                context: context,
+                                widget: CreateMissionPage(
+                                    missionModel: missionModel));
+                          }
+                        }),
                   )))
         ],
       );
     });
   }
 
-
   /**
    * 完成任务的SectionHeader
+   *
    */
-  initSliverPersistentHeader(String title) {
+  initSliverPersistentHeader(String title,
+      {String? subtitle, Function? onTapCreateListener}) {
     return SliverPersistentHeader(
         //是否固定头布局 默认false
         pinned: false,
@@ -382,38 +438,74 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
           maxHeight: Utility.isHandsetBySize() ? 25 : 35.0,
           child: Container(
               decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(colors: Utility.getBGColorByPrioritySelected(this.widget.priorityEnum))),
+                  gradient: LinearGradient(
+                      colors: Utility.getBGColorByPrioritySelected(
+                          this.widget.priorityEnum))),
               padding: EdgeInsets.fromLTRB(
                   Utility.isHandsetBySize() ? 10 : 25.0,
                   0,
                   0,
                   Utility.isHandsetBySize() ? 0 : 0),
               // color: ColorsConfig.backgroundColor,
-              alignment: Alignment(-1, 1),
-              child: Column(
+              alignment: Alignment(0, 0),
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     title,
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontSize: 13,
-                        color: ThemeManager.getInstance().getTextColor(defaultColor: Utility.getTextColorByPriority(this.widget.priorityEnum), defaultDarkColor: Color(0xffcccccc)),
-                        shadows: ThemeManager.getInstance().isDark() ? null : [
-                          Shadow(color: Colors.white, offset: Offset(1, 1))
-                        ]),
-                  )
+                        color: ThemeManager.getInstance().getTextColor(
+                            defaultColor: Utility.getTextColorByPriority(
+                                this.widget.priorityEnum),
+                            defaultDarkColor: Color(0xffcccccc)),
+                        shadows: ThemeManager.getInstance().isDark()
+                            ? null
+                            : [
+                                Shadow(
+                                    color: Colors.white, offset: Offset(1, 1))
+                              ]),
+                  ),
+                  Spacer(),
+                  if (subtitle != null)
+                    GestureDetector(
+                      onTap: () {
+                        onTapCreateListener?.call();
+                      },
+                      child: Text(
+                        subtitle ?? "",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: ThemeManager.getInstance().getTextColor(
+                                defaultColor: Utility.getTextColorByPriority(
+                                    this.widget.priorityEnum),
+                                defaultDarkColor: Color(0xffcccccc)),
+                            shadows: ThemeManager.getInstance().isDark()
+                                ? null
+                                : [
+                              Shadow(
+                                  color: Colors.white,
+                                  offset: Offset(1, 1))
+                            ]),
+                      ),
+                    ),
+                  if (subtitle != null) SizedBox(width: 15),
                 ],
               )),
         ));
   }
 
-  List<Widget> buildList({required double containerWidth, required double containerHeight}) {
+  List<Widget> buildList(
+      {required double containerWidth,
+      required double containerHeight,
+      required Function onCreateListener}) {
     List<Widget> listWidget = [];
-    listWidget
-        .add(initSliverPersistentHeader(getI18NKey().missionToBeComplete));
+    listWidget.add(initSliverPersistentHeader(getI18NKey().missionToBeComplete,
+        subtitle: getI18NKey().create, onTapCreateListener: onCreateListener));
     listWidget.add(QuadrantMissionSilverList(
       quadrantWidgetGlobalKey: this.widget.quadrantWidgetGlobalKey,
       onDragEndListener: (data) {
@@ -439,13 +531,17 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
       },
       onTapFinishListener: (data) {
         this.onClick('onClickFinishItem', data); //点击完成任务
-      }, onDragingListener: (index) {
-      this.widget.onDragingListener(index);
-    }, containerHeight: containerHeight, containerWidth: containerWidth,
+      },
+      onDragingListener: (index) {
+        this.widget.onDragingListener(index);
+      },
+      containerHeight: containerHeight,
+      containerWidth: containerWidth,
     ));
     listWidget.add(initSliverPersistentHeader(getI18NKey().missioncompleted));
     listWidget.add(QuadrantMissionSilverList(
-     containerHeight: containerHeight, containerWidth: containerWidth,
+      containerHeight: containerHeight,
+      containerWidth: containerWidth,
       quadrantWidgetGlobalKey: this.widget.quadrantWidgetGlobalKey,
       priorityEnum: this.widget.priorityEnum,
       //未完成任务列表
@@ -470,10 +566,11 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
       },
       onTapFinishListener: (data) {
         this.onClick('onClickFinishItem', data); //点击完成任务
-      }, onDragingListener: (index) {
-       this.widget.onDragingListener(index);
-      // showBorder(priorityIndex: index);
-    },
+      },
+      onDragingListener: (index) {
+        this.widget.onDragingListener(index);
+        // showBorder(priorityIndex: index);
+      },
     ));
     return listWidget;
   }

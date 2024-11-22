@@ -6,6 +6,10 @@
   
 */
 /* 法语 */
+"configuration_display_name"="Calendrier Intelligent des Tâches";
+"description"="Affiche les tâches dans une vue calendrier, permet de changer facilement de date, de terminer rapidement les tâches et prend en charge plusieurs tailles.";
+"customize_mission"="Personnaliser la tâche";
+
 "mon" = "Lun";
 "tue" = "Mar";
 "wed" = "Mer";

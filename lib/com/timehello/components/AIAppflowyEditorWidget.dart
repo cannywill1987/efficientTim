@@ -58,11 +58,14 @@ return widgets;
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (Utility.isHuaWei() == false)
           Text(
             getI18NKey().ai_title,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
+          if (Utility.isHuaWei() == false)
           SizedBox(height: 16),
+          if (Utility.isHuaWei() == false)
           Wrap(
             spacing: 10,
             runSpacing: 10,

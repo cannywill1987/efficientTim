@@ -544,6 +544,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_view": MessageLookupByLibrary.simpleMessage("Peut voir"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "cancel_finish": MessageLookupByLibrary.simpleMessage("Annuler la fin"),
+        "cancel_latest_clockin": MessageLookupByLibrary.simpleMessage(
+            "Annuler la dernière pointage"),
         "cancel_setting_administrator": MessageLookupByLibrary.simpleMessage(
             "Annuler le statut d\'administrateur"),
         "cannot_handle_myself":
@@ -997,6 +999,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("E-mail"),
         "emailCannotBeNull": MessageLookupByLibrary.simpleMessage(
             "L\'e-mail ne peut pas être vide"),
+        "email_not_supportable": MessageLookupByLibrary.simpleMessage(
+            "L\'inscription par e-mail n\'est actuellement pas prise en charge en Chine"),
         "embedCode": MessageLookupByLibrary.simpleMessage("Incorporer code"),
         "emoji_conversion":
             MessageLookupByLibrary.simpleMessage("Conversion en Emoji"),
@@ -2188,6 +2192,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Glisser de gauche à droite"),
         "smsVerificationCode":
             MessageLookupByLibrary.simpleMessage("Code de vérification SMS"),
+        "sort": MessageLookupByLibrary.simpleMessage("Trier"),
         "sound_recording":
             MessageLookupByLibrary.simpleMessage("enregistrement sonore"),
         "speech": MessageLookupByLibrary.simpleMessage("Discours"),
@@ -2245,6 +2250,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Veuillez changer le style d\'écriture du paragraphe sélectionné, par exemple formel, informel, académique ou humoristique."),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "Passer en mode timer, fonctionnera la prochaine fois"),
+        "sync_desktop_widget": MessageLookupByLibrary.simpleMessage(
+            "Synchroniser le widget de bureau"),
+        "sync_desktop_widget_success": MessageLookupByLibrary.simpleMessage(
+            "Widget de bureau synchronisé avec succès, veuillez confirmer l\'ajout du widget de bureau"),
         "table": MessageLookupByLibrary.simpleMessage("Tableau"),
         "tag": MessageLookupByLibrary.simpleMessage("Balise"),
         "tagNames": MessageLookupByLibrary.simpleMessage("Étiquettes"),

@@ -38,7 +38,7 @@ func getArrayListThisWeek3(time: TimeInterval, list: [MissionModelList]) -> [Mis
     }
 }
 
-
+@available(macOS 11.0, *)
 @available(iOS 14.0, *)
 struct MyCalendarMissionStoreData {
     @AppStorage("CalendarMissionModel", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()
@@ -104,15 +104,50 @@ struct MissionModelList: Codable, Hashable {
 }
 
 
+struct EndTimeMissionData : Codable, Hashable {
+    var title: String?
+    var listMissionModel: [EndTimeMissionModel]
+}
 
 struct MissionData : Codable, Hashable {
 //    var missionList : [String]
+    var title: String?
     var listMissionModel: [MissionModel]
-//    var missionList2 : [String]
-//    var missionList3 : [String]
-//    var missionList4 : [String]
 }
 
+struct EndTimeMissionModel: Codable, Hashable {
+    let objectId: String?
+    let title: String?
+    let lunar: String?
+    let end_time: Int?
+    let background_url: String?
+    let color: Int
+    var isFinished, isDelayed: Bool?
+    let priorityStatus: Int?
+    
+    
+    init(
+        objectId: String?,
+        title: String?,
+        lunar: String?,
+        background_url: String?,
+        end_time: Int?,
+        priorityStatus: Int?,
+        isFinished: Bool?,
+        isDelayed: Bool?,
+        color: Int?
+    ) {
+        self.objectId = objectId
+        self.lunar = lunar
+        self.title = title
+        self.background_url = background_url
+        self.end_time = end_time
+        self.priorityStatus = priorityStatus
+        self.isFinished = isFinished
+        self.isDelayed = isDelayed
+        self.color = color ?? 0xffff8800
+    }
+}
 struct MissionModel: Codable, Hashable {
 //    let createdAt, updatedAt, _id, folder_id: String
     let objectId: String?

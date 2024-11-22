@@ -170,6 +170,7 @@ class _CountdownItemState extends State<CountdownItem> {
   );
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = Utility.getDateTimeFromTimeStamp(widget.missionModel.end_time ?? 0);
     ListTile child = ListTile(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,7 +190,7 @@ class _CountdownItemState extends State<CountdownItem> {
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(DateFormat('yyyy.MM.dd HH:mm EEEE').format(Utility.getDateTimeFromTimeStamp(widget.missionModel.end_time ?? 0))),
+          Text(DateFormat('yyyy.MM.dd HH:mm EEEE').format(dateTime) + " " + Utility.getLunarCalendar(year: dateTime.year, month: dateTime.month, day: dateTime.day)),
           Text((_remainingTime?.inMilliseconds ?? 0) > 0 ?getI18NKey().counting : getI18NKey().finished),
         ],
       ),

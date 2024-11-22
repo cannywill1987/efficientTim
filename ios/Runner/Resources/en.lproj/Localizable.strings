@@ -5,6 +5,9 @@
  Created by 林智彬 on 2023/8/27.
  
  */
+"configuration_display_name"="Smart Task Calendar";
+"description"="Displays tasks in calendar view, allows easy date switching, quick task completion, and supports multiple sizes.";
+"customize_mission"="Customize Task";
 "mon" = "Mon";
 "tue" = "Tue";
 "wed" = "Wed";

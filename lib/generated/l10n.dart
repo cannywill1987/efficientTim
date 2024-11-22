@@ -50,20 +50,50 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `国内暂时不支持邮箱注册`
+  /// `Sort`
+  String get sort {
+    return Intl.message(
+      'Sort',
+      name: 'sort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sync desktop widget`
+  String get sync_desktop_widget {
+    return Intl.message(
+      'Sync desktop widget',
+      name: 'sync_desktop_widget',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Desktop widget synced successfully, please confirm adding the desktop widget`
+  String get sync_desktop_widget_success {
+    return Intl.message(
+      'Desktop widget synced successfully, please confirm adding the desktop widget',
+      name: 'sync_desktop_widget_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email registration is not supported in China currently`
   String get email_not_supportable {
     return Intl.message(
-      '国内暂时不支持邮箱注册',
+      'Email registration is not supported in China currently',
       name: 'email_not_supportable',
       desc: '',
       args: [],
     );
   }
 
-  /// `撤销最近打卡`
+  /// `Cancel the latest clock-in`
   String get cancel_latest_clockin {
     return Intl.message(
-      '撤销最近打卡',
+      'Cancel the latest clock-in',
       name: 'cancel_latest_clockin',
       desc: '',
       args: [],

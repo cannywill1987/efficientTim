@@ -2,15 +2,15 @@
 //  NewCalendarWidgetBundle.swift
 //  NewCalendarWidget
 //
-//  Created by 林智彬 on 2024/10/28.
+//  Created by 林智彬 on 2024/11/19.
 //
 
 import WidgetKit
 import SwiftUI
 
-//@main
+@main
 struct NewCalendarWidgetBundle: WidgetBundle {
     var body: some Widget {
-        MyCalendarWidget()
+        NewCalendarWidget()
     }
 }

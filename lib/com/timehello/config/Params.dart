@@ -11,7 +11,7 @@ class Params {
   static final isHttpCacheOn = false; // mongodb的缓存是否开启
   static Locale? local; // 本机语言
   static int mongoDBTimeout = 10000;
-  static String curVersion = '3.5.1';
+  static String curVersion = '3.6.7';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
   static String curLatestVersionMAC = '';

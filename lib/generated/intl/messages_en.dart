@@ -526,7 +526,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_view": MessageLookupByLibrary.simpleMessage("Can view"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancel_finish": MessageLookupByLibrary.simpleMessage("Cancel Finish"),
-        "cancel_latest_clockin": MessageLookupByLibrary.simpleMessage("撤销最近打卡"),
+        "cancel_latest_clockin":
+            MessageLookupByLibrary.simpleMessage("Cancel the latest clock-in"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("Cancel administrator"),
         "cannot_handle_myself":
@@ -953,8 +954,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("E-mail can not be empty"),
-        "email_not_supportable":
-            MessageLookupByLibrary.simpleMessage("国内暂时不支持邮箱注册"),
+        "email_not_supportable": MessageLookupByLibrary.simpleMessage(
+            "Email registration is not supported in China currently"),
         "embedCode": MessageLookupByLibrary.simpleMessage("Embed Code"),
         "emoji_conversion":
             MessageLookupByLibrary.simpleMessage("Emoji Conversion"),
@@ -2096,6 +2097,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sliding left and right"),
         "smsVerificationCode":
             MessageLookupByLibrary.simpleMessage("SMS verification code"),
+        "sort": MessageLookupByLibrary.simpleMessage("Sort"),
         "sound_recording":
             MessageLookupByLibrary.simpleMessage("sound recording"),
         "speech": MessageLookupByLibrary.simpleMessage("Speech"),
@@ -2146,6 +2148,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please change the writing style of the selected paragraph, such as formal, informal, academic, or humorous."),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "Switch to timer mode, will work next time"),
+        "sync_desktop_widget":
+            MessageLookupByLibrary.simpleMessage("Sync desktop widget"),
+        "sync_desktop_widget_success": MessageLookupByLibrary.simpleMessage(
+            "Desktop widget synced successfully, please confirm adding the desktop widget"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),
         "tag": MessageLookupByLibrary.simpleMessage("Tag"),
         "tagNames": MessageLookupByLibrary.simpleMessage("Tags"),

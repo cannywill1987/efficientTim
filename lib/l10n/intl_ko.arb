@@ -1,5 +1,10 @@
 {
   "@@locale": "ko",
+  "sort": "정렬",
+  "sync_desktop_widget": "데스크톱 위젯 동기화",
+  "sync_desktop_widget_success": "데스크톱 위젯 동기화 성공, 데스크톱 위젯 추가를 확인하세요",
+  "email_not_supportable": "중국에서는 이메일 등록이 현재 지원되지 않습니다",
+  "cancel_latest_clockin": "최근 출근 기록 취소",
   "super_tool": "슈퍼 툴바",
   "repeative_by_year": "매년 반복",
   "repeative_by_month": "매월 반복",

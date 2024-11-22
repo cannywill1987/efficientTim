@@ -1556,14 +1556,16 @@ class DialogManagement {
 
   void showRequestVoicePermissiondialog(BuildContext context,
       {Function? okCallback, Function? cancelCallback}) {
-    if (Utility.isHuaWei() == true &&
-        SharePreferenceUtil.getSyncInstance().getBool(
-                key: ShareprefrenceKeys.hasMicrophonePermissionRequested +
-                    Params.curVersion,
-                defaultVal: false) ==
+    // Utility.isHuaWei() == true &&
+        bool q = SharePreferenceUtil.getSyncInstance().getBool(
+            key: ShareprefrenceKeys.hasMicrophonePermissionRequested + "123" +
+                Params.curVersion,
+            defaultVal: false);
+    if (
+    Utility.isHuaWei() == true && q ==
             false) {
       SharePreferenceUtil.getSyncInstance().setBool(
-          key: ShareprefrenceKeys.hasMicrophonePermissionRequested +
+          key: ShareprefrenceKeys.hasMicrophonePermissionRequested + "123" +
               Params.curVersion,
           val: true);
       Utility.showAlertDialog(

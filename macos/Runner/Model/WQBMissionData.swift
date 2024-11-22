@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import WidgetKit
 
+@available(macOS 11.0, *)
 @available(iOS 14.0, *)
 struct WQBMissionStoreData {
     @AppStorage("WQBMissionStoreDataNote1", store: UserDefaults(suiteName: Params.groupName)) var primaryData : Data = Data()

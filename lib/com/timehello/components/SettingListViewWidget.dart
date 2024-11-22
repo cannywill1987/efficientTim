@@ -13,10 +13,12 @@ class SettingListViewWidget extends StatelessWidget {
   List<CheckButtonStateModel> list = [];
   Function onTapListener;
   double right = 40;
+  double? top = 40;
   SettingListViewWidget({
     Key? key,
     required this.right ,
     required this.onTapListener,
+     this.top,
     required this.list,
   }) : super(key: key);
 
@@ -25,7 +27,7 @@ class SettingListViewWidget extends StatelessWidget {
     //用column排列
     return Positioned(
       right: this.right,
-      top: 40,
+      top: this.top ?? 40,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(

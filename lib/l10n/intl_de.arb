@@ -1,5 +1,10 @@
 {
   "@@locale": "de",
+  "sort": "Sortieren",
+  "sync_desktop_widget": "Desktop-Widget synchronisieren",
+  "sync_desktop_widget_success": "Desktop-Widget erfolgreich synchronisiert, bitte überprüfen Sie die Hinzufügung des Desktop-Widgets",
+  "email_not_supportable": "E-Mail-Registrierung wird in China derzeit nicht unterstützt",
+  "cancel_latest_clockin": "Letztes Einstempeln widerrufen",
   "super_tool": "Super-Toolbar",
   "repeative_by_year": "jährlich wiederholen",
   "repeative_by_month": "monatlich wiederholen",

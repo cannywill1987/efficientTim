@@ -486,6 +486,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("입력란은 비워둘 수 없습니다"),
         "can_view": MessageLookupByLibrary.simpleMessage("볼 수 있음"),
         "cancel": MessageLookupByLibrary.simpleMessage("취소"),
+        "cancel_latest_clockin":
+            MessageLookupByLibrary.simpleMessage("최근 출근 기록 취소"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("관리자 취소"),
         "cannot_handle_myself":
@@ -837,6 +839,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("メール"),
         "emailCannotBeNull":
             MessageLookupByLibrary.simpleMessage("이메일은 비워둘 수 없습니다"),
+        "email_not_supportable":
+            MessageLookupByLibrary.simpleMessage("중국에서는 이메일 등록이 현재 지원되지 않습니다"),
         "embedCode": MessageLookupByLibrary.simpleMessage(""),
         "emoji_conversion": MessageLookupByLibrary.simpleMessage("이모지 변환"),
         "emoji_conversion_placeholder":
@@ -1841,6 +1845,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("왼쪽 오른쪽으로 슬라이드 가능"),
         "smsVerificationCode":
             MessageLookupByLibrary.simpleMessage("SMS 인증 코드"),
+        "sort": MessageLookupByLibrary.simpleMessage("정렬"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("녹음"),
         "speech": MessageLookupByLibrary.simpleMessage("연설문"),
         "speech_placeholder":
@@ -1887,6 +1892,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "선택한 단락의 글쓰기 스타일을 공식적, 비공식적, 학술적 또는 유머러스 등으로 변경하세요."),
         "switch_timer_mode_success": MessageLookupByLibrary.simpleMessage(
             "타이머 모드로 성공적으로 전환되었습니다. 다음에 적용됩니다"),
+        "sync_desktop_widget":
+            MessageLookupByLibrary.simpleMessage("데스크톱 위젯 동기화"),
+        "sync_desktop_widget_success": MessageLookupByLibrary.simpleMessage(
+            "데스크톱 위젯 동기화 성공, 데스크톱 위젯 추가를 확인하세요"),
         "table": MessageLookupByLibrary.simpleMessage("표"),
         "tag": MessageLookupByLibrary.simpleMessage("태그"),
         "tagNames": MessageLookupByLibrary.simpleMessage("태그 이름"),

@@ -9,6 +9,7 @@ import Foundation
 import FlutterMacOS
 import WidgetKit
 import SwiftUI
+@available(macOS 11.0, *)
 class MethodChannelManager {
     static let instance:MethodChannelManager = MethodChannelManager()
     var channel:FlutterMethodChannel?;
@@ -160,11 +161,21 @@ class MethodChannelManager {
                         //time四毫秒时间戳
                         let currentTime = Int(Date().timeIntervalSince1970)
                         //50天时间范围
-                        let tenDaysInSeconds = 50 * 24 * 60 * 60 * 1000
-                        if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
+                        let tenDaysInSeconds = 100 * 24 * 60 * 60 * 1000
+//                        if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
                             
                             let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
-                            print("date:\(date) count:\(count)")
+                        let calendar = Calendar.current
+                        let components1 = calendar.dateComponents([.year, .month, .day], from: date)
+                        if datas.count > 0 {
+                            print("");
+                        }
+//                        if components1.year == 2024 && components1.month==11 && components1.day == 19 {
+//                            if datas.count > 0 {
+//                                print("");
+//                            }
+//                        }
+//                            print("date:\(date) count:\(count)")
                             if count > 0 {
                                 for index2 in 0...count - 1 {
                                     let item2 = datas[index2]
@@ -180,14 +191,24 @@ class MethodChannelManager {
                                     let background_url:String? = item["background_url"] as? String;
                                     let end_time:Int = item["end_time"] as? Int ?? 0;
                                     let priorityStatus:Int? = item["priorityStatus"] as? Int;
-                                    let missionData = MissionModel(objectId: objectId, title: title, lunar: lunar, background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: false, color: color)
-                                    
+//                                    if title == "网球" {
+//                                        print("date:\(date)")
+//                                        print("year:\(components1.year) month:\(components1.month) day:\(components1.day)")
+//                                        if (components1.year == 2024 && components1.month == 11 && components1.day == 19) {
+                                            let missionData = MissionModel(objectId: objectId, title: title, lunar: lunar, background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: false, color: color)
+//                                    if title == "网球" {
+//                                        print();
+//                                    }
                                     
                                     listMissionModel.append(missionData)
+//                                        }
+//                                    }
                                 }
                             }
+                        if listMissionModel.count > 0 {
                             listMissionModels.append(MissionModelList(time: time, lunar: lunar,listMissionModel: listMissionModel))
                         }
+//                        }
                     }
                 }
                 if #available(iOS 14.0, *) {
@@ -239,7 +260,37 @@ class MethodChannelManager {
                     // Fallback on earlier versions
                 };
                 break;
-                
+            case "storeCustomizeMissionList": //创建自定义任务
+                let res = (call.arguments as! [String: Any]);
+                let list:[[String: Any]] = (res["datas"] as? [[String: Any]]) ?? [[:]];
+                let title = (res["title"] as! String);
+                var listMissionModels:[MissionModel] = [];
+                if list.count > 0 {
+                    for index in 0...list.count - 1 {
+                        let item = list[index]
+                        
+                        let objectId:String? = item["_id"] as? String;
+                        let isDelayed:Bool = item["isDelayed"] as! Bool;
+                        let isFinished:Bool = item["isFinished"] as! Bool;
+                        let title:String = item["title"] as! String;
+                        let background_url:String? = item["background_url"] as? String;
+                        let end_time:Int = item["end_time"] as! Int;
+                        let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                        let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                        let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                        listMissionModels.append(missionData);
+                        //                            print("11111");
+                    }
+                    //                    }
+                    if #available(iOS 14.0, *) {
+                        let primaryData:CustomizeMissionStoreData = CustomizeMissionStoreData(missionData: MissionData(title: title,listMissionModel: listMissionModels))
+                        Task {
+                            await primaryData.encodeData();
+                        }
+                    } else {
+                    };
+                }
+                break;
             case "storeMissionList": //创建今天任务
                 let list = (call.arguments as! [[String: Any]]);
                     var listMissionModels:[MissionModel] = [];
@@ -269,7 +320,35 @@ class MethodChannelManager {
                     };
                 }
                 break;
-                
+            case "storeEndTimeMissionList": //创建倒计时任务
+                let list = (call.arguments as! [[String: Any]]);
+                    var listMissionModels:[EndTimeMissionModel] = [];
+                    if list.count > 0 {
+                        for index in 0...list.count - 1 {
+                            let item = list[index]
+                            
+                            let objectId:String? = item["_id"] as? String;
+                            let isDelayed:Bool = item["isDelayed"] as! Bool;
+                            let isFinished:Bool = item["isFinished"] as! Bool;
+                            let title:String = item["title"] as! String;
+                            let background_url:String? = item["background_url"] as? String;
+                            let end_time:Int = item["end_time"] as! Int;
+                            let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                            let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                            let missionData = EndTimeMissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                            listMissionModels.append(missionData);
+//                            print("11111");
+                        }
+//                    }
+                    if #available(iOS 14.0, *) {
+                        let primaryData:EndTimeMissionStoreData = EndTimeMissionStoreData(missionData: EndTimeMissionData(listMissionModel: listMissionModels))
+                        Task {
+                            await primaryData.encodeData();
+                        }
+                    } else {
+                    };
+                }
+                break;
             case "requestReview":
                 Utility.requestReview();
                 break;

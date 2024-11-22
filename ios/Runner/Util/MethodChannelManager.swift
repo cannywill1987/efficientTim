@@ -79,7 +79,7 @@ class MethodChannelManager {
                     let currentTime = Int(Date().timeIntervalSince1970)
                     //50天时间范围
                     let tenDaysInSeconds = 50 * 24 * 60 * 60 * 1000
-                    if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
+//                    if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
                         
                         let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
                         print("date:\(date) count:\(count)")
@@ -105,7 +105,7 @@ class MethodChannelManager {
                             }
                         }
                         listMissionModels.append(MissionModelList(time: time, lunar: lunar,listMissionModel: listMissionModel))
-                    }
+//                    }
                 }
             }
             if #available(iOS 14.0, *) {
@@ -205,6 +205,37 @@ class MethodChannelManager {
                 // Fallback on earlier versions
             };
             break;
+        case "storeCustomizeMissionList": //创建自定义任务
+            let res = (call.arguments as! [String: Any]);
+            let list:[[String: Any]] = (res["datas"] as? [[String: Any]]) ?? [[:]];
+            let title = (res["title"] as! String);
+            var listMissionModels:[MissionModel] = [];
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    
+                    let objectId:String? = item["_id"] as? String;
+                    let isDelayed:Bool = item["isDelayed"] as! Bool;
+                    let isFinished:Bool = item["isFinished"] as! Bool;
+                    let title:String = item["title"] as! String;
+                    let background_url:String? = item["background_url"] as? String;
+                    let end_time:Int = item["end_time"] as! Int;
+                    let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                    let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                    let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                    listMissionModels.append(missionData);
+                    //                            print("11111");
+                }
+                //                    }
+                if #available(iOS 14.0, *) {
+                    let primaryData:CustomizeMissionStoreData = CustomizeMissionStoreData(missionData: MissionData(title: title,listMissionModel: listMissionModels))
+                    Task {
+                        await primaryData.encodeData();
+                    }
+                } else {
+                };
+            }
+            break;
         case "storeMissionDataList":
             let title1 = (call.arguments as! [[String: Any]])[0]["title"] as! String;
             let title2 = (call.arguments as! [[String: Any]])[1]["title"] as! String;
@@ -225,6 +256,35 @@ class MethodChannelManager {
             } else {
                 // Fallback on earlier versions
             };
+            break;
+        case "storeCustomizeMissionList": //创建今天任务
+            let list = (call.arguments as! [[String: Any]]);
+            var listMissionModels:[MissionModel] = [];
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    
+                    let objectId:String? = item["_id"] as? String;
+                    let isDelayed:Bool = item["isDelayed"] as! Bool;
+                    let isFinished:Bool = item["isFinished"] as! Bool;
+                    let title:String = item["title"] as! String;
+                    let background_url:String? = item["background_url"] as? String;
+                    let end_time:Int = item["end_time"] as! Int;
+                    let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                    let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                    let missionData = MissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                    listMissionModels.append(missionData);
+                    //                            print("11111");
+                }
+                //                    }
+                if #available(iOS 14.0, *) {
+                    let primaryData:MissionStoreData = MissionStoreData(missionData: MissionData(listMissionModel: listMissionModels))
+                    Task {
+                        await primaryData.encodeData();
+                    }
+                } else {
+                };
+            }
             break;
         case "storeMissionList": //创建今天任务
             let list = (call.arguments as! [[String: Any]]);

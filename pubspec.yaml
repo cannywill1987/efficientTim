@@ -464,6 +464,7 @@ flutter:
     - assets/img/ic_time_management.svg
     - assets/img/ic_finished_white.svg
     - assets/img/btn_checked.png
+    - assets/img/ic_sort.svg
     - assets/img/ic_safari.svg
     - assets/img/ic_archive.svg
     - assets/img/ic_tags.svg

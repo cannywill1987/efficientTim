@@ -1,5 +1,10 @@
 {
   "@@locale": "fr",
+  "sort": "Trier",
+  "sync_desktop_widget": "Synchroniser le widget de bureau",
+  "sync_desktop_widget_success": "Widget de bureau synchronisé avec succès, veuillez confirmer l'ajout du widget de bureau",
+  "email_not_supportable": "L'inscription par e-mail n'est actuellement pas prise en charge en Chine",
+  "cancel_latest_clockin": "Annuler la dernière pointage",
   "super_tool": "Super barre d'outils",
   "repeative_by_year": "répéter par année",
   "repeative_by_month": "répéter par mois",

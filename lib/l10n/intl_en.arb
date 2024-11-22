@@ -1,7 +1,10 @@
 {
   "@@locale": "en",
-  "email_not_supportable":"国内暂时不支持邮箱注册",
-  "cancel_latest_clockin": "撤销最近打卡",
+  "sort": "Sort",
+  "sync_desktop_widget": "Sync desktop widget",
+  "sync_desktop_widget_success": "Desktop widget synced successfully, please confirm adding the desktop widget",
+  "email_not_supportable": "Email registration is not supported in China currently",
+  "cancel_latest_clockin": "Cancel the latest clock-in",
   "uncomplete_flomo_mission": "Unfinish clock-in mission '{title}'",
   "repeative_by_year": "repeat by year",
   "repeative_by_month": "repeat by month",

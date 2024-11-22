@@ -39,6 +39,7 @@ import '../../components/CheckButtonListWithIconWidget.dart';
 import '../../components/CircleWidget.dart';
 import '../../components/CustomBlackButton.dart';
 import '../../components/CustomMarquee.dart';
+import '../../components/CustomPopupWidget.dart';
 import '../../components/CustomTextField.dart';
 import '../../components/ExportMissionListDialogUtil.dart';
 import '../../components/ListingSecurityWidget.dart';
@@ -109,8 +110,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   List<MissionModel>? curListMissionModels = [];
   GlobalKey<HeaderStatsAndInputWidgetState>? HeaderWidgetStateGlobalKey =
       GlobalKey();
-  GlobalKey<HeaderStatsAndInputWidgetState>? HeaderWidgetStateGlobalKeyForTable =
-  GlobalKey();
+  GlobalKey<HeaderStatsAndInputWidgetState>?
+      HeaderWidgetStateGlobalKeyForTable = GlobalKey();
   GlobalKey<CheckButtonListWithIconWidgetState>?
       checkButtonListWithIconWidgetKey = GlobalKey();
   int timestampCur = 0;
@@ -784,11 +785,16 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     child: Container(
                       key: ValueKey('Container2'),
                       color: ThemeManager.getInstance().getBackgroundColor(),
-                      child: this.missionDataViewTypeEnum == MissionDataViewTypeEnum.table ? Column(children: getTableSilverListWidget(),) : CustomScrollView(
-                        controller: _scrollController,
-                        key: ValueKey('CustomScrollView1'),
-                        slivers: getSilverListWidget(),
-                      ),
+                      child: this.missionDataViewTypeEnum ==
+                              MissionDataViewTypeEnum.table
+                          ? Column(
+                              children: getTableSilverListWidget(),
+                            )
+                          : CustomScrollView(
+                              controller: _scrollController,
+                              key: ValueKey('CustomScrollView1'),
+                              slivers: getSilverListWidget(),
+                            ),
                     ),
                   ),
                 ]),
@@ -996,10 +1002,10 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       //已完成不需要加头部
       // if (headerWidget == null) {
       listWidget.add(HeaderStatsAndInputWidget(
-        shouldSliver: false,
+          shouldSliver: false,
           key: HeaderWidgetStateGlobalKeyForTable,
           childAfterInputWidget: Utility.isHandsetBySize() &&
-              !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
+                  !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
               ? null
               : getBottomBar(context, isVisible: this.isFocusing),
           //移动端key要唯一 否则每次经过这里都会实例化 造成移动端输入框点击焦点后键盘自动隐藏 pc端要新的globalkey 否则头部headerwidget无法显示
@@ -1045,12 +1051,19 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     listWidget.add(Expanded(
       child: this.buildMissionTableContainerWidget(
           (SharePreferenceUtil.getSyncInstance().getCompleteMissionVisible() ==
-              false &&
-              this.widget.folderStatusDate != 6)
+                      false &&
+                  this.widget.folderStatusDate != 6)
               ? []
               : (Utility.getListAfterOrder(
-              missionOrderEnum, this.curListMissionModels ?? [], -1 , this.widget.folderModel.filterConditionMapBean?.listingId) ??
-              [])),
+                      missionOrderEnum,
+                      this.curListMissionModels ?? [],
+                      -1,
+                      this
+                          .widget
+                          .folderModel
+                          .filterConditionMapBean
+                          ?.listingId) ??
+                  [])),
     ));
 
     // if (this.missionDataViewTypeEnum == MissionDataViewTypeEnum.table) {
@@ -1131,20 +1144,23 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     listWidget.addAll(this.missionDataViewTypeEnum ==
             MissionDataViewTypeEnum.list
         ? this.buildListWidget(
-            Utility.getListAfterOrder(missionOrderEnum, _missionModelListUnFinished, -1, this.widget.folderModel.filterConditionMapBean?.listingId) ??
-                [],
-            false)
-        : this.buildGridWidget(Utility.getListAfterOrder(
-                    MissionOrderEnum.orderByWords,
-                    this.curListMissionModels ?? [],
-                    folderStatusIsArchived,
+            Utility.getListAfterOrder(
+                    missionOrderEnum,
+                    _missionModelListUnFinished,
+                    -1,
                     this
                         .widget
                         .folderModel
                         .filterConditionMapBean
                         ?.listingId) ??
-                [])
-            );
+                [],
+            false)
+        : this.buildGridWidget(Utility.getListAfterOrder(
+                MissionOrderEnum.orderByWords,
+                this.curListMissionModels ?? [],
+                folderStatusIsArchived,
+                this.widget.folderModel.filterConditionMapBean?.listingId) ??
+            []));
 
     if (this.widget.folderStatusDate != 4 &&
         (this.missionDataViewTypeEnum == MissionDataViewTypeEnum.list)) {
@@ -1347,44 +1363,17 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 SizedBox(
                   width: 10,
                 ),
-                InkWell(
-                  onTap: () {
-                    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
-                      "sceneType": "missionpage",
-                      "eventType": "missionpage_guide",
-                      "description": "导出",
-                    });
-                    TextEditingController textEditingController =
-                        TextEditingController();
-                    String s = Utility.getContentFromMissionList(
-                        datas: this.curListMissionModels ?? [],
-                        listCheckButtonModel: CONSTANTS.getExportButtonsList());
-                    textEditingController.text = s;
-                    ExportMissionListDialogUtil.show(context,
-                        textEditingController: textEditingController,
-                        onTapListener: (res) {
-                      List<CheckButtonStateModel> data = res['data'];
-                      MissionOrderEnum missionOrderEnum = res['enum'];
-                      String s = Utility.getContentFromMissionList(
-                          datas: Utility.getMissionModelListAfterOrder(
-                              missionOrderEnum,
-                              this.curListMissionModels ?? []),
-                          listCheckButtonModel: data);
-                      textEditingController.text = s;
-                      updateUI();
-                    }, export: (data) {
-                      Utility.showToastMsg(
-                          context: context,
-                          msg: getI18NKey().offer_next_version);
-                    });
-                    // Utility.getContentFromMissionList(datas: this.missionListOriginal, listCheckButtonModel: CONSTANTS.getMi);
-                  },
-                  child: CustomBlackButton(
-                    text: getI18NKey().export,
-                    color: ThemeManager.getInstance()
-                        .getColor(defaultColor: Colors.red),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     onClickExport();
+                //     // Utility.getContentFromMissionList(datas: this.missionListOriginal, listCheckButtonModel: CONSTANTS.getMi);
+                //   },
+                //   child: CustomBlackButton(
+                //     text: getI18NKey().export,
+                //     color: ThemeManager.getInstance()
+                //         .getColor(defaultColor: Colors.red),
+                //   ),
+                // ),
                 SizedBox(
                   width: 10,
                 ),
@@ -1433,7 +1422,61 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 SizedBox(
                   width: 10,
                 ),
-                getPopupMenu()
+                CustomPopupWidget(
+                  onSelected: (CheckButtonStateModel model) {
+                    if (model.code == 'export') {
+                      onClickExport();
+                    } else if (model.code == 'sort') {
+                      OverlayManagement.getInstance().openMissionDetailPageSettingOverlay(
+                          context,
+                          right: 40,
+                          top: 80,
+                          list: CONSTANTS.getSortMissionPagePopupMenuButtonList(), onTapListener: (model) {
+                            String val = model.code;
+                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+                          "sceneType": "missionpage",
+                          "eventType": "missionpage_order",
+                          "description": "排序",
+                          "message": val
+                        });
+                        if (val == 'order_by_list') {
+                          this.missionOrderEnum = MissionOrderEnum.orderByWords;
+                        } else if (val == 'order_by_time') {
+                          this.missionOrderEnum = MissionOrderEnum.orderByTime;
+                        } else if (val == 'order_by_mission_priority') {
+                          this.missionOrderEnum = MissionOrderEnum.orderByPriority;
+                        } else if (val == 'order_by_mission_tag') {
+                          this.missionOrderEnum = MissionOrderEnum.orderByTag;
+                        }
+                        SharePreferenceUtil.getSyncInstance()
+                            .setMissionOrderEnum(missionOrderEnum);
+                        this.updateUI();
+                        OverlayManagement.getInstance()
+                            .dismissMissionDetailPageSettingEntry();
+                        // this.onClick("onClickSettingItem", model.code);
+                      }
+                          );
+                    } else if (model.code == 'sync') {
+                      CounterMethodChannelManager.getInstance()
+                          .storeCustomizeMissionList(Utility.getListAfterOrder(
+                          missionOrderEnum,
+                          _missionModelListUnFinished,
+                          -1,
+                          this
+                              .widget
+                              .folderModel
+                              .filterConditionMapBean
+                              ?.listingId) ?? [], this.widget.folderModel?.title);
+                      Utility.showToastMsg(msg: getI18NKey().sync_desktop_widget_success);
+                    }
+                  },
+                  list: CONSTANTS.getMissionButtonList(),
+                  child: Icon(
+                    Icons.more_horiz,
+                    color: Color(0xff999999),
+                  ),
+                ),
+                // getPopupMenu()
               ],
             )
           ],
@@ -1458,105 +1501,134 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     ]);
   }
 
+  void onClickExport() {
+     AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+      "sceneType": "missionpage",
+      "eventType": "missionpage_guide",
+      "description": "导出",
+    });
+    TextEditingController textEditingController =
+        TextEditingController();
+    String s = Utility.getContentFromMissionList(
+        datas: this.curListMissionModels ?? [],
+        listCheckButtonModel: CONSTANTS.getExportButtonsList());
+    textEditingController.text = s;
+    ExportMissionListDialogUtil.show(context,
+        textEditingController: textEditingController,
+        onTapListener: (res) {
+      List<CheckButtonStateModel> data = res['data'];
+      MissionOrderEnum missionOrderEnum = res['enum'];
+      String s = Utility.getContentFromMissionList(
+          datas: Utility.getMissionModelListAfterOrder(
+              missionOrderEnum,
+              this.curListMissionModels ?? []),
+          listCheckButtonModel: data);
+      textEditingController.text = s;
+      updateUI();
+    }, export: (data) {
+      Utility.showToastMsg(
+          context: context,
+          msg: getI18NKey().offer_next_version);
+    });
+  }
+
   void onClickSearch(searchWord) {
     this.curSearchWords = searchWord;
     requestDatas();
   }
 
-  Container getPopupMenu() {
-    return Container(
-      key: ValueKey('Container5'),
-      margin: EdgeInsets.only(right: CONSTANTS.missionPageMargin),
-      child: PopupMenuButton<String>(
-        key: ValueKey('PopupMenuButton5'),
-        tooltip: '',
-        padding: EdgeInsets.all(0.0),
-        child: Container(
-          key: ValueKey('Container5'),
-          width: 40,
-          height: 35,
-          decoration: BoxDecoration(
-            color: ThemeManager.getInstance()
-                .getCardBackgroundColor(defaultColor: Colors.white),
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          child: Icon(Icons.swap_vert,
-              size: 30,
-              color: ThemeManager.getInstance().getColor(
-                  defaultColor: ThemeManager.getInstance()
-                      .getTextColor(defaultColor: Colors.red))),
-        ),
-        onSelected: (String val) {
-          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
-            "sceneType": "missionpage",
-            "eventType": "missionpage_order",
-            "description": "排序",
-            "message": val
-          });
-          if (val == 'order_by_list') {
-            this.missionOrderEnum = MissionOrderEnum.orderByWords;
-          } else if (val == 'order_by_time') {
-            this.missionOrderEnum = MissionOrderEnum.orderByTime;
-          } else if (val == 'order_by_mission_priority') {
-            this.missionOrderEnum = MissionOrderEnum.orderByPriority;
-          } else if (val == 'order_by_mission_tag') {
-            this.missionOrderEnum = MissionOrderEnum.orderByTag;
-          }
-          SharePreferenceUtil.getSyncInstance()
-              .setMissionOrderEnum(missionOrderEnum);
-          this.updateUI();
-        },
-        itemBuilder: (context) {
-          // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
-          return <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              key: ValueKey('PopupMenuItem5'),
-              value: 'order_by_list',
-              child: Text(getI18NKey().order_by_list,
-                  style: TextStyle(fontSize: 13)),
-            ),
-            PopupMenuItem<String>(
-              key: ValueKey('PopupMenuItem5'),
-              value: 'order_by_time',
-              child: Text(
-                getI18NKey().order_by_time,
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
-            PopupMenuItem<String>(
-              key: ValueKey('PopupMenuItem5'),
-              value: 'order_by_mission_priority',
-              child: Text(
-                getI18NKey().order_by_mission_priority,
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
-            PopupMenuItem<String>(
-              key: ValueKey('PopupMenuItem6'),
-              value: 'order_by_mission_tag',
-              child: Text(
-                getI18NKey().order_by_mission_tag,
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
-          ];
-        },
-      ),
-    );
-  }
+  // Container getPopupMenu() {
+  //   return Container(
+  //     key: ValueKey('Container5'),
+  //     margin: EdgeInsets.only(right: CONSTANTS.missionPageMargin),
+  //     child: PopupMenuButton<String>(
+  //       key: ValueKey('PopupMenuButton5'),
+  //       tooltip: '',
+  //       padding: EdgeInsets.all(0.0),
+  //       child: Container(
+  //         key: ValueKey('Container5'),
+  //         width: 40,
+  //         height: 35,
+  //         decoration: BoxDecoration(
+  //           color: ThemeManager.getInstance()
+  //               .getCardBackgroundColor(defaultColor: Colors.white),
+  //           borderRadius: BorderRadius.all(Radius.circular(8)),
+  //         ),
+  //         child: Icon(Icons.swap_vert,
+  //             size: 30,
+  //             color: ThemeManager.getInstance().getColor(
+  //                 defaultColor: ThemeManager.getInstance()
+  //                     .getTextColor(defaultColor: Colors.red))),
+  //       ),
+  //       onSelected: (String val) {
+  //         AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+  //           "sceneType": "missionpage",
+  //           "eventType": "missionpage_order",
+  //           "description": "排序",
+  //           "message": val
+  //         });
+  //         if (val == 'order_by_list') {
+  //           this.missionOrderEnum = MissionOrderEnum.orderByWords;
+  //         } else if (val == 'order_by_time') {
+  //           this.missionOrderEnum = MissionOrderEnum.orderByTime;
+  //         } else if (val == 'order_by_mission_priority') {
+  //           this.missionOrderEnum = MissionOrderEnum.orderByPriority;
+  //         } else if (val == 'order_by_mission_tag') {
+  //           this.missionOrderEnum = MissionOrderEnum.orderByTag;
+  //         }
+  //         SharePreferenceUtil.getSyncInstance()
+  //             .setMissionOrderEnum(missionOrderEnum);
+  //         this.updateUI();
+  //       },
+  //       itemBuilder: (context) {
+  //         // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
+  //         return <PopupMenuEntry<String>>[
+  //           PopupMenuItem<String>(
+  //             key: ValueKey('PopupMenuItem5'),
+  //             value: 'order_by_list',
+  //             child: Text(getI18NKey().order_by_list,
+  //                 style: TextStyle(fontSize: 13)),
+  //           ),
+  //           PopupMenuItem<String>(
+  //             key: ValueKey('PopupMenuItem5'),
+  //             value: 'order_by_time',
+  //             child: Text(
+  //               getI18NKey().order_by_time,
+  //               style: TextStyle(fontSize: 13),
+  //             ),
+  //           ),
+  //           PopupMenuItem<String>(
+  //             key: ValueKey('PopupMenuItem5'),
+  //             value: 'order_by_mission_priority',
+  //             child: Text(
+  //               getI18NKey().order_by_mission_priority,
+  //               style: TextStyle(fontSize: 13),
+  //             ),
+  //           ),
+  //           PopupMenuItem<String>(
+  //             key: ValueKey('PopupMenuItem6'),
+  //             value: 'order_by_mission_tag',
+  //             child: Text(
+  //               getI18NKey().order_by_mission_tag,
+  //               style: TextStyle(fontSize: 13),
+  //             ),
+  //           ),
+  //         ];
+  //       },
+  //     ),
+  //   );
+  // }
 
-  Widget buildMissionTableContainerWidget(
-      List<SessionMissionModel> list) {
+  Widget buildMissionTableContainerWidget(List<SessionMissionModel> list) {
     List<MissionModel> listMissionModels = [];
     list.forEach((SessionMissionModel sessionMissionModel) {
       listMissionModels.addAll(sessionMissionModel.datas ?? []);
     });
-    print("444444444444444444444444444444");
     return MissionTableContainerWidget(
-      listMissionModels: listMissionModels, onClickMissionSetting: (obj) {
-      this.onClick(
-          'onClickMissionSetting', obj); //跳转到任务详情页MissionPage开始任务
-    },
+      listMissionModels: listMissionModels,
+      onClickMissionSetting: (obj) {
+        this.onClick('onClickMissionSetting', obj); //跳转到任务详情页MissionPage开始任务
+      },
     );
   }
 
@@ -1606,6 +1678,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     ));
     if (this.widget.folderStatusDate == 1) {
       CounterMethodChannelManager.getInstance().storeMissionList(list);
+
     }
     return listWidget;
   }

@@ -258,14 +258,20 @@ class CounterMethodChannelManager {
         monthModel.dayModelList.forEach((element) {
           element.isCheck = false;
           List<Map> listMissionModel = [];
-          if (element.missionModelList.length > 0) {
+          // if (element.missionModelList.length > 0) {
             List<MissionModel> datasMissionModel =
                 Utility.filterMissionModelByFinishedState(
                     list: element.missionModelList, isFinished: false);
+            // if (element.dateTime?.year == 2024 && element.dateTime?.month == 11 && element.dateTime?.day == 19) {
+            //   print("2024-11-19");
+            // }
             datasMissionModel.forEach((MissionModel model) {
               FolderModel? folderModel = Utility.getFolderModelByObjId(model.folder_id ?? "");
               model.color = folderModel?.color ?? 0xffff8800;
               Map item = model.toJson();
+              // if(model.title == "网球") {
+              //   print(element.dateTime?.toString());
+              // }
               // item["percent"] = Utility.getPercentOfNumClocksIn(missionModel: model, ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
               listMissionModel.add(item);
             });
@@ -275,7 +281,7 @@ class CounterMethodChannelManager {
               // "lunar": element.lunarDay,
               "data": listMissionModel
             });
-          }
+          // }
         });
       });
       if (listTmp.length > 0) {
@@ -311,9 +317,9 @@ class CounterMethodChannelManager {
                 missionModel: model,
                 ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
             listFlomoMissionModel.add(item);
-            if(model.title == "早起") {
-              print("早期");
-            }
+            // if(model.title == "早起") {
+            //   print("早期");
+            // }
             item["percent"] = Utility.getPercentOfNumClocksIn(
                 missionModel: model,
                 ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
@@ -347,6 +353,22 @@ class CounterMethodChannelManager {
       if (listModellistMap.length > 0) {
         return (await _channel.invokeMethod<bool>(
                 'storeMissionList', listModellistMap)) ??
+            false;
+      }
+    } catch (e) {
+      Utility.print(e);
+    }
+    return false;
+  }
+
+  Future<bool> storeCustomizeMissionList(List<SessionMissionModel> list, String? title) async {
+    try {
+      List<Map> listTmp = [];
+      List<Map> listModellistMap =
+      parseMissionModelList2(listMissionModels: list);
+      if (listModellistMap.length > 0) {
+        return (await _channel.invokeMethod<bool>(
+            'storeCustomizeMissionList', {"datas": listModellistMap, "title": title ?? ""})) ??
             false;
       }
     } catch (e) {

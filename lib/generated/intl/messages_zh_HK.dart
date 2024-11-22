@@ -464,6 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_not_be_empty": MessageLookupByLibrary.simpleMessage("輸入框不能為空"),
         "can_view": MessageLookupByLibrary.simpleMessage("可查看"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "cancel_latest_clockin": MessageLookupByLibrary.simpleMessage("撤銷最近打卡"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("取消管理員"),
         "cannot_handle_myself": MessageLookupByLibrary.simpleMessage("無法處理自己"),
@@ -796,6 +797,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editing": MessageLookupByLibrary.simpleMessage("編輯中"),
         "email": MessageLookupByLibrary.simpleMessage("郵箱"),
         "emailCannotBeNull": MessageLookupByLibrary.simpleMessage("郵箱不能為空"),
+        "email_not_supportable":
+            MessageLookupByLibrary.simpleMessage("國內暫時不支持郵箱註冊"),
         "emoji_conversion": MessageLookupByLibrary.simpleMessage("表情符號轉換"),
         "emoji_conversion_placeholder":
             MessageLookupByLibrary.simpleMessage("請輸入需要轉換為表情符號的文字..."),
@@ -1741,6 +1744,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("輸入 / 插入區塊，或開始輸入"),
         "slide_left_right": MessageLookupByLibrary.simpleMessage("可左右滑動"),
         "smsVerificationCode": MessageLookupByLibrary.simpleMessage("短信驗證碼"),
+        "sort": MessageLookupByLibrary.simpleMessage("排序"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("錄音"),
         "speech": MessageLookupByLibrary.simpleMessage("演講稿"),
         "speech_placeholder":
@@ -1785,6 +1789,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "請將所選段落轉換為另一種寫作風格，例如正式、非正式、學術或幽默。"),
         "switch_timer_mode_success":
             MessageLookupByLibrary.simpleMessage("成功切換至計時器模式，下次生效"),
+        "sync_desktop_widget": MessageLookupByLibrary.simpleMessage("同步桌面元件"),
+        "sync_desktop_widget_success":
+            MessageLookupByLibrary.simpleMessage("同步桌面元件成功，請確認添加桌面小元件"),
         "table": MessageLookupByLibrary.simpleMessage("表格"),
         "tag": MessageLookupByLibrary.simpleMessage("標籤"),
         "tagNames": MessageLookupByLibrary.simpleMessage("標籤名"),

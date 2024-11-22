@@ -467,6 +467,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "can_not_be_empty": MessageLookupByLibrary.simpleMessage("输入框不能为空"),
         "can_view": MessageLookupByLibrary.simpleMessage("可查看"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "cancel_latest_clockin": MessageLookupByLibrary.simpleMessage("撤销最近打卡"),
         "cancel_setting_administrator":
             MessageLookupByLibrary.simpleMessage("取消管理员"),
         "cannot_handle_myself": MessageLookupByLibrary.simpleMessage("不能操作自己"),
@@ -723,6 +724,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editing": MessageLookupByLibrary.simpleMessage("编辑中"),
         "email": MessageLookupByLibrary.simpleMessage("邮箱"),
         "emailCannotBeNull": MessageLookupByLibrary.simpleMessage("邮箱不能为空"),
+        "email_not_supportable":
+            MessageLookupByLibrary.simpleMessage("国内暂时不支持邮箱注册"),
         "embedCode": MessageLookupByLibrary.simpleMessage("代码块"),
         "emoji_conversion": MessageLookupByLibrary.simpleMessage("表情符号转换"),
         "emoji_conversion_placeholder":
@@ -1676,6 +1679,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("单击 / 以插入内容，或开始输入"),
         "slide_left_right": MessageLookupByLibrary.simpleMessage("可左右滑动"),
         "smsVerificationCode": MessageLookupByLibrary.simpleMessage("短信验证码"),
+        "sort": MessageLookupByLibrary.simpleMessage("排序"),
         "sound_recording": MessageLookupByLibrary.simpleMessage("录音"),
         "speech": MessageLookupByLibrary.simpleMessage("演讲稿"),
         "speech_placeholder":
@@ -1721,6 +1725,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "请将所选段落转换为另一种写作风格，例如正式、非正式、学术或幽默。"),
         "switch_timer_mode_success":
             MessageLookupByLibrary.simpleMessage("成功切换至计时器模式，下次生效"),
+        "sync_desktop_widget": MessageLookupByLibrary.simpleMessage("同步桌面组件"),
+        "sync_desktop_widget_success":
+            MessageLookupByLibrary.simpleMessage("同步桌面组件成功，请确认添加桌面小组件"),
         "table": MessageLookupByLibrary.simpleMessage("表格"),
         "tag": MessageLookupByLibrary.simpleMessage("标签"),
         "tagNames": MessageLookupByLibrary.simpleMessage("标签名"),
