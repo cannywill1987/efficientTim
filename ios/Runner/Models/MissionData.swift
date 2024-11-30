@@ -144,3 +144,42 @@ struct MissionModel: Codable, Hashable {
         self.color = color ?? 0xffff8800
     }
 }
+
+struct EndTimeMissionData : Codable, Hashable {
+    var title: String?
+    var listMissionModel: [EndTimeMissionModel]
+}
+
+struct EndTimeMissionModel: Codable, Hashable {
+    let objectId: String?
+    let title: String?
+    let lunar: String?
+    let end_time: Int?
+    let background_url: String?
+    let color: Int
+    var isFinished, isDelayed: Bool?
+    let priorityStatus: Int?
+    
+    
+    init(
+        objectId: String?,
+        title: String?,
+        lunar: String?,
+        background_url: String?,
+        end_time: Int?,
+        priorityStatus: Int?,
+        isFinished: Bool?,
+        isDelayed: Bool?,
+        color: Int?
+    ) {
+        self.objectId = objectId
+        self.lunar = lunar
+        self.title = title
+        self.background_url = background_url
+        self.end_time = end_time
+        self.priorityStatus = priorityStatus
+        self.isFinished = isFinished
+        self.isDelayed = isDelayed
+        self.color = color ?? 0xffff8800
+    }
+}

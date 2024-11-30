@@ -191,10 +191,18 @@ class BottomBarState extends State<BottomBar> {
     this.circleTitle = this.widget.circleTitle;
   }
 
+  updateEndTimeByState(int dateStatus) {
+    this.end_time = CONSTANTS.getDeadLineTme(dateStatus);
+    setState(() {
+
+    });
+  }
+
   @override
   void initState() {
     Keyboardlistenermanager.getInstance()?.addListener(handleKeyEvent);
-    this.end_time = CONSTANTS.getDeadLineTme(this.widget.dateStatus + 1);
+    // 1 今天 2 明天 3 7天后 4 所有为完成任务 12 待定任务 13 碎片清单
+    this.end_time = CONSTANTS.getDeadLineTme(this.widget.dateStatus);
     eventBus.on<EventFn>().listen((EventFn event) {
       //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
       if (event.type == Params.ACTION_UPDATE_VALUE_PER_DAY && mounted) {
@@ -327,6 +335,7 @@ class BottomBarState extends State<BottomBar> {
                                 });
                                 if (this.widget.onTapDateListener != null) {
                                   this.widget.onTapDateListener?.call(v.value);
+                                  updateEndTimeByState(v.value);
                                 }
                               },
                               list: CONSTANTS.getCheckButtonStateModelList(),

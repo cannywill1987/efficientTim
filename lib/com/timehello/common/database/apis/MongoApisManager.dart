@@ -1847,6 +1847,8 @@ class MongoApisManager {
     });
 
     this.listEndTimeMissionModels = missionModels;
+    CounterMethodChannelManager.getInstance().storeEndTimeMissionList(this.listEndTimeMissionModels);
+
     Utility.getGlobalContext().read<GlobalStateEnv>().listEndTimeMissionModel =
         this.listEndTimeMissionModels;
     if (callback != null) {

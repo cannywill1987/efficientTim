@@ -225,7 +225,7 @@ class OverlayManagement {
 
   openMissionDetailPageSettingOverlay(BuildContext context,
       {required double right, double? top, required List<CheckButtonStateModel> list, required Function onTapListener}) async {
-    // var overlayState = Overlay.of(context, rootOverlay: true);
+    var overlayState = Overlay.of(context, rootOverlay: true);
     dismissMissionDetailPageSettingEntry();
     // if(selectValueMoneyOverlayEntry != null){
     //   return;
@@ -238,9 +238,9 @@ class OverlayManagement {
       );
     },    dismissCallback: () => dismissMissionDetailPageSettingEntry(),
     ).build();;
-    navigatorKey.currentState?.overlay
-        ?.insert(missionDetailPageSettingEntry = overlayEntry);
-    // overlayState?.insert(this.missionDetailPageSettingEntry = overlayEntry);
+    // navigatorKey.currentState?.overlay
+    //     ?.insert(missionDetailPageSettingEntry = overlayEntry);
+    overlayState?.insert(this.missionDetailPageSettingEntry = overlayEntry);
   }
 
 

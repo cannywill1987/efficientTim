@@ -6,6 +6,12 @@
   
 */
 /* 德语 */
+"event"= "Ereignis";
+"completed"= "Abgeschlossen";
+"days"= "Tage";
+"countdown_widget_name"= "Countdown-Widget";
+"countdown_widget_description"= "Sehen Sie die verbleibende Zeit für Aufgaben schnell im Widget an, mit Unterstützung für verschiedene Layouts und Prioritätsanzeige.";
+
 "configuration_display_name"="Intelligenter Aufgaben-Kalender";
 "description"="Zeigt Aufgaben in der Kalenderansicht an, ermöglicht das einfache Wechseln von Daten, das schnelle Erledigen von Aufgaben und unterstützt verschiedene Größen.";
 "customize_mission"="Aufgaben anpassen";

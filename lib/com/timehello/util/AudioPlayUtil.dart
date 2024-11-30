@@ -235,7 +235,7 @@ class AudioPlayUtil {
       if(this.onStateChangeListener != null) {
         this.onStateChangeListener!(event.processingState);
       }
-      print('STATE:${event.processingState.toString()}');
+      // print('STATE:${event.processingState.toString()}');
     });
 
     audioPlayer?.positionStream.listen((event) {
@@ -247,19 +247,19 @@ class AudioPlayUtil {
     });
     audioPlayer?.durationStream.listen((event) {
       durationSecs = event?.inSeconds ?? 0;
-      print('DURATION');
+      // print('DURATION');
     });
     audioPlayer?.bufferedPositionStream.listen((event) {
       if (this.onBufferingListener != null) {
         this.onBufferingListener!(event.inMilliseconds, duration * 1000);
       }
-      print('BUFFERING');
+      // print('BUFFERING');
     });
     audioPlayer?.currentIndexStream.listen((event) {
-      print("currentIndexStream");
+      // print("currentIndexStream");
     });
     audioPlayer?.playbackEventStream.listen((event) {
-      print("playbackEventStream");
+      // print("playbackEventStream");
     });
 
     audioSession.becomingNoisyEventStream.listen((_) {

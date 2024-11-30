@@ -12,7 +12,7 @@ import AppIntents
 struct TimerManager {
     static let mediumCalendar = Calendar.current
     static var mediumCurrentDate = Date()
-    static var mediumSelectedDate: Date? = nil
+    static var mediumSelectedDate: Date? = Date()
     static var mediumCurrentPage:Int = 0
     static var mediumTotalPages: Int = 0
     static let largeCalendar = Calendar.current
@@ -495,6 +495,8 @@ struct MediumCalendarComponent2: View {
                                         .font(.system(size: 12, weight: .bold)).buttonStyle(PlainButtonStyle())
                                         .background(Color.clear)
                                 }.frame(width: 12, height: 12)
+                                    .buttonStyle(PlainButtonStyle())
+                                        .background(Color.clear)
                             } else {
                                 // Fallback on earlier versions
                             }

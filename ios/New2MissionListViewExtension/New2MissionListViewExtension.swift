@@ -283,14 +283,14 @@ struct New2MissionListViewExtension: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            if #available(iOS 17.0, *) {
+//            if #available(iOS 17.0, *) {
                 New2MissionListViewExtensionEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                New2MissionListViewExtensionEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
+//            } else {
+//                New2MissionListViewExtensionEntryView(entry: entry)
+//                    .padding()
+//                    .background()
+//            }
         }
         .contentMarginsDisabled()
         .configurationDisplayName("today".localizable())

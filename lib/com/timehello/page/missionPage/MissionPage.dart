@@ -691,6 +691,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     if (oldWidget.folderModel?.title != this.widget.folderModel?.title) {
       this._dateStatus =
           null; //切换文件夹时重置 这样Initdata会重新拿this.widget.folderStatus数据初始化
+      bottomBarStateKey?.currentState?.updateEndTimeByState(this.widget.folderStatusDate ?? 1);
     }
     this.updateRightNavChildren();
     this._folderModelObjId = this.widget.folderModel?.objectId;
@@ -907,6 +908,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     );
     ;
   }
+
+
 
   BottomBar getBottomBar(BuildContext context, {bool isVisible: false}) {
     return BottomBar(

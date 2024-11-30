@@ -33,8 +33,8 @@ class FullScreenOverlayEntry {
           onTap: () {
             if (tapToDismiss) {
               // remove this from the overlay when tapped the opaque layer
-              _entry?.remove();
-              _entry = null;
+              // _entry?.remove();
+              // _entry = null;
               dismissCallback?.call();
             }
           },
@@ -47,8 +47,8 @@ class FullScreenOverlayEntry {
                   onTap: () {
                     if (tapToDismiss) {
                       // remove this from the overlay when tapped the opaque layer
-                      _entry?.remove();
-                      _entry = null;
+                      // _entry?.remove();
+                      // _entry = null;
                       dismissCallback?.call();
                     }
                   },

@@ -6,6 +6,12 @@
   
 */
 /* 法语 */
+"event"= "Événement";
+ "completed"= "Terminé";
+ "days"= "Jours";
+"countdown_widget_name"= "Widget de Compte à Rebours";
+"countdown_widget_description"= "Affichez rapidement le temps restant pour les tâches dans le widget, avec prise en charge de divers agencements et affichage des priorités.";
+
 "configuration_display_name"="Calendrier Intelligent des Tâches";
 "description"="Affiche les tâches dans une vue calendrier, permet de changer facilement de date, de terminer rapidement les tâches et prend en charge plusieurs tailles.";
 "customize_mission"="Personnaliser la tâche";

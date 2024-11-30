@@ -119,7 +119,11 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     //     .register(this._mobile, this._password);
     // if (res['success'] == true) {
     if (curTab == 0) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_click_by_mobile","description": "点击注册",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "RegisterPage",
+        "eventType": "RegisterPage_click_by_mobile",
+        "description": "点击注册",
+      });
       // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_register_by_mobile","description": "注册按钮",});
       if (TextUtil.isEmpty(this._mobile.toString())) {
         Utility.showToastMsg(msg: getI18NKey().input_mobile);
@@ -141,11 +145,14 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
           countryPhoneCode: this.countryPhoneCode,
           onComplete: this);
     } else {
-
       String email = await Utility.decryptCTRAES(
           this._emailEncrypted ?? "", Params.AES_PWD);
       if (isEmailVerifiedValRequest == false) {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_click_by_email","description": "点击注册",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "RegisterPage",
+          "eventType": "RegisterPage_click_by_email",
+          "description": "点击注册",
+        });
 
         LoginManager.getInstance().registerByEmail(
           context: context,
@@ -168,10 +175,18 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     if (curRegisterPage == CrossFadeState.showSecond) {
       showRegisterStep1();
     } else {
-      if(this.curTab == 0) {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_mobile_back","description": "返回按钮",});
+      if (this.curTab == 0) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "RegisterPage",
+          "eventType": "RegisterPage_button_mobile_back",
+          "description": "返回按钮",
+        });
       } else {
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_email_back","description": "返回按钮",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "RegisterPage",
+          "eventType": "RegisterPage_button_email_back",
+          "description": "返回按钮",
+        });
       }
       Utility.popNavigator(context, null);
     }
@@ -186,10 +201,18 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
   }
 
   void showRegisterStep2() {
-    if(this.curTab == 0) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_mobile_next_step","description": "手机号下一步按钮",});
+    if (this.curTab == 0) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "RegisterPage",
+        "eventType": "RegisterPage_button_mobile_next_step",
+        "description": "手机号下一步按钮",
+      });
     } else if (this.curTab == 1) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_button_email_next_step","description": "邮箱下一步按钮",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "RegisterPage",
+        "eventType": "RegisterPage_button_email_next_step",
+        "description": "邮箱下一步按钮",
+      });
     }
     setState(() {
       curRegisterPage = CrossFadeState.showSecond;
@@ -246,7 +269,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                             int curTab) async {
                           this.curTab = curTab;
                           if (curTab == 0) {
-                            if(hasInputMobile) {
+                            if (hasInputMobile) {
                               AnalyticsEventsManager.getInstance()
                                   .sendAnalyticsEventMap({
                                 "sceneType": "RegisterPage",
@@ -266,15 +289,15 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                                     },
                                     observer: this);
                           } else {
-
-    if(hasInputEmail) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
-        "sceneType": "RegisterPage",
-        "eventType": "RegisterPage_input_email",
-        "description": "邮箱输入框",
-      });
-    }
-    hasInputEmail = true;
+                            if (hasInputEmail) {
+                              AnalyticsEventsManager.getInstance()
+                                  .sendAnalyticsEventMap({
+                                "sceneType": "RegisterPage",
+                                "eventType": "RegisterPage_input_email",
+                                "description": "邮箱输入框",
+                              });
+                            }
+                            hasInputEmail = true;
                             this._emailEncrypted = emailEncrypted;
                             String emailP = await Utility.decryptCTRAES(
                                 this._emailEncrypted ?? "", Params.AES_PWD);
@@ -282,21 +305,16 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                                 await GoogleMailLoginManager.getInstance()
                                     .isEmailExistFromServer(email: emailP);
                             if (isEmailExist == true) {
-                              // Utility.showToastMsg(msg: getI18NKey().email_exist);
                               Utility.popNavigator(
                                   context, {"curTab": 1, "email": emailP});
                               return;
                             }
                             this.showRegisterStep2();
                           }
-                          // if(TextUtil.isEmpty(email))
-
-                          // MongoApisManager.getInstance().sendSms(_mobile);
                         },
                         onChanged: (countryPhoneCode, mobile) async {
                           this.countryPhoneCode = countryPhoneCode;
                           this._mobileDecrypted = mobile;
-
 
                           this._mobile = await Utility.encryptCTRAES(
                               mobile, Params.AES_PWD);

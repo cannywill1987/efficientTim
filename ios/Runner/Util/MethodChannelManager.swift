@@ -236,6 +236,35 @@ class MethodChannelManager {
                 };
             }
             break;
+        case "storeEndTimeMissionList": //创建倒计时任务
+            let list = (call.arguments as! [[String: Any]]);
+                var listMissionModels:[EndTimeMissionModel] = [];
+                if list.count > 0 {
+                    for index in 0...list.count - 1 {
+                        let item = list[index]
+                        
+                        let objectId:String? = item["_id"] as? String;
+                        let isDelayed:Bool = item["isDelayed"] as! Bool;
+                        let isFinished:Bool = item["isFinished"] as! Bool;
+                        let title:String = item["title"] as! String;
+                        let background_url:String? = item["background_url"] as? String;
+                        let end_time:Int = item["end_time"] as! Int;
+                        let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                        let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                        let missionData = EndTimeMissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                        listMissionModels.append(missionData);
+//                            print("11111");
+                    }
+//                    }
+                if #available(iOS 14.0, *) {
+                    let primaryData:EndTimeMissionStoreData = EndTimeMissionStoreData(missionData: EndTimeMissionData(listMissionModel: listMissionModels))
+                    Task {
+                        await primaryData.encodeData();
+                    }
+                } else {
+                };
+            }
+            break;
         case "storeMissionDataList":
             let title1 = (call.arguments as! [[String: Any]])[0]["title"] as! String;
             let title2 = (call.arguments as! [[String: Any]])[1]["title"] as! String;

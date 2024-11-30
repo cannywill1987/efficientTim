@@ -5,6 +5,11 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"event"= "이벤트";
+"completed"= "완료됨";
+"days"= "일";
+"countdown_widget_name"= "카운트다운 위젯";
+  "countdown_widget_description"= "위젯에서 작업의 남은 시간을 빠르게 확인하고 다양한 레이아웃 및 우선순위 표시를 지원합니다.";
 "configuration_display_name"="스마트 작업 캘린더";
 "description"="캘린더 뷰에서 작업을 표시하고, 날짜 전환이 쉽고 작업을 빠르게 완료하며 다양한 크기를 지원합니다.";
 "customize_mission"="작업 사용자 정의";

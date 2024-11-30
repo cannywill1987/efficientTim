@@ -5,6 +5,11 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"event"= "事件";
+"completed"= "已完成";
+"days"= "天";
+  "countdown_widget_name"= "倒計時小組件";
+  "countdown_widget_description"= "通過小組件快速查看任務的剩餘時間，支援多種佈局和優先級顯示。";
 "configuration_display_name"="智能任務日曆";
 "description"="通過日曆視圖展示任務安排，可輕鬆切換日期、快速完成任務，支持多種尺寸顯示。";
 "customize_mission"="自定義任務";

@@ -77,8 +77,8 @@ abstract class BaseWidgetState<T extends BaseWidget> extends State<T>
         setState(() {});
       }
     });
-    tag = tag + curPage.toString() + "_";
-    print(tag + "initState\n");
+    // tag = tag + curPage.toString() + "_";
+    // print(tag + "initState\n");
   }
 
   //相当于onResume 子类如果用了Initstate 一定要写super.initState();

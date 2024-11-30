@@ -5,6 +5,11 @@
  Created by 林智彬 on 2023/8/27.
  
  */
+"event"= "イベント";
+"completed"= "完了";
+"days"= "日";
+"countdown_widget_name"= "カウントダウンウィジェット";
+ "countdown_widget_description"= "ウィジェットでタスクの残り時間を素早く確認でき、さまざまなレイアウトと優先度表示に対応します。";
 "configuration_display_name"="スマートタスクカレンダー";
 "description"="カレンダー表示でタスクを表示し、日付の簡単な切り替え、タスクの迅速な完了、複数サイズのサポートを提供します。";
 "customize_mission"="タスクをカスタマイズ";

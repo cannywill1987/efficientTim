@@ -334,7 +334,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("右側にグループを追加"),
         "add_link": MessageLookupByLibrary.simpleMessage("リンクを追加"),
         "add_listing": MessageLookupByLibrary.simpleMessage("リストを追加"),
-        "add_note": MessageLookupByLibrary.simpleMessage("ノートを書く"),
+        "add_note": MessageLookupByLibrary.simpleMessage("メモする"),
         "add_reminder": MessageLookupByLibrary.simpleMessage("リマインダーを追加"),
         "add_subtask": MessageLookupByLibrary.simpleMessage("サブタスクを追加"),
         "add_successfully":
@@ -356,7 +356,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree": MessageLookupByLibrary.simpleMessage("同意"),
         "ai": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_create": MessageLookupByLibrary.simpleMessage("AI作成"),
-        "ai_helper": MessageLookupByLibrary.simpleMessage("AIアシスタント"),
+        "ai_helper": MessageLookupByLibrary.simpleMessage("AI"),
         "ai_placeholder": MessageLookupByLibrary.simpleMessage("AIで何を書きますか？"),
         "ai_scenario": MessageLookupByLibrary.simpleMessage("AIライティングシナリオ"),
         "ai_scenario_prompt":
@@ -710,7 +710,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "count_down": m24,
         "count_down2": m25,
         "count_down3": m26,
-        "count_down_text": MessageLookupByLibrary.simpleMessage("カウントダウン"),
+        "count_down_text": MessageLookupByLibrary.simpleMessage("カウント"),
         "counting": MessageLookupByLibrary.simpleMessage("計時中"),
         "course": MessageLookupByLibrary.simpleMessage("コース"),
         "course_desc": MessageLookupByLibrary.simpleMessage(
@@ -1876,7 +1876,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "summary": MessageLookupByLibrary.simpleMessage("概要"),
         "sunday": MessageLookupByLibrary.simpleMessage("日曜日"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("日"),
-        "super_notebook": MessageLookupByLibrary.simpleMessage("スーパーノートブック"),
+        "super_notebook": MessageLookupByLibrary.simpleMessage("スパノート"),
         "super_tool": MessageLookupByLibrary.simpleMessage("スーパー ツールバー"),
         "super_tool_shortcuts":
             MessageLookupByLibrary.simpleMessage("スーパー ツール ショートカット"),
@@ -1931,7 +1931,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time_segment": MessageLookupByLibrary.simpleMessage("時間帯"),
         "timefocused": MessageLookupByLibrary.simpleMessage("集中時間"),
         "timehello": m112,
-        "timeline": MessageLookupByLibrary.simpleMessage("タイムライン"),
+        "timeline": MessageLookupByLibrary.simpleMessage("時軸"),
         "timelineview": MessageLookupByLibrary.simpleMessage("タイムラインビュー"),
         "timer": MessageLookupByLibrary.simpleMessage("タイマー"),
         "times": MessageLookupByLibrary.simpleMessage("回"),
@@ -1973,7 +1973,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tokenExpired":
             MessageLookupByLibrary.simpleMessage("ログインが失効しました、再度ログインしてください"),
         "tomato": MessageLookupByLibrary.simpleMessage("トマト"),
-        "tomatoClock": MessageLookupByLibrary.simpleMessage("トマトクロック"),
+        "tomatoClock": MessageLookupByLibrary.simpleMessage("トマクロ"),
         "tomatoClockSetting": MessageLookupByLibrary.simpleMessage("トマトクロック設定"),
         "tomatoNums": MessageLookupByLibrary.simpleMessage("集中回数"),
         "tomatoNums2": MessageLookupByLibrary.simpleMessage("集中回数"),

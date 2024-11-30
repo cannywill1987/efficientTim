@@ -20,6 +20,7 @@ import '../../common/provider/GlobalStateEnv.dart';
 import '../../config/CONSTANTS.dart';
 import '../../config/Params.dart';
 import '../../interface/OnMethodChannelResponseListener.dart';
+import '../../models/EndTimeMissionModel.dart';
 import '../../models/FlomoMissionModel.dart';
 import '../../models/MissionModel.dart';
 import '../../models/PushDataModelList.dart';
@@ -361,6 +362,24 @@ class CounterMethodChannelManager {
     return false;
   }
 
+  /**
+   * 今日任务列表
+   */
+  Future<bool> storeEndTimeMissionList(List<EndTimeMissionModel> list) async {
+    try {
+      List<Map> listTmp = [];
+      List<Map> listModellistMap =
+      parseEndTimeMissionModelList(listMissionModels: list);
+      if (listModellistMap.length > 0) {
+        return (await _channel.invokeMethod<bool>(
+            'storeEndTimeMissionList', listModellistMap)) ??
+            false;
+      }
+    } catch (e) {
+      Utility.print(e);
+    }
+    return false;
+  }
   Future<bool> storeCustomizeMissionList(List<SessionMissionModel> list, String? title) async {
     try {
       List<Map> listTmp = [];
@@ -460,17 +479,21 @@ class CounterMethodChannelManager {
       for (int i = 0; i < (element.datas?.length ?? 0); i++) {
         MissionModel missionModel = element.datas![i];
         if (missionModel.isFinished == false) {
-          // if (i > maxNums) {
-          //   MissionModel missionModel = MissionModel();
-          //   missionModel.title = "......";
-          //   list.add(missionModel.toJson());
-          //   break;
-          // }
           list.add(missionModel.toJson());
         }
       }
     });
+    return list;
+  }
 
+  List<Map> parseEndTimeMissionModelList(
+      {required List<EndTimeMissionModel> listMissionModels}) {
+    List<Map> list = [];
+    listMissionModels.forEach((missionModel) {
+        // if (missionModel.isFinished == false) {
+          list.add(missionModel.toJson());
+        // }
+    });
     return list;
   }
 

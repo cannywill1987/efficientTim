@@ -103,16 +103,15 @@ struct MissionModelList: Codable, Hashable {
     }
 }
 
-
-struct EndTimeMissionData : Codable, Hashable {
-    var title: String?
-    var listMissionModel: [EndTimeMissionModel]
-}
-
 struct MissionData : Codable, Hashable {
 //    var missionList : [String]
     var title: String?
     var listMissionModel: [MissionModel]
+}
+
+struct EndTimeMissionData : Codable, Hashable {
+    var title: String?
+    var listMissionModel: [EndTimeMissionModel]
 }
 
 struct EndTimeMissionModel: Codable, Hashable {
@@ -120,6 +119,7 @@ struct EndTimeMissionModel: Codable, Hashable {
     let title: String?
     let lunar: String?
     let end_time: Int?
+    var remainTime: Int?
     let background_url: String?
     let color: Int
     var isFinished, isDelayed: Bool?
@@ -135,8 +135,10 @@ struct EndTimeMissionModel: Codable, Hashable {
         priorityStatus: Int?,
         isFinished: Bool?,
         isDelayed: Bool?,
-        color: Int?
+        color: Int?,
+        remainTime: Int?
     ) {
+        self.remainTime = remainTime
         self.objectId = objectId
         self.lunar = lunar
         self.title = title
@@ -147,6 +149,32 @@ struct EndTimeMissionModel: Codable, Hashable {
         self.isDelayed = isDelayed
         self.color = color ?? 0xffff8800
     }
+    
+    func clone(
+           objectId: String? = nil,
+           title: String? = nil,
+           lunar: String? = nil,
+           background_url: String? = nil,
+           remainTime: Int? = nil,
+           end_time: Int? = nil,
+           priorityStatus: Int? = nil,
+           isFinished: Bool? = nil,
+           isDelayed: Bool? = nil,
+           color: Int? = nil
+       ) -> EndTimeMissionModel {
+           return EndTimeMissionModel(
+               objectId: objectId ?? self.objectId,
+               title: title ?? self.title,
+               lunar: lunar ?? self.lunar,
+               background_url: background_url ?? self.background_url,
+               end_time: end_time ?? self.end_time,
+               priorityStatus: priorityStatus ?? self.priorityStatus,
+               isFinished: isFinished ?? self.isFinished,
+               isDelayed: isDelayed ?? self.isDelayed,
+               color: color ?? self.color,
+               remainTime: remainTime ?? self.remainTime
+           )
+       }
 }
 struct MissionModel: Codable, Hashable {
 //    let createdAt, updatedAt, _id, folder_id: String

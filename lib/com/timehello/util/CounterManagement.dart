@@ -393,6 +393,7 @@ class CounterManagement {
     } else if (CounterStatus.relaxing == counterStatus) {
       // Wakelock.enable();
       WakelockPlus.toggle(enable: true);
+      print("打开wakelock");
       //休息中
       return getI18NKey().resting;
     } else if (CounterStatus.waitingToFocus == counterStatus) {
@@ -408,6 +409,7 @@ class CounterManagement {
       return getI18NKey().restPausing;
     } else if (CounterStatus.focusing == counterStatus) {
       WakelockPlus.toggle(enable: true);
+      print("打开wakelock");
       // Wakelock.enable();
       //专注中
       return getI18NKey().focusing;
@@ -649,6 +651,7 @@ class CounterManagement {
             isLocal: true);
       }
       WakelockPlus.toggle(enable: true);
+      print("打开wakelock");
       this.startTimer(CounterEnum.chronograph);
       MongoApisManager.getInstance().insertTimelineMissionModel(
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
@@ -660,6 +663,7 @@ class CounterManagement {
       counterStatus = CounterStatus.relaxing; //开始放松
     } else if (CounterStatus.pausingFocusing == counterStatus) {
       WakelockPlus.toggle(enable: true);
+      print("打开wakelock");
       if (SharePreferenceUtil.getSyncInstance().isFocusBGMusicOn()) {
         AudioPlayUtil.getInstance()?.continuePlayer();
       }
@@ -686,6 +690,7 @@ class CounterManagement {
       // }
     } else if (CounterStatus.waitingToFocus == counterStatus) {
       WakelockPlus.toggle(enable: true);
+      print("打开wakelock");
       startFocusing();
       counterStatus = CounterStatus.focusing; //专注中
     } else if (CounterStatus.pausingRelaixing == counterStatus) {
@@ -923,7 +928,7 @@ class CounterManagement {
     CounterMethodChannelManager.getInstance().stopLiveActivity();
     // WakelockPlus.disable();
     WakelockPlus.toggle(enable: false);
-
+    print("关闭wakelock");
     if (this.curTimeF != 0) {
       //不为0是人为暂停
       NotificationManager.getInstance()?.delAliyunSchedule();

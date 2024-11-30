@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
 import 'package:time_hello/com/timehello/models/SheetDataModel.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 typedef OnClickFinishListener = void Function(int numTomatoes, int duration);
@@ -152,7 +153,7 @@ class DialogContentState extends State<DialogContent> {
               borderRadius: BorderRadius.circular(14),
               child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                  color: Colors.white,
+                  color: ThemeManager.getInstance().getCardBackgroundColor(),
                   constraints:
                       BoxConstraints(maxHeight: 500, maxWidth: 500),
                   child: Column(

@@ -218,8 +218,8 @@ struct New2QuadrantWidgetEntryView : View {
     var shouldShowHeader : Bool = false
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 10) {
-                HStack(spacing: 10) {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
                     CustomView(backgroundColor: Color(red: 250/255, green: 234/255, blue: 235/255),
                                headerTextColor: Color(red: 250/255, green: 125/255, blue: 125/255),
                                headerText: "imp. & urg.",
@@ -233,7 +233,7 @@ struct New2QuadrantWidgetEntryView : View {
                                items: entry.storeData.missionListMissionModel2 ?? [], shouldShowHeader: shouldShowHeader)
                     .frame(width: geometry.size.width / 2, height: geometry.size.height / 2)
                 }
-                HStack(spacing: 10) {
+                HStack(spacing: 0) {
                     CustomView(backgroundColor: Color(red: 239/255, green: 247/255, blue: 248/255),
                                headerTextColor: Color(red: 26/255, green: 146/255, blue: 174/255),
                                headerText: "imp. & not urg.",
@@ -326,10 +326,10 @@ struct CustomView: View {
         case .systemSmall: // Small widget
             return 2
         case .systemMedium: // Medium widget
-            return 3
+            return 4
         case .systemLarge: // Large widget
             //            return 13
-            return 8
+            return 9
             //            return 6
         @unknown default: // Any unknown widget size
             return 6
@@ -354,7 +354,7 @@ struct New2QuadrantWidget: Widget {
         .contentMarginsDisabled()
         .configurationDisplayName("Quadrant".localizable())
         .description("")
-        .supportedFamilies([ .systemLarge, .systemExtraLarge])
+        .supportedFamilies([ .systemLarge, .systemMedium])
     }
 }
 

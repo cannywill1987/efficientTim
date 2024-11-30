@@ -335,7 +335,7 @@ class MethodChannelManager {
                             let end_time:Int = item["end_time"] as! Int;
                             let priorityStatus:Int? = item["priorityStatus"] as? Int;
                             let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
-                            let missionData = EndTimeMissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                            let missionData = EndTimeMissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color, remainTime: 0)
                             listMissionModels.append(missionData);
 //                            print("11111");
                         }

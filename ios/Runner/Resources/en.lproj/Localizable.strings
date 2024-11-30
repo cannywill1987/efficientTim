@@ -5,6 +5,13 @@
  Created by 林智彬 on 2023/8/27.
  
  */
+"event"= "Event";
+"completed"= "Completed";
+"days"= "Days";
+
+"countdown_widget_name"= "Countdown Widget";
+ "countdown_widget_description"= "Quickly view the remaining time for tasks in the widget, supporting various layouts and priority display.";
+
 "configuration_display_name"="Smart Task Calendar";
 "description"="Displays tasks in calendar view, allows easy date switching, quick task completion, and supports multiple sizes.";
 "customize_mission"="Customize Task";

@@ -1,0 +1,16 @@
+//
+//  Latest6Note6WidgetBundle.swift
+//  Latest6Note6Widget
+//
+//  Created by 林智彬 on 2024/11/26.
+//
+
+import WidgetKit
+import SwiftUI
+
+@main
+struct Latest6Note6WidgetBundle: WidgetBundle {
+    var body: some Widget {
+        NewNote2Widget()
+    }
+}

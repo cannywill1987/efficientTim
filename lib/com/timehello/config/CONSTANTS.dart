@@ -3490,9 +3490,9 @@ class CONSTANTS {
         return Utility.getFilterDateTimeFromTimeStamp(
                 nowTime + 24 * 60 * 60 * 1000)
             .millisecondsSinceEpoch;
-      case 3:
+      case 3: // 最近7天
         return Utility.getFilterDateTimeFromTimeStamp(nowTime)
-            .millisecondsSinceEpoch;
+            .millisecondsSinceEpoch  + 7 * 24 * 60 * 60 * 1000;
       default:
         return Utility.getTimeStampToday();
     }

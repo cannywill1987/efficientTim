@@ -377,7 +377,7 @@ class DialogContentState extends State<DialogContent> {
               borderRadius: BorderRadius.circular(14),
               child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                  color: ThemeManager.getInstance().getDialogBackgroundColor(defaultColor: Colors.white),
+                  color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white),
                   constraints: BoxConstraints(maxHeight: 500, maxWidth: 500),
                   // color: Colors.white,
                   child: Column(
