@@ -58,9 +58,10 @@ class StylesConfig {
 
   static Color filledInputColor = Color(0x028b97a2);
 
-  static InputDecoration getInputDecoration({String hintText = ''}) {
+  static InputDecoration getInputDecoration({String hintText = '', Widget? suffixIcon}) {
     return InputDecoration(
       labelText: hintText,
+            suffixIcon: suffixIcon != null ? Row(mainAxisSize: MainAxisSize.min, children: [suffixIcon],) : null,
       labelStyle: TextStyle(
           color: ThemeManager.getInstance()
               .getTextColor(

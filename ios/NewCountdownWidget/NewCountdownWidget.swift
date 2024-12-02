@@ -91,12 +91,12 @@ struct Provider: TimelineProvider {
                 objectId: "1",
                 title: "Project Alpha",
                 lunar: "2024-11-01",
-                background_url: "https://example.com/bg1.png", remainTime: 0,
+                background_url: "https://example.com/bg1.png",
                 end_time: Int(Date().addingTimeInterval(5 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 1,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff123456
+                color: 0xff123456, remainTime: 0
             ),
 //            EndTimeMissionModel(
 //                objectId: "2",
@@ -129,67 +129,67 @@ struct Provider: TimelineProvider {
                 objectId: "1",
                 title: "Project Alpha",
                 lunar: "2024-11-01",
-                background_url: "https://example.com/bg1.png", remainTime: 0,
+                background_url: "https://example.com/bg1.png",
                 end_time: Int(Date().addingTimeInterval(5 * 86400 + 1).timeIntervalSince1970 * 1000) ,
                 priorityStatus: 1,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff123456
+                color: 0xff123456, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "2",
                 title: "Beta Milestone",
                 lunar: "2024-11-05",
-                background_url: "https://example.com/bg2.png", remainTime: 0,
+                background_url: "https://example.com/bg2.png",
                 end_time: Int(Date().addingTimeInterval(10 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 2,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff654321
+                color: 0xff654321, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "3",
                 title: "Gamma Release",
                 lunar: "2024-11-10",
-                background_url: "https://example.com/bg3.png", remainTime: 00,
+                background_url: "https://example.com/bg3.png",
                 end_time: Int(Date().addingTimeInterval(15 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 3,
                 isFinished: false,
                 isDelayed: true,
-                color: 0xffabcdef
+                color: 0xffabcdef, remainTime: 00
             ),
             EndTimeMissionModel(
                 objectId: "1",
                 title: "Project Alpha",
                 lunar: "2024-11-01",
-                background_url: "https://example.com/bg1.png", remainTime: 0,
+                background_url: "https://example.com/bg1.png",
                 end_time: Int(Date().addingTimeInterval(5 * 86400 + 1).timeIntervalSince1970 * 1000) ,
                 priorityStatus: 1,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff123456
+                color: 0xff123456, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "2",
                 title: "Beta Milestone",
                 lunar: "2024-11-05",
-                background_url: "https://example.com/bg2.png", remainTime: 0,
+                background_url: "https://example.com/bg2.png",
                 end_time: Int(Date().addingTimeInterval(10 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 2,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff654321
+                color: 0xff654321, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "3",
                 title: "Gamma Release",
                 lunar: "2024-11-10",
-                background_url: "https://example.com/bg3.png", remainTime: 00,
+                background_url: "https://example.com/bg3.png",
                 end_time: Int(Date().addingTimeInterval(15 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 3,
                 isFinished: false,
                 isDelayed: true,
-                color: 0xffabcdef
+                color: 0xffabcdef, remainTime: 00
             )
         ], remainTime: 100)
         completion(entry)
@@ -346,9 +346,44 @@ struct Provider: TimelineProvider {
                 print("days4:\(getDays(missionModel:listModels[j]))")
             }
              entryDate =  SimpleEntry(
-                date: calendar.date(byAdding: .second, value: 1, to: date) ?? Date(),
+                date: calendar.date(byAdding: .second, value: offsetTime, to: date) ?? Date(),
                 emoji: "😀", missionModels: listModels, remainTime: 0
             )
+            
+            offsetTime = 1;
+            date = listDates[index]
+            listModels = cloneList(datas: datas)
+            
+            for j in 0..<listModels.count {
+                var remainTime = (listModels[j].end_time ?? 0) - Int(date.timeIntervalSince1970 * 1000)
+                remainTime = (remainTime < 0 ? 0 : (remainTime / 1000 - offsetTime))
+//                print("days4:\(remainTime % 86400)")
+                listModels[j].remainTime = remainTime
+//                getDays(missionModel: listModels[j])
+                print("days4:\(getDays(missionModel:listModels[j]))")
+            }
+             entryDate =  SimpleEntry(
+                date: calendar.date(byAdding: .second, value: offsetTime, to: date) ?? Date(),
+                emoji: "😀", missionModels: listModels, remainTime: 0
+            )
+            
+            offsetTime = 10;
+            date = listDates[index]
+            listModels = cloneList(datas: datas)
+            
+            for j in 0..<listModels.count {
+                var remainTime = (listModels[j].end_time ?? 0) - Int(date.timeIntervalSince1970 * 1000)
+                remainTime = (remainTime < 0 ? 0 : (remainTime / 1000 - offsetTime))
+//                print("days4:\(remainTime % 86400)")
+                listModels[j].remainTime = remainTime
+//                getDays(missionModel: listModels[j])
+                print("days4:\(getDays(missionModel:listModels[j]))")
+            }
+             entryDate =  SimpleEntry(
+                date: calendar.date(byAdding: .second, value: offsetTime, to: date) ?? Date(),
+                emoji: "😀", missionModels: listModels, remainTime: 0
+            )
+            
             entries.append(entryDate)
             
         }

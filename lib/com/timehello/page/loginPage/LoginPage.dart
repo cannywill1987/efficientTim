@@ -260,8 +260,6 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                       SizedBox(
                         height: 10,
                       ),
-                      Stack(
-                        children: [
                           TextFormField(
                             onChanged: (String text) async {
                               if (TextUtil.isEmpty(text) == true) {
@@ -283,7 +281,21 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                             controller: textController2,
                             // obscureText: false,
                             decoration: StylesConfig.getInputDecoration(
-                                hintText: getI18NKey().password),
+                                hintText: getI18NKey().password, suffixIcon: CheckImage(
+                              //显示隐藏密码的眼睛
+                              onTapListener: (isChecked) {
+                                checked = !isChecked;
+                                updateUI();
+                              },
+                              checked: checked,
+                              autoCheck: true,
+                              checkIcon: Utility.getSVGPicture(
+                                  R.assetsImgIcEyeSlash,
+                                  size: 20),
+                              uncheckIcon: Utility.getSVGPicture(
+                                  R.assetsImgIcEyeClose,
+                                  size: 20),
+                            )),
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 color: ThemeManager.getInstance().getTextColor(
@@ -300,28 +312,6 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                               password = value!.trim();
                             },
                           ),
-                          Positioned(
-                            right: 10,
-                            top: 12,
-                            // padding: EdgeInsets.only(top: 15),
-                            child: CheckImage(
-                              //显示隐藏密码的眼睛
-                              onTapListener: (isChecked) {
-                                checked = !isChecked;
-                                updateUI();
-                              },
-                              checked: checked,
-                              autoCheck: true,
-                              checkIcon: Utility.getSVGPicture(
-                                  R.assetsImgIcEyeSlash,
-                                  size: 20),
-                              uncheckIcon: Utility.getSVGPicture(
-                                  R.assetsImgIcEyeClose,
-                                  size: 20),
-                            ),
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         height: 40,
                       ),

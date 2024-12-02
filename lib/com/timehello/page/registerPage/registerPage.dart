@@ -139,6 +139,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
       }
 
       LoginManager.getInstance().register(
+          email: this._emailEncrypted,
           mobile: this._mobile,
           password: this._password,
           dynamicCode: this._dynamicCode,
@@ -153,13 +154,21 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
           "eventType": "RegisterPage_click_by_email",
           "description": "点击注册",
         });
-
-        LoginManager.getInstance().registerByEmail(
-          context: context,
-          email: email,
-          password: this._password,
-        );
-
+        if(Params.useGmail == false) {
+          LoginManager.getInstance().register(
+              email: this._emailEncrypted,
+              mobile: this._mobile,
+              password: this._password,
+              dynamicCode: this._dynamicCode,
+              countryPhoneCode: this.countryPhoneCode,
+              onComplete: this);
+        } else {
+          LoginManager.getInstance().registerByEmail(
+            context: context,
+            email: email,
+            password: this._password,
+          );
+        }
         isEmailVerifiedValRequest = true;
         Future.delayed(Duration(seconds: 3), () {
           isEmailVerifiedValRequest = false;
@@ -298,18 +307,32 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                               });
                             }
                             hasInputEmail = true;
-                            this._emailEncrypted = emailEncrypted;
-                            String emailP = await Utility.decryptCTRAES(
-                                this._emailEncrypted ?? "", Params.AES_PWD);
-                            bool isEmailExist =
-                                await GoogleMailLoginManager.getInstance()
-                                    .isEmailExistFromServer(email: emailP);
-                            if (isEmailExist == true) {
-                              Utility.popNavigator(
-                                  context, {"curTab": 1, "email": emailP});
-                              return;
+                            if(Params.useGmail == false) {
+                              this._emailEncrypted = emailEncrypted;
+
+                              HttpManager.getInstance()
+                                  .doPostRequest(Apis.getEmailDynamicCode,
+                                  context: context,
+                                  params: {
+                                    "countryPhoneCode": this.countryPhoneCode,
+                                    "email": await Utility.decryptCTRAES(emailEncrypted ?? "", Params.AES_PWD),
+                                    "scene": Params.MSN_REGISTER_SCENE
+                                  },
+                                  observer: this);
+                            } else {
+                              this._emailEncrypted = emailEncrypted;
+                              String emailP = await Utility.decryptCTRAES(
+                                  this._emailEncrypted ?? "", Params.AES_PWD);
+                              bool isEmailExist =
+                              await GoogleMailLoginManager.getInstance()
+                                  .isEmailExistFromServer(email: emailP);
+                              if (isEmailExist == true) {
+                                Utility.popNavigator(
+                                    context, {"curTab": 1, "email": emailP});
+                                return;
+                              }
                             }
-                            this.showRegisterStep2();
+                            // this.showRegisterStep2();
                           }
                         },
                         onChanged: (countryPhoneCode, mobile) async {
@@ -322,6 +345,31 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                     secondChild: RegisterStep2(
                         key: mRegisterStep2GK,
                         curTab: this.curTab,
+                        onGetDynamicCodeListener: () async {
+                          if (this.curTab == 0) {
+                            EasyLoadingManager.getInstance().showLoading();
+                            HttpManager.getInstance()
+                                .doPostRequest(Apis.getDynamicCode,
+                                    context: context,
+                                    params: {
+                                      "countryPhoneCode": this.countryPhoneCode,
+                                      "mobilePhoneNumber": this._mobile,
+                                      "scene": Params.MSN_REGISTER_SCENE
+                                    },
+                                    observer: this);
+                          } else {
+                            HttpManager.getInstance()
+                                .doPostRequest(Apis.getEmailDynamicCode,
+                                    context: context,
+                                    params: {
+                                      "countryPhoneCode": this.countryPhoneCode,
+                                      "email": await Utility.decryptCTRAES(
+                                          this._emailEncrypted ?? "", Params.AES_PWD),
+                                      "scene": Params.MSN_REGISTER_SCENE
+                                    },
+                                    observer: this);
+                          }
+                        },
                         onTapListener: (data) async {
                           this._dynamicCode = data['msn'];
                           this._password = data['password']; //已经加密
@@ -378,6 +426,9 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
     await EasyLoadingManager.getInstance().hideLoading();
     if (response.success) {
       if (scene == Apis.getDynamicCode) {
+        this.showRegisterStep2();
+        mRegisterStep2GK.currentState?.startTimer();
+      } else if (scene == Apis.getEmailDynamicCode) {
         this.showRegisterStep2();
         mRegisterStep2GK.currentState?.startTimer();
       }

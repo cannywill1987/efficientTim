@@ -17,10 +17,12 @@ import '../../../util/ThemeManager.dart';
 
 class RegisterStep2 extends StatefulWidget {
   Function? onTapListener;
+  Function? onGetDynamicCodeListener;
   int curTab = 0; // 0 手机号注册 1 邮箱
   RegisterStep2({
     Key? key,
     this.curTab = 0,
+    this.onGetDynamicCodeListener,
     Function? onTapListener,
   }) : super(key: key) {
     this.onTapListener = onTapListener;
@@ -110,7 +112,7 @@ class RegisterStep2State extends State<RegisterStep2> {
                 SizedBox(
                   height: 40,
                 ),
-                if(this.widget.curTab == 0)
+                if(this.widget.curTab == 0 || (this.widget.curTab == 1 && Params.useGmail == false))
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
@@ -166,6 +168,7 @@ class RegisterStep2State extends State<RegisterStep2> {
                         // width: 140,
                         child: TextButton(
                             onPressed: () {
+                              this.widget.onGetDynamicCodeListener!();
                               startTimer();
                             },
                             child: Text(
@@ -185,85 +188,87 @@ class RegisterStep2State extends State<RegisterStep2> {
                 ),
                 Padding(
                     padding: EdgeInsets.only(top: 15, left: 15, right: 15),
-                    child: Stack(children: [
-                      TextFormField(
-                        onChanged: (String txt) async {
+                    child: TextFormField(
+                      onChanged: (String txt) async {
 
-                          if(hasInputPassword == true) {
-                            if (this.widget.curTab == 0) {
-                              AnalyticsEventsManager.getInstance()
-                                  .sendAnalyticsEventMap({
-                                "sceneType": "RegisterPage",
-                                "eventType": "RegisterPage_input_password_by_mobile",
-                                "description": "密码输入框",
-                              });
-                            } else {
-                              AnalyticsEventsManager.getInstance()
-                                  .sendAnalyticsEventMap({
-                                "sceneType": "RegisterPage",
-                                "eventType": "RegisterPage_input_password_by_email",
-                                "description": "密码输入框",
-                              });
-                            }
+                        if(hasInputPassword == true) {
+                          if (this.widget.curTab == 0) {
+                            AnalyticsEventsManager.getInstance()
+                                .sendAnalyticsEventMap({
+                              "sceneType": "RegisterPage",
+                              "eventType": "RegisterPage_input_password_by_mobile",
+                              "description": "密码输入框",
+                            });
+                          } else {
+                            AnalyticsEventsManager.getInstance()
+                                .sendAnalyticsEventMap({
+                              "sceneType": "RegisterPage",
+                              "eventType": "RegisterPage_input_password_by_email",
+                              "description": "密码输入框",
+                            });
                           }
-                           hasInputPassword = true;
+                        }
+                         hasInputPassword = true;
 
-                          this._password =
-                              await Utility.encryptCTRAES(txt, Params.AES_PWD);
-                        },
-                        controller: textController2,
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: this.checked,
-                        //密码是否可见
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (v) {
-                          if (this.widget.onTapListener != null) {
-                            this.widget.onTapListener!(
-                                {"msn": this._msn, "password": this._password});
-                          }
-                        },
-                        decoration:
+                        this._password =
+                            await Utility.encryptCTRAES(txt, Params.AES_PWD);
+                      },
+                      controller: textController2,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: this.checked,
+                      //密码是否可见
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (v) {
+                        if (this.widget.onTapListener != null) {
+                          this.widget.onTapListener!(
+                              {"msn": this._msn, "password": this._password});
+                        }
+                      },
+                      decoration:
 
-                        InputDecoration(
-                            labelText: getI18NKey().password,
-                            labelStyle: TextStyle(
-                                color: Color(0xff8b97a2),
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Montserrat'),
-                          border: StylesConfig.borderSide,
-                          enabledBorder:StylesConfig.enableBorderSide,
-                          focusedBorder:StylesConfig.focusBorderSide,
-                          filled: true,
-                          fillColor: StylesConfig.filledInputColor,),
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: ThemeManager.getInstance()
-                                .getTextColor(defaultColor: Color(0xff8b97a2)),
-                            fontWeight: FontWeight.w500),
-                        validator: (value) => TextUtil.isEmpty(value)
-                            ? getI18NKey().passwordNotEmpty
-                            : null,
-                        onSaved: (value) => _password = value?.trim(),
-                      ),
-                      Positioned(
-                        right: 10,
-                        top: 12,
-                        child: CheckImage(
-                          onTapListener: (isChecked) {
-                            checked = isChecked;
-                            setState(() {});
-                          },
-                          checked: !checked,
-                          autoCheck: true,
-                          checkIcon: Utility.getSVGPicture(
-                              R.assetsImgIcEyeSlash,
-                              size: 20),
-                          uncheckIcon: Utility.getSVGPicture(
-                              R.assetsImgIcEyeClose,
-                              size: 20),
+                      InputDecoration(
+                        suffixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: CheckImage(
+                                onTapListener: (isChecked) {
+                                  checked = isChecked;
+                                  setState(() {});
+                                },
+                                checked: !checked,
+                                autoCheck: true,
+                                checkIcon: Utility.getSVGPicture(
+                                    R.assetsImgIcEyeSlash,
+                                    size: 20),
+                                uncheckIcon: Utility.getSVGPicture(
+                                    R.assetsImgIcEyeClose,
+                                    size: 20),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ])),
+                          labelText: getI18NKey().password,
+                          labelStyle: TextStyle(
+                              color: Color(0xff8b97a2),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat'),
+                        border: StylesConfig.borderSide,
+                        enabledBorder:StylesConfig.enableBorderSide,
+                        focusedBorder:StylesConfig.focusBorderSide,
+                        filled: true,
+                        fillColor: StylesConfig.filledInputColor,),
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: ThemeManager.getInstance()
+                              .getTextColor(defaultColor: Color(0xff8b97a2)),
+                          fontWeight: FontWeight.w500),
+                      validator: (value) => TextUtil.isEmpty(value)
+                          ? getI18NKey().passwordNotEmpty
+                          : null,
+                      onSaved: (value) => _password = value?.trim(),
+                    )),
                 SizedBox(
                   height: 40,
                 ),

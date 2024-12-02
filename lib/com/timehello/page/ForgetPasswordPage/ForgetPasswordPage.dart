@@ -71,6 +71,11 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     super.initState();
     if (Utility.isHandsetBySize()) {}
     _timerUtil = new TimerUtil(mCurTime: msnTotalTime);
+    if(Utility.isChina()) {
+      curTab = 0;
+    } else {
+      curTab = 1;
+    }
     msnCurTime = msnTotalTime;
   }
 
@@ -109,28 +114,52 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         dynamicCode: this._msn,
       );
     } else {
-      // if (TextUtil.isEmpty(this.password)) {
-      //   Utility.showToastMsg(
-      //       context: context, msg: getI18NKey().please_input_password);
-      //   return;
-      // }
-      String email =
-          await Utility.decryptCTRAES(this.email ?? "", Params.AES_PWD);
-      GoogleMailLoginManager.getInstance().resetPassword(
+      if (Params.useGmail == false) {
+        if (TextUtil.isEmpty(this.email)) {
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().please_input_mobile_no);
+          return;
+        }
+        if (TextUtil.isEmpty(this.password)) {
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().please_input_password);
+          return;
+        }
+        if (TextUtil.isEmpty(this._msn)) {
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().inputSmsVerificationCode);
+          return;
+        }
+        requestResPwd(
           email: email,
-          // password: await Utility.decryptCTRAES(
-          //     this.password ?? "", Params.AES_PWD),
-          callbackSuccess: () async {
-            Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.ForgetPassword, email: email ?? "", password: password ?? ""));
+          countryPhoneCode: this.countryPhoneCode,
+          password: this.password,
+          dynamicCode: this._msn,
+        );
+      } else {
+        String email =
+            await Utility.decryptCTRAES(this.email ?? "", Params.AES_PWD);
+        GoogleMailLoginManager.getInstance().resetPassword(
+            email: email,
+            // password: await Utility.decryptCTRAES(
+            //     this.password ?? "", Params.AES_PWD),
+            callbackSuccess: () async {
+              Utility.pushReplacement(
+                  context ?? Utility.getGlobalContext(),
+                  RegisterEmailVerificationPage(
+                      pageFromEnum: PageFromEnum.ForgetPassword,
+                      email: email ?? "",
+                      password: password ?? ""));
 
-            // Utility.popNavigator(context, {"curTab": 1, "email": email});
-            //用于调用重启密码接口
-            SharePreferenceUtil.getSyncInstance()
-                .setBool(key: ShareprefrenceKeys.needResetPassword, val: true);
-          },
-          callbackFail: (e) {
-            Utility.showToastMsg(context: context, msg: e.message);
-          });
+              // Utility.popNavigator(context, {"curTab": 1, "email": email});
+              //用于调用重启密码接口
+              SharePreferenceUtil.getSyncInstance().setBool(
+                  key: ShareprefrenceKeys.needResetPassword, val: true);
+            },
+            callbackFail: (e) {
+              Utility.showToastMsg(context: context, msg: e.message);
+            });
+      }
     }
   }
 
@@ -163,7 +192,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                 Utility.isHandsetBySize()
                     ? SizedBox.shrink()
                     : BackNavigator(
-                        backColor: Colors.white,
+                        backColor: ThemeManager.getInstance().isDark()
+                            ? Colors.white
+                            : Colors.black,
                         onTapListener: (data) {
                           this.onClick('onClickBack', null);
                         }),
@@ -175,6 +206,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                   height: 10,
                 ),
                 CustomTabBarWidget(
+                  checkIndex: curTab,
                   list: tabList,
                   onCheckedListener: (int index) {
                     this.curTab = index;
@@ -187,10 +219,8 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                     margin: EdgeInsets.only(top: 10),
                     height: 90,
                     child: getInputTextField()),
-                SizedBox(
-                  height: 15,
-                ),
-                if (this.curTab == 0)
+                if (this.curTab == 0 ||
+                    (this.curTab == 1 && Params.useGmail == false))
                   Stack(
                     children: [
                       TextFormField(
@@ -201,14 +231,39 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                         maxLength: 6,
                         obscureText: false,
                         decoration: InputDecoration(
-                            labelText: getI18NKey().smsVerificationCode,
-                            labelStyle: TextStyle(
-                                color: Color(0xff8b97a2),
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Montserrat'),
+                          suffixIcon: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: GestureDetector(
+                                    onTap: () async {
+                                      requestGetDynamicCode(context);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(right: 10),
+                                      child: Text(
+                                        this.isBtnEnable == false
+                                            ? Utility.parseTimestampToSeconds(
+                                                    msnCurTime)
+                                                .toString()
+                                            : getI18NKey().getVerificationCode,
+                                        style: TextStyle(
+                                            color: ColorsConfig.colorTextField),
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          labelText: getI18NKey().smsVerificationCode,
+                          labelStyle: TextStyle(
+                              color: Color(0xff8b97a2),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat'),
                           focusedBorder: StylesConfig.buildOutlineInputBorder(),
                           enabledBorder: StylesConfig.buildOutlineInputBorder(),
-                          border: StylesConfig.buildOutlineInputBorder(),),
+                          border: StylesConfig.buildOutlineInputBorder(),
+                        ),
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Color(0xff8b97a2),
@@ -222,98 +277,71 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                         // },
                       ),
                       // Container(color: Colors.white, width: ,),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.transparent, width: 1),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4),
-                                topRight: Radius.circular(4),
-                              )),
-                          width: 140,
-                          child: TextButton(
-                              onPressed: () async {
-                                requestGetDynamicCode(context);
-                              },
-                              child: Text(
-                                this.isBtnEnable == false
-                                    ? Utility.parseTimestampToSeconds(
-                                            msnCurTime)
-                                        .toString()
-                                    : getI18NKey().getVerificationCode,
-                                style: TextStyle(
-                                    color: ColorsConfig.colorTextField),
-                              )),
-                        ),
-                      ),
                     ],
                   ),
-                if (this.curTab == 0)
-                  Stack(
-                  children: [
-                    TextFormField(
-                      onChanged: (String text) async {
-                        if (TextUtil.isEmpty(text) == true) {
-                          this.password = "";
-                          return;
-                        }
-                        this.password =
-                            await Utility.encryptCTRAES(text, Params.AES_PWD);
-                      },
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !this.checked,
-                      //密码是否可见
-                      textInputAction: TextInputAction.done,
-                      controller: textController2,
-                      // obscureText: false,
-                      decoration: InputDecoration(
-                          labelText: getI18NKey().password,
-                          labelStyle: TextStyle(
-                              color: Color(0xff8b97a2),
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Montserrat'),
-                        focusedBorder: StylesConfig.buildOutlineInputBorder(),
-                        enabledBorder: StylesConfig.buildOutlineInputBorder(),
-                        border: StylesConfig.buildOutlineInputBorder(),),
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
+                if (this.curTab == 0 ||
+                    (this.curTab == 1 && Params.useGmail == false))
+                  TextFormField(
+                    onChanged: (String text) async {
+                      if (TextUtil.isEmpty(text) == true) {
+                        this.password = "";
+                        return;
+                      }
+                      this.password =
+                          await Utility.encryptCTRAES(text, Params.AES_PWD);
+                    },
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: !this.checked,
+                    //密码是否可见
+                    textInputAction: TextInputAction.done,
+                    controller: textController2,
+                    // obscureText: false,
+                    decoration: InputDecoration(
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: CheckImage(
+                                //显示隐藏密码的眼睛
+                                onTapListener: (isChecked) {
+                                  checked = !isChecked;
+                                  updateUI();
+                                },
+                                checked: checked,
+                                autoCheck: true,
+                                checkIcon: Utility.getSVGPicture(
+                                    R.assetsImgIcEyeSlash,
+                                    size: 20),
+                                uncheckIcon: Utility.getSVGPicture(
+                                    R.assetsImgIcEyeClose,
+                                    size: 20),
+                              )),
+                        ],
+                      ),
+                      labelText: getI18NKey().password,
+                      labelStyle: TextStyle(
                           color: Color(0xff8b97a2),
-                          fontWeight: FontWeight.w500),
-                      validator: (value) =>
-                          value!.isEmpty ? getI18NKey().passwordNotEmpty : null,
-                      onSaved: (value) {
-                        if (TextUtil.isEmpty(value) == true) {
-                          password = "";
-                          return;
-                        }
-                        password = value!.trim();
-                      },
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Montserrat'),
+                      focusedBorder: StylesConfig.buildOutlineInputBorder(),
+                      enabledBorder: StylesConfig.buildOutlineInputBorder(),
+                      border: StylesConfig.buildOutlineInputBorder(),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 15),
-                      child: Align(
-                          alignment: Alignment(1, 1),
-                          child: CheckImage(
-                            //显示隐藏密码的眼睛
-                            onTapListener: (isChecked) {
-                              checked = !isChecked;
-                              updateUI();
-                            },
-                            checked: checked,
-                            autoCheck: true,
-                            checkIcon: Utility.getSVGPicture(
-                                R.assetsImgIcEyeSlash,
-                                size: 30),
-                            uncheckIcon: Utility.getSVGPicture(
-                                R.assetsImgIcEyeClose,
-                                size: 30),
-                          )),
-                    ),
-                  ],
-                ),
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        color: Color(0xff8b97a2),
+                        fontWeight: FontWeight.w500),
+                    validator: (value) =>
+                        value!.isEmpty ? getI18NKey().passwordNotEmpty : null,
+                    onSaved: (value) {
+                      if (TextUtil.isEmpty(value) == true) {
+                        password = "";
+                        return;
+                      }
+                      password = value!.trim();
+                    },
+                  ),
                 SizedBox(
                   height: 50,
                 ),
@@ -348,6 +376,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
   void requestResPwd({
     String? countryPhoneCode,
     String? mobile,
+    String? email,
     String? password,
     String? dynamicCode,
   }) {
@@ -355,6 +384,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         params: {
           "countryPhoneCode": countryPhoneCode,
           "mobilePhoneNumber": mobile,
+          "email": email,
           "password": password,
           "dynamicCode": dynamicCode,
           "scene": Params.MSN_FORGET_PWD
@@ -425,6 +455,8 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
   StatefulWidget getMobileInputTextField() {
     if (Utility.isGooglePlay() == true) {
       return IntlPhoneField(
+          initialCountryCode: DeviceInfoManagement.getCountryCode(),
+        languageCode: DeviceInfoManagement.getLanguage(),
         disableLengthCheck: true,
         searchText: getI18NKey().search_country,
         invalidNumberMessage: getI18NKey().invalid_mobile_number,
@@ -440,15 +472,15 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         obscureText: false,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-            labelText: getI18NKey().phoneNo,
-            labelStyle: TextStyle(
-                color: Color(0xff8b97a2),
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Montserrat'),
+          labelText: getI18NKey().phoneNo,
+          labelStyle: TextStyle(
+              color: Color(0xff8b97a2),
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Montserrat'),
           focusedBorder: StylesConfig.buildOutlineInputBorder(),
           enabledBorder: StylesConfig.buildOutlineInputBorder(),
-          border: StylesConfig.buildOutlineInputBorder(),),
-        initialCountryCode: DeviceInfoManagement.getCountryCode(),
+          border: StylesConfig.buildOutlineInputBorder(),
+        ),
         onChanged: (phone) async {
           this.countryIOSCode = phone.countryISOCode;
           this.countryPhoneCode = phone.countryCode;
@@ -484,14 +516,15 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
         obscureText: false,
         //手机号输入
         decoration: InputDecoration(
-            labelText: getI18NKey().phoneNo,
-            labelStyle: TextStyle(
-                color: Color(0xff8b97a2),
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Montserrat'),
+          labelText: getI18NKey().phoneNo,
+          labelStyle: TextStyle(
+              color: Color(0xff8b97a2),
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Montserrat'),
           focusedBorder: StylesConfig.buildOutlineInputBorder(),
           enabledBorder: StylesConfig.buildOutlineInputBorder(),
-          border: StylesConfig.buildOutlineInputBorder(),),
+          border: StylesConfig.buildOutlineInputBorder(),
+        ),
         style: TextStyle(
             fontFamily: 'Montserrat',
             color: Color(0xff8b97a2),
@@ -510,20 +543,38 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
   }
 
   Future<BaseBean> requestGetDynamicCode(BuildContext context) async {
-    BaseBean baseBean = await HttpManager.getInstance().doPostRequest(
-      Apis.getDynamicCode,
-      context: context,
-      shouldShowErrorToast: true,
-      params: {
-        "scene": Params.MSN_FORGET_PWD,
-        "countryPhoneCode": this.countryPhoneCode,
-        "mobilePhoneNumber": this.mobile,
-      },
-    );
-    if (baseBean.success == true) {
-      startTimer();
+    if (this.curTab == 0) {
+      BaseBean baseBean = await HttpManager.getInstance().doPostRequest(
+        Apis.getDynamicCode,
+        context: context,
+        shouldShowErrorToast: true,
+        params: {
+          "scene": Params.MSN_FORGET_PWD,
+          "countryPhoneCode": this.countryPhoneCode,
+          "mobilePhoneNumber": this.mobile,
+        },
+      );
+      if (baseBean.success == true) {
+        startTimer();
+      }
+      return baseBean;
+    } else {
+      BaseBean baseBean = await HttpManager.getInstance().doPostRequest(
+        Apis.getEmailDynamicCode,
+        context: context,
+        shouldShowErrorToast: true,
+        params: {
+          "scene": Params.MSN_FORGET_PWD,
+          "countryPhoneCode": this.countryPhoneCode,
+          "email":
+              await Utility.decryptCTRAES(this.email ?? "", Params.AES_PWD),
+        },
+      );
+      if (baseBean.success == true) {
+        startTimer();
+      }
+      return baseBean;
     }
-    return baseBean;
   }
 
   void startTimer() {

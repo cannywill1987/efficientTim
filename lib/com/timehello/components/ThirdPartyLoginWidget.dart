@@ -48,7 +48,10 @@ class ThirdPartyLoginWidget extends StatelessWidget {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                    width: width,
+                    constraints: BoxConstraints(
+                      minWidth: width,
+                    ),
+                    padding: EdgeInsets.only(left: 10, right: 10),
                     height: 45,
                     decoration: BoxDecoration(
                         border: Border.all(color: ThemeManager.getInstance().isDark() ? Colors.white : ThemeManager.getInstance().getDefautThemeColor(), width: 1),
@@ -87,7 +90,10 @@ class ThirdPartyLoginWidget extends StatelessWidget {
           },
           child: Container(
               alignment: Alignment.center,
-              width: width,
+              constraints: BoxConstraints(
+                minWidth: width,
+              ),
+              padding: EdgeInsets.only(left: 10, right: 10),
               height: 45,
               decoration: BoxDecoration(
                 border: Border.all(color: ThemeManager.getInstance().isDark() ? Colors.white : ThemeManager.getInstance().getDefautThemeColor(), width: 1),

@@ -40,16 +40,6 @@
 		DF21E700282FE7B200444EFF /* CustomStatusBarWidget.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF21E6FD282FE7B200444EFF /* CustomStatusBarWidget.xib */; };
 		DF21E70B282FE96900444EFF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF21E70A282FE96900444EFF /* MainStoryboard.storyboard */; };
 		DF21E7122830E84200444EFF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF21E70D2830E84200444EFF /* InfoPlist.strings */; };
-		DF332D7B2CF5D20B00D92E89 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
-		DF332D7C2CF5D20B00D92E89 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
-		DF332D882CF5D20C00D92E89 /* New4CountdownWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF332D7A2CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF332D942CF5D21600D92E89 /* New4CountdownWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF332D912CF5D21600D92E89 /* New4CountdownWidgetExtension.swift */; };
-		DF332D952CF5D21600D92E89 /* New4CountdownWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF332D922CF5D21600D92E89 /* New4CountdownWidgetExtensionBundle.swift */; };
-		DF332D962CF5D21600D92E89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF332D8E2CF5D21600D92E89 /* Assets.xcassets */; };
-		DF332D982CF5D25100D92E89 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
-		DF332D992CF5D28000D92E89 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
-		DF332D9A2CF5D28A00D92E89 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
-		DF332D9B2CF5D2E300D92E89 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
 		DF49FD502AA0CA49003D8911 /* FlomoMissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */; };
 		DF5165062AAF3E6700518208 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5165052AAF3E6700518208 /* test.swift */; };
 		DF5F2C3E2BF7420F0006FCC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF5F2C3D2BF7420F0006FCC4 /* GoogleService-Info.plist */; };
@@ -84,7 +74,6 @@
 		DF708E352CF5E8BE00C0F554 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DF708E362CF5E8BE00C0F554 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
 		DF708E372CF5E8BE00C0F554 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
-		DF708E482CF5E8E100C0F554 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77067C2CC2207E004807EA /* NetworkRequest.swift */; };
 		DF708E492CF5E8E100C0F554 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77067C2CC2207E004807EA /* NetworkRequest.swift */; };
 		DF708E4A2CF5E8E100C0F554 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77067C2CC2207E004807EA /* NetworkRequest.swift */; };
 		DF708E4B2CF5E8E100C0F554 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77067C2CC2207E004807EA /* NetworkRequest.swift */; };
@@ -257,6 +246,16 @@
 		DFC8179E2A9E0C0400824F79 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
 		DFC817A92A9E0FDE00824F79 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817A82A9E0FDE00824F79 /* StoreData.swift */; };
 		DFC817AC2A9E100200824F79 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817AB2A9E100200824F79 /* PrimarryData.swift */; };
+		DFD2CB842CFD38B600BD4069 /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF30EA2869D0DD0091B848 /* Params.swift */; };
+		DFD2CB852CFD38E500BD4069 /* MissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC8179D2A9E0C0400824F79 /* MissionData.swift */; };
+		DFD2CB862CFD38F500BD4069 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817542A9CB1E700824F79 /* String+Extension.swift */; };
+		DFD2CB872CFD38FF00BD4069 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC817512A9CB17E00824F79 /* Localizable.strings */; };
+		DFD2CB8E2CFD39D000BD4069 /* NewCountdown8WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD2CB8B2CFD39D000BD4069 /* NewCountdown8WidgetExtension.swift */; };
+		DFD2CB8F2CFD39D000BD4069 /* NewCountdown8WidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD2CB8C2CFD39D000BD4069 /* NewCountdown8WidgetExtensionBundle.swift */; };
+		DFD2CB902CFD39D000BD4069 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFD2CB882CFD39D000BD4069 /* Assets.xcassets */; };
+		DFDFBD812CFD36A800024859 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */; };
+		DFDFBD822CFD36A800024859 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */; };
+		DFDFBD8E2CFD36AA00024859 /* NewCountdown8WidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFDFBD802CFD36A800024859 /* NewCountdown8WidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DFEB26CD2ADFD338004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
 		DFEB26D12ADFF0F9004FBB7E /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
 /* End PBXBuildFile section */
@@ -268,20 +267,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = FLX;
-		};
-		DF332D862CF5D20C00D92E89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DF332D792CF5D20B00D92E89;
-			remoteInfo = New4CountdownWidgetExtensionExtension;
-		};
-		DF332D9C2CF5D57100D92E89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
-			remoteInfo = "Flutter Assemble";
 		};
 		DF651B282CF70554000330E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -479,6 +464,13 @@
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = "Flutter Assemble";
 		};
+		DFDFBD8C2CFD36AA00024859 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFDFBD7F2CFD36A800024859;
+			remoteInfo = NewCountdown8WidgetExtensionExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -502,10 +494,10 @@
 				DF708CB92CF5E6B400C0F554 /* Latest6Note1WidgetExtension.appex in Embed Foundation Extensions */,
 				DF708F9B2CF609E900C0F554 /* New7ClockInExtension.appex in Embed Foundation Extensions */,
 				DF708D0B2CF5E72B00C0F554 /* Latest6Note4WidgetExtension.appex in Embed Foundation Extensions */,
-				DF332D882CF5D20C00D92E89 /* New4CountdownWidgetExtensionExtension.appex in Embed Foundation Extensions */,
 				DF708D3B2CF5E74E00C0F554 /* Latest6Note6WidgetExtension.appex in Embed Foundation Extensions */,
 				DF708D232CF5E73D00C0F554 /* Latest6Note5WidgetExtension.appex in Embed Foundation Extensions */,
 				DF708CDB2CF5E70800C0F554 /* Latest6Note2WidgetExtension.appex in Embed Foundation Extensions */,
+				DFDFBD8E2CFD36AA00024859 /* NewCountdown8WidgetExtensionExtension.appex in Embed Foundation Extensions */,
 				DF708CF32CF5E71700C0F554 /* Latest6Note3WidgetExtension.appex in Embed Foundation Extensions */,
 				DF7090052CF6132000C0F554 /* New7MissionListViewExtension.appex in Embed Foundation Extensions */,
 				DF70903D2CF614DA00C0F554 /* New7CounterWidgetExtension.appex in Embed Foundation Extensions */,
@@ -554,12 +546,6 @@
 		DF21E701282FE8CA00444EFF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		DF21E70A282FE96900444EFF /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		DF21E70E2830E84200444EFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
-		DF332D7A2CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = New4CountdownWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF332D8E2CF5D21600D92E89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF332D8F2CF5D21600D92E89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF332D902CF5D21600D92E89 /* New4CountdownWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = New4CountdownWidgetExtension.entitlements; sourceTree = "<group>"; };
-		DF332D912CF5D21600D92E89 /* New4CountdownWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New4CountdownWidgetExtension.swift; sourceTree = "<group>"; };
-		DF332D922CF5D21600D92E89 /* New4CountdownWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New4CountdownWidgetExtensionBundle.swift; sourceTree = "<group>"; };
 		DF49FD4F2AA0CA49003D8911 /* FlomoMissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlomoMissionModel.swift; sourceTree = "<group>"; };
 		DF5165052AAF3E6700518208 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		DF5F2C3D2BF7420F0006FCC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -691,8 +677,14 @@
 		DFC8179D2A9E0C0400824F79 /* MissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionData.swift; sourceTree = "<group>"; };
 		DFC817A82A9E0FDE00824F79 /* StoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreData.swift; sourceTree = "<group>"; };
 		DFC817AB2A9E100200824F79 /* PrimarryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimarryData.swift; sourceTree = "<group>"; };
+		DFD2CB882CFD39D000BD4069 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFD2CB892CFD39D000BD4069 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFD2CB8A2CFD39D000BD4069 /* NewCountdown8WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewCountdown8WidgetExtension.entitlements; sourceTree = "<group>"; };
+		DFD2CB8B2CFD39D000BD4069 /* NewCountdown8WidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCountdown8WidgetExtension.swift; sourceTree = "<group>"; };
+		DFD2CB8C2CFD39D000BD4069 /* NewCountdown8WidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCountdown8WidgetExtensionBundle.swift; sourceTree = "<group>"; };
 		DFDE2DB62A3D5A8C0037815B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DFDFBD802CFD36A800024859 /* NewCountdown8WidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewCountdown8WidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WQBMissionData.swift; sourceTree = "<group>"; };
 		DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewWidget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -703,15 +695,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				80674510C3D49510832C9470 /* Pods_Runner.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DF332D772CF5D20B00D92E89 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DF332D7C2CF5D20B00D92E89 /* SwiftUI.framework in Frameworks */,
-				DF332D7B2CF5D20B00D92E89 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +824,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFDFBD7D2CFD36A800024859 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFDFBD822CFD36A800024859 /* SwiftUI.framework in Frameworks */,
+				DFDFBD812CFD36A800024859 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -871,7 +863,6 @@
 				33FAB671232836740065AC1E /* Runner */,
 				33CEB47122A05771004F2AC0 /* Flutter */,
 				A45AF054F2DD42C254AC9EDA /* Pods */,
-				DF332D932CF5D21600D92E89 /* New4CountdownWidgetExtension */,
 				DF708CC42CF5E6BE00C0F554 /* Latest6Note1Widget */,
 				DF708EDC2CF604BC00C0F554 /* Latest6Note2Widget */,
 				DF708F042CF604BC00C0F554 /* Latest6Note3Widget */,
@@ -886,6 +877,7 @@
 				DF70908A2CF6197D00C0F554 /* New7CounterWidget */,
 				DF70909E2CF6197D00C0F554 /* New7QuadrantWidgetExtension */,
 				DF7090942CF6197D00C0F554 /* New7CalendarWidget */,
+				DFD2CB8D2CFD39D000BD4069 /* NewCountdown8WidgetExtension */,
 				33CC10EE2044A3C60003C045 /* Products */,
 				333A3C6A24C1D6DCB934E7CA /* Frameworks */,
 			);
@@ -895,7 +887,6 @@
 			isa = PBXGroup;
 			children = (
 				33CC10ED2044A3C60003C045 /* Timerbell Todo.app */,
-				DF332D7A2CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension.appex */,
 				DF708CAB2CF5E6B200C0F554 /* Latest6Note1WidgetExtension.appex */,
 				DF708CCD2CF5E70700C0F554 /* Latest6Note2WidgetExtension.appex */,
 				DF708CE52CF5E71600C0F554 /* Latest6Note3WidgetExtension.appex */,
@@ -910,6 +901,7 @@
 				DF70902F2CF614D800C0F554 /* New7CounterWidgetExtension.appex */,
 				DF7090472CF614F500C0F554 /* New7QuadrantWidgetExtensionExtension.appex */,
 				DF70905F2CF6151100C0F554 /* New7CalendarWidgetExtension.appex */,
+				DFDFBD802CFD36A800024859 /* NewCountdown8WidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1034,18 +1026,6 @@
 				DF21E70D2830E84200444EFF /* InfoPlist.strings */,
 			);
 			path = en.lproj;
-			sourceTree = "<group>";
-		};
-		DF332D932CF5D21600D92E89 /* New4CountdownWidgetExtension */ = {
-			isa = PBXGroup;
-			children = (
-				DF332D8E2CF5D21600D92E89 /* Assets.xcassets */,
-				DF332D8F2CF5D21600D92E89 /* Info.plist */,
-				DF332D902CF5D21600D92E89 /* New4CountdownWidgetExtension.entitlements */,
-				DF332D912CF5D21600D92E89 /* New4CountdownWidgetExtension.swift */,
-				DF332D922CF5D21600D92E89 /* New4CountdownWidgetExtensionBundle.swift */,
-			);
-			path = New4CountdownWidgetExtension;
 			sourceTree = "<group>";
 		};
 		DF708CC42CF5E6BE00C0F554 /* Latest6Note1Widget */ = {
@@ -1241,6 +1221,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		DFD2CB8D2CFD39D000BD4069 /* NewCountdown8WidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DFD2CB882CFD39D000BD4069 /* Assets.xcassets */,
+				DFD2CB892CFD39D000BD4069 /* Info.plist */,
+				DFD2CB8A2CFD39D000BD4069 /* NewCountdown8WidgetExtension.entitlements */,
+				DFD2CB8B2CFD39D000BD4069 /* NewCountdown8WidgetExtension.swift */,
+				DFD2CB8C2CFD39D000BD4069 /* NewCountdown8WidgetExtensionBundle.swift */,
+			);
+			path = NewCountdown8WidgetExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1262,7 +1254,6 @@
 			);
 			dependencies = (
 				33CC11202044C79F0003C045 /* PBXTargetDependency */,
-				DF332D872CF5D20C00D92E89 /* PBXTargetDependency */,
 				DF708CB82CF5E6B400C0F554 /* PBXTargetDependency */,
 				DF708CDA2CF5E70800C0F554 /* PBXTargetDependency */,
 				DF708CF22CF5E71700C0F554 /* PBXTargetDependency */,
@@ -1277,31 +1268,12 @@
 				DF70903C2CF614DA00C0F554 /* PBXTargetDependency */,
 				DF7090542CF614F600C0F554 /* PBXTargetDependency */,
 				DF70906C2CF6151200C0F554 /* PBXTargetDependency */,
+				DFDFBD8D2CFD36AA00024859 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
 			productReference = 33CC10ED2044A3C60003C045 /* Timerbell Todo.app */;
 			productType = "com.apple.product-type.application";
-		};
-		DF332D792CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DF332D8A2CF5D20C00D92E89 /* Build configuration list for PBXNativeTarget "New4CountdownWidgetExtensionExtension" */;
-			buildPhases = (
-				DF332D762CF5D20B00D92E89 /* Sources */,
-				DF332D772CF5D20B00D92E89 /* Frameworks */,
-				DF332D782CF5D20B00D92E89 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DF332D9D2CF5D57100D92E89 /* PBXTargetDependency */,
-			);
-			name = New4CountdownWidgetExtensionExtension;
-			packageProductDependencies = (
-			);
-			productName = New4CountdownWidgetExtensionExtension;
-			productReference = DF332D7A2CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		DF708CAA2CF5E6B200C0F554 /* Latest6Note1WidgetExtension */ = {
 			isa = PBXNativeTarget;
@@ -1583,6 +1555,25 @@
 			productReference = DF70905F2CF6151100C0F554 /* New7CalendarWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		DFDFBD7F2CFD36A800024859 /* NewCountdown8WidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFDFBD902CFD36AA00024859 /* Build configuration list for PBXNativeTarget "NewCountdown8WidgetExtensionExtension" */;
+			buildPhases = (
+				DFDFBD7C2CFD36A800024859 /* Sources */,
+				DFDFBD7D2CFD36A800024859 /* Frameworks */,
+				DFDFBD7E2CFD36A800024859 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewCountdown8WidgetExtensionExtension;
+			packageProductDependencies = (
+			);
+			productName = NewCountdown8WidgetExtensionExtension;
+			productReference = DFDFBD802CFD36A800024859 /* NewCountdown8WidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1606,9 +1597,6 @@
 					33CC111A2044C6BA0003C045 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
-					};
-					DF332D792CF5D20B00D92E89 = {
-						CreatedOnToolsVersion = 16.1;
 					};
 					DF708CAA2CF5E6B200C0F554 = {
 						CreatedOnToolsVersion = 16.1;
@@ -1652,6 +1640,9 @@
 					DF70905E2CF6151100C0F554 = {
 						CreatedOnToolsVersion = 16.1;
 					};
+					DFDFBD7F2CFD36A800024859 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 				};
 			};
 			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "Runner" */;
@@ -1680,7 +1671,6 @@
 			targets = (
 				33CC10EC2044A3C60003C045 /* Runner */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
-				DF332D792CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension */,
 				DF708CAA2CF5E6B200C0F554 /* Latest6Note1WidgetExtension */,
 				DF708CCC2CF5E70700C0F554 /* Latest6Note2WidgetExtension */,
 				DF708CE42CF5E71600C0F554 /* Latest6Note3WidgetExtension */,
@@ -1695,6 +1685,7 @@
 				DF70902E2CF614D800C0F554 /* New7CounterWidgetExtension */,
 				DF7090462CF614F500C0F554 /* New7QuadrantWidgetExtensionExtension */,
 				DF70905E2CF6151100C0F554 /* New7CalendarWidgetExtension */,
+				DFDFBD7F2CFD36A800024859 /* NewCountdown8WidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1713,15 +1704,6 @@
 				DF21E6F4282FE6C700444EFF /* CounterPopupViewController.xib in Resources */,
 				DF21E70B282FE96900444EFF /* MainStoryboard.storyboard in Resources */,
 				33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DF332D782CF5D20B00D92E89 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DF332D962CF5D21600D92E89 /* Assets.xcassets in Resources */,
-				DF332D992CF5D28000D92E89 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1848,6 +1830,15 @@
 			files = (
 				DF7090972CF6197D00C0F554 /* Assets.xcassets in Resources */,
 				DF7090782CF615E800C0F554 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFDFBD7E2CFD36A800024859 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFD2CB902CFD39D000BD4069 /* Assets.xcassets in Resources */,
+				DFD2CB872CFD38FF00BD4069 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1981,19 +1972,6 @@
 				DF21E6E7282FDFA800444EFF /* Constant.swift in Sources */,
 				DF77067F2CC22573004807EA /* BaseResponse.swift in Sources */,
 				DF7706882CC28F4E004807EA /* StatsModel.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DF332D762CF5D20B00D92E89 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DF332D9B2CF5D2E300D92E89 /* MissionData.swift in Sources */,
-				DF332D9A2CF5D28A00D92E89 /* String+Extension.swift in Sources */,
-				DF332D982CF5D25100D92E89 /* Params.swift in Sources */,
-				DF332D942CF5D21600D92E89 /* New4CountdownWidgetExtension.swift in Sources */,
-				DF708E482CF5E8E100C0F554 /* NetworkRequest.swift in Sources */,
-				DF332D952CF5D21600D92E89 /* New4CountdownWidgetExtensionBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2216,6 +2194,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFDFBD7C2CFD36A800024859 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFD2CB852CFD38E500BD4069 /* MissionData.swift in Sources */,
+				DFD2CB842CFD38B600BD4069 /* Params.swift in Sources */,
+				DFD2CB8E2CFD39D000BD4069 /* NewCountdown8WidgetExtension.swift in Sources */,
+				DFD2CB8F2CFD39D000BD4069 /* NewCountdown8WidgetExtensionBundle.swift in Sources */,
+				DFD2CB862CFD38F500BD4069 /* String+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2223,16 +2213,6 @@
 			isa = PBXTargetDependency;
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = 33CC111F2044C79F0003C045 /* PBXContainerItemProxy */;
-		};
-		DF332D872CF5D20C00D92E89 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DF332D792CF5D20B00D92E89 /* New4CountdownWidgetExtensionExtension */;
-			targetProxy = DF332D862CF5D20C00D92E89 /* PBXContainerItemProxy */;
-		};
-		DF332D9D2CF5D57100D92E89 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
-			targetProxy = DF332D9C2CF5D57100D92E89 /* PBXContainerItemProxy */;
 		};
 		DF651B292CF70554000330E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2373,6 +2353,11 @@
 			isa = PBXTargetDependency;
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = DF7090AD2CF61C7200C0F554 /* PBXContainerItemProxy */;
+		};
+		DFDFBD8D2CFD36AA00024859 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFDFBD7F2CFD36A800024859 /* NewCountdown8WidgetExtensionExtension */;
+			targetProxy = DFDFBD8C2CFD36AA00024859 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2689,143 +2674,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
-		};
-		DF332D8B2CF5D20C00D92E89 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = New4CountdownWidgetExtension/New4CountdownWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4CLCWPCGH;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = New4CountdownWidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = New4CountdownWidgetExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.New4CountdownWidgetExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		DF332D8C2CF5D20C00D92E89 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = New4CountdownWidgetExtension/New4CountdownWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4CLCWPCGH;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = New4CountdownWidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = New4CountdownWidgetExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.New4CountdownWidgetExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		DF332D8D2CF5D20C00D92E89 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = New4CountdownWidgetExtension/New4CountdownWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4CLCWPCGH;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = New4CountdownWidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = New4CountdownWidgetExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.New4CountdownWidgetExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Profile;
 		};
 		DF708CBC2CF5E6B400C0F554 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4745,6 +4593,143 @@
 			};
 			name = Profile;
 		};
+		DFDFBD912CFD36AA00024859 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewCountdown8WidgetExtension/NewCountdown8WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewCountdown8WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewCountdown8WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewCountdown8WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DFDFBD922CFD36AA00024859 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewCountdown8WidgetExtension/NewCountdown8WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewCountdown8WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewCountdown8WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewCountdown8WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DFDFBD932CFD36AA00024859 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NewCountdown8WidgetExtension/NewCountdown8WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4CLCWPCGH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewCountdown8WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewCountdown8WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moonrainbowsoft.time.flutterTimeHello.NewCountdown8WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4774,16 +4759,6 @@
 				33CC111C2044C6BA0003C045 /* Debug */,
 				33CC111D2044C6BA0003C045 /* Release */,
 				338D0CEB231458BD00FA5F75 /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DF332D8A2CF5D20C00D92E89 /* Build configuration list for PBXNativeTarget "New4CountdownWidgetExtensionExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DF332D8B2CF5D20C00D92E89 /* Debug */,
-				DF332D8C2CF5D20C00D92E89 /* Release */,
-				DF332D8D2CF5D20C00D92E89 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4924,6 +4899,16 @@
 				DF7090702CF6151200C0F554 /* Debug */,
 				DF7090712CF6151200C0F554 /* Release */,
 				DF7090722CF6151200C0F554 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFDFBD902CFD36AA00024859 /* Build configuration list for PBXNativeTarget "NewCountdown8WidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFDFBD912CFD36AA00024859 /* Debug */,
+				DFDFBD922CFD36AA00024859 /* Release */,
+				DFDFBD932CFD36AA00024859 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -132,6 +132,17 @@ class DeviceInfoManagement {
     }
   }
 
+  static String getLanguageCountryCode() {
+    // final List<Locale> systemLocales = WidgetsBinding.instance.window.locales; // Returns the list of locales that user defined in the system settings.
+    // return Platform.localeName; //这个返回 en_US
+    try {
+      Locale c = Localizations.localeOf(Utility.getGlobalContext());
+      return c.languageCode + (c.countryCode ?? ""); //返回en
+    } catch (e) {
+      return "en";
+    }
+  }
+
   static vibrate({stopAfter: 3000}) async {
     // Check if the device can vibrate
     bool canVibrate = await Vibrate.canVibrate;

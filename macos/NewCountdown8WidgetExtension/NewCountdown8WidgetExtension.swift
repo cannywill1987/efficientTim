@@ -23,8 +23,8 @@ import SwiftUI
 //    let color: Int
 //    var isFinished, isDelayed: Bool?
 //    let priorityStatus: Int?
-//    
-//    
+//
+//
 //    init(
 //        objectId: String?,
 //        title: String?,
@@ -48,7 +48,7 @@ import SwiftUI
 //        self.isDelayed = isDelayed
 //        self.color = color ?? 0xffff8800
 //    }
-//    
+//
 //    func clone(
 //           objectId: String? = nil,
 //           title: String? = nil,
@@ -346,9 +346,44 @@ struct Provider: TimelineProvider {
                 print("days4:\(getDays(missionModel:listModels[j]))")
             }
              entryDate =  SimpleEntry(
-                date: calendar.date(byAdding: .second, value: 1, to: date) ?? Date(),
+                date: calendar.date(byAdding: .second, value: offsetTime, to: date) ?? Date(),
                 emoji: "😀", missionModels: listModels, remainTime: 0
             )
+            
+            offsetTime = 1;
+            date = listDates[index]
+            listModels = cloneList(datas: datas)
+            
+            for j in 0..<listModels.count {
+                var remainTime = (listModels[j].end_time ?? 0) - Int(date.timeIntervalSince1970 * 1000)
+                remainTime = (remainTime < 0 ? 0 : (remainTime / 1000 - offsetTime))
+//                print("days4:\(remainTime % 86400)")
+                listModels[j].remainTime = remainTime
+//                getDays(missionModel: listModels[j])
+                print("days4:\(getDays(missionModel:listModels[j]))")
+            }
+             entryDate =  SimpleEntry(
+                date: calendar.date(byAdding: .second, value: offsetTime, to: date) ?? Date(),
+                emoji: "😀", missionModels: listModels, remainTime: 0
+            )
+            
+            offsetTime = 10;
+            date = listDates[index]
+            listModels = cloneList(datas: datas)
+            
+            for j in 0..<listModels.count {
+                var remainTime = (listModels[j].end_time ?? 0) - Int(date.timeIntervalSince1970 * 1000)
+                remainTime = (remainTime < 0 ? 0 : (remainTime / 1000 - offsetTime))
+//                print("days4:\(remainTime % 86400)")
+                listModels[j].remainTime = remainTime
+//                getDays(missionModel: listModels[j])
+                print("days4:\(getDays(missionModel:listModels[j]))")
+            }
+             entryDate =  SimpleEntry(
+                date: calendar.date(byAdding: .second, value: offsetTime, to: date) ?? Date(),
+                emoji: "😀", missionModels: listModels, remainTime: 0
+            )
+            
             entries.append(entryDate)
             
         }

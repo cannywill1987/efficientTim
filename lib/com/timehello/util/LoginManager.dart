@@ -312,12 +312,22 @@ class LoginManager {
               password: psd,
               dynamicCode: dynamicCode ?? "");
         } else {
-          loginUtil?.doRegisterWithEmail(
-              shouldShowLoading: true,
-              context: context ?? Utility.getGlobalContext(),
-              email: emailStr,
-              password: psd,
-              loginTypeEnum: LoginTypeEnum.email);
+          if(Params.useGmail == false) {
+            loginUtil?.doRegister(
+                email: emailStr,
+                shouldShowLoading: true,
+                countryPhoneCode: countryPhoneCode ?? "",
+                phoneNum: phoneNum,
+                password: psd,
+                dynamicCode: dynamicCode ?? "");
+          } else {
+            loginUtil?.doRegisterWithEmail(
+                shouldShowLoading: true,
+                context: context ?? Utility.getGlobalContext(),
+                email: emailStr,
+                password: psd,
+                loginTypeEnum: LoginTypeEnum.email);
+          }
         }
       }
     } catch (e) {

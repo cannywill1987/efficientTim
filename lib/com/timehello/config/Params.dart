@@ -8,6 +8,7 @@ class Params {
   // kDebugMode可以用来做全局开发环境测试
   static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static final isMongoDbCacheOn = false; // mongodb的缓存是否开启
+  static final bool useGmail = false; //是否使用gmail 完成登录注册等
   static final isHttpCacheOn = false; // mongodb的缓存是否开启
   static Locale? local; // 本机语言
   static int mongoDBTimeout = 10000;
@@ -40,7 +41,7 @@ class Params {
 
   static final int RINGTONE_DURATION = 10000;
   static final String mOssUrl = "http://oss.timerbell.com";
-  static final String mBaseUrl = env == EnvEnum.dev ? "http://172.20.10.4:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
+  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
   static final String mMemberBaseUrl = "";
   static final String MSN_REGISTER_SCENE = "MSN_REGISTER_SCENE";
@@ -155,6 +156,7 @@ class Apis {
   static String updateValuePerHour = "/api/timehello/updateValuePerHour";
   static String updateLocalMoney = "/api/timehello/updateLocalMoney";
   static String getDynamicCode = "/api/common/getDynamicCode";
+  static String getEmailDynamicCode = "/api/common/getEmailDynamicCode";
   static String resetPwdByEmail = "/api/timehello/resetPwdByEmail";
   static String unregisterAccount = "/api/common/unregisterAccount";
   static String updateUser = "/api/timehello/updateUser";
