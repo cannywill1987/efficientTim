@@ -21,81 +21,53 @@ struct WQBMissionStoreData {
     @AppStorage("WQBMissionStoreDataNote7", store: UserDefaults(suiteName: Params.groupName)) var primaryData7 : Data = Data()
     let missionData : WQBMissionModel
     func encodeData() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
     func encodeData2() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData2 = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
     func encodeData3() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData3 = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
     func encodeData4() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData4 = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
     func encodeData5() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData5 = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
     func encodeData6() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData6 = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
     func encodeData7() async {
-        do {
             guard let data = try? JSONEncoder().encode(missionData) else {
                 return
             }
             primaryData7 = data //类似存储在 shareprefrerence
             WidgetCenter.shared.reloadAllTimelines()
-        } catch { // 加入一个空的catch，用于关闭catch。否则会报错：Errors thrown from here are not handled because the enclosing catch is not exhaustive
-            print("err \(error)")
-        }
     }
 }
 

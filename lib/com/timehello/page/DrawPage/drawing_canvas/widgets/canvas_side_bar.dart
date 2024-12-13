@@ -328,10 +328,10 @@ class CanvasSideBar extends HookWidget {
         ..click();
     } else {
       await FileSaver.instance.saveFile(
-        'FlutterLetsDraw-${DateTime.now().toIso8601String()}.$extension',
-        bytes,
-        extension,
-        mimeType: extension == 'png' ? MimeType.PNG : MimeType.JPEG,
+        name: 'FlutterLetsDraw-${DateTime.now()}.$extension',
+        bytes: bytes,
+        ext: extension,
+        mimeType: extension == 'png' ? MimeType.png : MimeType.jpeg,
       );
     }
   }

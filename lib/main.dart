@@ -51,6 +51,7 @@ import 'com/timehello/util/FirebaseAuthManager.dart';
 import 'com/timehello/util/LocaleProvider.dart';
 import 'com/timehello/util/LoginManager.dart';
 import 'com/timehello/util/NotificationManager.dart';
+import 'com/timehello/util/PriceManager.dart';
 import 'com/timehello/util/SharePreferenceUtil.dart';
 import 'com/timehello/util/TextUtil.dart';
 import 'com/timehello/util/TickTimeManager.dart';
@@ -108,7 +109,8 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
     if (Utility.isXiaoMi()) {
       await FirebaseAuthManager.initialized();
     }
-
+    // ios价格初始化
+    PriceManager.getInstance();
     NotificationManager.getInstance()?.init();
     MongoDb.initMasterKey(
         Params.mBaseUrl + "/api",

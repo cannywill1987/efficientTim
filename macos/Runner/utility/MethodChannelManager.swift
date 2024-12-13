@@ -43,6 +43,120 @@ class MethodChannelManager {
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
             switch call.method {
+            case "requestEventReminderAccess": // 获取权限
+                       EventReminderManager.shared.requestAccess { granted, error in
+                           if granted {
+                               print("授权成功，可以访问日历和提醒")
+                               result("Access granted")
+                           } else {
+                               print("授权失败，错误信息: \(String(describing: error))")
+                               result(FlutterError(code: "ACCESS_DENIED", message: "访问日历或提醒被拒绝", details: error?.localizedDescription))
+                           }
+                       }
+                       
+                   case "fetchEventReminderEvents": // 获取事件
+                       guard let args = call.arguments as? [String: Any],
+                             let start = args["startDate"] as? Double,
+                             let end = args["endDate"] as? Double else {
+                           result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                           return
+                       }
+                       
+                       let startDate = Date(timeIntervalSince1970: start / 1000)
+                       let endDate = Date(timeIntervalSince1970: end / 1000)
+                EventReminderManager.shared.fetchEvents(startDate: startDate, endDate: endDate) { events in
+                           let eventTitles = events.map { $0.title }
+                        let res:[[String: Any]] = Utility.serializeEventList(events: events)
+                    do {
+//                    let jsonData = try JSONSerialization.data(withJSONObject: res, options: [])
+                    
+                        // 创建数据字典
+                        let data: [String: Any] = [
+                            "success": true,
+                            "data":res
+                        ]
+                        
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        if let jsonString = String(data: jsonData, encoding: .utf8) {
+                            result(jsonString) // 使用 JSON 字符串返回结果
+                        } else {
+                            result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                        }
+                        
+                    // 将 JSON 数据转换为字符串
+//                    if jsonData {
+//                        result(jsonData) // 使用 JSON 字符串返回结果
+//                    } else {
+//                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+//                    }
+                    } catch {
+                        // 捕获 JSON 转换错误
+                        result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                    }
+//                           result(res)
+                       }
+                       
+                   case "fetchEventReminderReminders": // 获取提醒
+                EventReminderManager.shared.fetchReminders { reminders in
+                    
+                    let reminderTitles = reminders.map { $0.title }
+                    result(reminderTitles)
+                    
+                    let res:[[String: Any]] = Utility.serializeReminderList(reminders: reminders)
+                    do {
+                        // 创建数据字典
+                        let data: [String: Any] = [
+                            "success": true,
+                            "data":res
+                        ]
+                        
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        if let jsonString = String(data: jsonData, encoding: .utf8) {
+                            result(jsonString) // 使用 JSON 字符串返回结果
+                        } else {
+                            result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                        }
+                    } catch {
+                        // 捕获 JSON 转换错误
+                        result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                    }
+                }
+                       
+                   case "syncEventsToReminders": //同步事件到提醒
+                       guard let args = call.arguments as? [String: Any],
+                             let start = args["startDate"] as? Double,
+                             let end = args["endDate"] as? Double else {
+                           result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                           return
+                       }
+                       
+                       let startDate = Date(timeIntervalSince1970: start / 1000)
+                       let endDate = Date(timeIntervalSince1970: end / 1000)
+                EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
+                           if success {
+                               result("Events synced to reminders successfully")
+                           } else {
+                               result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
+                           }
+                       }
+                       
+                   case "syncRemindersToEvents": //同步提醒到事件
+                EventReminderManager.shared.syncRemindersToEvents { success, error in
+                           if success {
+                               result("Reminders synced to events successfully")
+                           } else {
+                               result(FlutterError(code: "SYNC_FAILED", message: "同步提醒到事件失败", details: error?.localizedDescription))
+                           }
+                       }
+            case "requestEventReminderAccess":
+                EventReminderManager.shared.requestAccess { granted, error in
+                    if granted {
+                        print("授权成功，可以访问日历和提醒")
+                    } else {
+                        print("授权失败，错误信息: \(String(describing: error))")
+                    }
+                }
+                break;
             case "test":
                 Task {
                     let _id = "66a84fecb65a7c07dde2a162"
@@ -68,6 +182,47 @@ class MethodChannelManager {
                     
 //                    let res:ResourceResponse? = await URLSessionRequest.requestSceneList(scene: "timehello_game");
 //                    print("err \(res)")
+                }
+                break;
+            case "IAPManagerFetchReceipt":
+                let list:[String] = (call.arguments as! [String]);
+//                let list:[String] = (res["datas"] as? [String]) ?? [];
+                IAPManager.shared.fetchProducts(list: list) { products in
+                    // 处理获取到的产品数组
+                    if products.isEmpty {
+                        print("No products available.")
+                    } else {
+                        do {
+                            // 将 SKProduct 转换为字典数组
+                            let productsArray = products.map { product -> [String: Any] in
+                                return [
+                                    "title": product.localizedTitle,
+                                    "description": product.localizedDescription,
+                                    "price": "\(product.priceLocale.currencySymbol ?? "")\(product.price)",
+                                    "identifier": product.productIdentifier
+                                ]
+                            }
+                            
+                            // 创建数据字典
+                            let data: [String: Any] = [
+                                "success": true,
+                                "data": productsArray
+                            ]
+                            
+                            // 将字典转换为 JSON 数据
+                            let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                            
+                            // 将 JSON 数据转换为字符串
+                            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                                result(jsonString) // 使用 JSON 字符串返回结果
+                            } else {
+                                result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                            }
+                        } catch {
+                            // 捕获 JSON 转换错误
+                            result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                        }
+                    }
                 }
                 break;
             case "setUserBean":

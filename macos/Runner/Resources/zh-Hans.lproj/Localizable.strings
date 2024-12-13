@@ -5,6 +5,7 @@
   Created by 林智彬 on 2023/8/28.
   
 */
+"PRODUCT_NAME"="时间管理局";
 "event"= "事件";
 "completed"= "已完成";
 "days"= "天";

@@ -6,6 +6,7 @@
   
 */
 /* 英语 */
+"PRODUCT_NAME"="Timerbell Todo";
 "event"= "Event";
 "completed"= "Completed";
 "days"= "Days";

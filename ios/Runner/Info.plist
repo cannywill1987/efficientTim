@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>Access to the calendar is needed to sync events.</string>
+    <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+    <string>Access to the calendar is needed to sync events.</string>
+    <key>NSRemindersUsageDescription</key>
+    <string>Access to reminders is needed to sync tasks.</string>
+    <key>NSCalendarsUsageDescription</key>
+    <string>Access to the calendar is needed to sync events.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -19,7 +27,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.9.7</string>
+	<string>3.9.8</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -70,7 +78,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>180</string>
+	<string>181</string>
 	<key>FDAllFilesDownloadedMessage</key>
 	<string>All files have been downloaded</string>
 	<key>FDMaximumConcurrentTasks</key>

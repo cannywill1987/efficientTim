@@ -33,6 +33,115 @@ class MethodChannelManager {
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         print("method:" + call.method);
         switch call.method {
+        case "requestEventReminderAccess": // 获取权限
+            EventReminderManager.shared.requestAccess { granted, error in
+                if granted {
+                    print("授权成功，可以访问日历和提醒")
+                    //                           result("Access granted")
+                    result("{\"success\": true, \"error\": \"\"}")
+                } else {
+                    print("授权失败，错误信息: \(String(describing: error))")
+                    //                           result(FlutterError(code: "ACCESS_DENIED", message: "访问日历或提醒被拒绝", details: error?.localizedDescription))
+                    result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                }
+            }
+            break;
+        case "fetchEventReminderEvents": // 获取事件
+            guard let args = call.arguments as? [String: Any],
+                  let start = args["startDate"] as? Double,
+                  let end = args["endDate"] as? Double else {
+                result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                return
+            }
+            
+            let startDate = Date(timeIntervalSince1970: start / 1000)
+            let endDate = Date(timeIntervalSince1970: end / 1000)
+            EventReminderManager.shared.fetchEvents(startDate: startDate, endDate: endDate) { customEvents in
+//                let eventTitles = events.map { $0.title }
+                let res:[[String: Any]] = Utility.serializeCustomEventList(customEvents: customEvents)
+                do {
+                    // 创建数据字典
+                    let data: [String: Any] = [
+                        "success": true,
+                        "data":res
+                    ]
+                    
+                    let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                        result(jsonString) // 使用 JSON 字符串返回结果
+                    } else {
+                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                    }
+                } catch {
+                    // 捕获 JSON 转换错误
+                    result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                }
+                //                           result(res)
+            }
+            break;
+        case "fetchEventReminderReminders": // 获取提醒
+            EventReminderManager.shared.fetchReminders { customReminders in
+                
+//                let reminderTitles = reminders.map { $0.title }
+//                result(reminderTitles)
+                
+                let res:[[String: Any]] = Utility.serializeCustomReminderList(customReminders: customReminders)
+                do {
+                    // 创建数据字典
+                    let data: [String: Any] = [
+                        "success": true,
+                        "data":res
+                    ]
+                    
+                    let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                        result(jsonString) // 使用 JSON 字符串返回结果
+                    } else {
+                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                    }
+                } catch {
+                    // 捕获 JSON 转换错误
+                    result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                }
+            }
+            break;
+            
+        case "syncEventsToReminders": //同步事件到提醒
+            guard let args = call.arguments as? [String: Any],
+                  let start = args["startDate"] as? Double,
+                  let end = args["endDate"] as? Double else {
+                result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                return
+            }
+            
+            let startDate = Date(timeIntervalSince1970: start / 1000)
+            let endDate = Date(timeIntervalSince1970: end / 1000)
+            EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
+                if success {
+                    result("Events synced to reminders successfully")
+                } else {
+                    result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
+                }
+            }
+            break;
+        case "syncRemindersToEvents": //同步提醒到事件
+            EventReminderManager.shared.syncRemindersToEvents { success, error in
+                if success {
+                    result("Reminders synced to events successfully")
+                } else {
+                    result(FlutterError(code: "SYNC_FAILED", message: "同步提醒到事件失败", details: error?.localizedDescription))
+                }
+            }
+            break;
+        case "requestEventReminderAccess":
+            EventReminderManager.shared.requestAccess { granted, error in
+                if granted {
+                    print("授权成功，可以访问日历和提醒")
+                } else {
+                    print("授权失败，错误信息: \(String(describing: error))")
+                }
+            }
+            break;
         case "pushToTimeline":
             if #available(iOS 15.0, *) {
                 //                    Utility.navigateToViewController(controller: TimelineListViewController());
@@ -79,33 +188,33 @@ class MethodChannelManager {
                     let currentTime = Int(Date().timeIntervalSince1970)
                     //50天时间范围
                     let tenDaysInSeconds = 50 * 24 * 60 * 60 * 1000
-//                    if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
-                        
-                        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
-                        print("date:\(date) count:\(count)")
-                        if count > 0 {
-                            for index2 in 0...count - 1 {
-                                let item2 = datas[index2]
-                                let title:String = item2["title"] as? String ?? "";
-                                let objectId:String = item2["_id"] as? String ?? "";
-                                //                            let percent:Double = item2["percent"] as? Double ?? 0;
-                                let color: Int = item2["color"] as? Int ?? 0xffff8800 - 0xff000000;
-                                let isFinished: Bool = item2["isFinished"] as? Bool ?? false;
-                                
-                                //                        let isDelayed:Bool = item["isDelayed"] as! Bool;
-                                //                                                let isFinished:Bool = item["isFinished"] as! Bool;
-                                //                                                let title:String = item["title"] as! String;
-                                let background_url:String? = item["background_url"] as? String;
-                                let end_time:Int = item["end_time"] as? Int ?? 0;
-                                let priorityStatus:Int? = item["priorityStatus"] as? Int;
-                                let missionData = MissionModel(objectId: objectId, title: title, lunar: lunar, background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: false, color: color)
-                                
-                                
-                                listMissionModel.append(missionData)
-                            }
+                    //                    if (time) > (currentTime * 1000 - tenDaysInSeconds) && (time) < (currentTime * 1000 + tenDaysInSeconds) {
+                    
+                    let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
+                    print("date:\(date) count:\(count)")
+                    if count > 0 {
+                        for index2 in 0...count - 1 {
+                            let item2 = datas[index2]
+                            let title:String = item2["title"] as? String ?? "";
+                            let objectId:String = item2["_id"] as? String ?? "";
+                            //                            let percent:Double = item2["percent"] as? Double ?? 0;
+                            let color: Int = item2["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                            let isFinished: Bool = item2["isFinished"] as? Bool ?? false;
+                            
+                            //                        let isDelayed:Bool = item["isDelayed"] as! Bool;
+                            //                                                let isFinished:Bool = item["isFinished"] as! Bool;
+                            //                                                let title:String = item["title"] as! String;
+                            let background_url:String? = item["background_url"] as? String;
+                            let end_time:Int = item["end_time"] as? Int ?? 0;
+                            let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                            let missionData = MissionModel(objectId: objectId, title: title, lunar: lunar, background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: false, color: color)
+                            
+                            
+                            listMissionModel.append(missionData)
                         }
-                        listMissionModels.append(MissionModelList(time: time, lunar: lunar,listMissionModel: listMissionModel))
-//                    }
+                    }
+                    listMissionModels.append(MissionModelList(time: time, lunar: lunar,listMissionModel: listMissionModel))
+                    //                    }
                 }
             }
             if #available(iOS 14.0, *) {
@@ -238,24 +347,24 @@ class MethodChannelManager {
             break;
         case "storeEndTimeMissionList": //创建倒计时任务
             let list = (call.arguments as! [[String: Any]]);
-                var listMissionModels:[EndTimeMissionModel] = [];
-                if list.count > 0 {
-                    for index in 0...list.count - 1 {
-                        let item = list[index]
-                        
-                        let objectId:String? = item["_id"] as? String;
-                        let isDelayed:Bool = item["isDelayed"] as! Bool;
-                        let isFinished:Bool = item["isFinished"] as! Bool;
-                        let title:String = item["title"] as! String;
-                        let background_url:String? = item["background_url"] as? String;
-                        let end_time:Int = item["end_time"] as! Int;
-                        let priorityStatus:Int? = item["priorityStatus"] as? Int;
-                        let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
-                        let missionData = EndTimeMissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
-                        listMissionModels.append(missionData);
-//                            print("11111");
-                    }
-//                    }
+            var listMissionModels:[EndTimeMissionModel] = [];
+            if list.count > 0 {
+                for index in 0...list.count - 1 {
+                    let item = list[index]
+                    
+                    let objectId:String? = item["_id"] as? String;
+                    let isDelayed:Bool = item["isDelayed"] as! Bool;
+                    let isFinished:Bool = item["isFinished"] as! Bool;
+                    let title:String = item["title"] as! String;
+                    let background_url:String? = item["background_url"] as? String;
+                    let end_time:Int = item["end_time"] as! Int;
+                    let priorityStatus:Int? = item["priorityStatus"] as? Int;
+                    let color:Int? = item["color"] as? Int ?? 0xffff8800 - 0xff000000;
+                    let missionData = EndTimeMissionModel(objectId: objectId,title: title, lunar: "", background_url: background_url, end_time: end_time, priorityStatus: priorityStatus, isFinished: isFinished, isDelayed: isDelayed, color:color)
+                    listMissionModels.append(missionData);
+                    //                            print("11111");
+                }
+                //                    }
                 if #available(iOS 14.0, *) {
                     let primaryData:EndTimeMissionStoreData = EndTimeMissionStoreData(missionData: EndTimeMissionData(listMissionModel: listMissionModels))
                     Task {
@@ -362,14 +471,14 @@ class MethodChannelManager {
         case "startLiveActivity":
             //            NotificationCenter.default.post(name: NSNotification.Name( "ACTION_BTN_CLICK") , object: self, userInfo: ["action": "handleStatusBarStopBtn"]);
             if #available(iOS 17.0, *) {
-//                LiveActivityManager.shareInstance().startActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
+                //                LiveActivityManager.shareInstance().startActivity(time: 0, counterStatusEnum: CounterStatusEnum.none)
             } else {
                 // Fallback on earlier versions
             }
             break;
         case "stopLiveActivity":
             if #available(iOS 17.0, *) {
-//                LiveActivityManager.shareInstance().stopActivity()
+                //                LiveActivityManager.shareInstance().stopActivity()
             } else {
                 // Fallback on earlier versions
             }
@@ -447,20 +556,20 @@ class MethodChannelManager {
             let isCountDown: Bool = (call.arguments as! [[String: Any]])[0]["isCountDown"] as! Bool;
             let focusedDurationInt: Int = (call.arguments as! [[String: Any]])[0]["focusedDurationInt"] as! Int;
             let restingDurationInt: Int = (call.arguments as! [[String: Any]])[0]["restingDurationInt"] as! Int;
-
+            
             print("time:" + text + ",status:" + status.description);
             if #available(iOS 16.1, *) {
                 if (LiveActivityManager.shareInstance().curCounterStatus != status){
                     LiveActivityManager.shareInstance().curCounterStatus = status
-                        LiveActivityManager.shareInstance().updateActivity(
-                            objectId: objectId,
-                            currentTimeStamp: currentTimeStamp,
-                            statusString: statusString,
-                            totalTomatees: totalTomatees,
-                            numTomatees: numTomatees,
-                            focusedDuration: focusedDuration,
-                            bgUrl: bgUrl,
-                            title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none, focusedDurationInt: focusedDurationInt, restingDurationInt: restingDurationInt)
+                    LiveActivityManager.shareInstance().updateActivity(
+                        objectId: objectId,
+                        currentTimeStamp: currentTimeStamp,
+                        statusString: statusString,
+                        totalTomatees: totalTomatees,
+                        numTomatees: numTomatees,
+                        focusedDuration: focusedDuration,
+                        bgUrl: bgUrl,
+                        title: title, text: text, isCountDown: isCountDown, time: time, counterStatusEnum: CounterStatusEnum(rawValue: status) ?? CounterStatusEnum.none, focusedDurationInt: focusedDurationInt, restingDurationInt: restingDurationInt)
                     
                     //                (NSApplication.shared.delegate as! AppDelegate).statusItem.menu = Utility.getStatusBarMenus(counterStatusEnum: CounterStatusEnum(rawValue: status))
                 }

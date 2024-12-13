@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
@@ -87,8 +86,8 @@ class DeviceInfoManagement {
       }
     } catch (e) {}
 
-    mDeviceInfoManagement?.timezone =
-        await FlutterNativeTimezone.getLocalTimezone();
+    // mDeviceInfoManagement?.timezone =
+    //     await FlutterNativeTimezone.getLocalTimezone();
     // getIPApiLocationBean();
     return mDeviceInfoManagement;
   }

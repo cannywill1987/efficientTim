@@ -8,73 +8,73 @@
 import WidgetKit
 import SwiftUI
 
-struct EndTimeMissionData : Codable, Hashable {
-    var title: String?
-    var listMissionModel: [EndTimeMissionModel]
-}
-
-struct EndTimeMissionModel: Codable, Hashable {
-    let objectId: String?
-    let title: String?
-    let lunar: String?
-    var end_time: Int?
-    var remainTime: Int?
-    let background_url: String?
-    let color: Int
-    var isFinished, isDelayed: Bool?
-    let priorityStatus: Int?
-    
-    
-    init(
-        objectId: String?,
-        title: String?,
-        lunar: String?,
-        background_url: String?,
-        remainTime: Int?,
-        end_time: Int?,
-        priorityStatus: Int?,
-        isFinished: Bool?,
-        isDelayed: Bool?,
-        color: Int?
-    ) {
-        self.remainTime = remainTime
-        self.objectId = objectId
-        self.lunar = lunar
-        self.title = title
-        self.background_url = background_url
-        self.end_time = end_time
-        self.priorityStatus = priorityStatus
-        self.isFinished = isFinished
-        self.isDelayed = isDelayed
-        self.color = color ?? 0xffff8800
-    }
-    
-    func clone(
-           objectId: String? = nil,
-           title: String? = nil,
-           lunar: String? = nil,
-           background_url: String? = nil,
-           remainTime: Int? = nil,
-           end_time: Int? = nil,
-           priorityStatus: Int? = nil,
-           isFinished: Bool? = nil,
-           isDelayed: Bool? = nil,
-           color: Int? = nil
-       ) -> EndTimeMissionModel {
-           return EndTimeMissionModel(
-               objectId: objectId ?? self.objectId,
-               title: title ?? self.title,
-               lunar: lunar ?? self.lunar,
-               background_url: background_url ?? self.background_url,
-               remainTime: remainTime ?? self.remainTime,
-               end_time: end_time ?? self.end_time,
-               priorityStatus: priorityStatus ?? self.priorityStatus,
-               isFinished: isFinished ?? self.isFinished,
-               isDelayed: isDelayed ?? self.isDelayed,
-               color: color ?? self.color
-           )
-       }
-}
+//struct EndTimeMissionData : Codable, Hashable {
+//    var title: String?
+//    var listMissionModel: [EndTimeMissionModel]
+//}
+//
+//struct EndTimeMissionModel: Codable, Hashable {
+//    let objectId: String?
+//    let title: String?
+//    let lunar: String?
+//    var end_time: Int?
+//    var remainTime: Int?
+//    let background_url: String?
+//    let color: Int
+//    var isFinished, isDelayed: Bool?
+//    let priorityStatus: Int?
+//
+//
+//    init(
+//        objectId: String?,
+//        title: String?,
+//        lunar: String?,
+//        background_url: String?,
+//        remainTime: Int?,
+//        end_time: Int?,
+//        priorityStatus: Int?,
+//        isFinished: Bool?,
+//        isDelayed: Bool?,
+//        color: Int?
+//    ) {
+//        self.remainTime = remainTime
+//        self.objectId = objectId
+//        self.lunar = lunar
+//        self.title = title
+//        self.background_url = background_url
+//        self.end_time = end_time
+//        self.priorityStatus = priorityStatus
+//        self.isFinished = isFinished
+//        self.isDelayed = isDelayed
+//        self.color = color ?? 0xffff8800
+//    }
+//
+//    func clone(
+//           objectId: String? = nil,
+//           title: String? = nil,
+//           lunar: String? = nil,
+//           background_url: String? = nil,
+//           remainTime: Int? = nil,
+//           end_time: Int? = nil,
+//           priorityStatus: Int? = nil,
+//           isFinished: Bool? = nil,
+//           isDelayed: Bool? = nil,
+//           color: Int? = nil
+//       ) -> EndTimeMissionModel {
+//           return EndTimeMissionModel(
+//               objectId: objectId ?? self.objectId,
+//               title: title ?? self.title,
+//               lunar: lunar ?? self.lunar,
+//               background_url: background_url ?? self.background_url,
+//               remainTime: remainTime ?? self.remainTime,
+//               end_time: end_time ?? self.end_time,
+//               priorityStatus: priorityStatus ?? self.priorityStatus,
+//               isFinished: isFinished ?? self.isFinished,
+//               isDelayed: isDelayed ?? self.isDelayed,
+//               color: color ?? self.color
+//           )
+//       }
+//}
 
 func cloneList(datas: [EndTimeMissionModel]) -> [EndTimeMissionModel]{
     var list: [EndTimeMissionModel] = []
@@ -91,12 +91,12 @@ struct Provider: TimelineProvider {
                 objectId: "1",
                 title: "Project Alpha",
                 lunar: "2024-11-01",
-                background_url: "https://example.com/bg1.png", remainTime: 0,
+                background_url: "https://example.com/bg1.png",
                 end_time: Int(Date().addingTimeInterval(5 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 1,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff123456
+                color: 0xff123456, remainTime: 0
             ),
 //            EndTimeMissionModel(
 //                objectId: "2",
@@ -129,67 +129,67 @@ struct Provider: TimelineProvider {
                 objectId: "1",
                 title: "Project Alpha",
                 lunar: "2024-11-01",
-                background_url: "https://example.com/bg1.png", remainTime: 0,
+                background_url: "https://example.com/bg1.png",
                 end_time: Int(Date().addingTimeInterval(5 * 86400 + 1).timeIntervalSince1970 * 1000) ,
                 priorityStatus: 1,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff123456
+                color: 0xff123456, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "2",
                 title: "Beta Milestone",
                 lunar: "2024-11-05",
-                background_url: "https://example.com/bg2.png", remainTime: 0,
+                background_url: "https://example.com/bg2.png",
                 end_time: Int(Date().addingTimeInterval(10 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 2,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff654321
+                color: 0xff654321, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "3",
                 title: "Gamma Release",
                 lunar: "2024-11-10",
-                background_url: "https://example.com/bg3.png", remainTime: 00,
+                background_url: "https://example.com/bg3.png",
                 end_time: Int(Date().addingTimeInterval(15 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 3,
                 isFinished: false,
                 isDelayed: true,
-                color: 0xffabcdef
+                color: 0xffabcdef, remainTime: 00
             ),
             EndTimeMissionModel(
                 objectId: "1",
                 title: "Project Alpha",
                 lunar: "2024-11-01",
-                background_url: "https://example.com/bg1.png", remainTime: 0,
+                background_url: "https://example.com/bg1.png",
                 end_time: Int(Date().addingTimeInterval(5 * 86400 + 1).timeIntervalSince1970 * 1000) ,
                 priorityStatus: 1,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff123456
+                color: 0xff123456, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "2",
                 title: "Beta Milestone",
                 lunar: "2024-11-05",
-                background_url: "https://example.com/bg2.png", remainTime: 0,
+                background_url: "https://example.com/bg2.png",
                 end_time: Int(Date().addingTimeInterval(10 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 2,
                 isFinished: false,
                 isDelayed: false,
-                color: 0xff654321
+                color: 0xff654321, remainTime: 0
             ),
             EndTimeMissionModel(
                 objectId: "3",
                 title: "Gamma Release",
                 lunar: "2024-11-10",
-                background_url: "https://example.com/bg3.png", remainTime: 00,
+                background_url: "https://example.com/bg3.png",
                 end_time: Int(Date().addingTimeInterval(15 * 86400).timeIntervalSince1970 * 1000),
                 priorityStatus: 3,
                 isFinished: false,
                 isDelayed: true,
-                color: 0xffabcdef
+                color: 0xffabcdef, remainTime: 00
             )
         ], remainTime: 100)
         completion(entry)
@@ -431,71 +431,55 @@ struct NewCountdownWidgetEntryView : View {
     @State var largeFontSize: CGFloat = 20
 
     var body: some View {
-        if family == .systemLarge || family == .systemExtraLarge || family == .systemMedium {
-            VStack {
-                if family == .systemExtraLarge {
-                    // 两列五行布局
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                        ForEach(0..<min(entry.missionModels.count, 10)) { index in
-                            HStack {
-                                Text("\("event".localizable()) \(index + 1)")
-                                    .font(.system(size: largeFontSize, weight: .bold))
-                                    .foregroundColor(.white)
-                                    .frame(width: 100, alignment: .leading)
-                                Spacer()
-                                CountdownView(entry: entry,
-                                              endTime: Double(entry.missionModels[index].end_time ?? 0),
-                                              fontSize: largeFontSize,
-                                              missionModel: entry.missionModels[index],
-                                              completed: (entry.missionModels[index].remainTime ?? 0) <= 0)
+        VStack {
+            if family == .systemExtraLarge {
+                // 两列五行布局
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                    ForEach(0..<min(entry.missionModels.count, 10)) { index in
+                        HStack {
+                            Text("\("event".localizable()) \(index + 1)")
+                                .font(.system(size: largeFontSize, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(width: 100, alignment: .leading)
+                            Spacer()
+                            CountdownView(entry: entry,
+                                          endTime: Double(entry.missionModels[index].end_time ?? 0),
+                                          fontSize: largeFontSize,
+                                          missionModel: entry.missionModels[index],
+                                          completed: (entry.missionModels[index].remainTime ?? 0) <= 0)
                                 .frame(height: 50)
-                            }
-                            .padding(.vertical, 5)
                         }
-                    }
-                    .padding()
-                    .cornerRadius(15)
-                    Spacer()
-                } else if family == .systemLarge {
-                    VStack(alignment: .leading, spacing: 10) {
-                        ForEach(0..<entry.missionModels.prefix(5).count) { index in
-                            HStack {
-                                Text("Event \(index + 1)")
-                                    .font(.system(size: largeFontSize, weight: .bold))
-                                    .foregroundColor(.white)
-                                    .frame(width: 100, alignment: .leading)
-                                Spacer()
-                                CountdownView(entry: entry,endTime: Double(entry.missionModels[index].end_time ?? 0), fontSize: largeFontSize, missionModel: entry.missionModels[index], completed: (entry.missionModels[index].remainTime ?? 0) <= 0)
-                                    .frame(height: 50)
-                            }
-                            .padding(.vertical, 5)
-                        }
-                    }
-                    .padding()
-                    .cornerRadius(15)
-                    Spacer()
-                } else {
-                    CountdownView(entry: entry,endTime: Date().addingTimeInterval(30 * 86400).timeIntervalSince1970 * 1000, fontSize: 22, missionModel: entry.missionModels[0], completed: entry.missionModels[0].remainTime == 0)
-                }
-            }.frame(height: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: family != .accessoryRectangular ? [.purple, .blue] : [.primary, .primary]),
-                                           startPoint: .leading,
-                                           endPoint: .trailing))
-        } else {
-            if family == .accessoryRectangular {
-                VStack(spacing: 0) {
-                    if entry.missionModels.count == 1 {
-                        CountdownView(entry: entry,endTime: Date().addingTimeInterval(30 * 86400).timeIntervalSince1970 * 1000, fontSize: 22, missionModel: entry.missionModels[0], completed: entry.missionModels[0].remainTime == 0)
-                    } else {
-                        if entry.missionModels.count > 1 {
-                            ForEach(0..<entry.missionModels.prefix(5).count) { index in
-                                    SingleCountdownView(entry: entry,endTime: Date().addingTimeInterval(30 * 86400).timeIntervalSince1970 * 1000, fontSize: 10, missionModel: entry.missionModels[index], completed: entry.missionModels[0].remainTime == 0)
-                            }
-                        }
+                        .padding(.vertical, 5)
                     }
                 }
+                .padding()
+                .cornerRadius(15)
+                Spacer()
+            } else if family == .systemLarge {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(0..<entry.missionModels.prefix(5).count) { index in
+                        HStack {
+                            Text("Event \(index + 1)")
+                                .font(.system(size: largeFontSize, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(width: 100, alignment: .leading)
+                            Spacer()
+                            CountdownView(entry: entry,endTime: Double(entry.missionModels[index].end_time ?? 0), fontSize: largeFontSize, missionModel: entry.missionModels[index], completed: (entry.missionModels[index].remainTime ?? 0) <= 0)
+                                .frame(height: 50)
+                        }
+                        .padding(.vertical, 5)
+                    }
+                }
+                .padding()
+                .cornerRadius(15)
+                Spacer()
+            } else {
+                CountdownView(entry: entry,endTime: Date().addingTimeInterval(30 * 86400).timeIntervalSince1970 * 1000, fontSize: 22, missionModel: entry.missionModels[0], completed: entry.missionModels[0].remainTime == 0)
             }
-        }
+        }.frame(height: .infinity)
+            .background(LinearGradient(gradient: Gradient(colors: [.purple, .blue]),
+                                       startPoint: .leading,
+                                       endPoint: .trailing))
     }
 }
 
@@ -578,87 +562,6 @@ struct CountdownView: View {
     }
 }
 
-struct SingleCountdownView: View {
-    var entry: Provider.Entry
-//    @State var remainTime: Int = 0 // Remaining time in seconds
-//    @State var currentTimeTmp: Double = 0 // Remaining time in seconds
-    var completed: Bool = false // Completion flag
-    let endTime: Double // End time in milliseconds timestamp
-    let fontSize: CGFloat // Font size parameter
-    let missionModel: EndTimeMissionModel // Font size parameter
-    let numLength: Int = 4
-    init(entry: Provider.Entry,endTime: Double, fontSize: CGFloat, missionModel: EndTimeMissionModel, completed: Bool) {
-        self.endTime = endTime
-        self.fontSize = fontSize
-        self.missionModel = missionModel
-        self.entry = entry
-        self.completed = completed
-    }
-    
-    func getSpace(title: String, numLength: Int) -> String {
-        // 截取前 numLength 个字符
-        let truncated = String(title.prefix(numLength))
-        // 计算需要填充的空格数量
-        let spacesNeeded = max(0, numLength - truncated.count)
-        // 拼接空格
-        return truncated + String(repeating: " ", count: spacesNeeded)
-    }
-    
-    var body: some View {
-            if completed {
-                
-                HStack() {
-                    let title:String = missionModel.title ?? ""
-                    Text("\(title + "  " + "completed".localizable())")
-                        .font(.system(size: fontSize, weight: .bold))
-                    .foregroundColor(.green)
-                }
-            } else {
-                HStack(alignment: .top) {
-                    // 左侧的标题
-                    Text("\(missionModel.title?.prefix(numLength) ?? "Unknown")")
-                        .font(.system(size: fontSize, weight: .bold))
-                        .foregroundColor(.white)
-
-                    // 添加 Spacer，使两侧组件分开
-                    Spacer()
-
-                    // 右侧的倒计时
-                    VStack(alignment: .trailing, spacing: 0) {
-                        HStack(alignment: .center, spacing: 0) {
-                            Text("\(getDays(missionModel: missionModel))")
-                                .font(.system(size: fontSize, weight: .bold))
-                                .foregroundColor(.white)
-                            Text("days".localizable())
-                                .font(.system(size: fontSize, weight: .bold))
-                                .foregroundColor(.white)
-                            Text(timerInterval: Date()...((missionModel.remainTime ?? 0) <= 0 ? Date() :Date().addingTimeInterval(TimeInterval((missionModel.remainTime ?? 0) % 86400))), countsDown: true)
-                                .font(.system(size: fontSize, weight: .bold))
-                                .foregroundColor(.white)
-                                .padding(.leading, 5)
-                        }
-                    }
-                }
-                .padding()
-                
-                .onReceive(timer) { _ in
-                }
-                .onAppear {
-                }.frame(maxHeight: 12)
-                
-//                .frame(width: .infinity)
-            }
-    }
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    func currentHourMinuteSecond() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
-        return formatter.string(from: Date())
-    }
-}
-
 struct NewCountdownWidget: Widget {
     let kind: String = "NewCountdownWidget"
 
@@ -675,7 +578,7 @@ struct NewCountdownWidget: Widget {
         .configurationDisplayName("countdown_widget_name".localizable())
         .description("countdown_widget_description".localizable())
         .contentMarginsDisabled()
-        .supportedFamilies([.systemMedium, .systemLarge, .systemExtraLarge, .accessoryRectangular])
+        .supportedFamilies([.systemMedium, .systemLarge, .systemExtraLarge])
     }
 }
 

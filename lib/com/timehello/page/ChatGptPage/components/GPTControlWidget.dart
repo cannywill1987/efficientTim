@@ -33,6 +33,7 @@ class GPTControlWidget extends StatelessWidget {
   List<Widget> getButtons() {
     List<Widget> listWidgets = [];
     List list = [];
+    if(Utility.isHuaWei() == false)
     list.add(CheckButtonStateModel(
         code: 'report',
         checkIcon: InkWell(

@@ -365,6 +365,8 @@
 		DFE5787829E6A82F006ED7EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFE5787729E6A82F006ED7EA /* Assets.xcassets */; };
 		DFE5787C29E6A82F006ED7EA /* IslandExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFE5786D29E6A82D006ED7EA /* IslandExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DFE5788529E78979006ED7EA /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE5788429E78979006ED7EA /* LiveActivityManager.swift */; };
+		DFE77E102D0829A300E2CF0A /* EventReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE77E0F2D0829A200E2CF0A /* EventReminderManager.swift */; };
+		DFE77E122D0973BF00E2CF0A /* EventReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE77E112D0973B700E2CF0A /* EventReminder.swift */; };
 		DFE9F1EB284CD3F000F67260 /* vc in Resources */ = {isa = PBXBuildFile; fileRef = DFE9F1EA284CD3F000F67260 /* vc */; };
 		DFE9F1F5284CD46000F67260 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFE9F1F1284CD46000F67260 /* InfoPlist.strings */; };
 		DFEB26CB2ADF7D71004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CA2ADF7D71004FBB7E /* WQBMissionData.swift */; };
@@ -795,6 +797,8 @@
 		DFE5787729E6A82F006ED7EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFE5787929E6A82F006ED7EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFE5788429E78979006ED7EA /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		DFE77E0F2D0829A200E2CF0A /* EventReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReminderManager.swift; sourceTree = "<group>"; };
+		DFE77E112D0973B700E2CF0A /* EventReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReminder.swift; sourceTree = "<group>"; };
 		DFE9F1EA284CD3F000F67260 /* vc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vc; sourceTree = "<group>"; };
 		DFE9F1F2284CD46000F67260 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DFE9F1F3284CD46000F67260 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1362,6 +1366,7 @@
 		DF86A2D72ACD440A006D3F87 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DFE77E112D0973B700E2CF0A /* EventReminder.swift */,
 				DFE2D4D22CD34B5C00DD9BCC /* BaseResponse.swift */,
 				DF86A2D82ACD440A006D3F87 /* PrimarryData.swift */,
 				DF86A2D92ACD440A006D3F87 /* MissionData.swift */,
@@ -1547,6 +1552,7 @@
 		DFFB435A286377F5004083F6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				DFE77E0F2D0829A200E2CF0A /* EventReminderManager.swift */,
 				DF81CA972BB3002A00E2842E /* NotificationManager.swift */,
 				DF81CA902BB2FFEE00E2842E /* AppStorageKeyManager.swift */,
 				DF81CA8F2BB2FFEE00E2842E /* SharepreferenceManager.swift */,
@@ -2424,6 +2430,7 @@
 				DF86A3182ACD46DB006D3F87 /* Color+Extension.swift in Sources */,
 				DF81CA962BB2FFEE00E2842E /* WorklogMonitor.swift in Sources */,
 				DF86A2E22ACD440A006D3F87 /* PrimarryData.swift in Sources */,
+				DFE77E122D0973BF00E2CF0A /* EventReminder.swift in Sources */,
 				DF81CA732BB2FD5500E2842E /* UserSettingCoreData.swift in Sources */,
 				DF81CA752BB2FD5500E2842E /* UserSettings.swift in Sources */,
 				DFFB435D28637801004083F6 /* Utility.swift in Sources */,
@@ -2438,6 +2445,7 @@
 				DF2DA3B12A5C0B1E0051005D /* FlutterViewControllerRoot.swift in Sources */,
 				DFC181292BBAC3EC00B60D77 /* MyModel.swift in Sources */,
 				DF81CA742BB2FD5500E2842E /* KeySettings.swift in Sources */,
+				DFE77E102D0829A300E2CF0A /* EventReminderManager.swift in Sources */,
 				DFC1818B2BBD66EA00B60D77 /* DeviceActivityMonitorExtension.swift in Sources */,
 				DF81CACF2BB30E3000E2842E /* UserVM.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,

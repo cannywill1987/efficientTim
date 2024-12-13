@@ -16,7 +16,10 @@ import 'package:time_hello/com/timehello/util/PermissionManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../beans/BaseBean.dart';
+import '../../beans/PriceProductModel.dart';
+import '../../beans/ReminderModel.dart';
 import '../../common/provider/GlobalStateEnv.dart';
+import '../../components/EventModel.dart';
 import '../../config/CONSTANTS.dart';
 import '../../config/Params.dart';
 import '../../interface/OnMethodChannelResponseListener.dart';
@@ -131,13 +134,16 @@ class CounterMethodChannelManager {
     //   triggerOnMethodChannelResponseListener(call.method, args);
     // });
     await _channel.invokeMethod('setUserBean', [
-      {"uid": LoginManager.getInstance().isLogin2() ? LoginManager.getInstance().userBean.uid: "" }
+      {
+        "uid": LoginManager.getInstance().isLogin2()
+            ? LoginManager.getInstance().userBean.uid
+            : ""
+      }
     ]);
 
     Params.appName = await getAppName();
     Utility.initChannel(await getBrand());
   }
-
 
   Future<BaseBean> getLiveActivityData({Function? result}) async {
     if (Utility.isIOS() == true || Utility.isMacOS() == true) {
@@ -220,8 +226,8 @@ class CounterMethodChannelManager {
   }
 
   Future scheduleShutdown({required int delaySeconds}) async {
-    await _channel.invokeMethod('scheduleShutdown', {
-    "delaySeconds": delaySeconds});
+    await _channel
+        .invokeMethod('scheduleShutdown', {"delaySeconds": delaySeconds});
   }
 
   Future<String> grantNotificationPermission() async {
@@ -260,28 +266,29 @@ class CounterMethodChannelManager {
           element.isCheck = false;
           List<Map> listMissionModel = [];
           // if (element.missionModelList.length > 0) {
-            List<MissionModel> datasMissionModel =
-                Utility.filterMissionModelByFinishedState(
-                    list: element.missionModelList, isFinished: false);
-            // if (element.dateTime?.year == 2024 && element.dateTime?.month == 11 && element.dateTime?.day == 19) {
-            //   print("2024-11-19");
+          List<MissionModel> datasMissionModel =
+              Utility.filterMissionModelByFinishedState(
+                  list: element.missionModelList, isFinished: false);
+          // if (element.dateTime?.year == 2024 && element.dateTime?.month == 11 && element.dateTime?.day == 19) {
+          //   print("2024-11-19");
+          // }
+          datasMissionModel.forEach((MissionModel model) {
+            FolderModel? folderModel =
+                Utility.getFolderModelByObjId(model.folder_id ?? "");
+            model.color = folderModel?.color ?? 0xffff8800;
+            Map item = model.toJson();
+            // if(model.title == "网球") {
+            //   print(element.dateTime?.toString());
             // }
-            datasMissionModel.forEach((MissionModel model) {
-              FolderModel? folderModel = Utility.getFolderModelByObjId(model.folder_id ?? "");
-              model.color = folderModel?.color ?? 0xffff8800;
-              Map item = model.toJson();
-              // if(model.title == "网球") {
-              //   print(element.dateTime?.toString());
-              // }
-              // item["percent"] = Utility.getPercentOfNumClocksIn(missionModel: model, ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
-              listMissionModel.add(item);
-            });
-            listTmp.add({
-              "time": element.dateTime?.millisecondsSinceEpoch,
-              "lunar": Utility.isChina() ? element.lunarDay : "",
-              // "lunar": element.lunarDay,
-              "data": listMissionModel
-            });
+            // item["percent"] = Utility.getPercentOfNumClocksIn(missionModel: model, ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
+            listMissionModel.add(item);
+          });
+          listTmp.add({
+            "time": element.dateTime?.millisecondsSinceEpoch,
+            "lunar": Utility.isChina() ? element.lunarDay : "",
+            // "lunar": element.lunarDay,
+            "data": listMissionModel
+          });
           // }
         });
       });
@@ -324,7 +331,6 @@ class CounterMethodChannelManager {
             item["percent"] = Utility.getPercentOfNumClocksIn(
                 missionModel: model,
                 ymd: Utility.getYMD(element.dateTime ?? DateTime.now()));
-
           });
           listTmp.add({
             "time": element.dateTime?.millisecondsSinceEpoch,
@@ -341,6 +347,73 @@ class CounterMethodChannelManager {
       Utility.print(e);
     }
     return false;
+  }
+
+  Future<BaseBean> requestEventReminderAccess() async {
+    String res =
+        (await _channel.invokeMethod<String>('requestEventReminderAccess')) ??
+            "";
+    BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+    return bean;
+  }
+
+  Future<List<EventModel>> fetchEventReminderEvents(
+      {required double startDate, required double endDate}) async {
+    String res = (await _channel.invokeMethod<String>(
+            'fetchEventReminderEvents',
+            {"startDate": startDate, "endDate": endDate})) ??
+        "";
+    Utility.showToastMsg(msg: res);
+    // Object result = (await _channel.invokeMethod<String>(
+    //     'fetchEventReminderEvents',  {"startDate": startDate, "endDate": endDate})) ??
+    //     false;
+    Map<String, dynamic> json = jsonDecode(res);
+    final events =
+        (json['data'] as List).map((e) => EventModel.fromJson(e)).toList();
+    return events;
+  }
+
+  Future<List<ReminderModel>> fetchEventReminderReminders(
+      {required double startDate, required double endDate}) async {
+    // return (await _channel.invokeMethod<bool>('fetchEventReminderReminders',
+    //         {"startDate": startDate, "endDate": endDate})) ??
+    //     false;
+    Object obj = (await _channel.invokeMethod(
+        'fetchEventReminderReminders',
+        {"startDate": startDate, "endDate": endDate}));
+    String res = (await _channel.invokeMethod<String>(
+        'fetchEventReminderReminders',
+        {"startDate": startDate, "endDate": endDate})) ??
+        "";
+    Utility.showToastMsg(msg: res);
+    // Object result = (await _channel.invokeMethod<String>(
+    //     'fetchEventReminderEvents',  {"startDate": startDate, "endDate": endDate})) ??
+    //     false;
+    Map<String, dynamic> json = jsonDecode(res);
+    final events =
+    (json['data'] as List).map((e) => ReminderModel.fromJson(e)).toList();
+    return events;
+
+  }
+
+  Future<List<PriceProductModel>> IAPManagerFetchReceipt(
+      {required List<String> listProducts}) async {
+    try {
+      if (listProducts.length > 0) {
+        String res = (await _channel.invokeMethod<String>(
+            'IAPManagerFetchReceipt', listProducts)) ??
+            "";
+        Map<String, dynamic> json = jsonDecode(res);
+        final events =
+        (json['data'] as List)
+            .map((e) => PriceProductModel.fromJson(e))
+            .toList();
+        return events;
+      }
+    }catch(e) {
+
+    }
+    return [];
   }
 
   /**
@@ -369,10 +442,10 @@ class CounterMethodChannelManager {
     try {
       List<Map> listTmp = [];
       List<Map> listModellistMap =
-      parseEndTimeMissionModelList(listMissionModels: list);
+          parseEndTimeMissionModelList(listMissionModels: list);
       if (listModellistMap.length > 0) {
         return (await _channel.invokeMethod<bool>(
-            'storeEndTimeMissionList', listModellistMap)) ??
+                'storeEndTimeMissionList', listModellistMap)) ??
             false;
       }
     } catch (e) {
@@ -380,14 +453,16 @@ class CounterMethodChannelManager {
     }
     return false;
   }
-  Future<bool> storeCustomizeMissionList(List<SessionMissionModel> list, String? title) async {
+
+  Future<bool> storeCustomizeMissionList(
+      List<SessionMissionModel> list, String? title) async {
     try {
       List<Map> listTmp = [];
       List<Map> listModellistMap =
-      parseMissionModelList2(listMissionModels: list);
+          parseMissionModelList2(listMissionModels: list);
       if (listModellistMap.length > 0) {
-        return (await _channel.invokeMethod<bool>(
-            'storeCustomizeMissionList', {"datas": listModellistMap, "title": title ?? ""})) ??
+        return (await _channel.invokeMethod<bool>('storeCustomizeMissionList',
+                {"datas": listModellistMap, "title": title ?? ""})) ??
             false;
       }
     } catch (e) {
@@ -407,7 +482,7 @@ class CounterMethodChannelManager {
           subtitle = getI18NKey().note_1;
         } else if (missionData.order_index == 2) {
           subtitle = getI18NKey().note_2;
-        }  else if (missionData.order_index == 3) {
+        } else if (missionData.order_index == 3) {
           subtitle = getI18NKey().note_3;
         } else if (missionData.order_index == 4) {
           subtitle = getI18NKey().note_4;
@@ -423,8 +498,8 @@ class CounterMethodChannelManager {
       Map map = missionData.toJson();
       map['key'] = "${missionData.order_index}";
       map['subtitle'] = subtitle;
-      return (await _channel.invokeMethod<bool>(
-          'storeWQBNoteMissionData', [map])) ??
+      return (await _channel
+              .invokeMethod<bool>('storeWQBNoteMissionData', [map])) ??
           false;
     } catch (e) {
       Utility.print(e);
@@ -490,9 +565,9 @@ class CounterMethodChannelManager {
       {required List<EndTimeMissionModel> listMissionModels}) {
     List<Map> list = [];
     listMissionModels.forEach((missionModel) {
-        // if (missionModel.isFinished == false) {
-          list.add(missionModel.toJson());
-        // }
+      // if (missionModel.isFinished == false) {
+      list.add(missionModel.toJson());
+      // }
     });
     return list;
   }
@@ -719,7 +794,9 @@ class CounterMethodChannelManager {
       {required PushDataModelList pushDataModelList}) async {
     // String js = jsonEncode(pushDataModelList.list.sublist(0, 100));
     List<Map> list = [];
-    int length  = pushDataModelList.list.length > 500 ? 500 : pushDataModelList.list.length;
+    int length = pushDataModelList.list.length > 500
+        ? 500
+        : pushDataModelList.list.length;
     for (int i = 0; i < length; i++) {
       PushDataModel map = pushDataModelList.list[i];
       DateTime dateTime =
@@ -783,25 +860,24 @@ class CounterMethodChannelManager {
       int whenMilliseconds = 0,
       String id = ''}) async {
     try {
-
-    DateTime dateTime = Utility.getDateTimeFromTimeStamp(whenMilliseconds);
-    String idTmp = id + (whenMilliseconds ~/ 1000).toString();
-    // if (idTmp.length > 10) {
-    //   idTmp = idTmp.substring(0, 10);
-    // }
-    return (await _channel.invokeMethod<bool>('pushNotificationWithWhen', [
-          {
-            "title": title + "-" + dateTime.toString(),
-            "content": content,
-            "summaryText": summaryText ?? "",
-            "when": whenMilliseconds ~/ 1000,
-            "id": id,
-            // "action": action ?? Params.ACTION_COUNTER_PUSH_NOTIFICATION
-          }
-        ])) ??
-        false;
-    } catch(e) {
-        return false;
+      DateTime dateTime = Utility.getDateTimeFromTimeStamp(whenMilliseconds);
+      String idTmp = id + (whenMilliseconds ~/ 1000).toString();
+      // if (idTmp.length > 10) {
+      //   idTmp = idTmp.substring(0, 10);
+      // }
+      return (await _channel.invokeMethod<bool>('pushNotificationWithWhen', [
+            {
+              "title": title + "-" + dateTime.toString(),
+              "content": content,
+              "summaryText": summaryText ?? "",
+              "when": whenMilliseconds ~/ 1000,
+              "id": id,
+              // "action": action ?? Params.ACTION_COUNTER_PUSH_NOTIFICATION
+            }
+          ])) ??
+          false;
+    } catch (e) {
+      return false;
     }
     // }
   }
@@ -833,9 +909,9 @@ class CounterMethodChannelManager {
 
   Future<bool> startLiveActivity() async {
     try {
-    return (await _channel.invokeMethod<bool>('startLiveActivity', [])) ??
-        false;
-    } catch(e) {
+      return (await _channel.invokeMethod<bool>('startLiveActivity', [])) ??
+          false;
+    } catch (e) {
       return false;
     }
   }
@@ -844,7 +920,7 @@ class CounterMethodChannelManager {
     try {
       return (await _channel.invokeMethod<bool>('stopLiveActivity', [])) ??
           false;
-    } catch(e) {
+    } catch (e) {
       return false;
     }
   }

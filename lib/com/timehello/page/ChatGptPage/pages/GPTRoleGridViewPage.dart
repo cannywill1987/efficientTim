@@ -77,6 +77,7 @@ class GPTRoleGridViewPageState extends BaseWidgetState<GPTRoleGridViewPage> {
                     requestDatas(text);
                   }),
                 ),
+                if(Utility.isHuaWei() == false)
                 InkWell(
                   onTap: () {
                     Utility.pushNavigator(context, FeedbackPage());

@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>Access to the calendar is needed to sync events.</string>
+    <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+    <string>Access to the calendar is needed to sync events.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Access to reminders is needed to sync tasks.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

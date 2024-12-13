@@ -195,7 +195,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   syncfusion_flutter_charts: ^27.1.56
   syncfusion_flutter_datagrid: ^27.1.56
   syncfusion_flutter_datagrid_export: ^27.1.56
-  gallery_saver: 2.1.0
+#  gallery_saver: 2.1.0
   device_info_plus: ^11.1.0 #有ffi
   record:
     path: ./thirdPartyLib/record
@@ -213,7 +213,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   flutter_colorpicker: ^1.1.0
   flutter_hooks: ^0.18.5+1
   flutter_svg: ^2.0.6
-  file_saver: ^0.1.1
+  file_saver: ^0.2.14
   analyzer: ^5.13.0 # 用于解决json_serializable 6.3.0有问题
   progress_border: ^0.1.5
   adaptive_theme: ^3.6.0

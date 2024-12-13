@@ -368,15 +368,16 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             Icons.settings,
             size: 20,
           ),
-          title: "测试用3",
+          title: "测试用-获取权限",
           onTapListener: () async {
-            CounterMethodChannelManager.getInstance().shareToWeChat(
-                title: "title",
-                subtitle: 'subtitle',
-                iconUrl:
-                    'https://static.smyfinancial.com/_pc_proj/shengbeiTech_new/release/static/img/about1.jpg',
-                url: "https://www.timerbell.com/qq_conn/1112263382",
-                toWhere: 1);
+            CounterMethodChannelManager.getInstance().requestEventReminderAccess();
+            // CounterMethodChannelManager.getInstance().shareToWeChat(
+            //     title: "title",
+            //     subtitle: 'subtitle',
+            //     iconUrl:
+            //         'https://static.smyfinancial.com/_pc_proj/shengbeiTech_new/release/static/img/about1.jpg',
+            //     url: "https://www.timerbell.com/qq_conn/1112263382",
+            //     toWhere: 1);
             // NotificationManager.getInstance()?.pushNotificationWithdelay(title: "title", content: "content", delay: 1000, extendsParams: "", id: "3");
             // NotificationManager.getInstance()?.pushNotificationWithWhen(
             //     title: "title",
@@ -393,21 +394,34 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             Icons.settings,
             size: 20,
           ),
-          title: "测试用4",
+          title: "测试用-获取事件",
           onTapListener: () async {
-            final perf = Perf();
-            perf.start();
-            await Future.wait([
-              MongoApisManager.getInstance().queryWhereEqual_folderModel(),
-              MongoApisManager.getInstance().queryWhereEqual_missionData(),
-              MongoApisManager.getInstance().queryWhereEqual_statsModel(),
-              MongoApisManager.getInstance()
-                  .queryWhereEqual_TimelineMissionModel(),
-              MongoApisManager.getInstance()
-                  .queryWhereEqual_EndTimeMissionModel(),
-              MongoApisManager.getInstance().queryWhereEqual_CourseModel(),
-            ]);
-            perf.stop();
+            CounterMethodChannelManager.getInstance().fetchEventReminderEvents(startDate: 1701940406000, endDate: 1765098806000);
+
+            // final perf = Perf();
+            // perf.start();
+            // await Future.wait([
+            //   MongoApisManager.getInstance().queryWhereEqual_folderModel(),
+            //   MongoApisManager.getInstance().queryWhereEqual_missionData(),
+            //   MongoApisManager.getInstance().queryWhereEqual_statsModel(),
+            //   MongoApisManager.getInstance()
+            //       .queryWhereEqual_TimelineMissionModel(),
+            //   MongoApisManager.getInstance()
+            //       .queryWhereEqual_EndTimeMissionModel(),
+            //   MongoApisManager.getInstance().queryWhereEqual_CourseModel(),
+            // ]);
+            // perf.stop();
+          }));
+    }
+    if (Utility.isProductEnv() == false) {
+      list.add(GridMenuItem(
+          icon: Icon(
+            Icons.settings,
+            size: 20,
+          ),
+          title: "测试用-获取提醒",
+          onTapListener: () async {
+            CounterMethodChannelManager.getInstance().fetchEventReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
           }));
     }
     list.add(GridMenuItem(
@@ -636,6 +650,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         onTapListener: () {
           Utility.pushNavigator(context, SettingPermissionPage());
         }));
+    if(Utility.isHuaWei() == false)
     list.add(GridMenuItem(
         icon: Utility.getSVGPicture(R.assetsImgIcFeedback, size: iconSize + 7),
         title: getI18NKey().feedback,

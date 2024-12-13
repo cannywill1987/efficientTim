@@ -2,6 +2,7 @@ import Cocoa
 import FlutterMacOS
 import UserNotifications
 import Firebase
+import StoreKit
 
 @main
 class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserNotificationCenterDelegate {
@@ -21,10 +22,14 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
       return true
     }
     
+    
     override func applicationDidFinishLaunching(_ notification: Notification) {
         //        NotificationCenter.default.addObserver(self, selector: #selector(initNotification(_:)), name:Notification.Name(Params.ACTION_HANDLE_NOTIFICATION_PERMISSION), object: nil)
         //        startLocalNotification();
         //请求推送权限
+        SKPaymentQueue.default().add(IAPManager.shared)
+
+        
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge, .provisional])
         { granted, error in

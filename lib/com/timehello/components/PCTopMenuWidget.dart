@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../../../r.dart';
+import '../page/TestPage/Test9Page.dart';
 import '../util/FirebaseStoreManager.dart';
 import '../util/LocaleProvider.dart';
 import '../util/LoginManager.dart';
@@ -95,29 +96,54 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             if (!Utility.isProductEnv())
               InkWell(
                 onTap: () async {
-                  CounterMethodChannelManager.getInstance().test();
-                  // String password = await Utility.encryptCTRAES("Sf123456", Params.AES_PWD);
-                  // print("password: $password");
-                  // Utility.toggleCurDesktopFolderPageVisibility(context);
-                  // getI18NKey().all_mission;
-                  // Utility.openWebViewLaunch(context: context, url: Utility.getTokenUrl(url: '${(Urls.mgmHomeUrl ?? "")}?qd=timehello_app&cy=mgm'));
-                  // final provider = Provider.of<LocaleProvider>(context);
-                  // provider.setLocale(    const Locale('fr'));
-                  // context.read<LocaleProvider>().setLocale(    const Locale('fr'));
-                  // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
-                  // FirebaseStoreManager.getInstance().setString(data: "11111111111111111");
-                  // CounterMethodChannelManager.getInstance().scheduleShutdown(delaySeconds: 1000);
-                  // DialogManagement.getInstance().showSearchFriendGroupWidget();
+                  CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
                 },
-                child: Text("测试"),
+                child: Text("支付测试"),
               ),
+            if (!Utility.isProductEnv())
+            SizedBox(width: 10,),
+            if (!Utility.isProductEnv())
+              InkWell(
+                onTap: () async {
+                  CounterMethodChannelManager.getInstance().requestEventReminderAccess();
+                  // CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
+                },
+                child: Text("获取权限"),
+              ),
+            if (!Utility.isProductEnv())
+              SizedBox(width: 10,),
+            if (!Utility.isProductEnv())
+              InkWell(
+                onTap: () async {
+                  CounterMethodChannelManager.getInstance().fetchEventReminderEvents(startDate: 1701940406000, endDate: 1765098806000);
+                  // CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
+                },
+                child: Text("获取事件"),
+              ),
+            if (!Utility.isProductEnv())
+              SizedBox(width: 10,),
+            if (!Utility.isProductEnv())
+              InkWell(
+                onTap: () async {
+                  CounterMethodChannelManager.getInstance().fetchEventReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
+                  // CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
+                },
+                child: Text("获取提醒"),
+              ),
+            if (!Utility.isProductEnv())
+              SizedBox(width: 10,),
             if (!Utility.isProductEnv())
               SizedBox(
                 width: 30,
               ),
             if (!Utility.isProductEnv())
+              SizedBox(width: 10,),
+            if (!Utility.isProductEnv())
               InkWell(
                 onTap: () {
+                  DialogManagement.getInstance().showPCCustomDialog(
+                      context: context,
+                      widget: PremiumUpgradePage());
                   // FirebaseStoreManager.getInstance().getString();
                   // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
 
