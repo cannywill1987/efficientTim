@@ -1,3 +1,4 @@
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -293,12 +294,12 @@ class _GroupChatFriendsSliverListItemState
                 child: CustomPopupWidget(
                     onSelected: (val) async {
                       // cancel_setting_administrator setting_administrator delete
-                      if (userInfoBean.uid ==
-                          FirebaseAuth.instance.currentUser!.uid) {
-                        Utility.showToastMsg(
-                            msg: getI18NKey().cannot_handle_myself);
-                        return;
-                      }
+                      // if (userInfoBean.uid ==
+                      //     FirebaseAuth.instance.currentUser!.uid) {
+                      //   Utility.showToastMsg(
+                      //       msg: getI18NKey().cannot_handle_myself);
+                      //   return;
+                      // }
                       switch (val.code) {
                         case 'cancel_setting_administrator':
                           AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_unset_admin","description": "取消设置管理员",});

@@ -8,7 +8,7 @@ import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
-import 'package:flutter_oss_aliyun/flutter_oss_aliyun.dart';
+// import 'package:flutter_oss_aliyun/flutter_oss_aliyun.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../beans/BaseBean.dart';
