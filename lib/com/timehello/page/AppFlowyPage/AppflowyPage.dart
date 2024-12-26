@@ -228,9 +228,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
         //     LoadingStatusEnum.error, getI18NKey().download_fail);
         print(e);
       }
-      print("4444444");
-      if (TextUtil.isEmpty(json)) {
-        print("5555555");
+      if (TextUtil.isEmpty(json) && mounted) {
         _loadEditor(
             context,
             Future<String>.value(jsonEncode(

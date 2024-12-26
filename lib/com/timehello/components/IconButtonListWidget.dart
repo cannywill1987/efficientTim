@@ -6,6 +6,8 @@ import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
+import 'CustomSelectForIconsPopupWidget.dart';
+
 /**
  * 底部按钮列表
  */
@@ -17,10 +19,12 @@ class IconButtonListWidget extends StatefulWidget {
   double marginVertical = 0;
   bool shouldShowPopupWhenPC = false;
   WrapModeEnum wrapMode = WrapModeEnum.scroll;
+  PopupModeEnum popupModeEnum = PopupModeEnum.plat;
   SelectTypeEnum selectTypeEnum = SelectTypeEnum.single;
 
   IconButtonListWidget(
       {Key? key, this.initIndex: 0,
+        this.popupModeEnum: PopupModeEnum.plat,
         this.selectTypeEnum: SelectTypeEnum.single,
         this.marginVertical: 0,
       this.wrapMode: WrapModeEnum.scroll,
@@ -54,27 +58,33 @@ class IconButtonListWidgetState extends State<IconButtonListWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    if (this.widget.wrapMode == WrapModeEnum.scroll) {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Container(
+    if(this.widget.popupModeEnum == PopupModeEnum.plat) {
+      if (this.widget.wrapMode == WrapModeEnum.scroll) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: getList(this.list))),
+        );
+      } else {
+        return Container(
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: getList(this.list))),
-      );
+            child: Wrap(
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.center,
+                spacing: 10,
+                // gap between adjacent chips
+                runSpacing: 4.0,
+                // gap between lines
+                children: getList(this.list)));
+      }
     } else {
-      return Container(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          child: Wrap(
-              direction: Axis.horizontal,
-              alignment: WrapAlignment.center,
-              spacing: 10,
-              // gap between adjacent chips
-              runSpacing: 4.0,
-              // gap between lines
-              children: getList(this.list)));
+      return CustomSelectForIconsPopupWidget(datas: this.list, onSelected: (v) {
+        this.widget.onTapListener.call(v);
+      }, defaultIndex: this.widget.initIndex ?? 0,);
     }
   }
 

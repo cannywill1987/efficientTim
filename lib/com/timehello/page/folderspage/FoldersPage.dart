@@ -71,6 +71,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       []; // 其他文件夹的排序 归档
   CalendarModel? calendarModel;
   String? curSelectedTitle = null;
+  FolderModel? curSelectedFolderModel;
   List<FolderModelWithExtraData> listDatasNormal = []; // 今天 明天 现在做列表
   List<FolderModelWithExtraData> listDatasListing = []; // 今天 明天 现在做列表
   List<FolderModelWithExtraData> listDatasTags = []; // 今天 明天 现在做列表
@@ -126,8 +127,28 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     } catch (e) {}
 
     if (this.curSelectedTitle == null) {
+      this.curSelectedFolderModel = this.listDatasNormal?[0].folderModel;
       this.curSelectedTitle = this.listDatasNormal?[0].folderModel.title ?? "";
     }
+  }
+
+  componentDidMount() {
+    //监听广播 设置页面过来后用得上 todo 应该加一个action
+    eventBus.on<EventFn>().listen((EventFn event) {
+      //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
+      if (event.type == Params.ACTION_UPDATE_MISSION_CONTAINER) {
+        // Future.delayed(Duration(seconds: 1), () {
+          this.requestDatas(shouldRefresh: true);
+          FolderModel? folderModel = event.obj['data'];
+          if(this.curSelectedFolderModel?.objectId == folderModel?.objectId) {
+            this.curSelectedFolderModel?.layoutType = event.obj['layoutType'];
+            this.curSelectedFolderModel = event.obj['data'];
+          Utility.pushDesktopNavigator(
+              Utility.getGlobalContext(), 'MissionPage', {'data': this.curSelectedFolderModel, 'folderStatus': event.obj['layoutType']}, forceUpdate: true);
+          }
+        // });
+      }
+    });
   }
 
   void onClick(type, data) async {
@@ -163,6 +184,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         onClickAddGroup();
         break;
       case 'onClickMissionPage': //跳转任务页
+        this.curSelectedFolderModel = data;
         this.curSelectedTitle = data.title;
         if (data.iconType == 5 && Utility.isHandsetBySize() == false) {
           //PC端跳转到日程
@@ -369,6 +391,8 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     DialogManagement.getInstance().showCustomIconTitleAndDescDialog(
         Utility.getGlobalContext(),
         checkBoxDesc:  data.folderModel.tag == 3 ? getI18NKey().confirm_delete_mission_models(data.folderModel.title ?? "") : null,
+        btnConfirm: getI18NKey().confirm,
+        btnCancel: getI18NKey().cancel,
         iconWidget: Utility.getSVGPicture(R.assetsImgIcDeleteRemind, size: 40),
         title: getI18NKey()
             .confirm_delete_folder(data.folderModel.title ?? ""),
@@ -553,6 +577,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_fragment_list","description": "碎片清单",});
         break;
     }
+    this.curSelectedFolderModel = data;
     if (Utility.isHandsetBySize()) {
       Utility.pushCurFolderModel(context,
           folderModel: data, folderStatus: folderStatus);

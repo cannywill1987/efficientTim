@@ -22,7 +22,8 @@ class SettingModel extends MongoDbObject{
   int? isListingAllUnfinishedMIssion = 1; // 1默认显示 0 隐藏 -1  有数据显示
   int? isListingFinishedOn = 1; // 1默认显示 0 隐藏 -1  有数据显示
   int? isListingAllOn = 1; // 1默认显示 0 隐藏 -1  有数据显示
-
+  int? isListingCalendarVisibleOn = 1; // 1默认显示 0 隐藏 -1  有数据显示
+  int? isListingAlarmVisibleOn = 1;
   int isTomatoPageOn = 1; // 1默认显示 0 隐藏 -1  有数据显示
   int isTimeManagementPageOn = 1;
   int isCalendarContainerPageOn = 1;

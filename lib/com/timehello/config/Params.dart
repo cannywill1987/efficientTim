@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import '../beans/ResourceDeliveryInfoBean.dart';
 import '../beans/ResourceLocationInfoBean.dart';
@@ -8,10 +9,10 @@ class Params {
   // kDebugMode可以用来做全局开发环境测试
   static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static final isMongoDbCacheOn = false; // mongodb的缓存是否开启
-  static final bool useGmail = false; //是否使用gmail 完成登录注册等
+  static bool useGmail = false; //是否使用gmail 完成登录注册等
   static final isHttpCacheOn = false; // mongodb的缓存是否开启
   static Locale? local; // 本机语言
-  static int mongoDBTimeout = 10000;
+  static int mongoDBTimeout = (env == EnvEnum.uat) ? 100000: 10000;
   static String curVersion = '3.6.7';
   static String curLatestVersionAndroid = '';
   static String curLatestVersionIOS = '';
@@ -53,6 +54,7 @@ class Params {
   // 更新value_per_day的组件的数据
   static String ACTION_UPDATE_GLOBAL_THEME = 'ACTION_UPDATE_GLOBAL_THEME';
   static String ACTION_UPDATE_VALUE_PER_DAY = 'ACTION_UPDATE_VALUE_PER_DAY';
+  static String ACTION_UPDATE_MISSION_CONTAINER = 'ACTION_UPDATE_MISSION_CONTAINER';
 
   static String ACTION_UPDATE_WQB_FOLDER_PAGE = 'ACTION_UPDATE_WQB_FOLDER_PAGE';
   static String ACTION_UPDATE_FOLDER_PAGE = 'ACTION_UPDATE_FOLDER_PAGE';
@@ -233,6 +235,9 @@ class ShareprefrenceKeys {
   static String curSelectedFindWidgetIndex = "curSelectedFindWidgetIndwx1"; //桌面当前选择组件
   static String curLocaleLanguage = "curLocaleSelected123"; //桌面当前选择组件
   static String curLocaleCountryCode = "curLocaleCountryCode321"; //桌面当前选择组件
+
+  static String layoutIconType14 = "zefzezefzfw"; //桌面当前选择组件
+  static String layoutIconType15 = "zzefzwfsdefzezefzfw"; //桌面当前选择组件
 
 }
 

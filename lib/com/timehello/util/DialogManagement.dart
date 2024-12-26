@@ -76,12 +76,16 @@ class DialogManagement {
       {Widget? iconWidget,
       String? title,
       String? desc,
+        String? btnConfirm,
+        String? btnCancel,
       String? checkBoxDesc,
       bool isChecked = false,
       Function? okCallback}) async {
     bool isCheck = isChecked;
     bool? result = await DialogManagement.getInstance().showAsyncCustomDialog(
-        okText: getI18NKey().confirm,
+        okText: btnConfirm,
+        cancelText: btnCancel,
+        shouldShowCancelButton: TextUtil.isEmpty(btnCancel) ? false : true,
         Utility.getGlobalContext(),
         child: Container(
           width: 400,
@@ -102,7 +106,7 @@ class DialogManagement {
                 height: 10,
               ),
               Text(
-                getI18NKey().confirm_delete_folder_desc,
+                desc ?? getI18NKey().confirm_delete_folder_desc,
                 style: TextStyle(fontSize: 14, color: Color(0xff999999)),
               ),
               SizedBox(
@@ -153,7 +157,6 @@ class DialogManagement {
         cancelCallback: () {
           DialogManagement.getInstance().hideDialog(context, false);
         },
-        cancelText: getI18NKey().cancel,
         okCallback: () {
           okCallback?.call(isCheck);
           DialogManagement.getInstance().hideDialog(context, true);
@@ -189,6 +192,7 @@ class DialogManagement {
       Widget? child,
       barrierDismissible: true,
       shouldShowButtons: true,
+        shouldShowCancelButton: true,
       String? okText,
       String? cancelText,
       EdgeInsets? margin,
@@ -241,6 +245,7 @@ class DialogManagement {
                         if (shouldShowButtons == true)
                           Row(
                             children: [
+                              if(shouldShowCancelButton == true)
                               Expanded(
                                   child: GestureDetector(
                                       onTap: () {
@@ -255,8 +260,9 @@ class DialogManagement {
                                               decoration: TextDecoration.none,
                                               color: Color(0xffbbbbbb),
                                               fontSize: 15)))),
+                              // if(shouldShowCancelButton == true)
                               Container(
-                                width: 1,
+                                width: shouldShowCancelButton == true ? 1 : 0,
                                 height: 40,
                                 color:
                                     ThemeManager.getInstance().getLineColor(),

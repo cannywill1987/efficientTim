@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
+import 'package:time_hello/com/timehello/config/Params.dart';
+import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/page/CreateMissionPage/CreateMissionPage.dart';
@@ -41,6 +43,19 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
     super.initState();
     this.isNavBackBtnVisible = false;
     this.isAppBarVisible = false;
+  }
+
+  componentDidMount() {
+    //监听广播 设置页面过来后用得上 todo 应该加一个action
+    // eventBus.on<EventFn>().listen((EventFn event) {
+    //   //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
+    //   //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
+    //   if (event.type == Params.ACTION_UPDATE_MISSION_CONTAINER) {
+    //     if(this.mounted){
+    //       this.setState(() {});
+    //     }
+    //   }
+    // });
   }
 
   @override

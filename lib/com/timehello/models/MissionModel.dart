@@ -15,8 +15,13 @@ part 'MissionModel.g.dart';
 
 @JsonSerializable()
 class MissionModel extends MongoDbObject{
+  int? missionModelType = 0; //null 或者 0是默认的 1是苹果日历 2是苹果提醒 3.google日历
+
   //博客内容
   String? folder_id; //folderModel的ObjectId
+
+  @JsonKey(ignore: true)
+  String? folder_title; //folderModel的ObjectId
 
   //分组展示时的groupid
   String? group_id; //folderModel的ObjectId
@@ -76,11 +81,11 @@ class MissionModel extends MongoDbObject{
 
   int? start_time; //开始时间
 
-  int? end_time; //设置的预期完成时间 默认空是0 isFinished = false 计划到期日 isFinished = true 实际到期日
+  int? _end_time = 0; //设置的预期完成时间 默认空是0 isFinished = false 计划到期日 isFinished = true 实际到期日
 
   int? finish_time; //最后完成任务的真实事件
 
-  int? alert_time; //通知推送时间 年 月 日 时 分 秒
+  int? alert_time; //通知推送时间 年 月 日 时 分 秒 如果是重复 那这个时间是relative 如果不重复 时间是absolute的毫秒时间戳
 
   int? time_finished = 0; // 已经完成的时间 用于statistic 的时间统计
 
@@ -108,6 +113,9 @@ class MissionModel extends MongoDbObject{
 
   int? repetiveValue = 0; // 0 没有重复 1 天 2 周 3月 4年
   List? repetiveWeekDay = [false, false, false, false, false, false, false, ];
+
+  int? repetive_end_time = 0; // 结束重复的时间 毫秒时间戳
+
   String? uid;
 
   //下面的用于做笔记
@@ -136,6 +144,21 @@ class MissionModel extends MongoDbObject{
 
   @JsonKey(ignore: true)
   bool isSelected = false; //用于多选
+
+  int? get end_time {
+    return _end_time;
+  }
+
+  set end_time(int? value) {
+    if (value == null) {
+      return;
+    }
+    // 如果没有设置结束重复时间，那么重复结束时间就会是结束时间
+    if (repetive_end_time == null) {
+      repetive_end_time = value;
+    }
+    _end_time = value;
+  }
 
   // get subMissions {
   //   return this.subMissions

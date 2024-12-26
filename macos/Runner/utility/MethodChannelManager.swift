@@ -43,33 +43,131 @@ class MethodChannelManager {
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
             switch call.method {
+            case "deleteReminder":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.deleteReminder(withIdentifier: args) { success, error in
+                    if success {
+                        print("Event deleted successfully.")
+                        result("{\"success\": true, \"error\": \"\"}")
+                    } else {
+                        print("Failed to delete event: \(error?.localizedDescription ?? "Unknown error")")
+                        result("{\"success\": false, \"error\": \"\(error)\"}")
+                    }
+                }
+                break;
+            case "deleteEvent":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.deleteEvent(withIdentifier: args) { success, error in
+                    if success {
+                        print("Event deleted successfully.")
+                        result("{\"success\": true, \"error\": \"\"}")
+                    } else {
+                        print("Failed to delete event: \(error?.localizedDescription ?? "Unknown error")")
+                        result("{\"success\": false, \"error\": \"\(error)\"}")
+                    }
+                }
+                break;
+            case "openReminderApp":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.openReminder(withIdentifier: args)
+                break;
+            case "openCalendarApp":
+                guard let args = call.arguments as? Int64 else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.openCalendarApp(at: args)
+                break;
+                
+            case "updateMissionModelToCalendar":
+                guard let args = call.arguments as? [String: Any]
+                      else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                let ekEvent = EventReminderManager.createCustomEvent(from: args, eventStore: EventReminderManager.shared.eventStore)
+                if ekEvent != nil {
+                    EventReminderManager.shared.updateEvent(id: args["_id"] as? String, ekEvent: ekEvent!) { success, error in
+                        if success {
+                            print("授权成功，可以访问日历和提醒")
+                            result("{\"success\": true, \"error\": \"\"}")
+                        } else {
+                            print("授权失败，错误信息: \(String(describing: error))")
+                            result("{\"success\": false, \"error\": \"\(error)\"}")
+                        }
+                    }
+                }
+                break;
+            case "updateMissionModelToReminder":
+                guard let args = call.arguments as? [String: Any]
+                      else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                let ekEvent = EventReminderManager.convertToEKReminder(from: args, eventStore: EventReminderManager.shared.eventStore)
+                if ekEvent != nil {
+                    EventReminderManager.shared.updateReminder(id: args["_id"] as? String, ekReminder: ekEvent!) { success, error in
+                        if success {
+                            print("授权成功，可以访问日历和提醒")
+                            result("{\"success\": true, \"error\": \"\"}")
+                        } else {
+                            print("授权失败，错误信息: \(String(describing: error))")
+                            result("{\"success\": false, \"error\": \"\(error)\"}")
+                        }
+                    }
+                }
+                break;
+            case "createMissionModelToCalendar":
+                guard let args = call.arguments as? [String: Any]
+                      else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                let ekEvent = EventReminderManager.createCustomEvent(from: args, eventStore: EventReminderManager.shared.eventStore)
+    //            EventReminderManager.shared.syncEvent(ekEvent: ekEvent!, completion: success, error in {})
+                if ekEvent != nil {
+                    EventReminderManager.shared.updateEvent(id: nil, ekEvent: ekEvent!) { success, error in
+                        
+                    }
+                }
+                
+                break;
             case "requestEventReminderAccess": // 获取权限
-                       EventReminderManager.shared.requestAccess { granted, error in
-                           if granted {
-                               print("授权成功，可以访问日历和提醒")
-                               result("Access granted")
-                           } else {
-                               print("授权失败，错误信息: \(String(describing: error))")
-                               result(FlutterError(code: "ACCESS_DENIED", message: "访问日历或提醒被拒绝", details: error?.localizedDescription))
-                           }
-                       }
-                       
-                   case "fetchEventReminderEvents": // 获取事件
-                       guard let args = call.arguments as? [String: Any],
-                             let start = args["startDate"] as? Double,
-                             let end = args["endDate"] as? Double else {
-                           result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                           return
-                       }
-                       
-                       let startDate = Date(timeIntervalSince1970: start / 1000)
-                       let endDate = Date(timeIntervalSince1970: end / 1000)
-                EventReminderManager.shared.fetchEvents(startDate: startDate, endDate: endDate) { events in
-                           let eventTitles = events.map { $0.title }
-                        let res:[[String: Any]] = Utility.serializeEventList(events: events)
+                EventReminderManager.shared.requestAccess { granted, error in
+                    if granted {
+                        print("授权成功，可以访问日历和提醒")
+                        //                           result("Access granted")
+                        result("{\"success\": true, \"error\": \"\"}")
+                    } else {
+                        print("授权失败，错误信息: \(String(describing: error))")
+                        //                           result(FlutterError(code: "ACCESS_DENIED", message: "访问日历或提醒被拒绝", details: error?.localizedDescription))
+                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                    }
+                }
+                break;
+            case "fetchEventReminderEvents": // 获取事件
+                guard let args = call.arguments as? [String: Any],
+                      let start = args["startDate"] as? Double,
+                      let end = args["endDate"] as? Double else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                
+                let startDate = Date(timeIntervalSince1970: start / 1000)
+                let endDate = Date(timeIntervalSince1970: end / 1000)
+                EventReminderManager.shared.fetchEvents(startDate: startDate, endDate: endDate) { customEvents in
+    //                let eventTitles = events.map { $0.title }
+                    let res:[[String: Any]] = EventReminderManager.serializeEventList(events: customEvents)
                     do {
-//                    let jsonData = try JSONSerialization.data(withJSONObject: res, options: [])
-                    
                         // 创建数据字典
                         let data: [String: Any] = [
                             "success": true,
@@ -82,27 +180,20 @@ class MethodChannelManager {
                         } else {
                             result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
                         }
-                        
-                    // 将 JSON 数据转换为字符串
-//                    if jsonData {
-//                        result(jsonData) // 使用 JSON 字符串返回结果
-//                    } else {
-//                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
-//                    }
                     } catch {
                         // 捕获 JSON 转换错误
                         result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
                     }
-//                           result(res)
-                       }
-                       
-                   case "fetchEventReminderReminders": // 获取提醒
-                EventReminderManager.shared.fetchReminders { reminders in
+                    //                           result(res)
+                }
+                break;
+            case "fetchEventReminderReminders": // 获取提醒
+                EventReminderManager.shared.fetchReminders { customReminders in
                     
-                    let reminderTitles = reminders.map { $0.title }
-                    result(reminderTitles)
+    //                let reminderTitles = reminders.map { $0.title }
+    //                result(reminderTitles)
                     
-                    let res:[[String: Any]] = Utility.serializeReminderList(reminders: reminders)
+                    let res:[[String: Any]] = EventReminderManager.serializeReminderList(customReminders: customReminders)
                     do {
                         // 创建数据字典
                         let data: [String: Any] = [
@@ -121,39 +212,32 @@ class MethodChannelManager {
                         result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
                     }
                 }
-                       
-                   case "syncEventsToReminders": //同步事件到提醒
-                       guard let args = call.arguments as? [String: Any],
-                             let start = args["startDate"] as? Double,
-                             let end = args["endDate"] as? Double else {
-                           result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                           return
-                       }
-                       
-                       let startDate = Date(timeIntervalSince1970: start / 1000)
-                       let endDate = Date(timeIntervalSince1970: end / 1000)
+                break;
+                
+            case "syncEventsToReminders": //同步事件到提醒
+                guard let args = call.arguments as? [String: Any],
+                      let start = args["startDate"] as? Double,
+                      let end = args["endDate"] as? Double else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                
+                let startDate = Date(timeIntervalSince1970: start / 1000)
+                let endDate = Date(timeIntervalSince1970: end / 1000)
                 EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
-                           if success {
-                               result("Events synced to reminders successfully")
-                           } else {
-                               result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
-                           }
-                       }
-                       
-                   case "syncRemindersToEvents": //同步提醒到事件
-                EventReminderManager.shared.syncRemindersToEvents { success, error in
-                           if success {
-                               result("Reminders synced to events successfully")
-                           } else {
-                               result(FlutterError(code: "SYNC_FAILED", message: "同步提醒到事件失败", details: error?.localizedDescription))
-                           }
-                       }
-            case "requestEventReminderAccess":
-                EventReminderManager.shared.requestAccess { granted, error in
-                    if granted {
-                        print("授权成功，可以访问日历和提醒")
+                    if success {
+                        result("Events synced to reminders successfully")
                     } else {
-                        print("授权失败，错误信息: \(String(describing: error))")
+                        result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
+                    }
+                }
+                break;
+            case "syncRemindersToEvents": //同步提醒到事件
+                EventReminderManager.shared.syncRemindersToEvents { success, error in
+                    if success {
+                        result("Reminders synced to events successfully")
+                    } else {
+                        result(FlutterError(code: "SYNC_FAILED", message: "同步提醒到事件失败", details: error?.localizedDescription))
                     }
                 }
                 break;

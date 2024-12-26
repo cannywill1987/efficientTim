@@ -68,7 +68,7 @@ class SettingItemDetailPage extends BaseWidget {
   SettingItemDetailPage(
       {Key? key,
       this.fromNormal = 0,
-        this.defaultTab = 0,
+      this.defaultTab = 0,
       this.onClickDeleteCallback,
       required this.missionModel,
       this.popOkCallback})
@@ -76,7 +76,8 @@ class SettingItemDetailPage extends BaseWidget {
 
   @override
   BaseWidgetState<BaseWidget> getState() {
-    return _SettingItemDetailPageWidgetState(curTab: fromNormal == 1 ? 2: defaultTab);
+    return _SettingItemDetailPageWidgetState(
+        curTab: fromNormal == 1 ? 2 : defaultTab);
   }
 }
 
@@ -88,7 +89,8 @@ class _SettingItemDetailPageWidgetState<T>
   List<CheckButtonStateModel> tabList = CONSTANTS.getMissionDetailSetting();
   int curTab = 0;
   FolderModel? folderModel;
-  GlobalKey<ComposedRichEditorWidgetState>? composedRichEditorWidgetGlobalKey = GlobalKey<ComposedRichEditorWidgetState>();
+  GlobalKey<ComposedRichEditorWidgetState>? composedRichEditorWidgetGlobalKey =
+      GlobalKey<ComposedRichEditorWidgetState>();
   GlobalKey<SubmissionSliverListState>? submissionSliverListStateGlobalKey =
       GlobalKey();
 
@@ -108,6 +110,11 @@ class _SettingItemDetailPageWidgetState<T>
   void initState() {
     //查找当前mission所属的FolderModel
     // AppFlowyEditorLocalizations.delegate.load(const Locale('zh', 'CN'));
+    if(Utility.shouldShowAllMissionDetailTab(missionModelType: this.widget.missionModel.missionModelType) == true) {
+      tabList = CONSTANTS.getMissionDetailSetting();
+    } else {
+      tabList = CONSTANTS.getMissionDetailSetting2();
+    }
 
     controller =
         TextEditingController(text: this.widget.missionModel?.message ?? '');
@@ -121,7 +128,7 @@ class _SettingItemDetailPageWidgetState<T>
     eventBus.on<EventFn>().listen((EventFn event) {
       //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
       MissionModel? missionModel = event?.obj?['data'];
-      if(missionModel != null) {
+      if (missionModel != null) {
         if (event.type == Params.ACTION_UPDATE_SETTING_ITEM_DETAIL) {
           if (this.widget.missionModel.objectId == missionModel?.objectId) {
             this.widget.missionModel = missionModel!;
@@ -140,10 +147,9 @@ class _SettingItemDetailPageWidgetState<T>
   // }
 
   void onClick(type, data) async {
-    if (
-    ChatGroupManager.isFolderModelEnabled(
-        folderId: this.widget.missionModel.folder_id ?? "",
-        uid: LoginManager.getInstance().userBean.uid ?? "") ==
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: this.widget.missionModel.folder_id ?? "",
+            uid: LoginManager.getInstance().userBean.uid ?? "") ==
         false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
@@ -238,7 +244,8 @@ class _SettingItemDetailPageWidgetState<T>
         Utility.getGlobalContext(),
         title: getI18NKey().edit_title(data.title ?? ""),
         initVal: data.title, okCallBack: (String value) async {
-      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+      if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+          false) {
         Utility.showToastMsg(
             context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
         return;
@@ -412,21 +419,20 @@ class _SettingItemDetailPageWidgetState<T>
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
-      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
-
+      if (SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
         Utility.showAlertDialog(
-          context: context,
-          content: getI18NKey().missionRunningAlert(
-              CounterManagement.getInstance().missionModel?.title ?? ""),
-          onConfirm: () {
-            OverlayManagement.getInstance().openMissionDetailPageOverlay(
-                context: context, missionModel: data, folderModel: folderModel);
-          });
+            context: context,
+            content: getI18NKey().missionRunningAlert(
+                CounterManagement.getInstance().missionModel?.title ?? ""),
+            onConfirm: () {
+              OverlayManagement.getInstance().openMissionDetailPageOverlay(
+                  context: context,
+                  missionModel: data,
+                  folderModel: folderModel);
+            });
       } else {
         OverlayManagement.getInstance().openMissionDetailPageOverlay(
-            context: context,
-            missionModel: data,
-            folderModel: folderModel);
+            context: context, missionModel: data, folderModel: folderModel);
       }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
@@ -448,26 +454,6 @@ class _SettingItemDetailPageWidgetState<T>
     }, onTapCreateTagListener: (data) {
       // this.onClick("onTapCreateTagListener", data);
     }, onTapListener: (data) {});
-  }
-
-  Future requestNotification() async {
-    BaseBean res =
-        await CounterMethodChannelManager.getInstance().isNotificationEnabled();
-    if (res.data == false) {
-      OkCancelResult result = await showOkCancelAlertDialog(
-          context: context,
-          title: getI18NKey().no_notification_permission_title,
-          message: getI18NKey().need_notification_permission_content,
-          okLabel: getI18NKey().go_to_setting,
-          cancelLabel: getI18NKey().cancel,
-          onWillPop: () async {
-            //点击对话框外围黑色区域才会走这里
-            return true;
-          });
-      if (result == OkCancelResult.ok) {
-        await CounterMethodChannelManager.getInstance().openSetting();
-      }
-    }
   }
 
   @override
@@ -494,7 +480,16 @@ class _SettingItemDetailPageWidgetState<T>
           onCheckedListener: (int index) {
             Utility.setDesktopMiddileMissionPage(context, isVisible: true);
             composedRichEditorWidgetGlobalKey?.currentState?.unfocus();
-            this.curTab = index;
+            if(Utility.shouldShowAllMissionDetailTab(missionModelType: this.widget.missionModel.missionModelType) == true) {
+              this.curTab = index;
+            } else {
+              this.curTab = (index == 0) ? 0 : 2;
+            }
+            // if(this.widget.missionModel.missionModelType == null || this.widget.missionModel.missionModelType == 0) {
+            //   this.curTab = index;
+            // } else {
+            //   this.curTab = (index == 0) ? 0 : 2;
+            // }
             updateUI();
           },
           fontSize: 14,
@@ -505,260 +500,344 @@ class _SettingItemDetailPageWidgetState<T>
         ),
         if (this.curTab == 0) ...getTabBar0WidgetList(),
         if (this.curTab != 0)
-        Expanded(
-          child: SingleChildScrollView(
-              child: Column(children: [
-            CustomMarquee(
-              bean: MarqueInfo.marqueSettingItemDetail,
-            ),
-            if(this.curTab != 0)
-            Container(
-                constraints:
-                    BoxConstraints(maxWidth: double.infinity, minHeight: 100),
-                padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
-                color: ThemeManager.getInstance()
-                    .getBackgroundColor(defaultColor: Colors.white),
-                child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
+          Expanded(
+            child: SingleChildScrollView(
+                child: Column(children: [
+              CustomMarquee(
+                bean: MarqueInfo.marqueSettingItemDetail,
+              ),
+              if (this.curTab != 0)
+                Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.infinity, minHeight: 100),
+                    padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                    color: ThemeManager.getInstance()
+                        .getBackgroundColor(defaultColor: Colors.white),
+                    child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          (this.widget.fromNormal != 0)
-                              ? SizedBox.shrink()
-                              : Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        this.onClick("onClickFinishItem", null);
-                                      },
-                                      child: this
-                                                  .widget
-                                                  .missionModel
-                                                  ?.isFinished ==
-                                              true
-                                          ? Icon(
-                                              Icons.check_circle,
-                                              color:
-                                                  ColorsConfig.calendar_green,
-                                              size: 25,
-                                            )
-                                          : Icon(
-                                              Icons
-                                                  .radio_button_unchecked_outlined,
-                                              color:
-                                                  ColorsConfig.calendar_green,
-                                              size: 25,
-                                            ),
-                                    ),
-                                    ListingSecurityWidget(
-                                      missionModdel_id:
-                                          this.widget.missionModel?.objectId,
-                                      folder_id:
-                                          this.widget.missionModel?.folder_id ??
-                                              "",
-                                      cryptoVersion: this
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              (this.widget.fromNormal != 0)
+                                  ? SizedBox.shrink()
+                                  : Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            this.onClick(
+                                                "onClickFinishItem", null);
+                                          },
+                                          child: this
+                                                      .widget
+                                                      .missionModel
+                                                      ?.isFinished ==
+                                                  true
+                                              ? Icon(
+                                                  Icons.check_circle,
+                                                  color: ColorsConfig
+                                                      .calendar_green,
+                                                  size: 25,
+                                                )
+                                              : Icon(
+                                                  Icons
+                                                      .radio_button_unchecked_outlined,
+                                                  color: ColorsConfig
+                                                      .calendar_green,
+                                                  size: 25,
+                                                ),
+                                        ),
+                                        ListingSecurityWidget(
+                                          missionModdel_id: this
                                               .widget
                                               .missionModel
-                                              ?.cryptoVersion ??
-                                          -1,
-                                      marginLeft: 5,
-                                      size: 20,
-                                    )
-                                  ],
-                                ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            child:
-                                // SizedBox(width: 5,),
-                                new Text.rich(
-                              //富文本文本框构造方法，可以显示多种样式的text，第一个参数为 TextSpan
-                              new TextSpan(
-                                text: this.widget.missionModel?.title ?? '',
-                                children: [
-                                  TextSpan(
-                                      text: "【" + getI18NKey().edit + "】",
-                                      style: TextStyle(
-                                        color: ThemeManager.getInstance()
-                                            .getColor(
-                                                defaultColor:
-                                                    ColorsConfig.standardColor,
-                                                defaultDarkColor: Colors.blue),
-                                      ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          this.onClick(
-                                              "onClickEditTitle", null);
-                                        }),
-                                ],
-                                //文字样式，如果后面的子 TextSpan 没有覆盖该 TextStyle 中的属性，则使用该 TextStyle 指定的样式
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: ThemeManager.getInstance()
-                                        .getTextColor(
-                                            defaultColor:
-                                                ColorsConfig.gray_40)),
-                                //应该是手势识别监听器，后面用到手势监听再详细学习该类用法
-                                //          recognizer: ,
-                                //子 TextSpan，可以指定多个
+                                              ?.objectId,
+                                          folder_id: this
+                                                  .widget
+                                                  .missionModel
+                                                  ?.folder_id ??
+                                              "",
+                                          cryptoVersion: this
+                                                  .widget
+                                                  .missionModel
+                                                  ?.cryptoVersion ??
+                                              -1,
+                                          marginLeft: 5,
+                                          size: 20,
+                                        )
+                                      ],
+                                    ),
+                              SizedBox(
+                                width: 5,
                               ),
-                              textAlign: TextAlign.right,
-                              textDirection: TextDirection.rtl,
-                            ),
+                              Expanded(
+                                child:
+                                    // SizedBox(width: 5,),
+                                    new Text.rich(
+                                  //富文本文本框构造方法，可以显示多种样式的text，第一个参数为 TextSpan
+                                  new TextSpan(
+                                    text: this.widget.missionModel?.title ?? '',
+                                    children: [
+                                      TextSpan(
+                                          text: "【" + getI18NKey().edit + "】",
+                                          style: TextStyle(
+                                            color: ThemeManager.getInstance()
+                                                .getColor(
+                                                    defaultColor: ColorsConfig
+                                                        .standardColor,
+                                                    defaultDarkColor:
+                                                        Colors.blue),
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              this.onClick(
+                                                  "onClickEditTitle", null);
+                                            }),
+                                    ],
+                                    //文字样式，如果后面的子 TextSpan 没有覆盖该 TextStyle 中的属性，则使用该 TextStyle 指定的样式
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: ThemeManager.getInstance()
+                                            .getTextColor(
+                                                defaultColor:
+                                                    ColorsConfig.gray_40)),
+                                    //应该是手势识别监听器，后面用到手势监听再详细学习该类用法
+                                    //          recognizer: ,
+                                    //子 TextSpan，可以指定多个
+                                  ),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              // getPriorityIcon(this.widget.missionModel) != null ? IconButton(
+                              //     icon: getPriorityIcon(this.widget.missionModel)!,
+                              //     onPressed: () {
+                              //       this.onClick('onClickPriority', null);
+                              //     }) : SizedBox.shrink()
+                            ],
                           ),
-                          // getPriorityIcon(this.widget.missionModel) != null ? IconButton(
-                          //     icon: getPriorityIcon(this.widget.missionModel)!,
-                          //     onPressed: () {
-                          //       this.onClick('onClickPriority', null);
-                          //     }) : SizedBox.shrink()
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Spacer(),
-                          MissionValueWidget(
-                            missionModel: this.widget.missionModel,
-                            onTapMissionValueListener: (val) {},
+                          if(Utility.shouldShowValue(missionModelType: this
+                              .widget
+                              .missionModel
+                              .missionModelType) == true)
+                          Row(
+                            children: [
+                              Spacer(),
+                              MissionValueWidget(
+                                missionModel: this.widget.missionModel,
+                                onTapMissionValueListener: (val) {},
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      if (this.widget.missionModel?.isFinished == false)
-                        Row(
-                          children: [
-                            Spacer(),
-                            isDoingItNow
-                                ? MissionCountDownTextWidget(
-                                    fontSize: 12,
-                                    color: 0xff909090,
-                                    end_time: this
-                                        .widget
-                                        .missionModel
-                                        ?.do_it_now?[0]['end_time'] as int,
-                                    end_buffer_time: this
-                                        .widget
-                                        .missionModel
-                                        ?.do_it_now?[0]['buffer_end_time'],
-                                    isFinished:
-                                        this.widget.missionModel?.isFinished ??
+                          if (this.widget.missionModel?.isFinished == false && Utility.shouldShowDoItNow(missionModelType: this
+                              .widget
+                              .missionModel
+                              .missionModelType) == true)
+                            Row(
+                              children: [
+                                Spacer(),
+                                isDoingItNow
+                                    ? MissionCountDownTextWidget(
+                                        fontSize: 12,
+                                        color: 0xff909090,
+                                        end_time: this
+                                            .widget
+                                            .missionModel
+                                            ?.do_it_now?[0]['end_time'] as int,
+                                        end_buffer_time: this
+                                            .widget
+                                            .missionModel
+                                            ?.do_it_now?[0]['buffer_end_time'],
+                                        isFinished: this
+                                                .widget
+                                                .missionModel
+                                                ?.isFinished ??
                                             false,
-                                  )
-                                : InkWell(
-                                    onTap: () {
-                                      this.onClick("onClickDoItNow", null);
-                                    },
-                                    child: Text(
-                                      getI18NKey().do_it_now,
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 13),
-                                    )),
-                            SizedBox(
-                              width: 8,
+                                      )
+                                    : InkWell(
+                                        onTap: () {
+                                          this.onClick("onClickDoItNow", null);
+                                        },
+                                        child: Text(
+                                          getI18NKey().do_it_now,
+                                          style: TextStyle(
+                                              color: Colors.red, fontSize: 13),
+                                        )),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TagsGridViewWidget(
-                        datas: this.folderModelTags,
-                        onTapAddTagListener: (data) {
-                          if (
-                          ChatGroupManager.isFolderModelEnabled(
-                              folderId: this.widget.missionModel.folder_id ?? "",
-                              uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                              false) {
-                            Utility.showToastMsg(
-                                context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-                            return null;
-                          }
-                          this.onClick('onTapTagListener', data);
-                        },
-                        onTapDeleteTagListener: (data) {
-                          if (
-                              ChatGroupManager.isFolderModelEnabled(
-                                  folderId: this.widget.missionModel.folder_id ?? "",
-                                  uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                          if(TextUtil.isEmpty(Utility.getJumpTxt(
+                              missionModelType: this
+                                  .widget
+                                  .missionModel
+                                  .missionModelType)) == false)
+                          Row(
+                            children: [
+                              Spacer(),
+                              InkWell(
+                                  onTap: () {
+                                    if(this.widget.missionModel.missionModelType == 2) {
+                                      CounterMethodChannelManager.getInstance()
+                                          .openReminderApp(
+                                          id: this
+                                              .widget
+                                              .missionModel
+                                              .objectId ??
+                                              "");
+                                    } else if (this.widget.missionModel.missionModelType == 1) {
+                                      CounterMethodChannelManager.getInstance()
+                                          .openCalendarApp(timestamp: Utility.getTimeStampToday());
+                                    }
+                                  },
+                                  child: TextUtil.isEmpty(Utility.getJumpTxt(
+                                      missionModelType: this
+                                          .widget
+                                          .missionModel
+                                          .missionModelType))
+                                      ? null
+                                      : Text(
+                                      getI18NKey().jump_to_xxx(Utility.getJumpTxt(
+                                          missionModelType: this
+                                              .widget
+                                              .missionModel
+                                              .missionModelType)),
+                                      style: TextStyle(
+                                          color: ThemeManager.getInstance().getTextColor(
+                                              defaultColor:
+                                              ThemeManager.getInstance()
+                                                  .getTextColor(
+                                                  defaultColor: Colors.blue)),
+                                          fontSize: 12))),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TagsGridViewWidget(
+                            datas: this.folderModelTags,
+                            onTapAddTagListener: (data) {
+                              if (ChatGroupManager.isFolderModelEnabled(
+                                      folderId:
+                                          this.widget.missionModel.folder_id ??
+                                              "",
+                                      uid: LoginManager.getInstance()
+                                              .userBean
+                                              .uid ??
+                                          "") ==
                                   false) {
-                            Utility.showToastMsg(
-                                context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-                            return null;
-                          }
-                          List<String> tagNamesList =
-                              this.widget.missionModel?.tagNames?.split(',') ??
+                                Utility.showToastMsg(
+                                    context: Utility.getGlobalContext(),
+                                    msg: getI18NKey().no_auth);
+                                return null;
+                              }
+                              this.onClick('onTapTagListener', data);
+                            },
+                            onTapDeleteTagListener: (data) {
+                              if (ChatGroupManager.isFolderModelEnabled(
+                                      folderId:
+                                          this.widget.missionModel.folder_id ??
+                                              "",
+                                      uid: LoginManager.getInstance()
+                                              .userBean
+                                              .uid ??
+                                          "") ==
+                                  false) {
+                                Utility.showToastMsg(
+                                    context: Utility.getGlobalContext(),
+                                    msg: getI18NKey().no_auth);
+                                return null;
+                              }
+                              List<String> tagNamesList = this
+                                      .widget
+                                      .missionModel
+                                      ?.tagNames
+                                      ?.split(',') ??
                                   [];
-                          tagNamesList.remove(data.title);
-                          this.widget.missionModel?.tagNames =
-                              tagNamesList.join(',');
-                          requestGetTags(
-                              this.widget.missionModel?.tagNames?.split(',') ??
+                              tagNamesList.remove(data.title);
+                              this.widget.missionModel?.tagNames =
+                                  tagNamesList.join(',');
+                              requestGetTags(this
+                                      .widget
+                                      .missionModel
+                                      ?.tagNames
+                                      ?.split(',') ??
                                   []);
-                          this.isNeedUpdateBmob = true;
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      PriorityButtonListWidget(
-                        list: CONSTANTS.getPriorityButtonList(),
-                        initIndex: this.widget.missionModel.priorityStatus ?? 3,
-                        onTapListener: (data) {
-                          int index = data['index'];
-                          this.onClick("onClickPriority", index);
-                        },
-                      ),
-                    ])),
-            // Container(height: 20, color: ColorsConfig.backgroundColor,),
+                              this.isNeedUpdateBmob = true;
+                            },
+                          ),
+                          if(Utility.shouldShowPriority(missionModelType: this
+                              .widget
+                              .missionModel
+                              .missionModelType) == true)
+                          SizedBox(
+                            height: 10,
+                          ),
+                          if(Utility.shouldShowPriority(missionModelType: this
+                              .widget
+                              .missionModel
+                              .missionModelType) == true)
+                          PriorityButtonListWidget(
+                            list: CONSTANTS.getPriorityButtonList(),
+                            initIndex:
+                                this.widget.missionModel.priorityStatus ?? 3,
+                            onTapListener: (data) {
+                              int index = data['index'];
+                              this.onClick("onClickPriority", index);
+                            },
+                          ),
+                        ])),
+              // Container(height: 20, color: ColorsConfig.backgroundColor,),
 
-            if(this.curTab == 1)
-              ...getTabBar1WidgetList(),
-            if (this.curTab == 2) ...getTabBar2WidgetList(),
-          ])),
-        ),
-        if(this.curTab != 0)
-        SizedBox(
-          height: 20,
-        ),
-        if(this.curTab != 0)
-        Align(
-            child: InkWell(
-          onTap: () {
-            this.onClick("onClickUpdate", null);
-          },
-          child: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(bottom: 30),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: ThemeManager.getInstance().getButtonBorderColor(
-                      defaultColor: ColorsConfig.standardColor,
-                      defaultDarkColor: Colors.white),
-                  width: 1,
-                ),
-                color: ThemeManager.getInstance().getButtonBackgroundColor(
-                    defaultColor: ColorsConfig.standardColor,
-                    defaultDarkColor: Colors.white)
-                // gradient: LinearGradient(
-                //     colors:
-                //     ColorsConfig.listColorsOrangeLightToHeavyButton),
-                ),
-            width: 260,
-            height: 45,
-            child: Text(
-              getI18NKey().update,
-              style: TextStyle(
-                  color: ThemeManager.getInstance()
-                      .getTextColor(defaultColor: Colors.white),
-                  fontSize: 14),
-            ),
+              if (this.curTab == 1) ...getTabBar1WidgetList(),
+              if (this.curTab == 2) ...getTabBar2WidgetList(),
+            ])),
           ),
-        ))
+        if (this.curTab != 0)
+          SizedBox(
+            height: 20,
+          ),
+        if (this.curTab != 0)
+          Align(
+              child: InkWell(
+            onTap: () {
+              this.onClick("onClickUpdate", null);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(bottom: 30),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: ThemeManager.getInstance().getButtonBorderColor(
+                        defaultColor: ColorsConfig.standardColor,
+                        defaultDarkColor: Colors.white),
+                    width: 1,
+                  ),
+                  color: ThemeManager.getInstance().getButtonBackgroundColor(
+                      defaultColor: ColorsConfig.standardColor,
+                      defaultDarkColor: Colors.white)
+                  // gradient: LinearGradient(
+                  //     colors:
+                  //     ColorsConfig.listColorsOrangeLightToHeavyButton),
+                  ),
+              width: 260,
+              height: 45,
+              child: Text(
+                getI18NKey().update,
+                style: TextStyle(
+                    color: ThemeManager.getInstance()
+                        .getTextColor(defaultColor: Colors.white),
+                    fontSize: 14),
+              ),
+            ),
+          ))
       ],
     );
   }
@@ -771,317 +850,338 @@ class _SettingItemDetailPageWidgetState<T>
     String repetiveString = CONSTANTS
         .getRepetiveDateString1(this.widget.missionModel ?? MissionModel());
     return [
-      SectionTitleWidget(
-        title: getI18NKey().background_setting,
-      ),
+      if (Utility.shouldShowWallpaper(
+          missionModelType: this.widget.missionModel.missionModelType))
+        SectionTitleWidget(
+          title: getI18NKey().background_setting,
+        ),
       // Container(height: 20, color: ColorsConfig.backgroundColor,),
-      TextUtil.isEmpty(this.widget.missionModel?.background_url)
-          ? getBgSettingItem()
-          : CachedNetworkImage(
-              imageUrl: Utility.filterHttpUrl(
-                  this.widget.missionModel?.background_url ?? '',
-                  prefix: "oss"),
-              imageBuilder: (context, imageProviderTmp) {
-                return getBgSettingItem(imageProviderTmp: imageProviderTmp);
-              }),
+      if (Utility.shouldShowWallpaper(
+          missionModelType: this.widget.missionModel.missionModelType))
+        TextUtil.isEmpty(this.widget.missionModel?.background_url)
+            ? getBgSettingItem()
+            : CachedNetworkImage(
+                imageUrl: Utility.filterHttpUrl(
+                    this.widget.missionModel?.background_url ?? '',
+                    prefix: "oss"),
+                imageBuilder: (context, imageProviderTmp) {
+                  return getBgSettingItem(imageProviderTmp: imageProviderTmp);
+                }),
       SectionTitleWidget(
         title: getI18NKey().setting,
-        child: BlackCheckButtonListWidget(
-          // initIndex: 1,
-          initIndex: this.widget.missionModel.time_mode,
-          backgroundColor: ColorsConfig.gray_40,
-          list: CONSTANTS.getSettingItemDetailCheckButtonList(
-              defaultVal: this.widget.missionModel.time_mode ?? 0),
-          onTapListener: (index) async {
-            this.widget.missionModel.time_mode = index;
-            this.widget.missionModel?.end_time = 0;
-            this.widget.missionModel?.start_time = 0;
-            setState(() {});
-          },
-        ),
+        child: (this.widget.missionModel.missionModelType == 1 ||
+                this.widget.missionModel.missionModelType == 2)
+            ? null
+            : BlackCheckButtonListWidget(
+                // initIndex: 1,
+                initIndex: this.widget.missionModel.time_mode,
+                backgroundColor: ColorsConfig.gray_40,
+                list: CONSTANTS.getSettingItemDetailCheckButtonList(
+                    defaultVal: this.widget.missionModel.time_mode ?? 0),
+                onTapListener: (index) async {
+                  this.widget.missionModel.time_mode = index;
+                  this.widget.missionModel?.end_time = 0;
+                  this.widget.missionModel?.start_time = 0;
+                  setState(() {});
+                },
+              ),
       ),
-      MenuItem2(
-          title: (this.widget.missionModel?.repetiveType == 0 ||
-                  this.widget.missionModel.time_mode == 1)
-              ? getI18NKey().start_time
-              : getI18NKey().daily_start_time,
-          subTitle: "(${getI18NKey().optional})",
-          onTapListener: (data) async {
-            if (
-            ChatGroupManager.isFolderModelEnabled(
-                folderId: this.widget.missionModel.folder_id ?? "",
-                uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                false) {
-              Utility.showToastMsg(
-                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-              return null;
-            }
-            DateTimeModel model;
-            if (this.widget.missionModel.time_mode == 1) {
-              DateTimeModel? model =
-                  await Utility.showDateTimePickerDialog(context);
-              updateAlertTime();
+      if (Utility.shouldShowStartTime(
+              missionModelType: this.widget.missionModel.missionModelType) ==
+          true)
+        MenuItem2(
+            title: (this.widget.missionModel?.repetiveType == 0 ||
+                    this.widget.missionModel.time_mode == 1)
+                ? getI18NKey().start_time
+                : getI18NKey().daily_start_time,
+            subTitle: "(${getI18NKey().optional})",
+            onTapListener: (data) async {
+              if (ChatGroupManager.isFolderModelEnabled(
+                      folderId: this.widget.missionModel.folder_id ?? "",
+                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                  false) {
+                Utility.showToastMsg(
+                    context: Utility.getGlobalContext(),
+                    msg: getI18NKey().no_auth);
+                return null;
+              }
+              DateTimeModel model;
+              if (this.widget.missionModel.time_mode == 1) {
+                DateTimeModel? model =
+                    await Utility.showDateTimePickerDialog(context);
+                updateAlertTime();
+                this.setState(() {
+                  this.isNeedUpdateBmob = true;
+                  this.widget.missionModel?.start_time =
+                      model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
+                });
+              } else {
+                TimeOfDay? timeOfDay;
+                timeOfDay = await Utility.showTimePickerDialog(context);
+                if (timeOfDay == null) {
+                  return;
+                }
+                int startTime = timeOfDay.hour * 60 * 60 * 1000 +
+                    timeOfDay.minute * 60 * 1000;
+                if (this.widget.missionModel?.daily_end_time != null) {
+                  if ((this.widget.missionModel?.daily_end_time ?? 0) <
+                      startTime) {
+                    Utility.showToastMsg(
+                        context: context,
+                        msg: getI18NKey().end_time_cannot_before_start_time);
+                    this.widget.missionModel?.daily_end_time = null;
+                    return;
+                  }
+                }
+                this.widget.missionModel?.daily_start_time = startTime;
+                updateAlertTime();
+              }
+              // if((this.widget.missionModel.alert_time??0) > 0) {
+              //   Params.shouldRefreshPushModelList = true;
+              // }
               this.setState(() {
                 this.isNeedUpdateBmob = true;
-                this.widget.missionModel?.start_time =
-                    model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
               });
-            } else {
-              TimeOfDay? timeOfDay;
-              timeOfDay = await Utility.showTimePickerDialog(context);
-              if (timeOfDay == null) {
-                return;
+              // this.requestNotification();
+              // NotificationManager.getInstance()
+            },
+            rightPartContainer: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  this.widget.missionModel.time_mode == 1
+                      ? CONSTANTS.getAlertDateString(
+                          Utility.getDateTimeModelFromTimeStamp(
+                              this.widget.missionModel?.start_time ?? 0))
+                      : TextUtil.isEmpty(
+                                  this.widget.missionModel?.daily_start_time) ==
+                              false
+                          ? Utility.formatHourAndMin2(
+                              this.widget.missionModel?.daily_start_time ?? 0)
+                          : getI18NKey().none,
+                  style:
+                      TextStyle(fontSize: 15, color: ColorsConfig.gray_a3_icon),
+                ),
+                IconButton(
+                  icon: Icon(Icons.cancel,
+                      size: 20, color: ColorsConfig.gray_cc_cancel),
+                  onPressed: () {
+                    this.isNeedUpdateBmob = true;
+                    this.widget.missionModel?.daily_start_time = 0;
+                    this.widget.missionModel?.start_time = null;
+                    this.updateUI();
+                  },
+                )
+              ],
+            ),
+            icon: Utility.getSVGPicture(R.assetsImgIcStarttimeOrange,
+                size: StylesConfig.iconSize)),
+      if (Utility.shouldShowEndTime(
+              missionModelType: this.widget.missionModel.missionModelType) ==
+          true)
+        MenuItem2(
+            title: (this.widget.missionModel?.repetiveType == 0 ||
+                    this.widget.missionModel.time_mode == 1)
+                ? getI18NKey().end_time
+                : getI18NKey().daily_end_time,
+            subTitle: this.widget.missionModel.repetiveType == 1
+                ? ""
+                : "(${getI18NKey().optional})",
+            onTapListener: (data) async {
+              if (ChatGroupManager.isFolderModelEnabled(
+                      folderId: this.widget.missionModel.folder_id ?? "",
+                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                  false) {
+                Utility.showToastMsg(
+                    context: Utility.getGlobalContext(),
+                    msg: getI18NKey().no_auth);
+                return null;
               }
-              int startTime = timeOfDay.hour * 60 * 60 * 1000 +
-                  timeOfDay.minute * 60 * 1000;
-              if (this.widget.missionModel?.daily_end_time != null) {
-                if ((this.widget.missionModel?.daily_end_time ?? 0) <
-                    startTime) {
+              if (this.widget.missionModel.time_mode == 1) {
+                if (this.widget.missionModel?.start_time == null) {
+                  Utility.showToastMsg(
+                      context: context,
+                      msg: getI18NKey().please_select_daily_start_time);
+                  return;
+                }
+                DateTimeModel? model =
+                    await Utility.showDateTimePickerDialog(context);
+                if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
+                    (this.widget.missionModel?.start_time ?? 0)) {
+                  Utility.showToastMsg(
+                      context: context,
+                      msg: getI18NKey().end_time_cannot_before_start_time);
+                  this.widget.missionModel?.end_time = null;
+                  return;
+                }
+                this.setState(() {
+                  this.isNeedUpdateBmob = true;
+                  this.widget.missionModel?.end_time =
+                      model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
+                });
+              } else {
+                if (this.widget.missionModel?.daily_start_time == null) {
+                  Utility.showToastMsg(
+                      context: context,
+                      msg: getI18NKey().please_select_daily_start_time);
+                  return;
+                }
+                TimeOfDay? timeOfDay;
+                timeOfDay = await Utility.showTimePickerDialog(context);
+                if (timeOfDay == null) {
+                  return;
+                }
+                int endTime = timeOfDay.hour * 60 * 60 * 1000 +
+                    timeOfDay.minute * 60 * 1000;
+                if (endTime <
+                    (this.widget.missionModel?.daily_start_time ?? 0)) {
                   Utility.showToastMsg(
                       context: context,
                       msg: getI18NKey().end_time_cannot_before_start_time);
                   this.widget.missionModel?.daily_end_time = null;
                   return;
                 }
-              }
-              this.widget.missionModel?.daily_start_time = startTime;
-              updateAlertTime();
-            }
-            // if((this.widget.missionModel.alert_time??0) > 0) {
-            //   Params.shouldRefreshPushModelList = true;
-            // }
-            this.setState(() {
-              this.isNeedUpdateBmob = true;
-            });
-            // this.requestNotification();
-            // NotificationManager.getInstance()
-          },
-          rightPartContainer: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                this.widget.missionModel.time_mode == 1
-                    ? CONSTANTS.getAlertDateString(
-                        Utility.getDateTimeModelFromTimeStamp(
-                            this.widget.missionModel?.start_time ?? 0))
-                    : TextUtil.isEmpty(
-                                this.widget.missionModel?.daily_start_time) ==
-                            false
-                        ? Utility.formatHourAndMin2(
-                            this.widget.missionModel?.daily_start_time ?? 0)
-                        : getI18NKey().none,
-                style:
-                    TextStyle(fontSize: 15, color: ColorsConfig.gray_a3_icon),
-              ),
-              IconButton(
-                icon: Icon(Icons.cancel,
-                    size: 20, color: ColorsConfig.gray_cc_cancel),
-                onPressed: () {
-                  this.isNeedUpdateBmob = true;
-                  this.widget.missionModel?.daily_start_time = 0;
-                  this.widget.missionModel?.start_time = null;
-                  this.updateUI();
-                },
-              )
-            ],
-          ),
-          icon: Utility.getSVGPicture(R.assetsImgIcStarttimeOrange,
-              size: StylesConfig.iconSize)),
-      MenuItem2(
-          title: (this.widget.missionModel?.repetiveType == 0 ||
-                  this.widget.missionModel.time_mode == 1)
-              ? getI18NKey().end_time
-              : getI18NKey().daily_end_time,
-          subTitle: this.widget.missionModel.repetiveType == 1
-              ? ""
-              : "(${getI18NKey().optional})",
-          onTapListener: (data) async {
-            if (
-            ChatGroupManager.isFolderModelEnabled(
-                folderId: this.widget.missionModel.folder_id ?? "",
-                uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                false) {
-              Utility.showToastMsg(
-                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-              return null;
-            }
-            if (this.widget.missionModel.time_mode == 1) {
-              if (this.widget.missionModel?.start_time == null) {
-                Utility.showToastMsg(
-                    context: context,
-                    msg: getI18NKey().please_select_daily_start_time);
-                return;
-              }
-              DateTimeModel? model =
-                  await Utility.showDateTimePickerDialog(context);
-              if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
-                  (this.widget.missionModel?.start_time ?? 0)) {
-                Utility.showToastMsg(
-                    context: context,
-                    msg: getI18NKey().end_time_cannot_before_start_time);
-                this.widget.missionModel?.end_time = null;
-                return;
+                this.widget.missionModel?.daily_end_time = endTime;
               }
               this.setState(() {
                 this.isNeedUpdateBmob = true;
-                this.widget.missionModel?.end_time =
-                    model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
               });
-            } else {
-              if (this.widget.missionModel?.daily_start_time == null) {
-                Utility.showToastMsg(
-                    context: context,
-                    msg: getI18NKey().please_select_daily_start_time);
-                return;
-              }
-              TimeOfDay? timeOfDay;
-              timeOfDay = await Utility.showTimePickerDialog(context);
-              if (timeOfDay == null) {
-                return;
-              }
-              int endTime = timeOfDay.hour * 60 * 60 * 1000 +
-                  timeOfDay.minute * 60 * 1000;
-              if (endTime < (this.widget.missionModel?.daily_start_time ?? 0)) {
-                Utility.showToastMsg(
-                    context: context,
-                    msg: getI18NKey().end_time_cannot_before_start_time);
-                this.widget.missionModel?.daily_end_time = null;
-                return;
-              }
-              this.widget.missionModel?.daily_end_time = endTime;
-            }
-            this.setState(() {
-              this.isNeedUpdateBmob = true;
-            });
-            // this.requestNotification();
-            // NotificationManager.getInstance()
-          },
-          rightPartContainer: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                this.widget.missionModel.time_mode == 1
-                    ? CONSTANTS.getAlertDateString(
-                        Utility.getDateTimeModelFromTimeStamp(
-                            this.widget.missionModel?.end_time ?? 0))
-                    : TextUtil.isEmpty(
-                                this.widget.missionModel?.daily_end_time) ==
-                            false
-                        ? Utility.formatHourAndMin2(
-                            this.widget.missionModel?.daily_end_time ?? 0)
-                        : getI18NKey().none,
-                style:
-                    TextStyle(fontSize: 15, color: ColorsConfig.gray_a3_icon),
-              ),
-              IconButton(
-                icon: Icon(Icons.cancel,
-                    size: 20, color: ColorsConfig.gray_cc_cancel),
-                onPressed: () {
-                  this.isNeedUpdateBmob = true;
-                  this.widget.missionModel?.end_time = 0;
-                  this.widget.missionModel?.daily_end_time = 0;
-                  this.updateUI();
-                },
-              )
-            ],
-          ),
-          icon: Utility.getSVGPicture(R.assetsImgIcEndtimeOrange,
-              size: StylesConfig.iconSize)),
+              // this.requestNotification();
+              // NotificationManager.getInstance()
+            },
+            rightPartContainer: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  this.widget.missionModel.time_mode == 1
+                      ? CONSTANTS.getAlertDateString(
+                          Utility.getDateTimeModelFromTimeStamp(
+                              this.widget.missionModel?.end_time ?? 0))
+                      : TextUtil.isEmpty(
+                                  this.widget.missionModel?.daily_end_time) ==
+                              false
+                          ? Utility.formatHourAndMin2(
+                              this.widget.missionModel?.daily_end_time ?? 0)
+                          : getI18NKey().none,
+                  style:
+                      TextStyle(fontSize: 15, color: ColorsConfig.gray_a3_icon),
+                ),
+                IconButton(
+                  icon: Icon(Icons.cancel,
+                      size: 20, color: ColorsConfig.gray_cc_cancel),
+                  onPressed: () {
+                    this.isNeedUpdateBmob = true;
+                    this.widget.missionModel?.end_time = 0;
+                    this.widget.missionModel?.daily_end_time = 0;
+                    this.updateUI();
+                  },
+                )
+              ],
+            ),
+            icon: Utility.getSVGPicture(R.assetsImgIcEndtimeOrange,
+                size: StylesConfig.iconSize)),
       // SizedBox(height: 20,),
-      MenuItem2(
-          title: getI18NKey().mission,
-          subTitle: this.widget.missionModel.repetiveType == 1
-              ? ""
-              : getI18NKey().optional_with_parenthese,
-          onTapListener: (data) async {
-            this.onClick('onTapCircleListener', data);
-          },
-          rightPartContainer: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                this.folderModel != null && this.folderModel?.title != null
-                    ? (this.folderModel?.title ?? "")
-                    : getI18NKey().none,
-                style: TextStyle(
-                    fontSize: 15,
-                    color: this.folderModel != null &&
-                            this.folderModel?.color != null
-                        ? Color(this.folderModel?.color ?? 0xffff8800)
-                        : ColorsConfig.gray_a3_icon),
-              ),
-              IconButton(
-                icon: Icon(Icons.cancel,
-                    size: 20, color: ColorsConfig.gray_cc_cancel),
-                onPressed: () {
-                  this.isNeedUpdateBmob = true;
-                  this.widget.missionModel?.alert_time = 0;
-                  this.updateUI();
+      if (Utility.shouldShowCircleFolderId(
+              missionModelType: this.widget.missionModel.missionModelType) ==
+          true)
+        MenuItem2(
+            title: getI18NKey().mission,
+            subTitle: this.widget.missionModel.repetiveType == 1
+                ? ""
+                : getI18NKey().optional_with_parenthese,
+            onTapListener: (data) async {
+              this.onClick('onTapCircleListener', data);
+            },
+            rightPartContainer: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  this.folderModel != null && this.folderModel?.title != null
+                      ? (this.folderModel?.title ?? "")
+                      : getI18NKey().none,
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: this.folderModel != null &&
+                              this.folderModel?.color != null
+                          ? Color(this.folderModel?.color ?? 0xffff8800)
+                          : ColorsConfig.gray_a3_icon),
+                ),
+                IconButton(
+                  icon: Icon(Icons.cancel,
+                      size: 20, color: ColorsConfig.gray_cc_cancel),
+                  onPressed: () {
+                    this.isNeedUpdateBmob = true;
+                    this.widget.missionModel?.alert_time = 0;
+                    this.updateUI();
+                  },
+                )
+              ],
+            ),
+            icon: folderModel?.icon != null
+                ? Icon(
+                    IconData(folderModel?.icon ?? 0,
+                        fontFamily: 'MaterialIcons'),
+                    size: 16,
+                    color: folderModel?.icon != null
+                        ? Color(folderModel?.color ?? 0)
+                        : ColorsConfig.gray_a3_icon)
+                : Utility.getSVGPicture(R.assetsImgIcFolderOrange,
+                    size: StylesConfig.iconSize)),
+      if (Utility.shouldShowTomatoes(
+              missionModelType: this.widget.missionModel.missionModelType) ==
+          true)
+        this.widget.missionModel?.isFinished == true
+            ? SizedBox.shrink()
+            : MenuItem2(
+                title: getI18NKey().tomatoNums,
+                subTitle: getI18NKey().tomatoNums3,
+                onTapListener: (data) {
+                  this.onClick('onClickSelectTomatoes', null);
                 },
-              )
-            ],
-          ),
-          icon: folderModel?.icon != null
-              ? Icon(
-                  IconData(folderModel?.icon ?? 0, fontFamily: 'MaterialIcons'),
-                  size: 16,
-                  color: folderModel?.icon != null
-                      ? Color(folderModel?.color ?? 0)
-                      : ColorsConfig.gray_a3_icon)
-              : Utility.getSVGPicture(R.assetsImgIcFolderOrange,
-                  size: StylesConfig.iconSize)),
-      this.widget.missionModel?.isFinished == true
-          ? SizedBox.shrink()
-          : MenuItem2(
-              title: getI18NKey().tomatoNums,
-              subTitle: getI18NKey().tomatoNums3,
-              onTapListener: (data) {
-                this.onClick('onClickSelectTomatoes', null);
-              },
-              rightPartContainer: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  RatingBar(
-                    curNumber:
-                        this.widget.missionModel?.no_tomotoes_finished ?? 0,
-                    number: this.widget.missionModel?.total_tomotoes ?? 0,
-                  ),
-                  SizedBox(height: 3),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Utility.getSVGPicture(R.assetsImgIcTomatoChecked,
-                          size: 15),
-                      Text(
-                        "=" +
-                            CONSTANTS.getDurationString(
-                                this.widget.missionModel ?? MissionModel()),
-                        style: TextStyle(
-                            fontSize: 12, color: ColorsConfig.gray_a3_icon),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              icon: Utility.getSVGPicture(R.assetsImgIcFocusOrange,
-                  size: StylesConfig.iconSize)),
+                rightPartContainer: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    RatingBar(
+                      curNumber:
+                          this.widget.missionModel?.no_tomotoes_finished ?? 0,
+                      number: this.widget.missionModel?.total_tomotoes ?? 0,
+                    ),
+                    SizedBox(height: 3),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Utility.getSVGPicture(R.assetsImgIcTomatoChecked,
+                            size: 15),
+                        Text(
+                          "=" +
+                              CONSTANTS.getDurationString(
+                                  this.widget.missionModel ?? MissionModel()),
+                          style: TextStyle(
+                              fontSize: 12, color: ColorsConfig.gray_a3_icon),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                icon: Utility.getSVGPicture(R.assetsImgIcFocusOrange,
+                    size: StylesConfig.iconSize)),
       (this.widget.missionModel?.isFinished == true ||
               this.widget.missionModel?.time_mode == 1)
           ? SizedBox.shrink()
           : MenuItem2(
               title: getI18NKey().deadLine,
               onTapListener: (data) async {
-                if (
-                ChatGroupManager.isFolderModelEnabled(
-                    folderId: this.widget.missionModel.folder_id ?? "",
-                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                if (ChatGroupManager.isFolderModelEnabled(
+                        folderId: this.widget.missionModel.folder_id ?? "",
+                        uid: LoginManager.getInstance().userBean.uid ?? "") ==
                     false) {
                   Utility.showToastMsg(
-                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                      context: Utility.getGlobalContext(),
+                      msg: getI18NKey().no_auth);
                   return null;
                 }
                 DateTimeModel? model = await Utility.showDatePickerDialog(
@@ -1112,8 +1212,7 @@ class _SettingItemDetailPageWidgetState<T>
                         size: 20, color: ColorsConfig.gray_cc_cancel),
                     onPressed: () {
                       this.isNeedUpdateBmob = true;
-                      this.widget.missionModel?.end_time =
-                          null;
+                      this.widget.missionModel?.end_time = null;
                       // this.widget.missionModel?.end_time =
                       //     Utility.getTimeStampToday();
                       // this.widget.missionModel.end_time = 0;
@@ -1126,17 +1225,17 @@ class _SettingItemDetailPageWidgetState<T>
                   size: StylesConfig.iconSize)),
       (this.widget.missionModel?.isFinished == true)
           ? SizedBox.shrink()
-          : MenuItem2(
+          : (!Utility.shouldShowAlert(missionModelType: this.widget.missionModel?.missionModelType)) ? SizedBox.shrink() : MenuItem2(
               title: getI18NKey().alert,
               subTitle: "(${getI18NKey().optional})",
               onTapListener: (data) async {
-                if (
-                ChatGroupManager.isFolderModelEnabled(
-                    folderId: this.widget.missionModel.folder_id ?? "",
-                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                if (ChatGroupManager.isFolderModelEnabled(
+                        folderId: this.widget.missionModel.folder_id ?? "",
+                        uid: LoginManager.getInstance().userBean.uid ?? "") ==
                     false) {
                   Utility.showToastMsg(
-                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                      context: Utility.getGlobalContext(),
+                      msg: getI18NKey().no_auth);
                   return null;
                 }
                 //没有权限提醒设置权限
@@ -1166,7 +1265,7 @@ class _SettingItemDetailPageWidgetState<T>
                 this.setState(() {
                   this.isNeedUpdateBmob = true;
                 });
-                this.requestNotification();
+                Utility.requestNotification(context);
                 // NotificationManager.getInstance()
               },
               rightPartContainer: Row(
@@ -1199,113 +1298,114 @@ class _SettingItemDetailPageWidgetState<T>
               ),
               icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
                   size: StylesConfig.iconSize)),
-      if(this.widget.missionModel?.time_mode == 0)
-      this.widget.missionModel?.isFinished == true
-          ? SizedBox.shrink()
-          : MenuItem2(
-              title: getI18NKey().repetive,
-              subTitle: "(${getI18NKey().optional})",
-              onTapListener: (data) {
-                if (
-                ChatGroupManager.isFolderModelEnabled(
-                    folderId: this.widget.missionModel.folder_id ?? "",
-                    uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                    false) {
-                  Utility.showToastMsg(
-                      context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-                  return null;
-                }
-                SelectDatePeriodDialogUtil.show(context, okCallBack:
-                    (valueMiddleSelected, valueRightSelected, listCheckModels) {
-                  this.isNeedUpdateBmob = true;
-                  this.widget.missionModel?.repetiveValue =
-                      valueMiddleSelected; //更新值
-                  if (this.widget.missionModel?.repetiveType !=
-                      valueRightSelected) {
-                    this.widget.missionModel?.alert_time = 0;
+      if (this.widget.missionModel?.time_mode == 0)
+        this.widget.missionModel?.isFinished == true
+            ? SizedBox.shrink()
+            : MenuItem2(
+                title: getI18NKey().repetive,
+                subTitle: "(${getI18NKey().optional})",
+                onTapListener: (data) {
+                  if (ChatGroupManager.isFolderModelEnabled(
+                          folderId: this.widget.missionModel.folder_id ?? "",
+                          uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                      false) {
+                    Utility.showToastMsg(
+                        context: Utility.getGlobalContext(),
+                        msg: getI18NKey().no_auth);
+                    return null;
                   }
-                  this.widget.missionModel?.repetiveType =
-                      valueRightSelected; // 0关闭重复 1 按天重复 2 按周重复 3 按月重复 4 按年重复
-                  if (this.widget.missionModel?.repetiveWeekDay == null ||
-                      this.widget.missionModel?.repetiveWeekDay?.length == 0)
-                    this.widget.missionModel?.repetiveWeekDay = [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                    ];
-                  if (listCheckModels.length > 5) {
-                    this.widget.missionModel?.repetiveWeekDay?[0] =
-                        listCheckModels[0].isChecked;
-                    this.widget.missionModel?.repetiveWeekDay?[1] =
-                        listCheckModels[1].isChecked;
-                    this.widget.missionModel?.repetiveWeekDay?[2] =
-                        listCheckModels[2].isChecked;
-                    this.widget.missionModel?.repetiveWeekDay?[3] =
-                        listCheckModels[3].isChecked;
-                    this.widget.missionModel?.repetiveWeekDay?[4] =
-                        listCheckModels[4].isChecked;
-                    this.widget.missionModel?.repetiveWeekDay?[5] =
-                        listCheckModels[5].isChecked;
-                    this.widget.missionModel?.repetiveWeekDay?[6] =
-                        listCheckModels[6].isChecked;
+                  SelectDatePeriodDialogUtil.show(context, okCallBack:
+                      (valueMiddleSelected, valueRightSelected,
+                          listCheckModels) {
                     this.isNeedUpdateBmob = true;
-                  }
-                  // requestMongoDbUpdateData();
-                  updateAlertTime();
-                  updateUI();
-                  // this.isNeedUpdateBmob = true;
-                });
-              },
-              rightPartContainer: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          width: Utility.isHandsetBySize() ? 160 : 160,
-                          child: new Text.rich(
-                            //富文本文本框构造方法，可以显示多种样式的text，第一个参数为 TextSpan
-                            new TextSpan(
-                              text: repetiveString,
-                              //文字样式，如果后面的子 TextSpan 没有覆盖该 TextStyle 中的属性，则使用该 TextStyle 指定的样式
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: ColorsConfig.gray_cc_cancel),
-                              //应该是手势识别监听器，后面用到手势监听再详细学习该类用法
-//          recognizer: ,
-                              //子 TextSpan，可以指定多个
-                            ),
-                            textDirection: TextDirection.rtl,
-                          ),
-                        ),
-                        dateTimeNextTime == null
-                            ? SizedBox.shrink()
-                            : Text(
-                                CONSTANTS
-                                    .getRepetiveDateString2(dateTimeNextTime),
+                    this.widget.missionModel?.repetiveValue =
+                        valueMiddleSelected; //更新值
+                    if (this.widget.missionModel?.repetiveType !=
+                        valueRightSelected) {
+                      this.widget.missionModel?.alert_time = 0;
+                    }
+                    this.widget.missionModel?.repetiveType =
+                        valueRightSelected; // 0关闭重复 1 按天重复 2 按周重复 3 按月重复 4 按年重复
+                    if (this.widget.missionModel?.repetiveWeekDay == null ||
+                        this.widget.missionModel?.repetiveWeekDay?.length == 0)
+                      this.widget.missionModel?.repetiveWeekDay = [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                      ];
+                    if (listCheckModels.length > 5) {
+                      this.widget.missionModel?.repetiveWeekDay?[0] =
+                          listCheckModels[0].isChecked;
+                      this.widget.missionModel?.repetiveWeekDay?[1] =
+                          listCheckModels[1].isChecked;
+                      this.widget.missionModel?.repetiveWeekDay?[2] =
+                          listCheckModels[2].isChecked;
+                      this.widget.missionModel?.repetiveWeekDay?[3] =
+                          listCheckModels[3].isChecked;
+                      this.widget.missionModel?.repetiveWeekDay?[4] =
+                          listCheckModels[4].isChecked;
+                      this.widget.missionModel?.repetiveWeekDay?[5] =
+                          listCheckModels[5].isChecked;
+                      this.widget.missionModel?.repetiveWeekDay?[6] =
+                          listCheckModels[6].isChecked;
+                      this.isNeedUpdateBmob = true;
+                    }
+                    // requestMongoDbUpdateData();
+                    updateAlertTime();
+                    updateUI();
+                    // this.isNeedUpdateBmob = true;
+                  });
+                },
+                rightPartContainer: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: Utility.isHandsetBySize() ? 160 : 160,
+                            child: new Text.rich(
+                              //富文本文本框构造方法，可以显示多种样式的text，第一个参数为 TextSpan
+                              new TextSpan(
+                                text: repetiveString,
+                                //文字样式，如果后面的子 TextSpan 没有覆盖该 TextStyle 中的属性，则使用该 TextStyle 指定的样式
                                 style: TextStyle(
-                                    fontSize: 12,
-                                    color: ColorsConfig.gray_a3_icon),
+                                    fontSize: 14,
+                                    color: ColorsConfig.gray_cc_cancel),
+                                //应该是手势识别监听器，后面用到手势监听再详细学习该类用法
+//          recognizer: ,
+                                //子 TextSpan，可以指定多个
                               ),
-                      ]),
-                  IconButton(
-                    icon: Icon(Icons.cancel,
-                        size: 20, color: ColorsConfig.gray_cc_cancel),
-                    onPressed: () {
-                      resetRepeativeValue();
-                    },
-                  )
-                ],
-              ),
-              icon: Utility.getSVGPicture(R.assetsImgIcRepeativeOrange,
-                  size: StylesConfig.iconSize)),
+                              textDirection: TextDirection.rtl,
+                            ),
+                          ),
+                          dateTimeNextTime == null
+                              ? SizedBox.shrink()
+                              : Text(
+                                  CONSTANTS
+                                      .getRepetiveDateString2(dateTimeNextTime),
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorsConfig.gray_a3_icon),
+                                ),
+                        ]),
+                    IconButton(
+                      icon: Icon(Icons.cancel,
+                          size: 20, color: ColorsConfig.gray_cc_cancel),
+                      onPressed: () {
+                        resetRepeativeValue();
+                      },
+                    )
+                  ],
+                ),
+                icon: Utility.getSVGPicture(R.assetsImgIcRepeativeOrange,
+                    size: StylesConfig.iconSize)),
       SizedBox(
         height: 20,
       ),
@@ -1353,6 +1453,7 @@ class _SettingItemDetailPageWidgetState<T>
       // getSubmissionListWidget(),
     ];
   }
+
   List<Widget> getTabBar1WidgetList() {
     return [
       SectionTitleWidget(
@@ -1480,7 +1581,8 @@ class _SettingItemDetailPageWidgetState<T>
   }
 
   onClickUnfinishItem(data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -1496,7 +1598,8 @@ class _SettingItemDetailPageWidgetState<T>
    * 点击完成任务
    */
   Future onClickFinishItem(data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;

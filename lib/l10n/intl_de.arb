@@ -1,5 +1,13 @@
 {
   "@@locale": "de",
+  "jump_to_xxx": "Springe zu {xxx}",
+  "save_mode": "Speichermodus",
+  "dateFromYearMonthToMins": "{t0} Jahr {t1} Monat {t2} Tag {t3}:{t4}",
+  "apple_alarm": "Apple Alarm",
+  "apple_calendar": "Apple Kalender",
+  "from_calendar": "Aus Kalender",
+  "from_reminder": "Aus Erinnerung",
+  "join_us": "Komm zu uns",
   "sort": "Sortieren",
   "sync_desktop_widget": "Desktop-Widget synchronisieren",
   "sync_desktop_widget_success": "Desktop-Widget erfolgreich synchronisiert, bitte überprüfen Sie die Hinzufügung des Desktop-Widgets",

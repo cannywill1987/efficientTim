@@ -301,11 +301,13 @@ class MissionDetailMissionSilverListItemState
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
+                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
                     RatingBar(
                       size: this.fontSize,
                       curNumber: _missionModel?.no_tomotoes_finished ?? 0,
                       number: _missionModel?.total_tomotoes ?? 0,
                     ),
+                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
                     SizedBox(
                       width: this.space,
                     ),

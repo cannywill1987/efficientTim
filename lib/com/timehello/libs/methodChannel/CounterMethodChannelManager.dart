@@ -252,6 +252,56 @@ class CounterMethodChannelManager {
     return "";
   }
 
+  Future<BaseBean> updateMissionModelToCalendar(BuildContext context,
+      {required MissionModel missionModel}) async {
+    try {
+      String res = await _channel.invokeMethod(
+          'updateMissionModelToCalendar', missionModel.toJson());
+      BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      return bean;
+    } catch (e) {}
+    return BaseBean(success: false);
+  }
+
+  Future<BaseBean> updateMissionModelToReminder(BuildContext context,
+      {required MissionModel missionModel}) async {
+    try {
+      missionModel.title =
+          missionModel.title?.replaceAll("(${getI18NKey().from_calendar})", "");
+      String res = await _channel.invokeMethod(
+          'updateMissionModelToReminder', missionModel.toJson());
+      BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      return bean;
+    } catch (e) {}
+    return BaseBean(success: false);
+  }
+
+  /**
+   * 跳转到ios reminder app
+   */
+  Future<void> openReminderApp({required String id}) async {
+    try {
+      _channel.invokeMethod('openReminderApp', id);
+    } catch (e) {}
+  }
+
+  Future<void> openCalendarApp({required int timestamp}) async {
+    try {
+      _channel.invokeMethod('openCalendarApp', timestamp);
+    } catch (e) {}
+  }
+
+  Future<bool> createMissionModelToCalendar(BuildContext context,
+      {required MissionModel missionModel}) async {
+    try {
+      missionModel.title =
+          missionModel.title?.replaceAll("(${getI18NKey().from_reminder})", "");
+      await _channel.invokeMethod(
+          'createMissionModelToCalendar', missionModel.toJson());
+    } catch (e) {}
+    return false;
+  }
+
   /**
    * 今日任务列表
    */
@@ -350,20 +400,46 @@ class CounterMethodChannelManager {
   }
 
   Future<BaseBean> requestEventReminderAccess() async {
-    String res =
-        (await _channel.invokeMethod<String>('requestEventReminderAccess')) ??
-            "";
-    BaseBean bean = BaseBean.fromJson(jsonDecode(res));
-    return bean;
+    try {
+      String res =
+          (await _channel.invokeMethod<String>('requestEventReminderAccess')) ??
+              "";
+      BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      return bean;
+    } catch (e) {
+      return BaseBean(success: false);
+    }
   }
 
-  Future<List<EventModel>> fetchEventReminderEvents(
+  Future<BaseBean> deleteEvent({id = ""}) async {
+    try {
+      String res =
+          (await _channel.invokeMethod<String>('deleteEvent', id)) ?? "";
+      BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      return bean;
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
+  Future<BaseBean> deleteReminder({id = ""}) async {
+    try {
+      String res =
+          (await _channel.invokeMethod<String>('deleteReminder', id)) ?? "";
+      BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      return bean;
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
+  Future<List<EventModel>> fetchCalendarEvents(
       {required double startDate, required double endDate}) async {
     String res = (await _channel.invokeMethod<String>(
             'fetchEventReminderEvents',
             {"startDate": startDate, "endDate": endDate})) ??
         "";
-    Utility.showToastMsg(msg: res);
+    // Utility.showToastMsg(msg: res);
     // Object result = (await _channel.invokeMethod<String>(
     //     'fetchEventReminderEvents',  {"startDate": startDate, "endDate": endDate})) ??
     //     false;
@@ -373,27 +449,42 @@ class CounterMethodChannelManager {
     return events;
   }
 
-  Future<List<ReminderModel>> fetchEventReminderReminders(
+  Future<List<ReminderModel>> fetchReminderReminders(
       {required double startDate, required double endDate}) async {
     // return (await _channel.invokeMethod<bool>('fetchEventReminderReminders',
     //         {"startDate": startDate, "endDate": endDate})) ??
     //     false;
-    Object obj = (await _channel.invokeMethod(
-        'fetchEventReminderReminders',
-        {"startDate": startDate, "endDate": endDate}));
+    // Object obj = (await _channel.invokeMethod(
+    //     'fetchEventReminderReminders',
+    //     {"startDate": startDate, "endDate": endDate}));
     String res = (await _channel.invokeMethod<String>(
-        'fetchEventReminderReminders',
-        {"startDate": startDate, "endDate": endDate})) ??
+            'fetchEventReminderReminders',
+            {"startDate": startDate, "endDate": endDate})) ??
         "";
-    Utility.showToastMsg(msg: res);
+    Map<String, dynamic> json = jsonDecode(res);
+    // Utility.showToastMsg(msg: res);
     // Object result = (await _channel.invokeMethod<String>(
     //     'fetchEventReminderEvents',  {"startDate": startDate, "endDate": endDate})) ??
     //     false;
-    Map<String, dynamic> json = jsonDecode(res);
-    final events =
-    (json['data'] as List).map((e) => ReminderModel.fromJson(e)).toList();
-    return events;
-
+    List<ReminderModel> eventsRemindModel = [];
+    for (int i = 0; i < (json['data'] as List).length; i++) {
+      try {
+        ReminderModel model = ReminderModel.fromJson(json['data'][i]);
+        if (model.isCompleted == false) {
+          eventsRemindModel.add(model);
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+    // final events = (json['data'] as List).map((e) {
+    //   try {
+    //     return ReminderModel.fromJson(e);
+    //   } catch (e) {
+    //     return ReminderModel();
+    //   }
+    // }).toList();
+    return eventsRemindModel;
   }
 
   Future<List<PriceProductModel>> IAPManagerFetchReceipt(
@@ -401,18 +492,15 @@ class CounterMethodChannelManager {
     try {
       if (listProducts.length > 0) {
         String res = (await _channel.invokeMethod<String>(
-            'IAPManagerFetchReceipt', listProducts)) ??
+                'IAPManagerFetchReceipt', listProducts)) ??
             "";
         Map<String, dynamic> json = jsonDecode(res);
-        final events =
-        (json['data'] as List)
+        final events = (json['data'] as List)
             .map((e) => PriceProductModel.fromJson(e))
             .toList();
         return events;
       }
-    }catch(e) {
-
-    }
+    } catch (e) {}
     return [];
   }
 
@@ -948,7 +1036,7 @@ class CounterMethodChannelManager {
       await _channel.invokeMethod("showToast", args);
     } on PlatformException catch (e) {
       print(e);
-      // batteryLevel = "Failed to get battery level: '${e.message}'.";
+// batteryLevel = "Failed to get battery level: '${e.message}'.";
     }
   }
 }

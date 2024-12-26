@@ -45,24 +45,24 @@ class Utility {
     
     static func scheduleShutdown(after seconds: Int) {
         var output: String?
-         var errorDescription: String?
-         let success = runProcessAsAdministrator(scriptPath: "/sbin/shutdown", withArguments: ["-h", "+\(seconds / 60)"], output: &output, errorDescription: &errorDescription)
-         
-         if success {
-             print("Shutdown scheduled successfully!")
-         } else {
-             if let errorDescription = errorDescription {
-                 print("Error: \(errorDescription)")
-             } else {
-                 print("Unknown error occurred.")
-             }
-         }
+        var errorDescription: String?
+        let success = runProcessAsAdministrator(scriptPath: "/sbin/shutdown", withArguments: ["-h", "+\(seconds / 60)"], output: &output, errorDescription: &errorDescription)
+        
+        if success {
+            print("Shutdown scheduled successfully!")
+        } else {
+            if let errorDescription = errorDescription {
+                print("Error: \(errorDescription)")
+            } else {
+                print("Unknown error occurred.")
+            }
+        }
     }
     
     static func requestReview() {
         DispatchQueue.main.async {
             SKStoreReviewController.requestReview()
-         }
+        }
     }
     
     static func getMissionModelTitle(array: NSArray) -> [String] {
@@ -70,8 +70,8 @@ class Utility {
         for item in array {
             let itemDict:NSDictionary = item as! NSDictionary;
             arrayList.append(itemDict["title"] as! String);
-//            arrayList.append(itemDict["title"]);
-//            arrayList.add(itemDict["title"]);
+            //            arrayList.append(itemDict["title"]);
+            //            arrayList.add(itemDict["title"]);
         }
         return arrayList;
     }
@@ -310,9 +310,9 @@ class Utility {
     }
     
     static func getMissionModelsFromList(list: NSArray) -> [MissionModel] {
-//        var arrayList:[String] = [];
+        //        var arrayList:[String] = [];
         var listMissionModels:[MissionModel] = [];
-
+        
         for item in list {
             let itemDict:NSDictionary = item as! NSDictionary;
             let objectId:String? = itemDict["_id"] as? String;
@@ -386,7 +386,7 @@ class Utility {
         
         return recurrenceDict
     }
-
+    
     static func serializeEvent(event: EKEvent) -> [String: Any] {
         var structuredLocationData: [String: Any] = [:]
         if let structuredLocation = event.structuredLocation {
@@ -412,20 +412,100 @@ class Utility {
             "startDate": event.startDate?.description ?? NSNull(),
             "endDate": event.endDate?.description ?? NSNull(),
             "allDay": event.isAllDay,
-//            "floating": event.isFloating,
+            //            "floating": event.isFloating,
             "recurrence": recurrenceData,
-//            "travelTime": event.travelTime ?? NSNull(),
+            //            "travelTime": event.travelTime ?? NSNull(),
             "startLocation": event.structuredLocation?.geoLocation?.description ?? NSNull()
         ]
     }
-
+    
     static func serializeEventList(events: [EKEvent]) -> [[String: Any]] {
         return events.map { serializeEvent(event: $0) }
     }
     
     static func serializeReminder(reminder: EKReminder) -> [String: Any] {
         var reminderDict: [String: Any] = [:]
+        
+        // 开始时间 (毫秒时间戳)
+        if let startDate = reminder.startDateComponents?.date {
+            reminderDict["startDate"] = startDate.timeIntervalSince1970 * 1000 // 转换为毫秒
+        } else {
+            reminderDict["startDate"] = NSNull()
+        }
+        
+        // 截止时间 (毫秒时间戳)
+        if let dueDate = reminder.dueDateComponents?.date {
+            reminderDict["dueDate"] = dueDate.timeIntervalSince1970 * 1000 // 转换为毫秒
+        } else {
+            reminderDict["dueDate"] = NSNull()
+        }
+        
+        // 完成状态
+        reminderDict["isCompleted"] = reminder.isCompleted
+        reminderDict["completionDate"] = reminder.completionDate?.timeIntervalSince1970 ?? NSNull()
+        
+        // 优先级
+        reminderDict["priority"] = reminder.priority
+        
+        // 标题和备注（继承自 EKCalendarItem）
+        reminderDict["title"] = reminder.title ?? NSNull()
+        reminderDict["notes"] = reminder.notes ?? NSNull()
+        
+        // 日历信息
+        reminderDict["calendar"] = reminder.calendar?.title ?? NSNull()
+        
+        return reminderDict
+    }
+    
+    static func serializeReminderList(reminders: [EKReminder]) -> [[String: Any]] {
+        return reminders.map { serializeReminder(reminder: $0) }
+    }
 
+    static func serializeCustomEvent(customEvent: CustomEvent) -> [String: Any] {
+        let event = customEvent.ekEvent
+        var structuredLocationData: [String: Any] = [:]
+        if let structuredLocation = event.structuredLocation {
+            structuredLocationData = [
+                "title": structuredLocation.title ?? NSNull(),
+                "geoLocation": [
+                    "latitude": structuredLocation.geoLocation?.coordinate.latitude,
+                    "longitude": structuredLocation.geoLocation?.coordinate.longitude
+                ],
+                "radius": structuredLocation.radius
+            ]
+        }
+        
+        let recurrenceRule = event.recurrenceRules?.first
+        var recurrenceData: [String: Any] = [:]
+        if let rule = recurrenceRule {
+            recurrenceData = serializeRecurrenceRule(rule)
+        }
+        
+        return [
+            "id": customEvent.id, // 添加唯一 ID
+            "location": event.location ?? NSNull(),
+            "structuredLocation": structuredLocationData,
+            "startDate": event.startDate?.description ?? NSNull(),
+            "endDate": event.endDate?.description ?? NSNull(),
+            "allDay": event.isAllDay,
+            "recurrence": recurrenceData,
+        ]
+    }
+
+    static func serializeCustomEventList(customEvents: [CustomEvent]) -> [[String: Any]] {
+        return customEvents.map { serializeCustomEvent(customEvent: $0) }
+    }
+    
+    static func serializeCustomReminderList(customReminders: [CustomReminder]) -> [[String: Any]] {
+        return customReminders.map { serializeCustomReminder(customReminder: $0) }
+    }
+    static func serializeCustomReminder(customReminder: CustomReminder) -> [String: Any] {
+        let reminder = customReminder.ekReminder
+        var reminderDict: [String: Any] = [:]
+        
+        // 添加唯一 ID
+        reminderDict["id"] = customReminder.id
+        
         // 开始时间 (毫秒时间戳)
         if let startDate = reminder.startDateComponents?.date {
             reminderDict["startDate"] = startDate.timeIntervalSince1970 * 1000 // 转换为毫秒
@@ -457,6 +537,12 @@ class Utility {
         return reminderDict
     }
     
-    static func serializeReminderList(reminders: [EKReminder]) -> [[String: Any]] {
-        return reminders.map { serializeReminder(reminder: $0) }
-    }}
+    static func convertEventsToCustomEvents(events: [EKEvent]) -> [CustomEvent] {
+        return events.map { CustomEvent(from: $0) }
+    }
+    
+    static func convertRemindersToCustomReminders(reminders: [EKReminder]) -> [CustomReminder] {
+        return reminders.map { CustomReminder(from: $0) }
+    }
+
+}

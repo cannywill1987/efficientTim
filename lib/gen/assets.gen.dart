@@ -32,6 +32,13 @@ class $AssetsAppFlowyDemoGen {
 class $AssetsImgGen {
   const $AssetsImgGen();
 
+  /// File path: assets/img/February.png
+  AssetGenImage get february => const AssetGenImage('assets/img/February.png');
+
+  /// File path: assets/img/PdfExport.png
+  AssetGenImage get pdfExport =>
+      const AssetGenImage('assets/img/PdfExport.png');
+
   /// File path: assets/img/amex.png
   AssetGenImage get amex => const AssetGenImage('assets/img/amex.png');
 
@@ -174,6 +181,10 @@ class $AssetsImgGen {
   /// File path: assets/img/bg_dark.png
   AssetGenImage get bgDark => const AssetGenImage('assets/img/bg_dark.png');
 
+  /// File path: assets/img/bg_guide_buy.jpg
+  AssetGenImage get bgGuideBuy =>
+      const AssetGenImage('assets/img/bg_guide_buy.jpg');
+
   /// File path: assets/img/bg_light.png
   AssetGenImage get bgLight => const AssetGenImage('assets/img/bg_light.png');
 
@@ -283,6 +294,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_apple.svg
   String get icApple => 'assets/img/ic_apple.svg';
 
+  /// File path: assets/img/ic_apple_alarm.svg
+  String get icAppleAlarm => 'assets/img/ic_apple_alarm.svg';
+
   /// File path: assets/img/ic_archive.svg
   String get icArchive => 'assets/img/ic_archive.svg';
 
@@ -320,6 +334,9 @@ class $AssetsImgGen {
 
   /// File path: assets/img/ic_calendar.svg
   String get icCalendar => 'assets/img/ic_calendar.svg';
+
+  /// File path: assets/img/ic_calendar_mode.svg
+  String get icCalendarMode => 'assets/img/ic_calendar_mode.svg';
 
   /// File path: assets/img/ic_calendar_today.svg
   String get icCalendarToday => 'assets/img/ic_calendar_today.svg';
@@ -637,6 +654,9 @@ class $AssetsImgGen {
   AssetGenImage get icJiaotongBank =>
       const AssetGenImage('assets/img/ic_jiaotong_bank.png');
 
+  /// File path: assets/img/ic_language.svg
+  String get icLanguage => 'assets/img/ic_language.svg';
+
   /// File path: assets/img/ic_lanzhou_bank.png
   AssetGenImage get icLanzhouBank =>
       const AssetGenImage('assets/img/ic_lanzhou_bank.png');
@@ -868,6 +888,9 @@ class $AssetsImgGen {
 
   /// File path: assets/img/ic_shortcut.svg
   String get icShortcut => 'assets/img/ic_shortcut.svg';
+
+  /// File path: assets/img/ic_sort.svg
+  String get icSort => 'assets/img/ic_sort.svg';
 
   /// File path: assets/img/ic_splash_duck.png
   AssetGenImage get icSplashDuck =>
@@ -1102,6 +1125,8 @@ class $AssetsImgGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        february,
+        pdfExport,
         amex,
         avatar01,
         avatar02,
@@ -1149,6 +1174,7 @@ class $AssetsImgGen {
         bgCircle,
         bgCircleLight,
         bgDark,
+        bgGuideBuy,
         bgLight,
         bgLightCircleDot,
         bgLogin,
@@ -1182,6 +1208,7 @@ class $AssetsImgGen {
         icAllMission,
         icAndroid,
         icApple,
+        icAppleAlarm,
         icArchive,
         icArrowDown,
         icArrowUp,
@@ -1193,6 +1220,7 @@ class $AssetsImgGen {
         icBeijinBank,
         icBrainstorm,
         icCalendar,
+        icCalendarMode,
         icCalendarToday,
         icCardAllBlack,
         icCardAllWhite,
@@ -1290,6 +1318,7 @@ class $AssetsImgGen {
         icJiangsuBank,
         icJiansheBank,
         icJiaotongBank,
+        icLanguage,
         icLanzhouBank,
         icLauncher,
         icLightningBlack,
@@ -1363,6 +1392,7 @@ class $AssetsImgGen {
         icShanghaiBank,
         icShanghaiNongshangBank,
         icShortcut,
+        icSort,
         icSplashDuck,
         icStarttimeOrange,
         icStatistic,

@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSCalendarsFullAccessUsageDescription</key>
-    <string>Access to the calendar is needed to sync events.</string>
-    <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-    <string>Access to the calendar is needed to sync events.</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>Access to reminders is needed to sync tasks.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Access to the calendar is needed to sync events.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -27,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.3.1</string>
+	<string>4.3.3</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -40,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>212</string>
+	<string>214</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -75,6 +67,12 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSMainNibFile</key>
@@ -83,6 +81,8 @@
 	<string>We need to access to the microphone to record audio file</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Access to reminders is needed to sync tasks.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>CountDownConfigurationIntent</string>

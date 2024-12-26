@@ -50,6 +50,28 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
   }
 
+  @override
+  void didUpdateWidget(CustomTabBarWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (isEqual(list1: oldWidget.list, list2: this.widget.list) == false) {
+      this.list = this.widget.list;
+      setChecked(0);
+    }
+  }
+
+  //比较title
+  bool isEqual({List<CheckButtonStateModel> list1 = const [], List<CheckButtonStateModel> list2 = const []}) {
+    if(list1.length != list2.length) {
+      return false;
+    }
+    for(int i = 0; i < list1.length; i++) {
+      if(list1[i].title != list2[i].title) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   resetList() {
     this.list.forEach((element) {
       element.isCheck = false;

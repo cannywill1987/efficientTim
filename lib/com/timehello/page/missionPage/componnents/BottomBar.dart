@@ -6,6 +6,7 @@ import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
 import 'package:time_hello/com/timehello/components/HorizontalNumberPickerWrapper.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
+import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnChangeListener.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
@@ -21,14 +22,19 @@ import '../../../beans/UserBean.dart';
 import '../../../common/httpclient/HttpManager.dart';
 import '../../../components/CustomFolderModelSelectPopupWidget.dart';
 import '../../../components/CustomTagFolderModelSelectPopupWidget.dart';
+import '../../../components/IconButtonListWidget.dart';
 import '../../../components/SelectDatePeriodDialogUtil.dart';
 import '../../../config/Params.dart';
 import '../../../models/DateTimeModel.dart';
 import '../../../models/EventFn.dart';
+import '../../../util/ChatGroupManager.dart';
 import '../../../util/OverlayManagement.dart';
+import '../../../util/TextUtil.dart';
 import '../../CreateAIChatGptMissionPage/CreateAIChatGptMissionPage.dart';
 
 typedef OnTapDateListener = void Function(dynamic data);
+typedef OnTapAlertDateListener = void Function(dynamic data);
+typedef OnTapMissionTypeListener = void Function(dynamic data);
 typedef OnTapUpdateDateListener = void Function(
     {dynamic startDate,
     dynamic alertDate,
@@ -47,6 +53,8 @@ class BottomBar extends StatefulWidget {
   bool isVisible = false;
   OnTapUpdateDateListener? onTapUpdateDateListener;
 
+  OnTapMissionTypeListener? onTapMissionModelTypeListener;
+
   // OnTapDailyEndDateListener? onTapDailyEndDateListener;
   OnChangeListener? onChangeListener;
   OnTapDateListener? onTapDateListener;
@@ -56,6 +64,7 @@ class BottomBar extends StatefulWidget {
   OnTapBottomBarCircleListener? onTapCircleListener;
   OnTapBottomBarFinishListener? onTapFinishListener;
   OnTapBottomBarMissionValueListener? onTapMissionValueListener;
+  OnTapAlertDateListener? onTapAlertDateListener;
   int iconType = 0; // 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单
   int priority = 0;
   String? tagName = "";
@@ -64,7 +73,9 @@ class BottomBar extends StatefulWidget {
   int? mission_value;
   int totalTomatoes;
   int end_time = 0;
+  int alert_time = 0;
   int start_time = 0;
+  int missionModelType = 0;
   Color tagColor = ColorsConfig.gray_cc_cancel;
   String circleTitle = "";
   Color circleColor = ColorsConfig.gray_cc_cancel;
@@ -83,9 +94,13 @@ class BottomBar extends StatefulWidget {
       {Key? key,
       this.isVisible = false,
       this.start_time = 0,
+      this.missionModelType = 0,
+      this.alert_time = 0,
       this.end_time = 0,
       this.mission_value,
       this.onChangeListener,
+        this.onTapAlertDateListener,
+      this.onTapMissionModelTypeListener,
       this.onTapFinishListener,
       this.onTapDateListener,
       this.onTapUpdateDateListener,
@@ -114,6 +129,7 @@ class BottomBar extends StatefulWidget {
         dateStatus: this.dateStatus,
         iconType: this.iconType,
         totalTomatoes: this.totalTomatoes,
+        missionModelType: this.missionModelType,
         tagName: this.tagName,
         mission_value: this.mission_value,
         priority: this.priority,
@@ -141,6 +157,7 @@ class BottomBarState extends State<BottomBar> {
   int? mission_value;
   int? daily_start_time;
   int totalTomatoes;
+  int missionModelType = 0;
   int? daily_end_time;
   int start_time = 0;
 
@@ -168,6 +185,7 @@ class BottomBarState extends State<BottomBar> {
       this.dateStatus,
       this.time_mode = 0,
       required this.totalTomatoes,
+      this.missionModelType = 0,
       this.tagColor,
       this.tagName,
       this.mission_value,
@@ -189,13 +207,12 @@ class BottomBarState extends State<BottomBar> {
     this.priority = this.widget.priority;
     this.circleColor = this.widget.circleColor;
     this.circleTitle = this.widget.circleTitle;
+    // this.missionModelType = this.widget.missionModelType;
   }
 
   updateEndTimeByState(int dateStatus) {
     this.end_time = CONSTANTS.getDeadLineTme(dateStatus);
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -222,16 +239,16 @@ class BottomBarState extends State<BottomBar> {
                   .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyB)) {
         // ctrl+b&cmd+b begin, 开始专注 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().startFocusing();
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().startFocusing();
       } else if ((HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.metaLeft) ||
               HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyS) {
         // ctrl+s&cmd+s stop,停止拴住 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().stopFromFocusingStatus();
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().stopFromFocusingStatus();
       } else if ((HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.metaLeft) ||
               HardwareKeyboard.instance.logicalKeysPressed
@@ -239,20 +256,20 @@ class BottomBarState extends State<BottomBar> {
           key == LogicalKeyboardKey.keyP) {
         // ctrl+p&cmd+p pause,暂停专属拴住 ok
         // CounterManagement.getInstance().pauseTimer();
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().nextStatus(true);
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().nextStatus(true);
       } else if ((HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.metaLeft) ||
               HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyR) {
         // ctrl+r&cmd+r resume,继续专注 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().nextStatus(false);
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().nextStatus(false);
       } else if (key == LogicalKeyboardKey.space) {
         // 空格 下一个状态 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().nextStatus(true);
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().nextStatus(true);
       }
       // else if (
       // (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyF) { // ctrl+f&cmd+f finish,完成专注
@@ -318,6 +335,7 @@ class BottomBarState extends State<BottomBar> {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(vertical: paddingTop),
+                    height: 30,
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -325,38 +343,75 @@ class BottomBarState extends State<BottomBar> {
                       children: [
                         Wrap(
                           children: [
-                            CustomPopupWidget(
-                              onSelected: (v) {
-                                AnalyticsEventsManager.getInstance()
-                                    .sendAnalyticsEventMap({
-                                  "sceneType": "missionpage",
-                                  "eventType": "missionpage_date_type",
-                                  "description": "任务时间类型",
-                                });
-                                if (this.widget.onTapDateListener != null) {
-                                  this.widget.onTapDateListener?.call(v.value);
-                                  updateEndTimeByState(v.value);
-                                }
-                              },
-                              list: CONSTANTS.getCheckButtonStateModelList(),
-                              child: CONSTANTS.getDateIcon(
-                                  this.dateStatus ?? 0, iconSize - 2),
-                            ),
-                            SizedBox(
-                              width: marginRight,
-                            ),
-                            getPriorityWidget(),
-                            SizedBox(
-                              width: marginRight,
-                            ),
-                            getTagNameWidget(),
-                            SizedBox(
-                              width: marginRight,
-                            ),
-                            getCircleFolderModelWidget(),
+                            if (Utility.shouldShowDailyIcon(
+                                missionModelType: this.missionModelType))
+                              getDailyWidget(),
+                            if (Utility.shouldShowDailyIcon(
+                                missionModelType: this.missionModelType))
+                              SizedBox(
+                                width: marginRight,
+                              ),
+                            if (Utility.shouldShowPriority(
+                                missionModelType: this.missionModelType))
+                              getPriorityWidget(),
+                            if (Utility.shouldShowPriority(
+                                missionModelType: this.missionModelType))
+                              SizedBox(
+                                width: marginRight,
+                              ),
+                            if (Utility.shouldShowTag(
+                                missionModelType: this.missionModelType))
+                              getTagNameWidget(),
+                            if (Utility.shouldShowTag(
+                                missionModelType: this.missionModelType))
+                              SizedBox(
+                                width: marginRight,
+                              ),
+                            if (Utility.shouldShowCircleFolderId(
+                                missionModelType: this.missionModelType))
+                              getCircleFolderModelWidget(),
                           ],
                         ),
                         Spacer(),
+                        IconButtonListWidget(
+                          popupModeEnum: PopupModeEnum.popup,
+                          initIndex: this.missionModelType,
+                          list:
+                              CONSTANTS.getMissionTypeButtonList(defaultVal: 0),
+                          onTapListener: (obj) {
+                            switch (obj['data'].code) {
+                              case 'normal':
+                                this
+                                    .widget
+                                    .onTapMissionModelTypeListener
+                                    ?.call(0);
+                                _tabBarKey.currentState?.setChecked(0);
+                                this.missionModelType = 0;
+                                this.time_mode = 0;
+                                break;
+                              case 'calendar':
+                                this
+                                    .widget
+                                    .onTapMissionModelTypeListener
+                                    ?.call(1);
+                                _tabBarKey.currentState?.setChecked(0);
+                                this.missionModelType = 1;
+                                this.time_mode = 1;
+                                break;
+                              case 'alarm':
+                                this
+                                    .widget
+                                    .onTapMissionModelTypeListener
+                                    ?.call(2);
+                                _tabBarKey.currentState?.setChecked(0);
+                                this.missionModelType = 2;
+                                this.time_mode = 0;
+                                break;
+                            }
+                            setState(() {});
+                          },
+                        )
+
                         // InkWell(
                         //   onTap: () {
                         //     Utility.pushNavigator(
@@ -382,15 +437,24 @@ class BottomBarState extends State<BottomBar> {
                       ],
                     ),
                   ),
+                  // if (this.widget.missionModelType == 0) //
                   CustomTabBarWidget(
                     key: _tabBarKey,
-                    list: CONSTANTS.getSettingItemDetailCheckButtonList(
-                        defaultVal: 0),
+                    list: this.missionModelType == 0
+                        ? CONSTANTS.getSettingItemDetailCheckButtonList(
+                            defaultVal: 0)
+                        : this.missionModelType == 1
+                            ? CONSTANTS
+                                .getOnlySettingItemDetailCheckButtonListForCalendar()
+                            : CONSTANTS
+                                .getOnlySettingItemDetailCheckButtonListForAlarm(),
+                    // 0 任务 1 日程 2 闹钟提醒
                     onCheckedListener: (int index) {
                       this.daily_start_time = null;
                       this.daily_end_time = null;
                       this.time_mode = index;
                       this.end_time = 0;
+                      this.alert_time = 0;
                       this.start_time = 0;
                       setState(() {});
                     },
@@ -400,31 +464,46 @@ class BottomBarState extends State<BottomBar> {
                     padding: EdgeInsets.symmetric(vertical: paddingTop),
                     child: Row(
                       children: [
-                        getDailyStartTimeWidget(context),
+                        if (Utility.shouldShowBeginTime(
+                            missionModelType: this.missionModelType))
+                          getDailyStartTimeWidget(context),
                         SizedBox(
                           width: 0,
                         ),
-                        getDailyEndTimeWidget(context),
+                        if (Utility.shouldShowEndTime(
+                            missionModelType: this.missionModelType))
+                          getDailyEndTimeWidget(context),
+                        this.time_mode == 1
+                            ? SizedBox.shrink()
+                            : Utility.shouldShowEndTime(
+                                    missionModelType: this.missionModelType)
+                                ? getEndTimeWidget(context)
+                                : SizedBox.shrink(),
                       ],
                     ),
                   ),
                   this.time_mode == 1
                       ? SizedBox.shrink()
                       : Container(
-                          padding: EdgeInsets.symmetric(vertical: paddingTop),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              getRepeativeWidget(context),
-                              SizedBox(
-                                width: 0,
+                              padding:
+                                  EdgeInsets.symmetric(vertical: paddingTop),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if (Utility.shouldShowAlert(
+                                      missionModelType: this.missionModelType))
+                                    getAlertTimeWidget(context),
+                                  getRepeativeWidget(context),
+                                  SizedBox(
+                                    width: 0,
+                                  ),
+                                  // getEndTimeWidget(context),
+                                ],
                               ),
-                              getEndTimeWidget(context),
-                            ],
-                          ),
-                        ),
+                            )
+                          ,
                   Container(
                     padding: EdgeInsets.symmetric(vertical: paddingTop),
                     child: getBottomWidget(context),
@@ -436,13 +515,33 @@ class BottomBarState extends State<BottomBar> {
         ));
   }
 
+  CustomPopupWidget getDailyWidget() {
+    return CustomPopupWidget(
+      onSelected: (v) {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_date_type",
+          "description": "任务时间类型",
+        });
+        if (this.widget.onTapDateListener != null) {
+          this.widget.onTapDateListener?.call(v.value);
+          updateEndTimeByState(v.value);
+        }
+      },
+      list: CONSTANTS.getCheckButtonStateModelList(),
+      child: CONSTANTS.getDateIcon(this.dateStatus ?? 0, iconSize - 2),
+    );
+  }
+
   Row getBottomWidget(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        getMissionValueWidget(context),
+        if (Utility.shouldShowValue(missionModelType: this.missionModelType))
+          getMissionValueWidget(context),
+        Spacer(),
         InkWell(
           child: new Text(
             getI18NKey().create,
@@ -513,6 +612,85 @@ class BottomBarState extends State<BottomBar> {
         if (this.widget.onTapEndTimeListener != null) {
           this.widget.onTapEndTimeListener!(data: this.end_time);
         }
+      },
+    );
+  }
+
+  InkWell getAlertTimeWidget(BuildContext context) {
+    return InkWell(
+      child: Wrap(
+        runAlignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Text(
+            getI18NKey().alert,
+            style: TextStyle(color: Colors.red, fontSize: 12),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          new Text(
+              TextUtil.isEmpty(this.alert_time) == false
+                  ? (this.repetiveType == 0
+                      ? CONSTANTS.getAlertDateString(
+                          Utility.getDateTimeModelFromTimeStamp(
+                              this.alert_time ?? 0))
+                      : Utility.getHourAndMinsFromDateTimeFromTimeStamp(
+                          this.alert_time ?? 0))
+                  : getI18NKey().none,
+              style: TextStyle(color: ColorsConfig.colorGold, fontSize: 12)),
+          CustomCloseButton(
+            margin: EdgeInsets.only(left: 5),
+            onTapListener: () {
+              this.alert_time = 0;
+              this.widget.onTapAlertDateListener?.call(this.alert_time);
+              setState(() {});
+            },
+          ),
+          Icon(
+            Icons.arrow_right_sharp,
+            color: ThemeManager.getInstance()
+                .getIconColor(defaultColor: Colors.black87),
+          )
+        ],
+      ),
+      onTap: () async {
+        // if (
+        // ChatGroupManager.isFolderModelEnabled(
+        //     folderId: this.widget.missionModel.folder_id ?? "",
+        //     uid: LoginManager.getInstance().userBean.uid ?? "") ==
+        //     false) {
+        //   Utility.showToastMsg(
+        //       context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+        //   return null;
+        // }
+        //没有权限提醒设置权限
+        DateTimeModel? model;
+        TimeOfDay? timeOfDay;
+        if (this.repetiveType == 0) {
+          model = await Utility.showDateTimePickerDialog(context);
+          if (model == null) {
+            return;
+          }
+          // this.alertTimeModel = model;
+          this.alert_time = model.timestamp ?? 0; //设置提醒时间
+        } else {
+          //每日提醒四件
+          timeOfDay = await Utility.showTimePickerDialog(context);
+          if (timeOfDay == null) {
+            return;
+          }
+          this.alert_time =
+              timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
+          // if(this.widget.missionModel.alert_time > 0) {
+          //   Params.shouldRefreshPushModelList = true;
+          // }
+        }
+        this.widget.onTapAlertDateListener?.call(this.alert_time);
+        this.setState(() {
+          // this.isNeedUpdateBmob = true;
+        });
+        Utility.requestNotification(context);
       },
     );
   }

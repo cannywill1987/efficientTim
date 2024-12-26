@@ -249,9 +249,198 @@ struct CalendarWidgetView: View {
             LargeCalendarComponent(missionModelList: entry.missionModelList)
                 .padding(.top, 50)
                 .padding(.bottom, 50)
+        } else if family == .accessoryRectangular {
+            AccessoryRectangularCalendarComponent2(missionModelList: entry.missionModelList)
+                .padding(.top, 50)
+                .padding(.bottom, 50)
         }
     }
 }
+
+struct AccessoryRectangularCalendarComponent2: View {
+    let calendar = Calendar.current
+    //    @State var currentDate = Date()
+    //    @State var selectedDate: Date? = nil
+    //    @State var currentPage:Int = 0
+    var daysInMonth: [Int] {
+        let range = calendar.range(of: .day, in: .month, for: TimerManager.mediumCurrentDate)!
+        return range.map { $0 }
+    }
+    var missionModelList: [MissionModelList] = []
+    
+    init(missionModelList: [MissionModelList]) {
+        self.missionModelList = missionModelList
+    }
+    
+    func getMissionModels(dayTimestamp: Int) -> [MissionModel]? {
+        for missionList in missionModelList {
+            let time = missionList.time
+            if areDatesEqual(date1Timestamp: time, date2Timestamp: dayTimestamp) {
+                return missionList.listMissionModel
+            }
+        }
+        return nil
+    }
+    
+    func areDatesEqual(date1Timestamp: Int, date2Timestamp: Int) -> Bool {
+        // 将毫秒时间戳转换为秒
+        let date1 = Date(timeIntervalSince1970: TimeInterval(date1Timestamp) / 1000)
+        let date2 = Date(timeIntervalSince1970: TimeInterval(date2Timestamp) / 1000)
+        
+        // 使用 Calendar 提取年份、月份和日期
+        let calendar = Calendar.current
+        let components1 = calendar.dateComponents([.year, .month, .day], from: date1)
+        let components2 = calendar.dateComponents([.year, .month, .day], from: date2)
+        
+        // 检查年份、月份和日期是否完全相等
+        return components1.year == components2.year &&
+        components1.month == components2.month &&
+        components1.day == components2.day
+    }
+    
+    func isToday(timestampMilli: Int) -> Bool {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestampMilli) / 1000)
+        let calendar = Calendar.current
+        return calendar.isDateInToday(date)
+    }
+    
+    func isSelectedDate(timestampMilli: Int) -> Bool {
+        if TimerManager.mediumSelectedDate == nil {
+            return false;
+        }
+        let date = Date(timeIntervalSince1970: TimeInterval(timestampMilli) / 1000)
+        let calendar = Calendar.current
+        //        return calendar.isDateInToday(date)
+        let components1 = calendar.dateComponents([.year, .month, .day], from: TimerManager.mediumSelectedDate!)
+        let components2 = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        let year = components1.year ?? 0
+        let month = components1.month ?? 0
+        let day = components1.day ?? 0
+        //        if year == 2024 && month == 11 && day == 24 {
+        //            print("")
+        //        }
+        if components1.year == components2.year &&
+            components1.month == components2.month &&
+            components1.day == components2.day {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
+    func getTotalPages(maxMissionsPerPage: Int) -> Int {
+        let dayTimestamp = Int((TimerManager.mediumSelectedDate ?? Date()).timeIntervalSince1970 * 1000)
+        let missions = getMissionModels(dayTimestamp: dayTimestamp) ?? []
+        //        let maxMissionsPerPage = 5
+        let totalPages = (missions.count + maxMissionsPerPage - 1) / maxMissionsPerPage
+        TimerManager.mediumTotalPages = totalPages
+        return totalPages
+    }
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            VStack(spacing: 1) {
+                // 顶部年月标题和左右切换按钮
+                
+                // 顶部星期标题行
+                HStack(spacing: 1) {
+                    ForEach(["sun".localizable(), "mon".localizable(), "tue".localizable(), "wed".localizable(), "thur".localizable(), "fri".localizable(), "sat".localizable()], id: \ .self) { dayOfWeek in
+                        ZStack {
+                            Circle()
+                                .fill(Color.blue)
+                                .opacity(0) // 如果是今天，则显示蓝色圈圈
+                                .frame(width: 12, height: 12) // 圈圈大小可以根据需求调整
+                            Text(dayOfWeek)
+                                .foregroundColor(.white)
+                                .font(.system(size: 10, weight: .bold))
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        //                        .frame(maxWidth: .infinity )
+                        .frame(height: 14)
+                    }
+                }.padding(.top, 0)
+                    .padding(.trailing, 12)
+                    .padding(.leading, 12)
+                
+                let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: TimerManager.mediumCurrentDate))!
+                let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth) - 1
+                let previousMonthDate = calendar.date(byAdding: .month, value: -1, to: TimerManager.mediumCurrentDate)!
+                let previousMonthRange = calendar.range(of: .day, in: .month, for: previousMonthDate)!
+                let previousMonthDays = Array(previousMonthRange)
+                let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: TimerManager.mediumCurrentDate)!
+                let nextMonthRange = calendar.range(of: .day, in: .month, for: nextMonthDate)!
+                let nextMonthDays = Array(nextMonthRange)
+                let totalSlots = daysInMonth.count + firstWeekday
+                let rows = totalSlots / 7 + (totalSlots % 7 == 0 ? 0 : 1)
+                let lastWeekday = (firstWeekday + daysInMonth.count - 1) % 7
+                
+                ForEach(0..<rows, id: \ .self) { rowIndex in
+                    HStack(spacing: 1) {
+                        ForEach(0..<7, id: \ .self) { columnIndex in
+                            let dayIndex = rowIndex * 7 + columnIndex - firstWeekday
+                            if rowIndex == 0 && columnIndex < firstWeekday {
+                                // 填充上个月的日期
+                                let day = previousMonthDays[previousMonthDays.count - firstWeekday + columnIndex]
+                                let dayDate = calendar.date(bySetting: .day, value: day, of: previousMonthDate) ?? Date()
+                                let dayTimestamp:Int = Int(calendar.startOfDay(for: dayDate).timeIntervalSince1970 * 1000)
+                                let list = getMissionModels(dayTimestamp: dayTimestamp) ?? []
+                                SmallDayView2(timestampMilli: dayTimestamp, day: "\(day)", missions: list, onTap: {
+                                    TimerManager.mediumSelectedDate = dayDate
+                                }, isSelected: isSelectedDate(timestampMilli: dayTimestamp), dayInt: day, monthDate: previousMonthDate)
+                                .opacity(0.5) // 显示为淡色表示不是
+                            } else if dayIndex >= 0 && dayIndex < daysInMonth.count {
+                                // 当前月的日期
+                                let day = daysInMonth[dayIndex]
+                                let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: TimerManager.mediumCurrentDate)) ?? Date()
+                                let dayDate2 = calendar.date(bySetting: .day, value: day, of: monthDate) ?? Date()
+                                let dayTimestamp = Int(dayDate2.timeIntervalSince1970 * 1000)
+                                let list = getMissionModels(dayTimestamp: dayTimestamp) ?? []
+                                let calendar = Calendar.current
+                                let startOfMonth2 = calendar.date(from: calendar.dateComponents([.year, .month], from: TimerManager.mediumCurrentDate))
+                                SmallDayView2(timestampMilli: dayTimestamp, day: "\(day)", missions: list, onTap: {
+                                    TimerManager.mediumSelectedDate = monthDate
+                                }, isSelected: isSelectedDate(timestampMilli: dayTimestamp), dayInt: day, monthDate: monthDate)
+                            } else if rowIndex == rows - 1 && columnIndex > lastWeekday {
+                                // 填充下个月的日期
+                                let day = nextMonthDays[columnIndex - lastWeekday - 1]
+                                let dayDate = calendar.date(bySetting: .day, value: day, of: nextMonthDate) ?? Date()
+                                let dayTimestamp = Int(dayDate.timeIntervalSince1970 * 1000)
+                                let list = getMissionModels(dayTimestamp: dayTimestamp) ?? []
+                                
+                                SmallDayView2(timestampMilli: dayTimestamp, day: "\(day)", missions: list, onTap: {
+                                    TimerManager.mediumSelectedDate = dayDate
+                                }, isSelected: isSelectedDate(timestampMilli: dayTimestamp), dayInt: day, monthDate: nextMonthDate)
+                                .opacity(0.5) // 显示为淡色表示不是
+                            } else {
+                                SmallDayView2(timestampMilli: 0, day: "", missions: [], onTap: {}, isSelected: false, dayInt: 1, monthDate: Date()) // 用空的DayView保持对称
+                            }
+                        }
+                    }.padding(.trailing, 12)
+                        .padding(.leading, 12)
+                }
+            }
+//            .padding(.horizontal, 5)
+            
+            .frame(minWidth: 0, maxWidth: .infinity)
+//            .frame(height: 250)
+        }
+    }
+    
+    private var monthFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM"
+        return formatter
+    }
+    
+    private var dayFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }
+}
+
 
 struct MediumCalendarComponent2: View {
     let calendar = Calendar.current
@@ -582,6 +771,55 @@ struct MediumCalendarComponent2: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         return formatter
+    }
+}
+struct SmallDayView2: View {
+    let calendar = Calendar.current
+    let timestampMilli: Int
+    let day: String
+    let missions: [MissionModel]
+    let onTap: () -> Void
+    let isSelected: Bool
+    let height:Double = 12
+    let dayInt:Int
+    let monthDate: Date
+    // 判断给定的时间戳是否是今天
+    func isToday(timestampMilli: Int) -> Bool {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestampMilli) / 1000)
+        let calendar = Calendar.current
+        return calendar.isDateInToday(date)
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 1) {
+            if #available(iOSApplicationExtension 17.0, *) {
+                Button(intent: CalendarActionIntent(action: .mediumSelectDate, dayDate: calendar.date(bySetting: .day, value: dayInt, of: monthDate) ?? Date(),objectId: "")) {
+                    ZStack {
+                        Circle()
+                            .fill(isToday(timestampMilli: timestampMilli) ? Color.yellow : Color.clear) // 修改日期背景为黄色
+                            .strokeBorder(isSelected ? Color.yellow : Color.clear, lineWidth: 1) // 修改日期背景为黄色
+                            .frame(width: height, height: height) // 圈圈大小可以根据需求调整
+                        Text(day)
+                            .foregroundColor(isSelected == false && missions.count > 0 ? .blue : .white)
+                        
+                            .font(.system(size: 8, weight: .bold))
+                        //                        .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(maxWidth: .infinity, alignment: .center)
+
+                    }
+                    //                .frame(maxWidth: .infinity )
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.bottom, 0)
+                    .padding(.leading, 0)
+                } .buttonStyle(PlainButtonStyle())
+                    .background(Color.clear)
+            } else {
+                // Fallback on earlier versions
+            }
+            //            .onTapGesture {
+            //                onTap()
+            //            }
+        } .frame(height: height)
     }
 }
 
@@ -1009,7 +1247,7 @@ struct NewCalendarWidget: Widget {
         .supportedFamilies([ .systemMedium,.systemLarge, .systemExtraLarge])
         .configurationDisplayName("configuration_display_name".localizable())
         .description("description".localizable())
-        .supportedFamilies([ .systemMedium, .systemLarge, .systemExtraLarge])
+        .supportedFamilies([ .systemMedium, .systemLarge, .systemExtraLarge, .accessoryRectangular])
         
     }
 }

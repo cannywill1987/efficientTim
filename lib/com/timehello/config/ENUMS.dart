@@ -1,3 +1,8 @@
+enum PopupModeEnum {
+  plat,
+  popup
+}
+
 enum TimeUnitEnum {
   days,
   hours,

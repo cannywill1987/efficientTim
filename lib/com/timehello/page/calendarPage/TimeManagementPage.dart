@@ -726,6 +726,9 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             }
           }
         }
+        // print("~~~~~~~~~~~~~~~~");
+        // print(_missionModel.title);
+        // print("~~~~~~~~~~~~~~~~");
         if (_missionModel.title == "支持排序") {
           print("支持排序");
         }
@@ -784,6 +787,9 @@ class TimeManagementPageState extends State<TimeManagementPage> {
             false) {
           // final DateTime startDate =
           // DateTime(date.year, date.month, date.day, 8 + random.nextInt(8));
+          // print("~~~~~~~~~~~~~~~~");
+          // print("${_missionModel.title}");
+          // print("~~~~~~~~~~~~~~~~");
           appointments.add(Appointment(
             id: _missionModel.objectId,
             subject: _missionModel.title ?? "",

@@ -18,6 +18,8 @@ class FolderTimeModel extends MongoDbObject{
   int? finishedTime; //已完成时间
   String finishedTimeString = ''; //已完成时间 hh:mm
   int? numMissionFinished; //已完成任务
+  int? numMissionCalendarToFinished = 0; //日历任务数
+  int? numMissionCalendarTotalFinished = 0; //总日历任务数
   int? numMissionDelayed = 0; //已完成任务
   int? numTomatoesUnfinished = 0;
   int? numTomatoesFinished = 0;

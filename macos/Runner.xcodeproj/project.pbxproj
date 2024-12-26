@@ -262,6 +262,7 @@
 		DFC817AC2A9E100200824F79 /* PrimarryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC817AB2A9E100200824F79 /* PrimarryData.swift */; };
 		DFEB26CD2ADFD338004FBB7E /* WQBMissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */; };
 		DFEB26D12ADFF0F9004FBB7E /* NoteViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */; };
+		DFEBE0572D0E5B98004DC3D5 /* CustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEBE0562D0E5B94004DC3D5 /* CustomEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -701,6 +702,7 @@
 		DFDE2DB82A3D5A8D0037815B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		DFEB26CC2ADFD338004FBB7E /* WQBMissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WQBMissionData.swift; sourceTree = "<group>"; };
 		DFEB26D02ADFF0F9004FBB7E /* NoteViewWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewWidget.swift; sourceTree = "<group>"; };
+		DFEBE0562D0E5B94004DC3D5 /* CustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1239,6 +1241,7 @@
 		DFC8179C2A9E0BEF00824F79 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DFEBE0562D0E5B94004DC3D5 /* CustomEvent.swift */,
 				DFC817AB2A9E100200824F79 /* PrimarryData.swift */,
 				DFC817A82A9E0FDE00824F79 /* StoreData.swift */,
 				DFC8179D2A9E0C0400824F79 /* MissionData.swift */,
@@ -1972,6 +1975,7 @@
 				DF21E6EF282FE6BF00444EFF /* Utility.swift in Sources */,
 				DF21E6F1282FE6BF00444EFF /* WindowUtility.swift in Sources */,
 				DFBF30EB2869D0DD0091B848 /* Params.swift in Sources */,
+				DFEBE0572D0E5B98004DC3D5 /* CustomEvent.swift in Sources */,
 				DFC817AC2A9E100200824F79 /* PrimarryData.swift in Sources */,
 				DF7706822CC225A7004807EA /* ResourceModel.swift in Sources */,
 				DF5165062AAF3E6700518208 /* test.swift in Sources */,

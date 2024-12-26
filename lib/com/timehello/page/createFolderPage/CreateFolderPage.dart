@@ -482,10 +482,10 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
             ],
           ),
           onTap: () async {
-            // if(this.widget.folderModel?.start_time == null) {
-            //   Utility.showToast(msg: getI18NKey().please_select_daily_start_time);
-            //   return;
-            // }
+            if(this.widget.folderModel?.start_time == null) {
+              Utility.showToastMsg(msg: getI18NKey().please_select_daily_start_time);
+              return;
+            }
             DateTimeModel? model =
                 await Utility.showDateTimePickerDialog(context);
 

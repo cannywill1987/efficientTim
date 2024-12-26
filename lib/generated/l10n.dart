@@ -50,6 +50,87 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Jump to {xxx}`
+  String jump_to_xxx(Object xxx) {
+    return Intl.message(
+      'Jump to $xxx',
+      name: 'jump_to_xxx',
+      desc: '',
+      args: [xxx],
+    );
+  }
+
+  /// `保存模式`
+  String get save_mode {
+    return Intl.message(
+      '保存模式',
+      name: 'save_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{t0}年{t1}月{t2}日 {t3}:{t4}`
+  String dateFromYearMonthToMins(
+      Object t0, Object t1, Object t2, Object t3, Object t4) {
+    return Intl.message(
+      '$t0年$t1月$t2日 $t3:$t4',
+      name: 'dateFromYearMonthToMins',
+      desc: '',
+      args: [t0, t1, t2, t3, t4],
+    );
+  }
+
+  /// `Apple Alarm`
+  String get apple_alarm {
+    return Intl.message(
+      'Apple Alarm',
+      name: 'apple_alarm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apple Calendar`
+  String get apple_calendar {
+    return Intl.message(
+      'Apple Calendar',
+      name: 'apple_calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From Calendar`
+  String get from_calendar {
+    return Intl.message(
+      'From Calendar',
+      name: 'from_calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From Reminder`
+  String get from_reminder {
+    return Intl.message(
+      'From Reminder',
+      name: 'from_reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join us`
+  String get join_us {
+    return Intl.message(
+      'Join us',
+      name: 'join_us',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sort`
   String get sort {
     return Intl.message(

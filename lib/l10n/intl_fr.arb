@@ -1,5 +1,13 @@
 {
   "@@locale": "fr",
+  "jump_to_xxx": "Aller à {xxx}",
+  "save_mode": "Mode Enregistrer",
+  "dateFromYearMonthToMins": "{t0} Année {t1} Mois {t2} Jour {t3}:{t4}",
+  "apple_alarm": "Alarme Apple",
+  "apple_calendar": "Calendrier Apple",
+  "from_calendar": "Depuis le Calendrier",
+  "from_reminder": "Depuis le Rappel",
+  "join_us": "Rejoignez-nous",
   "sort": "Trier",
   "sync_desktop_widget": "Synchroniser le widget de bureau",
   "sync_desktop_widget_success": "Widget de bureau synchronisé avec succès, veuillez confirmer l'ajout du widget de bureau",

@@ -1,7 +1,7 @@
 // 定义你的翻译
 const translations = {
     'zh-CN': {
-        'first_time_loading': '第一次加载需要10秒，请您稍后',
+        'first_time_loading': '第一次加载需要60秒，请您稍后',
         'loading': '加载中...',
         'loading_failed': '加载失败',
         'loading_failed_retry': '加载失败，点击重试',
@@ -11,14 +11,14 @@ const translations = {
 
 
     'zh': { 
-        'first_time_loading': '第一次加载需要10秒，请您稍后',
+        'first_time_loading': '第一次加载需要60秒，请您稍后',
         'loading': '加载中...',
         'loading_failed': '加载失败',
         'loading_failed_retry': '加载失败，点击重试',
         'loading_failed_retry': '加载失败，点击重试',
      },
     'zh-hk': { 
-        'first_time_loading': '第一次加載需要10秒，請您稍後',
+        'first_time_loading': '第一次加載需要60秒，請您稍後',
         'loading': '加載中...',
         'loading_failed': '加載失敗',
         'loading_failed_retry': '加載失敗，點擊重試',
@@ -33,7 +33,7 @@ const translations = {
      },
      //日语
      'ja': { 
-        'first_time_loading': '初回ロードには10秒かかります。お待ちください',
+        'first_time_loading': '初回ロードには60秒かかります。お待ちください',
         'loading': 'ロード中...',
         'loading_failed': 'ロードに失敗しました',
         'loading_failed_retry': 'ロードに失敗しました。再試行する',
@@ -41,7 +41,7 @@ const translations = {
      },
      //韩语
      'ko': { 
-        'first_time_loading': '첫 로드에는 10초가 걸립니다. 기다려주세요',
+        'first_time_loading': '첫 로드에는 60초가 걸립니다. 기다려주세요',
         'loading': '로딩 중...',
         'loading_failed': '로드 실패',
         'loading_failed_retry': '로드 실패, 다시 시도',
@@ -49,7 +49,7 @@ const translations = {
      },
      //德语
      'de': { 
-        'first_time_loading': 'Erstmaliges Laden dauert 10 Sekunden, bitte warten',
+        'first_time_loading': 'Erstmaliges Laden dauert 60 Sekunden, bitte warten',
         'loading': 'Laden...',
         'loading_failed': 'Laden fehlgeschlagen',
         'loading_failed_retry': 'Laden fehlgeschlagen, klicken Sie zum Wiederholen',
@@ -57,7 +57,7 @@ const translations = {
      },
      //法语
      'fr': { 
-        'first_time_loading': 'Le premier chargement prend 10 secondes, veuillez patienter',
+        'first_time_loading': 'Le premier chargement prend 60 secondes, veuillez patienter',
         'loading': 'Chargement...',
         'loading_failed': 'Échec du chargement',
         'loading_failed_retry': 'Échec du chargement, cliquez pour réessayer',
@@ -65,7 +65,7 @@ const translations = {
      },
      //葡萄牙语
      'pt': { 
-        'first_time_loading': 'O primeiro carregamento leva 10 segundos, por favor aguarde',
+        'first_time_loading': 'O primeiro carregamento leva 60 segundos, por favor aguarde',
         'loading': 'Carregando...',
         'loading_failed': 'Falha ao carregar',
         'loading_failed_retry': 'Falha ao carregar, clique para tentar novamente',
@@ -81,7 +81,7 @@ const translations = {
      },
      //意大利语
      'it': { 
-        'first_time_loading': 'Il primo caricamento richiede 10 secondi, attendere prego',
+        'first_time_loading': 'Il primo caricamento richiede 60 secondi, attendere prego',
         'loading': 'Caricamento...',
         'loading_failed': 'Caricamento fallito',
         'loading_failed_retry': 'Caricamento fallito, fare clic per riprovare',
@@ -89,7 +89,7 @@ const translations = {
      },
      //西班牙语
      'es': { 
-        'first_time_loading': 'La primera carga tarda 10 segundos, espere por favor',
+        'first_time_loading': 'La primera carga tarda 60 segundos, espere por favor',
         'loading': 'Cargando...',
         'loading_failed': 'Error de carga',
         'loading_failed_retry': 'Error de carga, haga clic para volver a intentar',
@@ -97,7 +97,7 @@ const translations = {
      },
 //台湾繁体
     'zh-tw': { 
-        'first_time_loading': '第一次加載需要10秒，請您稍後',
+        'first_time_loading': '第一次加載需要60秒，請您稍後',
         'loading': '加載中...',
         'loading_failed': '加載失敗',
         'loading_failed_retry': '加載失敗，點擊重試',

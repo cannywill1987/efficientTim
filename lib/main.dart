@@ -251,7 +251,13 @@ class _MyAppState extends BaseWidgetState<MyApp> {
   componentDidMount() {
     // CounterMethodChannelManager.getInstance().logs(TAG: "11111111111111111", msg: "main componentDidMount");
     // print('1111111111111 main componentDidMount');
-    MyApp.context = context;
+    if(context != null) {
+      MyApp.context = context;
+    }
+    if(!Utility.isChina()) {
+      Params.useGmail = true;
+    }
+
     try {
       LoginManager.getInstance().init();
       Future.delayed(Duration(milliseconds: 500), () {
@@ -285,7 +291,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    MyApp.context = context;
+    if(context != null) {
+      MyApp.context = context;
+    }
     // Bmob.init("https://api2.bmob.cn", "0f3592baa6ce18dcab13dde4660a0ed1", "d20617f5d73c96a94509a77e3856ef39");
     /**
      * 超级权限加密方式初始化

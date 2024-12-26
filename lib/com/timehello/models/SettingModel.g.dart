@@ -20,6 +20,9 @@ SettingModel _$SettingModelFromJson(Map<String, dynamic> json) => SettingModel()
       (json['isListingAllUnfinishedMIssion'] as num?)?.toInt()
   ..isListingFinishedOn = (json['isListingFinishedOn'] as num?)?.toInt()
   ..isListingAllOn = (json['isListingAllOn'] as num?)?.toInt()
+  ..isListingCalendarVisibleOn =
+      (json['isListingCalendarVisibleOn'] as num?)?.toInt()
+  ..isListingAlarmVisibleOn = (json['isListingAlarmVisibleOn'] as num?)?.toInt()
   ..isTomatoPageOn = (json['isTomatoPageOn'] as num).toInt()
   ..isTimeManagementPageOn = (json['isTimeManagementPageOn'] as num).toInt()
   ..isCalendarContainerPageOn =
@@ -50,6 +53,8 @@ Map<String, dynamic> _$SettingModelToJson(SettingModel instance) =>
       'isListingAllUnfinishedMIssion': instance.isListingAllUnfinishedMIssion,
       'isListingFinishedOn': instance.isListingFinishedOn,
       'isListingAllOn': instance.isListingAllOn,
+      'isListingCalendarVisibleOn': instance.isListingCalendarVisibleOn,
+      'isListingAlarmVisibleOn': instance.isListingAlarmVisibleOn,
       'isTomatoPageOn': instance.isTomatoPageOn,
       'isTimeManagementPageOn': instance.isTimeManagementPageOn,
       'isCalendarContainerPageOn': instance.isCalendarContainerPageOn,

@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSCalendarsFullAccessUsageDescription</key>
-    <string>Access to the calendar is needed to sync events.</string>
-    <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-    <string>Access to the calendar is needed to sync events.</string>
-    <key>NSRemindersUsageDescription</key>
-    <string>Access to reminders is needed to sync tasks.</string>
-    <key>NSCalendarsUsageDescription</key>
-    <string>Access to the calendar is needed to sync events.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -27,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.9.8</string>
+	<string>3.9.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -78,7 +70,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>181</string>
+	<string>182</string>
 	<key>FDAllFilesDownloadedMessage</key>
 	<string>All files have been downloaded</string>
 	<key>FDMaximumConcurrentTasks</key>
@@ -136,6 +128,12 @@
 	<array>
 		<string>_dartobservatory._tcp</string>
 	</array>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Access to the calendar is needed to sync events.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Need to access your camera for functions such as setting up avatars, uploading memos, and taking notes</string>
 	<key>NSExceptionDomains</key>
@@ -184,6 +182,8 @@
 	<string>Need to access your camera for functions such as setting up avatars, uploading memos, and taking notes</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need photo access for setting avatar</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Access to reminders is needed to sync tasks.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>NSSupportsLiveActivitiesFrequentUpdates</key>

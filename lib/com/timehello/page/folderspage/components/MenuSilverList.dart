@@ -131,6 +131,9 @@ class MenuSilverListState extends State<MenuSilverList> {
       case 10:
         String finishedTimeString = Utility.formatTimestampWithoutZero(folderModelWithExtraData.folderTimeModel.previewTime??0 + (folderModelWithExtraData.folderTimeModel.finishedTime ??0));
         return finishedTimeString;
+      // case 14:
+      //   String finishedTimeString = Utility.formatTimestampWithoutZero(folderModelWithExtraData.folderTimeModel.previewTime??0 + (folderModelWithExtraData.folderTimeModel.finishedTime ??0));
+      //   return finishedTimeString;
     }
     return '';
   }
@@ -163,6 +166,9 @@ class MenuSilverListState extends State<MenuSilverList> {
         return ((folderModelWithExtraData.folderTimeModel.numMissionFinished ?? 0)+ (folderModelWithExtraData.folderTimeModel?.numMissionToFinished ?? 0))
             .toString();
       case 11:
+        return folderModelWithExtraData.folderTimeModel.numMissionFinished
+            .toString();
+      case 14:
         return folderModelWithExtraData.folderTimeModel.numMissionFinished
             .toString();
     }

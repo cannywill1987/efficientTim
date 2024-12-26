@@ -35,6 +35,7 @@ import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.d
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/BottomCounterWidget.dart';
+import 'package:time_hello/com/timehello/components/EventModel.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
@@ -80,8 +81,10 @@ import 'package:uuid/uuid.dart';
 import 'dart:math' as math;
 
 import '../../../r.dart';
+import '../beans/BaseBean.dart';
 import '../beans/CreditCardModel.dart';
 import '../beans/GameComparePictureBean.dart';
+import '../beans/ReminderModel.dart';
 import '../beans/ResourceDeliveryInfoBean.dart';
 import '../beans/ResourceLocationInfoBean.dart';
 import '../common/provider/GlobalStateEnv.dart';
@@ -953,7 +956,7 @@ class Utility {
     return listTmp;
   }
 
-  // int? tag; //1-表示各种图案circle mission;2-表示的是 tag;null-今天 明天 即将到来
+  // int? tag; //1-表示各种图案circle mission;2-表示的是 tag;null-今天 明天 即将到来 -1  未归类 -2 苹果日历 -3 苹果提醒
   static String getFolderTitleByFid(
       String fid, List<FolderModel> listFolderModel, int? tag) {
     for (int i = 0; i < listFolderModel.length; i++) {
@@ -961,6 +964,11 @@ class Utility {
       if (model.objectId == fid && (tag == model.tag || tag == null)) {
         return model.title ?? "";
       }
+    }
+    if(fid == "-2") {
+      return getI18NKey().apple_calendar;
+    } else if(fid == "-3") {
+      return getI18NKey().apple_alarm;
     }
     return getI18NKey().unorder_folderlist;
   }
@@ -1016,12 +1024,18 @@ class Utility {
     List<SessionMissionModel> listTmp = [];
     List<String> listKeysTitle = [];
     List<FolderModel> listFolderModelTmp = [];
+    // 苹果日历
+    if(DeviceInfoManagement.isIOS() == true|| DeviceInfoManagement.isMacOs() == true)
+    listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
+    // 苹果提醒
+    if(DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true)
+    listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
 
     if (folderStatus == -1) {
       listFolderModelTmp = listFolderModel;
     } else {
       listFolderModel.forEach((element) {
-        if (element.folderStatus == null) {
+        if (element.folderStatus == null) { // 0-归档 1-未归档
           element.folderStatus = 0;
         }
         if (element.folderStatus == folderStatus) {
@@ -1040,13 +1054,24 @@ class Utility {
       }
     });
     listKeysTitle.sort();
+    // listKeysTitle
+    //     .removeWhere((element) => element == getI18NKey().apple_calendar);
+    // listKeysTitle
+    //     .removeWhere((element) => element == getI18NKey().apple_alarm);
+    // listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
+    // listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
     listKeysTitle
         .removeWhere((element) => element == getI18NKey().unorder_folderlist);
+
+
     // if(isContainOtherFolder(listKeysTitle) == false) {
     listKeysTitle.add(getFolderTitleByFid("-1", listFolderModel, 1));
     // }
 
     listKeysTitle.forEach((elementTitle) {
+      // if(elementTitle == getI18NKey().apple_calendar || elementTitle == getI18NKey().apple_alarm) {
+      //   print("1");
+      // }
       SessionMissionModel sessionMissionModel = SessionMissionModel();
       List<MissionModel> listMissionModel = [];
       sessionMissionModel.title = elementTitle;
@@ -1056,7 +1081,11 @@ class Utility {
       sessionMissionModel.folder_id = folderModel?.objectId ?? '';
       sessionMissionModel.color = folderModel?.color ?? 0xffff8800;
       list.forEach((MissionModel element) {
-        if (elementTitle ==
+        if(element.missionModelType == 1 && elementTitle == getI18NKey().apple_calendar && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
+          listMissionModel.add(element);
+        } else if(element.missionModelType == 2 && elementTitle == getI18NKey().apple_alarm && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
+          listMissionModel.add(element);
+        } else if (elementTitle ==
             getFolderTitleByFid(element.folder_id ?? '', listFolderModel, 1)) {
           listMissionModel.add(element);
         }
@@ -1585,11 +1614,11 @@ class Utility {
   }
 
   static bool isLatestVersion(String version, {bool defaultval = false}) {
-    if(Utility.compareVersion(Params.curVersion, version) == 0) {
+    if (Utility.compareVersion(Params.curVersion, version) == 0) {
       return defaultval;
     }
-    if (Utility.compareVersion(Params.curVersion, version) == -1
-        ) { //
+    if (Utility.compareVersion(Params.curVersion, version) == -1) {
+      //
       return true;
     }
     return defaultval;
@@ -1830,8 +1859,12 @@ class Utility {
   /**
    * desktop通过PC端打开页面 不包含左侧菜单栏
    */
-  static pushDesktopNavigator(BuildContext context, String page, Map data) {
+  static pushDesktopNavigator(BuildContext context, String page, Map data, {bool forceUpdate = false}) {
     data['page'] = page;
+    if(forceUpdate == true) {
+      // 随机数
+      data['forceUpdate'] = Random().nextInt(100000);
+    }
     context.read<Env>().routerData = data;
   }
 
@@ -4264,6 +4297,7 @@ class Utility {
       exit(0);
     }
   }
+
   /// 检查当前版本是否为最新，若不是，则更新
   static void getCurrentVersion() {
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -4271,7 +4305,6 @@ class Utility {
       Params.curVersion = packageInfo.version;
     });
   }
-
 
   static void initMusicModel() async {
     if (SharePreferenceUtil.getSyncInstance().getFinishRestingMusicModel() ==
@@ -6151,6 +6184,7 @@ class Utility {
   static BuildContext getGlobalContext() {
     try {
       BuildContext context = navigatorKey.currentState?.overlay?.context ??
+          MyApp.context ??
           Utility.getGlobalContext();
       return context;
     } catch (e) {
@@ -6194,7 +6228,7 @@ class Utility {
     //   }
     //   return '';
     // } else {
-      return getUUIDDeviceId();
+    return getUUIDDeviceId();
     // }
   }
 
@@ -6869,6 +6903,168 @@ class Utility {
     }
   }
 
+  static List<MissionModel> convertListEventModelToListMissionModel(
+      List<EventModel> list) {
+    List<MissionModel> listMission = [];
+    list.forEach((element) {
+      listMission.add(convertEventModelToMissionModel(element));
+    });
+    return listMission;
+  }
+
+  //1734859200000 从这个时间戳 转成date 得到 hour min sec 再转成整形毫秒的函数
+  static int getMillisecondFromTime(int time) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
+    int hour = dateTime.hour;
+    int min = dateTime.minute;
+    int sec = dateTime.second;
+    return hour * 3600 * 1000 + min * 60 * 1000 + sec * 1000;
+  }
+
+  static String getJumpTxt({int? missionModelType}) {
+    //null 或者 0是默认的 1是苹果日历 2是苹果提醒 3.google日历
+    if (missionModelType == 1) {
+      return getI18NKey().apple_calendar;
+    } else if (missionModelType == 2) {
+      return getI18NKey().apple_alarm;
+    } else {
+      return "";
+    }
+
+  }
+
+  static List<MissionModel> convertReminderListToMissionList(
+      List<ReminderModel> reminders) {
+    List<MissionModel> missionList = [];
+
+    for (ReminderModel reminder in reminders) {
+      missionList.add(convertReminderToMission(reminder));
+    }
+    return missionList;
+  }
+
+  static MissionModel convertReminderToMission(ReminderModel reminder) {
+    MissionModel missionModel = MissionModel();
+    missionModel.objectId = reminder.id;
+    missionModel.title =
+        reminder.title ?? '' + "(${getI18NKey().from_reminder})";
+
+    if(missionModel.title?.indexOf("工作日重复-21:00提醒-55555555555555a") != -1) {
+      print("5555555555555555");
+    }
+    if(missionModel.title?.indexOf("Q111222333") != -1) {
+      print("5555555555555555");
+    }
+
+    missionModel.missionModelType = 2; // 苹果reminder
+    missionModel.folder_id = null; // 如果有对应文件夹 ID，可以设置
+    missionModel.folder_title = reminder.calendar;
+    missionModel.group_id = null; // 分组 ID，根据需求设置
+    missionModel.time_mode = 0;
+    missionModel.repetive_end_time = reminder.recurrence?.endDate?.millisecondsSinceEpoch;
+    missionModel.start_time =
+        reminder.startDate?.millisecondsSinceEpoch; // 开始时间
+    missionModel.end_time = reminder.dueDate?.millisecondsSinceEpoch; // 截止时间
+    missionModel.daily_start_time = getMillisecondFromTime(reminder.endDate?.millisecondsSinceEpoch ?? 0) - 60 * 60 * 1000; // 每日结束时间
+    missionModel.daily_end_time = getMillisecondFromTime(reminder.endDate?.millisecondsSinceEpoch ?? 0); // 每日结束时间
+    // reminder.dueDate?.millisecondsSinceEpoch
+    missionModel.isFinished = reminder.isCompleted ?? false; // 是否完成
+    List<AlarmModel> alarms = reminder.alarms ?? [];
+
+    // missionModel.finish_time =
+    //     reminder.endDate?.millisecondsSinceEpoch; // 完成时间
+    missionModel.priorityStatus = reminder.priority != null
+        ? mapPriorityToPriorityStatus(reminder.priority!)
+        : 3; // 优先级映射
+    missionModel.message = reminder.notes; // 备注内容
+    missionModel.color = 0xffff8800; // 默认颜色
+    missionModel.subMissions = []; // 默认子任务为空
+    missionModel.do_it_now = []; // 当前未开始
+
+    // 转换 RepetitiveWeekDay
+    missionModel.repetiveWeekDay = WeekDayConverter
+        .convertFromSundayToSaturdayToMondayToSunday(reminder.repetiveWeekDay);
+
+
+    // 其余未处理字段留空或按逻辑处理
+    missionModel.repetiveType = reminder.repetiveType ?? 0;
+    missionModel.repetiveValue = reminder.repetiveValue ?? 0;
+    missionModel.repetiveWeekDay = reminder.repetiveWeekDay ?? [];
+  if(missionModel.repetiveType == 2 || missionModel.repetiveType == 3 || missionModel.repetiveType == 1) { // 按周重复 需要把yyyy mm dd切割出来
+    if(alarms[0].type == "absolute") {
+      missionModel.alert_time = alarms.length > 0 ? getMillisecondFromTime(
+          alarms[0].date?.millisecondsSinceEpoch ?? 0) : null; // 提醒时间
+    } else { // relative 如 62400000
+      missionModel.alert_time = alarms.length > 0 ? (alarms[0].date?.millisecondsSinceEpoch ?? alarms[0].offset) : ( null); // 提醒时间
+    }
+  } else {
+    missionModel.alert_time = alarms.length > 0 ? (alarms[0].date?.millisecondsSinceEpoch ?? 0) : null; // 提醒时间
+  }
+    // missionModel.repeativeDate = reminder.repeativeDate ?? [];
+
+    return missionModel;
+  }
+
+// 优先级映射方法
+//   static int _mapPriorityToPriorityStatus(int priority) {
+//     if (priority >= 1 && priority <= 4) {
+//       return 0; // 高优先级
+//     } else if (priority == 5) {
+//       return 1; // 中优先级
+//     } else if (priority >= 6 && priority <= 9) {
+//       return 2; // 低优先级
+//     } else {
+//       return 3; // 无优先级
+//     }
+//   }
+
+// 优先级映射方法
+  static int mapPriorityToPriorityStatus(int priority) {
+    if (priority >= 1 && priority <= 4) {
+      return 0; // 高优先级
+    } else if (priority == 5) {
+      return 1; // 中优先级
+    } else if (priority >= 6 && priority <= 9) {
+      return 2; // 低优先级
+    } else {
+      return 3; // 无优先级
+    }
+  }
+
+  static MissionModel convertEventModelToMissionModel(EventModel event) {
+    MissionModel mission = MissionModel();
+    mission.objectId = event?.id;
+    // mission.title = event.title ?? "";
+    mission.title =
+        "${event.title}(${getI18NKey().from_calendar})"; // 为了防止title为空
+    // if (mission.title == '低等生物') {
+    //   print("低等生物");
+    // }
+    mission.missionModelType = 1; // 苹果
+    mission.time_mode = 1;
+    mission.start_time = event.startDate?.millisecondsSinceEpoch;
+    mission.end_time = event.endDate?.millisecondsSinceEpoch;
+    mission.isDelayed = event.endDate?.isBefore(DateTime.now()) ?? false;
+    mission.noteRichContentUrl = event.note ?? "";
+    // mission.alert_time = event.travelTime != null
+    //     ? DateTime.parse(event.travelTime!).millisecondsSinceEpoch
+    //     : null;
+    // mission.tagNames = event.calendar;
+    // mission.tagIds = event.startLocation;
+    mission.repetiveType = event.recurrence?.frequency != null
+        ? ((event.recurrence?.frequency ?? -1) + 1)
+        : 0; // 0关闭重复 1 按天重复 2 按周重复 3 按月重复 4 按年重复 如果0 关闭 end_time不会作用 重复拥有更高优先级
+    mission.repetiveValue = event.recurrence?.interval;
+    mission.repetiveWeekDay = event.recurrence?.daysOfTheWeek?.map((day) {
+      return day != 0; // 将 `daysOfTheWeek` 转换为布尔值表示的数组
+    }).toList();
+    mission.subMissions = [];
+    // mission.location = event.structuredLocation?.geoLocation?.toJson();
+    // mission.background_url = event.structuredLocation?.title;
+
+    return mission;
+  }
+
   static DateTime? getStartDateTimeFromCalendar(
       {DateTime? startDateTime,
       DateTime? endDateTime,
@@ -7007,6 +7203,93 @@ class Utility {
       }
     });
     return listNew;
+  }
+
+  static Future requestNotification(BuildContext context) async {
+    BaseBean res =
+    await CounterMethodChannelManager.getInstance().isNotificationEnabled();
+    if (res.data == false) {
+      OkCancelResult result = await showOkCancelAlertDialog(
+          context: context,
+          title: getI18NKey().no_notification_permission_title,
+          message: getI18NKey().need_notification_permission_content,
+          okLabel: getI18NKey().go_to_setting,
+          cancelLabel: getI18NKey().cancel,
+          onWillPop: () async {
+            //点击对话框外围黑色区域才会走这里
+            return true;
+          });
+      if (result == OkCancelResult.ok) {
+        await CounterMethodChannelManager.getInstance().openSetting();
+      }
+    }
+  }
+
+
+  static bool shouldShowAlert({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 || missionModelType == 2;
+  }
+
+  static bool shouldShowCircleFolderId({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  static bool shouldShowPriority({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0  || missionModelType == 2;
+  }
+
+  static bool shouldShowTag({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 || missionModelType == 2;
+  }
+
+
+  static bool shouldShowDailyIcon({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  //创建编辑的时候 null 或者 0是默认的 1是苹果日历 2是苹果提醒 3.google日历
+  static bool shouldShowBeginTime({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 || missionModelType == 1 || missionModelType == 2;
+  }
+
+  static bool shouldShowStartTime(
+      {missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 || missionModelType == 1  || missionModelType == 2;
+  }
+
+  //创建编辑的时候
+  static bool shouldShowEndTime(
+      {missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 || missionModelType == 1  || missionModelType == 2;
+  }
+
+  static bool shouldShowTomatoes({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  static bool shouldShowDoItNow({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  static bool shouldShowMissionValue({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  static bool shouldShowWallpaper({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  static bool shouldShowAllMissionDetailTab({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  static bool shouldShowTabBar({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
+  }
+
+  //创建编辑的时候 是否显示价值
+  static bool shouldShowValue({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0;
   }
 
   /**
@@ -8012,24 +8295,25 @@ class Utility {
       maxHeight: 300,
       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       sourcePath: imageFile?.path ?? "",
-      aspectRatioPresets: Platform.isAndroid
-          ? [
-              CropAspectRatioPreset.square,
-              // CropAspectRatioPreset.ratio3x2,
-              // CropAspectRatioPreset.original,
-              // CropAspectRatioPreset.ratio4x3,
-              // CropAspectRatioPreset.ratio16x9
-            ]
-          : [
-              // CropAspectRatioPreset.original,
-              CropAspectRatioPreset.square,
-              // CropAspectRatioPreset.ratio3x2,
-              // CropAspectRatioPreset.ratio4x3,
-              // CropAspectRatioPreset.ratio5x3,
-              // CropAspectRatioPreset.ratio5x4,
-              // CropAspectRatioPreset.ratio7x5,
-              // CropAspectRatioPreset.ratio16x9
-            ],
+      // aspectRatio:CropAspectRatio(ratioX: 1, ratioY: 1),
+      // aspectRatioPresets: Platform.isAndroid
+      //     ? [
+      //         CropAspectRatioPreset.square,
+      //         // CropAspectRatioPreset.ratio3x2,
+      //         // CropAspectRatioPreset.original,
+      //         // CropAspectRatioPreset.ratio4x3,
+      //         // CropAspectRatioPreset.ratio16x9
+      //       ]
+      //     : [
+      //         // CropAspectRatioPreset.original,
+      //         CropAspectRatioPreset.square,
+      //         // CropAspectRatioPreset.ratio3x2,
+      //         // CropAspectRatioPreset.ratio4x3,
+      //         // CropAspectRatioPreset.ratio5x3,
+      //         // CropAspectRatioPreset.ratio5x4,
+      //         // CropAspectRatioPreset.ratio7x5,
+      //         // CropAspectRatioPreset.ratio16x9
+      //       ],
       uiSettings: [
         AndroidUiSettings(
             toolbarTitle: 'Cropper',
@@ -9581,10 +9865,16 @@ class Utility {
    * @param {String} time
    */
   static DateTime getDateTimeFromUTCString(String utcTime) {
+    if(TextUtil.isEmpty(utcTime)) {
+      return DateTime.now();
+    }
     return new DateFormat("yyyy-MM-ddTHH:mm:ssZ").parseUTC(utcTime).toLocal();
   }
 
   static DateTime getDateTimeFromString(String utcTime) {
+    if(TextUtil.isEmpty(utcTime)) {
+      return DateTime.now();
+    }
     return new DateFormat("yyyy-MM-ddTHH:mm:ssZ").parse(utcTime).toLocal();
   }
 
@@ -9862,4 +10152,24 @@ class Utility {
 // static downloadFileByUrl(url) async{
 //   Uint8List bytes;     try {       bytes = await readBytes(url);     } on ClientException {       rethrow;     }     return bytes;   }    Future _loadFile() async {     final bytes = await _loadFileBytes(kUrl,         onError: (Exception exception) =>             print('_loadFile => exception $exception'));      final dir = await getApplicationDocumentsDirectory();     final file = File('${dir.path}/audio.mp3');      await file.writeAsBytes(bytes);     if (await file.exists())       setState(() {         localFilePath = file.path;       });
 // }
+}
+
+class WeekDayConverter {
+  /// 从周一到周日转换为周日到周六
+  static List<bool> convertFromMondayToSundayToSundayToSaturday(
+      List<bool> mondayToSunday) {
+    if (mondayToSunday.length != 7) {
+      throw ArgumentError("WeekDay array must have exactly 7 elements.");
+    }
+    return [mondayToSunday.last, ...mondayToSunday.sublist(0, 6)];
+  }
+
+  /// 从周日到周六转换为周一到周日
+  static List<bool> convertFromSundayToSaturdayToMondayToSunday(
+      List<bool> sundayToSaturday) {
+    if (sundayToSaturday.length != 7) {
+      throw ArgumentError("WeekDay array must have exactly 7 elements.");
+    }
+    return [...sundayToSaturday.sublist(1), sundayToSaturday.first];
+  }
 }

@@ -5,6 +5,7 @@ import 'package:time_hello/com/timehello/components/RatingBar.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 GlobalKey<HeaderStatusState> HeaderStatusStateGlobalKey = GlobalKey();
 
@@ -72,6 +73,7 @@ class HeaderStatusState extends State<HeaderStatusMissionDetailWidget> {
                   ),
                   Wrap(
                     children: [
+                      if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
                       RatingBar(
                         curNumber: _missionModel?.no_tomotoes_finished ?? 0,
                         number: _missionModel?.total_tomotoes ?? 0,

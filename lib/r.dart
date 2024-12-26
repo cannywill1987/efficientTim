@@ -231,6 +231,8 @@ class R {
   static final String assetsImgIcLockscreen = 'assets/img/ic_lockscreen.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_autorenew_one.png)
   static final String assetsImgIcAutorenewOne = 'assets/img/ic_autorenew_one.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_calendar_mode.svg)
+  static final String assetsImgIcCalendarMode = 'assets/img/ic_calendar_mode.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_logo_red.png)
   static final String assetsImgIcLogoRed = 'assets/img/ic_logo_red.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_num3.svg)
@@ -415,6 +417,8 @@ class R {
   static final String assetsImgLoginBtnUnable = 'assets/img/login_btn_unable.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_pufa_bank.png)
   static final String assetsImgIcPufaBank = 'assets/img/ic_pufa_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_apple_alarm.svg)
+  static final String assetsImgIcAppleAlarm = 'assets/img/ic_apple_alarm.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_voice_note.svg)
   static final String assetsImgIcVoiceNote = 'assets/img/ic_voice_note.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_view_timeline.svg)

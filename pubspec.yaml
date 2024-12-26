@@ -81,7 +81,7 @@ dependencies:
   package_info: ^2.0.2
   #  auto_updater: ^0.1.2
   camera: ^0.9.4+19
-  image_cropper: ^5.0.0
+  image_cropper: ^8.0.2
   marquee: ^2.2.3
   image_picker: ^1.0.4
   cached_network_image: ^3.2.0
@@ -393,6 +393,7 @@ flutter:
     - assets/img/ic_emoji4_unselected.png
     - assets/img/ic_lockscreen.svg
     - assets/img/ic_autorenew_one.png
+    - assets/img/ic_calendar_mode.svg
     - assets/img/ic_logo_red.png
     - assets/img/ic_num3.svg
     - assets/img/ic_tab1_selected.svg
@@ -485,6 +486,7 @@ flutter:
     - assets/img/ic_dollar_gold.svg
     - assets/img/login_btn_unable.png
     - assets/img/ic_pufa_bank.png
+    - assets/img/ic_apple_alarm.svg
     - assets/img/ic_voice_note.svg
     - assets/img/ic_view_timeline.svg
     - assets/img/ic_visa_bank.png

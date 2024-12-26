@@ -92,6 +92,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   bool _isBottomBarVisible = false; //底部visible
   int _numberTomatoes = 1; //番茄
   int? _dateStatus; //dateStatus 0-今天 1 明天 2 即将到来 3 待定 4 日程 5 已完成
+  int? _missionModelType = 0; //null 或者 0是默认的 1是苹果日历 2是苹果提醒 3.google日历
   int _priorityStatus = 3; //优先级
   String? _tagName = ''; //创建missionPage tagName
   String? _title = ''; //创建missin时
@@ -612,7 +613,25 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
     }
-    isRequesting = true;
+    if (this._missionModel.time_mode == 1 &&
+        (this._missionModel.start_time == 0 ||
+            this._missionModel.start_time == null)) {
+      Utility.showToastMsg(
+          msg: getI18NKey().xxx_cannot_be_empty(getI18NKey().start_time));
+      return null;
+    }
+    if (this._missionModel.time_mode == 1 &&
+        (this._missionModel.start_time == 0 ||
+            this._missionModel.start_time == null)) {
+      Utility.showToastMsg(
+          msg: getI18NKey().xxx_cannot_be_empty(getI18NKey().end_time));
+      return null;
+    }
+
+    if (this._missionModel.missionModelType == 0) {
+      isRequesting = true;
+    }
+
     this.isFocusing = false; //隐藏多余的文案
     MongoApisManager.getInstance().insertMissiontData(
         missionModel: this._missionModel ?? MissionModel(),
@@ -691,7 +710,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     if (oldWidget.folderModel?.title != this.widget.folderModel?.title) {
       this._dateStatus =
           null; //切换文件夹时重置 这样Initdata会重新拿this.widget.folderStatus数据初始化
-      bottomBarStateKey?.currentState?.updateEndTimeByState(this.widget.folderStatusDate ?? 1);
+      bottomBarStateKey?.currentState
+          ?.updateEndTimeByState(this.widget.folderStatusDate ?? 1);
     }
     this.updateRightNavChildren();
     this._folderModelObjId = this.widget.folderModel?.objectId;
@@ -909,16 +929,24 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     ;
   }
 
-
-
   BottomBar getBottomBar(BuildContext context, {bool isVisible: false}) {
     return BottomBar(
       key: bottomBarStateKey,
       //底部bar 用于创建任务用
       iconCircle: this._circleIcon,
       isVisible: isVisible,
+      alert_time: this._missionModel?.alert_time ?? 0,
       circleTitle: this._circleTitle ?? "",
       dateStatus: this._dateStatus ?? 0,
+      onTapMissionModelTypeListener: (data) {
+        // this._missionModelType = data;
+        this._missionModel.missionModelType = data;
+        updateUI();
+      },
+      onTapAlertDateListener: (data) {
+        this._missionModel.alert_time = data;
+        updateUI();
+      },
       onTapUpdateDateListener: (
           {dynamic startDate,
           dynamic alertDate,
@@ -1430,13 +1458,16 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     if (model.code == 'export') {
                       onClickExport();
                     } else if (model.code == 'sort') {
-                      OverlayManagement.getInstance().openMissionDetailPageSettingOverlay(
-                          context,
-                          right: 40,
-                          top: 80,
-                          list: CONSTANTS.getSortMissionPagePopupMenuButtonList(), onTapListener: (model) {
-                            String val = model.code;
-                        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+                      OverlayManagement.getInstance()
+                          .openMissionDetailPageSettingOverlay(context,
+                              right: 40,
+                              top: 80,
+                              list: CONSTANTS
+                                  .getSortMissionPagePopupMenuButtonList(),
+                              onTapListener: (model) {
+                        String val = model.code;
+                        AnalyticsEventsManager.getInstance()
+                            .sendAnalyticsEventMap({
                           "sceneType": "missionpage",
                           "eventType": "missionpage_order",
                           "description": "排序",
@@ -1447,7 +1478,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                         } else if (val == 'order_by_time') {
                           this.missionOrderEnum = MissionOrderEnum.orderByTime;
                         } else if (val == 'order_by_mission_priority') {
-                          this.missionOrderEnum = MissionOrderEnum.orderByPriority;
+                          this.missionOrderEnum =
+                              MissionOrderEnum.orderByPriority;
                         } else if (val == 'order_by_mission_tag') {
                           this.missionOrderEnum = MissionOrderEnum.orderByTag;
                         }
@@ -1457,20 +1489,23 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                         OverlayManagement.getInstance()
                             .dismissMissionDetailPageSettingEntry();
                         // this.onClick("onClickSettingItem", model.code);
-                      }
-                          );
+                      });
                     } else if (model.code == 'sync') {
                       CounterMethodChannelManager.getInstance()
-                          .storeCustomizeMissionList(Utility.getListAfterOrder(
-                          missionOrderEnum,
-                          _missionModelListUnFinished,
-                          -1,
-                          this
-                              .widget
-                              .folderModel
-                              .filterConditionMapBean
-                              ?.listingId) ?? [], this.widget.folderModel?.title);
-                      Utility.showToastMsg(msg: getI18NKey().sync_desktop_widget_success);
+                          .storeCustomizeMissionList(
+                              Utility.getListAfterOrder(
+                                      missionOrderEnum,
+                                      _missionModelListUnFinished,
+                                      -1,
+                                      this
+                                          .widget
+                                          .folderModel
+                                          .filterConditionMapBean
+                                          ?.listingId) ??
+                                  [],
+                              this.widget.folderModel?.title);
+                      Utility.showToastMsg(
+                          msg: getI18NKey().sync_desktop_widget_success);
                     }
                   },
                   list: CONSTANTS.getMissionButtonList(),
@@ -1505,33 +1540,29 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   void onClickExport() {
-     AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
       "sceneType": "missionpage",
       "eventType": "missionpage_guide",
       "description": "导出",
     });
-    TextEditingController textEditingController =
-        TextEditingController();
+    TextEditingController textEditingController = TextEditingController();
     String s = Utility.getContentFromMissionList(
         datas: this.curListMissionModels ?? [],
         listCheckButtonModel: CONSTANTS.getExportButtonsList());
     textEditingController.text = s;
     ExportMissionListDialogUtil.show(context,
-        textEditingController: textEditingController,
-        onTapListener: (res) {
+        textEditingController: textEditingController, onTapListener: (res) {
       List<CheckButtonStateModel> data = res['data'];
       MissionOrderEnum missionOrderEnum = res['enum'];
       String s = Utility.getContentFromMissionList(
           datas: Utility.getMissionModelListAfterOrder(
-              missionOrderEnum,
-              this.curListMissionModels ?? []),
+              missionOrderEnum, this.curListMissionModels ?? []),
           listCheckButtonModel: data);
       textEditingController.text = s;
       updateUI();
     }, export: (data) {
       Utility.showToastMsg(
-          context: context,
-          msg: getI18NKey().offer_next_version);
+          context: context, msg: getI18NKey().offer_next_version);
     });
   }
 
@@ -1681,7 +1712,6 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     ));
     if (this.widget.folderStatusDate == 1) {
       CounterMethodChannelManager.getInstance().storeMissionList(list);
-
     }
     return listWidget;
   }
@@ -1830,6 +1860,28 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         datas = MongoApisManager.getInstance()
             .queryWhereEqual_missionDataByDateStatus(
                 dateStatus: this.widget.folderStatusDate);
+      } else if (this.widget.folderStatusDate == 14) {
+        // 用这个是因为重复的很难计算 但是calendar算好了 所以直接用这个
+        // this.folderStatusIsArchived = 0; // 未归档
+        //FoldersPage 今天之前的 23:59:59
+        missionDataViewTypeEnum = MissionDataViewTypeEnum.values[
+            curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
+                .getInt(
+                    key: ShareprefrenceKeys.listAndGridView +
+                        this.widget.folderStatusDate.toString(),
+                    defaultVal: 0)];
+        datas = MongoApisManager.getInstance().listCalendarMissionModels;
+      } else if (this.widget.folderStatusDate == 15) {
+        // 用这个是因为重复的很难计算 但是calendar算好了 所以直接用这个
+        // this.folderStatusIsArchived = 0; // 未归档
+        //FoldersPage 今天之前的 23:59:59
+        missionDataViewTypeEnum = MissionDataViewTypeEnum.values[
+        curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
+            .getInt(
+            key: ShareprefrenceKeys.listAndGridView +
+                this.widget.folderStatusDate.toString(),
+            defaultVal: 0)];
+        datas = MongoApisManager.getInstance().listRemindersMissionModels;
       } else if (this.widget.folderStatusDate == 1) {
         // 用这个是因为重复的很难计算 但是calendar算好了 所以直接用这个
         this.folderStatusIsArchived = 0; // 未归档

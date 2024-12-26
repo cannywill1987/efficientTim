@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:synchronized/extension.dart';
 import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
+import 'package:time_hello/com/timehello/components/CalendarIconWidget.dart';
 import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
@@ -1186,13 +1187,23 @@ class CONSTANTS {
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
     list.add(
-        CheckButtonStateModel(title: getI18NKey().note_text, isCheck: true));
+        CheckButtonStateModel(title: getI18NKey().note_text, isCheck: true, code: "note"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().multi_subtask, isCheck: false));
-    // list.add(
-    //     CheckButtonStateModel(title: getI18NKey().super_notebook, isCheck: false));
+        title: getI18NKey().multi_subtask, isCheck: false, code: "subtask"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().mission_setting, isCheck: false));
+        title: getI18NKey().mission_setting, isCheck: false, code: "setting"));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getMissionDetailSetting2(
+      {bool? hasAll = false}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(
+        CheckButtonStateModel(title: getI18NKey().note_text, isCheck: true, code: "note"));
+    // list.add(CheckButtonStateModel(
+    //     title: getI18NKey().multi_subtask, isCheck: false));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().mission_setting, isCheck: false, code: "setting"));
     return list;
   }
 
@@ -1284,6 +1295,26 @@ class CONSTANTS {
         title: getI18NKey().date, isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
         title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getOnlySettingItemDetailCheckButtonListForCalendar(
+      {int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    // list.add(CheckButtonStateModel(
+    //     title: getI18NKey().date, isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getOnlySettingItemDetailCheckButtonListForAlarm(
+      {int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().date, isCheck: defaultVal == 0));
+    // list.add(CheckButtonStateModel(
+    //     title: getI18NKey().time_segment, isCheck: defaultVal == 1));
     return list;
   }
 
@@ -1962,6 +1993,31 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getMissionTypeButtonList(
+      {int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    const double size = 14;
+    list.add(CheckButtonStateModel(
+        code: 'normal',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcNormal, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcNormal, size: size),
+        title: getI18NKey().normal,
+        isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        code: 'calendar',
+        checkIcon: CalendarIconWidget(width: size, height: size),
+        uncheckIcon: CalendarIconWidget(width: size, height: size),
+        title: getI18NKey().apple_calendar,
+        isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        code: 'alarm',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcAppleAlarm, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcAppleAlarm, size: size),
+        title: getI18NKey().apple_alarm,
+        isCheck: defaultVal == 2));
+    return list;
+  }
+
   static List<CheckButtonStateModel> getEncrypteButtonList(
       {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
@@ -1973,7 +2029,7 @@ class CONSTANTS {
         title: getI18NKey().normal,
         isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
-        code: 'encrypted',
+        code: 'calendar',
         checkIcon: Utility.getSVGPicture(R.assetsImgIcSecure, size: size),
         uncheckIcon: Utility.getSVGPicture(R.assetsImgIcSecure, size: size),
         title: getI18NKey().encrypt,
@@ -3683,6 +3739,10 @@ class CONSTANTS {
             .queryWhereEqual_missionDataByDoItNowMissionWithoutFinish();
       } else if (folderStatusDate == 10) {
         datas = MongoApisManager.getInstance()!.listMissionModels;
+      } else if (folderStatusDate == 14) {
+        datas = MongoApisManager.getInstance()!.listCalendarMissionModels ;
+      } else if (folderStatusDate == 15) {
+        datas = MongoApisManager.getInstance()!.listRemindersMissionModels ;
       } else if (folderStatusDate == 0 || folderStatusDate == 8) {
         //8是其他 0是目录
         //FolderPage走这里
@@ -3841,102 +3901,102 @@ class CONSTANTS {
     return listFolderModel;
   }
 
-  static List<FolderModelWithExtraData> getMenuListByFid(
-      List<FolderModel> folderModelList,
-      {bool? isMobile,
-      FolderPageViewEnum? folderPageViewEnum,
-      DateTime? startDateTime,
-      DateTime? endDateTime,
-      bool shouldAddDayType =
-          true, //true来自folderlistPage false为summaryPage 不需要加 今天 明天 本周等
-      CalendarModel? calendarModel}) {
-    List<FolderModelWithExtraData> listFolderModel =
-        <FolderModelWithExtraData>[];
-    FolderModel folderModel;
-    if (folderPageViewEnum == null ||
-        folderPageViewEnum == FolderPageViewEnum.normal) {
-      if (shouldAddDayType == true) {
-        folderModel = getTodayFolderModel();
-
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-
-        folderModel = new FolderModel();
-        // folderModel.id = 'id';
-        folderModel.title = getI18NKey().do_it_now;
-        folderModel.iconType =
-            9; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now
-        folderModel.type = 2;
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-
-        folderModel = new FolderModel();
-        // folderModel.id = 'id';
-        folderModel.title = getI18NKey().tomorrow;
-        folderModel.iconType = 2; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
-        folderModel.type = 2;
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-
-        folderModel = new FolderModel();
-        // folderModel.id = 'id';
-        folderModel.title = getI18NKey().comingSoon;
-        folderModel.iconType = 3; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
-        folderModel.type = 2;
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-
-        folderModel = new FolderModel();
-        // folderModel.id = 'id';
-        folderModel.title = getI18NKey().allUnfinishedMissions;
-        folderModel.iconType = 4; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
-        folderModel.type = 2;
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-
-        folderModel = new FolderModel();
-        folderModel.title = getI18NKey().schedule;
-        folderModel.iconType = 5; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
-        folderModel.type = 2;
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-        folderModel = new FolderModel();
-        // folderModel.id = 'id';
-        folderModel.title = getI18NKey().completed;
-        folderModel.iconType = 6; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成
-        folderModel.type = 2;
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: folderModel,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: folderModel.iconType ?? 0,
-                calendarModel: calendarModel,
-                folderStatus: 0)));
-      }
-    }
+  // static List<FolderModelWithExtraData> getMenuListByFid(
+  //     List<FolderModel> folderModelList,
+  //     {bool? isMobile,
+  //     FolderPageViewEnum? folderPageViewEnum,
+  //     DateTime? startDateTime,
+  //     DateTime? endDateTime,
+  //     bool shouldAddDayType =
+  //         true, //true来自folderlistPage false为summaryPage 不需要加 今天 明天 本周等
+  //     CalendarModel? calendarModel}) {
+  //   List<FolderModelWithExtraData> listFolderModel =
+  //       <FolderModelWithExtraData>[];
+  //   FolderModel folderModel;
+  //   if (folderPageViewEnum == null ||
+  //       folderPageViewEnum == FolderPageViewEnum.normal) {
+  //     if (shouldAddDayType == true) {
+  //       folderModel = getTodayFolderModel();
+  //
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //
+  //       folderModel = new FolderModel();
+  //       // folderModel.id = 'id';
+  //       folderModel.title = getI18NKey().do_it_now;
+  //       folderModel.iconType =
+  //           9; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now
+  //       folderModel.type = 2;
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //
+  //       folderModel = new FolderModel();
+  //       // folderModel.id = 'id';
+  //       folderModel.title = getI18NKey().tomorrow;
+  //       folderModel.iconType = 2; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
+  //       folderModel.type = 2;
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //
+  //       folderModel = new FolderModel();
+  //       // folderModel.id = 'id';
+  //       folderModel.title = getI18NKey().comingSoon;
+  //       folderModel.iconType = 3; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
+  //       folderModel.type = 2;
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //
+  //       folderModel = new FolderModel();
+  //       // folderModel.id = 'id';
+  //       folderModel.title = getI18NKey().allUnfinishedMissions;
+  //       folderModel.iconType = 4; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
+  //       folderModel.type = 2;
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //
+  //       folderModel = new FolderModel();
+  //       folderModel.title = getI18NKey().schedule;
+  //       folderModel.iconType = 5; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成
+  //       folderModel.type = 2;
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //       folderModel = new FolderModel();
+  //       // folderModel.id = 'id';
+  //       folderModel.title = getI18NKey().completed;
+  //       folderModel.iconType = 6; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成
+  //       folderModel.type = 2;
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: folderModel,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: folderModel.iconType ?? 0,
+  //               calendarModel: calendarModel,
+  //               folderStatus: 0)));
+  //     }
+  //   }
 
     /**
      * 文件夹等
@@ -3953,45 +4013,45 @@ class CONSTANTS {
     //             objectId: element.objectId)));
     //   });
     // }
-
-    folderModelList.forEach((element) {
-      if (folderPageViewEnum == null) {
-        listFolderModel.add(FolderModelWithExtraData(
-            folderModel: element,
-            folderTimeModel: CONSTANTS.getFolderTime(
-                folderStatusDate: element.iconType ?? 0,
-                startDateTime: startDateTime,
-                endDateTime: endDateTime,
-                calendarModel: calendarModel,
-                objectId: element.objectId)));
-      } else {
-        //1-表示各种图案circle mission;2-表示的是 tag;null-今天 明天 即将到来
-        if (folderPageViewEnum == FolderPageViewEnum.tag && element.tag == 2) {
-          listFolderModel.add(FolderModelWithExtraData(
-              folderModel: element,
-              folderTimeModel: CONSTANTS.getFolderTimeByTag(
-                tagName: element.title ?? "",
-              )));
-        } else if (folderPageViewEnum == FolderPageViewEnum.listing_unarchive &&
-            element.tag == 1) {
-          listFolderModel.add(FolderModelWithExtraData(
-              folderModel: element,
-              folderTimeModel: CONSTANTS.getFolderTime(
-                  folderStatusDate: element.iconType ?? 0,
-                  startDateTime: startDateTime,
-                  endDateTime: endDateTime,
-                  calendarModel: calendarModel,
-                  objectId: element.objectId)));
-        }
-      }
-    });
-    if (folderPageViewEnum == FolderPageViewEnum.tag) {
-      if (isMobile == true && shouldAddDayType == true) {
-        listFolderModel.add(getCreateFolderModel());
-      }
-    }
-    return listFolderModel;
-  }
+  //
+  //   folderModelList.forEach((element) {
+  //     if (folderPageViewEnum == null) {
+  //       listFolderModel.add(FolderModelWithExtraData(
+  //           folderModel: element,
+  //           folderTimeModel: CONSTANTS.getFolderTime(
+  //               folderStatusDate: element.iconType ?? 0,
+  //               startDateTime: startDateTime,
+  //               endDateTime: endDateTime,
+  //               calendarModel: calendarModel,
+  //               objectId: element.objectId)));
+  //     } else {
+  //       //1-表示各种图案circle mission;2-表示的是 tag;null-今天 明天 即将到来
+  //       if (folderPageViewEnum == FolderPageViewEnum.tag && element.tag == 2) {
+  //         listFolderModel.add(FolderModelWithExtraData(
+  //             folderModel: element,
+  //             folderTimeModel: CONSTANTS.getFolderTimeByTag(
+  //               tagName: element.title ?? "",
+  //             )));
+  //       } else if (folderPageViewEnum == FolderPageViewEnum.listing_unarchive &&
+  //           element.tag == 1) {
+  //         listFolderModel.add(FolderModelWithExtraData(
+  //             folderModel: element,
+  //             folderTimeModel: CONSTANTS.getFolderTime(
+  //                 folderStatusDate: element.iconType ?? 0,
+  //                 startDateTime: startDateTime,
+  //                 endDateTime: endDateTime,
+  //                 calendarModel: calendarModel,
+  //                 objectId: element.objectId)));
+  //       }
+  //     }
+  //   });
+  //   if (folderPageViewEnum == FolderPageViewEnum.tag) {
+  //     if (isMobile == true && shouldAddDayType == true) {
+  //       listFolderModel.add(getCreateFolderModel());
+  //     }
+  //   }
+  //   return listFolderModel;
+  // }
 
   /**
    * ismobile主要判断是否需要显示创建清单
@@ -4039,7 +4099,10 @@ class CONSTANTS {
             SettingManager.getSyncInstance().isListingAllUnfinishedMission;
         int isListingFinishedOn =
             SettingManager.getSyncInstance().isListingFinishedOn;
+        int isListingCalendarVisibleOn =
+            SettingManager.getSyncInstance().isListingCalendarVisibleOn;
         int isListingAllOn = SettingManager.getSyncInstance().isListingAllOn;
+        int isListingAlarmVisibleOn = SettingManager.getSyncInstance().isListingAlarmVisibleOn;
 
         folderModel = getTodayFolderModel();
         FolderTimeModel folderTimeModel = CONSTANTS.getFolderTime(
@@ -4102,6 +4165,46 @@ class CONSTANTS {
             isListingLatest7DaysOn == 1) {
           listFolderModel.add(FolderModelWithExtraData(
               folderModel: folderModel, folderTimeModel: folderTimeModel));
+        }
+        if(DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
+          folderModel = new FolderModel();
+          folderModel.title = getI18NKey().apple_calendar;
+          folderModel.layoutType = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.layoutIconType14, defaultVal: 0);
+          folderModel.iconType =
+          14; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
+          folderModel.type = 2;
+          folderTimeModel = CONSTANTS.getFolderTime(
+              folderStatusDate: folderModel.iconType ?? 0,
+              calendarModel: calendarModel,
+              folderStatus: 0);
+          if ((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
+              (folderTimeModel?.numMissionFinished ?? 0)) >
+              0 &&
+              isListingCalendarVisibleOn == -1) ||
+              isListingCalendarVisibleOn == 1) {
+            listFolderModel.add(FolderModelWithExtraData(
+                folderModel: folderModel, folderTimeModel: folderTimeModel));
+          }
+        }
+        if(DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
+          folderModel = new FolderModel();
+          folderModel.title = getI18NKey().apple_alarm;
+          folderModel.layoutType = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.layoutIconType15, defaultVal: 0);
+          folderModel.iconType =
+          15; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
+          folderModel.type = 2;
+          folderTimeModel = CONSTANTS.getFolderTime(
+              folderStatusDate: folderModel.iconType ?? 0,
+              calendarModel: calendarModel,
+              folderStatus: 0);
+          if ((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
+              (folderTimeModel?.numMissionFinished ?? 0)) >
+              0 &&
+              isListingAlarmVisibleOn == -1) ||
+              isListingAlarmVisibleOn == 1) {
+            listFolderModel.add(FolderModelWithExtraData(
+                folderModel: folderModel, folderTimeModel: folderTimeModel));
+          }
         }
 
         folderModel = new FolderModel();
@@ -4179,24 +4282,6 @@ class CONSTANTS {
         if (((folderTimeModel?.numMissionFinished ?? 0) > 0 &&
                 isListingFinishedOn == -1) ||
             isListingFinishedOn == 1) {
-          listFolderModel.add(FolderModelWithExtraData(
-              folderModel: folderModel, folderTimeModel: folderTimeModel));
-        }
-
-        folderModel = new FolderModel();
-        folderModel.title = getI18NKey().all_mission;
-        folderModel.iconType =
-            10; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
-        folderModel.type = 2;
-        folderTimeModel = CONSTANTS.getFolderTime(
-            folderStatusDate: folderModel.iconType ?? 0,
-            calendarModel: calendarModel,
-            folderStatus: 0);
-        if ((((folderTimeModel?.numMissionToFinished ?? 0) +
-                        (folderTimeModel?.numMissionFinished ?? 0)) >
-                    0 &&
-                isListingAllOn == -1) ||
-            isListingAllOn == 1) {
           listFolderModel.add(FolderModelWithExtraData(
               folderModel: folderModel, folderTimeModel: folderTimeModel));
         }
@@ -4801,6 +4886,24 @@ class CONSTANTS {
         title: getI18NKey().fragment_listing,
         color: 0xff404040,
         checkIcon: Utility.getSVGPicture(R.assetsImgIcFragment, size: size),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "fragment_calendar",
+        value: 14,
+        title: getI18NKey().apple_calendar,
+        color: 0xff404040,
+        checkIcon: CalendarIconWidget(width: 14, height: 14),
+        content: "",
+        isCheck: false));
+
+    list.add(CheckButtonStateModel(
+        code: "fragment_alarm",
+        value: 15,
+        title: getI18NKey().apple_alarm,
+        color: 0xff404040,
+        checkIcon: CalendarIconWidget(width: 14, height: 14),
         content: "",
         isCheck: false));
 
@@ -5567,11 +5670,26 @@ class CONSTANTS {
     if (model == null || model.datetime?.millisecondsSinceEpoch == 0) {
       return getI18NKey().none;
     }
-    String s = getI18NKey().dateFromMonthToMins(
-        (model.datetime!.month).toString(),
-        Utility.toFixed(model.datetime!.day).toString(),
-        Utility.toFixed(model.datetime!.hour).toString(),
-        Utility.toFixed(model.datetime!.minute).toString());
+    DateTime now = DateTime.now();
+    DateTime dateTime = model.datetime!;
+
+    String s;
+    if (dateTime.year == now.year) {
+      // 如果是今年的，只显示月份、小时和分钟
+      s = getI18NKey().dateFromMonthToMins(
+          dateTime.month.toString(),
+          Utility.toFixed(dateTime.day).toString(),
+          Utility.toFixed(dateTime.hour).toString(),
+          Utility.toFixed(dateTime.minute).toString());
+    } else {
+      // 如果不是今年的，显示完整的年份、月份、小时和分钟
+      s = getI18NKey().dateFromYearMonthToMins(
+          dateTime.year.toString(),
+          dateTime.month.toString(),
+          Utility.toFixed(dateTime.day).toString(),
+          Utility.toFixed(dateTime.hour).toString(),
+          Utility.toFixed(dateTime.minute).toString());
+    }
     return s;
   }
 

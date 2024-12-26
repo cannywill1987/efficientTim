@@ -464,6 +464,7 @@ class QuadrantMissionSilverListItemState
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
+                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
                     RatingBar(
                       curNumber: _missionModel.no_tomotoes_finished ?? 0,
                       number: _missionModel.total_tomotoes ?? 1,
@@ -473,6 +474,7 @@ class QuadrantMissionSilverListItemState
                               ? 12
                               : 15,
                     ),
+                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
                     SizedBox(width: 3),
                     Icon(
                       Icons.calendar_today_rounded,

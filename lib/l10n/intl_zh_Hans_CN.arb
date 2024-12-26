@@ -1,5 +1,6 @@
 {
   "@@locale": "zh_Hans_CN",
+  "join_us": "加入我们",
   "sort": "排序",
   "sync_desktop_widget": "同步桌面组件",
   "sync_desktop_widget_success": "同步桌面组件成功，请确认添加桌面小组件",
@@ -763,7 +764,7 @@
   "note_3": "便签3",
   "note_2": "便签2",
   "note_1": "便签1",
-  "super_notebook": "超级笔记",
+  "super_notebook": "笔记",
   "saving": "保存中",
   "save_success": "保存成功",
   "save_failure": "保存失败",

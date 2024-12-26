@@ -41,7 +41,7 @@ class FirebaseAuthManager {
         options: DefaultFirebaseOptions.currentPlatform,
       );
     } else {
-      if(!Utility.isChina() || Utility.isProductEnv() == false) {
+      // if(!Utility.isChina() || Utility.isProductEnv() == false) {
         await Firebase.initializeApp(
           options: FirebaseOptions(
             apiKey: "xxx",
@@ -50,7 +50,7 @@ class FirebaseAuthManager {
             projectId: "xxx",
           ),
         );
-      }
+      // }
     }
   }
 

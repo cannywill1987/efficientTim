@@ -115,7 +115,7 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             if (!Utility.isProductEnv())
               InkWell(
                 onTap: () async {
-                  CounterMethodChannelManager.getInstance().fetchEventReminderEvents(startDate: 1701940406000, endDate: 1765098806000);
+                  CounterMethodChannelManager.getInstance().fetchCalendarEvents(startDate: 1701940406000, endDate: 1765098806000);
                   // CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
                 },
                 child: Text("获取事件"),
@@ -125,7 +125,7 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             if (!Utility.isProductEnv())
               InkWell(
                 onTap: () async {
-                  CounterMethodChannelManager.getInstance().fetchEventReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
+                  CounterMethodChannelManager.getInstance().fetchReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
                   // CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
                 },
                 child: Text("获取提醒"),

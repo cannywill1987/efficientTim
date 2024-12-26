@@ -1,5 +1,13 @@
 {
   "@@locale": "ko",
+  "jump_to_xxx": "{xxx}로 이동",
+  "save_mode": "저장 모드",
+  "dateFromYearMonthToMins": "{t0}년 {t1}월 {t2}일 {t3}:{t4}",
+  "apple_alarm": "Apple 알람",
+  "apple_calendar": "Apple 캘린더",
+  "from_calendar": "캘린더에서",
+  "from_reminder": "리마인더에서",
+  "join_us": "가입하기",
   "sort": "정렬",
   "sync_desktop_widget": "데스크톱 위젯 동기화",
   "sync_desktop_widget_success": "데스크톱 위젯 동기화 성공, 데스크톱 위젯 추가를 확인하세요",

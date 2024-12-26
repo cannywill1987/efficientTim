@@ -25,7 +25,11 @@ FolderTimeModel _$FolderTimeModelFromJson(Map<String, dynamic> json) =>
       ..objectId = json['_id'] as String?
       ..listDatas = (json['listDatas'] as List<dynamic>?)
           ?.map((e) => MissionModel.fromJson(e as Map<String, dynamic>))
-          .toList();
+          .toList()
+      ..numMissionCalendarToFinished =
+          (json['numMissionCalendarToFinished'] as num?)?.toInt()
+      ..numMissionCalendarTotalFinished =
+          (json['numMissionCalendarTotalFinished'] as num?)?.toInt();
 
 Map<String, dynamic> _$FolderTimeModelToJson(FolderTimeModel instance) =>
     <String, dynamic>{
@@ -41,6 +45,9 @@ Map<String, dynamic> _$FolderTimeModelToJson(FolderTimeModel instance) =>
       'finishedTime': instance.finishedTime,
       'finishedTimeString': instance.finishedTimeString,
       'numMissionFinished': instance.numMissionFinished,
+      'numMissionCalendarToFinished': instance.numMissionCalendarToFinished,
+      'numMissionCalendarTotalFinished':
+          instance.numMissionCalendarTotalFinished,
       'numMissionDelayed': instance.numMissionDelayed,
       'numTomatoesUnfinished': instance.numTomatoesUnfinished,
       'numTomatoesFinished': instance.numTomatoesFinished,

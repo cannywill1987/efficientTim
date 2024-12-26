@@ -744,6 +744,10 @@ class ItemIndividualState extends State<ItemIndividualWidget> {
                                   ],
                                 ),
                               Spacer(),
+                              if(Utility.shouldShowTomatoes(missionModelType: this
+                                  .widget
+                                  .missionModel
+                                  .missionModelType))
                               RatingBar(
                                 curNumber: this
                                         .widget
@@ -755,6 +759,10 @@ class ItemIndividualState extends State<ItemIndividualWidget> {
                                         0,
                                 size: 12,
                               ),
+                              if(Utility.shouldShowTomatoes(missionModelType: this
+                                  .widget
+                                  .missionModel
+                                  .missionModelType))
                               SizedBox(
                                 width: 3,
                               ),

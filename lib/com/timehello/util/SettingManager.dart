@@ -27,6 +27,8 @@ class SettingManager {
   int isListingFragmentOn = 1;
   int isListingAllUnfinishedMission = 1;
   int isListingFinishedOn = 1;
+  int isListingCalendarVisibleOn = 1;
+  int isListingAlarmVisibleOn = 1;
   int isListingAllOn = 1;
 
   int isTomatoPageOn = 1;
@@ -75,6 +77,8 @@ class SettingManager {
           isListingAllUnfinishedMission =
               settingModel.isListingAllUnfinishedMIssion ?? 1;
           isListingFinishedOn = settingModel.isListingFinishedOn ?? 1;
+          isListingCalendarVisibleOn = settingModel.isListingCalendarVisibleOn ?? 1;
+          isListingAlarmVisibleOn =  settingModel.isListingAlarmVisibleOn ?? 1;
           isListingAllOn = settingModel.isListingAllOn ?? 1;
 
           isTomatoPageOn = settingModel.isTomatoPageOn ?? 1;
@@ -217,6 +221,16 @@ class SettingManager {
 
   setIsTomatoPageOn(int value) {
     isTomatoPageOn = value;
+    updateSettingModel();
+  }
+
+  setIsListingCalendarOn(int value) {
+    isListingCalendarVisibleOn = value;
+    updateSettingModel();
+  }
+
+  setIsAlarmPageOn(int value) {
+    isListingAlarmVisibleOn = value;
     updateSettingModel();
   }
 

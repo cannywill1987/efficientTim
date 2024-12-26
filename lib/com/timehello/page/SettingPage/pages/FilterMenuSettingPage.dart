@@ -101,6 +101,12 @@ class FilterMenuSettingPageState
       case 'AIHelper':
         SettingManager.getSyncInstance().setIsAIHelperPageOn(value);
         break;
+      case 'fragment_calendar':
+        SettingManager.getSyncInstance().setIsListingCalendarOn(value);
+        break;
+      case 'fragment_alarm':
+        SettingManager.getSyncInstance().setIsAlarmPageOn(value);
+        break;
     }
     updateUI();
   }
@@ -134,6 +140,10 @@ class FilterMenuSettingPageState
         return SettingManager.getSyncInstance().isListingAllOn;
       case "do_it_now":
         return SettingManager.getSyncInstance().isListingDoItNowOn;
+      case "fragment_calendar":
+        return SettingManager.getSyncInstance().isListingCalendarVisibleOn;
+      case "fragment_alarm":
+        return SettingManager.getSyncInstance().isListingAlarmVisibleOn;
     }
     return 1;
   }

@@ -19,6 +19,7 @@ import '../../../../r.dart';
 import '../../beans/ResourceDeliveryInfoBean.dart';
 import '../../beans/ResourceLocationInfoBean.dart';
 import '../../common/provider/GlobalStateEnv.dart';
+import '../../components/CalendarIconWidget.dart';
 import '../../components/ClockInWidget.dart';
 import '../../components/FamousSentenceWidget.dart';
 import '../../components/HabitTrackerApp.dart';
@@ -444,7 +445,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
             child: Center(
                 child: Text(
               _countdownTime.toString(),
-              style: TextStyle(fontSize: 14, color: Color(0xff777777)),
+              style: TextStyle(fontSize: 12, color: Color(0xff777777)),
             )),
           )),
     ]);
@@ -490,6 +491,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, HabitTrackerApp());
                   // Utility.pushReplacement(context, ClockInWidget());
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, CalendarIcon());
+
                   // Utility.pushReplacement(context, PremiumUpgradePage());
 
                   // Utility.pushReplacement(context, Test8Page());

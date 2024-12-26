@@ -1,5 +1,13 @@
 {
   "@@locale": "en",
+  "jump_to_xxx": "Jump to {xxx}",
+  "save_mode": "保存模式",
+  "dateFromYearMonthToMins": "{t0}年{t1}月{t2}日 {t3}:{t4}",
+  "apple_alarm": "Apple Alarm",
+  "apple_calendar": "Apple Calendar",
+  "from_calendar": "From Calendar",
+  "from_reminder": "From Reminder",
+  "join_us": "Join us",
   "sort": "Sort",
   "sync_desktop_widget": "Sync desktop widget",
   "sync_desktop_widget_success": "Desktop widget synced successfully, please confirm adding the desktop widget",

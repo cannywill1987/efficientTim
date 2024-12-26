@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
@@ -151,6 +152,38 @@ class DownloadListwidget extends StatelessWidget {
                 },
                 child: DeviceInfoManagement.isMacOs() ? Utility.getSVGPicture(R.assetsImgIcSafari, size: 20) : Utility.getSVGPicture(R.assetsImgIcChrome, size: 20
               )
+              ),
+              if(Utility.isChina())
+              SizedBox(
+                width: space,
+              ),
+              if(Utility.isChina())
+              InkWell(
+                  onTap: () async {
+                    // showCupertinoDialog(context: context, builder: builder)
+                    // showTextAnswerDialog(context: context, keyword: keyword)
+                    DialogManagement.getInstance().showCustomIconTitleAndDescDialog(
+                        Utility.getGlobalContext(),
+                        btnConfirm: getI18NKey().copy,
+                        title: getI18NKey()
+                            .join_us,
+                        desc:  getI18NKey().copy_qq,
+
+                        iconWidget: Utility.getSVGPicture(R.assetsImgIcQq, size: 40),
+
+                        okCallback: (bool isCheck) async {
+                          if (Localizations.localeOf(Utility.getGlobalContext()).languageCode !=
+                              "zh") {
+                            Utility.openExternalWebView(url: Urls.facebook);
+                          } else {
+                            Utility.copyToClipboard("563144208", shouldShowToast: false);
+                            Utility.showToastMsg(
+                                context: context, msg: getI18NKey().copy_qq_success);
+                          }
+                        });
+
+                  },
+                  child:Utility.getSVGPicture(R.assetsImgIcQq, size: 20)
               )
             ],
           ),

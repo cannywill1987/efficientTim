@@ -13,10 +13,11 @@ class TagsGridViewWidget extends StatefulWidget {
   OnTapListener? onTapDeleteTagListener;
   OnTapListener? onTapAddTagListener;
   List<FolderModel> datas = [];
-
+  Widget? child;
   TagsGridViewWidget(
       {this.onTapAddTagListener,
       this.onTapDeleteTagListener,
+        this.child,
       required this.datas});
 
   @override
@@ -51,7 +52,11 @@ class _TagsGridViewWidgetState extends State<TagsGridViewWidget> {
             runSpacing: 5, //交叉轴上子控件之间的间距
             children: getItems(),
           ),
-        )
+        ),
+        if(this.widget.child != null)
+        Spacer(),
+        if(this.widget.child != null)
+        this.widget.child!
       ],
     );
   }

@@ -1,5 +1,13 @@
 {
   "@@locale": "ja",
+  "jump_to_xxx": "{xxx}にジャンプ",
+  "save_mode": "保存モード",
+  "dateFromYearMonthToMins": "{t0}年{t1}月{t2}日 {t3}:{t4}",
+  "apple_alarm": "Apple アラーム",
+  "apple_calendar": "Apple カレンダー",
+  "from_calendar": "カレンダーから",
+  "from_reminder": "リマインダーから",
+  "join_us": "参加する",
   "sort": "並べ替え",
   "sync_desktop_widget": "デスクトップウィジェットを同期する",
   "sync_desktop_widget_success": "デスクトップウィジェットの同期に成功しました。デスクトップウィジェットの追加を確認してください。",

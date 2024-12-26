@@ -22,6 +22,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
+import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -31,9 +32,11 @@ import '../../beans/UserBean.dart';
 import '../../common/httpclient/HttpManager.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CustomMarquee.dart';
+import '../../components/IconButtonListWidget.dart';
 import '../../components/MenuItem2.dart';
 import '../../components/SelectCircleDialogUtil.dart';
 import '../../components/TomatoInputNumber.dart';
+import '../../config/ENUMS.dart';
 import '../../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../../libs/mongodb/response/MongoDbSaved.dart';
 import '../../util/DialogManagement.dart';
@@ -76,6 +79,10 @@ class _CreateMissionPageWidgetState<T>
   List<FolderModel> folderModelTags = [];
   FolderModel? folderModel;
   TextEditingController inputTitleController = TextEditingController();
+
+// GlobalKey<BlackCheckButtonListWidgetS>
+  GlobalKey<BlackCheckButtonListWidgetState> blackCheckButtonListWidgetState =
+      GlobalKey<BlackCheckButtonListWidgetState>();
 
   // MissionModel missionModel;
   bool isNeedUpdateBmob =
@@ -221,11 +228,12 @@ class _CreateMissionPageWidgetState<T>
       return;
     }
     try {
-      if(TextUtil.isEmpty(this.widget.missionModel.objectId)) {
+      if (TextUtil.isEmpty(this.widget.missionModel.objectId)) {
         MongoDbSaved? mongoDbSaved = await MongoApisManager.getInstance()
             .insertMissiontData(missionModel: this.widget.missionModel);
         if (mongoDbSaved != null) {
-          Utility.showToastMsg(context: context, msg: getI18NKey().createSuccess);
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().createSuccess);
           //todo 敢做这个没用了 因为用env了
           //mobile端返回上一页
           Utility.popNavigator(context, null);
@@ -233,13 +241,15 @@ class _CreateMissionPageWidgetState<T>
             this.widget.onRefresh!();
           }
         } else {
-          Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().network_error);
         }
       } else {
         MongoDbUpdated? mongoDbSaved = await MongoApisManager.getInstance()
             .update_MissionModel(missionModel: this.widget.missionModel);
         if (mongoDbSaved != null) {
-          Utility.showToastMsg(context: context, msg: getI18NKey().createSuccess);
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().createSuccess);
           //todo 敢做这个没用了 因为用env了
           //mobile端返回上一页
           Utility.popNavigator(context, null);
@@ -247,10 +257,10 @@ class _CreateMissionPageWidgetState<T>
             this.widget.onRefresh!();
           }
         } else {
-          Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
+          Utility.showToastMsg(
+              context: context, msg: getI18NKey().network_error);
         }
       }
-
     } catch (e) {
       Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
     }
@@ -545,7 +555,9 @@ class _CreateMissionPageWidgetState<T>
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TagsGridViewWidget(
                     datas: this.folderModelTags,
                     onTapAddTagListener: (data) {
@@ -574,7 +586,9 @@ class _CreateMissionPageWidgetState<T>
                     },
                   ),
                 ])),
+            if (Utility.shouldShowWallpaper(missionModelType: this.widget.missionModel.missionModelType))
         SizedBox(height: 5),
+        if (Utility.shouldShowWallpaper(missionModelType: this.widget.missionModel.missionModelType))
         TextUtil.isEmpty(this.widget.missionModel.background_url)
             ? getBgSettingItem(null)
             : CachedNetworkImage(
@@ -585,9 +599,11 @@ class _CreateMissionPageWidgetState<T>
                   return getBgSettingItem(imageProviderTmp);
                 }),
         SizedBox(height: 5),
+
         SectionTitleWidget(
           title: getI18NKey().setting,
           child: BlackCheckButtonListWidget(
+            key: blackCheckButtonListWidgetState,
             // initIndex: 1,
             initIndex: this.widget.missionModel.time_mode,
             backgroundColor: ColorsConfig.gray_40,
@@ -601,326 +617,384 @@ class _CreateMissionPageWidgetState<T>
             },
           ),
         ),
-        MenuItem2(
-            title: (this.widget.missionModel.repetiveType == 0 ||
-                    this.widget.missionModel.time_mode == 1)
-                ? getI18NKey().start_time
-                : getI18NKey().daily_start_time,
-            subTitle: this.widget.missionModel.repetiveType == 1
-                ? ""
-                : "(${getI18NKey().optional})",
-            onTapListener: (data) async {
-              if (this.widget.missionModel.time_mode == 1) {
-                DateTimeModel? model =
-                    await Utility.showDateTimePickerDialog(context);
-                updateAlertTime();
-                this.setState(() {
-                  this.isNeedUpdateBmob = true;
-                  this.widget.missionModel?.start_time =
-                      model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
-                });
-              } else {
-                DateTimeModel model;
-                TimeOfDay? timeOfDay;
-                timeOfDay = await Utility.showTimePickerDialog(context);
-                if (timeOfDay == null) {
-                  return;
-                }
-                this.widget.missionModel.daily_start_time =
-                    timeOfDay.hour * 60 * 60 * 1000 +
-                        timeOfDay.minute * 60 * 1000;
-                // if((this.widget.missionModel.alert_time??0) > 0) {
-                //   Params.shouldRefreshPushModelList = true;
-                // }
-                updateAlertTime();
-                this.setState(() {
-                  this.isNeedUpdateBmob = true;
-                });
-              }
-              // this.requestNotification();
-              // NotificationManager.getInstance()
-            },
-            rightPartContainer: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  this.widget.missionModel.time_mode == 1
-                      ? CONSTANTS.getAlertDateString(
-                          Utility.getDateTimeModelFromTimeStamp(
-                              this.widget.missionModel?.start_time ?? 0))
-                      : TextUtil.isEmpty(
-                                  this.widget.missionModel.daily_start_time) ==
-                              false
-                          ? Utility.formatHourAndMin2(
-                              this.widget?.missionModel?.daily_start_time ?? 0)
-                          : getI18NKey().none,
-                  style:
-                      TextStyle(fontSize: 15, color: ColorsConfig.gray_a3_icon),
-                ),
-                IconButton(
-                  icon: Icon(Icons.cancel,
-                      size: 20, color: ColorsConfig.gray_cc_cancel),
-                  onPressed: () {
+        if (DeviceInfoManagement.isMacOs() || DeviceInfoManagement.isIOS())
+          MenuItem2(
+              title: getI18NKey().save_mode,
+              subTitle: "",
+              onTapListener: (data) async {},
+              rightPartContainer: IconButtonListWidget(
+                popupModeEnum: PopupModeEnum.popup,
+                initIndex: this.widget.missionModel.missionModelType ?? 0,
+                list: CONSTANTS.getMissionTypeButtonList(defaultVal: 0),
+                onTapListener: (obj) {
+                  switch (obj['data'].code) {
+                    case 'normal':
+                      blackCheckButtonListWidgetState.currentState
+                          ?.setCurIndex(0);
+                      this.widget.missionModel.missionModelType = 0;
+                      this.widget.missionModel.time_mode = 0;
+                      // this.time_mode = 0;
+                      break;
+                    case 'calendar':
+                      blackCheckButtonListWidgetState.currentState
+                          ?.setCurIndex(1);
+                      this.widget.missionModel.time_mode = 1;
+                      // _tabBarKey.currentState?.setChecked(0);
+                      this.widget.missionModel.missionModelType = 1;
+                      // this.time_mode = 1;
+                      break;
+                    case 'alarm':
+                      blackCheckButtonListWidgetState.currentState
+                          ?.setCurIndex(0);
+                      this.widget.missionModel.time_mode = 0;
+                      // _tabBarKey.currentState?.setChecked(0);
+                      this.widget.missionModel.missionModelType = 2;
+                      // this.time_mode = 0;
+                      break;
+                  }
+                  setState(() {});
+                },
+              ),
+              icon: Utility.getSVGPicture(R.assetsImgIcCalendarMode,
+                  size: StylesConfig.iconSize,
+                  color: ThemeManager.getInstance().getDefautThemeColor())),
+        if (Utility.shouldShowBeginTime(
+            missionModelType: this.widget.missionModel.missionModelType))
+          MenuItem2(
+              title: (this.widget.missionModel.repetiveType == 0 ||
+                      this.widget.missionModel.time_mode == 1)
+                  ? getI18NKey().start_time
+                  : getI18NKey().daily_start_time,
+              subTitle: this.widget.missionModel.repetiveType == 1
+                  ? ""
+                  : "(${getI18NKey().optional})",
+              onTapListener: (data) async {
+                if (this.widget.missionModel.time_mode == 1) {
+                  DateTimeModel? model =
+                      await Utility.showDateTimePickerDialog(context);
+                  updateAlertTime();
+                  this.setState(() {
                     this.isNeedUpdateBmob = true;
-                    // this.widget.missionModel.daily_start_time = 0;
-                    this.widget.missionModel?.daily_start_time = 0;
-                    this.widget.missionModel?.start_time = null;
-                    this.updateUI();
-                  },
-                )
-              ],
-            ),
-            icon: Utility.getSVGPicture(R.assetsImgIcStarttimeOrange,
-                size: StylesConfig.iconSize,
-                color: ThemeManager.getInstance().getDefautThemeColor())),
-        MenuItem2(
-            title: (this.widget.missionModel.repetiveType == 0 ||
-                    this.widget.missionModel.time_mode == 1)
-                ? getI18NKey().end_time
-                : getI18NKey().daily_end_time,
-            subTitle: this.widget.missionModel.repetiveType == 1
-                ? ""
-                : "(${getI18NKey().optional})",
-            onTapListener: (data) async {
-              if (this.widget.missionModel.time_mode == 1) {
-                if (this.widget.missionModel?.start_time == null) {
-                  Utility.showToastMsg(
-                      context: context,
-                      msg: getI18NKey().please_select_daily_start_time);
-                  return;
+                    this.widget.missionModel?.start_time =
+                        model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
+                  });
+                } else {
+                  DateTimeModel model;
+                  TimeOfDay? timeOfDay;
+                  timeOfDay = await Utility.showTimePickerDialog(context);
+                  if (timeOfDay == null) {
+                    return;
+                  }
+                  this.widget.missionModel.daily_start_time =
+                      timeOfDay.hour * 60 * 60 * 1000 +
+                          timeOfDay.minute * 60 * 1000;
+                  // if((this.widget.missionModel.alert_time??0) > 0) {
+                  //   Params.shouldRefreshPushModelList = true;
+                  // }
+                  updateAlertTime();
+                  this.setState(() {
+                    this.isNeedUpdateBmob = true;
+                  });
                 }
-                DateTimeModel? model =
-                    await Utility.showDateTimePickerDialog(context);
-                if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
-                    (this.widget.missionModel?.start_time ?? 0)) {
-                  Utility.showToastMsg(
-                      context: context,
-                      msg: getI18NKey().end_time_cannot_before_start_time);
-                  this.widget.missionModel?.end_time = null;
-                  return;
-                }
-                this.setState(() {
-                  this.isNeedUpdateBmob = true;
-                  this.widget.missionModel?.end_time =
-                      model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
-                });
-              } else {
-                if (this.widget.missionModel.daily_start_time == null) {
-                  Utility.showToastMsg(
-                      context: context,
-                      msg: getI18NKey().please_select_daily_start_time);
-                  return;
-                }
-                TimeOfDay? timeOfDay;
-                timeOfDay = await Utility.showTimePickerDialog(context);
-                if (timeOfDay == null) {
-                  return;
-                }
-                int endTime = timeOfDay.hour * 60 * 60 * 1000 +
-                    timeOfDay.minute * 60 * 1000;
-                if (endTime <
-                    (this.widget.missionModel.daily_start_time ?? 0)) {
-                  Utility.showToastMsg(
-                      context: context,
-                      msg: getI18NKey().end_time_cannot_before_start_time);
-                  this.widget.missionModel.daily_end_time = null;
-                  return;
-                }
-                this.widget.missionModel.daily_end_time = endTime;
+                // this.requestNotification();
+                // NotificationManager.getInstance()
+              },
+              rightPartContainer: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    this.widget.missionModel.time_mode == 1
+                        ? CONSTANTS.getAlertDateString(
+                            Utility.getDateTimeModelFromTimeStamp(
+                                this.widget.missionModel?.start_time ?? 0))
+                        : TextUtil.isEmpty(this
+                                    .widget
+                                    .missionModel
+                                    .daily_start_time) ==
+                                false
+                            ? Utility.formatHourAndMin2(
+                                this.widget?.missionModel?.daily_start_time ??
+                                    0)
+                            : getI18NKey().none,
+                    style: TextStyle(
+                        fontSize: 15, color: ColorsConfig.gray_a3_icon),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.cancel,
+                        size: 20, color: ColorsConfig.gray_cc_cancel),
+                    onPressed: () {
+                      this.isNeedUpdateBmob = true;
+                      // this.widget.missionModel.daily_start_time = 0;
+                      this.widget.missionModel?.daily_start_time = 0;
+                      this.widget.missionModel?.start_time = null;
+                      this.updateUI();
+                    },
+                  )
+                ],
+              ),
+              icon: Utility.getSVGPicture(R.assetsImgIcStarttimeOrange,
+                  size: StylesConfig.iconSize,
+                  color: ThemeManager.getInstance().getDefautThemeColor())),
+        if (Utility.shouldShowEndTime(
+            missionModelType: this.widget.missionModel.missionModelType))
+          MenuItem2(
+              title: (this.widget.missionModel.repetiveType == 0 ||
+                      this.widget.missionModel.time_mode == 1)
+                  ? getI18NKey().end_time
+                  : getI18NKey().daily_end_time,
+              subTitle: this.widget.missionModel.repetiveType == 1
+                  ? ""
+                  : "(${getI18NKey().optional})",
+              onTapListener: (data) async {
+                if (this.widget.missionModel.time_mode == 1) {
+                  if (this.widget.missionModel?.start_time == null) {
+                    Utility.showToastMsg(
+                        context: context,
+                        msg: getI18NKey().please_select_daily_start_time);
+                    return;
+                  }
+                  DateTimeModel? model =
+                      await Utility.showDateTimePickerDialog(context);
+                  if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
+                      (this.widget.missionModel?.start_time ?? 0)) {
+                    Utility.showToastMsg(
+                        context: context,
+                        msg: getI18NKey().end_time_cannot_before_start_time);
+                    this.widget.missionModel?.end_time = null;
+                    return;
+                  }
+                  this.setState(() {
+                    this.isNeedUpdateBmob = true;
+                    this.widget.missionModel?.end_time =
+                        model?.datetime?.millisecondsSinceEpoch ?? 0; //计划到期日
+                  });
+                } else {
+                  if (this.widget.missionModel.daily_start_time == null) {
+                    Utility.showToastMsg(
+                        context: context,
+                        msg: getI18NKey().please_select_daily_start_time);
+                    return;
+                  }
+                  TimeOfDay? timeOfDay;
+                  timeOfDay = await Utility.showTimePickerDialog(context);
+                  if (timeOfDay == null) {
+                    return;
+                  }
+                  int endTime = timeOfDay.hour * 60 * 60 * 1000 +
+                      timeOfDay.minute * 60 * 1000;
+                  if (endTime <
+                      (this.widget.missionModel.daily_start_time ?? 0)) {
+                    Utility.showToastMsg(
+                        context: context,
+                        msg: getI18NKey().end_time_cannot_before_start_time);
+                    this.widget.missionModel.daily_end_time = null;
+                    return;
+                  }
+                  this.widget.missionModel.daily_end_time = endTime;
 
-                this.setState(() {
-                  this.isNeedUpdateBmob = true;
-                });
-              }
-              // this.requestNotification();
-              // NotificationManager.getInstance()
-            },
-            rightPartContainer: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  this.widget.missionModel.time_mode == 1
-                      ? CONSTANTS.getAlertDateString(
-                          Utility.getDateTimeModelFromTimeStamp(
-                              this.widget.missionModel?.end_time ?? 0))
-                      : TextUtil.isEmpty(
-                                  this.widget.missionModel.daily_end_time) ==
-                              false
-                          ? Utility.formatHourAndMin2(
-                              this.widget.missionModel.daily_end_time ?? 0)
-                          : getI18NKey().none,
-                  style:
-                      TextStyle(fontSize: 15, color: ColorsConfig.gray_a3_icon),
-                ),
-                IconButton(
-                  icon: Icon(Icons.cancel,
-                      size: 20, color: ColorsConfig.gray_cc_cancel),
-                  onPressed: () {
+                  this.setState(() {
                     this.isNeedUpdateBmob = true;
-                    this.widget.missionModel?.end_time = 0;
-                    this.widget.missionModel?.daily_end_time = 0;
-                    this.updateUI();
-                  },
-                )
-              ],
-            ),
-            icon: Utility.getSVGPicture(R.assetsImgIcEndtimeOrange,
-                size: StylesConfig.iconSize,
-                color: ThemeManager.getInstance().getDefautThemeColor())),
+                  });
+                }
+                // this.requestNotification();
+                // NotificationManager.getInstance()
+              },
+              rightPartContainer: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    this.widget.missionModel.time_mode == 1
+                        ? CONSTANTS.getAlertDateString(
+                            Utility.getDateTimeModelFromTimeStamp(
+                                this.widget.missionModel?.end_time ?? 0))
+                        : TextUtil.isEmpty(
+                                    this.widget.missionModel.daily_end_time) ==
+                                false
+                            ? Utility.formatHourAndMin2(
+                                this.widget.missionModel.daily_end_time ?? 0)
+                            : getI18NKey().none,
+                    style: TextStyle(
+                        fontSize: 15, color: ColorsConfig.gray_a3_icon),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.cancel,
+                        size: 20, color: ColorsConfig.gray_cc_cancel),
+                    onPressed: () {
+                      this.isNeedUpdateBmob = true;
+                      this.widget.missionModel?.end_time = 0;
+                      this.widget.missionModel?.daily_end_time = 0;
+                      this.updateUI();
+                    },
+                  )
+                ],
+              ),
+              icon: Utility.getSVGPicture(R.assetsImgIcEndtimeOrange,
+                  size: StylesConfig.iconSize,
+                  color: ThemeManager.getInstance().getDefautThemeColor())),
         // SizedBox(height: 20,),
-        MenuItem2(
-            title: getI18NKey().mission,
-            subTitle: "(${getI18NKey().optional})",
-            onTapListener: (data) async {
-              this.onClick('onTapCircleListener', data);
-            },
-            rightPartContainer: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  this.folderModel != null && this.folderModel?.title != null
-                      ? (this.folderModel?.title ?? "")
-                      : getI18NKey().none,
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: this.folderModel != null &&
-                              this.folderModel?.color != null
-                          ? Color(this.folderModel?.color ?? 0)
-                          : ColorsConfig.gray_a3_icon),
-                ),
-                IconButton(
-                  icon: Icon(Icons.cancel,
-                      size: 20, color: ColorsConfig.gray_cc_cancel),
-                  onPressed: () {
-                    this.isNeedUpdateBmob = true;
-                    this.widget.missionModel.alert_time = 0;
-                    this.updateUI();
-                  },
-                )
-              ],
-            ),
-            icon: folderModel?.icon != null
-                ? Icon(
-                    IconData(folderModel?.icon ?? 0,
-                        fontFamily: 'MaterialIcons'),
-                    size: 25,
-                    color: folderModel?.icon != null
-                        ? Color(folderModel?.color ?? 0)
-                        : ColorsConfig.gray_a3_icon)
-                : Utility.getSVGPicture(R.assetsImgIcFolderOrange,
-                    size: StylesConfig.iconSize,
-                    color: ThemeManager.getInstance().getDefautThemeColor())),
+        if (Utility.shouldShowCircleFolderId(
+            missionModelType: this.widget.missionModel.missionModelType))
+          MenuItem2(
+              title: getI18NKey().mission,
+              subTitle: "(${getI18NKey().optional})",
+              onTapListener: (data) async {
+                this.onClick('onTapCircleListener', data);
+              },
+              rightPartContainer: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    this.folderModel != null && this.folderModel?.title != null
+                        ? (this.folderModel?.title ?? "")
+                        : getI18NKey().none,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: this.folderModel != null &&
+                                this.folderModel?.color != null
+                            ? Color(this.folderModel?.color ?? 0)
+                            : ColorsConfig.gray_a3_icon),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.cancel,
+                        size: 20, color: ColorsConfig.gray_cc_cancel),
+                    onPressed: () {
+                      this.isNeedUpdateBmob = true;
+                      this.widget.missionModel.alert_time = 0;
+                      this.updateUI();
+                    },
+                  )
+                ],
+              ),
+              icon: folderModel?.icon != null
+                  ? Icon(
+                      IconData(folderModel?.icon ?? 0,
+                          fontFamily: 'MaterialIcons'),
+                      size: 25,
+                      color: folderModel?.icon != null
+                          ? Color(folderModel?.color ?? 0)
+                          : ColorsConfig.gray_a3_icon)
+                  : Utility.getSVGPicture(R.assetsImgIcFolderOrange,
+                      size: StylesConfig.iconSize,
+                      color: ThemeManager.getInstance().getDefautThemeColor())),
         this.widget.missionModel.isFinished == true
             ? SizedBox.shrink()
-            : MenuItem2(
-                title: getI18NKey().tomatoNums,
-                subTitle: getI18NKey().tomatoNums3,
-                onTapListener: (data) {
-                  this.onClick('onClickSelectTomatoes', null);
-                },
-                rightPartContainer:
-                    TomatoInputNumber(onValueChangeListener: (v, duration) {
-                  this.onClick('onClickChangeTomatoesNum',
-                      {"count": v, "duration": duration});
-                }),
-                icon: Utility.getSVGPicture(R.assetsImgIcFocusOrange,
-                    size: StylesConfig.iconSize,
-                    color: ThemeManager.getInstance().getDefautThemeColor())),
-
-        MenuItem2(
-            title: getI18NKey().mission_value,
-            // subTitle: getI18NKey().tomatoNums3,
-            onTapListener: (data) {
-              if (LoginManager.getInstance().userBean.valuePerHour == null ||
-                  LoginManager.getInstance().userBean.valuePerHour == 0) {
+            : Utility.shouldShowTomatoes(
+                        missionModelType:
+                            this.widget.missionModel.missionModelType) ==
+                    false
+                ? SizedBox.shrink()
+                : MenuItem2(
+                    title: getI18NKey().tomatoNums,
+                    subTitle: getI18NKey().tomatoNums3,
+                    onTapListener: (data) {
+                      this.onClick('onClickSelectTomatoes', null);
+                    },
+                    rightPartContainer:
+                        TomatoInputNumber(onValueChangeListener: (v, duration) {
+                      this.onClick('onClickChangeTomatoesNum',
+                          {"count": v, "duration": duration});
+                    }),
+                    icon: Utility.getSVGPicture(R.assetsImgIcFocusOrange,
+                        size: StylesConfig.iconSize,
+                        color:
+                            ThemeManager.getInstance().getDefautThemeColor())),
+        if (Utility.shouldShowMissionValue(
+                missionModelType: this.widget.missionModel.missionModelType) ==
+            true)
+          MenuItem2(
+              title: getI18NKey().mission_value,
+              // subTitle: getI18NKey().tomatoNums3,
+              onTapListener: (data) {
+                if (LoginManager.getInstance().userBean.valuePerHour == null ||
+                    LoginManager.getInstance().userBean.valuePerHour == 0) {
+                  OverlayManagement.getInstance()
+                      .openSelectMoneyPerHourOfMeOverlay(context,
+                          title: getI18NKey().mission_value,
+                          okCallBack: (valuePerHour) async {
+                    OverlayManagement.getInstance().removeSelectDialogOverlay();
+                    BaseBean response = await HttpManager.getInstance()
+                        .doPostRequest(Apis.updateValuePerHour,
+                            params: {"valuePerHour": valuePerHour},
+                            context: context,
+                            shouldShowErrorToast: false);
+                    if (response.success == true) {
+                      LoginManager.getInstance()
+                          .setUserBean(UserBean.fromJson(response.data));
+                    }
+                  });
+                  return;
+                }
                 OverlayManagement.getInstance()
                     .openSelectMoneyPerHourOfMeOverlay(context,
-                        title: getI18NKey().mission_value,
-                        okCallBack: (valuePerHour) async {
-                  OverlayManagement.getInstance().removeSelectDialogOverlay();
-                  BaseBean response = await HttpManager.getInstance()
-                      .doPostRequest(Apis.updateValuePerHour,
-                          params: {"valuePerHour": valuePerHour},
-                          context: context,
-                          shouldShowErrorToast: false);
-                  if (response.success == true) {
-                    LoginManager.getInstance()
-                        .setUserBean(UserBean.fromJson(response.data));
-                  }
+                        title: getI18NKey().mission_value, cancelCallBack: () {
+                  OverlayManagement.getInstance()
+                      .dismissSelectValueMoneyOverlay();
+                }, okCallBack: (data) {
+                  this.setState(() {
+                    this.widget.missionModel?.mission_value = data;
+                    // this.mission_value = data;
+                  });
+                  OverlayManagement.getInstance()
+                      .dismissSelectValueMoneyOverlay();
                 });
-                return;
-              }
-              OverlayManagement.getInstance().openSelectMoneyPerHourOfMeOverlay(
-                  context,
-                  title: getI18NKey().mission_value, cancelCallBack: () {
-                OverlayManagement.getInstance()
-                    .dismissSelectValueMoneyOverlay();
-              }, okCallBack: (data) {
-                this.setState(() {
-                  this.widget.missionModel?.mission_value = data;
-                  // this.mission_value = data;
-                });
-                OverlayManagement.getInstance()
-                    .dismissSelectValueMoneyOverlay();
-              });
-            },
-            rightPartContainer: Column(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        // Text(
-                        //   this.widget.missionModel.mission_value == null ? getI18NKey().none : (this.widget.missionModel.mission_value.toString() + getI18NKey().dollar),
-                        //   style: TextStyle(
-                        //       fontSize: 15,
-                        //       color: this.widget.missionModel.mission_value == null ? ColorsConfig.gray_a3_icon : ColorsConfig.colorGold),
-                        // ),
-                        Text(
-                          this.widget.missionModel.mission_value == null
-                              ? getI18NKey().none
-                              : (this
-                                      .widget
-                                      .missionModel
-                                      .mission_value
-                                      .toString() +
-                                  getI18NKey().dollar +
-                                  "(" +
-                                  getI18NKey().value_per_hour(Utility
-                                      .getMissionValuePerHourByMissionModel(
-                                          missionModel:
-                                              this.widget.missionModel!)) +
-                                  ")"),
-                          style: TextStyle(
-                              fontSize: 15,
-                              color:
-                                  this.widget.missionModel.mission_value == null
-                                      ? ColorsConfig.gray_a3_icon
-                                      : ColorsConfig.colorGold),
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.cancel,
-                          size: 20, color: ColorsConfig.gray_cc_cancel),
-                      onPressed: () {
-                        this.widget.missionModel.mission_value = 0;
-                        updateUI();
-                        // this.isNeedUpdateBmob = true;
-                        // this.widget.missionModel.mission_value = 0;
-                        // this.updateUI();
-                      },
-                    )
-                  ],
-                ),
-              ],
-            ),
-            icon: Utility.getSVGPicture(R.assetsImgIcMoney2,
-                size: StylesConfig.iconSize,
-                color: ThemeManager.getInstance().getDefautThemeColor())),
+              },
+              rightPartContainer: Column(
+                children: [
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          // Text(
+                          //   this.widget.missionModel.mission_value == null ? getI18NKey().none : (this.widget.missionModel.mission_value.toString() + getI18NKey().dollar),
+                          //   style: TextStyle(
+                          //       fontSize: 15,
+                          //       color: this.widget.missionModel.mission_value == null ? ColorsConfig.gray_a3_icon : ColorsConfig.colorGold),
+                          // ),
+                          Text(
+                            this.widget.missionModel.mission_value == null
+                                ? getI18NKey().none
+                                : (this
+                                        .widget
+                                        .missionModel
+                                        .mission_value
+                                        .toString() +
+                                    getI18NKey().dollar +
+                                    "(" +
+                                    getI18NKey().value_per_hour(Utility
+                                        .getMissionValuePerHourByMissionModel(
+                                            missionModel:
+                                                this.widget.missionModel!)) +
+                                    ")"),
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: this.widget.missionModel.mission_value ==
+                                        null
+                                    ? ColorsConfig.gray_a3_icon
+                                    : ColorsConfig.colorGold),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.cancel,
+                            size: 20, color: ColorsConfig.gray_cc_cancel),
+                        onPressed: () {
+                          this.widget.missionModel.mission_value = 0;
+                          updateUI();
+                          // this.isNeedUpdateBmob = true;
+                          // this.widget.missionModel.mission_value = 0;
+                          // this.updateUI();
+                        },
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              icon: Utility.getSVGPicture(R.assetsImgIcMoney2,
+                  size: StylesConfig.iconSize,
+                  color: ThemeManager.getInstance().getDefautThemeColor())),
 
         (this.widget.missionModel.isFinished == true ||
                 this.widget.missionModel?.time_mode == 1)
@@ -971,171 +1045,191 @@ class _CreateMissionPageWidgetState<T>
                     color: ThemeManager.getInstance().getDefautThemeColor())),
         this.widget.missionModel.isFinished == true
             ? SizedBox.shrink()
-            : MenuItem2(
-                title: getI18NKey().alert,
-                subTitle: "(${getI18NKey().optional})",
-                onTapListener: (data) async {
-                  DateTimeModel? model;
-                  TimeOfDay? timeOfDay;
-                  if (this.widget.missionModel.repetiveType == 0) {
-                    model = await Utility.showDateTimePickerDialog(context);
-                    if (model == null) {
-                      return;
-                    }
-                    // this.alertTimeModel = model;
-                    this.widget.missionModel.alert_time =
-                        model.timestamp; //设置提醒时间
-                    // if (model.timestamp > 0) {
-                    //   Params.shouldRefreshPushModelList = true;
-                    // }
-                  } else {
-                    timeOfDay = await Utility.showTimePickerDialog(context);
-                    if (timeOfDay == null) {
-                      return;
-                    }
-                    this.widget.missionModel.alert_time =
-                        timeOfDay.hour * 60 * 60 * 1000 +
-                            timeOfDay.minute * 60 * 1000;
-                    // if((this.widget.missionModel.alert_time??0) > 0) {
-                    //   Params.shouldRefreshPushModelList = true;
-                    // }
-                  }
-                  this.setState(() {
-                    this.isNeedUpdateBmob = true;
-                  });
-                  this.requestNotification();
-                  // NotificationManager.getInstance()
-                },
-                rightPartContainer: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      TextUtil.isEmpty(this.widget.missionModel.alert_time) ==
-                              false
-                          ? (this.widget.missionModel.repetiveType == 0
-                              ? CONSTANTS.getAlertDateString(
-                                  Utility.getDateTimeModelFromTimeStamp(
-                                      this.widget.missionModel.alert_time ?? 0))
-                              : Utility.formatHourAndMin2(
-                                  this.widget.missionModel.alert_time ?? 0))
-                          : getI18NKey().none,
-                      style: TextStyle(
-                          fontSize: 15, color: ColorsConfig.gray_a3_icon),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.cancel,
-                          size: 20, color: ColorsConfig.gray_cc_cancel),
-                      onPressed: () {
+            : Utility.shouldShowAlert(
+                        missionModelType:
+                            this.widget.missionModel.missionModelType) ==
+                    false
+                ? SizedBox.shrink()
+                : MenuItem2(
+                    title: getI18NKey().alert,
+                    subTitle: "(${getI18NKey().optional})",
+                    onTapListener: (data) async {
+                      DateTimeModel? model;
+                      TimeOfDay? timeOfDay;
+                      if (this.widget.missionModel.repetiveType == 0) {
+                        model = await Utility.showDateTimePickerDialog(context);
+                        if (model == null) {
+                          return;
+                        }
+                        // this.alertTimeModel = model;
+                        this.widget.missionModel.alert_time =
+                            model.timestamp; //设置提醒时间
+                        // if (model.timestamp > 0) {
+                        //   Params.shouldRefreshPushModelList = true;
+                        // }
+                      } else {
+                        timeOfDay = await Utility.showTimePickerDialog(context);
+                        if (timeOfDay == null) {
+                          return;
+                        }
+                        this.widget.missionModel.alert_time =
+                            timeOfDay.hour * 60 * 60 * 1000 +
+                                timeOfDay.minute * 60 * 1000;
+                        // if((this.widget.missionModel.alert_time??0) > 0) {
+                        //   Params.shouldRefreshPushModelList = true;
+                        // }
+                      }
+                      this.setState(() {
                         this.isNeedUpdateBmob = true;
-                        this.widget.missionModel.alert_time = 0;
-                        this.updateUI();
+                      });
+                      this.requestNotification();
+                      // NotificationManager.getInstance()
+                    },
+                    rightPartContainer: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          TextUtil.isEmpty(
+                                      this.widget.missionModel.alert_time) ==
+                                  false
+                              ? (this.widget.missionModel.repetiveType == 0
+                                  ? CONSTANTS.getAlertDateString(
+                                      Utility.getDateTimeModelFromTimeStamp(
+                                          this.widget.missionModel.alert_time ??
+                                              0))
+                                  : Utility.formatHourAndMin2(
+                                      this.widget.missionModel.alert_time ?? 0))
+                              : getI18NKey().none,
+                          style: TextStyle(
+                              fontSize: 15, color: ColorsConfig.gray_a3_icon),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.cancel,
+                              size: 20, color: ColorsConfig.gray_cc_cancel),
+                          onPressed: () {
+                            this.isNeedUpdateBmob = true;
+                            this.widget.missionModel.alert_time = 0;
+                            this.updateUI();
+                          },
+                        )
+                      ],
+                    ),
+                    icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
+                        size: StylesConfig.iconSize,
+                        color:
+                            ThemeManager.getInstance().getDefautThemeColor())),
+        if (this.widget.missionModel?.time_mode == 0)
+          (this.widget.missionModel.isFinished == true)
+              ? SizedBox.shrink()
+              : Utility.shouldShowAlert(
+                          missionModelType:
+                              this.widget.missionModel.missionModelType) ==
+                      false
+                  ? SizedBox.shrink()
+                  : MenuItem2(
+                      title: getI18NKey().repetive,
+                      subTitle: "(${getI18NKey().optional})",
+                      onTapListener: (data) {
+                        SelectDatePeriodDialogUtil.show(context, okCallBack:
+                            (valueMiddleSelected, valueRightSelected,
+                                listCheckModels) {
+                          this.isNeedUpdateBmob = true;
+                          this.widget.missionModel.repetiveValue =
+                              valueMiddleSelected; //更新值
+                          if (this.widget.missionModel.repetiveType !=
+                              valueRightSelected) {
+                            this.widget.missionModel.alert_time = 0;
+                          }
+                          this.widget.missionModel.repetiveType =
+                              valueRightSelected; // 0关闭重复 1 按天重复 2 按周重复 3 按月重复 4 按年重复
+                          if (this.widget.missionModel.repetiveWeekDay ==
+                                  null ||
+                              (this
+                                          .widget
+                                          .missionModel
+                                          .repetiveWeekDay
+                                          ?.length ??
+                                      0) ==
+                                  0)
+                            this.widget.missionModel.repetiveWeekDay = [
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                            ];
+                          if (listCheckModels.length > 5) {
+                            this.widget.missionModel.repetiveWeekDay?[0] =
+                                listCheckModels[0].isChecked;
+                            this.widget.missionModel.repetiveWeekDay?[1] =
+                                listCheckModels[1].isChecked;
+                            this.widget.missionModel.repetiveWeekDay?[2] =
+                                listCheckModels[2].isChecked;
+                            this.widget.missionModel.repetiveWeekDay?[3] =
+                                listCheckModels[3].isChecked;
+                            this.widget.missionModel.repetiveWeekDay?[4] =
+                                listCheckModels[4].isChecked;
+                            this.widget.missionModel.repetiveWeekDay?[5] =
+                                listCheckModels[5].isChecked;
+                            this.widget.missionModel.repetiveWeekDay?[6] =
+                                listCheckModels[6].isChecked;
+                          }
+                          updateAlertTime();
+                          updateUI();
+                          // this.isNeedUpdateBmob = true;
+                        });
                       },
-                    )
-                  ],
-                ),
-                icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
-                    size: StylesConfig.iconSize,
-                    color: ThemeManager.getInstance().getDefautThemeColor())),
-        if(this.widget.missionModel?.time_mode == 0)
-        (this.widget.missionModel.isFinished == true)
-            ? SizedBox.shrink()
-            : MenuItem2(
-                title: getI18NKey().repetive,
-                subTitle: "(${getI18NKey().optional})",
-                onTapListener: (data) {
-                  SelectDatePeriodDialogUtil.show(context, okCallBack:
-                      (valueMiddleSelected, valueRightSelected,
-                          listCheckModels) {
-                    this.isNeedUpdateBmob = true;
-                    this.widget.missionModel.repetiveValue =
-                        valueMiddleSelected; //更新值
-                    if (this.widget.missionModel.repetiveType !=
-                        valueRightSelected) {
-                      this.widget.missionModel.alert_time = 0;
-                    }
-                    this.widget.missionModel.repetiveType =
-                        valueRightSelected; // 0关闭重复 1 按天重复 2 按周重复 3 按月重复 4 按年重复
-                    if (this.widget.missionModel.repetiveWeekDay == null ||
-                        (this.widget.missionModel.repetiveWeekDay?.length ??
-                                0) ==
-                            0)
-                      this.widget.missionModel.repetiveWeekDay = [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                      ];
-                    if (listCheckModels.length > 5) {
-                      this.widget.missionModel.repetiveWeekDay?[0] =
-                          listCheckModels[0].isChecked;
-                      this.widget.missionModel.repetiveWeekDay?[1] =
-                          listCheckModels[1].isChecked;
-                      this.widget.missionModel.repetiveWeekDay?[2] =
-                          listCheckModels[2].isChecked;
-                      this.widget.missionModel.repetiveWeekDay?[3] =
-                          listCheckModels[3].isChecked;
-                      this.widget.missionModel.repetiveWeekDay?[4] =
-                          listCheckModels[4].isChecked;
-                      this.widget.missionModel.repetiveWeekDay?[5] =
-                          listCheckModels[5].isChecked;
-                      this.widget.missionModel.repetiveWeekDay?[6] =
-                          listCheckModels[6].isChecked;
-                    }
-                    updateAlertTime();
-                    updateUI();
-                    // this.isNeedUpdateBmob = true;
-                  });
-                },
-                rightPartContainer: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      rightPartContainer: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: Utility.isHandsetBySize() ? 160 : 160,
-                            child: new Text.rich(
-                              //富文本文本框构造方法，可以显示多种样式的text，第一个参数为 TextSpan
-                              new TextSpan(
-                                text: repetiveString,
-                                //文字样式，如果后面的子 TextSpan 没有覆盖该 TextStyle 中的属性，则使用该 TextStyle 指定的样式
-                                style: TextStyle(
-                                    fontSize: 14, color: ColorsConfig.darkRed),
-                                //应该是手势识别监听器，后面用到手势监听再详细学习该类用法
+                          Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  width: Utility.isHandsetBySize() ? 160 : 160,
+                                  child: new Text.rich(
+                                    //富文本文本框构造方法，可以显示多种样式的text，第一个参数为 TextSpan
+                                    new TextSpan(
+                                      text: repetiveString,
+                                      //文字样式，如果后面的子 TextSpan 没有覆盖该 TextStyle 中的属性，则使用该 TextStyle 指定的样式
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: ColorsConfig.darkRed),
+                                      //应该是手势识别监听器，后面用到手势监听再详细学习该类用法
 //          recognizer: ,
-                                //子 TextSpan，可以指定多个
-                              ),
-                              textDirection: TextDirection.rtl,
-                            ),
-                          ),
-                          dateTimeNextTime == null
-                              ? SizedBox.shrink()
-                              : Text(
-                                  CONSTANTS
-                                      .getRepetiveDateString2(dateTimeNextTime),
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorsConfig.gray_a3_icon),
+                                      //子 TextSpan，可以指定多个
+                                    ),
+                                    textDirection: TextDirection.rtl,
+                                  ),
                                 ),
-                        ]),
-                    IconButton(
-                      icon: Icon(Icons.cancel,
-                          size: 20, color: ColorsConfig.gray_cc_cancel),
-                      onPressed: () {
-                        resetRepeativeValue();
-                      },
-                    )
-                  ],
-                ),
-                icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
-                    size: StylesConfig.iconSize,
-                    color: ThemeManager.getInstance().getDefautThemeColor())),
+                                dateTimeNextTime == null
+                                    ? SizedBox.shrink()
+                                    : Text(
+                                        CONSTANTS.getRepetiveDateString2(
+                                            dateTimeNextTime),
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: ColorsConfig.gray_a3_icon),
+                                      ),
+                              ]),
+                          IconButton(
+                            icon: Icon(Icons.cancel,
+                                size: 20, color: ColorsConfig.gray_cc_cancel),
+                            onPressed: () {
+                              resetRepeativeValue();
+                            },
+                          )
+                        ],
+                      ),
+                      icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
+                          size: StylesConfig.iconSize,
+                          color: ThemeManager.getInstance()
+                              .getDefautThemeColor())),
         SizedBox(height: 20),
         Container(
           height: Utility.isHandsetBySize() == true ? 100 : 60,

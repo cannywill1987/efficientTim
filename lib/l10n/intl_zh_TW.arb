@@ -1,5 +1,6 @@
 {
   "@@locale": "zh_TW",
+  "join_us": "加入我們",
   "sort": "排序",
   "sync_desktop_widget": "同步桌面元件",
   "sync_desktop_widget_success": "同步桌面元件成功，請確認添加桌面小元件",

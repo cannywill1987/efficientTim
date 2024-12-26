@@ -14,6 +14,7 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
+import 'package:time_hello/com/timehello/models/MissionModel.dart';
 // import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/FlomoPage/FlomoPage.dart';
 import 'package:time_hello/com/timehello/page/LockScreenPage/LockScreenPage.dart';
@@ -37,6 +38,7 @@ import '../../common/httpclient/HttpManager.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/ConsumeMoneyButtonWidget.dart';
 import '../../components/DownloadListwidget.dart';
+import '../../components/EventModel.dart';
 import '../../components/MoneyHandlerWidget.dart';
 import '../../components/GridMenuItem.dart';
 import '../../components/ThirdPartyLoginWidget.dart';
@@ -370,7 +372,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用-获取权限",
           onTapListener: () async {
-            CounterMethodChannelManager.getInstance().requestEventReminderAccess();
+            await CounterMethodChannelManager.getInstance().requestEventReminderAccess();
+
             // CounterMethodChannelManager.getInstance().shareToWeChat(
             //     title: "title",
             //     subtitle: 'subtitle',
@@ -396,7 +399,9 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用-获取事件",
           onTapListener: () async {
-            CounterMethodChannelManager.getInstance().fetchEventReminderEvents(startDate: 1701940406000, endDate: 1765098806000);
+            List<EventModel> list = await CounterMethodChannelManager.getInstance().fetchCalendarEvents(startDate: 1701940406000, endDate: 1765098806000);
+            List<MissionModel> listModel = Utility.convertListEventModelToListMissionModel(list);
+            // Utility.initCalendarModel();
 
             // final perf = Perf();
             // perf.start();
@@ -421,7 +426,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用-获取提醒",
           onTapListener: () async {
-            CounterMethodChannelManager.getInstance().fetchEventReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
+            CounterMethodChannelManager.getInstance().fetchReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
           }));
     }
     list.add(GridMenuItem(

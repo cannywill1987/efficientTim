@@ -15,6 +15,7 @@ import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
+import '../../../components/CalendarIconWidget.dart';
 import '../../../interface/Interface.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 
@@ -93,6 +94,9 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
 
   Widget getItem(int index, FolderModelWithExtraData folderModelWithExtraData,
       {bool isOthers = false}) {
+    if(folderModelWithExtraData.folderModel.title == getI18NKey().apple_alarm) {
+     print("");
+    }
     bool isItemHover = false;
     // FolderModelWithExtraData folderModelWithExtraData =
     //     this.widget.datas![index];
@@ -287,7 +291,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                 if (this.widget.folderPageViewEnum ==
                     FolderPageViewEnum.listing_unarchive ||
                     this.widget.folderPageViewEnum ==
-                        FolderPageViewEnum.listing_archive)
+                        FolderPageViewEnum.listing_archive || (this.widget.folderPageViewEnum == FolderPageViewEnum.normal && (folderModelWithExtraData.folderModel.iconType == 14 || folderModelWithExtraData.folderModel.iconType == 15))) // 苹果日历 14 苹果提醒 15
                   CustomMissionLayoutTypeWidget(
                     folderModel: folderModelWithExtraData.folderModel,
                   )
@@ -704,6 +708,12 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
       case 13:
         return folderModelWithExtraData.folderTimeModel.numMissionToFinished
             .toString();
+      case 14:
+        return folderModelWithExtraData.folderTimeModel.numMissionToFinished
+            .toString();
+      case 15:
+        return folderModelWithExtraData.folderTimeModel.numMissionToFinished
+            .toString();
     }
     return '';
   }
@@ -767,6 +777,11 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
           return Utility.getSVGPicture(R.assetsImgIcTodo, size: 16);
         case 13:
           return Utility.getSVGPicture(R.assetsImgIcFragment, size: 16);
+        case 14:
+          return CalendarIconWidget(width: 16, height: 18,);
+        case 15:
+          return Utility.getSVGPicture(R.assetsImgIcAppleAlarm, size: 16);
+
 
       // return Icon(Icons.add,
       //     size: iconSize, color: ColorsConfig.create_folder);

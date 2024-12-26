@@ -44,7 +44,7 @@ class FolderModel extends MongoDbObject {
   String? tagName; //标签名称
   int? type; //用于展示 不用于存储 2-今天 明天 即将到来等 3-创建清单
   int? iconType =
-      0; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单
+      0; // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单 14 苹果安卓日历 15 苹果提醒
   List<String>? groupModelObjectIdOrderList = []; //用于groumodel objectId的排序
   String? folderTeamWorkId; // 群id 用于添加文件夹共享
   String? introText; // 群id 用于添加文件夹共享
