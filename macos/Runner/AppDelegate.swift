@@ -27,7 +27,7 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
         //        NotificationCenter.default.addObserver(self, selector: #selector(initNotification(_:)), name:Notification.Name(Params.ACTION_HANDLE_NOTIFICATION_PERMISSION), object: nil)
         //        startLocalNotification();
         //请求推送权限
-        SKPaymentQueue.default().add(IAPManager.shared)
+//        SKPaymentQueue.default().add(IAPManager.shared)
 
         
         let center = UNUserNotificationCenter.current()

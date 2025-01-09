@@ -532,8 +532,13 @@ class _AppointmentLayoutState extends State<AppointmentLayout> {
     const double todayCircleRadius = 5;
     final double startPosition =
         cellPadding + _textPainter.preferredLineHeight + todayCircleRadius;
-    final int maximumDisplayCount =
-        widget.calendar.monthViewSettings.appointmentDisplayCount;
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    print("cellHeight: $cellHeight");
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    final int maximumDisplayCount = cellHeight ~/ (style.fontSize! * 1.8);
+
+    // final int maximumDisplayCount =
+    //     widget.calendar.monthViewSettings.appointmentDisplayCount;
     final double appointmentHeight =
         (cellHeight - startPosition) / maximumDisplayCount;
     // right side padding used to add padding on appointment view right side

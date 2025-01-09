@@ -1869,7 +1869,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 .getInt(
                     key: ShareprefrenceKeys.listAndGridView +
                         this.widget.folderStatusDate.toString(),
-                    defaultVal: 0)];
+                    defaultVal: 2)];
         datas = MongoApisManager.getInstance().listCalendarMissionModels;
       } else if (this.widget.folderStatusDate == 15) {
         // 用这个是因为重复的很难计算 但是calendar算好了 所以直接用这个
@@ -1880,7 +1880,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
             .getInt(
             key: ShareprefrenceKeys.listAndGridView +
                 this.widget.folderStatusDate.toString(),
-            defaultVal: 0)];
+            defaultVal: 2)];
         datas = MongoApisManager.getInstance().listRemindersMissionModels;
       } else if (this.widget.folderStatusDate == 1) {
         // 用这个是因为重复的很难计算 但是calendar算好了 所以直接用这个

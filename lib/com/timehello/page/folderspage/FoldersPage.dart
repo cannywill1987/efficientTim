@@ -756,7 +756,11 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         FolderSectionTitleWidget(
             title: getI18NKey().filterer,
             onClick: () {
-              this.onClick('onTapCreateFilterListener', {});
+    if (LoginManager.getInstance().isVIP(
+    shouldShowDialog: true,
+    paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Filterer)) {
+      this.onClick('onTapCreateFilterListener', {});
+    }
             }),
         getMenuSliverList(
             list: this.listDatasFilteres,

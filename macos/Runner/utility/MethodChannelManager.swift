@@ -43,272 +43,163 @@ class MethodChannelManager {
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
             switch call.method {
-            case "deleteReminder":
+            case "IAPpurchase":
                 guard let args = call.arguments as? String else {
                     result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
                     return
                 }
-                EventReminderManager.shared.deleteReminder(withIdentifier: args) { success, error in
-                    if success {
-                        print("Event deleted successfully.")
-                        result("{\"success\": true, \"error\": \"\"}")
-                    } else {
-                        print("Failed to delete event: \(error?.localizedDescription ?? "Unknown error")")
-                        result("{\"success\": false, \"error\": \"\(error)\"}")
-                    }
-                }
-                break;
-            case "deleteEvent":
-                guard let args = call.arguments as? String else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                EventReminderManager.shared.deleteEvent(withIdentifier: args) { success, error in
-                    if success {
-                        print("Event deleted successfully.")
-                        result("{\"success\": true, \"error\": \"\"}")
-                    } else {
-                        print("Failed to delete event: \(error?.localizedDescription ?? "Unknown error")")
-                        result("{\"success\": false, \"error\": \"\(error)\"}")
-                    }
-                }
-                break;
-            case "openReminderApp":
-                guard let args = call.arguments as? String else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                EventReminderManager.shared.openReminder(withIdentifier: args)
-                break;
-            case "openCalendarApp":
-                guard let args = call.arguments as? Int64 else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                EventReminderManager.shared.openCalendarApp(at: args)
-                break;
+//                EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
+//                    if success {
+//                        result("Events synced to reminders successfully")
+//                    } else {
+//                        result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
+//                    }
+//                }
                 
-            case "updateMissionModelToCalendar":
-                guard let args = call.arguments as? [String: Any]
-                      else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                let ekEvent = EventReminderManager.createCustomEvent(from: args, eventStore: EventReminderManager.shared.eventStore)
-                if ekEvent != nil {
-                    EventReminderManager.shared.updateEvent(id: args["_id"] as? String, ekEvent: ekEvent!) { success, error in
-                        if success {
-                            print("授权成功，可以访问日历和提醒")
-                            result("{\"success\": true, \"error\": \"\"}")
-                        } else {
-                            print("授权失败，错误信息: \(String(describing: error))")
-                            result("{\"success\": false, \"error\": \"\(error)\"}")
-                        }
-                    }
-                }
-                break;
-            case "updateMissionModelToReminder":
-                guard let args = call.arguments as? [String: Any]
-                      else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                let ekEvent = EventReminderManager.convertToEKReminder(from: args, eventStore: EventReminderManager.shared.eventStore)
-                if ekEvent != nil {
-                    EventReminderManager.shared.updateReminder(id: args["_id"] as? String, ekReminder: ekEvent!) { success, error in
-                        if success {
-                            print("授权成功，可以访问日历和提醒")
-                            result("{\"success\": true, \"error\": \"\"}")
-                        } else {
-                            print("授权失败，错误信息: \(String(describing: error))")
-                            result("{\"success\": false, \"error\": \"\(error)\"}")
-                        }
-                    }
-                }
-                break;
-            case "createMissionModelToCalendar":
-                guard let args = call.arguments as? [String: Any]
-                      else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                let ekEvent = EventReminderManager.createCustomEvent(from: args, eventStore: EventReminderManager.shared.eventStore)
-    //            EventReminderManager.shared.syncEvent(ekEvent: ekEvent!, completion: success, error in {})
-                if ekEvent != nil {
-                    EventReminderManager.shared.updateEvent(id: nil, ekEvent: ekEvent!) { success, error in
-                        
-                    }
-                }
-                
-                break;
-            case "requestEventReminderAccess": // 获取权限
-                EventReminderManager.shared.requestAccess { granted, error in
-                    if granted {
-                        print("授权成功，可以访问日历和提醒")
-                        //                           result("Access granted")
-                        result("{\"success\": true, \"error\": \"\"}")
-                    } else {
-                        print("授权失败，错误信息: \(String(describing: error))")
-                        //                           result(FlutterError(code: "ACCESS_DENIED", message: "访问日历或提醒被拒绝", details: error?.localizedDescription))
-                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
-                    }
-                }
-                break;
-            case "fetchEventReminderEvents": // 获取事件
-                guard let args = call.arguments as? [String: Any],
-                      let start = args["startDate"] as? Double,
-                      let end = args["endDate"] as? Double else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                
-                let startDate = Date(timeIntervalSince1970: start / 1000)
-                let endDate = Date(timeIntervalSince1970: end / 1000)
-                EventReminderManager.shared.fetchEvents(startDate: startDate, endDate: endDate) { customEvents in
-    //                let eventTitles = events.map { $0.title }
-                    let res:[[String: Any]] = EventReminderManager.serializeEventList(events: customEvents)
-                    do {
-                        // 创建数据字典
-                        let data: [String: Any] = [
-                            "success": true,
-                            "data":res
-                        ]
-                        
-                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                        if let jsonString = String(data: jsonData, encoding: .utf8) {
-                            result(jsonString) // 使用 JSON 字符串返回结果
-                        } else {
-                            result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
-                        }
-                    } catch {
-                        // 捕获 JSON 转换错误
-                        result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
-                    }
-                    //                           result(res)
-                }
-                break;
-            case "fetchEventReminderReminders": // 获取提醒
-                EventReminderManager.shared.fetchReminders { customReminders in
-                    
-    //                let reminderTitles = reminders.map { $0.title }
-    //                result(reminderTitles)
-                    
-                    let res:[[String: Any]] = EventReminderManager.serializeReminderList(customReminders: customReminders)
-                    do {
-                        // 创建数据字典
-                        let data: [String: Any] = [
-                            "success": true,
-                            "data":res
-                        ]
-                        
-                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                        if let jsonString = String(data: jsonData, encoding: .utf8) {
-                            result(jsonString) // 使用 JSON 字符串返回结果
-                        } else {
-                            result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
-                        }
-                    } catch {
-                        // 捕获 JSON 转换错误
-                        result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
-                    }
-                }
-                break;
-                
-            case "syncEventsToReminders": //同步事件到提醒
-                guard let args = call.arguments as? [String: Any],
-                      let start = args["startDate"] as? Double,
-                      let end = args["endDate"] as? Double else {
-                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
-                    return
-                }
-                
-                let startDate = Date(timeIntervalSince1970: start / 1000)
-                let endDate = Date(timeIntervalSince1970: end / 1000)
-                EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
-                    if success {
-                        result("Events synced to reminders successfully")
-                    } else {
-                        result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
-                    }
-                }
-                break;
-            case "syncRemindersToEvents": //同步提醒到事件
-                EventReminderManager.shared.syncRemindersToEvents { success, error in
-                    if success {
-                        result("Reminders synced to events successfully")
-                    } else {
-                        result(FlutterError(code: "SYNC_FAILED", message: "同步提醒到事件失败", details: error?.localizedDescription))
-                    }
-                }
-                break;
-            case "test":
-                Task {
-                    let _id = "66a84fecb65a7c07dde2a162"
-                    NotificationCenter.default.post(name: NSNotification.Name( Params.ACTION_HANDLE_NOTIFICATION_POSTMESSAGE) , object: self, userInfo: ["action": "handleUpdateFlomoMissionModelList"]);
-                    
-//                    let res:BaseResponse? = await URLSessionRequest.insertStatsModel(params: [
-//                        "title": "111111111111111111",
-//                        "type": 0,
-//                        "focus_duration": 0,
-//                        "tagNames": "",
-//                        "category": NSNull()(),
-//                        "color": 0,
-//                        "icon": 0,
-//                        "device_id": "B5CC32ED-595A-54B7-A814-7BC911FBD2D4",
-//                        "value": 60000.0,
-//                        "begin_time": 1729255421071,
-//                        "finish_time": 1729255481094,
-//                        "duration": 0,
-//                        "folder_id": NSNull()(),
-//                        "mission_id": "66a09799d4c83f07d66e4c23",
-//                        "uid": "089f8c2d-85b9-45f1-899c-d1159ca9e6f3"
-//                    ])
-                    
-//                    let res:ResourceResponse? = await URLSessionRequest.requestSceneList(scene: "timehello_game");
-//                    print("err \(res)")
-                }
-                break;
-            case "IAPManagerFetchReceipt":
-                let list:[String] = (call.arguments as! [String]);
-//                let list:[String] = (res["datas"] as? [String]) ?? [];
-                IAPManager.shared.fetchProducts(list: list) { products in
-                    // 处理获取到的产品数组
-                    if products.isEmpty {
-                        print("No products available.")
-                    } else {
-                        do {
-                            // 将 SKProduct 转换为字典数组
-                            let productsArray = products.map { product -> [String: Any] in
-                                return [
-                                    "title": product.localizedTitle,
-                                    "description": product.localizedDescription,
-                                    "price": "\(product.priceLocale.currencySymbol ?? "")\(product.price)",
-                                    "identifier": product.productIdentifier
-                                ]
-                            }
-                            
-                            // 创建数据字典
-                            let data: [String: Any] = [
-                                "success": true,
-                                "data": productsArray
-                            ]
-                            
-                            // 将字典转换为 JSON 数据
-                            let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                            
-                            // 将 JSON 数据转换为字符串
-                            if let jsonString = String(data: jsonData, encoding: .utf8) {
-                                result(jsonString) // 使用 JSON 字符串返回结果
+                if #available(macOS 12.0, *) {
+                    Task {
+                        await IAPManager.shared.purchase(productID: args) { status, error in
+                            if status > -1 {
+                                result("{\"success\": true, \"data\": \"\(status)\"}");
                             } else {
-                                result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                                result("{\"success\": false, \"data\": \"\"}");
                             }
-                        } catch {
-                            // 捕获 JSON 转换错误
-                            result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                            
                         }
                     }
-                }
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 break;
+            case "IAPManagerFetchProducts":
+                let list:[String] = (call.arguments as! [String]);
+       //                let list:[String] = (res["datas"] as? [String]) ?? [];
+                       if #available(macOS 12.0, *) {
+                           Task {
+                               await IAPManager.shared.fetchProducts(productIDs: list) { products in
+                                   // 处理获取到的产品数组
+                                   if products.isEmpty {
+                                       print("No products available.")
+                                   } else {
+                                       do {
+                                           // 将 SKProduct 转换为字典数组
+                                           let productsArray = products.map { product -> [String: Any] in
+                                               do {
+                                                   var productDictionary: [String: Any] = [:]
+                                                   
+                                                   //                                if #available(macOS 15.0, *) {
+                                                   // 使用推荐的替代属性
+                                                   productDictionary["title"] = product.displayName // 替代 localizedTitle
+                                                   productDictionary["description"] = product.description // 替代 localizedDescription
+                                                   productDictionary["price"] = product.price // 替代 price 和 priceLocale
+                                                   //                                    productDictionary["priceLocaleCurrency"] = product.priceLocale.currency
+                                                   productDictionary["priceLocaleidentifier"] = product.id
+                                                   var currencySymbol = "";
+                                                   if let match = product.displayPrice.range(of: "^[^0-9]+", options: .regularExpression) {
+                                                       currencySymbol = String(product.displayPrice[match])
+                                                       print("Currency Symbol: \(currencySymbol)") // 输出: $
+                                                   }
+                                                   
+                                                   productDictionary["currencySymbol"] = currencySymbol // 替代 price 和 priceLocale
+                                                   productDictionary["identifier"] = product.id // 替代 productIdentifier
+                                                   productDictionary["isFamilyShareable"] = product.isFamilyShareable // 替代 isFamilyShareable
+                                                   //                                } else {
+                                                   //                                    // 使用过时的属性
+                                                   //                                    productDictionary["title"] = product.localizedTitle
+                                                   //                                    productDictionary["description"] = product.localizedDescription
+                                                   //                                    productDictionary["currencySymbol"] = product.priceLocale.currencySymbol // 替代 price 和 priceLocale
+                                                   //                                    productDictionary["price"] = "\(product.priceLocale.currencySymbol ?? "")\(product.price)"
+                                                   ////                                    productDictionary["priceLocaleCurrency"] = product.priceLocale.currency
+                                                   //                                    productDictionary["priceLocaleidentifier"] = product.priceLocale.identifier
+                                                   //                                    productDictionary["identifier"] = product.productIdentifier
+                                                   //                                    productDictionary["isFamilyShareable"] = product.isFamilyShareable
+                                                   //                                }
+                                                   
+                                                   // 处理 isDownloadable 和 downloadable 的兼容性
+                                                   //                                if #available(macOS 10.15, *) {
+                                                   //                                    productDictionary["isDownloadable"] = product.isDownloadable
+                                                   //                                } else {
+                                                   //                                    productDictionary["isDownloadable"] = product.downloadable
+                                                   //                                }
+                                                   //
+                                                   //                                // 处理 subscriptionPeriod
+                                                   //                                if #available(macOS 10.13.2, *) {
+                                                   //                                    if let subscriptionPeriod = product.subscriptionPeriod {
+                                                   //                                        productDictionary["subscriptionPeriod"] = [
+                                                   //                                            "unit": subscriptionPeriod.unit.rawValue, // 表示时间单位，如月或年
+                                                   //                                            "numberOfUnits": subscriptionPeriod.numberOfUnits // 时间单位数量
+                                                   //                                        ]
+                                                   //                                    } else {
+                                                   //                                        productDictionary["subscriptionPeriod"] = "N/A"
+                                                   //                                    }
+                                                   //                                }
+                                                   
+                                                   // 处理 introductoryPrice
+                                                   //                                if #available(macOS 10.13.2, *) {
+                                                   //                                    if let introductoryPrice = product.introductoryPrice {
+                                                   //                                        productDictionary["introductoryPrice"] = [
+                                                   //                                            "price": introductoryPrice.price.stringValue,
+                                                   //                                            "numberOfPeriods": introductoryPrice.numberOfPeriods
+                                                   //                                        ]
+                                                   //                                    } else {
+                                                   //                                        productDictionary["introductoryPrice"] = "N/A"
+                                                   //                                    }
+                                                   //                                }
+                                                   //
+                                                   //                                // 处理 subscriptionGroupIdentifier
+                                                   //                                if #available(macOS 10.14, *) {
+                                                   //                                    productDictionary["subscriptionGroupIdentifier"] = product.subscriptionGroupIdentifier ?? "N/A"
+                                                   //                                }
+                                                   
+                                                   // 处理 discounts
+                                                   //                                if #available(macOS 10.14.4, *) {
+                                                   //                                    productDictionary["discounts"] = product.discounts.map { discount in
+                                                   //                                        [
+                                                   //                                            "price": discount.price.stringValue,
+                                                   //                                            "numberOfPeriods": discount.numberOfPeriods
+                                                   //                                        ]
+                                                   //                                    }
+                                                   //                                }
+                                                   //
+                                                   //                                // 处理 downloadContentLengths 和 downloadContentVersion
+                                                   //                                if #available(macOS 10.14, *) {
+                                                   //                                    productDictionary["downloadContentLengths"] = product.downloadContentLengths
+                                                   //                                    productDictionary["downloadContentVersion"] = product.downloadContentVersion
+                                                   //                                }
+                                                   
+                                                   return productDictionary
+                                               } catch {
+                                                   // 捕获 JSON 转换错误
+                                                   //                                    result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                                               }
+                                           }
+                                           
+                                           // 创建数据字典
+                                           let data: [String: Any] = [
+                                            "success": true,
+                                            "data": productsArray
+                                           ]
+                                           
+                                           // 将字典转换为 JSON 数据
+                                           let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                                           
+                                           // 将 JSON 数据转换为字符串
+                                           if let jsonString = String(data: jsonData, encoding: .utf8) {
+                                               result(jsonString) // 使用 JSON 字符串返回结果
+                                           } else {
+                                               result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                                           }
+                                       } catch {
+                                           // 捕获 JSON 转换错误
+                                           result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                                       }
+                                   }
+                               }
+                           }
+                       } else {
+                           // Fallback on earlier versions
+                       }
+                       break;
             case "setUserBean":
                 uid = (call.arguments as! [[String: Any]])[0]["uid"] as! String;
                 UserDefaults(suiteName: Params.groupName)?.set(uid, forKey: "uid")
@@ -667,6 +558,231 @@ class MethodChannelManager {
                 let id: String = (call.arguments as! [[String: Any]])[0]["action"] as! String;
                 Utility.cancelNotificationWithAction(action: id);
                 result(true);
+                break;
+            case "deleteReminder":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.deleteReminder(withIdentifier: args) { success, error in
+                    if success {
+                        print("Event deleted successfully.")
+                        result("{\"success\": true, \"error\": \"\"}")
+                    } else {
+                        print("Failed to delete event: \(error?.localizedDescription ?? "Unknown error")")
+                        result("{\"success\": false, \"error\": \"\(error)\"}")
+                    }
+                }
+                break;
+            case "deleteEvent":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.deleteEvent(withIdentifier: args) { success, error in
+                    if success {
+                        print("Event deleted successfully.")
+                        result("{\"success\": true, \"error\": \"\"}")
+                    } else {
+                        print("Failed to delete event: \(error?.localizedDescription ?? "Unknown error")")
+                        result("{\"success\": false, \"error\": \"\(error)\"}")
+                    }
+                }
+                break;
+            case "openReminderApp":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.openReminder(withIdentifier: args)
+                break;
+            case "openCalendarApp":
+                guard let args = call.arguments as? Int64 else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                EventReminderManager.shared.openCalendarApp(at: args)
+                break;
+                
+            case "updateMissionModelToCalendar":
+                guard let args = call.arguments as? [String: Any]
+                      else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                let ekEvent = EventReminderManager.createCustomEvent(from: args, eventStore: EventReminderManager.shared.eventStore)
+                if ekEvent != nil {
+                    EventReminderManager.shared.updateEvent(id: args["_id"] as? String, ekEvent: ekEvent!) { success, error in
+                        if success {
+                            print("授权成功，可以访问日历和提醒")
+                            result("{\"success\": true, \"error\": \"\"}")
+                        } else {
+                            print("授权失败，错误信息: \(String(describing: error))")
+                            result("{\"success\": false, \"error\": \"\(error)\"}")
+                        }
+                    }
+                }
+                break;
+            case "updateMissionModelToReminder":
+                guard let args = call.arguments as? [String: Any]
+                      else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                let ekEvent = EventReminderManager.convertToEKReminder(from: args, eventStore: EventReminderManager.shared.eventStore)
+                if ekEvent != nil {
+                    EventReminderManager.shared.updateReminder(id: args["_id"] as? String, ekReminder: ekEvent!) { success, error in
+                        if success {
+                            print("授权成功，可以访问日历和提醒")
+                            result("{\"success\": true, \"error\": \"\"}")
+                        } else {
+                            print("授权失败，错误信息: \(String(describing: error))")
+                            result("{\"success\": false, \"error\": \"\(error)\"}")
+                        }
+                    }
+                }
+                break;
+            case "createMissionModelToCalendar":
+                guard let args = call.arguments as? [String: Any]
+                      else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                let ekEvent = EventReminderManager.createCustomEvent(from: args, eventStore: EventReminderManager.shared.eventStore)
+    //            EventReminderManager.shared.syncEvent(ekEvent: ekEvent!, completion: success, error in {})
+                if ekEvent != nil {
+                    EventReminderManager.shared.updateEvent(id: nil, ekEvent: ekEvent!) { success, error in
+                        
+                    }
+                }
+                
+                break;
+            case "requestEventReminderAccess": // 获取权限
+                EventReminderManager.shared.requestAccess { granted, error in
+                    if granted {
+                        print("授权成功，可以访问日历和提醒")
+                        //                           result("Access granted")
+                        result("{\"success\": true, \"error\": \"\"}")
+                    } else {
+                        print("授权失败，错误信息: \(String(describing: error))")
+                        //                           result(FlutterError(code: "ACCESS_DENIED", message: "访问日历或提醒被拒绝", details: error?.localizedDescription))
+                        result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                    }
+                }
+                break;
+            case "fetchEventReminderEvents": // 获取事件
+                guard let args = call.arguments as? [String: Any],
+                      let start = args["startDate"] as? Double,
+                      let end = args["endDate"] as? Double else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                
+                let startDate = Date(timeIntervalSince1970: start / 1000)
+                let endDate = Date(timeIntervalSince1970: end / 1000)
+                EventReminderManager.shared.fetchEvents(startDate: startDate, endDate: endDate) { customEvents in
+    //                let eventTitles = events.map { $0.title }
+                    let res:[[String: Any]] = EventReminderManager.serializeEventList(events: customEvents)
+                    do {
+                        // 创建数据字典
+                        let data: [String: Any] = [
+                            "success": true,
+                            "data":res
+                        ]
+                        
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        if let jsonString = String(data: jsonData, encoding: .utf8) {
+                            result(jsonString) // 使用 JSON 字符串返回结果
+                        } else {
+                            result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                        }
+                    } catch {
+                        // 捕获 JSON 转换错误
+                        result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                    }
+                    //                           result(res)
+                }
+                break;
+            case "fetchEventReminderReminders": // 获取提醒
+                EventReminderManager.shared.fetchReminders { customReminders in
+                    
+    //                let reminderTitles = reminders.map { $0.title }
+    //                result(reminderTitles)
+                    
+                    let res:[[String: Any]] = EventReminderManager.serializeReminderList(customReminders: customReminders)
+                    do {
+                        // 创建数据字典
+                        let data: [String: Any] = [
+                            "success": true,
+                            "data":res
+                        ]
+                        
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        if let jsonString = String(data: jsonData, encoding: .utf8) {
+                            result(jsonString) // 使用 JSON 字符串返回结果
+                        } else {
+                            result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                        }
+                    } catch {
+                        // 捕获 JSON 转换错误
+                        result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                    }
+                }
+                break;
+                
+            case "syncEventsToReminders": //同步事件到提醒
+                guard let args = call.arguments as? [String: Any],
+                      let start = args["startDate"] as? Double,
+                      let end = args["endDate"] as? Double else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                
+                let startDate = Date(timeIntervalSince1970: start / 1000)
+                let endDate = Date(timeIntervalSince1970: end / 1000)
+                EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
+                    if success {
+                        result("Events synced to reminders successfully")
+                    } else {
+                        result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
+                    }
+                }
+                break;
+            case "syncRemindersToEvents": //同步提醒到事件
+                EventReminderManager.shared.syncRemindersToEvents { success, error in
+                    if success {
+                        result("Reminders synced to events successfully")
+                    } else {
+                        result(FlutterError(code: "SYNC_FAILED", message: "同步提醒到事件失败", details: error?.localizedDescription))
+                    }
+                }
+                break;
+            case "test":
+                Task {
+                    let _id = "66a84fecb65a7c07dde2a162"
+                    NotificationCenter.default.post(name: NSNotification.Name( Params.ACTION_HANDLE_NOTIFICATION_POSTMESSAGE) , object: self, userInfo: ["action": "handleUpdateFlomoMissionModelList"]);
+                    
+//                    let res:BaseResponse? = await URLSessionRequest.insertStatsModel(params: [
+//                        "title": "111111111111111111",
+//                        "type": 0,
+//                        "focus_duration": 0,
+//                        "tagNames": "",
+//                        "category": NSNull()(),
+//                        "color": 0,
+//                        "icon": 0,
+//                        "device_id": "B5CC32ED-595A-54B7-A814-7BC911FBD2D4",
+//                        "value": 60000.0,
+//                        "begin_time": 1729255421071,
+//                        "finish_time": 1729255481094,
+//                        "duration": 0,
+//                        "folder_id": NSNull()(),
+//                        "mission_id": "66a09799d4c83f07d66e4c23",
+//                        "uid": "089f8c2d-85b9-45f1-899c-d1159ca9e6f3"
+//                    ])
+                    
+//                    let res:ResourceResponse? = await URLSessionRequest.requestSceneList(scene: "timehello_game");
+//                    print("err \(res)")
+                }
                 break;
             default:
                 result(FlutterMethodNotImplemented)

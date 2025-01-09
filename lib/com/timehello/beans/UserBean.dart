@@ -9,6 +9,7 @@ class UserBean {
   int? gptToken=0;
   String? authorIntro; // 作者简介
   String? mobilePhoneNumber;
+  List? vipProductList = []; // todo vip会员列表 [{"serviceName":name, list: [moduleName1, moduleName2], timestamp: timestamp}]
   String? email;
   String? uid;
   String? avatar;

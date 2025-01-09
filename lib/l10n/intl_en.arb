@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "already_purchased": "Already purchased",
+  "unknown_error": "Unknown error",
   "jump_to_xxx": "Jump to {xxx}",
   "save_mode": "保存模式",
   "dateFromYearMonthToMins": "{t0}年{t1}月{t2}日 {t3}:{t4}",

@@ -46,6 +46,7 @@ import '../../config/ENUMS.dart';
 import '../../util/DialogManagement.dart';
 import '../../util/GetResourceDeliveryManager.dart';
 import '../../util/Perf.dart';
+import '../ChatGptPage/GPTContainer.dart';
 import '../FeedbackPage/FeedbackPage.dart';
 import '../FlomoPage/components/FlomoPickPeriodDialogWidget.dart';
 import '../PrivacySettingPage/PrivacySettingPage.dart';
@@ -442,7 +443,11 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               size: iconSize),
           title: getI18NKey().lock_app_setting,
           onTapListener: () {
-            Utility.pushNavigator(context, LockScreenPage());
+            if (LoginManager.getInstance().isVIP(
+                shouldShowDialog: true,
+                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Lockscreen)) {
+              Utility.pushNavigator(context, LockScreenPage());
+            }
           }));
     }
     list.add(GridMenuItem(
@@ -498,17 +503,17 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-    // if(Utility.isHuaWei() == false) {
-    //   list.add(GridMenuItem(
-    //       icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
-    //       title: getI18NKey().ai_helper,
-    //       // subtitle: getI18NKey().cloud_sync_content,
-    //       onTapListener: () async {
-    //         // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
-    //         // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
-    //         Utility.pushNavigator(context, const GPTContainer());
-    //       }));
-    // }
+    if(Utility.isHuaWei() == false) {
+      list.add(GridMenuItem(
+          icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
+          title: getI18NKey().ai_helper,
+          // subtitle: getI18NKey().cloud_sync_content,
+          onTapListener: () async {
+            // WQBModeEnum modeEnum = WQBModeEnum.memorandum;
+            // context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
+            Utility.pushNavigator(context, const GPTContainer());
+          }));
+    }
     // list.add(GridMenuItem(
     //     icon: Utility.getSVGPicture(R.assetsImgIcCreditCard, size: iconSize),
     //     title: getI18NKey().credit_bag,

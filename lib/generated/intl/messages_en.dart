@@ -422,6 +422,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already in the group"),
         "already_persisted":
             MessageLookupByLibrary.simpleMessage("Already Persisted"),
+        "already_purchased":
+            MessageLookupByLibrary.simpleMessage("Already purchased"),
         "amount": MessageLookupByLibrary.simpleMessage("Amount"),
         "analyse": MessageLookupByLibrary.simpleMessage("analyse"),
         "analytics": MessageLookupByLibrary.simpleMessage("analyze"),
@@ -2303,6 +2305,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unit": MessageLookupByLibrary.simpleMessage("Unit"),
         "unitMissions": MessageLookupByLibrary.simpleMessage("Tasks"),
         "unitTomatoes": MessageLookupByLibrary.simpleMessage("Tomatoes"),
+        "unknown_error": MessageLookupByLibrary.simpleMessage("Unknown error"),
         "unname_user": MessageLookupByLibrary.simpleMessage("(unnamed user)"),
         "unorder_folderlist":
             MessageLookupByLibrary.simpleMessage("Uncategorized list"),

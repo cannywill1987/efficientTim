@@ -9,14 +9,18 @@ import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/FirebaseAuthManager.dart';
 import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/PermissionManager.dart';
+import 'package:time_hello/com/timehello/util/PriceManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import '../beans/BaseBean.dart';
+import '../beans/PriceProductModel.dart';
+import '../components/PremiumUpgradeWidget.dart';
 import '../config/Params.dart';
 import '../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../models/EventFn.dart';
 import '../page/loginPage/LoginPage.dart';
 import 'AnalyticsEventsManager.dart';
+import 'DialogManagement.dart';
 import 'EditFormat.dart';
 import 'LoginUtil.dart';
 import 'SharePreferenceUtil.dart';
@@ -355,6 +359,28 @@ class LoginManager {
         avatar: map['avatar'],
         name: map['name'],
         loginTypeEnum: LoginTypeEnum.google);
+  }
+
+  bool isVIP({BuildContext? context, required bool shouldShowDialog, PaymentPromotionAdsModeEnum paymentPromotionAdsModeEnum = PaymentPromotionAdsModeEnum.TimeSegment}) {
+    if(context == null) {
+      context = Utility.getGlobalContext();
+    }
+    if (shouldShowDialog == true && PriceManager.getInstance().isVIP() == false) {
+      DialogManagement.getInstance().showPCCustomDialog(
+          context: context,
+          widget: PremiumUpgradeWidget(onClickPurchageCallback: (PriceProductModel model) {
+            PriceManager.getInstance().purchase(identifier: model.identifier, callback: (BaseBean bean) {
+              if(bean.code == 0) {
+                DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买成功"));
+              } else {
+                DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买失败"));
+              }
+            });
+          },));
+      return false;
+    } else {
+      return PriceManager.getInstance().isVIP();
+    }
   }
 
   thirdPartyLoginWithApple(BuildContext context) async {

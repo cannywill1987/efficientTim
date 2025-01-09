@@ -32,7 +32,10 @@ class EventReminderManager {
     
     // MARK: - 获取日历事件
     func fetchEvents(startDate: Date, endDate: Date, completion: @escaping ([EKEvent]) -> Void) {
-        let calendars = eventStore.calendars(for: .event)
+        let calendars = eventStore.calendars(for: .event).filter { calendar in
+            // 排除节假日日历
+            return calendar.type != .subscription // .subscription 通常是节假日或订阅日历
+        }
         let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
         let events = eventStore.events(matching: predicate)
         //        customEvents = Utility.convertEventsToCustomEvents(events: events)

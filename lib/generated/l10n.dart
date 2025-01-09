@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Already purchased`
+  String get already_purchased {
+    return Intl.message(
+      'Already purchased',
+      name: 'already_purchased',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown error`
+  String get unknown_error {
+    return Intl.message(
+      'Unknown error',
+      name: 'unknown_error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Jump to {xxx}`
   String jump_to_xxx(Object xxx) {
     return Intl.message(

@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
+import 'package:time_hello/com/timehello/components/TransparentOverlayPage.dart';
 import 'package:time_hello/com/timehello/components/list_wheel_scroll_view_x.dart';
+import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/CalendarModel.dart';
@@ -21,6 +23,7 @@ import 'package:time_hello/main.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CustomMarquee.dart';
 import '../../util/DialogManagement.dart';
+import '../../util/LoginManager.dart';
 import '../CreateMissionPage/CreateMissionPage.dart';
 import '../SettingItemDetailPage/SettingItemDetailPage.dart';
 import 'components/CalendarSliverListWidget.dart';
@@ -234,29 +237,47 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
   Widget build(BuildContext context) {
     calendarModel = context.watch<GlobalStateEnv>().calendarModel;
     List<MonthModel> monthModelList = calendarModel?.monthModelList ?? [];
-    return ColoredBox(
-      color: ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CustomMarquee(
-            bean: MarqueInfo.marqueCalendarpage,
-          ),
-          Expanded(
-              flex: 1,
-              child: (monthModelList.length > 0 &&
-                      ((monthModelList[this.btmIndex].dayModelList.length)) > 0)
-                  ? buildCenter()
-                  : Container()),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 1,
-            color: Color(0xfff0f0f0),
-          ),
-          Container(height: 60, child: buildBottom())
+    if (LoginManager.getInstance().isVIP(
+        shouldShowDialog: false,
+        paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar))
+      return getChild(monthModelList, context);
+    else
+      return Stack(
+        children: [
+          getChild(monthModelList, context),
+          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+            LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
+            );
+          },),))
         ],
-      ),
-    );
+      );
+  }
+
+  ColoredBox getChild(List<MonthModel> monthModelList, BuildContext context) {
+    return ColoredBox(
+    color: ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        CustomMarquee(
+          bean: MarqueInfo.marqueCalendarpage,
+        ),
+        Expanded(
+            flex: 1,
+            child: (monthModelList.length > 0 &&
+                    ((monthModelList[this.btmIndex].dayModelList.length)) > 0)
+                ? buildCenter()
+                : Container()),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 1,
+          color: Color(0xfff0f0f0),
+        ),
+        Container(height: 60, child: buildBottom())
+      ],
+    ),
+  );
   }
 
   //必须要做这个判断 否则数组为空时会报scrollview异常

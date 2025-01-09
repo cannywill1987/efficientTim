@@ -97,7 +97,9 @@ class DownloadListwidget extends StatelessWidget {
                       okCallBack: (text) {
                         Utility.popNavigator(context);
                         Utility.showToastMsg(msg: getI18NKey().copy_success);
-                        Utility.copyToClipboard("https://timehello.oss-cn-hongkong.aliyuncs.com/app/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86%E5%B1%80ToDo.exe");
+
+                        Utility.copyToClipboard("https://oss.timerbell.com/app/timerbell.exe");
+                        // Utility.copyToClipboard("https://timehello.oss-cn-hongkong.aliyuncs.com/app/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86%E5%B1%80ToDo.exe");
                       },
                       cancelCallBack: () {
                         Utility.popNavigator(context);

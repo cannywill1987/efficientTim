@@ -450,6 +450,12 @@ class BottomBarState extends State<BottomBar> {
                                 .getOnlySettingItemDetailCheckButtonListForAlarm(),
                     // 0 任务 1 日程 2 闹钟提醒
                     onCheckedListener: (int index) {
+                      if(index == 1) {
+                        if(LoginManager.getInstance().isVIP(shouldShowDialog: true) == false){
+                          return;
+                        }
+                        return;
+                      }
                       this.daily_start_time = null;
                       this.daily_end_time = null;
                       this.time_mode = index;

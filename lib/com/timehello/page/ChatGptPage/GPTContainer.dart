@@ -8,8 +8,10 @@ import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTFoldersPage/G
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTRoleGridViewPage.dart';
 import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/WQBMissionPage.dart';
 import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/WrongQuestionBookPage.dart';
+import 'package:time_hello/com/timehello/util/LoginManager.dart';
 
 import '../../common/provider/GlobalStateEnv.dart';
+import '../../components/TransparentOverlayPage.dart';
 import '../../config/CONSTANTS.dart';
 import '../../config/ENUMS.dart';
 import '../../util/ScreenUtil.dart';
@@ -56,36 +58,34 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
       // ),
       drawer: Drawer(
         width: ScreenUtil.getScreenW(context) * 9 / 10,
-        child: GPTFoldersPage(onTapItemListener: () {
-          _scaffoldKey.currentState?.closeDrawer();
-        },),
+        child: GPTFoldersPage(
+          onTapItemListener: () {
+            _scaffoldKey.currentState?.closeDrawer();
+          },
+        ),
       ),
       body: Stack(
         children: [
-          ChatGptPage(pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,)
-
-          // WQBMissionPage(key: ValueKey('MissionPage21312'), onTapNavMenuListener: () {
-          //   // _scaffoldKey.currentState?.openDrawer();
-          // },),
-          // Align(
-          //   alignment: Utility.isHandsetBySize() == true
-          //       ? Alignment(0.0, 0.75)
-          //       : Alignment(0.0, 0.75),
-          //   child: WQBButtonListWidget(
-          //     width: Utility.isHandsetBySize() == true ? 55 : 80,
-          //     initIndex: getInitIndex(),
-          //     list: CONSTANTS.getWQBButtonsList(),
-          //     onTapListener: (obj) {
-          //       WQBModeEnum modeEnum = WQBModeEnum.values[obj['index']];
-          //       context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
-          //       // timelineModeEnum = TimelineModeEnum.values[obj['index']];
-          //       // requestDatas();
-          //     },
-          //   ),
-          // )
+          ChatGptPage(
+            pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
+          ),
+          // if (LoginManager.getInstance().isVIP(
+          //     shouldShowDialog: false,
+          //     paymentPromotionAdsModeEnum:
+          //         PaymentPromotionAdsModeEnum.AIHelper) == false)
+          //   Expanded(child: Container(
+          //     child: TransparentOverlayPage(
+          //       onTapCallback: () {
+          //         LoginManager.getInstance().isVIP(
+          //             shouldShowDialog: true,
+          //             paymentPromotionAdsModeEnum:
+          //                 PaymentPromotionAdsModeEnum.AIHelper);
+          //       },
+          //     ),
+          //   ))
         ],
       ),
-    );;
+    );
   }
 
   Widget baseDesktoptBuild(context) {
@@ -93,33 +93,38 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
       children: [
         Row(
           children: [
-            Container(width: 300, child: GPTFoldersPage(onTapItemListener: () {},)),
+            Container(
+                width: 300,
+                child: GPTFoldersPage(
+                  onTapItemListener: () {},
+                )),
             // Container(
             //     width: 300, child: WQBMissionPage(key: ValueKey("12121"))),
             // Expanded(child:  WQBMissionPage(key: ValueKey("12121"))),
-            Expanded(child: ChatGptPage(pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,)),
+            Expanded(
+                child: ChatGptPage(
+              pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
+            )),
             // Expanded(child: GPTRoleGridViewPage())
             // Expanded(child:  WrongQuestionBookPage(key: ValueKey("12121"), wqbMissionModel: WQBMissionModel(), isEditable: false,))
           ],
         ),
-        // Align(
-        //   alignment: Utility.isHandsetBySize() == true
-        //       ? Alignment(0.0, 0.85)
-        //       : Alignment(0.0, 0.85),
-        //   child: WQBButtonListWidget(
-        //     width: Utility.isHandsetBySize() == true ? 55 : 80,
-        //     initIndex: getInitIndex(),
-        //     list: CONSTANTS.getWQBButtonsList(),
-        //     onTapListener: (obj) {
-        //       WQBModeEnum modeEnum = WQBModeEnum.values[obj['index']];
-        //       context.read<GlobalStateEnv>().wqbModeEnum = modeEnum;
-        //       // timelineModeEnum = TimelineModeEnum.values[obj['index']];
-        //       // requestDatas();
-        //     },
-        //   ),
-        // )
+        // if (LoginManager.getInstance().isVIP(
+        //     shouldShowDialog: false,
+        //     paymentPromotionAdsModeEnum:
+        //     PaymentPromotionAdsModeEnum.AIHelper) == false)
+        //   Expanded(child: Container(
+        //     child: TransparentOverlayPage(
+        //       onTapCallback: () {
+        //         LoginManager.getInstance().isVIP(
+        //             shouldShowDialog: true,
+        //             paymentPromotionAdsModeEnum:
+        //             PaymentPromotionAdsModeEnum.AIHelper);
+        //       },
+        //     ),
+        //   )
+    // )
       ],
     );
   }
-
 }

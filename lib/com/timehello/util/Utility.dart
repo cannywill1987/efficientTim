@@ -1024,12 +1024,6 @@ class Utility {
     List<SessionMissionModel> listTmp = [];
     List<String> listKeysTitle = [];
     List<FolderModel> listFolderModelTmp = [];
-    // 苹果日历
-    if(DeviceInfoManagement.isIOS() == true|| DeviceInfoManagement.isMacOs() == true)
-    listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
-    // 苹果提醒
-    if(DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true)
-    listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
 
     if (folderStatus == -1) {
       listFolderModelTmp = listFolderModel;
@@ -1054,12 +1048,19 @@ class Utility {
       }
     });
     listKeysTitle.sort();
-    // listKeysTitle
-    //     .removeWhere((element) => element == getI18NKey().apple_calendar);
-    // listKeysTitle
-    //     .removeWhere((element) => element == getI18NKey().apple_alarm);
+    listKeysTitle
+        .removeWhere((element) => element == getI18NKey().apple_calendar);
+    listKeysTitle
+        .removeWhere((element) => element == getI18NKey().apple_alarm);
     // listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
     // listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
+    // 苹果日历
+    if(DeviceInfoManagement.isIOS() == true|| DeviceInfoManagement.isMacOs() == true)
+      listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
+    // 苹果提醒
+    if(DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true)
+      listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
+
     listKeysTitle
         .removeWhere((element) => element == getI18NKey().unorder_folderlist);
 
@@ -1086,7 +1087,7 @@ class Utility {
         } else if(element.missionModelType == 2 && elementTitle == getI18NKey().apple_alarm && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
           listMissionModel.add(element);
         } else if (elementTitle ==
-            getFolderTitleByFid(element.folder_id ?? '', listFolderModel, 1)) {
+            getFolderTitleByFid(element.folder_id ?? '', listFolderModel, 1) && element.missionModelType != 1 && element.missionModelType != 2) {
           listMissionModel.add(element);
         }
       });
@@ -1097,6 +1098,13 @@ class Utility {
       listTmp.add(sessionMissionModel);
     });
     return listTmp;
+  }
+
+  /**
+   *
+   */
+  static String formatToTwoDecimalPlaces(double value) {
+    return value.toStringAsFixed(2);
   }
 
   /**

@@ -2029,7 +2029,7 @@ class CONSTANTS {
         title: getI18NKey().normal,
         isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
-        code: 'calendar',
+        code: 'encrypted',
         checkIcon: Utility.getSVGPicture(R.assetsImgIcSecure, size: size),
         uncheckIcon: Utility.getSVGPicture(R.assetsImgIcSecure, size: size),
         title: getI18NKey().encrypt,
@@ -3590,7 +3590,7 @@ class CONSTANTS {
    * 从daymodel得到MissionModel
    */
   static List<MissionModel> getMissionModelFromDayModel(List<DayModel> list,
-      {bool shouldRequireIsNotFinished = false}) {
+      {bool shouldRequireIsNotFinished = false, missionModelType = 0}) {
     List<MissionModel> listMissionModel = [];
     DateTime nowDateTime = DateTime.now();
     DateTime todayDateTime =
@@ -3609,11 +3609,15 @@ class CONSTANTS {
                       missionModel.updatedAt ?? "");
               if (dateTimeMissionModel.isBefore(todayDateTime) == false) {
                 // 今天之前都允许添加
-                listMissionModel.add(missionModel);
+                if ((missionModel.missionModelType == missionModelType || (missionModelType == 0 && missionModel.missionModelType == null))) {
+                  listMissionModel.add(missionModel);
+                }
               }
             }
           } else {
-            listMissionModel.add(missionModel);
+            if ((missionModel.missionModelType == missionModelType || (missionModelType == 0 && missionModel.missionModelType == null))) {
+              listMissionModel.add(missionModel);
+            }
           }
 
           // listMissionModel.add(missionModel);

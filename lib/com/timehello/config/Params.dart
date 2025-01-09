@@ -7,7 +7,11 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.uat; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final String mOssUrl = "http://oss.timerbell.com";
+  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
+  static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
+
   static final isMongoDbCacheOn = false; // mongodb的缓存是否开启
   static bool useGmail = false; //是否使用gmail 完成登录注册等
   static final isHttpCacheOn = false; // mongodb的缓存是否开启
@@ -41,9 +45,6 @@ class Params {
   static final int RECEIVE_TIMEOUT = 40000;
 
   static final int RINGTONE_DURATION = 10000;
-  static final String mOssUrl = "http://oss.timerbell.com";
-  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
-  static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
   static final String mMemberBaseUrl = "";
   static final String MSN_REGISTER_SCENE = "MSN_REGISTER_SCENE";
   static final String MSN_UNREGISTER_SCENE = "MSN_UNREGISTER_SCENE";
@@ -164,6 +165,8 @@ class Apis {
   static String updateUser = "/api/timehello/updateUser";
   static String resetPwd = "/api/timehello/resetPwd"; //重置密码
   static String updateAvatar = "/api/timehello/updateAvatar"; //更新用户头像
+  static String updateVipProductList = "/api/timehello/updateVipProductList"; //更新vip产品列表
+
   static String loginWithTokenUid = "/api/timehello/loginWithTokenUid"; //闪屏页更新用户信息
   // static String upload = '/api/common/upload'; //上传图片
   static String uploadOss = '/api/common/uploadOss'; //上传图片

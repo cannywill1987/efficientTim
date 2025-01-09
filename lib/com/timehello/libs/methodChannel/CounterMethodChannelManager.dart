@@ -487,20 +487,33 @@ class CounterMethodChannelManager {
     return eventsRemindModel;
   }
 
-  Future<List<PriceProductModel>> IAPManagerFetchReceipt(
+  Future<BaseBean> IAPPurchase({required String id}) async {
+    try {
+      String res =
+          (await _channel.invokeMethod<String>('IAPpurchase', id)) ?? "";
+      return BaseBean.fromJson(jsonDecode(res));
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
+  Future<List<PriceProductModel>> IAPManagerFetchProducts(
       {required List<String> listProducts}) async {
     try {
       if (listProducts.length > 0) {
         String res = (await _channel.invokeMethod<String>(
-                'IAPManagerFetchReceipt', listProducts)) ??
+                'IAPManagerFetchProducts', listProducts)) ??
             "";
         Map<String, dynamic> json = jsonDecode(res);
-        final events = (json['data'] as List)
-            .map((e) => PriceProductModel.fromJson(e))
-            .toList();
+        final events = (json['data'] as List).map((e) {
+          e['price'] = e['price'].toDouble() ?? 0.0;
+          return PriceProductModel.fromJson(e);
+        }).toList();
         return events;
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     return [];
   }
 

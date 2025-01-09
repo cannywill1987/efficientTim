@@ -40,6 +40,7 @@ import '../../config/ENUMS.dart';
 import '../../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../../libs/mongodb/response/MongoDbSaved.dart';
 import '../../util/DialogManagement.dart';
+import '../../util/EasyLoadingManager.dart';
 import '../../util/LoginManager.dart';
 import '../../util/OverlayManagement.dart';
 import 'components/TagsGridViewWidget.dart';
@@ -228,6 +229,7 @@ class _CreateMissionPageWidgetState<T>
       return;
     }
     try {
+        EasyLoadingManager.getInstance().showLoading();
       if (TextUtil.isEmpty(this.widget.missionModel.objectId)) {
         MongoDbSaved? mongoDbSaved = await MongoApisManager.getInstance()
             .insertMissiontData(missionModel: this.widget.missionModel);
@@ -236,6 +238,7 @@ class _CreateMissionPageWidgetState<T>
               context: context, msg: getI18NKey().createSuccess);
           //todo 敢做这个没用了 因为用env了
           //mobile端返回上一页
+          EasyLoadingManager.getInstance().hideLoading();
           Utility.popNavigator(context, null);
           if (this.widget.onRefresh != null) {
             this.widget.onRefresh!();
@@ -256,12 +259,14 @@ class _CreateMissionPageWidgetState<T>
           if (this.widget.onRefresh != null) {
             this.widget.onRefresh!();
           }
+          EasyLoadingManager.getInstance().hideLoading();
         } else {
           Utility.showToastMsg(
               context: context, msg: getI18NKey().network_error);
         }
       }
     } catch (e) {
+      EasyLoadingManager.getInstance().hideLoading();
       Utility.showToastMsg(context: context, msg: getI18NKey().network_error);
     }
   }
@@ -610,6 +615,12 @@ class _CreateMissionPageWidgetState<T>
             list: CONSTANTS.getSettingItemDetailCheckButtonList(
                 defaultVal: this.widget.missionModel.time_mode ?? 0),
             onTapListener: (index) async {
+              if(index == 1) {
+                if (LoginManager.getInstance().isVIP(shouldShowDialog: true) ==
+                    false) {
+                  return;
+                }
+              }
               this.widget.missionModel.time_mode = index;
               this.widget.missionModel?.end_time = 0;
               this.widget.missionModel?.start_time = 0;
@@ -636,6 +647,10 @@ class _CreateMissionPageWidgetState<T>
                       // this.time_mode = 0;
                       break;
                     case 'calendar':
+                      if (LoginManager.getInstance().isVIP(shouldShowDialog: true) ==
+                          false) {
+                        return;
+                      }
                       blackCheckButtonListWidgetState.currentState
                           ?.setCurIndex(1);
                       this.widget.missionModel.time_mode = 1;
@@ -644,6 +659,10 @@ class _CreateMissionPageWidgetState<T>
                       // this.time_mode = 1;
                       break;
                     case 'alarm':
+                      if (LoginManager.getInstance().isVIP(shouldShowDialog: true) ==
+                          false) {
+                        return;
+                      }
                       blackCheckButtonListWidgetState.currentState
                           ?.setCurIndex(0);
                       this.widget.missionModel.time_mode = 0;

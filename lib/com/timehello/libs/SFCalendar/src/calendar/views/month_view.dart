@@ -906,6 +906,7 @@ class _MonthViewRenderObject extends CustomCalendarRenderObject {
     final double cellWidth =
         (size.width - weekNumberPanelWidth) / DateTime.daysPerWeek;
     final double cellHeight = size.height / rowCount;
+    // final double cellHeight = size.height / rowCount;
     double xPosition = isRTL
         ? size.width - cellWidth - weekNumberPanelWidth
         : weekNumberPanelWidth;
@@ -1105,7 +1106,7 @@ if(Utility.isChina()) {
         canvas.drawCircle(
             Offset(xPosition + cellWidth / 2,
                 yPosition + circlePadding + textHeight),
-            textHeight + viewPadding + 6,
+            textHeight + viewPadding ,
             _linePainter);
       }
 

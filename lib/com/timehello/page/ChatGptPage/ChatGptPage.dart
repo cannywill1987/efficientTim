@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/GPTCreateMissionWidget.dart';
 import 'package:time_hello/com/timehello/components/IconButtonListWidget.dart';
+import 'package:time_hello/com/timehello/components/TransparentOverlayPage.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
@@ -219,102 +220,120 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
   baseBuild(BuildContext context) {
     // TODO: implement baseBuild
     // this.list = context.read<GlobalStateEnv>().listChatGptMessageModel;
+    if (LoginManager.getInstance().isVIP(
+        shouldShowDialog: false,
+        paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar))
+    return getChild(context);
+    else
+      return Stack(
+        children: [
+          getChild(context),
+          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+            LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
+            );
+          },),))
+        ],
+      );
+  }
+
+  Selector<Env, ChatGptFolderModel> getChild(BuildContext context) {
     return Selector<Env, ChatGptFolderModel>(
-        selector: (_, env) => env.curChatGptFolderModel,
-        builder: (_, curChatGptFolderModel, __) {
-          //PageGPTFromEnum.RightBarPage 不用 主要用于ai助手
-          _curChatGptFolderModel = curChatGptFolderModel;
-          return Selector<GlobalStateEnv, List<ChatGptMessageModel>>(
-              selector: (_, env) => env.listChatGptMessageModel,
-              builder: (_, listChatGptMessageModel, __) {
-                // this.list = listChatGptMessageModel;
-                requestDatas();
-                return Column(
-                  children: [
-                    CustomMarquee(
-                      bean: MarqueInfo.marqueGPTPage,
+      selector: (_, env) => env.curChatGptFolderModel,
+      builder: (_, curChatGptFolderModel, __) {
+        //PageGPTFromEnum.RightBarPage 不用 主要用于ai助手
+        _curChatGptFolderModel = curChatGptFolderModel;
+        return Selector<GlobalStateEnv, List<ChatGptMessageModel>>(
+            selector: (_, env) => env.listChatGptMessageModel,
+            builder: (_, listChatGptMessageModel, __) {
+              // this.list = listChatGptMessageModel;
+              requestDatas();
+              return Column(
+                children: [
+                  CustomMarquee(
+                    bean: MarqueInfo.marqueGPTPage,
+                  ),
+                  if (this.widget.pageGPTFromEnum ==
+                      PageGPTFromEnum.RightBarPage)
+                    ChatGptHeaderWidget(
+                      key: ValueKey("ejzifizejf"),
+                      onTapListener: (CheckButtonStateModel model) async {
+                        switch (model.code) {
+                          case 'chat':
+                            showPage(page: ChatGptPageEnum.chatGptPage);
+                            break;
+                          case 'more':
+                            showPage(page: ChatGptPageEnum.morePage);
+                            break;
+                          case 'previous_chat':
+                            showPage(page: ChatGptPageEnum.historyPage);
+                            break;
+                          case 'new_chat':
+                            // ChatGptMessageModel? chatGptMessageModelCurSelected =
+                            //     MongoApisManager.getInstance()
+                            //         .getCurChatGptMessageModel();
+                            //如果当前选中的是文件夹在编辑中 且没有内容为空 就不需要重新创建一个空的ChatGptMessageModel 直接打开页面就好了
+                            // if (chatGptMessageModelCurSelected != null &&
+                            //     TextUtil.isEmpty(
+                            //             chatGptMessageModelCurSelected.folderTitle) ==
+                            //         true) {
+                            //   this.chatGptMessageModelCurSelected = chatGptMessageModelCurSelected;
+                            // } else {
+                            await createEmptyChatGptMessageModel();
+                            // }
+                            showPage(page: ChatGptPageEnum.chatGptPage);
+                            break;
+                          case 'close':
+                            if (this.chatGptPageEnum ==
+                                    ChatGptPageEnum.chatGptPage ||
+                                this.chatGptPageEnum ==
+                                    ChatGptPageEnum.morePage) {
+                              Utility.popupDesktopRightNavigator(context);
+                            } else {
+                              showPage(page: ChatGptPageEnum.chatGptPage);
+                            }
+                            break;
+                        }
+                      },
+                      chatGptPageEnum: this.chatGptPageEnum,
                     ),
-                    if (this.widget.pageGPTFromEnum ==
-                        PageGPTFromEnum.RightBarPage)
-                      ChatGptHeaderWidget(
-                        key: ValueKey("ejzifizejf"),
-                        onTapListener: (CheckButtonStateModel model) async {
-                          switch (model.code) {
-                            case 'chat':
-                              showPage(page: ChatGptPageEnum.chatGptPage);
-                              break;
-                            case 'more':
-                              showPage(page: ChatGptPageEnum.morePage);
-                              break;
-                            case 'previous_chat':
-                              showPage(page: ChatGptPageEnum.historyPage);
-                              break;
-                            case 'new_chat':
-                              // ChatGptMessageModel? chatGptMessageModelCurSelected =
-                              //     MongoApisManager.getInstance()
-                              //         .getCurChatGptMessageModel();
-                              //如果当前选中的是文件夹在编辑中 且没有内容为空 就不需要重新创建一个空的ChatGptMessageModel 直接打开页面就好了
-                              // if (chatGptMessageModelCurSelected != null &&
-                              //     TextUtil.isEmpty(
-                              //             chatGptMessageModelCurSelected.folderTitle) ==
-                              //         true) {
-                              //   this.chatGptMessageModelCurSelected = chatGptMessageModelCurSelected;
-                              // } else {
-                              await createEmptyChatGptMessageModel();
-                              // }
-                              showPage(page: ChatGptPageEnum.chatGptPage);
-                              break;
-                            case 'close':
-                              if (this.chatGptPageEnum ==
-                                      ChatGptPageEnum.chatGptPage ||
-                                  this.chatGptPageEnum ==
-                                      ChatGptPageEnum.morePage) {
-                                Utility.popupDesktopRightNavigator(context);
-                              } else {
-                                showPage(page: ChatGptPageEnum.chatGptPage);
-                              }
-                              break;
-                          }
-                        },
-                        chatGptPageEnum: this.chatGptPageEnum,
-                      ),
-                    (this.widget.pageGPTFromEnum ==
-                                PageGPTFromEnum.AIHelperPage &&
-                            listChatGptMessageModels.length == 0)
-                        ? Expanded(child: GPTRoleGridViewPage(
-                            onClickCreated:
-                                (text, ChatGptFolderModel chatGptFolderModel) {
-                              this._curChatGptFolderModel = chatGptFolderModel;
-                              onClickSendMsg(text);
-                            },
-                          ))
-                        : getPageBody(),
-                    if (this.chatGptPageEnum == ChatGptPageEnum.chatGptPage)
-                      ChatInputWidget(
-                          key: chatInputWidgetStateGlobalKey,
-                          listSuggest: curCheckButtonStateModel?.list ?? [],
-                          headerWidget: this.widget.pageGPTFromEnum ==
-                                  PageGPTFromEnum.RightBarPage
-                              ? IconButtonListWidget(
-                                  wrapMode: WrapModeEnum.wrap,
-                                  initIndex: 0,
-                                  list: listCheckButtonStateModel,
-                                  onTapListener: (obj) {
-                                    curCheckButtonStateModel =
-                                        listCheckButtonStateModel[obj['index']];
-                                    chatInputWidgetStateGlobalKey.currentState
-                                        ?.refresh();
-                                    updateUI();
-                                  },
-                                )
-                              : SizedBox.shrink(),
-                          onClickSendMsg: (val) {
-                            this.onClickSendMsg(val);
-                          }),
-                  ],
-                );
-              });
-        });
+                  (this.widget.pageGPTFromEnum ==
+                              PageGPTFromEnum.AIHelperPage &&
+                          listChatGptMessageModels.length == 0)
+                      ? Expanded(child: GPTRoleGridViewPage(
+                          onClickCreated:
+                              (text, ChatGptFolderModel chatGptFolderModel) {
+                            this._curChatGptFolderModel = chatGptFolderModel;
+                            onClickSendMsg(text);
+                          },
+                        ))
+                      : getPageBody(),
+                  if (this.chatGptPageEnum == ChatGptPageEnum.chatGptPage)
+                    ChatInputWidget(
+                        key: chatInputWidgetStateGlobalKey,
+                        listSuggest: curCheckButtonStateModel?.list ?? [],
+                        headerWidget: this.widget.pageGPTFromEnum ==
+                                PageGPTFromEnum.RightBarPage
+                            ? IconButtonListWidget(
+                                wrapMode: WrapModeEnum.wrap,
+                                initIndex: 0,
+                                list: listCheckButtonStateModel,
+                                onTapListener: (obj) {
+                                  curCheckButtonStateModel =
+                                      listCheckButtonStateModel[obj['index']];
+                                  chatInputWidgetStateGlobalKey.currentState
+                                      ?.refresh();
+                                  updateUI();
+                                },
+                              )
+                            : SizedBox.shrink(),
+                        onClickSendMsg: (val) {
+                          this.onClickSendMsg(val);
+                        }),
+                ],
+              );
+            });
+      });
   }
 
   /**

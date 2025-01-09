@@ -123,6 +123,8 @@ class R {
   static final String assetsImgIcPrivacy = 'assets/img/ic_privacy.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_remove_user.svg)
   static final String assetsImgIcRemoveUser = 'assets/img/ic_remove_user.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_vip_crown.svg)
+  static final String assetsImgIcVipCrown = 'assets/img/ic_vip_crown.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_normal_worker.svg)
   static final String assetsImgIcNormalWorker = 'assets/img/ic_normal_worker.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_qq.svg)
@@ -165,6 +167,8 @@ class R {
   static final String assetsImgIcCreditCard = 'assets/img/ic_credit_card.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_ai_service.svg)
   static final String assetsImgIcAiService = 'assets/img/ic_ai_service.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads2_timeline.svg)
+  static final String assetsImgIcAds2Timeline = 'assets/img/ic_ads2_timeline.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_iphone.svg)
   static final String assetsImgIcIphone = 'assets/img/ic_iphone.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_guangzhou_bank.png)
@@ -197,6 +201,8 @@ class R {
   static final String assetsImgIcEmoji6Unselected = 'assets/img/ic_emoji6_unselected.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_addnote.svg)
   static final String assetsImgIcAddnote = 'assets/img/ic_addnote.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads11_mission_dynamic.svg)
+  static final String assetsImgIcAds11MissionDynamic = 'assets/img/ic_ads11_mission_dynamic.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_window.svg)
   static final String assetsImgIcWindow = 'assets/img/ic_window.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_todo.svg)
@@ -205,12 +211,16 @@ class R {
   static final String assetsImgIcShanghaiBank = 'assets/img/ic_shanghai_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_num2.svg)
   static final String assetsImgIcNum2 = 'assets/img/ic_num2.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads14_widget.svg)
+  static final String assetsImgIcAds14Widget = 'assets/img/ic_ads14_widget.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_tab2_unselected.svg)
   static final String assetsImgIcTab2Unselected = 'assets/img/ic_tab2_unselected.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_no_data.svg)
   static final String assetsImgIcNoData = 'assets/img/ic_no_data.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_mac.svg)
   static final String assetsImgIcMac = 'assets/img/ic_mac.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads8_more_group_users.svg)
+  static final String assetsImgIcAds8MoreGroupUsers = 'assets/img/ic_ads8_more_group_users.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_screenrotation.svg)
   static final String assetsImgIcScreenrotation = 'assets/img/ic_screenrotation.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_add_column_right.png)
@@ -253,6 +263,8 @@ class R {
   static final String assetsImgChip = 'assets/img/chip.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_finished.svg)
   static final String assetsImgIcFinished = 'assets/img/ic_finished.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads9_attachment.svg)
+  static final String assetsImgIcAds9Attachment = 'assets/img/ic_ads9_attachment.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_chatgpt_bg.png)
   static final String assetsImgIcChatgptBg = 'assets/img/ic_chatgpt_bg.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_emoji3_unselected.png)
@@ -291,6 +303,8 @@ class R {
   static final String assetsImgIcExpandRight = 'assets/img/ic_expand_right.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_all_mission.svg)
   static final String assetsImgIcAllMission = 'assets/img/ic_all_mission.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads6_theme.svg)
+  static final String assetsImgIcAds6Theme = 'assets/img/ic_ads6_theme.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_tab4_unselected.svg)
   static final String assetsImgIcTab4Unselected = 'assets/img/ic_tab4_unselected.svg';
   /// ![](http://127.0.0.1:123/assets/img/elo.png)
@@ -355,6 +369,8 @@ class R {
   static final String assetsImgIcMinshengBank = 'assets/img/ic_minsheng_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_unselect_bank.png)
   static final String assetsImgIcUnselectBank = 'assets/img/ic_unselect_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads10_more_listing.svg)
+  static final String assetsImgIcAds10MoreListing = 'assets/img/ic_ads10_more_listing.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_course_selected.svg)
   static final String assetsImgIcCourseSelected = 'assets/img/ic_course_selected.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_volume.svg)
@@ -391,6 +407,8 @@ class R {
   static final String assetsImgIcEfficiency = 'assets/img/ic_efficiency.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_shortcut.svg)
   static final String assetsImgIcShortcut = 'assets/img/ic_shortcut.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_vip_crown_white.svg)
+  static final String assetsImgIcVipCrownWhite = 'assets/img/ic_vip_crown_white.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_next.png)
   static final String assetsImgIcNext = 'assets/img/ic_next.png';
   /// ![](http://127.0.0.1:123/assets/img/bg_dark.png)
@@ -415,6 +433,8 @@ class R {
   static final String assetsImgIcDollarGold = 'assets/img/ic_dollar_gold.svg';
   /// ![](http://127.0.0.1:123/assets/img/login_btn_unable.png)
   static final String assetsImgLoginBtnUnable = 'assets/img/login_btn_unable.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads5_alert.svg)
+  static final String assetsImgIcAds5Alert = 'assets/img/ic_ads5_alert.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_pufa_bank.png)
   static final String assetsImgIcPufaBank = 'assets/img/ic_pufa_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_apple_alarm.svg)
@@ -425,12 +445,16 @@ class R {
   static final String assetsImgIcViewTimeline = 'assets/img/ic_view_timeline.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_visa_bank.png)
   static final String assetsImgIcVisaBank = 'assets/img/ic_visa_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads3_timesegment.svg)
+  static final String assetsImgIcAds3Timesegment = 'assets/img/ic_ads3_timesegment.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_correct.svg)
   static final String assetsImgIcCorrect = 'assets/img/ic_correct.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_function.svg)
   static final String assetsImgIcFunction = 'assets/img/ic_function.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_folder_orange.svg)
   static final String assetsImgIcFolderOrange = 'assets/img/ic_folder_orange.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads13_countdown.svg)
+  static final String assetsImgIcAds13Countdown = 'assets/img/ic_ads13_countdown.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_launcher.png)
   static final String assetsImgIcLauncher = 'assets/img/ic_launcher.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_jianshe_bank.png)
@@ -603,6 +627,8 @@ class R {
   static final String assetsImgIcAddFriend = 'assets/img/ic_add_friend.svg';
   /// ![](http://127.0.0.1:123/assets/img/unionpay.png)
   static final String assetsImgUnionpay = 'assets/img/unionpay.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads4_filterer.svg)
+  static final String assetsImgIcAds4Filterer = 'assets/img/ic_ads4_filterer.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_focus_duration.svg)
   static final String assetsImgIcFocusDuration = 'assets/img/ic_focus_duration.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_timeline_unclicked.svg)
@@ -639,6 +665,8 @@ class R {
   static final String assetsImgIcViewListview = 'assets/img/ic_view_listview.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar14.svg)
   static final String assetsImgAvatar14 = 'assets/img/avatar14.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads12_advance_search.svg)
+  static final String assetsImgIcAds12AdvanceSearch = 'assets/img/ic_ads12_advance_search.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_secure.svg)
   static final String assetsImgIcSecure = 'assets/img/ic_secure.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar28.svg)
@@ -665,6 +693,8 @@ class R {
   static final String assetsImgAvatar01 = 'assets/img/avatar01.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_usa_yuntong_bank.png)
   static final String assetsImgIcUsaYuntongBank = 'assets/img/ic_usa_yuntong_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads7_alarm.svg)
+  static final String assetsImgIcAds7Alarm = 'assets/img/ic_ads7_alarm.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_money1.svg)
   static final String assetsImgIcMoney1 = 'assets/img/ic_money1.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_emoji5.png)
@@ -675,4 +705,6 @@ class R {
   static final String assetsImgIcGuangfaBank = 'assets/img/ic_guangfa_bank.png';
   /// ![](http://127.0.0.1:123/assets/img/ic_tomato_white2.png)
   static final String assetsImgIcTomatoWhite2 = 'assets/img/ic_tomato_white2.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_ads1_calendar.svg)
+  static final String assetsImgIcAds1Calendar = 'assets/img/ic_ads1_calendar.svg';
 }

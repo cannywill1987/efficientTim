@@ -6,11 +6,13 @@ import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
+import 'package:time_hello/com/timehello/util/PriceManager.dart';
 import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../../../r.dart';
-import '../page/TestPage/Test9Page.dart';
+import '../beans/BaseBean.dart';
+import '../beans/PriceProductModel.dart';
 import '../util/FirebaseStoreManager.dart';
 import '../util/LocaleProvider.dart';
 import '../util/LoginManager.dart';
@@ -19,6 +21,7 @@ import 'ConsumeMoneyButtonWidget.dart';
 import 'CustomIconButton.dart';
 import 'DownloadListwidget.dart';
 import 'MoneyHandlerWidget.dart';
+import 'PremiumUpgradeWidget.dart';
 
 class PCTopMenuWidget extends StatefulWidget {
   @override
@@ -96,7 +99,7 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
             if (!Utility.isProductEnv())
               InkWell(
                 onTap: () async {
-                  CounterMethodChannelManager.getInstance().IAPManagerFetchReceipt(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
+                  CounterMethodChannelManager.getInstance().IAPManagerFetchProducts(listProducts: ["com.moonrainbowsoft.time.flutterTimeHello.subscriptionAnnual"]);
                 },
                 child: Text("支付测试"),
               ),
@@ -143,7 +146,15 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
                 onTap: () {
                   DialogManagement.getInstance().showPCCustomDialog(
                       context: context,
-                      widget: PremiumUpgradePage());
+                      widget: PremiumUpgradeWidget(onClickPurchageCallback: (PriceProductModel model) {
+                          PriceManager.getInstance().purchase(identifier: model.identifier, callback: (BaseBean bean) {
+                            if(bean.code == 0) {
+                              DialogManagement.getInstance().showPCCustomDialog(context: context, widget: Text("购买成功"));
+                            } else {
+                              DialogManagement.getInstance().showPCCustomDialog(context: context, widget: Text("购买失败"));
+                            }
+                          });
+                      },));
                   // FirebaseStoreManager.getInstance().getString();
                   // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
 

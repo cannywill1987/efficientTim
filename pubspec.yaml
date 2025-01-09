@@ -339,6 +339,7 @@ flutter:
     - assets/img/avatar22.svg
     - assets/img/ic_privacy.svg
     - assets/img/ic_remove_user.svg
+    - assets/img/ic_vip_crown.svg
     - assets/img/ic_normal_worker.svg
     - assets/img/ic_qq.svg
     - assets/img/return_btn.png
@@ -360,6 +361,7 @@ flutter:
     - assets/img/ic_stop.svg
     - assets/img/ic_credit_card.svg
     - assets/img/ic_ai_service.svg
+    - assets/img/ic_ads2_timeline.svg
     - assets/img/ic_iphone.svg
     - assets/img/ic_guangzhou_bank.png
     - assets/img/avatar21.svg
@@ -376,13 +378,16 @@ flutter:
     - assets/img/avatar20.svg
     - assets/img/ic_emoji6_unselected.png
     - assets/img/ic_addnote.svg
+    - assets/img/ic_ads11_mission_dynamic.svg
     - assets/img/ic_window.svg
     - assets/img/ic_todo.svg
     - assets/img/ic_shanghai_bank.png
     - assets/img/ic_num2.svg
+    - assets/img/ic_ads14_widget.svg
     - assets/img/ic_tab2_unselected.svg
     - assets/img/ic_no_data.svg
     - assets/img/ic_mac.svg
+    - assets/img/ic_ads8_more_group_users.svg
     - assets/img/ic_screenrotation.svg
     - assets/img/ic_add_column_right.png
     - assets/img/ic_right.svg
@@ -404,6 +409,7 @@ flutter:
     - assets/img/ic_date_orange.svg
     - assets/img/chip.png
     - assets/img/ic_finished.svg
+    - assets/img/ic_ads9_attachment.svg
     - assets/img/ic_chatgpt_bg.png
     - assets/img/ic_emoji3_unselected.png
     - assets/img/ic_create_folder.svg
@@ -423,6 +429,7 @@ flutter:
     - assets/img/ic_record_recording.svg
     - assets/img/ic_expand_right.svg
     - assets/img/ic_all_mission.svg
+    - assets/img/ic_ads6_theme.svg
     - assets/img/ic_tab4_unselected.svg
     - assets/img/elo.png
     - assets/img/ic_quote_left.svg
@@ -455,6 +462,7 @@ flutter:
     - assets/img/ic_wechat.svg
     - assets/img/ic_minsheng_bank.png
     - assets/img/ic_unselect_bank.png
+    - assets/img/ic_ads10_more_listing.svg
     - assets/img/ic_course_selected.svg
     - assets/img/ic_volume.svg
     - assets/img/ic_countdown_timer_selected.svg
@@ -473,6 +481,7 @@ flutter:
     - assets/img/bg_rating_guide.jpg
     - assets/img/ic_efficiency.svg
     - assets/img/ic_shortcut.svg
+    - assets/img/ic_vip_crown_white.svg
     - assets/img/ic_next.png
     - assets/img/bg_dark.png
     - assets/img/ic_arrow_up.png
@@ -485,14 +494,17 @@ flutter:
     - assets/img/ic_tab5_selected.svg
     - assets/img/ic_dollar_gold.svg
     - assets/img/login_btn_unable.png
+    - assets/img/ic_ads5_alert.svg
     - assets/img/ic_pufa_bank.png
     - assets/img/ic_apple_alarm.svg
     - assets/img/ic_voice_note.svg
     - assets/img/ic_view_timeline.svg
     - assets/img/ic_visa_bank.png
+    - assets/img/ic_ads3_timesegment.svg
     - assets/img/ic_correct.svg
     - assets/img/ic_function.svg
     - assets/img/ic_folder_orange.svg
+    - assets/img/ic_ads13_countdown.svg
     - assets/img/ic_launcher.png
     - assets/img/ic_jianshe_bank.png
     - assets/img/ic_tabbar_line.png
@@ -579,6 +591,7 @@ flutter:
     - assets/img/avatar03.svg
     - assets/img/ic_add_friend.svg
     - assets/img/unionpay.png
+    - assets/img/ic_ads4_filterer.svg
     - assets/img/ic_focus_duration.svg
     - assets/img/ic_timeline_unclicked.svg
     - assets/img/bg_tomato.png
@@ -597,6 +610,7 @@ flutter:
     - assets/img/bg_addlink.svg
     - assets/img/ic_view_listview.svg
     - assets/img/avatar14.svg
+    - assets/img/ic_ads12_advance_search.svg
     - assets/img/ic_secure.svg
     - assets/img/avatar28.svg
     - assets/img/ic_card_all_white.svg
@@ -610,11 +624,13 @@ flutter:
     - assets/img/avatar15.svg
     - assets/img/avatar01.svg
     - assets/img/ic_usa_yuntong_bank.png
+    - assets/img/ic_ads7_alarm.svg
     - assets/img/ic_money1.svg
     - assets/img/ic_emoji5.png
     - assets/img/ic_card_new_white.svg
     - assets/img/ic_guangfa_bank.png
     - assets/img/ic_tomato_white2.png
+    - assets/img/ic_ads1_calendar.svg
     # assets-generator-end
   fonts:
     - family: oswald

@@ -1024,6 +1024,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
                 height: 50, monthTextStyle: TextStyle(fontSize: 50))),
         // weekNumberStyle: WeekNumberStyle(backgroundColor: Colors.red),
         monthViewSettings: const MonthViewSettings(
+
             navigationDirection: MonthNavigationDirection.vertical,
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         timeSlotViewSettings: const TimeSlotViewSettings(

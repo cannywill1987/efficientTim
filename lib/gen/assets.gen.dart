@@ -1024,6 +1024,12 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_view_timeline.svg
   String get icViewTimeline => 'assets/img/ic_view_timeline.svg';
 
+  /// File path: assets/img/ic_vip_crown.svg
+  String get icVipCrown => 'assets/img/ic_vip_crown.svg';
+
+  /// File path: assets/img/ic_vip_crown_white.svg
+  String get icVipCrownWhite => 'assets/img/ic_vip_crown_white.svg';
+
   /// File path: assets/img/ic_visa_bank.png
   AssetGenImage get icVisaBank =>
       const AssetGenImage('assets/img/ic_visa_bank.png');
@@ -1435,6 +1441,8 @@ class $AssetsImgGen {
         icViewColumn,
         icViewListview,
         icViewTimeline,
+        icVipCrown,
+        icVipCrownWhite,
         icVisaBank,
         icVisible,
         icVoiceDiary,

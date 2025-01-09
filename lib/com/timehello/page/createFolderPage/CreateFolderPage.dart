@@ -763,7 +763,7 @@ class _CreateFolderPageState<T> extends BaseWidgetState<CreateFolderPage> {
                       Offstage(
                         // oldCryptoVersion == 0 如果有密码 就需要显示密码 保证解密没问题 有正确的密码
                         offstage: !(this.oldCryptoVersion == 0 ||
-                            (this.widget.folderModel.tag == 1 &&
+                            (this.widget.folderModel.tag == 1 && //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器
                                 (this.widget.folderModel.cryptoVersion ?? -1) >=
                                     0)),
                         child: TwoPasswordWidget(

@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/components/TransparentOverlayPage.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/components/CalendarMissionListWidget.dart';
+
+import '../../config/ENUMS.dart';
+import '../../util/LoginManager.dart';
 
 class TimeManagementContainer extends StatefulWidget {
   // int? folderStatusDate = 1; // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
@@ -36,42 +40,40 @@ class _TimeManagementContainerState extends State<TimeManagementContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        if(isLeftBarVisible)
-        Container(
-          width: 300,
-          child: CalendarMissionListWidget(onDateRangeSelected:(DateTime? startDateTime, DateTime? endDateTime) {
-            TimeManagementPageStateGlobalKey.currentState?.selectDate(startDateTime ?? DateTime.now());
-          }),
-        ),
-        Expanded(child: TimeManagementPage(key: TimeManagementPageStateGlobalKey, onKeyBackquoteListener: () {
-          setState(() {
-            isLeftBarVisible = !isLeftBarVisible;
-          });
-        },)),
-      ],
-    );
-    // return Selector<CalendarMssionEnv, MissionModel?>(
-    //     selector: (_, env) => env.curSelectedMissionModel,
-    // builder: (_, curSelectedMissionModel, __) {
-    // return  Selector<CalendarMssionEnv, FolderModel?>(
-    // selector: (_, env) => env.curSelectedFolderModel,
-    // builder: (_, curSelectedFolderModel, __) {
-    // return  Selector<CalendarMssionEnv, DateTime?>(
-    // selector: (_, env) => env.startDateTime,
-    // builder: (_, startDateTime, __) {
-    // return  Selector<CalendarMssionEnv, DateTime?>(
-    // selector: (_, env) => env.endDateTime,
-    // builder: (_, endDateTime, __) {
-    //   this.folderModel = curSelectedFolderModel ?? FolderModel();
-    //   requestDatas(shouldUpdate: false);
-    //
-    // });
-    // });
-    // });
-    // });
+    if (LoginManager.getInstance().isVIP(
+        shouldShowDialog: false,
+        paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar))
+      return getChild();
+    else
+      return Stack(
+        children: [
+          getChild(),
+          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+            LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
+            );
+          },),))
+        ],
+      );
+  }
 
+  Row getChild() {
+    return Row(
+    mainAxisSize: MainAxisSize.max,
+    children: [
+      if(isLeftBarVisible)
+      Container(
+        width: 300,
+        child: CalendarMissionListWidget(onDateRangeSelected:(DateTime? startDateTime, DateTime? endDateTime) {
+          TimeManagementPageStateGlobalKey.currentState?.selectDate(startDateTime ?? DateTime.now());
+        }),
+      ),
+      Expanded(child: TimeManagementPage(key: TimeManagementPageStateGlobalKey, onKeyBackquoteListener: () {
+        setState(() {
+          isLeftBarVisible = !isLeftBarVisible;
+        });
+      },)),
+    ],
+  );
   }
 }

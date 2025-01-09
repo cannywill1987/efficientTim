@@ -1,3 +1,14 @@
+// 广告弹窗模式
+enum PaymentPromotionAdsModeEnum {
+  TimeSegment, // 展示时间段的广告
+  Calendar, // 展示日历广告
+  CountDown, //倒计时和倒计时小组件
+  AIHelper, // AI
+  TimeLine, // 时间线
+  Lockscreen,
+  Filterer, // 筛选器
+}
+
 enum PopupModeEnum {
   plat,
   popup

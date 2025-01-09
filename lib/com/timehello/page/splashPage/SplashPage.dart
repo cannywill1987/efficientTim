@@ -22,6 +22,7 @@ import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CalendarIconWidget.dart';
 import '../../components/ClockInWidget.dart';
 import '../../components/FamousSentenceWidget.dart';
+import '../../components/FeatureListWidget.dart';
 import '../../components/HabitTrackerApp.dart';
 import '../../config/ColorsConfig.dart';
 import '../../config/Params.dart';
@@ -31,7 +32,6 @@ import '../AddFilterPage/AddFilterPage.dart';
 import '../ShortcutsPage/ShortcutsPage.dart';
 import '../TestPage/Test7Page.dart';
 import '../TestPage/Test8Page.dart';
-import '../TestPage/Test9Page.dart';
 import '../WebviewPage/WebviewPage.dart';
 
 class SplashPage extends BaseWidget {
@@ -491,6 +491,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, HabitTrackerApp());
                   // Utility.pushReplacement(context, ClockInWidget());
                   Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, FeatureListWidget());
+
                   // Utility.pushReplacement(context, CalendarIcon());
 
                   // Utility.pushReplacement(context, PremiumUpgradePage());

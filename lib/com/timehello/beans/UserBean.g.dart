@@ -22,6 +22,7 @@ UserBean _$UserBeanFromJson(Map<String, dynamic> json) => UserBean(
       avatar: json['avatar'] as String?,
     )
       ..gptToken = (json['gptToken'] as num?)?.toInt()
+      ..vipProductList = json['vipProductList'] as List<dynamic>?
       ..valuePerHour = (json['valuePerHour'] as num?)?.toInt();
 
 Map<String, dynamic> _$UserBeanToJson(UserBean instance) => <String, dynamic>{
@@ -29,6 +30,7 @@ Map<String, dynamic> _$UserBeanToJson(UserBean instance) => <String, dynamic>{
       'gptToken': instance.gptToken,
       'authorIntro': instance.authorIntro,
       'mobilePhoneNumber': instance.mobilePhoneNumber,
+      'vipProductList': instance.vipProductList,
       'email': instance.email,
       'uid': instance.uid,
       'avatar': instance.avatar,
