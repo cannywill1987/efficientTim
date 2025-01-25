@@ -130,10 +130,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m46(title) => "Edit title \"${title}\"";
 
   static String m47(currencySymbol, dailyPrice) =>
-      "(equivalent to ${currencySymbol}${dailyPrice} / day)";
+      "equivalent to ${currencySymbol}${dailyPrice} / day";
 
   static String m48(currencySymbol, monthlyPrice) =>
-      "(equivalent to ${currencySymbol}${monthlyPrice} / month)";
+      "equivalent to ${currencySymbol}${monthlyPrice} / month";
 
   static String m49(n) => "${n} times every day";
 

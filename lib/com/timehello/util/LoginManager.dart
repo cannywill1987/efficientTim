@@ -388,6 +388,7 @@ class LoginManager {
         child: PremiumUpgradeWidget(onClickPurchageCallback: (PriceProductModel model) {
           SubscriptionAndPriceManager.getInstance().purchase(identifier: model.identifier, callback: (BaseBean bean) {
             if(bean.code == "0") {
+              Utility.popupPagePCAndMobile(context);
               // DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买成功"));
               Utility.showToastMsg(msg: getI18NKey().purchase_success);
             } else {

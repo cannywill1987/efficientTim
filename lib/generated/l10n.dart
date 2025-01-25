@@ -820,20 +820,20 @@ class S {
     );
   }
 
-  /// `(equivalent to {currencySymbol}{monthlyPrice} / month)`
+  /// `equivalent to {currencySymbol}{monthlyPrice} / month`
   String equivalent_per_month(Object currencySymbol, Object monthlyPrice) {
     return Intl.message(
-      '(equivalent to $currencySymbol$monthlyPrice / month)',
+      'equivalent to $currencySymbol$monthlyPrice / month',
       name: 'equivalent_per_month',
       desc: '',
       args: [currencySymbol, monthlyPrice],
     );
   }
 
-  /// `(equivalent to {currencySymbol}{dailyPrice} / day)`
+  /// `equivalent to {currencySymbol}{dailyPrice} / day`
   String equivalent_per_day(Object currencySymbol, Object dailyPrice) {
     return Intl.message(
-      '(equivalent to $currencySymbol$dailyPrice / day)',
+      'equivalent to $currencySymbol$dailyPrice / day',
       name: 'equivalent_per_day',
       desc: '',
       args: [currencySymbol, dailyPrice],

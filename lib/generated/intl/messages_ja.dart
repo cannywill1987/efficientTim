@@ -124,10 +124,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m46(title) => "タイトル「${title}」を編集";
 
   static String m47(currencySymbol, dailyPrice) =>
-      "(日額換算 ${currencySymbol}${dailyPrice})";
+      "日額換算 ${currencySymbol}${dailyPrice}";
 
   static String m48(currencySymbol, monthlyPrice) =>
-      "(月額換算 ${currencySymbol}${monthlyPrice})";
+      "月額換算 ${currencySymbol}${monthlyPrice}";
 
   static String m49(n) => "毎日${n}回";
 

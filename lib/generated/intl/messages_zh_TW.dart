@@ -117,10 +117,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m46(title) => "編輯標題「${title}」";
 
   static String m47(currencySymbol, dailyPrice) =>
-      "(折合 ${currencySymbol}${dailyPrice} / 天)";
+      "折合 ${currencySymbol}${dailyPrice} / 天";
 
   static String m48(currencySymbol, monthlyPrice) =>
-      "(折合 ${currencySymbol}${monthlyPrice} / 月)";
+      "折合 ${currencySymbol}${monthlyPrice} / 月";
 
   static String m49(n) => "每天${n}次";
 
