@@ -331,6 +331,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
                                     context, {"curTab": 1, "email": emailP});
                                 return;
                               }
+                              this.showRegisterStep2();
                             }
                             // this.showRegisterStep2();
                           }

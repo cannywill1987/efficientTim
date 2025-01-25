@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/beans/UserBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/page/MainContainerWidget.dart';
 import 'package:time_hello/com/timehello/page/SettingUserInfoPage/SettingUserInfoPage.dart';
 import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVerificationPage.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/FirebaseAuthManager.dart';
 import 'package:time_hello/com/timehello/util/GoogleMailLoginManager.dart';
 import 'package:time_hello/com/timehello/util/PermissionManager.dart';
-import 'package:time_hello/com/timehello/util/PriceManager.dart';
 import 'package:time_hello/com/timehello/util/SettingManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import '../beans/BaseBean.dart';
 import '../beans/PriceProductModel.dart';
+import '../common/provider/Env.dart';
 import '../components/PremiumUpgradeWidget.dart';
 import '../config/Params.dart';
 import '../libs/methodChannel/CounterMethodChannelManager.dart';
@@ -24,6 +26,7 @@ import 'DialogManagement.dart';
 import 'EditFormat.dart';
 import 'LoginUtil.dart';
 import 'SharePreferenceUtil.dart';
+import 'SubscriptionAndPriceManager.dart';
 import 'UserInfoManager.dart';
 import 'Utility.dart';
 
@@ -215,6 +218,8 @@ class LoginManager {
     EasyLoadingManager.getInstance().hideLoading();
     eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
     eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+    // 登录成功后，检查是否有自动续订的订阅
+    SubscriptionAndPriceManager.getInstance().checkAndUpdateAutosubscriptionByReceipt(context: context);
   }
 
   Future<void> requestFromSplashScreen() async {
@@ -361,26 +366,36 @@ class LoginManager {
         loginTypeEnum: LoginTypeEnum.google);
   }
 
-  bool isVIP({BuildContext? context, required bool shouldShowDialog, PaymentPromotionAdsModeEnum paymentPromotionAdsModeEnum = PaymentPromotionAdsModeEnum.TimeSegment}) {
+  bool isVIP({BuildContext? context, required bool shouldShowDialog, bool shouldForceShowDialog = false, PaymentPromotionAdsModeEnum paymentPromotionAdsModeEnum = PaymentPromotionAdsModeEnum.TimeSegment}) {
     if(context == null) {
       context = Utility.getGlobalContext();
     }
-    if (shouldShowDialog == true && PriceManager.getInstance().isVIP() == false) {
-      DialogManagement.getInstance().showPCCustomDialog(
-          context: context,
-          widget: PremiumUpgradeWidget(onClickPurchageCallback: (PriceProductModel model) {
-            PriceManager.getInstance().purchase(identifier: model.identifier, callback: (BaseBean bean) {
-              if(bean.code == 0) {
-                DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买成功"));
-              } else {
-                DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买失败"));
-              }
-            });
-          },));
+    if (shouldShowDialog == true && SubscriptionAndPriceManager.getInstance().isVIP() == false) {
+      openSubscriptionDialog(context);
       return false;
     } else {
-      return PriceManager.getInstance().isVIP();
+      bool isVip = SubscriptionAndPriceManager.getInstance().isVIP();
+      if (isVip == true) {
+        print("${isVip}");
+      }
+      return isVip;
     }
+  }
+
+  void openSubscriptionDialog(BuildContext context) {
+         Utility.openPagePCAndMobile(
+        context,
+        child: PremiumUpgradeWidget(onClickPurchageCallback: (PriceProductModel model) {
+          SubscriptionAndPriceManager.getInstance().purchase(identifier: model.identifier, callback: (BaseBean bean) {
+            if(bean.code == "0") {
+              // DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买成功"));
+              Utility.showToastMsg(msg: getI18NKey().purchase_success);
+            } else {
+              Utility.showToastMsg(msg: getI18NKey().purchase_failed);
+              // DialogManagement.getInstance().showPCCustomDialog(context: context!, widget: Text("购买失败"));
+            }
+          });
+        },));
   }
 
   thirdPartyLoginWithApple(BuildContext context) async {

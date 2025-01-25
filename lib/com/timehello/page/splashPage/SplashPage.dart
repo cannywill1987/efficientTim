@@ -181,7 +181,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
               Utility.getResourceDeliveryItemFromList(
                   'chatgpt_roles_for_create_mission', response);
         }
-
+        DeliveryInfoBean.isVIPPurchaseOn = Utility.getDeliveryInfoBean(
+            response: response, key: 'isVIPPurchaseOn', code: 'isVIPPurchaseOn');
+        LoginManager.getInstance().isVIP(shouldShowDialog: false);
         MarqueInfo.marqueFolderpage = Utility.getDeliveryInfoBean(
             response: response, key: 'marque', code: 'marque_folderpage');
         MarqueInfo.marqueMissionpage = Utility.getDeliveryInfoBean(

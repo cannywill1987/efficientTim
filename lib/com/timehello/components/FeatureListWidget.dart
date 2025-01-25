@@ -8,83 +8,83 @@ class FeatureListWidget extends StatelessWidget {
   final List<Map<String, String>> features = [
     {
       "icon": R.assetsImgIcAds1Calendar,
-      "title": "日历月视图",
-      "description": "使用网格查看每一天的任务安排"
+      "title": getI18NKey().calendar_month_view,
+      "description": getI18NKey().calendar_month_view_description
     },
     {
       "icon": R.assetsImgIcAds2Timeline,
-      "title": "日历时间轴视图",
-      "description": "全天24小时一览无余"
+      "title": getI18NKey().calendar_timeline_view,
+      "description": getI18NKey().calendar_timeline_view_description
     },
     {
       "icon": R.assetsImgIcAds3Timesegment,
-      "title": "时间段",
-      "description": "为任务设置开始和结束时间"
+      "title": getI18NKey().time_segment,
+      "description": getI18NKey().time_segment_description
     },
     {
       "icon": R.assetsImgIcAds4Filterer,
-      "title": "过滤器",
-      "description": "根据筛选自定义筛选任务"
+      "title": getI18NKey().filter,
+      "description": getI18NKey().filter_description
     },
     {
       "icon": R.assetsImgIcAds5Alert,
-      "title": "检查事项提醒",
-      "description": "为每个重要事项设置提醒"
+      "title": getI18NKey().check_item_reminder,
+      "description": getI18NKey().check_item_reminder_description
     },
     {
       "icon": R.assetsImgIcAds6Theme,
-      "title": "专属主题",
-      "description": "为界面定制不同的系列主题"
+      "title": getI18NKey().custom_theme,
+      "description": getI18NKey().custom_theme_description
     },
     {
       "icon": R.assetsImgIcAds7Alarm,
-      "title": "更多提醒",
-      "description": "设置更多5个提醒防止错过重要事件"
+      "title": getI18NKey().more_reminders,
+      "description": getI18NKey().more_reminders_description
     },
     {
       "icon": R.assetsImgIcAds8MoreGroupUsers,
-      "title": "更多共享成员",
-      "description": "为任务分配成员共享清单"
+      "title": getI18NKey().more_shared_members,
+      "description": getI18NKey().more_shared_members_description
     },
     {
       "icon": R.assetsImgIcAds9Attachment,
-      "title": "上传更多附件",
-      "description": "每天99个附件方便存储和备查"
+      "title": getI18NKey().upload_more_attachments,
+      "description": getI18NKey().upload_more_attachments_description
     },
     {
       "icon": R.assetsImgIcAds10MoreListing,
-      "title": "更多清单和任务",
-      "description": "为你的收纳分类清单"
+      "title": getI18NKey().more_lists_and_tasks,
+      "description": getI18NKey().more_lists_and_tasks_description
     },
     {
       "icon": R.assetsImgIcAds11MissionDynamic,
-      "title": "任务动态",
-      "description": "查看每个任务的修订记录"
+      "title": getI18NKey().task_dynamics,
+      "description": getI18NKey().task_dynamics_description
     },
     {
       "icon": R.assetsImgIcAds12AdvanceSearch,
-      "title": "高级搜索",
-      "description": "使用搜索精准查找任务"
+      "title": getI18NKey().advanced_search,
+      "description": getI18NKey().advanced_search_description
     },
     {
       "icon": R.assetsImgIcAiHelper,
-      "title": "AI助手",
-      "description": "AI智能推荐，创建任务和清单"
+      "title": getI18NKey().ai_helper,
+      "description": getI18NKey().ai_helper_description
     },
     {
       "icon": R.assetsImgIcAds13Countdown,
-      "title": "倒计时",
-      "description": "倒计时和倒计时桌面小组件时刻提醒你重要时刻"
+      "title": getI18NKey().countdown,
+      "description": getI18NKey().countdown_description
     },
     {
       "icon": R.assetsImgIcAds14Widget,
-      "title": "桌面组件",
-      "description": "清单，四象限，倒计时，日历，打卡等丰富组件"
+      "title": getI18NKey().desktop_widget,
+      "description": getI18NKey().desktop_widget_description
     },
     {
       "icon": R.assetsImgIcLockscreenView,
-      "title": "锁定App设置",
-      "description": "支持苹果手机指定时间锁定APP"
+      "title": getI18NKey().lock_app_settings,
+      "description": getI18NKey().lock_app_settings_description
     },
   ];
 

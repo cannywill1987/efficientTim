@@ -50,20 +50,850 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Already purchased`
+  /// `EULA`
+  String get eula {
+    return Intl.message(
+      'EULA',
+      name: 'eula',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacy_policy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacy_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After the trial, automatically renew. Cancel anytime. By upgrading, you agree to the EULA, Privacy Policy.`
+  String get auto_renew_after_trial {
+    return Intl.message(
+      'After the trial, automatically renew. Cancel anytime. By upgrading, you agree to the EULA, Privacy Policy.',
+      name: 'auto_renew_after_trial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Use`
+  String get terms_of_use {
+    return Intl.message(
+      'Terms of Use',
+      name: 'terms_of_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VIP exclusive feature`
+  String get vip_exclusive_small {
+    return Intl.message(
+      'VIP exclusive feature',
+      name: 'vip_exclusive_small',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VIP exclusive feature, example data for reference only`
+  String get vip_exclusive {
+    return Intl.message(
+      'VIP exclusive feature, example data for reference only',
+      name: 'vip_exclusive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upgrade now`
+  String get upgrade_now {
+    return Intl.message(
+      'Upgrade now',
+      name: 'upgrade_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Editor's recommendation`
+  String get editor_recommendation {
+    return Intl.message(
+      'Editor\'s recommendation',
+      name: 'editor_recommendation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily selection`
+  String get daily_selection {
+    return Intl.message(
+      'Daily selection',
+      name: 'daily_selection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `200K+ ratings`
+  String get rating_count {
+    return Intl.message(
+      '200K+ ratings',
+      name: 'rating_count',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month/Week/Day/3 Days`
+  String get monthweekday {
+    return Intl.message(
+      'Month/Week/Day/3 Days',
+      name: 'monthweekday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Schedule Management Tool`
+  String get schedule_management_tool {
+    return Intl.message(
+      'Schedule Management Tool',
+      name: 'schedule_management_tool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I use the day view every night to plan the next day's schedule and the week view on weekends to review how my time was spent. Clear control over my time has not only improved my work efficiency but also reduced my anxiety.`
+  String get schedule_management_review {
+    return Intl.message(
+      'I use the day view every night to plan the next day\'s schedule and the week view on weekends to review how my time was spent. Clear control over my time has not only improved my work efficiency but also reduced my anxiety.',
+      name: 'schedule_management_review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Never Miss Important Things`
+  String get never_miss_important_things {
+    return Intl.message(
+      'Never Miss Important Things',
+      name: 'never_miss_important_things',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I often use the reminder function for important tasks like ticket bookings and registrations. Continuous reminders ensure I never miss a critical moment.`
+  String get never_miss_review {
+    return Intl.message(
+      'I often use the reminder function for important tasks like ticket bookings and registrations. Continuous reminders ensure I never miss a critical moment.',
+      name: 'never_miss_review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Life Recording`
+  String get life_recording {
+    return Intl.message(
+      'Life Recording',
+      name: 'life_recording',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I enjoy using the monthly view to record my life, such as reading, exercising, and study check-ins. Every time I review the monthly view, I feel happy and amazed by how much can be accomplished in a month!`
+  String get life_recording_review {
+    return Intl.message(
+      'I enjoy using the monthly view to record my life, such as reading, exercising, and study check-ins. Every time I review the monthly view, I feel happy and amazed by how much can be accomplished in a month!',
+      name: 'life_recording_review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar Month View`
+  String get calendar_month_view {
+    return Intl.message(
+      'Calendar Month View',
+      name: 'calendar_month_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use a grid to see task arrangements for each day.`
+  String get calendar_month_view_description {
+    return Intl.message(
+      'Use a grid to see task arrangements for each day.',
+      name: 'calendar_month_view_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar Timeline View`
+  String get calendar_timeline_view {
+    return Intl.message(
+      'Calendar Timeline View',
+      name: 'calendar_timeline_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View all 24 hours of the day at a glance.`
+  String get calendar_timeline_view_description {
+    return Intl.message(
+      'View all 24 hours of the day at a glance.',
+      name: 'calendar_timeline_view_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time segment`
+  String get time_segment {
+    return Intl.message(
+      'Time segment',
+      name: 'time_segment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set start and end times for tasks.`
+  String get time_segment_description {
+    return Intl.message(
+      'Set start and end times for tasks.',
+      name: 'time_segment_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filter`
+  String get filter {
+    return Intl.message(
+      'Filter',
+      name: 'filter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize task filtering based on criteria.`
+  String get filter_description {
+    return Intl.message(
+      'Customize task filtering based on criteria.',
+      name: 'filter_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check Item Reminder`
+  String get check_item_reminder {
+    return Intl.message(
+      'Check Item Reminder',
+      name: 'check_item_reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set reminders for each important item.`
+  String get check_item_reminder_description {
+    return Intl.message(
+      'Set reminders for each important item.',
+      name: 'check_item_reminder_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom Theme`
+  String get custom_theme {
+    return Intl.message(
+      'Custom Theme',
+      name: 'custom_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize various theme series for the interface.`
+  String get custom_theme_description {
+    return Intl.message(
+      'Customize various theme series for the interface.',
+      name: 'custom_theme_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Reminders`
+  String get more_reminders {
+    return Intl.message(
+      'More Reminders',
+      name: 'more_reminders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set more than 5 reminders to avoid missing critical events.`
+  String get more_reminders_description {
+    return Intl.message(
+      'Set more than 5 reminders to avoid missing critical events.',
+      name: 'more_reminders_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Shared Members`
+  String get more_shared_members {
+    return Intl.message(
+      'More Shared Members',
+      name: 'more_shared_members',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign tasks to members and share lists.`
+  String get more_shared_members_description {
+    return Intl.message(
+      'Assign tasks to members and share lists.',
+      name: 'more_shared_members_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload More Attachments`
+  String get upload_more_attachments {
+    return Intl.message(
+      'Upload More Attachments',
+      name: 'upload_more_attachments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload up to 99 attachments daily for easy storage and reference.`
+  String get upload_more_attachments_description {
+    return Intl.message(
+      'Upload up to 99 attachments daily for easy storage and reference.',
+      name: 'upload_more_attachments_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Lists and Tasks`
+  String get more_lists_and_tasks {
+    return Intl.message(
+      'More Lists and Tasks',
+      name: 'more_lists_and_tasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Categorize your storage lists.`
+  String get more_lists_and_tasks_description {
+    return Intl.message(
+      'Categorize your storage lists.',
+      name: 'more_lists_and_tasks_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task Dynamics`
+  String get task_dynamics {
+    return Intl.message(
+      'Task Dynamics',
+      name: 'task_dynamics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View revision history of each task.`
+  String get task_dynamics_description {
+    return Intl.message(
+      'View revision history of each task.',
+      name: 'task_dynamics_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advanced Search`
+  String get advanced_search {
+    return Intl.message(
+      'Advanced Search',
+      name: 'advanced_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use precise search to find tasks.`
+  String get advanced_search_description {
+    return Intl.message(
+      'Use precise search to find tasks.',
+      name: 'advanced_search_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Helper`
+  String get ai_helper {
+    return Intl.message(
+      'AI Helper',
+      name: 'ai_helper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI recommendations for creating tasks and lists.`
+  String get ai_helper_description {
+    return Intl.message(
+      'AI recommendations for creating tasks and lists.',
+      name: 'ai_helper_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Countdown`
+  String get countdown {
+    return Intl.message(
+      'Countdown',
+      name: 'countdown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Countdowns and countdown widgets keep you reminded of important moments.`
+  String get countdown_description {
+    return Intl.message(
+      'Countdowns and countdown widgets keep you reminded of important moments.',
+      name: 'countdown_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Desktop Widget`
+  String get desktop_widget {
+    return Intl.message(
+      'Desktop Widget',
+      name: 'desktop_widget',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rich widgets like lists, quadrants, countdowns, calendars, check-ins, and more.`
+  String get desktop_widget_description {
+    return Intl.message(
+      'Rich widgets like lists, quadrants, countdowns, calendars, check-ins, and more.',
+      name: 'desktop_widget_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock App Settings`
+  String get lock_app_settings {
+    return Intl.message(
+      'Lock App Settings',
+      name: 'lock_app_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Supports locking the app at specific times for Apple devices.`
+  String get lock_app_settings_description {
+    return Intl.message(
+      'Supports locking the app at specific times for Apple devices.',
+      name: 'lock_app_settings_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feature Privileges`
+  String get features_privileges {
+    return Intl.message(
+      'Feature Privileges',
+      name: 'features_privileges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feature Components`
+  String get features_components {
+    return Intl.message(
+      'Feature Components',
+      name: 'features_components',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Official Recommendations`
+  String get official_recommendations {
+    return Intl.message(
+      'Official Recommendations',
+      name: 'official_recommendations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Reviews`
+  String get user_reviews {
+    return Intl.message(
+      'User Reviews',
+      name: 'user_reviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restore Purchase`
+  String get restore_purchase {
+    return Intl.message(
+      'Restore Purchase',
+      name: 'restore_purchase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enjoy 10x Expansion`
+  String get enjoy_10x_expansion {
+    return Intl.message(
+      'Enjoy 10x Expansion',
+      name: 'enjoy_10x_expansion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create More, Achieve More`
+  String get create_more_achieve_more {
+    return Intl.message(
+      'Create More, Achieve More',
+      name: 'create_more_achieve_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advanced Reminders`
+  String get advanced_reminders {
+    return Intl.message(
+      'Advanced Reminders',
+      name: 'advanced_reminders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Never Forget Important Things`
+  String get never_forget_important {
+    return Intl.message(
+      'Never Forget Important Things',
+      name: 'never_forget_important',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Analysis`
+  String get data_analysis {
+    return Intl.message(
+      'Data Analysis',
+      name: 'data_analysis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detailed Analysis and Reports`
+  String get detailed_analysis_reports {
+    return Intl.message(
+      'Detailed Analysis and Reports',
+      name: 'detailed_analysis_reports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom Themes`
+  String get custom_themes {
+    return Intl.message(
+      'Custom Themes',
+      name: 'custom_themes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize Appearance to Your Liking`
+  String get customize_appearance {
+    return Intl.message(
+      'Customize Appearance to Your Liking',
+      name: 'customize_appearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Benefits`
+  String get benefits {
+    return Intl.message(
+      'Benefits',
+      name: 'benefits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Normal User`
+  String get normal_user {
+    return Intl.message(
+      'Normal User',
+      name: 'normal_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Premium User`
+  String get premium_user {
+    return Intl.message(
+      'Premium User',
+      name: 'premium_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar View`
+  String get calendar_view {
+    return Intl.message(
+      'Calendar View',
+      name: 'calendar_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time Slots`
+  String get time_slots {
+    return Intl.message(
+      'Time Slots',
+      name: 'time_slots',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Persistent Reminders`
+  String get persistent_reminders {
+    return Intl.message(
+      'Persistent Reminders',
+      name: 'persistent_reminders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Link WeChat`
+  String get link_wechat {
+    return Intl.message(
+      'Link WeChat',
+      name: 'link_wechat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Widgets`
+  String get widgets {
+    return Intl.message(
+      'Widgets',
+      name: 'widgets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Appearance Themes`
+  String get appearance_themes {
+    return Intl.message(
+      'Appearance Themes',
+      name: 'appearance_themes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Statistics`
+  String get data_statistics {
+    return Intl.message(
+      'Data Statistics',
+      name: 'data_statistics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basic`
+  String get basic {
+    return Intl.message(
+      'Basic',
+      name: 'basic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlimited`
+  String get unlimited {
+    return Intl.message(
+      'Unlimited',
+      name: 'unlimited',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Free Trial for 7 Days`
+  String get start_free_trial {
+    return Intl.message(
+      'Start Free Trial for 7 Days',
+      name: 'start_free_trial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{currencySymbol}{price} / year`
+  String currency_per_year(Object currencySymbol, Object price) {
+    return Intl.message(
+      '$currencySymbol$price / year',
+      name: 'currency_per_year',
+      desc: '',
+      args: [currencySymbol, price],
+    );
+  }
+
+  /// `{currencySymbol}{price} / month`
+  String currency_per_month(Object currencySymbol, Object price) {
+    return Intl.message(
+      '$currencySymbol$price / month',
+      name: 'currency_per_month',
+      desc: '',
+      args: [currencySymbol, price],
+    );
+  }
+
+  /// `(equivalent to {currencySymbol}{monthlyPrice} / month)`
+  String equivalent_per_month(Object currencySymbol, Object monthlyPrice) {
+    return Intl.message(
+      '(equivalent to $currencySymbol$monthlyPrice / month)',
+      name: 'equivalent_per_month',
+      desc: '',
+      args: [currencySymbol, monthlyPrice],
+    );
+  }
+
+  /// `(equivalent to {currencySymbol}{dailyPrice} / day)`
+  String equivalent_per_day(Object currencySymbol, Object dailyPrice) {
+    return Intl.message(
+      '(equivalent to $currencySymbol$dailyPrice / day)',
+      name: 'equivalent_per_day',
+      desc: '',
+      args: [currencySymbol, dailyPrice],
+    );
+  }
+
+  /// `Restore Purchases`
+  String get restore_purchases {
+    return Intl.message(
+      'Restore Purchases',
+      name: 'restore_purchases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase Successful`
+  String get purchase_success {
+    return Intl.message(
+      'Purchase Successful',
+      name: 'purchase_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase Failed`
+  String get purchase_failed {
+    return Intl.message(
+      'Purchase Failed',
+      name: 'purchase_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restore Failed`
+  String get restore_failed {
+    return Intl.message(
+      'Restore Failed',
+      name: 'restore_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already Purchased`
   String get already_purchased {
     return Intl.message(
-      'Already purchased',
+      'Already Purchased',
       name: 'already_purchased',
       desc: '',
       args: [],
     );
   }
 
-  /// `Unknown error`
+  /// `Unknown Error`
   String get unknown_error {
     return Intl.message(
-      'Unknown error',
+      'Unknown Error',
       name: 'unknown_error',
       desc: '',
       args: [],
@@ -80,21 +910,21 @@ class S {
     );
   }
 
-  /// `保存模式`
+  /// `Save Mode`
   String get save_mode {
     return Intl.message(
-      '保存模式',
+      'Save Mode',
       name: 'save_mode',
       desc: '',
       args: [],
     );
   }
 
-  /// `{t0}年{t1}月{t2}日 {t3}:{t4}`
+  /// `{t0}/{t1}/{t2} {t3}:{t4}`
   String dateFromYearMonthToMins(
       Object t0, Object t1, Object t2, Object t3, Object t4) {
     return Intl.message(
-      '$t0年$t1月$t2日 $t3:$t4',
+      '$t0/$t1/$t2 $t3:$t4',
       name: 'dateFromYearMonthToMins',
       desc: '',
       args: [t0, t1, t2, t3, t4],
@@ -4922,16 +5752,6 @@ class S {
     );
   }
 
-  /// `Time segment`
-  String get time_segment {
-    return Intl.message(
-      'Time segment',
-      name: 'time_segment',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Date`
   String get date {
     return Intl.message(
@@ -8243,16 +9063,6 @@ class S {
     return Intl.message(
       'Ebbinghaus',
       name: 'repeative3',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `AI Helper`
-  String get ai_helper {
-    return Intl.message(
-      'AI Helper',
-      name: 'ai_helper',
       desc: '',
       args: [],
     );

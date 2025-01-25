@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../util/Utility.dart';
+
 class RecommendationCards extends StatelessWidget {
   double size = 120;
   @override
@@ -9,11 +11,11 @@ class RecommendationCards extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // 第一张卡片 - 编辑推荐
-            _buildCard("编辑推荐", "App Store"),
+            _buildCard(getI18NKey().editor_recommendation, "App Store"),
             // 第二张卡片 - 每日精选
-            _buildCard("每日精选", "App Store"),
+            _buildCard(getI18NKey().daily_selection, "App Store"),
             // 第三张卡片 - 评分
-            _buildRatingCard("20万+评分", "4.9", Icons.star),
+            _buildRatingCard(getI18NKey().rating_count, "4.9", Icons.star),
           ],
         ),
     );

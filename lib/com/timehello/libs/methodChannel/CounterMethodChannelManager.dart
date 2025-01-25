@@ -497,6 +497,54 @@ class CounterMethodChannelManager {
     }
   }
 
+  /**
+   * subscribed	2	用户已订阅，状态正常
+      inBillingRetryPeriod	3	用户订阅处于账单重试期
+      inGracePeriod	4	用户订阅处于宽限期
+      expired	1	用户订阅已过期
+      revoked	0	用户订阅被撤销
+      unknown	-1	未知订阅状态
+   */
+  Future<BaseBean> checkSubscriptionState( String id) async {
+    try {
+      String res = (await _channel.invokeMethod<String>('checkSubscriptionState', id)) ?? "";
+      return BaseBean.fromJson(jsonDecode(res));
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
+  Future<BaseBean> getReceipt() async {
+    try {
+      String res =  (await _channel.invokeMethod<String>('getReceipt')) ?? "";
+      return BaseBean.fromJson(jsonDecode(res));
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
+  /**
+   * 返回productId
+   * "-1" 字符串表示失败
+   */
+  Future<BaseBean> restorePurchases() async {
+    try {
+      String res = (await _channel.invokeMethod<String>('restorePurchases')) ?? "";
+      return BaseBean.fromJson(jsonDecode(res));
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
+  Future<BaseBean> getSubscriptionDetails() async {
+    try {
+      String res = (await _channel.invokeMethod<String>('getSubscriptionDetails')) ?? "";
+      return BaseBean.fromJson(jsonDecode(res));
+    } catch (e) {
+      return BaseBean(success: false);
+    }
+  }
+
   Future<List<PriceProductModel>> IAPManagerFetchProducts(
       {required List<String> listProducts}) async {
     try {

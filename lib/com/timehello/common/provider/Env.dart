@@ -14,7 +14,7 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
   Map? _wqbRouterMainContainerData; //右边主内容 包含菜单栏
   Map? _creditCardDetailData; //账单详情当前CreditCardModel
   Map? _wqbRouterMissionDetailData; //答题卡等内容 包含错题本等
-
+  bool _isVip = false; //是否是vip
   SettingModel? _settingModel; //设置model
   UserInfoModel? _userInfoModel;
 
@@ -103,6 +103,19 @@ class Env with ChangeNotifier, DiagnosticableTreeMixin {
 
   set routerMainContainerData(Map? value) {
     _routerMainContainerData = value;
+    notifyListeners();
+  }
+
+  bool get isVip => _isVip;
+
+  set isVip(bool value) {
+    if (value == _isVip) {
+      return;
+    }
+    if(value == true) {
+      print("isVip true");
+    }
+    _isVip = value;
     notifyListeners();
   }
 

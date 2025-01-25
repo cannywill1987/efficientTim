@@ -11,12 +11,12 @@ import WidgetKit
 import SwiftUI
 @available(macOS 11.0, *)
 class MethodChannelManager {
-    static let instance:MethodChannelManager = MethodChannelManager()
-    var channel:FlutterMethodChannel?;
-    var customStatusBarWidget:CustomStatusBarWidget?
-    var curCounterStatus: Int?
-    var window: MainFlutterWindow?;
-    @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
+    static let instance:MethodChannelManager = MethodChannelManager() // 单例模式，便于全局访问
+     var channel:FlutterMethodChannel? // Flutter 通信通道
+     var customStatusBarWidget:CustomStatusBarWidget? // 自定义状态栏部件
+     var curCounterStatus: Int? // 当前状态栏计数器状态
+     var window: MainFlutterWindow? // 主窗口引用
+     @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = "" // 用户唯一标识符存储
 //    @AppStorage("MissionStoreData", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData2 : Data = Data()
     //@AppStorage("FlomoMissionModel", store: UserDefaults(suiteName: "\(Params.isMACOS == true ? "":"group.")S4CLCWPCGH.com.timespeed.timehello")) var primaryData : Data = Data()
     static func shareInstance(flutterViewController: FlutterViewController?, window: MainFlutterWindow?) -> MethodChannelManager {
@@ -42,7 +42,87 @@ class MethodChannelManager {
     
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         do {
+            print("method channel: \(call.method)");
             switch call.method {
+            case "getReceipt":
+                if #available(macOS 12.0, *) {
+                    let res = IAPManager.shared.getReceipt()
+                    let jsonResult = """
+                    {
+                        "success": true,
+                        "data": {
+                            "res": \"\(res)\"
+                        }
+                    }
+                    """
+                    result(jsonResult)
+                } else {
+                    // Fallback on earlier versions
+                };
+                break;
+            case "restorePurchases":
+                Task {
+                    if #available(macOS 12.0, *) {
+                        let res: Void = await IAPManager.shared.restorePurchases() {productId, expireDate, originalTransactionId, error in
+                            if error == nil {
+                                let jsonResult = """
+                                {
+                                    "success": true,
+                                    "data": {
+                                        "productId": \"\(productId)\",
+                                        "expireDate": \(expireDate),
+                                        "originalTransactionId": \"\(originalTransactionId)\"
+                                    }
+                                }
+                                """
+                                result(jsonResult)
+                            } else {
+                                let jsonResult = """
+                                {
+                                    "success": false,
+                                    "data": {}
+                                }
+                                """
+                                result(jsonResult)
+                            }
+                        }
+                        result("{\"success\": true, \"data\": \"\(res)\"}");
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                }
+                break;
+            case "getSubscriptionDetails":
+                Task {
+                    if #available(macOS 12.0, *) {
+                        let data = await IAPManager.shared.getSubscriptionDetails()
+                        
+                        if data != nil {
+                            let expireDate = data?["expireDate"] ?? 0
+                            let originalID = data?["originalID"] ?? ""
+                            result("{\"success\": true, \"data\": {\"expireDate\": \(expireDate), \"originalID\": \"\(originalID)\"}}");
+                        } else {
+                            result("{\"success\": false, \"data\": \(Int(0))}");
+                        }
+                    } else {
+                        // Fallback on earlier versions
+                    };
+                }
+                break;
+            case "checkSubscriptionState":
+                guard let args = call.arguments as? String else {
+                    result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                    return
+                }
+                Task {
+                    if #available(macOS 12.0, *) {
+                        let res = await IAPManager.shared.checkSubscriptionState(productID: args)
+                        result("{\"success\": true, \"data\": \"\(res)\"}");
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                }
+                break;
             case "IAPpurchase":
                 guard let args = call.arguments as? String else {
                     result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
@@ -58,13 +138,29 @@ class MethodChannelManager {
                 
                 if #available(macOS 12.0, *) {
                     Task {
-                        await IAPManager.shared.purchase(productID: args) { status, error in
+                        // -1 失败 0 未开始 1 请求中 2 请求成功 3 restore成功 4 用户取消购买
+                        await IAPManager.shared.purchase(productID: args) { status, expireDate, originalTransactionId, error in
                             if status > -1 {
-                                result("{\"success\": true, \"data\": \"\(status)\"}");
+                                let jsonResult = """
+                                {
+                                    "success": true,
+                                    "data": {
+                                        "status": \(status),
+                                        "expireDate": \(expireDate),
+                                        "originalTransactionId": \"\(originalTransactionId)\"
+                                    }
+                                }
+                                """
+                                result(jsonResult)
                             } else {
-                                result("{\"success\": false, \"data\": \"\"}");
+                                let jsonResult = """
+                                {
+                                    "success": false,
+                                    "data": {}
+                                }
+                                """
+                                result(jsonResult)
                             }
-                            
                         }
                     }
                     } else {
@@ -92,7 +188,6 @@ class MethodChannelManager {
                                                    productDictionary["title"] = product.displayName // 替代 localizedTitle
                                                    productDictionary["description"] = product.description // 替代 localizedDescription
                                                    productDictionary["price"] = product.price // 替代 price 和 priceLocale
-                                                   //                                    productDictionary["priceLocaleCurrency"] = product.priceLocale.currency
                                                    productDictionary["priceLocaleidentifier"] = product.id
                                                    var currencySymbol = "";
                                                    if let match = product.displayPrice.range(of: "^[^0-9]+", options: .regularExpression) {
@@ -103,69 +198,29 @@ class MethodChannelManager {
                                                    productDictionary["currencySymbol"] = currencySymbol // 替代 price 和 priceLocale
                                                    productDictionary["identifier"] = product.id // 替代 productIdentifier
                                                    productDictionary["isFamilyShareable"] = product.isFamilyShareable // 替代 isFamilyShareable
-                                                   //                                } else {
-                                                   //                                    // 使用过时的属性
-                                                   //                                    productDictionary["title"] = product.localizedTitle
-                                                   //                                    productDictionary["description"] = product.localizedDescription
-                                                   //                                    productDictionary["currencySymbol"] = product.priceLocale.currencySymbol // 替代 price 和 priceLocale
-                                                   //                                    productDictionary["price"] = "\(product.priceLocale.currencySymbol ?? "")\(product.price)"
-                                                   ////                                    productDictionary["priceLocaleCurrency"] = product.priceLocale.currency
-                                                   //                                    productDictionary["priceLocaleidentifier"] = product.priceLocale.identifier
-                                                   //                                    productDictionary["identifier"] = product.productIdentifier
-                                                   //                                    productDictionary["isFamilyShareable"] = product.isFamilyShareable
-                                                   //                                }
-                                                   
-                                                   // 处理 isDownloadable 和 downloadable 的兼容性
-                                                   //                                if #available(macOS 10.15, *) {
-                                                   //                                    productDictionary["isDownloadable"] = product.isDownloadable
-                                                   //                                } else {
-                                                   //                                    productDictionary["isDownloadable"] = product.downloadable
-                                                   //                                }
-                                                   //
-                                                   //                                // 处理 subscriptionPeriod
-                                                   //                                if #available(macOS 10.13.2, *) {
-                                                   //                                    if let subscriptionPeriod = product.subscriptionPeriod {
-                                                   //                                        productDictionary["subscriptionPeriod"] = [
-                                                   //                                            "unit": subscriptionPeriod.unit.rawValue, // 表示时间单位，如月或年
-                                                   //                                            "numberOfUnits": subscriptionPeriod.numberOfUnits // 时间单位数量
-                                                   //                                        ]
-                                                   //                                    } else {
-                                                   //                                        productDictionary["subscriptionPeriod"] = "N/A"
-                                                   //                                    }
-                                                   //                                }
-                                                   
-                                                   // 处理 introductoryPrice
-                                                   //                                if #available(macOS 10.13.2, *) {
-                                                   //                                    if let introductoryPrice = product.introductoryPrice {
-                                                   //                                        productDictionary["introductoryPrice"] = [
-                                                   //                                            "price": introductoryPrice.price.stringValue,
-                                                   //                                            "numberOfPeriods": introductoryPrice.numberOfPeriods
-                                                   //                                        ]
-                                                   //                                    } else {
-                                                   //                                        productDictionary["introductoryPrice"] = "N/A"
-                                                   //                                    }
-                                                   //                                }
-                                                   //
-                                                   //                                // 处理 subscriptionGroupIdentifier
-                                                   //                                if #available(macOS 10.14, *) {
-                                                   //                                    productDictionary["subscriptionGroupIdentifier"] = product.subscriptionGroupIdentifier ?? "N/A"
-                                                   //                                }
-                                                   
-                                                   // 处理 discounts
-                                                   //                                if #available(macOS 10.14.4, *) {
-                                                   //                                    productDictionary["discounts"] = product.discounts.map { discount in
-                                                   //                                        [
-                                                   //                                            "price": discount.price.stringValue,
-                                                   //                                            "numberOfPeriods": discount.numberOfPeriods
-                                                   //                                        ]
-                                                   //                                    }
-                                                   //                                }
-                                                   //
-                                                   //                                // 处理 downloadContentLengths 和 downloadContentVersion
-                                                   //                                if #available(macOS 10.14, *) {
-                                                   //                                    productDictionary["downloadContentLengths"] = product.downloadContentLengths
-                                                   //                                    productDictionary["downloadContentVersion"] = product.downloadContentVersion
-                                                   //                                }
+                                 
+                                                   if #available(macOS 12.0, *) {
+                                                       if let subscription = product.subscription {
+//                                                           productDictionary["paymentMode"] = subscription.paymentMode.rawValue // 支付模式
+
+                                                           // 获取支付周期的单位
+                                                               switch subscription.subscriptionPeriod.unit {
+                                                               case .day:
+                                                                   productDictionary["periodUnit"] = "day"
+                                                               case .week:
+                                                                   productDictionary["periodUnit"] = "week"
+                                                               case .month:
+                                                                   productDictionary["periodUnit"] = "month"
+                                                               case .year:
+                                                                   productDictionary["periodUnit"] = "year"
+                                                               @unknown default:
+                                                                   productDictionary["periodUnit"] = "unknown"
+                                                               }
+                                                           
+                                                           productDictionary["periodValue"] = subscription.subscriptionPeriod.value
+//                                                           productDictionary["periodCount"] = subscription.introductoryOffer?.type
+                                                       }
+                                                   }
                                                    
                                                    return productDictionary
                                                } catch {

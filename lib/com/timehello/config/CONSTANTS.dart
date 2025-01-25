@@ -5726,7 +5726,7 @@ class CONSTANTS {
   static List<MusicModel> getFocusAndRestingMusicModelList() {
     return [
       MusicModel(
-          title: '深海', url: 'http://timehello.timerbell.com/deepocean.mp3'),
+          title: 'Clock ticking sound', url: 'http://oss.timerbell.com/resourceOss/2024019-时钟滴答声.MP3	'),
     ];
   }
 

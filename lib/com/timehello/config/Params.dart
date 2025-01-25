@@ -7,7 +7,7 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.uat; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static final String mOssUrl = "http://oss.timerbell.com";
   static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
@@ -97,6 +97,11 @@ class ResourceInfo {
   static ResourceLocationInfoBean? chatGptRolesResourceLocationInfoBean;
   static ResourceLocationInfoBean? chatGptRolesForCreateMissionResourceLocationInfoBean;
 
+
+}
+
+class DeliveryInfoBean {
+  static ResourceDeliveryInfoBean? isVIPPurchaseOn;
 }
 
 class MarqueInfo {
@@ -134,6 +139,8 @@ class Urls {
   static String missionNoteSharing = "https://www.timerbell.com/web/app/md/"; // 任务管理分享
   static String isUserExistByEmail = "/api/common/isUserExistByEmail"; // 判断用户是否存在
   static String ratingGuide = "https://www.timerbell.com/views/ratingGuide"; // 评分引导
+  static String eula_official = "https://www.timerbell.com/views/eula/eulaOfficial"; // eula 支付需要使用
+
   static String facebook = "https://www.facebook.com/profile.php?id=100090694350100"; // facebook
   static String privacyProtocol = "https://www.timerbell.com/views/protocol/privacyProtocol"; // 隐私协议
   static String privacyProtocolOfficial = "https://www.timerbell.com/views/protocol/privacyProtocolOfficial"; // 官方隐私协议
@@ -190,6 +197,8 @@ class Apis {
 
   static String getTextVoiceList = "/api/timehello/textVoiceController/getList"; //获取文字声音mp3
   static String uploadOssJSON = "/api/common/uploadOssJSON"; //上传json到阿里云
+
+  static String getReceipt = "/api/storekit/receipt/verify";
 }
 
 //Shareprefrence的key

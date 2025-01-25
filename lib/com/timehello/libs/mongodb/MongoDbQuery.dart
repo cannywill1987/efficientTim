@@ -350,7 +350,7 @@ class MongoDbQuery<T> {
       url = url + "where=" + json.encode(where);
     }
     url = url + getStatistics();
-    Map<String, dynamic> map = await MongoDbDio.getInstance().get(url, data: getParams());
+    Map<String, dynamic> map = await MongoDbDio.getInstance().get(url, data: getParams()) ?? {};
     MongoDbResults mongoDbResults = MongoDbResults.fromJson(map["data"] ?? {});
     Utility.print(mongoDbResults.results);
     return mongoDbResults.results ?? [];

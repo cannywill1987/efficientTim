@@ -8,6 +8,7 @@ import 'package:time_hello/com/timehello/page/RichEditor/ReadOnlyPage.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import '../../common/database/apis/MongoApisManager.dart';
+import '../../common/provider/Env.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/BaseWidget.dart';
 import '../../components/CircleWidget.dart';
@@ -383,22 +384,26 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
     context.watch<GlobalStateEnv>().listTimelineMissionModel;
     requestDatas();
     requestGetTags();
+    return Selector<Env, bool>(
+        selector: (_, env) => env.isVip ?? false,
+        builder: (_, settingModel, __) {
 
-    if (LoginManager.getInstance().isVIP(
-        shouldShowDialog: false,
-        paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar) || TimelinePageFromEnum.normal.index != this.widget.timelinePageFromEnum)
-      return getChild(context);
-    else
-      return Stack(
-        children: [
-          getChild(context),
-          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
-            LoginManager.getInstance().isVIP(shouldShowDialog: true,
-                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.TimeLine
+          if (LoginManager.getInstance().isVIP(
+              shouldShowDialog: false,
+              paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar) || TimelinePageFromEnum.normal.index != this.widget.timelinePageFromEnum)
+            return getChild(context);
+          else
+            return Stack(
+              children: [
+                getChild(context),
+                Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+                  LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                      paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.TimeLine
+                  );
+                },),))
+              ],
             );
-          },),))
-        ],
-      );
+        });
 
   }
 

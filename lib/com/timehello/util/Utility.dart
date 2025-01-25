@@ -215,6 +215,21 @@ class Utility {
     }
   }
 
+  static Map getLatestExpireDateOfReceipt(List list, List<String> productIds) {
+    int latestExpireDate = 0;
+    String productId = "";
+    String originalTransactionId = "";
+    list.forEach((element) {
+      // if (element['expires_date_ms']) {
+        if (element['expires_date_ms'] != null && productIds.contains(element['product_id']) == true) {
+          latestExpireDate = max(latestExpireDate, int.parse(element['expires_date_ms']));
+          productId = element['product_id'];
+          originalTransactionId = element['original_transaction_id'];
+        }
+      // }
+    });
+    return {"latestExpireDate" : latestExpireDate, "productId": productId, "originalTransactionId": originalTransactionId};
+  }
   //
   // /**
   //  * folderModel是否可编辑
@@ -6911,6 +6926,35 @@ class Utility {
     }
   }
 
+  //vip开关是否开
+  static bool isVipSwitchOn() {
+    //时常出现没返回数据的情况
+    if(DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] == null) {
+      return false;
+    }
+    String supportFreeVipCountryAndLanguage = DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] ?? "";
+    if(TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == true) {
+      return true;
+    }
+    if(supportFreeVipCountryAndLanguage.indexOf("all_purchase") == true) {
+      return false;
+    }
+    if(supportFreeVipCountryAndLanguage.indexOf("all") == true) {
+      return true;
+    }
+    if(TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false && supportFreeVipCountryAndLanguage.indexOf(DeviceInfoManagement.getCountryCode()) != -1) {
+      return true;
+    }
+    if(TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false && supportFreeVipCountryAndLanguage.indexOf(DeviceInfoManagement.getLanguage()) != -1) {
+      return true;
+    }
+    return false;
+    // if (supportFreeVipCountry.) {
+    //   return true;
+    // }
+    // return false;
+  }
+
   static List<MissionModel> convertListEventModelToListMissionModel(
       List<EventModel> list) {
     List<MissionModel> listMission = [];
@@ -7852,6 +7896,14 @@ class Utility {
       return Urls.privacyProtocol;
     } else {
       return Urls.privacyProtocolOfficial;
+    }
+  }
+
+  static String getEULAUrl() {
+    if (DeviceInfoManagement.getLanguage() == "zh") {
+      return Urls.privacyProtocol;
+    } else {
+      return Urls.eula_official;
     }
   }
 
@@ -10180,4 +10232,6 @@ class WeekDayConverter {
     }
     return [...sundayToSaturday.sublist(1), sundayToSaturday.first];
   }
+
+
 }

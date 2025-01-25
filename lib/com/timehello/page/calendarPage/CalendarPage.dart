@@ -20,6 +20,7 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/main.dart';
 
+import '../../common/provider/Env.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CustomMarquee.dart';
 import '../../util/DialogManagement.dart';
@@ -34,6 +35,7 @@ import 'components/CalendarSliverListWidget.dart';
 class CalendarPage extends BaseWidget {
   String? title;
   Function? onRefresh;
+
   CalendarPage({Key? key, this.title, this.onRefresh}) : super(key: key);
 
   @override
@@ -131,9 +133,14 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
             data['missionModel'], data['folderModel']);
         break;
       case 'onClickFinishItem': //点击完成任务
-        Utility.onClickFinishItem(missionModel: data['missionModel'], folderModel: data?['folderModel'] ?? null, timestampCurrent: data['timestampCurrent'], context: context, finishCallback: () {
-          requestDatas();
-        });
+        Utility.onClickFinishItem(
+            missionModel: data['missionModel'],
+            folderModel: data?['folderModel'] ?? null,
+            timestampCurrent: data['timestampCurrent'],
+            context: context,
+            finishCallback: () {
+              requestDatas();
+            });
         break;
       case 'onClickPreviousPage':
         horizontalAnimateToItem(--curIndex);
@@ -155,17 +162,21 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
       missionModel.end_time = dayModel.dateTime?.millisecondsSinceEpoch;
       Utility.pushNavigator(
           context,
-          CreateMissionPage(missionModel: missionModel,onRefresh: () {
-            requestDatas();
-          }));
+          CreateMissionPage(
+              missionModel: missionModel,
+              onRefresh: () {
+                requestDatas();
+              }));
     } else {
       MissionModel missionModel = MissionModel();
       missionModel.end_time = dayModel.dateTime?.millisecondsSinceEpoch;
       DialogManagement.getInstance().showPCCustomDialog(
           context: context,
-          widget: CreateMissionPage(missionModel: missionModel, onRefresh: () {
-            requestDatas();
-          }));
+          widget: CreateMissionPage(
+              missionModel: missionModel,
+              onRefresh: () {
+                requestDatas();
+              }));
     }
   }
 
@@ -179,12 +190,10 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
   }
 
   Future<void> requestDatas() async {
-    if(this.widget.onRefresh != null) {
+    if (this.widget.onRefresh != null) {
       this.widget.onRefresh!(this.folderModelSearch);
     }
   }
-
-
 
   /**
    * 跳转到设置叶敏
@@ -237,47 +246,59 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
   Widget build(BuildContext context) {
     calendarModel = context.watch<GlobalStateEnv>().calendarModel;
     List<MonthModel> monthModelList = calendarModel?.monthModelList ?? [];
-    if (LoginManager.getInstance().isVIP(
-        shouldShowDialog: false,
-        paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar))
-      return getChild(monthModelList, context);
-    else
-      return Stack(
-        children: [
-          getChild(monthModelList, context),
-          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
-            LoginManager.getInstance().isVIP(shouldShowDialog: true,
-                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
+
+    return Selector<Env, bool>(
+        selector: (_, env) => env.isVip ?? false,
+        builder: (_, settingModel, __) {
+          if (LoginManager.getInstance().isVIP(
+              shouldShowDialog: false,
+              paymentPromotionAdsModeEnum:
+                  PaymentPromotionAdsModeEnum.Calendar))
+            return getChild(monthModelList, context);
+          else
+            return Stack(
+              children: [
+                getChild(monthModelList, context),
+                Expanded(child: Container(
+                  child: TransparentOverlayPage(
+                    onTapCallback: () {
+                      LoginManager.getInstance().isVIP(
+                          shouldShowDialog: true,
+                          paymentPromotionAdsModeEnum:
+                              PaymentPromotionAdsModeEnum.Calendar);
+                    },
+                  ),
+                ))
+              ],
             );
-          },),))
-        ],
-      );
+        });
   }
 
   ColoredBox getChild(List<MonthModel> monthModelList, BuildContext context) {
     return ColoredBox(
-    color: ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomMarquee(
-          bean: MarqueInfo.marqueCalendarpage,
-        ),
-        Expanded(
-            flex: 1,
-            child: (monthModelList.length > 0 &&
-                    ((monthModelList[this.btmIndex].dayModelList.length)) > 0)
-                ? buildCenter()
-                : Container()),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 1,
-          color: Color(0xfff0f0f0),
-        ),
-        Container(height: 60, child: buildBottom())
-      ],
-    ),
-  );
+      color: ThemeManager.getInstance()
+          .getBackgroundColor(defaultColor: Colors.white),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CustomMarquee(
+            bean: MarqueInfo.marqueCalendarpage,
+          ),
+          Expanded(
+              flex: 1,
+              child: (monthModelList.length > 0 &&
+                      ((monthModelList[this.btmIndex].dayModelList.length)) > 0)
+                  ? buildCenter()
+                  : Container()),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 1,
+            color: Color(0xfff0f0f0),
+          ),
+          Container(height: 60, child: buildBottom())
+        ],
+      ),
+    );
   }
 
   //必须要做这个判断 否则数组为空时会报scrollview异常
@@ -295,10 +316,12 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
             CalendarSliverListWidget(
               key: ValueKey('CalendarSliverListWidget123'),
               onTapFolderFilterListener: (folderModel) {
-                    folderModelSearch = folderModel;
-                    updateUI();
+                folderModelSearch = folderModel;
+                updateUI();
               },
-              listDayModels: Utility.filterDaysModels(calendarModel?.monthModelList[btmIndex].dayModelList ?? [], folderModelSearch),
+              listDayModels: Utility.filterDaysModels(
+                  calendarModel?.monthModelList[btmIndex].dayModelList ?? [],
+                  folderModelSearch),
               onTapHeaderListener: () async {
                 int? curTimestemp = currentDateTimeModel?.timestamp;
                 currentDateTimeModel = await Utility.showMonthPickerDialog(
@@ -306,7 +329,8 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
                 int index = getHorMonthIndex(currentDateTimeModel!);
                 if (index > -1) {
                   horizontalAnimateToItem(index - 1);
-                  verticalAnimateToPosition(currentDateTimeModel!.datetime?.day ?? 0);
+                  verticalAnimateToPosition(
+                      currentDateTimeModel!.datetime?.day ?? 0);
                 }
               },
               onTapPlayListener:
@@ -314,10 +338,13 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
                 this.onClick('onClickToMissionDetailPage',
                     {'missionModel': missionModel, 'folderModel': folderModel});
               },
-              onTapFinishListener:
-                  (FolderModel? folderModel, MissionModel? missionModel, int? timestampCurrent) {
-                this.onClick('onClickFinishItem',
-                    {'missionModel': missionModel, 'folderModel': folderModel, 'timestampCurrent': timestampCurrent});
+              onTapFinishListener: (FolderModel? folderModel,
+                  MissionModel? missionModel, int? timestampCurrent) {
+                this.onClick('onClickFinishItem', {
+                  'missionModel': missionModel,
+                  'folderModel': folderModel,
+                  'timestampCurrent': timestampCurrent
+                });
               },
               onScrollListener: (index) {
                 // if(enableScrollManually && !isScrolling) {
@@ -329,10 +356,10 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
                   (FolderModel? folderModel, MissionModel? missionModel) {
                 this.onClick('onClickSettingItem',
                     {'missionModel': missionModel, 'folderModel': folderModel});
-              }, onTapCreateListener: (DayModel dayModel) {
-              this.onClick('onClickCreateWithData',
-                  {'dayModel': dayModel});
-            },
+              },
+              onTapCreateListener: (DayModel dayModel) {
+                this.onClick('onClickCreateWithData', {'dayModel': dayModel});
+              },
             )
           ]));
 
@@ -362,7 +389,8 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
                       height: 40,
                       margin: EdgeInsets.only(top: 5, bottom: 5),
                       decoration: BoxDecoration(
-                          color: ThemeManager.getInstance().getDefautThemeColor(),
+                          color:
+                              ThemeManager.getInstance().getDefautThemeColor(),
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       alignment: Alignment.center,
                     ))),
@@ -479,13 +507,19 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
           '${monthModel.monthName}',
           style: isSelected
               ? TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
-              : TextStyle(color: ThemeManager.getInstance().getTextColor(defaultColor: Colors.black), fontWeight: FontWeight.w600),
+              : TextStyle(
+                  color: ThemeManager.getInstance()
+                      .getTextColor(defaultColor: Colors.black),
+                  fontWeight: FontWeight.w600),
         ),
         Text(
           '${1}-${monthModel.dayModelList.length}',
           style: isSelected
               ? TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
-              : TextStyle(color: ThemeManager.getInstance().getTextColor(defaultColor: Colors.black), fontWeight: FontWeight.bold),
+              : TextStyle(
+                  color: ThemeManager.getInstance()
+                      .getTextColor(defaultColor: Colors.black),
+                  fontWeight: FontWeight.bold),
         )
       ],
     );

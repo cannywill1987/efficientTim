@@ -220,6 +220,9 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
   baseBuild(BuildContext context) {
     // TODO: implement baseBuild
     // this.list = context.read<GlobalStateEnv>().listChatGptMessageModel;
+    return Selector<Env, bool>(
+        selector: (_, env) => env.isVip ?? true,
+        builder: (_, isVip, __) {
     if (LoginManager.getInstance().isVIP(
         shouldShowDialog: false,
         paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar))
@@ -235,6 +238,7 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
           },),))
         ],
       );
+        });
   }
 
   Selector<Env, ChatGptFolderModel> getChild(BuildContext context) {

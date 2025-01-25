@@ -1,6 +1,6 @@
 import StoreKit
 
-@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 class IAPManager: NSObject, SKRequestDelegate {
     static let shared = IAPManager()
     private var products: [Product] = [] // 存储从 App Store 获取的产品

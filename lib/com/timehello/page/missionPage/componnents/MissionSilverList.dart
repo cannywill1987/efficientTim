@@ -226,7 +226,6 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text.rich(TextSpan(
-                    // text: 'Hello', // default text style
                     children: [
                       TextSpan(
                           text: this.widget._missionModel?.title ?? "" ?? "",

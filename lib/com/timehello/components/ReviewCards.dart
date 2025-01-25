@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 
+import '../util/Utility.dart';
+
 class ReviewCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         _buildReviewCard(
-          title: "日程管理神器",
-          review:
-          "我每天晚上用日视图来安排第二天的日程，周末用周视图复盘本周的时间花费。对时间的清晰掌控不仅提升了我的工作效率，也减少了我的焦虑感。",
+          title: getI18NKey().schedule_management_tool,
+          review: getI18NKey().schedule_management_review,
           rating: 5,
         ),
         SizedBox(height: 16.0),
         _buildReviewCard(
-          title: "再也不忘记重要的事情",
-          review:
-          "我经常把提醒功能用来抢票、报名等重要事项，持续提醒功能让我不再错过任何一个关键的时间点。",
+          title: getI18NKey().never_miss_important_things,
+          review: getI18NKey().never_miss_review,
           rating: 5,
         ),
         SizedBox(height: 16.0),
         _buildReviewCard(
-          title: "记录生活",
-          review:
-          "我喜欢用月视图来记录生活，比如读书、运动和学习打卡。每当月视图进行回顾时，我都会感到开心和不可思议：原来一个月能完成那么多事情！",
+          title: getI18NKey().life_recording,
+          review: getI18NKey().life_recording_review,
           rating: 5,
         ),
       ],

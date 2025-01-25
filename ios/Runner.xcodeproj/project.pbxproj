@@ -128,6 +128,7 @@
 		DF5F2C332BF248740006FCC4 /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F2C322BF248740006FCC4 /* ShieldConfigurationExtension.swift */; };
 		DF5F2C382BF248740006FCC4 /* ShieldConfigurationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5F2C2E2BF248740006FCC4 /* ShieldConfigurationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DF61B47A29E903CF00C13F3A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF61B47929E903CF00C13F3A /* Color.swift */; };
+		DF6946F02D410152004239EA /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6946EF2D41014D004239EA /* IAPManager.swift */; };
 		DF7ADE8D2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7ADE8C2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework */; };
 		DF7ADE912A54193500BBCD90 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7ADE8F2A54193500BBCD90 /* TencentOpenAPI.framework */; };
 		DF7ADE942A54438800BBCD90 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF7ADE932A54438800BBCD90 /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -639,6 +640,7 @@
 		DF5F2C352BF248740006FCC4 /* ShieldConfigurationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfigurationExtension.entitlements; sourceTree = "<group>"; };
 		DF61B47929E903CF00C13F3A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DF6520842CE0EB55006166DE /* NewClockInWeekendWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewClockInWeekendWidgetExtension.entitlements; sourceTree = "<group>"; };
+		DF6946EF2D41014D004239EA /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		DF7ADE8C2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "WechatOpenSDK-XCFramework.xcframework"; sourceTree = "<group>"; };
 		DF7ADE8F2A54193500BBCD90 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		DF7ADE932A54438800BBCD90 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
@@ -1552,6 +1554,7 @@
 		DFFB435A286377F5004083F6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				DF6946EF2D41014D004239EA /* IAPManager.swift */,
 				DFE77E0F2D0829A200E2CF0A /* EventReminderManager.swift */,
 				DF81CA972BB3002A00E2842E /* NotificationManager.swift */,
 				DF81CA902BB2FFEE00E2842E /* AppStorageKeyManager.swift */,
@@ -2440,6 +2443,7 @@
 				DF2C7F0B2CD0A54B00A95340 /* NetworkRequest.swift in Sources */,
 				DF86A3162ACD46DB006D3F87 /* Array+Exteinsion.swift in Sources */,
 				DF81CA772BB2FD5500E2842E /* TImelineViewController.swift in Sources */,
+				DF6946F02D410152004239EA /* IAPManager.swift in Sources */,
 				DF81CA922BB2FFEE00E2842E /* FamilyActivityModel.swift in Sources */,
 				DFEB26CB2ADF7D71004FBB7E /* WQBMissionData.swift in Sources */,
 				DF2DA3B12A5C0B1E0051005D /* FlutterViewControllerRoot.swift in Sources */,

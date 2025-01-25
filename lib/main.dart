@@ -51,8 +51,8 @@ import 'com/timehello/util/FirebaseAuthManager.dart';
 import 'com/timehello/util/LocaleProvider.dart';
 import 'com/timehello/util/LoginManager.dart';
 import 'com/timehello/util/NotificationManager.dart';
-import 'com/timehello/util/PriceManager.dart';
 import 'com/timehello/util/SharePreferenceUtil.dart';
+import 'com/timehello/util/SubscriptionAndPriceManager.dart';
 import 'com/timehello/util/TextUtil.dart';
 import 'com/timehello/util/TickTimeManager.dart';
 import 'generated/l10n.dart';
@@ -110,7 +110,7 @@ Future<void> initThirdparty(BuildContext context, bool isFirstTime) async {
       await FirebaseAuthManager.initialized();
     }
     // ios价格初始化
-    PriceManager.getInstance();
+    SubscriptionAndPriceManager.getInstance();
     NotificationManager.getInstance()?.init();
     MongoDb.initMasterKey(
         Params.mBaseUrl + "/api",
@@ -254,9 +254,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     if(context != null) {
       MyApp.context = context;
     }
-    if(!Utility.isChina()) {
+    // if(!Utility.isChina()) {
       Params.useGmail = true;
-    }
+    // }
 
     try {
       LoginManager.getInstance().init();

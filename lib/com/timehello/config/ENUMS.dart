@@ -1,3 +1,9 @@
+enum SizeEnum {
+  small,
+  medium,
+  large,
+}
+
 // 广告弹窗模式
 enum PaymentPromotionAdsModeEnum {
   TimeSegment, // 展示时间段的广告

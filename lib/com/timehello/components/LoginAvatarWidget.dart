@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,6 +18,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
+import '../../../r.dart';
 import '../config/ColorsConfig.dart';
 import '../config/ENUMS.dart';
 import '../util/DeviceInfoManagement.dart';
@@ -33,6 +33,12 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
   String? curAvatarSelected = LoginManager.getInstance().getUserBean().avatar;
   AvatarEnum avatarEnum;
   bool isRequesting = false;
+  String randomAvatar = Utility.getRandomString(
+    from: 1,
+    max: 40,
+    pureInt: 2,
+  );
+
   LoginAvatarWidget(
       {this.avatarEnum = AvatarEnum.defaut,
       this.isLogin = false,
@@ -56,8 +62,7 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
         },
       ), okCallBack: (duration) {
         HttpManager.getInstance().doPostRequest(Apis.updateAvatar,
-            params: {'avatar': this.curAvatarSelected},
-            context: context,
+            params: {'avatar': this.curAvatarSelected}, context: context,
             callback: (BaseBean response, String scene, bool isFromCache) {
           if (response.success == true) {
             eventBus.fire(EventFn(Params.ACTION_UPDATE_USERINFO_AVATAR, {}));
@@ -74,21 +79,21 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
     } else {
       //编辑模式
       if (DeviceInfoManagement.isMoible()) {
-      File? file = await Utility.pickImage();
-      File? fileCropped = await Utility.cropImage(file);
-      // Image.file(fileCropped);
-      if(fileCropped == null) {
-        return;
-      }
-      BaseBean baseBean = await HttpManager.getInstance().uploadImage(key: 'key', file:fileCropped, url: Apis.uploadOss);
-      //   String url =
-      //       'http://fsclould.timerbell.com/20220422-image_cropper_065ADC93-B347-4F1F-8257-C0514ED1F4AF-2043-000001C1516A6E53.jpg?imageMogr2/thumbnail/300x300';
-      isRequesting = true;
-        HttpManager.getInstance()
-            .doPostRequest(Apis.updateAvatar, params: {'avatar': baseBean.data['smallImage']},
-            context: context,
-                callback: (BaseBean response, String scene, bool isFromCache) {
-                  isRequesting = false;
+        File? file = await Utility.pickImage();
+        File? fileCropped = await Utility.cropImage(file);
+        // Image.file(fileCropped);
+        if (fileCropped == null) {
+          return;
+        }
+        BaseBean baseBean = await HttpManager.getInstance()
+            .uploadImage(key: 'key', file: fileCropped, url: Apis.uploadOss);
+        //   String url =
+        //       'http://fsclould.timerbell.com/20220422-image_cropper_065ADC93-B347-4F1F-8257-C0514ED1F4AF-2043-000001C1516A6E53.jpg?imageMogr2/thumbnail/300x300';
+        isRequesting = true;
+        HttpManager.getInstance().doPostRequest(Apis.updateAvatar,
+            params: {'avatar': baseBean.data['smallImage']}, context: context,
+            callback: (BaseBean response, String scene, bool isFromCache) {
+          isRequesting = false;
           if (response.success == true) {
             eventBus.fire(EventFn(Params.ACTION_UPDATE_USERINFO_AVATAR, {}));
             Utility.showToastMsg(msg: getI18NKey().update_success);
@@ -156,25 +161,39 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
       if (LoginManager.getInstance().getUserBean().avatar?.indexOf('http') !=
           -1) {
         return Stack(children: [
+          // if(PriceManager.getInstance().isVIP() == true)
           CachedNetworkImage(
             width: this.width,
             height: this.width,
             fit: BoxFit.cover,
-            imageUrl: Utility.filterHttpUrl(LoginManager.getInstance().getUserBean().avatar ?? "", prefix: "oss"),
+            imageUrl: Utility.filterHttpUrl(
+                LoginManager.getInstance().getUserBean().avatar ?? "",
+                prefix: "oss"),
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                    // colorFilter:
-                    //     ColorFilter.mode(Colors.red, BlendMode.colorBurn)
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  // colorFilter:
+                  //     ColorFilter.mode(Colors.red, BlendMode.colorBurn)
                 ),
               ),
             ),
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
+          if(LoginManager.getInstance().isVIP(shouldShowDialog: false))
+          Positioned(
+            top: -5,
+            right: -5,
+            child: Transform.rotate(
+              angle: 45 * (3.141592653589793 / 180), // 将角度转换为弧度
+              child: Utility.getSVGPicture(
+                R.assetsImgIcVipCrown,
+                size: 24,
+              ),
+            ),),
           this.avatarEnum == AvatarEnum.edit
               ? Align(
                   alignment: Alignment(-0, -0.2),
@@ -191,28 +210,37 @@ class LoginAvatarWidget extends StatelessWidget implements Observer {
               : SizedBox.shrink()
         ]);
       } else {
-        if(this.avatarEnum == AvatarEnum.defaut) {
+        if (this.avatarEnum == AvatarEnum.defaut) {
           avatar = CONSTANTS.getAvatarFromAvatarList(
-              LoginManager.getInstance().getUserBean().avatar ?? "", this.width - 8);
+              LoginManager.getInstance().getUserBean().avatar ?? "",
+              this.width - 8);
         } else {
           avatar = Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(width: 2, color: Color(0xffa0a0a0))),
-              width: this.width,
-              height: this.width,
-          child: Icon(Icons.add_a_photo, color: Color(0xffa0a0a0), size: 15),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                border: Border.all(width: 2, color: Color(0xffa0a0a0))),
+            width: this.width,
+            height: this.width,
+            child: Icon(Icons.add_a_photo, color: Color(0xffa0a0a0), size: 15),
           );
         }
       }
     } else {
-      avatar = CONSTANTS.getAvatarFromAvatarList(
-          'avatar_${Utility.getRandomString(
-            from: 1,
-            max: 40,
-            pureInt: 2,
-          )}',
-          this.width - 8);
+      avatar = Stack(children: [
+        CONSTANTS.getAvatarFromAvatarList(
+            'avatar_${randomAvatar}', this.width - 8),
+        if(LoginManager.getInstance().isVIP(shouldShowDialog: false))
+        Positioned(
+            top: -5,
+            right: -5,
+          child: Transform.rotate(
+            angle: 45 * (3.141592653589793 / 180), // 将角度转换为弧度
+            child: Utility.getSVGPicture(
+              R.assetsImgIcVipCrown,
+              size: 24,
+            ),
+          ),),
+      ]);
     }
     return avatar;
   }

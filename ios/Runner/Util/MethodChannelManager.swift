@@ -32,6 +32,217 @@ class MethodChannelManager {
     //
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
+        case "getReceipt":
+            if #available(iOS 15.0, *) {
+                let res = IAPManager.shared.getReceipt()
+                let jsonResult = """
+                {
+                    "success": true,
+                    "data": {
+                        "res": \"\(res)\"
+                    }
+                }
+                """
+                result(jsonResult)
+            } else {
+                // Fallback on earlier versions
+            }
+            break;
+        case "restorePurchases":
+            Task {
+                if #available(iOS 15.0, *) {
+                    let res: Void = await IAPManager.shared.restorePurchases() {productId, expireDate, originalTransactionId, error in
+                        if error == nil {
+                            let jsonResult = """
+                            {
+                                "success": true,
+                                "data": {
+                                    "productId": \"\(productId)\",
+                                    "expireDate": \(expireDate),
+                                    "originalTransactionId": \"\(originalTransactionId)\"
+                                }
+                            }
+                            """
+                            result(jsonResult)
+                        } else {
+                            let jsonResult = """
+                            {
+                                "success": false,
+                                "data": {}
+                            }
+                            """
+                            result(jsonResult)
+                        }
+                    }
+                    result("{\"success\": true, \"data\": \"\(res)\"}");
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+            break;
+        case "getSubscriptionDetails":
+            Task {
+                if #available(iOS 15.0, *) {
+                    let data = await IAPManager.shared.getSubscriptionDetails()
+                    
+                    if data != nil {
+                        let expireDate = data?["expireDate"] ?? 0
+                        let originalID = data?["originalID"] ?? ""
+                        result("{\"success\": true, \"data\": {\"expireDate\": \(expireDate), \"originalID\": \"\(originalID)\"}}");
+                    } else {
+                        result("{\"success\": false, \"data\": \(Int(0))}");
+                    }
+                } else {
+                    // Fallback on earlier versions
+                };
+            }
+            break;
+        case "checkSubscriptionState":
+            guard let args = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                return
+            }
+            Task {
+                if #available(iOS 15.0, *) {
+                    let res = await IAPManager.shared.checkSubscriptionState(productID: args)
+                    result("{\"success\": true, \"data\": \"\(res)\"}");
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+            break;
+        case "IAPpurchase":
+            guard let args = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
+                return
+            }
+//                EventReminderManager.shared.syncEventsToReminders(startDate: startDate, endDate: endDate) { success, error in
+//                    if success {
+//                        result("Events synced to reminders successfully")
+//                    } else {
+//                        result(FlutterError(code: "SYNC_FAILED", message: "同步事件到提醒失败", details: error?.localizedDescription))
+//                    }
+//                }
+            
+            if #available(iOS 15.0, *) {
+                Task {
+                    // -1 失败 0 未开始 1 请求中 2 请求成功 3 restore成功 4 用户取消购买
+                    await IAPManager.shared.purchase(productID: args) { status, expireDate, originalTransactionId, error in
+                        if status > -1 {
+                            let jsonResult = """
+                            {
+                                "success": true,
+                                "data": {
+                                    "status": \(status),
+                                    "expireDate": \(expireDate),
+                                    "originalTransactionId": \"\(originalTransactionId)\"
+                                }
+                            }
+                            """
+                            result(jsonResult)
+                        } else {
+                            let jsonResult = """
+                            {
+                                "success": false,
+                                "data": {}
+                            }
+                            """
+                            result(jsonResult)
+                        }
+                    }
+                }
+                } else {
+                    // Fallback on earlier versions
+                }
+            break;
+        case "IAPManagerFetchProducts":
+            let list:[String] = (call.arguments as! [String]);
+   //                let list:[String] = (res["datas"] as? [String]) ?? [];
+            if #available(iOS 15.0, *) {
+                       Task {
+                           await IAPManager.shared.fetchProducts(productIDs: list) { products in
+                               // 处理获取到的产品数组
+                               if products.isEmpty {
+                                   print("No products available.")
+                               } else {
+                                   do {
+                                       // 将 SKProduct 转换为字典数组
+                                       let productsArray = products.map { product -> [String: Any] in
+                                           do {
+                                               var productDictionary: [String: Any] = [:]
+                                               
+                                               //                                if #available(macOS 15.0, *) {
+                                               // 使用推荐的替代属性
+                                               productDictionary["title"] = product.displayName // 替代 localizedTitle
+                                               productDictionary["description"] = product.description // 替代 localizedDescription
+                                               productDictionary["price"] = product.price // 替代 price 和 priceLocale
+                                               productDictionary["priceLocaleidentifier"] = product.id
+                                               var currencySymbol = "";
+                                               if let match = product.displayPrice.range(of: "^[^0-9]+", options: .regularExpression) {
+                                                   currencySymbol = String(product.displayPrice[match])
+                                                   print("Currency Symbol: \(currencySymbol)") // 输出: $
+                                               }
+                                               
+                                               productDictionary["currencySymbol"] = currencySymbol // 替代 price 和 priceLocale
+                                               productDictionary["identifier"] = product.id // 替代 productIdentifier
+                                               productDictionary["isFamilyShareable"] = product.isFamilyShareable // 替代 isFamilyShareable
+                             
+                                               if #available(macOS 12.0, *) {
+                                                   if let subscription = product.subscription {
+//                                                           productDictionary["paymentMode"] = subscription.paymentMode.rawValue // 支付模式
+
+                                                       // 获取支付周期的单位
+                                                           switch subscription.subscriptionPeriod.unit {
+                                                           case .day:
+                                                               productDictionary["periodUnit"] = "day"
+                                                           case .week:
+                                                               productDictionary["periodUnit"] = "week"
+                                                           case .month:
+                                                               productDictionary["periodUnit"] = "month"
+                                                           case .year:
+                                                               productDictionary["periodUnit"] = "year"
+                                                           @unknown default:
+                                                               productDictionary["periodUnit"] = "unknown"
+                                                           }
+                                                       
+                                                       productDictionary["periodValue"] = subscription.subscriptionPeriod.value
+//                                                           productDictionary["periodCount"] = subscription.introductoryOffer?.type
+                                                   }
+                                               }
+                                               
+                                               return productDictionary
+                                           } catch {
+                                               // 捕获 JSON 转换错误
+                                               //                                    result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                                           }
+                                       }
+                                       
+                                       // 创建数据字典
+                                       let data: [String: Any] = [
+                                        "success": true,
+                                        "data": productsArray
+                                       ]
+                                       
+                                       // 将字典转换为 JSON 数据
+                                       let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                                       
+                                       // 将 JSON 数据转换为字符串
+                                       if let jsonString = String(data: jsonData, encoding: .utf8) {
+                                           result(jsonString) // 使用 JSON 字符串返回结果
+                                       } else {
+                                           result("{\"success\": false, \"error\": \"Failed to encode JSON.\"}")
+                                       }
+                                   } catch {
+                                       // 捕获 JSON 转换错误
+                                       result("{\"success\": false, \"error\": \"\(error.localizedDescription)\"}")
+                                   }
+                               }
+                           }
+                       }
+                   } else {
+                       // Fallback on earlier versions
+                   }
+                   break;
         case "deleteReminder":
             guard let args = call.arguments as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENTS", message: "无效的参数", details: nil))
