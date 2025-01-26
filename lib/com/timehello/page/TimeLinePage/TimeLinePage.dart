@@ -396,11 +396,15 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
             return Stack(
               children: [
                 getChild(context),
-                Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
-                  LoginManager.getInstance().isVIP(shouldShowDialog: true,
-                      paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.TimeLine
-                  );
-                },),))
+                Column(
+                  children: [
+                    Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+                      LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                          paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.TimeLine
+                      );
+                    },),)),
+                  ],
+                )
               ],
             );
         });

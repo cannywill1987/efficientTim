@@ -259,16 +259,20 @@ class CalendarPageState extends BaseWidgetState<CalendarPage> {
             return Stack(
               children: [
                 getChild(monthModelList, context),
-                Expanded(child: Container(
-                  child: TransparentOverlayPage(
-                    onTapCallback: () {
-                      LoginManager.getInstance().isVIP(
-                          shouldShowDialog: true,
-                          paymentPromotionAdsModeEnum:
-                              PaymentPromotionAdsModeEnum.Calendar);
-                    },
-                  ),
-                ))
+                Column(
+                  children: [
+                    Expanded(child: Container(
+                      child: TransparentOverlayPage(
+                        onTapCallback: () {
+                          LoginManager.getInstance().isVIP(
+                              shouldShowDialog: true,
+                              paymentPromotionAdsModeEnum:
+                                  PaymentPromotionAdsModeEnum.Calendar);
+                        },
+                      ),
+                    )),
+                  ],
+                )
               ],
             );
         });

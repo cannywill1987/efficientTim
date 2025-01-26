@@ -48,11 +48,15 @@ class _TimeManagementContainerState extends State<TimeManagementContainer> {
       return Stack(
         children: [
           getChild(),
-          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
-            LoginManager.getInstance().isVIP(shouldShowDialog: true,
-                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
-            );
-          },),))
+          Column(
+            children: [
+              Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+                LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                    paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
+                );
+              },),)),
+            ],
+          )
         ],
       );
   }
