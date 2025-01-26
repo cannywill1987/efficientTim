@@ -36,7 +36,7 @@ class FolderModel extends MongoDbObject {
       end_time; //设置的预期完成时间 默认空是0 isFinished = false 计划到期日 isFinished = true 实际到期日
   int? update_time;
   int? create_time;
-  int? tag; //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器
+  int? tag; //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器 5-目标模块
   int color = 0;
   int? tagColor;
   int? icon = 0; //左侧图标

@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "objective_final": "目标",
   "eula": "EULA",
   "privacy_policy": "Privacy Policy",
   "auto_renew_after_trial": "After the trial, automatically renew. Cancel anytime. By upgrading, you agree to the EULA, Privacy Policy.",

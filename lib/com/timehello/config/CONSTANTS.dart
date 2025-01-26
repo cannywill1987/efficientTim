@@ -2140,12 +2140,19 @@ class CONSTANTS {
         uncheckIcon: Utility.getSVGPicture(R.assetsImgIcFolder, size: size),
         title: getI18NKey().folder,
         isCheck: defaultVal == 1));
+
+    list.add(CheckButtonStateModel(
+        code: 'objective',
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcObjectiveBlue, size: size),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcObjectiveBlue, size: size),
+        title: getI18NKey().objective_final,
+        isCheck: defaultVal == 1));
     list.add(CheckButtonStateModel(
         code: 'group',
         checkIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
         uncheckIcon: Utility.getSVGPicture(R.assetsImgIcAddFriend, size: size),
         title: getI18NKey().add_group_listing,
-        isCheck: defaultVal == 1));
+        isCheck: defaultVal == 2));
     return list;
   }
 
@@ -4343,7 +4350,18 @@ class CONSTANTS {
                   endDateTime: endDateTime,
                   calendarModel: calendarModel,
                   objectId: element.objectId)));
-        } else if (folderPageViewEnum == FolderPageViewEnum.listing_archive &&
+        } else if (folderPageViewEnum == FolderPageViewEnum.objective &&
+            (element.tag == 5) &&
+            (element.folderStatus == 0 || element.folderStatus == null)) {
+          listFolderModel.add(FolderModelWithExtraData(
+              folderModel: element,
+              folderTimeModel: CONSTANTS.getFolderTime(
+                  folderStatusDate: element.iconType ?? 0,
+                  startDateTime: startDateTime,
+                  endDateTime: endDateTime,
+                  calendarModel: calendarModel,
+                  objectId: element.objectId)));
+        }  else if (folderPageViewEnum == FolderPageViewEnum.listing_archive &&
             (element.tag == 1 || element.tag == 3) &&
             (element.folderStatus == 1)) {
           listFolderModel.add(FolderModelWithExtraData(

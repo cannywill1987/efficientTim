@@ -14,6 +14,7 @@ import 'package:time_hello/com/timehello/page/FourQuadrant/FourQuadrantContainer
 import 'package:time_hello/com/timehello/page/GroupChatPage/GroupChatPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/CalendarPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementContainer.dart';
+import 'package:time_hello/com/timehello/page/createFolderPage/CreateObjectiveFolderPage.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/StatisticPage.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -256,6 +257,11 @@ Widget desktopCenterRouter(String page, Map data) {
           ));
     case 'CreateFolderPage':
       return getListWithLeftSideWidget(CreateFolderPage(
+          folderModel: data['folderModel'],
+          pageEnum: data['PageEnum'],
+          folderModelForFolder: data['folderModelForFolder']));
+    case 'CreateObjectiveFolderPage':
+      return getListWithLeftSideWidget(CreateObjectiveFolderPage(
           folderModel: data['folderModel'],
           pageEnum: data['PageEnum'],
           folderModelForFolder: data['folderModelForFolder']));

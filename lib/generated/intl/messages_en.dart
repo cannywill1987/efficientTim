@@ -1785,6 +1785,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "number_present": m100,
         "numberedList": MessageLookupByLibrary.simpleMessage("Numbered List"),
         "objective": MessageLookupByLibrary.simpleMessage("Purpose"),
+        "objective_final": MessageLookupByLibrary.simpleMessage("目标"),
         "oct": MessageLookupByLibrary.simpleMessage("Oct"),
         "octFull": MessageLookupByLibrary.simpleMessage("October"),
         "off": MessageLookupByLibrary.simpleMessage("OFF"),

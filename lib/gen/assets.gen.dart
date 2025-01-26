@@ -264,6 +264,48 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_admin.svg
   String get icAdmin => 'assets/img/ic_admin.svg';
 
+  /// File path: assets/img/ic_ads10_more_listing.svg
+  String get icAds10MoreListing => 'assets/img/ic_ads10_more_listing.svg';
+
+  /// File path: assets/img/ic_ads11_mission_dynamic.svg
+  String get icAds11MissionDynamic => 'assets/img/ic_ads11_mission_dynamic.svg';
+
+  /// File path: assets/img/ic_ads12_advance_search.svg
+  String get icAds12AdvanceSearch => 'assets/img/ic_ads12_advance_search.svg';
+
+  /// File path: assets/img/ic_ads13_countdown.svg
+  String get icAds13Countdown => 'assets/img/ic_ads13_countdown.svg';
+
+  /// File path: assets/img/ic_ads14_widget.svg
+  String get icAds14Widget => 'assets/img/ic_ads14_widget.svg';
+
+  /// File path: assets/img/ic_ads1_calendar.svg
+  String get icAds1Calendar => 'assets/img/ic_ads1_calendar.svg';
+
+  /// File path: assets/img/ic_ads2_timeline.svg
+  String get icAds2Timeline => 'assets/img/ic_ads2_timeline.svg';
+
+  /// File path: assets/img/ic_ads3_timesegment.svg
+  String get icAds3Timesegment => 'assets/img/ic_ads3_timesegment.svg';
+
+  /// File path: assets/img/ic_ads4_filterer.svg
+  String get icAds4Filterer => 'assets/img/ic_ads4_filterer.svg';
+
+  /// File path: assets/img/ic_ads5_alert.svg
+  String get icAds5Alert => 'assets/img/ic_ads5_alert.svg';
+
+  /// File path: assets/img/ic_ads6_theme.svg
+  String get icAds6Theme => 'assets/img/ic_ads6_theme.svg';
+
+  /// File path: assets/img/ic_ads7_alarm.svg
+  String get icAds7Alarm => 'assets/img/ic_ads7_alarm.svg';
+
+  /// File path: assets/img/ic_ads8_more_group_users.svg
+  String get icAds8MoreGroupUsers => 'assets/img/ic_ads8_more_group_users.svg';
+
+  /// File path: assets/img/ic_ads9_attachment.svg
+  String get icAds9Attachment => 'assets/img/ic_ads9_attachment.svg';
+
   /// File path: assets/img/ic_ai_helper.svg
   String get icAiHelper => 'assets/img/ic_ai_helper.svg';
 
@@ -785,6 +827,9 @@ class $AssetsImgGen {
   /// File path: assets/img/ic_objective.svg
   String get icObjective => 'assets/img/ic_objective.svg';
 
+  /// File path: assets/img/ic_objective_blue.svg
+  String get icObjectiveBlue => 'assets/img/ic_objective_blue.svg';
+
   /// File path: assets/img/ic_orientation.svg
   String get icOrientation => 'assets/img/ic_orientation.svg';
 
@@ -1204,6 +1249,20 @@ class $AssetsImgGen {
         icAddlink,
         icAddnote,
         icAdmin,
+        icAds10MoreListing,
+        icAds11MissionDynamic,
+        icAds12AdvanceSearch,
+        icAds13Countdown,
+        icAds14Widget,
+        icAds1Calendar,
+        icAds2Timeline,
+        icAds3Timesegment,
+        icAds4Filterer,
+        icAds5Alert,
+        icAds6Theme,
+        icAds7Alarm,
+        icAds8MoreGroupUsers,
+        icAds9Attachment,
         icAiHelper,
         icAiService,
         icAiVoice,
@@ -1365,6 +1424,7 @@ class $AssetsImgGen {
         icNum2,
         icNum3,
         icObjective,
+        icObjectiveBlue,
         icOrientation,
         icPaintPaint,
         icPermission,

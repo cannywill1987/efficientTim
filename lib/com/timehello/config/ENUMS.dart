@@ -153,7 +153,8 @@ enum MultiSelectModeEnum { normal, multiSelect }
 enum FolderPageViewEnum {
   filterer, //筛选
   tag,
-  listing_unarchive,
+  listing_unarchive, //未归档清单
+  objective, // 目标
   listing_archive,
   normal
 }

@@ -20,6 +20,7 @@ import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModelWithExtraData.dart';
 import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/page/createFolderPage/CreateFolderPage.dart';
+import 'package:time_hello/com/timehello/page/createFolderPage/CreateObjectiveFolderPage.dart';
 import 'package:time_hello/com/timehello/page/folderspage/components/FolderSilverList.dart';
 import 'package:time_hello/com/timehello/page/statisticPage/pages/SummaryPage.dart';
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
@@ -74,6 +75,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   FolderModel? curSelectedFolderModel;
   List<FolderModelWithExtraData> listDatasNormal = []; // 今天 明天 现在做列表
   List<FolderModelWithExtraData> listDatasListing = []; // 今天 明天 现在做列表
+  List<FolderModelWithExtraData> listDatasListingObjetives = [];
   List<FolderModelWithExtraData> listDatasTags = []; // 今天 明天 现在做列表
   List<FolderModelWithExtraData> listDatasFilteres = []; // 过滤器
   List<FolderModelWithExtraData> listDatasArchive = []; // 今天 明天 现在做列表
@@ -179,6 +181,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         break;
       case 'onClickCreateFolder':
         onClickCreateFolder();
+        break;
+      case 'onClickObjective':
+        onClickObjective();
         break;
       case 'onClickAddGroup':
         onClickAddGroup();
@@ -628,6 +633,27 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     // }
   }
 
+  void onClickObjective() {
+    FolderModel folderModel = FolderModel();
+    folderModel.tag = 5; //1-circle 2-tag
+    folderModel.color = CONSTANTS.getColors()[0].color;
+    if(folderModel.tag == 5) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_objective","description": "创建目标",});
+    }
+    if (Utility.isHandsetBySize()) {
+      Utility.pushNavigator(
+          context,
+          new CreateObjectiveFolderPage(
+            pageEnum: PageModeEnum.create,
+            folderModel: folderModel,
+          ),
+          callback: (res) {});
+    } else {
+      Utility.pushDesktopNavigator(context, 'CreateObjectiveFolderPage',
+          {'PageEnum': PageModeEnum.create, 'folderModel': folderModel});
+    }
+  }
+
   void onClickCreateListing() {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 1; //1-circle 2-tag
@@ -722,6 +748,10 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                     break;
                   case 'group':
                     this.onClick("onClickAddGroup", {});
+                    break;
+                  case 'objective':
+                    this.onClick('onClickObjective', {});
+                    break;
                 }
               },
               list: CONSTANTS.getFolderButtonList(),
@@ -1091,6 +1121,13 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         folderPageViewEnum: FolderPageViewEnum.listing_unarchive,
         isMobile: screenType == ScreenType.Handset,
         calendarModel: calendarModel);
+    listDatasListingObjetives = CONSTANTS.getMenuList(this._folderModelList,
+        folderPageViewEnum: FolderPageViewEnum.objective,
+        isMobile: screenType == ScreenType.Handset,
+        calendarModel: calendarModel);
+    // 把目标清单放在清单的前面
+    listDatasListing.addAll(listDatasListingObjetives);
+
     listDatasTags = CONSTANTS.getMenuList(this._folderModelList,
         folderPageViewEnum: FolderPageViewEnum.tag,
         isMobile: screenType == ScreenType.Handset,

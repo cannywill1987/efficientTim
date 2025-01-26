@@ -142,6 +142,15 @@ class MissionModel extends MongoDbObject{
 
   bool? hasDecrypted = false; //是否解密过 cryptoVersion = 0 hasDecrypted = true 代表解密过
 
+  String? objectiveUnit = ""; //目标单位
+
+  double? objectiveValue = 0; //目标值
+
+  double? objectiveStartValue = 0; //目标值
+
+  double? objectiveTotalValue = 0; //目标值完成
+
+
   @JsonKey(ignore: true)
   bool isSelected = false; //用于多选
 

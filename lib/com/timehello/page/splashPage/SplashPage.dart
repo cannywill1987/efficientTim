@@ -21,6 +21,7 @@ import '../../beans/ResourceLocationInfoBean.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CalendarIconWidget.dart';
 import '../../components/ClockInWidget.dart';
+import '../../components/CreateObjectiveItem.dart';
 import '../../components/FamousSentenceWidget.dart';
 import '../../components/FeatureListWidget.dart';
 import '../../components/HabitTrackerApp.dart';
@@ -492,6 +493,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
 
                   // Utility.pushReplacement(context, HabitTrackerApp());
                   // Utility.pushReplacement(context, ClockInWidget());
+
+                  // Utility.pushReplacement(context, CreateObjectiveItem());
                   Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, FeatureListWidget());
 

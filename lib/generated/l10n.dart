@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `目标`
+  String get objective_final {
+    return Intl.message(
+      '目标',
+      name: 'objective_final',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `EULA`
   String get eula {
     return Intl.message(
