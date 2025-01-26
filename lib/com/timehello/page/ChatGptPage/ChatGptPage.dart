@@ -231,11 +231,15 @@ class _ChatGptPageWidgetState<T> extends BaseWidgetState<ChatGptPage> {
       return Stack(
         children: [
           getChild(context),
-          Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
-            LoginManager.getInstance().isVIP(shouldShowDialog: true,
-                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
-            );
-          },),))
+          Column(
+            children: [
+              Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
+                LoginManager.getInstance().isVIP(shouldShowDialog: true,
+                    paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar
+                );
+              },),)),
+            ],
+          )
         ],
       );
         });
