@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
+import '../config/ENUMS.dart';
 import '../models/DateTimeModel.dart';
 import '../models/MissionModel.dart';
 import '../util/Utility.dart';
@@ -8,23 +10,39 @@ import '../util/Utility.dart';
 
 class ObjectiveListScreen extends StatefulWidget {
   // MissionModel missionModel;
-  // ObjectiveListScreen({required this.missionModel});
+  List<MissionModel> missionModels = [];
+  PageModeEnum pageEnum; //用于判断创建 或者 更新
+
+  ObjectiveListScreen({
+    List<MissionModel>? missionModels, required this.pageEnum}) {
+    if(missionModels == null) {
+      this.missionModels = [];
+    } else {
+      this.missionModels = missionModels;
+    }
+  } // ObjectiveListScreen({required this.missionModel});
   @override
   _ObjectiveListScreenState createState() => _ObjectiveListScreenState();
 }
 
 class _ObjectiveListScreenState extends State<ObjectiveListScreen> {
-  List<String> objectives = [];
+  // List<String> objectives = [];
 
   void _addObjective() {
     setState(() {
-      objectives.add("New Objective");
+      MissionModel model = MissionModel();
+      model.time_mode = 2; // 0 日期 1 时间段 2 目标
+      model.title = "123";
+      model.objectiveUnit = "unit";
+      model.objectiveTotalValue = 300;
+      this.widget.missionModels.add(model);
+      // objectives.add("New Objective");
     });
   }
 
   void _removeObjective(int index) {
     setState(() {
-      objectives.removeAt(index);
+      this.widget.missionModels.removeAt(index);
     });
   }
 
@@ -37,8 +55,8 @@ class _ObjectiveListScreenState extends State<ObjectiveListScreen> {
           children: [IconButton(
             icon: Icon(Icons.add),
             onPressed: _addObjective,
-          ), ...objectives.map((objective) {
-            int index = objectives.indexOf(objective);
+          ), ...this.widget.missionModels.map((missionModel) {
+            int index = this.widget.missionModels.indexOf(missionModel);
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Row(
@@ -64,7 +82,7 @@ class _ObjectiveListScreenState extends State<ObjectiveListScreen> {
                           ),
                         ],
                       ),
-                      child:CreateObjectiveItem()
+                      child:CreateObjectiveItem(missionModel: missionModel,)
                       // Text(objectives[index]),
                     ),
                   ),
@@ -82,18 +100,148 @@ class CreateObjectiveItem extends StatefulWidget {
   MissionModel? missionModel;
 
   CreateObjectiveItem({this.missionModel});
+
   @override
   _CreateObjectiveItemState createState() => _CreateObjectiveItemState();
 }
 
 class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
-  bool isQuantifyGoalEnabled = false;
+  bool isQuantifyGoalEnabled = true;
   bool isFreeCheckIn = true;
+  double itemMargin = 8;
+
+  late TextEditingController titleController;
+  late TextEditingController objectiveUnitController;
+  late TextEditingController objectiveTotalValueController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.missionModel ??= MissionModel();
+
+    titleController = TextEditingController(text: widget.missionModel?.title ?? '');
+    objectiveUnitController = TextEditingController(text: widget.missionModel?.objectiveUnit ?? '');
+    objectiveTotalValueController = TextEditingController(text: widget.missionModel?.objectiveTotalValue?.toString() ?? '');
+
+    titleController.addListener(() {
+      widget.missionModel?.title = titleController.text;
+    });
+    objectiveUnitController.addListener(() {
+      widget.missionModel?.objectiveUnit = objectiveUnitController.text;
+    });
+    objectiveTotalValueController.addListener(() {
+      widget.missionModel?.objectiveTotalValue = double.tryParse(objectiveTotalValueController.text) ?? 0;
+    });
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    objectiveUnitController.dispose();
+    objectiveTotalValueController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ItemWithTitle(
+            title: '标题',
+            child: TextField(
+              controller: titleController,
+              decoration: InputDecoration(
+                hintText: '输入这个目标的目标标题',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          SizedBox(height: itemMargin),
+          ItemWithTitle(
+            title: '日期',
+            child: GestureDetector(
+              onTap: () {
+                // Handle date selection
+              },
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    getDailyStartTimeWidget(context),
+                    getDailyEndTimeWidget(context),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: itemMargin),
+
+          ItemWithTitle(
+            title: '量化目标',
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Switch(
+                value: isQuantifyGoalEnabled,
+                onChanged: (value) {
+                  setState(() {
+                    isQuantifyGoalEnabled = value;
+                  });
+                },
+              ),
+            ),
+          ),
+          if (isQuantifyGoalEnabled) ...[
+            SizedBox(height: itemMargin),
+            ItemWithTitle(
+              title: '总量',
+              child: TextField(
+                controller: objectiveTotalValueController,
+                inputFormatters: [
+                  // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
+                  FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
+                ],
+                keyboardType: TextInputType.phone,
+                textInputAction: TextInputAction.next,
+
+                decoration: InputDecoration(
+                  hintText: '输入这个目标的目标数值(整数)',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            SizedBox(height: itemMargin),
+            ItemWithTitle(
+              title: '单位',
+              child: TextField(
+                controller: objectiveUnitController,
+                decoration: InputDecoration(
+                  hintText: '输入单位：如元、个、次等',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+          ],
+          SizedBox(height: itemMargin),
+          Text(
+            '不固定时间，随时打卡更新目标进度',
+            style: TextStyle(color: Colors.blue),
+          ),
+        ],
+      ),
+    );
+  }
 
   Row getDailyEndTimeWidget(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         InkWell(
@@ -210,7 +358,7 @@ class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
         DateTimeModel? model = await Utility.showDateTimePickerDialog(context);
         int? startTime = model?.timestamp;
         int? endTime = this.widget.missionModel?.end_time;
-        if (startTime != null && endTime != null) {
+        if (startTime != null && (endTime != null  && endTime != 0)) {
           bool isBefore = (startTime > endTime);
           if (isBefore) {
             Utility.showToastMsg(
@@ -228,138 +376,8 @@ class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
       },
     );
   }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ItemWithTitle(
-              title: '开始日期',
-              child: GestureDetector(
-                onTap: () {
-                  // Handle date selection
-                },
-                child: Container(
-                  padding: EdgeInsets.only(left: 8, bottom: 15),
-                  child: Row(
-                    children: [
-                      getDailyStartTimeWidget(context),
-                      SizedBox(
-                        width: 0,
-                      ),
-                      getDailyEndTimeWidget(context),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '量化目标',
-                  style: TextStyle(fontSize: 16),
-                ),
-                Switch(
-                  value: isQuantifyGoalEnabled,
-                  onChanged: (value) {
-                    setState(() {
-                      isQuantifyGoalEnabled = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-            if (isQuantifyGoalEnabled) ...[
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isFreeCheckIn = true;
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: isFreeCheckIn ? Colors.blue : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          '自由打卡',
-                          style: TextStyle(
-                            color: isFreeCheckIn ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isFreeCheckIn = false;
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: !isFreeCheckIn ? Colors.blue : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          '规律打卡',
-                          style: TextStyle(
-                            color: !isFreeCheckIn ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              ItemWithTitle(
-                title: '总量',
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '输入这个目标的目标数值',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              ItemWithTitle(
-                title: '单位',
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '输入单位：如元、个、次等',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-            ],
-            SizedBox(height: 16),
-            PunchCardPage(),
-            Text(
-              '不固定时间，随时打卡更新目标进度',
-              style: TextStyle(color: Colors.blue),
-            ),
-          ],
-        ),
-    );
-  }
 }
+
 
 class ItemWithTitle extends StatelessWidget {
   final String title;
@@ -373,56 +391,24 @@ class ItemWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Flexible(
-          flex: 1,
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 16),
+    return Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            flex: 1,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 14),
+            ),
           ),
-        ),
-        Spacer(),
-        Flexible(flex: 2,child: child),
-      ],
+          Spacer(flex: 2),
+          Expanded(child: child),
+        ],
+      ),
     );
   }
 }
 
 
-class PunchCardPage extends StatefulWidget {
-  @override
-  _PunchCardPageState createState() => _PunchCardPageState();
-}
-
-class _PunchCardPageState extends State<PunchCardPage> {
-  bool isFreeCard = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ItemWithTitle(
-          title: '总量',
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: '输入这个目标的目标数值',
-              border: OutlineInputBorder(),
-            ),
-          ),
-        ),
-        ItemWithTitle(
-          title: '单位',
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: '输入单位：如元、个、次等等',
-              border: OutlineInputBorder(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

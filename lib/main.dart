@@ -254,9 +254,9 @@ class _MyAppState extends BaseWidgetState<MyApp> {
     if(context != null) {
       MyApp.context = context;
     }
-    // if(!Utility.isChina()) {
+    if(!Utility.isChina()) {
       Params.useGmail = true;
-    // }
+    }
 
     try {
       LoginManager.getInstance().init();

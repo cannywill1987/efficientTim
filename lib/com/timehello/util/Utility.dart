@@ -6926,6 +6926,25 @@ class Utility {
     }
   }
 
+
+  /**
+   * 获取任务类型和任务目标
+   */
+  static MissionModelEnum getMissionModelEnumByType({MissionModel? missionModel}) {
+    // int? time_mode = 0; // 0 日期 1 时间段 2 目标
+    switch(missionModel?.time_mode) {
+      case 0:
+        return MissionModelEnum.date;
+      case 1:
+        return MissionModelEnum.time;
+      case 2:
+        return MissionModelEnum.objective;
+      default:
+        return MissionModelEnum.date;
+    }
+
+  }
+
   //vip开关是否开
   static bool isVipSwitchOn() {
     //时常出现没返回数据的情况

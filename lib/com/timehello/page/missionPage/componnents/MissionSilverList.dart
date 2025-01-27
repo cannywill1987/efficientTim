@@ -22,6 +22,7 @@ import '../../../common/database/apis/MongoApisManager.dart';
 import '../../../components/IsNoteWidget.dart';
 import '../../../components/ListingSecurityWidget.dart';
 import '../../../components/MissionCountDownTextWidget.dart';
+import '../../../components/SliderWithCanvasWidget.dart';
 import '../../../components/SubmissionColumnList.dart';
 import '../../../config/ENUMS.dart';
 import '../../../util/DeviceInfoManagement.dart';
@@ -199,7 +200,8 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
       SizedBox(
         width: 5,
       ),
-      Container(
+      if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
+        Container(
           // margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
           child: CheckImage(
         width: 40,
@@ -289,6 +291,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                 if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
+                  if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
                     RatingBar(
                       size: this.fontSize,
                       curNumber: _missionModel?.no_tomotoes_finished ?? 0,
@@ -340,11 +343,13 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                     //   ],
                     // )
                   ],
-                )
+                ),
+                Container(child: SliderWithCanvasWidget( min: 0, max: 100, curVal: 30, onChange: (double value) {  },))
               ]),
           flex: 3),
       // 完成不需要显示
-      _missionModel?.isFinished == true
+      if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
+        _missionModel?.isFinished == true
           ? SizedBox.shrink()
           : Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 10, 0),

@@ -1,7 +1,16 @@
+
+
 enum SizeEnum {
   small,
   medium,
   large,
+}
+
+enum MissionModelEnum {
+  time, // 时间段
+  date, // 日期
+  objective // 目标
+
 }
 
 // 广告弹窗模式

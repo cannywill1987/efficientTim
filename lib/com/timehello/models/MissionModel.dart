@@ -50,7 +50,7 @@ class MissionModel extends MongoDbObject{
   //   // notifyListeners();
   // }
 
-  int? time_mode = 0; // 0 日期 1 时间段
+  int? time_mode = 0; // 0 日期 1 时间段 2 目标
 
   //博客作者
   String? title = ''; //标题

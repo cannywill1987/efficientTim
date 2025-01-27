@@ -495,6 +495,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, ClockInWidget());
 
                   // Utility.pushReplacement(context, CreateObjectiveItem());
+
+                  // Utility.pushReplacement(context, SliderWithCanvasPage());
                   Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, FeatureListWidget());
 

@@ -73,6 +73,8 @@ class _CreateObjectiveFolderPageState<T>
   String oldPasswordForUpdate = "";
   int oldCryptoVersion = -1; // -1代表没有设置加密 0代表设置了加密版本
   double fontSize = 13;
+  List<MissionModel> missionModels = [];
+
   OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
     gapPadding: 0,
     borderSide:
@@ -289,47 +291,57 @@ class _CreateObjectiveFolderPageState<T>
             ? this.widget.folderModel.title
             : '',
         callback: (res) {});
-    // -1 代表不加密 0 代表加密
-    if ((this.widget.folderModel.cryptoVersion ?? -1) > -1) {
-      //需要加密 就需要校验
+    if(res != null) {
       String objectId = res?.objectId ?? "";
-      String password =
-          passwordWidgetStateGlobalKey?.currentState?.getPassword1() ?? "";
-      CryptoManager.getInstance()
-          .setDigitPassword(folderId: objectId, password: password ?? "");
-      String passwordDecrypted =
-          CryptoManager.getInstance().getDigitPassword(folderId: objectId);
-      print("passwordDecrypted: $passwordDecrypted");
-    }
-    // this.widget.folderModel.objectId = res?.objectId;
-    //
-    // //如果选择了文件夹 需要更新文件夹的排序
-    // if (folderModelForFolder != null &&
-    //     folderModelForFolder?.objectId != null) {
-    //   if (folderModelForFolder?.folderModelObjectIdOrderList == null) {
-    //     folderModelForFolder?.folderModelObjectIdOrderList = [];
-    //   }
-    //   if(folderModelForFolder?.folderModelObjectIdOrderList?.contains(res?.objectId ?? "") == false) {
-    //     folderModelForFolder?.folderModelObjectIdOrderList!
-    //         .add(res?.objectId ?? "");
-    //     await MongoApisManager.getInstance().update_FolderModelWithFM(
-    //         folderModel: folderModelForFolder!, callback: (res) {});
-    //   }
-    //   // folderModelForFolder!.objectId = res?.objectId;
-    // }
+      // -1 代表不加密 0 代表加密
+      if ((this.widget.folderModel.cryptoVersion ?? -1) > -1) {
+        //需要加密 就需要校验
+        String password =
+            passwordWidgetStateGlobalKey?.currentState?.getPassword1() ?? "";
+        CryptoManager.getInstance()
+            .setDigitPassword(folderId: objectId, password: password ?? "");
+        String passwordDecrypted =
+        CryptoManager.getInstance().getDigitPassword(folderId: objectId);
+        print("passwordDecrypted: $passwordDecrypted");
+      }
+      // 批量创建任务
+      this.missionModels.forEach((element) {
+        element.folder_id = objectId;
+      });
 
-    MongoApisManager.getInstance().updateFolderModelsForFolderObjectId(
-        objectId: res?.objectId ?? "",
-        folderModelForFolder: this.folderModelForFolder);
+      MongoApisManager.getInstance().batchInsert_MissionModels(
+          listParam: this.missionModels,
+          callback: (res) {});
+      // this.widget.folderModel.objectId = res?.objectId;
+      //
+      // //如果选择了文件夹 需要更新文件夹的排序
+      // if (folderModelForFolder != null &&
+      //     folderModelForFolder?.objectId != null) {
+      //   if (folderModelForFolder?.folderModelObjectIdOrderList == null) {
+      //     folderModelForFolder?.folderModelObjectIdOrderList = [];
+      //   }
+      //   if(folderModelForFolder?.folderModelObjectIdOrderList?.contains(res?.objectId ?? "") == false) {
+      //     folderModelForFolder?.folderModelObjectIdOrderList!
+      //         .add(res?.objectId ?? "");
+      //     await MongoApisManager.getInstance().update_FolderModelWithFM(
+      //         folderModel: folderModelForFolder!, callback: (res) {});
+      //   }
+      //   // folderModelForFolder!.objectId = res?.objectId;
+      // }
 
-    if (Utility.isHandsetBySize() ||
-        (this.widget.pageNavShowEnum != null &&
-            this.widget.pageNavShowEnum == PageNavShowEnum.show)) {
-      Utility.popNavigator(context, res);
+      MongoApisManager.getInstance().updateFolderModelsForFolderObjectId(
+          objectId: res?.objectId ?? "",
+          folderModelForFolder: this.folderModelForFolder);
+
+      if (Utility.isHandsetBySize() ||
+          (this.widget.pageNavShowEnum != null &&
+              this.widget.pageNavShowEnum == PageNavShowEnum.show)) {
+        Utility.popNavigator(context, res);
+      }
+      resetForm();
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_FOLDER_PAGE, {}));
+      Utility.showToastMsg(msg: getI18NKey().createSuccess);
     }
-    resetForm();
-    eventBus.fire(EventFn(Params.ACTION_UPDATE_FOLDER_PAGE, {}));
-    Utility.showToastMsg(msg: getI18NKey().createSuccess);
   }
 
   void initState() {
@@ -355,6 +367,7 @@ class _CreateObjectiveFolderPageState<T>
   void resetForm() {
     textEditingController?.text = '';
     this.widget.folderModel = FolderModel();
+    this.missionModels = [];
     updateUI();
   }
 
@@ -882,6 +895,7 @@ class _CreateObjectiveFolderPageState<T>
                         ),
                       ),
                       ObjectiveListScreen(
+                          missionModels: missionModels, pageEnum: this.widget.pageEnum,
                           // defaultIndexColor: this.widget.folderModel.color,
                           // onTapListener: (data) {
                           //   setState(() {
