@@ -344,6 +344,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                     // )
                   ],
                 ),
+                if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
                 Container(child: SliderWithCanvasWidget( min: 0, max: 100, curVal: 30, onChange: (double value) {  },))
               ]),
           flex: 3),
