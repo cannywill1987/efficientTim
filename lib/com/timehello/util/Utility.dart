@@ -7920,7 +7920,7 @@ class Utility {
 
   static String getEULAUrl() {
     if (DeviceInfoManagement.getLanguage() == "zh") {
-      return Urls.privacyProtocol;
+      return Urls.eula_official;
     } else {
       return Urls.eula_official;
     }
