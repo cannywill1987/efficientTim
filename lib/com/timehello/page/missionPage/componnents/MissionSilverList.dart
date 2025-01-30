@@ -161,7 +161,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
   ImageProvider? imageProvider;
   double fontSize = Utility.isHandsetBySize() ? 11 : 12;
   double space = 15;
-
+  MissionModel? tmpMissionModel;
   FolderModel? getFolderModel(MissionModel? missionModel) {
     if (!TextUtil.isEmpty(this.widget._missionModel?.folder_id)) {
       List<FolderModel> wqbFolderModelList = MongoApisManager.getInstance()
@@ -179,6 +179,31 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
   double ratio = Utility.getRatioForSlider(
     numItem: 5,
   );
+
+  Widget getSliderValue({required MissionModel missionModel}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          missionModel.objectivePercentString ?? "",
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.white,
+
+          ),
+        ),
+        Text(
+          "${missionModel?.objectiveValue?.toInt() ?? 0}/${missionModel?.objectiveTotalValue?.toInt()} ${missionModel?.objectiveUnit}",
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.white70,
+          ),
+        ),
+      ],
+    );
+    ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -200,85 +225,83 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
       SizedBox(
         width: 5,
       ),
-      if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
+      if (Utility.getMissionModelEnumByType(missionModel: _missionModel) !=
+          MissionModelEnum.objective)
         Container(
-          // margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-          child: CheckImage(
-        width: 40,
-        height: 40,
-        isSizeConfigured: true,
-        onTapListener: (res) {
-          if (_missionModel?.isFinished == true) {
-            if (this.widget.onTapUnFinishListener != null)
-              this.widget.onTapUnFinishListener?.call(_missionModel);
-          } else {
-            if (this.widget.onTapFinishListener != null)
-              this.widget.onTapFinishListener!(_missionModel);
-          }
-        },
-        checked: _missionModel?.isFinished ?? false,
-        checkIcon: Icon(Icons.check_circle,
-            size: 20, color: ColorsConfig.calendar_green),
-        uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
-            color: ColorsConfig.gray_a7, size: 20),
-      )),
+            // margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+            child: CheckImage(
+          width: 40,
+          height: 40,
+          isSizeConfigured: true,
+          onTapListener: (res) {
+            if (_missionModel?.isFinished == true) {
+              if (this.widget.onTapUnFinishListener != null)
+                this.widget.onTapUnFinishListener?.call(_missionModel);
+            } else {
+              if (this.widget.onTapFinishListener != null)
+                this.widget.onTapFinishListener!(_missionModel);
+            }
+          },
+          checked: _missionModel?.isFinished ?? false,
+          checkIcon: Icon(Icons.check_circle,
+              size: 20, color: ColorsConfig.calendar_green),
+          uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
+              color: ColorsConfig.gray_a7, size: 20),
+        )),
       Expanded(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text.rich(TextSpan(
-                    children: [
-                      TextSpan(
-                          text: this.widget._missionModel?.title ?? "" ?? "",
-                          style: ThemeManager.getInstance().getTextStyle(
-                              defaultTextStyle: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                  decoration: _missionModel?.isFinished == true
-                                      ? TextDecoration.lineThrough
-                                      : null,
-                                  decorationStyle: TextDecorationStyle.solid,
-                                  decorationColor: Color(0xffa0a0a0),
-                                  decorationThickness: 2,
-                                  color: ColorsConfig.gray_40))),
-                      WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 8,
-                              ),
-                              if ((_missionModel?.subMissions?.length ?? 0) >
-                                  0) ...[
-                                Utility.getSVGPicture(R.assetsImgIcSubmission,
-                                    size: 14),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  _missionModel?.subMissions?.length
-                                          .toString() ??
-                                      "0",
-                                  textAlign: TextAlign.left,
-                                  style: ThemeManager.getInstance()
-                                      .getTextStyle(
-                                          defaultTextStyle: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: Color(0xff9DA7B2))),
-                                ),
-                              ],
-                            ],
-                          )),
-                      ...WidgetManager.getTagsWidgetSpan(
-                          _missionModel ?? MissionModel(),
-                          fontSize: 14),
-                      ...WidgetManager.getIsNoteWidget(
-                        _missionModel ?? MissionModel(),
-                      ),
-                    ])),
+                Text.rich(TextSpan(children: [
+                  TextSpan(
+                      text: this.widget._missionModel?.title ?? "" ?? "",
+                      style: ThemeManager.getInstance().getTextStyle(
+                          defaultTextStyle: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              decoration: _missionModel?.isFinished == true
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                              decorationStyle: TextDecorationStyle.solid,
+                              decorationColor: Color(0xffa0a0a0),
+                              decorationThickness: 2,
+                              color: ColorsConfig.gray_40))),
+                  WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 8,
+                          ),
+                          if ((_missionModel?.subMissions?.length ?? 0) >
+                              0) ...[
+                            Utility.getSVGPicture(R.assetsImgIcSubmission,
+                                size: 14),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              _missionModel?.subMissions?.length.toString() ??
+                                  "0",
+                              textAlign: TextAlign.left,
+                              style: ThemeManager.getInstance().getTextStyle(
+                                  defaultTextStyle: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                      color: Color(0xff9DA7B2))),
+                            ),
+                          ],
+                        ],
+                      )),
+                  ...WidgetManager.getTagsWidgetSpan(
+                      _missionModel ?? MissionModel(),
+                      fontSize: 14),
+                  ...WidgetManager.getIsNoteWidget(
+                    _missionModel ?? MissionModel(),
+                  ),
+                ])),
                 if ((_missionModel?.subMissions?.length ?? 0) > 0)
                   SubmissionColumnList(
                     missionModel: _missionModel ?? MissionModel(),
@@ -290,17 +313,21 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
-                  if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
-                    RatingBar(
-                      size: this.fontSize,
-                      curNumber: _missionModel?.no_tomotoes_finished ?? 0,
-                      number: _missionModel?.total_tomotoes ?? 0,
-                    ),
-                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
-                    SizedBox(
-                      width: this.space,
-                    ),
+                    if (Utility.shouldShowTomatoes(
+                        missionModelType: _missionModel?.missionModelType))
+                      if (Utility.getMissionModelEnumByType(
+                              missionModel: _missionModel) !=
+                          MissionModelEnum.objective)
+                        RatingBar(
+                          size: this.fontSize,
+                          curNumber: _missionModel?.no_tomotoes_finished ?? 0,
+                          number: _missionModel?.total_tomotoes ?? 0,
+                        ),
+                    if (Utility.shouldShowTomatoes(
+                        missionModelType: _missionModel?.missionModelType))
+                      SizedBox(
+                        width: this.space,
+                      ),
                     if (_missionModel?.time_mode == 1)
                       ...getSegmentdateWidget(_missionModel ?? MissionModel()),
                     if (_missionModel?.time_mode == 0 ||
@@ -344,26 +371,29 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                     // )
                   ],
                 ),
-                if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
-                Container(child: SliderWithCanvasWidget( min: 0, max: 100, curVal: 30, onChange: (double value) {  },))
+
               ]),
           flex: 3),
       // 完成不需要显示
-      if(Utility.getMissionModelEnumByType(missionModel: _missionModel) != MissionModelEnum.objective)
+      if (Utility.getMissionModelEnumByType(missionModel: _missionModel) !=
+          MissionModelEnum.objective)
         _missionModel?.isFinished == true
-          ? SizedBox.shrink()
-          : Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: IconButton(
-                  onPressed: () {
-                    if (this.widget.onTapPlayListener != null) {
-                      this.widget.onTapPlayListener!(_missionModel);
-                    }
-                  },
-                  icon: Icon(
-                    Icons.play_circle_outline,
-                    color: Color(0xfffd5553),
-                  ))),
+            ? SizedBox.shrink()
+            : Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: IconButton(
+                    onPressed: () {
+                      if (this.widget.onTapPlayListener != null) {
+                        this.widget.onTapPlayListener!(_missionModel);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.play_circle_outline,
+                      color: Color(0xfffd5553),
+                    ))),
+      if (Utility.getMissionModelEnumByType(missionModel: _missionModel) ==
+          MissionModelEnum.objective)
+        this.getSliderValue(missionModel: _missionModel ?? MissionModel()),
       DeviceInfoManagement.isMoible() == false
           ? SizedBox(
               width: 15,
@@ -547,14 +577,33 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                 ),
                 Positioned(
                   bottom: 3,
-                  right: 3,
+                  right: 0,
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Container(
+                        height: 5,
+                        child: SliderWithCanvasWidget(
+                          onChange: (double value) {
+                            _missionModel?.objectiveValue = value;
+                            tmpMissionModel = _missionModel;
+                            // MongoApisManager.getInstance().update_MissionModel(
+                            //     missionModel: _missionModel ?? MissionModel());
+                            funcDebounceWithUpdateSliderVal(this);
+                            setState(() {});
+                          },
+                          min: _missionModel?.objectiveStartValue ?? 0,
+                          max: _missionModel?.objectiveTotalValue ?? 0,
+                          curVal: _missionModel?.objectiveValue,
+                          // onChange: (double value) {},
+                        ),
+                      ),
                       folderModel == null
                           ? SizedBox.shrink()
                           : WidgetManager.getFolderModelIcon(
-                                  folderModel!, 12) ??
-                              SizedBox.shrink(),
+                          folderModel!, 12) ??
+                          SizedBox.shrink(),
                       SizedBox(width: 4),
                       Text(
                         folderModel?.title ?? "",
@@ -565,6 +614,26 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                           ),
                         ),
                       ),
+                      // Wrap(
+                      //   children: [
+                      //     folderModel == null
+                      //         ? SizedBox.shrink()
+                      //         : WidgetManager.getFolderModelIcon(
+                      //         folderModel!, 12) ??
+                      //         SizedBox.shrink(),
+                      //     SizedBox(width: 4),
+                      //     Text(
+                      //       folderModel?.title ?? "",
+                      //       style: ThemeManager.getInstance().getTextStyle(
+                      //         defaultTextStyle: TextStyle(
+                      //           fontSize: 10,
+                      //           color: Color(0xff666666),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // )
+                      SizedBox(width: 15,)
                     ],
                   ),
                 ),
@@ -594,6 +663,14 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
       ),
     ];
   }
+
+  Function funcDebounceWithUpdateSliderVal = Utility.debounceWith((MissionSilverListItemState state) async {
+    // state.isLoading = true;
+    // state.tmpMissionModel?.objectiveValue = value;
+    // print("value:$value");
+    MongoApisManager.getInstance().update_MissionModel(
+        missionModel: state.tmpMissionModel ?? MissionModel());
+  }, Duration(milliseconds: 3000));
 
   List<Widget> getDateWidget(MissionModel _missionModel) {
     if (_missionModel.objectId == '65c079ec59321612ecbbb6da' ||

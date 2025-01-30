@@ -191,7 +191,7 @@ class SubscriptionAndPriceManager {
   bool isVIP() {
     //生产环境 先不走vip
     if (EnvEnum.uat == Params.env) {
-      return false;
+      return true;
     } else {
       if (Utility.isIOS() == true || Utility.isMacOS() == true) {
         if (Utility

@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "total_value": "总量",
   "objective_final": "目标",
   "eula": "EULA",
   "privacy_policy": "Privacy Policy",

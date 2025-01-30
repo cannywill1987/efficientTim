@@ -2419,6 +2419,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "total_tomatoes": m121,
         "total_tomotoes":
             MessageLookupByLibrary.simpleMessage("Total Tomatoes"),
+        "total_value": MessageLookupByLibrary.simpleMessage("总量"),
         "trainee_advice_notice": m122,
         "trainee_give_your_advice": m123,
         "training_plan_edit":

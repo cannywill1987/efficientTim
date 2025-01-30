@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
+import 'package:time_hello/com/timehello/beans/SuggestionBean.dart';
 import 'package:time_hello/com/timehello/page/FeedbackPage/FeedbackPage.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -14,7 +14,7 @@ import '../util/Utility.dart';
 class ChatInputWidget extends StatefulWidget {
   Function onClickSendMsg;
   Widget? headerWidget;
-  List<GptSuggestionBean>? listSuggest;
+  List<SuggestionBean>? listSuggest;
   bool isLoading;
   String? placeholder;
 
@@ -40,7 +40,7 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
   FocusNode? _contentFocusNode = FocusNode();
 
   // SuggestionsController controller;
-  late SuggestionsController<GptSuggestionBean> suggestionsController;
+  late SuggestionsController<SuggestionBean> suggestionsController;
 
   unfocus() {
     _contentFocusNode?.unfocus();
@@ -123,7 +123,7 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                               ),
                             ),
                             Expanded(
-                              child: TypeAheadField<GptSuggestionBean>(
+                              child: TypeAheadField<SuggestionBean>(
                                 // controller: controller,
                                 suggestionsController: suggestionsController,
                                 hideOnEmpty: true,
@@ -135,7 +135,7 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                   // inputController.text = '';
                                 },
                                 itemBuilder: (BuildContext context,
-                                    GptSuggestionBean? value) {
+                                    SuggestionBean? value) {
                                   return Container(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 5),
@@ -150,7 +150,7 @@ class ChatInputWidgetState extends State<ChatInputWidget> {
                                   if (TextUtil.isEmpty(search)) {
                                     return this.widget.listSuggest;
                                   }
-                                  List<GptSuggestionBean> listReturns = [];
+                                  List<SuggestionBean> listReturns = [];
                                   for (var item
                                       in this.widget.listSuggest ?? []) {
                                     if (item.suggestion

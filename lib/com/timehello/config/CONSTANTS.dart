@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:synchronized/extension.dart';
-import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
+import 'package:time_hello/com/timehello/beans/SuggestionBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/CalendarIconWidget.dart';
 import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
@@ -1295,6 +1295,8 @@ class CONSTANTS {
         title: getI18NKey().date, isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
         title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().objective, isCheck: defaultVal == 2));
     return list;
   }
 
@@ -1315,6 +1317,18 @@ class CONSTANTS {
         title: getI18NKey().date, isCheck: defaultVal == 0));
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+    return list;
+  }
+
+  static List<CheckButtonStateModel> getOnlySettingItemDetailCheckButtonListForObjective(
+      {int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().date, isCheck: defaultVal == 0));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().objective, isCheck: defaultVal == 2));
     return list;
   }
 
@@ -1939,7 +1953,7 @@ class CONSTANTS {
         ),
         title: getI18NKey().create_mission_by_gpt,
         list: [
-          GptSuggestionBean(
+          SuggestionBean(
               suggestion: getI18NKey().create_mission_by_gpt,
               suggestionContent: getI18NKey().create_mission_by_content)
         ],
@@ -1960,7 +1974,7 @@ class CONSTANTS {
         ),
         title: getI18NKey().search_listing_by_gpt,
         list: [
-          GptSuggestionBean(
+          SuggestionBean(
               suggestion: getI18NKey().search_listing_title,
               suggestionContent: getI18NKey().search_listing_content)
         ],
@@ -1980,10 +1994,10 @@ class CONSTANTS {
               : Colors.white,
         ),
         list: [
-          GptSuggestionBean(
+          SuggestionBean(
               suggestion: getI18NKey().search_chart_title,
               suggestionContent: getI18NKey().search_chart_title_content),
-          GptSuggestionBean(
+          SuggestionBean(
               suggestion: getI18NKey().search_chart_listingtitle,
               suggestionContent:
                   getI18NKey().search_chart_listing_title_content)

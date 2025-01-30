@@ -6,6 +6,7 @@ class SliderWithCanvasWidget extends StatelessWidget {
   final double max;
   final double? curVal;
   final ValueChanged<double> onChange;
+  final Color color;
 
   const SliderWithCanvasWidget({
     super.key,
@@ -13,6 +14,7 @@ class SliderWithCanvasWidget extends StatelessWidget {
     required this.max,
     this.curVal,
     required this.onChange,
+    this.color = const Color(0xFFFF8800),
   });
 
   @override
@@ -21,11 +23,12 @@ class SliderWithCanvasWidget extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return CanvasSlider(
-            width: constraints.maxWidth ,
+            width: constraints.maxWidth,
             min: min,
             max: max,
             curVal: curVal,
             onChange: onChange,
+            color: color,
           );
         },
       ),
@@ -39,6 +42,8 @@ class CanvasSlider extends StatefulWidget {
   final double max;
   final double? curVal;
   final ValueChanged<double> onChange;
+  final Color color;
+  final double trackHeight;
   final Key? key;
 
   const CanvasSlider({
@@ -48,6 +53,8 @@ class CanvasSlider extends StatefulWidget {
     required this.max,
     this.curVal,
     required this.onChange,
+    this.color = const Color(0xFFFF8800),
+    this.trackHeight = 1.0,
   });
 
   @override
@@ -61,7 +68,8 @@ class _CanvasSliderState extends State<CanvasSlider> {
   @override
   void initState() {
     super.initState();
-    _value = widget.curVal?.clamp(widget.min, widget.max) ?? (widget.min + widget.max) / 2;
+    _value = widget.curVal?.clamp(widget.min, widget.max) ??
+        (widget.min + widget.max) / 2;
   }
 
   void setCurValue(double value) {
@@ -84,94 +92,23 @@ class _CanvasSliderState extends State<CanvasSlider> {
           _isHovered = false;
         });
       },
-      child: GestureDetector(
-        onPanUpdate: (details) {
-          setState(() {
-            _value = (_value + details.delta.dx).clamp(widget.min, widget.max);
-            widget.onChange(_value);
-          });
-        },
-        child: Listener(
-          onPointerSignal: (event) {
-            if (event is PointerScrollEvent) {
-              setState(() {
-                _value = (_value - event.scrollDelta.dy).clamp(widget.min, widget.max);
-                widget.onChange(_value);
-              });
-            }
-          },
-          child: CustomPaint(
-            size: Size(widget.width ?? MediaQuery.of(context).size.width, 18),
-            painter: _SliderPainter(
-              value: _value,
-              min: widget.min,
-              max: widget.max,
-              isHovered: _isHovered,
-            ),
-          ),
+      child: SliderTheme(
+        data: SliderTheme.of(context).copyWith(
+          trackHeight: widget.trackHeight,
+          thumbShape: _isHovered
+              ? const RoundSliderThumbShape(enabledThumbRadius: 10.0)
+              : const RoundSliderThumbShape(enabledThumbRadius: 0.0),
+          thumbColor: widget.color,
+          activeTrackColor: widget.color,
+          inactiveTrackColor: widget.color.withOpacity(0.5),
+        ),
+        child: Slider(
+          value: _value,
+          min: widget.min,
+          max: widget.max,
+          onChanged: _isHovered ? (newValue) => setCurValue(newValue) : null,
         ),
       ),
     );
-  }
-}
-
-class _SliderPainter extends CustomPainter {
-  final double value;
-  final double min;
-  final double max;
-  final bool isHovered;
-
-  _SliderPainter({
-    required this.value,
-    required this.min,
-    required this.max,
-    required this.isHovered,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint trackPaint = Paint()
-      ..color = Colors.grey
-      ..strokeWidth = 4
-      ..style = PaintingStyle.stroke;
-
-    final Paint progressPaint = Paint()
-      ..color = Colors.blue
-      ..strokeWidth = 4
-      ..style = PaintingStyle.stroke;
-
-    final Paint circlePaint = Paint()
-      ..color = Colors.blue
-      ..style = PaintingStyle.fill;
-
-    final RRect trackRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, size.height / 2 - 2, size.width, 4),
-      const Radius.circular(2),
-    );
-
-    final RRect progressRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(0, size.height / 2 - 2, ((value - min) / (max - min)) * size.width, 4),
-      const Radius.circular(2),
-    );
-
-    // Draw the track
-    canvas.drawRRect(trackRect, trackPaint);
-
-    // Draw the progress
-    canvas.drawRRect(progressRect, progressPaint);
-
-    // Draw the circle if hovered
-    if (isHovered) {
-      canvas.drawCircle(
-        Offset(((value - min) / (max - min)) * size.width, size.height / 2),
-        10,
-        circlePaint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

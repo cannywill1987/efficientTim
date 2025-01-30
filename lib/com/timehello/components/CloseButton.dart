@@ -11,12 +11,16 @@ class ClosedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return TextButton(
-      style: StylesConfig.transparentTextButtonStyleWithSize(Size(15, 15)),
-        onPressed: () {
-          this.onTapListener(null);
-        },
+    return GestureDetector(
+      onTap: () {
+        this.onTapListener(null);
+      },
+      // style: StylesConfig.transparentTextButtonStyleWithSize(Size(15, 15)),
+      //   onPressed: () {
+      //     this.onTapListener(null);
+      //   },
       child: Container(
+        alignment: Alignment.center,
         decoration: StylesConfig.getCloseButtonDecoration(),
         width: 15,
         height: 15,

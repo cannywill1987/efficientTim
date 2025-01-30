@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:time_hello/com/timehello/components/CustomCloseButton.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
@@ -18,7 +19,9 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../../../r.dart';
 import '../../../beans/BaseBean.dart';
+import '../../../beans/SuggestionBean.dart';
 import '../../../beans/UserBean.dart';
+import '../../../common/database/apis/MongoApisManager.dart';
 import '../../../common/httpclient/HttpManager.dart';
 import '../../../components/CustomFolderModelSelectPopupWidget.dart';
 import '../../../components/CustomTagFolderModelSelectPopupWidget.dart';
@@ -28,6 +31,7 @@ import '../../../config/Params.dart';
 import '../../../models/DateTimeModel.dart';
 import '../../../models/EventFn.dart';
 import '../../../util/ChatGroupManager.dart';
+import '../../../util/DeviceInfoManagement.dart';
 import '../../../util/OverlayManagement.dart';
 import '../../../util/TextUtil.dart';
 import '../../CreateAIChatGptMissionPage/CreateAIChatGptMissionPage.dart';
@@ -99,7 +103,7 @@ class BottomBar extends StatefulWidget {
       this.end_time = 0,
       this.mission_value,
       this.onChangeListener,
-        this.onTapAlertDateListener,
+      this.onTapAlertDateListener,
       this.onTapMissionModelTypeListener,
       this.onTapFinishListener,
       this.onTapDateListener,
@@ -317,18 +321,6 @@ class BottomBarState extends State<BottomBar> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Expanded(
-            // child: PageView(
-            //     controller: _pageController,
-            //     onPageChanged: (page) {
-            //       setState(() {
-            //         mCurPage = page;
-            //       });
-            //     },
-            //     children: [
-            //   getWidgetOfHorizontalNumberPickerWrapper(),
-            // ])),
-            // Divider(),
             Container(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -411,29 +403,6 @@ class BottomBarState extends State<BottomBar> {
                             setState(() {});
                           },
                         )
-
-                        // InkWell(
-                        //   onTap: () {
-                        //     Utility.pushNavigator(
-                        //         context, CreateAIChatGptMissionPage());
-                        //   },
-                        //   child: Wrap(
-                        //     children: [
-                        //       Utility.getSVGPicture(R.assetsImgIcBrainstorm,
-                        //           size: 20),
-                        //       SizedBox(
-                        //         width: 5,
-                        //       ),
-                        //       // Text(
-                        //       //   getI18NKey().ai_helper,
-                        //       //   style: TextStyle(
-                        //       //       color: Color(0xffac92ec),
-                        //       //       fontSize: 12,
-                        //       //       fontWeight: FontWeight.bold),
-                        //       // )
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -443,22 +412,23 @@ class BottomBarState extends State<BottomBar> {
                     list: this.missionModelType == 0
                         ? CONSTANTS.getSettingItemDetailCheckButtonList(
                             defaultVal: 0)
-                        : this.missionModelType == 1
+                        : this.missionModelType == 1 // 1 需要
                             ? CONSTANTS
                                 .getOnlySettingItemDetailCheckButtonListForCalendar()
                             : CONSTANTS
                                 .getOnlySettingItemDetailCheckButtonListForAlarm(),
                     // 0 任务 1 日程 2 闹钟提醒
                     onCheckedListener: (int index) {
-                      if(index == 1) {
-                        if(LoginManager.getInstance().isVIP(shouldShowDialog: true) == false){
+                      if (index == 1 || index == 2) {
+                        if (LoginManager.getInstance()
+                                .isVIP(shouldShowDialog: true) ==
+                            false) {
                           return;
                         }
-                        return;
                       }
                       this.daily_start_time = null;
                       this.daily_end_time = null;
-                      this.time_mode = index;
+                      this.time_mode = index; // 0 日期 1 时间段 2 目标
                       this.end_time = 0;
                       this.alert_time = 0;
                       this.start_time = 0;
@@ -466,59 +436,420 @@ class BottomBarState extends State<BottomBar> {
                     },
                     fontSize: 14,
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: paddingTop),
-                    child: Row(
-                      children: [
-                        if (Utility.shouldShowBeginTime(
-                            missionModelType: this.missionModelType))
-                          getDailyStartTimeWidget(context),
-                        SizedBox(
-                          width: 0,
-                        ),
-                        if (Utility.shouldShowEndTime(
-                            missionModelType: this.missionModelType))
-                          getDailyEndTimeWidget(context),
-                        this.time_mode == 1
-                            ? SizedBox.shrink()
-                            : Utility.shouldShowEndTime(
-                                    missionModelType: this.missionModelType)
-                                ? getEndTimeWidget(context)
-                                : SizedBox.shrink(),
-                      ],
-                    ),
-                  ),
-                  this.time_mode == 1
-                      ? SizedBox.shrink()
-                      : Container(
-                              padding:
-                                  EdgeInsets.symmetric(vertical: paddingTop),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  if (Utility.shouldShowAlert(
-                                      missionModelType: this.missionModelType))
-                                    getAlertTimeWidget(context),
-                                  getRepeativeWidget(context),
-                                  SizedBox(
-                                    width: 0,
-                                  ),
-                                  // getEndTimeWidget(context),
-                                ],
-                              ),
-                            )
-                          ,
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: paddingTop),
-                    child: getBottomWidget(context),
-                  )
+                  if (this.time_mode == 0 || this.time_mode == 1)
+                    ...getListWidgetForTimeModeDateAndTimeSegment(context),
+                  if (this.time_mode == 2)
+                    ...getListWidgetForObjective(context),
                 ],
               ),
             )
           ],
         ));
+  }
+
+  List<Widget> getListWidgetForTimeModeObjective(BuildContext context) {
+    return [
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: Row(
+          children: [
+            if (Utility.shouldShowBeginTime(
+                missionModelType: this.missionModelType))
+              getDailyStartTimeWidget(context),
+            SizedBox(
+              width: 0,
+            ),
+            if (Utility.shouldShowEndTime(
+                missionModelType: this.missionModelType))
+              getDailyEndTimeWidget(context),
+            this.time_mode == 1
+                ? SizedBox.shrink()
+                : Utility.shouldShowEndTime(
+                        missionModelType: this.missionModelType)
+                    ? getEndTimeWidget(context)
+                    : SizedBox.shrink(),
+          ],
+        ),
+      ),
+      this.time_mode == 1
+          ? SizedBox.shrink()
+          : Container(
+              padding: EdgeInsets.symmetric(vertical: paddingTop),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (Utility.shouldShowAlert(
+                      missionModelType: this.missionModelType))
+                    getAlertTimeWidget(context),
+                  getRepeativeWidget(context),
+                  SizedBox(
+                    width: 0,
+                  ),
+                  // getEndTimeWidget(context),
+                ],
+              ),
+            ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: getBottomWidget(context),
+      )
+    ];
+  }
+  SuggestionsController<SuggestionBean> suggestionsController = SuggestionsController();
+  TextEditingController inputController = TextEditingController();
+  FocusNode? _contentFocusNode = FocusNode();
+  String? value = "";
+
+  getTotalValInputWidgetForObjective({String placeholder = ""}) {
+    return Wrap(
+      runAlignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text(
+          getI18NKey().total_value,
+          style: TextStyle(color: Colors.red, fontSize: 12),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Container(
+          height: 25,
+          width: 120,
+          child: TextField(
+
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(
+                  10), // 限制最大输入长度为500字符
+            ],
+            // enabled: this.isLoading2 == 0,
+            // focusNode: _contentFocusNode = focusNode,
+            // controller: inputController = controller,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (val) {
+              // callback for regular enter key press
+              // this.widget.onClickSendMsg(
+              //     inputController.text);
+              inputController.text = '';
+            },
+            onEditingComplete: () {
+              final isCtrlPressed = RawKeyboard
+                  .instance.keysPressed
+                  .contains(
+                  LogicalKeyboardKey.controlLeft);
+              if (isCtrlPressed) {
+                // insert a new line character
+                inputController.value =
+                    TextEditingValue(
+                      text: inputController.text + '\n',
+                      selection: TextSelection.collapsed(
+                          offset: inputController
+                              .text.length +
+                              1),
+                    );
+              } else {
+                // trigger the callback for regular enter key press
+                // this.onClickSendMsg(inputController.text);
+              }
+            },
+            scrollController: ScrollController(),
+            onChanged: (val) {
+              this.value = val;
+            },
+            // keyboardType: TextInputType.number,
+            // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            decoration: InputDecoration(
+              // suffixIcon: Align(
+              //   alignment: Alignment.centerRight,
+              //   widthFactor: 1.0,
+              //   child: CheckImage(
+              //     //显示隐藏密码的眼睛
+              //     onTapListener: (isChecked) {
+              //       checkedPassword1 = !isChecked;
+              //       setState(() {});
+              //       ;
+              //     },
+              //     checked: checkedPassword1,
+              //     autoCheck: true,
+              //     checkIcon:
+              //     Utility.getSVGPicture(R.assetsImgIcEyeSlash, size: 20),
+              //     uncheckIcon:
+              //     Utility.getSVGPicture(R.assetsImgIcEyeClose, size: 20),
+              //   ),
+              // ),
+              filled: true,
+              fillColor: ThemeManager.getInstance().getInputDecorationColor(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none,
+              ),
+              hintText: getI18NKey().total_value,
+              hintStyle: TextStyle(
+                  color: ThemeManager.getInstance().getInputPlaceholderColor(),
+                  fontSize: 11),
+            ),
+            // onChanged: (value) => _checkPasswordMatch(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  getUnitInputWidgetForObjective({String placeholder = "123"}) {
+    List<SuggestionBean> listSuggestionBean = MongoApisManager.getInstance().getSuggestionBeans();
+    return Wrap(
+      runAlignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text(
+          getI18NKey().unit,
+          style: TextStyle(color: Colors.red, fontSize: 12),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        TypeAheadField<SuggestionBean>(
+          // controller: controller,
+          suggestionsController: suggestionsController,
+          hideOnEmpty: true,
+          autoFlipDirection: true,
+          onSelected: (value) {
+            inputController.text =
+                value.suggestionContent ?? '';
+            // this.widget.onClickSendMsg(inputController.text);
+            // inputController.text = '';
+          },
+          itemBuilder: (BuildContext context,
+              SuggestionBean? value) {
+            return Container(
+              padding:
+              EdgeInsets.symmetric(horizontal: 5),
+              color: ThemeManager.getInstance()
+                  .getCardBackgroundColor(),
+              alignment: Alignment.centerLeft,
+              constraints: BoxConstraints(minHeight: 40),
+              child: Text(value?.suggestion ?? ""),
+            );
+          },
+          suggestionsCallback: (search) {
+            if (TextUtil.isEmpty(search)) {
+              return listSuggestionBean;
+            }
+            List<SuggestionBean> listReturns = [];
+            for (var item
+            in listSuggestionBean ?? []) {
+              if (item.suggestion
+                  ?.toLowerCase()
+                  .contains(search.toLowerCase()) ==
+                  true) {
+                listReturns.add(item);
+              }
+            }
+            return listReturns;
+          },
+          builder: (context, controller, focusNode) {
+            return Container(
+              height: 25,
+              width: 80,
+              child: TextField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(
+                      10), // 限制最大输入长度为500字符
+                ],
+                // enabled: this.isLoading2 == 0,
+                focusNode: _contentFocusNode = focusNode,
+                controller: inputController = controller,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (val) {
+                  // callback for regular enter key press
+                  // this.widget.onClickSendMsg(
+                  //     inputController.text);
+                  inputController.text = '';
+                },
+                onEditingComplete: () {
+                  final isCtrlPressed = RawKeyboard
+                      .instance.keysPressed
+                      .contains(
+                      LogicalKeyboardKey.controlLeft);
+                  if (isCtrlPressed) {
+                    // insert a new line character
+                    inputController.value =
+                        TextEditingValue(
+                          text: inputController.text + '\n',
+                          selection: TextSelection.collapsed(
+                              offset: inputController
+                                  .text.length +
+                                  1),
+                        );
+                  } else {
+                    // trigger the callback for regular enter key press
+                    // this.onClickSendMsg(inputController.text);
+                  }
+                },
+                scrollController: ScrollController(),
+                onChanged: (val) {
+                  this.value = val;
+                },
+                // keyboardType: TextInputType.number,
+                // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  // suffixIcon: Align(
+                  //   alignment: Alignment.centerRight,
+                  //   widthFactor: 1.0,
+                  //   child: CheckImage(
+                  //     //显示隐藏密码的眼睛
+                  //     onTapListener: (isChecked) {
+                  //       checkedPassword1 = !isChecked;
+                  //       setState(() {});
+                  //       ;
+                  //     },
+                  //     checked: checkedPassword1,
+                  //     autoCheck: true,
+                  //     checkIcon:
+                  //     Utility.getSVGPicture(R.assetsImgIcEyeSlash, size: 20),
+                  //     uncheckIcon:
+                  //     Utility.getSVGPicture(R.assetsImgIcEyeClose, size: 20),
+                  //   ),
+                  // ),
+                  filled: true,
+                  fillColor: ThemeManager.getInstance().getInputDecorationColor(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  // hintText: getI18NKey().unit,
+                  hintStyle: TextStyle(
+                      color: ThemeManager.getInstance().getInputPlaceholderColor(),
+                      fontSize: 10),
+                ),
+                // onChanged: (value) => _checkPasswordMatch(),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  List<Widget> getListWidgetForObjective(BuildContext context) {
+    return [
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: Row(
+          children: [
+            if (Utility.shouldUnit(
+                missionModelType: this.missionModelType))
+            getTotalValInputWidgetForObjective(),
+            SizedBox(
+              width: 10,
+            ),
+            if (Utility.shouldTotalVal(
+                missionModelType: this.missionModelType))
+              getUnitInputWidgetForObjective(),
+          ],
+        ),
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: Row(
+          children: [
+            if (Utility.shouldShowBeginTime(
+                missionModelType: this.missionModelType))
+              getDailyStartTimeWidget(context),
+            SizedBox(
+              width: 0,
+            ),
+            if (Utility.shouldShowEndTime(
+                missionModelType: this.missionModelType))
+              getDailyEndTimeWidget(context),
+            // this.time_mode == 1
+            //     ? SizedBox.shrink()
+            //     : Utility.shouldShowEndTime(
+            //             missionModelType: this.missionModelType)
+            //         ? getEndTimeWidget(context)
+            //         : SizedBox.shrink(),
+          ],
+        ),
+      ),
+      this.time_mode == 1
+          ? SizedBox.shrink()
+          : Container(
+              padding: EdgeInsets.symmetric(vertical: paddingTop),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (Utility.shouldShowAlert(
+                      missionModelType: this.missionModelType))
+                    getAlertTimeWidget(context),
+                  getRepeativeWidget(context),
+                  SizedBox(
+                    width: 0,
+                  ),
+                  // getEndTimeWidget(context),
+                ],
+              ),
+            ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: getBottomWidget(context),
+      )
+    ];
+  }
+
+  //日期和时间段用这个
+  List<Widget> getListWidgetForTimeModeDateAndTimeSegment(
+      BuildContext context) {
+    return [
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: Row(
+          children: [
+            if (Utility.shouldShowBeginTime(
+                missionModelType: this.missionModelType))
+              getDailyStartTimeWidget(context),
+            SizedBox(
+              width: 0,
+            ),
+            if (Utility.shouldShowEndTime(
+                missionModelType: this.missionModelType))
+              getDailyEndTimeWidget(context),
+            this.time_mode == 1
+                ? SizedBox.shrink()
+                : Utility.shouldShowEndTime(
+                        missionModelType: this.missionModelType)
+                    ? getEndTimeWidget(context)
+                    : SizedBox.shrink(),
+          ],
+        ),
+      ),
+      this.time_mode == 1
+          ? SizedBox.shrink()
+          : Container(
+              padding: EdgeInsets.symmetric(vertical: paddingTop),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (Utility.shouldShowAlert(
+                      missionModelType: this.missionModelType))
+                    getAlertTimeWidget(context),
+                  getRepeativeWidget(context),
+                  SizedBox(
+                    width: 0,
+                  ),
+                  // getEndTimeWidget(context),
+                ],
+              ),
+            ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical: paddingTop),
+        child: getBottomWidget(context),
+      )
+    ];
   }
 
   CustomPopupWidget getDailyWidget() {

@@ -7323,6 +7323,14 @@ class Utility {
     return missionModelType == null || missionModelType == 0 || missionModelType == 1 || missionModelType == 2;
   }
 
+  static bool shouldTotalVal({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 ;
+  }
+
+  static bool shouldUnit({missionModelType = 0}) {
+    return missionModelType == null || missionModelType == 0 ;
+  }
+
   static bool shouldShowStartTime(
       {missionModelType = 0}) {
     return missionModelType == null || missionModelType == 0 || missionModelType == 1  || missionModelType == 2;

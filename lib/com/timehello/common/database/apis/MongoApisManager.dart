@@ -34,6 +34,7 @@ import 'package:uuid/uuid.dart';
 import '../../../beans/BaseBean.dart';
 import '../../../beans/BillModel.dart';
 import '../../../beans/CreditCardModel.dart';
+import '../../../beans/SuggestionBean.dart';
 import '../../../components/EventModel.dart';
 import '../../../libs/methodChannel/CounterMethodChannelManager.dart';
 import '../../../libs/mongodb/MongoDbBatch.dart';
@@ -3301,6 +3302,7 @@ class MongoApisManager {
         ? ''
         : LoginManager.getInstance().getUserBean().uid;
     query.addWhereEqualTo("uid", uid ?? '');
+    query.addWhereEqualTo("tag", folderModel.tag ?? '');
     query.addWhereEqualTo("title", folderModel?.title ?? "");
 
     query.setLimit(1);
@@ -4130,6 +4132,22 @@ class MongoApisManager {
     }
   }
 
+  List<SuggestionBean> getSuggestionBeans() {
+    List<SuggestionBean> suggestionBeans = [];
+    List<String> suggestionList = [];
+    for (MissionModel missionModel in this.listMissionModels) {
+      if(!TextUtil.isEmpty(missionModel.objectiveUnit) && !suggestionList.contains(missionModel.objectiveUnit)) {
+        SuggestionBean bean = SuggestionBean();
+        bean.suggestion = missionModel.objectiveUnit;
+        bean.suggestionContent = missionModel.objectiveUnit;
+        suggestionBeans.add(bean);
+        // suggestionBeans.add(value)
+        suggestionList.add(missionModel.objectiveUnit ?? "");
+      }
+    }
+    return suggestionBeans;
+  }
+
   Future<MongoDbSaved?> insertFolderData(
       {id,
       title,
@@ -4211,7 +4229,7 @@ class MongoApisManager {
                 tagColor: folderModel.tagColor,
                 timelineMessage: getI18NKey().create_name_tag(title)));
       }
-      if (await isTagNameExist_folderModel(folderModel: folderModel) == true) {
+      if (folderModel.tag == 2 &&  await isTagNameExist_folderModel(folderModel: folderModel) == true) {
         if (callback != null) {
           callback(null);
         }

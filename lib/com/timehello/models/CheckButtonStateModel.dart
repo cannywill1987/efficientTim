@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:time_hello/com/timehello/beans/GptSuggestionBean.dart';
+import 'package:time_hello/com/timehello/beans/SuggestionBean.dart';
 
 /**
  * CheckButtonStateModel
@@ -16,7 +16,7 @@ class CheckButtonStateModel {
   Widget? uncheckIcon;
   String? checkIconUrl;
   String? uncheckIconUrl;
-  List<GptSuggestionBean>? list;
+  List<SuggestionBean>? list;
   CheckButtonStateModel({this.code, this.value, this.title, this.list, this.content, this.isCheck = false, this.color, this.checkIconUrl, this.uncheckIconUrl, this.checkIcon, this.uncheckIcon});
 }
 

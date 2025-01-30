@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `总量`
+  String get total_value {
+    return Intl.message(
+      '总量',
+      name: 'total_value',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `目标`
   String get objective_final {
     return Intl.message(
