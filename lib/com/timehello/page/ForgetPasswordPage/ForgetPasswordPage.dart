@@ -208,7 +208,7 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
                 CustomTabBarWidget(
                   checkIndex: curTab,
                   list: tabList,
-                  onCheckedListener: (int index) {
+                  onCheckedListener: (int index, CheckButtonStateModel model) {
                     this.curTab = index;
                     updateUI();
                   },

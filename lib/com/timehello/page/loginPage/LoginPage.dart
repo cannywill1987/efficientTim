@@ -242,7 +242,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                         key: tabBarGlobalKey,
                         list: tabList,
                       checkIndex: this.curTab,
-                        onCheckedListener: (int index) {
+                        onCheckedListener: (int index, CheckButtonStateModel model) {
                           this.curTab = index;
                           if(curTab == 0) {
                             AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_switch_phone","description": "手机号切换按钮",});

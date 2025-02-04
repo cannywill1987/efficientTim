@@ -1278,6 +1278,7 @@ class MongoApisManager {
       {int? start_endTime,
       int? end_endTime,
       String? fid,
+        String? missionId,
       String? scene,
       int? repetiveType,
       callback}) {
@@ -1290,9 +1291,12 @@ class MongoApisManager {
           if (end_endTime != null && model.end_time! <= end_endTime) {
             // model.ic
             if (repetiveType == null || model.repetiveType == repetiveType) {
-              if (fid == null || model.folder_id == fid) {
+              if (TextUtil.isEmpty(fid)|| model.folder_id == fid) {
                 if (scene == null || model.sceneType == scene) {
-                  list.add(model);
+                  if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+                    list.add(model);
+                  }
+                  // list.add(model);
                 }
               }
             }
@@ -1301,9 +1305,11 @@ class MongoApisManager {
       } else if (start_endTime != null && end_endTime == null) {
         if (model.end_time! >= start_endTime) {
           if (repetiveType == null || model.repetiveType == repetiveType) {
-            if (fid == null || model.folder_id == fid) {
+            if (TextUtil.isEmpty(fid) || model.folder_id == fid) {
               if (scene == null || model.sceneType == scene) {
-                list.add(model);
+                if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+                  list.add(model);
+                }
               }
             }
           }
@@ -1311,17 +1317,21 @@ class MongoApisManager {
       } else if (start_endTime == null && end_endTime != null) {
         if (model.end_time! <= end_endTime) {
           if (repetiveType == null || model.repetiveType == repetiveType) {
-            if (fid == null || model.folder_id == fid) {
+            if (TextUtil.isEmpty(fid) || model.folder_id == fid) {
               if (scene == null || model.sceneType == scene) {
-                list.add(model);
+                if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+                  list.add(model);
+                }
               }
             }
           }
         }
       } else {
-        if (fid == null || model.folder_id == fid) {
+        if (TextUtil.isEmpty(fid) || model.folder_id == fid) {
           if (scene == null || model.sceneType == scene) {
-            list.add(model);
+            if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+              list.add(model);
+            }
           }
         }
       }
@@ -3779,8 +3789,28 @@ class MongoApisManager {
     }
   }
 
+  double getFolderModelPercent({required FolderModel folderModel}) {
+    double totalVal = 0;
+    double curVal = 0;
+    if(folderModel.tag == 5) {
+    List<MissionModel> missionModels = queryMissioinModelsByFolderId(
+        folderId: folderModel.objectId ?? "");
+    for (MissionModel missionModel in missionModels) {
+      double? objectiveValue = (missionModel.objectiveTotalValue ??0) < (missionModel?.objectiveValue??0) ? missionModel.objectiveTotalValue : missionModel.objectiveValue; //目标值
+      double? objectiveTotalValue = missionModel.objectiveTotalValue; //目标值完成
+      curVal += objectiveValue ?? 0;
+      totalVal += objectiveTotalValue ?? 0;
+    }
+    }
+    if(totalVal == 0) {
+      return 0;
+    }
+    return curVal / totalVal;
+
+  }
+
   Future<MongoDbSaved?> insertTimelineMissionModel(
-      {required TimelineMissionModel missionModel, Function? callback}) async {
+      {required TimelineMissionModel missionModel,bool shouldQueryMissionModel = true, Function? callback}) async {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
@@ -3800,9 +3830,32 @@ class MongoApisManager {
       missionModelTmp.device_id = this.device_id;
 
       MongoDbSaved? bmobSaved = await missionModelTmp.save();
-      await queryWhereEqual_TimelineMissionModel(
-        shouldRefresh: true,
-      ); //更新 missionModels
+      if (shouldQueryMissionModel == true) {
+        await queryWhereEqual_TimelineMissionModel(
+          shouldRefresh: true,
+        ); //更新 missionModels
+      } else {
+        //更新 missionModels
+        //添加到第一个
+        if(this.listTimelineMissionModel.length > 0) {
+          this.listTimelineMissionModel.insert(0, missionModelTmp);
+        } else {
+          this.listTimelineMissionModel.add(missionModelTmp);
+        }
+        context?.read<GlobalStateEnv>().listTimelineMissionModel =
+            this.listTimelineMissionModel;
+        // this.listMissionModels = missionModels;
+        // for (int i = 0; i < this.listTimelineMissionModel.length; i++) {
+        //   if (this.listTimelineMissionModel[i].objectId == missionModelTmp.objectId) {
+        //     this.listTimelineMissionModel[i] = missionModelTmp;
+        //     print("");
+        //   }
+        // context?.read<GlobalStateEnv>().listMissionModels =
+        //     this.listMissionModels;
+        // this.listMissionModels = missionModels;
+      }
+
+
       String message =
           "创建一条数据成功：${bmobSaved?.objectId ?? ""} - ${bmobSaved?.createdAt ?? ""}";
       // print(message);
@@ -3925,6 +3978,8 @@ class MongoApisManager {
                 missionModel: Utility.getTimelineMissionModelFromMissionModel(
                     icon: Icons.check_circle.codePoint,
                     color: Colors.greenAccent.value,
+                    mission_id: missionModelTmp.objectId,
+                    folder_id: missionModel.folder_id,
                     missionModel: missionModel,
                     sceneType: "mission",
                     eventType: "create_mission",
@@ -3942,6 +3997,8 @@ class MongoApisManager {
                     icon: Icons.check_circle.codePoint,
                     color: Colors.greenAccent.value,
                     missionModel: missionModel,
+                    mission_id: missionModelTmp.objectId,
+                    folder_id: missionModel.folder_id,
                     sceneType: "mission",
                     eventType: "create_mission",
                     timelineMessage: getI18NKey().create_name_mission(
@@ -4604,6 +4661,7 @@ class MongoApisManager {
       {required MissionModel missionModel,
       bool shouldCheckPermission = true,
       bool shouldQueryMissionModel = true,
+        bool shouldUpdateLog = true,
       Function? callback}) async {
     if(missionModel.missionModelType == 1) {
       await CounterMethodChannelManager.getInstance().updateMissionModelToCalendar(Utility.getGlobalContext(), missionModel: missionModel);
@@ -4653,32 +4711,38 @@ class MongoApisManager {
         //     this.listMissionModels;
         // this.listMissionModels = missionModels;
       }
-      if (TextUtil.isEmpty(missionModelTmp.folder_id) == true) {
-        MongoDbSaved? res = await MongoApisManager.getInstance()
-            .insertTimelineMissionModel(
-                missionModel: Utility.getTimelineMissionModelFromMissionModel(
-                    icon: Icons.check_circle.codePoint,
-                    color: Colors.greenAccent.value,
-                    missionModel: missionModel,
-                    sceneType: "mission",
-                    eventType: "update_mission",
-                    timelineMessage: getI18NKey()
-                        .update_name_mission2(missionModel.title ?? "?")));
-      } else {
-        FolderModel? folderModel = MongoApisManager.getInstance()
-                .queryWhereEqualFolderModelByObjectId(
-                    objectId: missionModelTmp.folder_id) ??
-            null;
-        MongoDbSaved? res = await MongoApisManager.getInstance()
-            .insertTimelineMissionModel(
-                missionModel: Utility.getTimelineMissionModelFromMissionModel(
-                    icon: Icons.check_circle.codePoint,
-                    color: Colors.greenAccent.value,
-                    missionModel: missionModel,
-                    sceneType: "mission",
-                    eventType: "update_mission",
-                    timelineMessage: getI18NKey().update_name_mission(
-                        folderModel?.title ?? "", missionModel.title ?? "?")));
+      if(shouldUpdateLog == true) {
+        if (TextUtil.isEmpty(missionModelTmp.folder_id) == true) {
+          MongoDbSaved? res = await MongoApisManager.getInstance()
+              .insertTimelineMissionModel(
+              missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                  icon: Icons.check_circle.codePoint,
+                  color: Colors.greenAccent.value,
+                  missionModel: missionModel,
+                  mission_id: missionModelTmp.objectId,
+                  folder_id: missionModel.folder_id,
+                  sceneType: "mission",
+                  eventType: "update_mission",
+                  timelineMessage: getI18NKey()
+                      .update_name_mission2(missionModel.title ?? "?")));
+        } else {
+          FolderModel? folderModel = MongoApisManager.getInstance()
+              .queryWhereEqualFolderModelByObjectId(
+              objectId: missionModelTmp.folder_id) ??
+              null;
+          MongoDbSaved? res = await MongoApisManager.getInstance()
+              .insertTimelineMissionModel(
+              missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                  icon: Icons.check_circle.codePoint,
+                  color: Colors.greenAccent.value,
+                  mission_id: missionModelTmp.objectId,
+                  folder_id: missionModel.folder_id,
+                  missionModel: missionModel,
+                  sceneType: "mission",
+                  eventType: "update_mission",
+                  timelineMessage: getI18NKey().update_name_mission(
+                      folderModel?.title ?? "", missionModel.title ?? "?")));
+        }
       }
 //如果计数中需要更新missionModel
       CounterManagement.getInstance().updateMissionModel(missionModel);

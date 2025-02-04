@@ -54,9 +54,10 @@ class TimelineListViewState extends State<TimelineListView> {
     } else {
       List<Widget> list = getListItems();
       return ListView(cacheExtent: 10000, children: [
-        if(this.widget.timelinePageFromEnum != TimelinePageFromEnum.FolderStatisticPage)
+        if(this.widget.timelinePageFromEnum != TimelinePageFromEnum.FolderStatisticPage && this.widget.timelinePageFromEnum != TimelinePageFromEnum.ObjectivePage)
         SizedBox(
-          height: list.length > 0 ? 26 : 0,
+          height: (this.widget.timelinePageFromEnum !=
+              TimelinePageFromEnum.ObjectivePage.index) && list.length > 0 ? 26 : 0,
         ),
         ...this.widget.children,
         ...list

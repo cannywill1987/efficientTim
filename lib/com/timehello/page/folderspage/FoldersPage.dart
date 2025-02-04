@@ -378,6 +378,22 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       onTapEditFilterListener(data);
       return;
     }
+    if(data.folderModel.tag == 5) {
+      if (Utility.isHandsetBySize()) {
+        Utility.pushNavigator(
+            context,
+            new CreateObjectiveFolderPage(
+              pageEnum: PageModeEnum.edit,
+              folderModel: data.folderModel,
+            ),
+            callback: (res) {});
+      } else {
+        Utility.pushDesktopNavigator(context, 'CreateObjectiveFolderPage',
+            {'PageEnum': PageModeEnum.edit, 'folderModel': data.folderModel});
+      }
+      return;
+    }
+
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
@@ -591,7 +607,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             {"folderModel": data, "folderStatus": folderStatus});
       }
     } else {
-      if(data.tag == 1) {
+      if(data.tag == 1 || data.tag ==5) {
       Utility.openRightSideDesktopNavigator(
           context, 'GroupChatPage', {});
       } else {

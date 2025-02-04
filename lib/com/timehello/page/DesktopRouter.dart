@@ -25,6 +25,7 @@ import 'AddFilterPage/AddFilterPage.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
 import 'FlomoPage/FlomoPCContainerPage.dart';
 import 'FourQuadrant/FourQuadrantPage.dart';
+import 'GroupChatPage/RightFolderContainerPage.dart';
 import 'LockScreenPage/LockScreenPage.dart';
 import 'PCMainHomePage.dart';
 import 'SettingItemDetailPage/SettingItemDetailPage.dart';
@@ -329,7 +330,7 @@ Widget desktopRightRouter(String page, Map data) {
         message: data?['message'] ?? "",
       ));
     case 'GroupChatPage':
-      return getContainer(GroupChatPage(
+      return getContainer(RightFolderContainerPage(
         key: ValueKey("ejzifjf123zefzef"),
       ));
     default:

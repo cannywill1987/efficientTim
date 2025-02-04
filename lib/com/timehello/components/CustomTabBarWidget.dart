@@ -9,19 +9,20 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import '../models/CheckButtonStateModel.dart';
 import 'CheckContainer.dart';
 
-typedef OnCheckedListener = void Function(int obj);
+typedef OnCheckedListener = void Function(int obj, CheckButtonStateModel data);
 
 class CustomTabBarWidget extends StatefulWidget {
   List<CheckButtonStateModel> list;
   OnCheckedListener onCheckedListener;
   int? checkIndex = 0;
   double fontSize = 18;
-
+  bool isAutoTrigger = false;
   CustomTabBarWidget(
       {Key? key,
         required this.fontSize,
       required this.list,
       required this.onCheckedListener,
+        this.isAutoTrigger = false,
       this.checkIndex = 0})
       : super(key: key);
 
@@ -47,6 +48,14 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
   initState() {
     setChecked(checkIndex ?? 0);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if(this.widget.isAutoTrigger == true && mounted == true) {
+        if (this.onCheckedListener != null) {
+          this.onCheckedListener(checkIndex ?? 0, this.list[checkIndex ?? 0]);
+        }
+      }
+    });
     // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
   }
 
@@ -124,7 +133,7 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
           checked: model.isCheck,
           onCheckedListener: (index, data) async {
             if (this.onCheckedListener != null) {
-              this.onCheckedListener(i);
+              this.onCheckedListener(i, model);
             }
             this.setChecked(i);
             this.updateUI();

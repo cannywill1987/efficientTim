@@ -115,6 +115,7 @@ class ConsumeMoneyButtonWidgetState extends State<ConsumeMoneyButtonWidget> {
                     Utility.getTimelineMissionModelFromMissionModel(
                         sceneType: 'transaction',
                         eventType: 'spend_money_buy_present',
+
                         color: list[0].color ?? 0xffff8800,
                         icon: list[0].icon ?? 0,
                         timelineMessage: getI18NKey().consume_money_buy_present(moneyConsumption, Utility.getTitlesFromPresentModels(list))));

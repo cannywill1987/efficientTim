@@ -62,7 +62,7 @@ class IconsGridViewWidgetState extends State<IconsGridViewWidget> {
     // TODO: implement baseBuild
     //return super.baseBuild(context);
     return Container(
-      constraints: BoxConstraints(maxHeight: this.widget.height),
+      // constraints: BoxConstraints(maxHeight: this.widget.height),
       child: Wrap(
         spacing: 2, //主轴上子控件的间距
         runSpacing: 5, //交叉轴上子控件之间的间距

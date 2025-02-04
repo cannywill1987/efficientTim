@@ -17,12 +17,15 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 import 'package:time_hello/r.dart';
 
+import '../../../common/database/apis/MongoApisManager.dart';
+import '../../../components/CustomPainterCircleProgressWidget.dart';
 import '../../../components/ListingSecurityWidget.dart';
 import '../../../components/SubmissionColumnList.dart';
 import '../../../config/Params.dart';
 import '../../../libs/flutter_slidable/src/action_pane_motions.dart';
 import '../../../util/DeviceInfoManagement.dart';
 import '../../../util/ScreenUtil.dart';
+import '../../../util/TextUtil.dart';
 
 typedef OnTapFinishListener = void Function(dynamic obj);
 typedef OnTapEditListener = void Function(dynamic obj);
@@ -351,6 +354,18 @@ class QuadrantMissionSilverListItemState
     }
   }
 
+  FolderModel? getFolderModel(MissionModel? missionModel) {
+    if (!TextUtil.isEmpty(this.widget._missionModel?.folder_id)) {
+      List<FolderModel> wqbFolderModelList = MongoApisManager.getInstance()
+          .queryWhereEqual_folderModelWithFolderId(
+          this.widget._missionModel?.folder_id);
+      if (wqbFolderModelList.length > 0) {
+        return wqbFolderModelList[0];
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     MissionModel _missionModel = this.widget._missionModel;
@@ -359,8 +374,10 @@ class QuadrantMissionSilverListItemState
     if (Utility.isHandsetBySize() == false && this.widget.isDraggable == true) {
       fontSize = 12;
     }
+    FolderModel? folderModel = getFolderModel(_missionModel);
 
     List<Widget> childrenRow = <Widget>[
+    if(Utility.isObjectiveForMissionModel(missionModel: _missionModel) == false)
       Container(
           width: Utility.isHandsetBySize() ? 25 : 40,
           // margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
@@ -383,7 +400,33 @@ class QuadrantMissionSilverListItemState
                 color: ColorsConfig.gray_a7,
                 size: Utility.isHandsetBySize() ? 14 : 20),
           )),
-      Expanded(
+      if(Utility.isObjectiveForMissionModel(missionModel: _missionModel) == true)
+        Container(
+            width: 35,
+            height: 35,
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                CustomPaint(
+                  size: Size(20, 20),
+                  painter: CustomPainterCircleProgressWidget(
+                    progressColor: ThemeManager.getInstance().isDark() ? Color(folderModel?.color ?? 0xffff8800 ) : Color(0xffff8800 ),
+                    backgroundColor: ThemeManager.getInstance().isDark() ? Color(folderModel?.color ?? 0xffff8800 - 0xa0000000) : Color(0xffff8800 - 0xa0000000),
+                    progress: _missionModel?.objectivePercent ?? 0  / 100,
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: Text(
+    _missionModel?.objectivePercent == 100 ? "100": (_missionModel?.objectivePercentString ?? "0%") ,
+                      style: TextStyle(
+                          color: ThemeManager.getInstance().isDark() ? Color(folderModel?.color ?? 0xffff8800 ) : Color(0xffff8800 ),
+                          fontSize: 6),
+                    ))
+              ],
+            )),
+
+        Expanded(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -464,7 +507,7 @@ class QuadrantMissionSilverListItemState
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType))
+                    if(Utility.shouldShowTomatoes(missionModelType: _missionModel?.missionModelType) && Utility.isObjectiveForMissionModel(missionModel: _missionModel) == false)
                     RatingBar(
                       curNumber: _missionModel.no_tomotoes_finished ?? 0,
                       number: _missionModel.total_tomotoes ?? 1,
@@ -495,7 +538,17 @@ class QuadrantMissionSilverListItemState
       // 完成不需要显示
       _missionModel.isFinished == true
           ? SizedBox.shrink()
-          : Padding(
+          :           Utility.isObjectiveForMissionModel(
+    missionModel: _missionModel ?? MissionModel()) ==
+    true
+    ?  Text(
+    "${ _missionModel?.objectiveValue?.toInt() ?? 0}/${_missionModel?.objectiveTotalValue?.toInt()} ${_missionModel?.objectiveUnit ?? ""}",
+    style: TextStyle(
+    fontSize: 12,
+    color: ThemeManager.getInstance().isDark()
+    ? Colors.white70
+        : Colors.black87,
+    )):Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 0, Utility.isHandsetBySize() ? 0 : 10, 0),
               child: IconButton(

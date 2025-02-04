@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/CustomMissionLayoutTypeWidget.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
+import 'package:time_hello/com/timehello/components/SliderWithCanvasWidget.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/interface/OnCallbackListener.dart';
@@ -16,6 +18,7 @@ import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../../../components/CalendarIconWidget.dart';
+import '../../../components/CustomPainterCircleProgressWidget.dart';
 import '../../../interface/Interface.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 
@@ -47,7 +50,6 @@ class FolderSilverListItem extends StatefulWidget {
   CalendarModel calendarModel;
   FolderPageViewEnum folderPageViewEnum = FolderPageViewEnum.normal;
   String curSelectedTitle;
-
   FolderSilverListItem(
       {required this.index,
         required this.folderModelWithExtraData,
@@ -85,6 +87,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
   double ratio = Utility.getRatioForSlider(
     numItem: 5,
   );
+  double itemPadding = 10;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -107,11 +111,12 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
     double marginLef =
     folderModelWithExtraData?.folderModel.iconType == 9 ? 12 : 15;
     List<Widget> children = <Widget>[
+
       Container(
           margin: EdgeInsets.fromLTRB(isOthers ? 0 : marginLef, 0, 0, 0),
           child: this.getIcon(folderModelWithExtraData.folderModel)),
       SizedBox(
-        width: 10,
+        width: itemPadding,
       ),
       ListingSecurityWidget(
         folder_id: folderModelWithExtraData.folderModel.objectId ?? "",
@@ -138,6 +143,10 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                               ? ThemeManager.getInstance()
                               .getDefautThemeColor()
                               : ColorsConfig.gray_40))),
+              if(folderModelWithExtraData.folderModel.start_time != null || folderModelWithExtraData.folderModel.end_time != null)
+              Wrap(children: [
+                ...getSegmentdateWidget(folderModelWithExtraData.folderModel),
+              ],),
               TextUtil.isEmpty(folderModelWithExtraData
                   .folderModel.courseModelId) ==
                   true &&
@@ -157,6 +166,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                       fontSize: 11,
                       color: ThemeManager.getInstance()
                           .getTextColor(defaultColor: Color(0xffff8800)))),
+
             ],
           ),
           flex: 3),
@@ -168,12 +178,47 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
       //   print("1111111");
       // }
       //右侧分钟
+      double percent = 0;
+      if(folderModelWithExtraData.folderModel.tag == 5)
+      percent = MongoApisManager.getInstance().getFolderModelPercent(
+          folderModel: folderModelWithExtraData.folderModel);
+
       children.addAll([
         Wrap(
           children: [
+            if(folderModelWithExtraData.folderModel.tag == 5)
+              SizedBox(
+                width: 5,
+              ),
+            if(folderModelWithExtraData.folderModel.tag == 5)
+              Container(
+                  width: 20,
+                  height: 20,
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerStart,
+                    children: [
+                      CustomPaint(
+                        size: Size(20, 20),
+                        painter: CustomPainterCircleProgressWidget(
+                          progressColor: ThemeManager.getInstance().isDark() ? Color(folderModelWithExtraData.folderModel.color) : Color(0xffff8800),
+                          backgroundColor: ThemeManager.getInstance().isDark() ? Color(folderModelWithExtraData.folderModel.color - 0xa0000000) : Color(0xffff8800 - 0xa0000000),
+                          progress: percent >= 1 ? 1 : percent / 100,
+                        ),
+                      ),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            percent >= 1 ? "100": (Utility.getPercent(percent)) ,
+                            style: TextStyle(
+                                color: ThemeManager.getInstance().isDark() ? Color(folderModelWithExtraData.folderModel.color) : Color(0xffff8800), fontSize: 6),
+                          ))
+                    ],
+                  )),
+
             folderModelWithExtraData.isHover == false
                 ? Wrap(
               children: [
+                if(folderModelWithExtraData.folderModel.tag != 5)
                 getPreviewTimeString(folderModelWithExtraData).isEmpty
                     ? SizedBox.shrink()
                     : Container(
@@ -197,12 +242,12 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                         style: TextStyle(
                             fontSize: 13, color: Color(0xffb9b9b9)))),
                 SizedBox(
-                  width: 0,
+                  width: itemPadding,
                 ),
+
                 getUnfinishMissionString(folderModelWithExtraData).isEmpty
                     ? SizedBox.shrink()
                     : Container(
-                    width: 30,
                     child: Text(
                         folderModelWithExtraData
                             .folderModel.iconType ==
@@ -217,6 +262,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
               ],
             )
                 : SizedBox.shrink(),
+            SizedBox(width: itemPadding,),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
@@ -265,8 +311,10 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                             }
                           },
                         ))),
+                if (folderModelWithExtraData.folderModel.tag == 1 ||
+                    folderModelWithExtraData.folderModel.tag == 2)
                 SizedBox(
-                  width: 10,
+                  width: itemPadding,
                 ),
                 //最右侧的chart
                 if (folderModelWithExtraData.folderModel.tag == 1 ||
@@ -281,12 +329,17 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                     child:
                     Utility.getSVGPicture(R.assetsImgIcBarChart, size: 15),
                   ),
+                // if (folderModelWithExtraData.folderModel.tag == 1 ||
+                //     folderModelWithExtraData.folderModel.tag == 2)
+                //   SizedBox(
+                //     width: itemPadding,
+                //   ),
                 if (this.widget.folderPageViewEnum ==
                     FolderPageViewEnum.listing_unarchive ||
                     this.widget.folderPageViewEnum ==
                         FolderPageViewEnum.listing_archive)
                   SizedBox(
-                    width: 10,
+                    width: itemPadding,
                   ),
                 if (this.widget.folderPageViewEnum ==
                     FolderPageViewEnum.listing_unarchive ||
@@ -297,9 +350,9 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                   )
               ],
             ),
-            SizedBox(
-              width: 10,
-            ),
+            // SizedBox(
+            //   width: itemPadding,
+            // ),
           ],
           crossAxisAlignment: WrapCrossAlignment.center,
         )
@@ -446,6 +499,16 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         ),
       ];
     }
+  }
+
+
+  List<Widget> getSegmentdateWidget(FolderModel folderModel) {
+    return [
+      Text(
+        CONSTANTS.getSegmentDateStringSubtitleByFolderModel(folderModel),
+        style: TextStyle(fontSize: 12, color: ColorsConfig.darkRed),
+      ),
+    ];
   }
 
   List<PopupMenuEntry<String>> get2PopupList(

@@ -566,7 +566,7 @@ class WidgetManager {
                   _folderModel.tag == false ||
                   _folderModel.tag == null)
                   ? Icons.calendar_today //今天
-                  : _folderModel.tag == 1
+                  : (_folderModel.tag == 1 || _folderModel.tag == 5)
                   ? IconData(_folderModel.icon ?? 0,
                   fontFamily: 'MaterialIcons') //任务folder
                   : Icons.local_offer, //标签

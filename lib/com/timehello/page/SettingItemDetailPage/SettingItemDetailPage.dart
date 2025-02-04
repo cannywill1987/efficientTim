@@ -4,6 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
@@ -13,6 +15,7 @@ import 'package:time_hello/com/timehello/components/RatingBar.dart';
 import 'package:time_hello/com/timehello/components/SelectDatePeriodDialogUtil.dart';
 import 'package:time_hello/com/timehello/components/SelectTagDialogUtil.dart';
 import 'package:time_hello/com/timehello/components/SelectTomatoesDialogUtil.dart';
+import 'package:time_hello/com/timehello/components/SliderWithCanvasWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
@@ -22,6 +25,7 @@ import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/page/TimeLinePage/TimeLinePage.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
@@ -32,6 +36,7 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
 
+import '../../beans/SuggestionBean.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CustomMarquee.dart';
 import '../../components/CustomTabBarWidget.dart';
@@ -110,7 +115,9 @@ class _SettingItemDetailPageWidgetState<T>
   void initState() {
     //查找当前mission所属的FolderModel
     // AppFlowyEditorLocalizations.delegate.load(const Locale('zh', 'CN'));
-    if(Utility.shouldShowAllMissionDetailTab(missionModelType: this.widget.missionModel.missionModelType) == true) {
+    if (Utility.shouldShowAllMissionDetailTab(
+            missionModelType: this.widget.missionModel.missionModelType) ==
+        true) {
       tabList = CONSTANTS.getMissionDetailSetting();
     } else {
       tabList = CONSTANTS.getMissionDetailSetting2();
@@ -477,10 +484,13 @@ class _SettingItemDetailPageWidgetState<T>
         CustomTabBarWidget(
           checkIndex: curTab,
           list: tabList,
-          onCheckedListener: (int index) {
+          onCheckedListener: (int index, CheckButtonStateModel model) {
             Utility.setDesktopMiddileMissionPage(context, isVisible: true);
             composedRichEditorWidgetGlobalKey?.currentState?.unfocus();
-            if(Utility.shouldShowAllMissionDetailTab(missionModelType: this.widget.missionModel.missionModelType) == true) {
+            if (Utility.shouldShowAllMissionDetailTab(
+                    missionModelType:
+                        this.widget.missionModel.missionModelType) ==
+                true) {
               this.curTab = index;
             } else {
               this.curTab = (index == 0) ? 0 : 2;
@@ -499,7 +509,9 @@ class _SettingItemDetailPageWidgetState<T>
           color: Color(0xffe0e0e0),
         ),
         if (this.curTab == 0) ...getTabBar0WidgetList(),
-        if (this.curTab != 0)
+        if (this.curTab == 3) ...getTabBar3WidgetList(),
+
+        if (this.curTab != 0 && this.curTab != 3)
           Expanded(
             child: SingleChildScrollView(
                 child: Column(children: [
@@ -621,23 +633,103 @@ class _SettingItemDetailPageWidgetState<T>
                               //     }) : SizedBox.shrink()
                             ],
                           ),
-                          if(Utility.shouldShowValue(missionModelType: this
-                              .widget
-                              .missionModel
-                              .missionModelType) == true)
-                          Row(
-                            children: [
-                              Spacer(),
-                              MissionValueWidget(
-                                missionModel: this.widget.missionModel,
-                                onTapMissionValueListener: (val) {},
-                              ),
-                            ],
-                          ),
-                          if (this.widget.missionModel?.isFinished == false && Utility.shouldShowDoItNow(missionModelType: this
-                              .widget
-                              .missionModel
-                              .missionModelType) == true)
+                          if (Utility.shouldShowValue(
+                                  missionModelType: this
+                                      .widget
+                                      .missionModel
+                                      .missionModelType) ==
+                              true)
+                            Row(
+                              children: [
+                                Spacer(),
+                                MissionValueWidget(
+                                  missionModel: this.widget.missionModel,
+                                  onTapMissionValueListener: (val) {},
+                                ),
+                              ],
+                            ),
+                          if (Utility.shouldUnit(
+                                      missionModelType: this
+                                          .widget
+                                          .missionModel
+                                          .missionModelType) ==
+                                  true &&
+                              this.widget.missionModel.time_mode == 2)
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: SliderWithCanvasWidget(
+                                    shouldOnlyShowSlider: true,
+                                    onChange: (double value) {
+                                      this.widget.missionModel?.objectiveValue =
+                                          value;
+                                      if((this.widget.missionModel?.objectiveTotalValue ?? 0) > 0) {
+                                        if((this.widget.missionModel?.objectiveTotalValue ?? 0) <= value) {
+                                          this.widget.missionModel?.isFinished = true;
+                                        } else {
+                                          this.widget.missionModel?.isFinished = false;
+                                        }
+                                      }
+                                      // tmpMissionModel = _missionModel;
+                                      // MongoApisManager.getInstance().update_MissionModel(
+                                      //     missionModel: _missionModel ?? MissionModel());
+                                      funcDebounceWithUpdateSliderVal(this);
+                                      setState(() {});
+                                    },
+                                    min: this
+                                            .widget
+                                            .missionModel
+                                            ?.objectiveStartValue ??
+                                        0,
+                                    max: this
+                                            .widget
+                                            .missionModel
+                                            ?.objectiveTotalValue ??
+                                        0,
+                                    curVal: this
+                                        .widget
+                                        .missionModel
+                                        ?.objectiveValue,
+                                    // onChange: (double value) {},
+                                  ),
+                                ),
+                                Text(
+                                  this
+                                          .widget
+                                          .missionModel
+                                          .objectivePercentString ??
+                                      "",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: ThemeManager.getInstance().isDark()
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "${this.widget.missionModel?.objectiveValue?.toInt() ?? 0}/${this.widget.missionModel?.objectiveTotalValue?.toInt()}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: ThemeManager.getInstance().isDark()
+                                        ? Colors.white70
+                                        : Colors.black87,
+                                  ),
+                                ),
+                                getUnitInputWidgetForObjective(),
+                              ],
+                            ),
+                          if (this.widget.missionModel?.isFinished == false &&
+                              Utility.shouldShowDoItNow(
+                                      missionModelType: this
+                                          .widget
+                                          .missionModel
+                                          .missionModelType) ==
+                                  true)
                             Row(
                               children: [
                                 Spacer(),
@@ -673,50 +765,63 @@ class _SettingItemDetailPageWidgetState<T>
                                 ),
                               ],
                             ),
-                          if(TextUtil.isEmpty(Utility.getJumpTxt(
-                              missionModelType: this
-                                  .widget
-                                  .missionModel
-                                  .missionModelType)) == false)
-                          Row(
-                            children: [
-                              Spacer(),
-                              InkWell(
-                                  onTap: () {
-                                    if(this.widget.missionModel.missionModelType == 2) {
-                                      CounterMethodChannelManager.getInstance()
-                                          .openReminderApp(
-                                          id: this
+                          if (TextUtil.isEmpty(Utility.getJumpTxt(
+                                  missionModelType: this
+                                      .widget
+                                      .missionModel
+                                      .missionModelType)) ==
+                              false)
+                            Row(
+                              children: [
+                                Spacer(),
+                                InkWell(
+                                    onTap: () {
+                                      if (this
                                               .widget
                                               .missionModel
-                                              .objectId ??
-                                              "");
-                                    } else if (this.widget.missionModel.missionModelType == 1) {
-                                      CounterMethodChannelManager.getInstance()
-                                          .openCalendarApp(timestamp: Utility.getTimeStampToday());
-                                    }
-                                  },
-                                  child: TextUtil.isEmpty(Utility.getJumpTxt(
-                                      missionModelType: this
-                                          .widget
-                                          .missionModel
-                                          .missionModelType))
-                                      ? null
-                                      : Text(
-                                      getI18NKey().jump_to_xxx(Utility.getJumpTxt(
-                                          missionModelType: this
+                                              .missionModelType ==
+                                          2) {
+                                        CounterMethodChannelManager
+                                                .getInstance()
+                                            .openReminderApp(
+                                                id: this
+                                                        .widget
+                                                        .missionModel
+                                                        .objectId ??
+                                                    "");
+                                      } else if (this
                                               .widget
                                               .missionModel
-                                              .missionModelType)),
-                                      style: TextStyle(
-                                          color: ThemeManager.getInstance().getTextColor(
-                                              defaultColor:
-                                              ThemeManager.getInstance()
-                                                  .getTextColor(
-                                                  defaultColor: Colors.blue)),
-                                          fontSize: 12))),
-                            ],
-                          ),
+                                              .missionModelType ==
+                                          1) {
+                                        CounterMethodChannelManager
+                                                .getInstance()
+                                            .openCalendarApp(
+                                                timestamp: Utility
+                                                    .getTimeStampToday());
+                                      }
+                                    },
+                                    child: TextUtil.isEmpty(Utility.getJumpTxt(
+                                            missionModelType: this
+                                                .widget
+                                                .missionModel
+                                                .missionModelType))
+                                        ? null
+                                        : Text(
+                                            getI18NKey().jump_to_xxx(
+                                                Utility.getJumpTxt(
+                                                    missionModelType: this
+                                                        .widget
+                                                        .missionModel
+                                                        .missionModelType)),
+                                            style: TextStyle(
+                                                color: ThemeManager.getInstance().getTextColor(
+                                                    defaultColor:
+                                                        ThemeManager.getInstance()
+                                                            .getTextColor(defaultColor: Colors.blue)),
+                                                fontSize: 12))),
+                              ],
+                            ),
                           SizedBox(
                             height: 10,
                           ),
@@ -772,26 +877,30 @@ class _SettingItemDetailPageWidgetState<T>
                               this.isNeedUpdateBmob = true;
                             },
                           ),
-                          if(Utility.shouldShowPriority(missionModelType: this
-                              .widget
-                              .missionModel
-                              .missionModelType) == true)
-                          SizedBox(
-                            height: 10,
-                          ),
-                          if(Utility.shouldShowPriority(missionModelType: this
-                              .widget
-                              .missionModel
-                              .missionModelType) == true)
-                          PriorityButtonListWidget(
-                            list: CONSTANTS.getPriorityButtonList(),
-                            initIndex:
-                                this.widget.missionModel.priorityStatus ?? 3,
-                            onTapListener: (data) {
-                              int index = data['index'];
-                              this.onClick("onClickPriority", index);
-                            },
-                          ),
+                          if (Utility.shouldShowPriority(
+                                  missionModelType: this
+                                      .widget
+                                      .missionModel
+                                      .missionModelType) ==
+                              true)
+                            SizedBox(
+                              height: 10,
+                            ),
+                          if (Utility.shouldShowPriority(
+                                  missionModelType: this
+                                      .widget
+                                      .missionModel
+                                      .missionModelType) ==
+                              true)
+                            PriorityButtonListWidget(
+                              list: CONSTANTS.getPriorityButtonList(),
+                              initIndex:
+                                  this.widget.missionModel.priorityStatus ?? 3,
+                              onTapListener: (data) {
+                                int index = data['index'];
+                                this.onClick("onClickPriority", index);
+                              },
+                            ),
                         ])),
               // Container(height: 20, color: ColorsConfig.backgroundColor,),
 
@@ -799,11 +908,11 @@ class _SettingItemDetailPageWidgetState<T>
               if (this.curTab == 2) ...getTabBar2WidgetList(),
             ])),
           ),
-        if (this.curTab != 0)
+        if (this.curTab != 0&& this.curTab != 3)
           SizedBox(
             height: 20,
           ),
-        if (this.curTab != 0)
+        if (this.curTab != 0&& this.curTab != 3)
           Align(
               child: InkWell(
             onTap: () {
@@ -840,6 +949,18 @@ class _SettingItemDetailPageWidgetState<T>
           ))
       ],
     );
+  }
+
+  List<Widget> getTabBar3WidgetList() {
+    // DateTime? dateTimeNextTime = Utility.getNextDateTime(
+    //     missionModelParam: this.widget.missionModel ?? MissionModel(),
+    //     calendarModel: context.read<GlobalStateEnv>().calendarModel);
+    //
+    // String repetiveString = CONSTANTS
+    //     .getRepetiveDateString1(this.widget.missionModel ?? MissionModel());
+    return [
+      Expanded(child: TimeLinePage(missionObjectId:this.widget.missionModel.objectId ?? "", folderObjectId: this.folderModel?.objectId ?? "", timelinePageFromEnum: TimelinePageFromEnum.ObjectivePage.index, key: Key("fjijfixz"),)),
+    ];
   }
 
   List<Widget> getTabBar2WidgetList() {
@@ -1225,79 +1346,92 @@ class _SettingItemDetailPageWidgetState<T>
                   size: StylesConfig.iconSize)),
       (this.widget.missionModel?.isFinished == true)
           ? SizedBox.shrink()
-          : (!Utility.shouldShowAlert(missionModelType: this.widget.missionModel?.missionModelType)) ? SizedBox.shrink() : MenuItem2(
-              title: getI18NKey().alert,
-              subTitle: "(${getI18NKey().optional})",
-              onTapListener: (data) async {
-                if (ChatGroupManager.isFolderModelEnabled(
-                        folderId: this.widget.missionModel.folder_id ?? "",
-                        uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                    false) {
-                  Utility.showToastMsg(
-                      context: Utility.getGlobalContext(),
-                      msg: getI18NKey().no_auth);
-                  return null;
-                }
-                //没有权限提醒设置权限
-                DateTimeModel? model;
-                TimeOfDay? timeOfDay;
-                if (this.widget.missionModel?.repetiveType == 0) {
-                  model = await Utility.showDateTimePickerDialog(context);
-                  if (model == null) {
-                    return;
-                  }
-                  // this.alertTimeModel = model;
-                  this.widget.missionModel?.alert_time =
-                      model.timestamp; //设置提醒时间
-                } else {
-                  //每日提醒四件
-                  timeOfDay = await Utility.showTimePickerDialog(context);
-                  if (timeOfDay == null) {
-                    return;
-                  }
-                  this.widget.missionModel?.alert_time =
-                      timeOfDay.hour * 60 * 60 * 1000 +
-                          timeOfDay.minute * 60 * 1000;
-                  // if(this.widget.missionModel.alert_time > 0) {
-                  //   Params.shouldRefreshPushModelList = true;
-                  // }
-                }
-                this.setState(() {
-                  this.isNeedUpdateBmob = true;
-                });
-                Utility.requestNotification(context);
-                // NotificationManager.getInstance()
-              },
-              rightPartContainer: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    TextUtil.isEmpty(this.widget.missionModel?.alert_time) ==
-                            false
-                        ? (this.widget.missionModel?.repetiveType == 0
-                            ? CONSTANTS.getAlertDateString(
-                                Utility.getDateTimeModelFromTimeStamp(
-                                    this.widget.missionModel?.alert_time ?? 0))
-                            : Utility.getHourAndMinsFromDateTimeFromTimeStamp(
-                                this.widget.missionModel?.alert_time ?? 0))
-                        : getI18NKey().none,
-                    style: TextStyle(
-                        fontSize: 15, color: ColorsConfig.gray_a3_icon),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.cancel,
-                        size: 20, color: ColorsConfig.gray_cc_cancel),
-                    onPressed: () {
+          : (!Utility.shouldShowAlert(
+                  missionModelType: this.widget.missionModel?.missionModelType))
+              ? SizedBox.shrink()
+              : MenuItem2(
+                  title: getI18NKey().alert,
+                  subTitle: "(${getI18NKey().optional})",
+                  onTapListener: (data) async {
+                    if (ChatGroupManager.isFolderModelEnabled(
+                            folderId: this.widget.missionModel.folder_id ?? "",
+                            uid: LoginManager.getInstance().userBean.uid ??
+                                "") ==
+                        false) {
+                      Utility.showToastMsg(
+                          context: Utility.getGlobalContext(),
+                          msg: getI18NKey().no_auth);
+                      return null;
+                    }
+                    //没有权限提醒设置权限
+                    DateTimeModel? model;
+                    TimeOfDay? timeOfDay;
+                    if (this.widget.missionModel?.repetiveType == 0) {
+                      model = await Utility.showDateTimePickerDialog(context);
+                      if (model == null) {
+                        return;
+                      }
+                      // this.alertTimeModel = model;
+                      this.widget.missionModel?.alert_time =
+                          model.timestamp; //设置提醒时间
+                    } else {
+                      //每日提醒四件
+                      timeOfDay = await Utility.showTimePickerDialog(context);
+                      if (timeOfDay == null) {
+                        return;
+                      }
+                      this.widget.missionModel?.alert_time =
+                          timeOfDay.hour * 60 * 60 * 1000 +
+                              timeOfDay.minute * 60 * 1000;
+                      // if(this.widget.missionModel.alert_time > 0) {
+                      //   Params.shouldRefreshPushModelList = true;
+                      // }
+                    }
+                    this.setState(() {
                       this.isNeedUpdateBmob = true;
-                      this.widget.missionModel?.alert_time = 0;
-                      this.updateUI();
-                    },
-                  )
-                ],
-              ),
-              icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
-                  size: StylesConfig.iconSize)),
+                    });
+                    Utility.requestNotification(context);
+                    // NotificationManager.getInstance()
+                  },
+                  rightPartContainer: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        TextUtil.isEmpty(this
+                                    .widget
+                                    .missionModel
+                                    ?.alert_time) ==
+                                false
+                            ? (this.widget.missionModel?.repetiveType == 0
+                                ? CONSTANTS.getAlertDateString(
+                                    Utility.getDateTimeModelFromTimeStamp(
+                                        this
+                                                .widget
+                                                .missionModel
+                                                ?.alert_time ??
+                                            0))
+                                : Utility
+                                    .getHourAndMinsFromDateTimeFromTimeStamp(
+                                        this.widget.missionModel?.alert_time ??
+                                            0))
+                            : getI18NKey().none,
+                        style: TextStyle(
+                            fontSize: 15, color: ColorsConfig.gray_a3_icon),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.cancel,
+                            size: 20, color: ColorsConfig.gray_cc_cancel),
+                        onPressed: () {
+                          this.isNeedUpdateBmob = true;
+                          this.widget.missionModel?.alert_time = 0;
+                          this.updateUI();
+                        },
+                      )
+                    ],
+                  ),
+                  icon: Utility.getSVGPicture(R.assetsImgIcAlarmOrange,
+                      size: StylesConfig.iconSize)),
       if (this.widget.missionModel?.time_mode == 0)
         this.widget.missionModel?.isFinished == true
             ? SizedBox.shrink()
@@ -1632,6 +1766,249 @@ class _SettingItemDetailPageWidgetState<T>
       // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
     }
   }
+
+  SuggestionsController<SuggestionBean> suggestionsController =
+      SuggestionsController();
+  TextEditingController? inputController;
+  FocusNode? _contentFocusNode = FocusNode();
+  String? value = "";
+
+  getUnitInputWidgetForObjective({String placeholder = "123"}) {
+    List<SuggestionBean> listSuggestionBean =
+        MongoApisManager.getInstance().getSuggestionBeans();
+    inputController = TextEditingController();
+    inputController!.text = this.widget.missionModel.objectiveUnit ?? '';
+    return Wrap(
+      runAlignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        TypeAheadField<SuggestionBean>(
+          // controller: controller,
+          suggestionsController: suggestionsController,
+          hideOnEmpty: true,
+          autoFlipDirection: true,
+          onSelected: (value) {
+            inputController!.text = value.suggestionContent ?? '';
+            this.widget.missionModel.objectiveUnit =
+                value.suggestionContent ?? '';
+            // this.widget.onChangeTotalValAndUnit?.call(this.objectiveTotalValue, this.objectiveUnit);
+
+            // this.widget.onClickSendMsg(inputController.text);
+            // inputController.text = '';
+          },
+          itemBuilder: (BuildContext context, SuggestionBean? value) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              color: ThemeManager.getInstance().getCardBackgroundColor(),
+              alignment: Alignment.centerLeft,
+              constraints: BoxConstraints(minHeight: 40),
+              child: Text(value?.suggestion ?? ""),
+            );
+          },
+          suggestionsCallback: (search) {
+            if (TextUtil.isEmpty(search)) {
+              return listSuggestionBean;
+            }
+            List<SuggestionBean> listReturns = [];
+            for (var item in listSuggestionBean ?? []) {
+              if (item.suggestion
+                      ?.toLowerCase()
+                      .contains(search.toLowerCase()) ==
+                  true) {
+                listReturns.add(item);
+              }
+            }
+            return listReturns;
+          },
+          builder: (context, controller, focusNode) {
+            return Container(
+              height: 25,
+              width: 60,
+              child: TextField(
+                focusNode: _contentFocusNode = focusNode,
+                controller: inputController = controller,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (val) {
+                  // callback for regular enter key press
+                  // this.widget.onClickSendMsg(
+                  //     inputController.text);
+                  inputController!.text = '';
+                },
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10), // 限制最大输入长度为500字符
+                ],
+                // enabled: this.isLoading2 == 0,
+                // focusNode: _contentFocusNode = focusNode,
+                // controller: inputController = controller,
+                // textInputAction: TextInputAction.done,
+                // onSubmitted: (val) {
+                //   // callback for regular enter key press
+                //   // this.widget.onClickSendMsg(
+                //   //     inputController.text);
+                //   inputController.text = '';
+                // },
+                onEditingComplete: () {
+                  final isCtrlPressed = RawKeyboard.instance.keysPressed
+                      .contains(LogicalKeyboardKey.controlLeft);
+                  if (isCtrlPressed) {
+                    // insert a new line character
+                    inputController!.value = TextEditingValue(
+                      text: inputController!.text + '\n',
+                      selection: TextSelection.collapsed(
+                          offset: inputController!.text.length + 1),
+                    );
+                  } else {
+                    // trigger the callback for regular enter key press
+                    // this.onClickSendMsg(inputController.text);
+                  }
+                },
+                scrollController: ScrollController(),
+                onChanged: (val) {
+                  this.value = val;
+                  this.widget.missionModel.objectiveUnit = val;
+                  // this.objectiveUnit = val;
+                  // this.widget.onChangeTotalValAndUnit?.call(this.objectiveTotalValue, this.objectiveUnit);
+                },
+                // keyboardType: TextInputType.number,
+                // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  // suffixIcon: Align(
+                  //   alignment: Alignment.centerRight,
+                  //   widthFactor: 1.0,
+                  //   child: CheckImage(
+                  //     //显示隐藏密码的眼睛
+                  //     onTapListener: (isChecked) {
+                  //       checkedPassword1 = !isChecked;
+                  //       setState(() {});
+                  //       ;
+                  //     },
+                  //     checked: checkedPassword1,
+                  //     autoCheck: true,
+                  //     checkIcon:
+                  //     Utility.getSVGPicture(R.assetsImgIcEyeSlash, size: 20),
+                  //     uncheckIcon:
+                  //     Utility.getSVGPicture(R.assetsImgIcEyeClose, size: 20),
+                  //   ),
+                  // ),
+                  filled: true,
+                  fillColor:
+                      ThemeManager.getInstance().getInputDecorationColor(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  hintText: getI18NKey().unit,
+                  hintStyle: TextStyle(
+                      color:
+                          ThemeManager.getInstance().getInputPlaceholderColor(),
+                      fontSize: 11),
+                ),
+                // onChanged: (value) => _checkPasswordMatch(),
+              ),
+            );
+            // return Container(
+            //   height: 25,
+            //   width: 80,
+            //   child: TextField(
+            //     inputFormatters: [
+            //       LengthLimitingTextInputFormatter(
+            //           10), // 限制最大输入长度为500字符
+            //     ],
+            //     // enabled: this.isLoading2 == 0,
+            //     focusNode: _contentFocusNode = focusNode,
+            //     controller: inputController = controller,
+            //     textInputAction: TextInputAction.done,
+            //     onSubmitted: (val) {
+            //       // callback for regular enter key press
+            //       // this.widget.onClickSendMsg(
+            //       //     inputController.text);
+            //       inputController.text = '';
+            //     },
+            //     onEditingComplete: () {
+            //       final isCtrlPressed = RawKeyboard
+            //           .instance.keysPressed
+            //           .contains(
+            //           LogicalKeyboardKey.controlLeft);
+            //       if (isCtrlPressed) {
+            //         // insert a new line character
+            //         inputController.value =
+            //             TextEditingValue(
+            //               text: inputController.text + '\n',
+            //               selection: TextSelection.collapsed(
+            //                   offset: inputController
+            //                       .text.length +
+            //                       1),
+            //             );
+            //       } else {
+            //         // trigger the callback for regular enter key press
+            //         // this.onClickSendMsg(inputController.text);
+            //       }
+            //     },
+            //     scrollController: ScrollController(),
+            //     onChanged: (val) {
+            //       this.value = val;
+            //     },
+            //     // keyboardType: TextInputType.number,
+            //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            //     decoration: InputDecoration(
+            //       // suffixIcon: Align(
+            //       //   alignment: Alignment.centerRight,
+            //       //   widthFactor: 1.0,
+            //       //   child: CheckImage(
+            //       //     //显示隐藏密码的眼睛
+            //       //     onTapListener: (isChecked) {
+            //       //       checkedPassword1 = !isChecked;
+            //       //       setState(() {});
+            //       //       ;
+            //       //     },
+            //       //     checked: checkedPassword1,
+            //       //     autoCheck: true,
+            //       //     checkIcon:
+            //       //     Utility.getSVGPicture(R.assetsImgIcEyeSlash, size: 20),
+            //       //     uncheckIcon:
+            //       //     Utility.getSVGPicture(R.assetsImgIcEyeClose, size: 20),
+            //       //   ),
+            //       // ),
+            //       filled: true,
+            //       fillColor: ThemeManager.getInstance().getInputDecorationColor(),
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30.0),
+            //         borderSide: BorderSide.none,
+            //       ),
+            //       // hintText: getI18NKey().unit,
+            //       hintStyle: TextStyle(
+            //           color: ThemeManager.getInstance().getInputPlaceholderColor(),
+            //           fontSize: 10),
+            //     ),
+            //     // onChanged: (value) => _checkPasswordMatch(),
+            //   ),
+            // );
+          },
+        ),
+      ],
+    );
+  }
+
+  Function funcDebounceWithUpdateSliderVal = Utility.debounceWith((_SettingItemDetailPageWidgetState state) async {
+    // state.isLoading = true;
+    // state.tmpMissionModel?.objectiveValue = value;
+    // print("value:$value");
+    MongoApisManager.getInstance().update_MissionModel(
+        shouldUpdateLog: false,
+        missionModel: state.widget.missionModel ?? MissionModel());
+
+    MongoApisManager.getInstance().insertTimelineMissionModel(
+        shouldQueryMissionModel: false,
+        missionModel: Utility.getTimelineMissionModelFromMissionModel(
+            icon: Icons.check_circle.codePoint,
+            color: Colors.greenAccent.value,
+            sceneType: "mission",
+            eventType: "realize_mission",
+            mission_id: state.widget.missionModel?.objectId,
+            folder_id: state.widget.missionModel?.folder_id,
+            timelineMessage: getI18NKey()
+                .realize_percent(state.widget.missionModel?.title ?? "?", state.widget.missionModel?.objectivePercentString ?? "")));
+  }, Duration(milliseconds: 3000));
 
   /**
    * 点击选择优先级

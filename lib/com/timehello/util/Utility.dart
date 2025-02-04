@@ -933,6 +933,13 @@ class Utility {
   //   return listModels;
   // }
 
+  static bool isObjectiveForMissionModel({required MissionModel missionModel}) {
+    if (missionModel.time_mode == 2) {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * 根据优先级排序
    */
@@ -973,10 +980,10 @@ class Utility {
 
   // int? tag; //1-表示各种图案circle mission;2-表示的是 tag;null-今天 明天 即将到来 -1  未归类 -2 苹果日历 -3 苹果提醒
   static String getFolderTitleByFid(
-      String fid, List<FolderModel> listFolderModel, int? tag) {
+      String fid, List<FolderModel> listFolderModel, List<int> tag) {
     for (int i = 0; i < listFolderModel.length; i++) {
       FolderModel model = listFolderModel[i];
-      if (model.objectId == fid && (tag == model.tag || tag == null)) {
+      if (model.objectId == fid && (tag == null || tag.indexOf(model.tag ?? 0) != -1)) {
         return model.title ?? "";
       }
     }
@@ -1056,10 +1063,15 @@ class Utility {
 
     listFolderModel.forEach((FolderModel element) {
       if (listKeysTitle.indexOf(getFolderTitleByFid(
-              element.objectId ?? '', listFolderModel, 1)) ==
+              element.objectId ?? '', listFolderModel, [1])) ==
           -1) {
         listKeysTitle.add(
-            getFolderTitleByFid(element.objectId ?? '', listFolderModel, 1));
+            getFolderTitleByFid(element.objectId ?? '', listFolderModel, [1]));
+      } else if (listKeysTitle.indexOf(getFolderTitleByFid(
+          element.objectId ?? '', listFolderModel, [5])) ==
+          -1) {
+        listKeysTitle.add(
+            getFolderTitleByFid(element.objectId ?? '', listFolderModel, [5]));
       }
     });
     listKeysTitle.sort();
@@ -1071,17 +1083,18 @@ class Utility {
     // listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
     // 苹果日历
     if(DeviceInfoManagement.isIOS() == true|| DeviceInfoManagement.isMacOs() == true)
-      listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
+      listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, [1]));
     // 苹果提醒
     if(DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true)
-      listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
+      listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, [1]));
 
     listKeysTitle
         .removeWhere((element) => element == getI18NKey().unorder_folderlist);
 
 
     // if(isContainOtherFolder(listKeysTitle) == false) {
-    listKeysTitle.add(getFolderTitleByFid("-1", listFolderModel, 1));
+    listKeysTitle.add(getFolderTitleByFid("-1", listFolderModel, [1]));
+    // listKeysTitle.add(getFolderTitleByFid("-1", listFolderModel, 5));
     // }
 
     listKeysTitle.forEach((elementTitle) {
@@ -1097,14 +1110,34 @@ class Utility {
       sessionMissionModel.folder_id = folderModel?.objectId ?? '';
       sessionMissionModel.color = folderModel?.color ?? 0xffff8800;
       list.forEach((MissionModel element) {
+        if(elementTitle?.indexOf("测试") != -1) {
+          print("1");
+        }
+        if(element.title?.indexOf("123") != -1) {
+          print("1");
+        }
+        if(elementTitle?.indexOf("测试") != -1 && element.title?.indexOf("123") != -1) {
+          print("1");
+        }
+        if(elementTitle?.indexOf("测试") != -1 && element.title?.indexOf("q") != -1) {
+          print("1");
+        }
+        if(elementTitle?.indexOf("未归类清单") != -1 && element.title?.indexOf("q") != -1) {
+          print("1");
+        }
         if(element.missionModelType == 1 && elementTitle == getI18NKey().apple_calendar && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
           listMissionModel.add(element);
         } else if(element.missionModelType == 2 && elementTitle == getI18NKey().apple_alarm && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
           listMissionModel.add(element);
-        } else if (elementTitle ==
-            getFolderTitleByFid(element.folder_id ?? '', listFolderModel, 1) && element.missionModelType != 1 && element.missionModelType != 2) {
+        }
+        else if (elementTitle ==
+            getFolderTitleByFid(element.folder_id ?? '', listFolderModel, [1, 5]) && element.missionModelType != 1 && element.missionModelType != 2) {
           listMissionModel.add(element);
         }
+        // else if (elementTitle ==
+        //     getFolderTitleByFid(element.folder_id ?? '', listFolderModel, [5]) && element.missionModelType != 1 && element.missionModelType != 2) {
+        //   listMissionModel.add(element);
+        // }
       });
       listMissionModel.sort((MissionModel a, MissionModel b) {
         return a.title?.compareTo(b.title ?? "") ?? 0;
@@ -2344,18 +2377,22 @@ class Utility {
   static sortByCreatedTime(List list,
       {SortEnum sortEnum = SortEnum.ascendant}) {
     list.sort((dynamic a, dynamic b) {
-      DateTime dateTimeA = getDateTimeFromUTCString(a.createdAt);
-      DateTime dateTimeB = getDateTimeFromUTCString(b.updatedAt);
-      int res = dateTimeA.isAfter(dateTimeB)
-          ? sortEnum == SortEnum.ascendant
-              ? -1
-              : 1
-          : dateTimeA.isBefore(dateTimeB)
-              ? sortEnum == SortEnum.ascendant
-                  ? 1
-                  : -1
-              : 0;
-      return res;
+      try {
+        DateTime dateTimeA = getDateTimeFromUTCString(a.createdAt);
+        DateTime dateTimeB = getDateTimeFromUTCString(b.updatedAt);
+        int res = dateTimeA.isAfter(dateTimeB)
+            ? sortEnum == SortEnum.ascendant
+            ? -1
+            : 1
+            : dateTimeA.isBefore(dateTimeB)
+            ? sortEnum == SortEnum.ascendant
+            ? 1
+            : -1
+            : 0;
+        return res;
+      } catch(e) {
+        return -1;
+      }
     });
     return list;
   }
@@ -2421,6 +2458,8 @@ class Utility {
     int numTomatoesUnfinished = 0; //未完成番茄数量
     int numTomatoesFinished = 0; //完成番茄数量
     int numMissionDelayed = 0; //延期任务数量
+    double totalObjective = 0;
+    double curValObjective = 0;
     list.forEach((data) {
       // totalTime += (data.total_tomotoes - data.no_tomotoes_finished) * getTomatoTime();
       try {
@@ -2432,6 +2471,8 @@ class Utility {
           numMissionDelayed += data.isDelayed == true ? 1 : 0;
           numMissionFinished += data.isFinished == true ? 1 : 0;
           numMissionToFinished += data.isFinished == true ? 0 : 1;
+          totalObjective += data.objectiveTotalValue ?? 0;
+          curValObjective += data.objectiveValue ?? 0;
           numTomatoesFinished += (data.no_tomotoes_finished ?? 0);
           numTomatoesUnfinished = numTomatoesUnfinished +
                       (data.total_tomotoes ?? 0) -
@@ -2457,6 +2498,7 @@ class Utility {
     print(finishedTimeString);
     print("~~~~~~~~~~~~~~~~~~~~~~~~");
     folderTimeModel = new FolderTimeModel(
+        objectivePercentString: Utility.getPercent(totalObjective == 0 ? 0 : ( curValObjective / totalObjective)),
         numMissionDelayed: numMissionDelayed,
         numMissionToFinished: numMissionToFinished,
         numMissionFinished: numMissionFinished,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:string_validator/string_validator.dart';
 import 'package:time_hello/com/timehello/components/CustomCloseButton.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
@@ -28,8 +29,10 @@ import '../../../components/CustomTagFolderModelSelectPopupWidget.dart';
 import '../../../components/IconButtonListWidget.dart';
 import '../../../components/SelectDatePeriodDialogUtil.dart';
 import '../../../config/Params.dart';
+import '../../../models/CheckButtonStateModel.dart';
 import '../../../models/DateTimeModel.dart';
 import '../../../models/EventFn.dart';
+import '../../../models/FolderModel.dart';
 import '../../../util/ChatGroupManager.dart';
 import '../../../util/DeviceInfoManagement.dart';
 import '../../../util/OverlayManagement.dart';
@@ -55,6 +58,8 @@ typedef OnTapBottomBarMissionValueListener = void Function({dynamic data});
 
 class BottomBar extends StatefulWidget {
   bool isVisible = false;
+
+  FolderModel? folderModel;
   OnTapUpdateDateListener? onTapUpdateDateListener;
 
   OnTapMissionTypeListener? onTapMissionModelTypeListener;
@@ -69,6 +74,7 @@ class BottomBar extends StatefulWidget {
   OnTapBottomBarFinishListener? onTapFinishListener;
   OnTapBottomBarMissionValueListener? onTapMissionValueListener;
   OnTapAlertDateListener? onTapAlertDateListener;
+  Function? onChangeTotalValAndUnit;
   int iconType = 0; // 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单
   int priority = 0;
   String? tagName = "";
@@ -80,6 +86,15 @@ class BottomBar extends StatefulWidget {
   int alert_time = 0;
   int start_time = 0;
   int missionModelType = 0;
+
+  String objectiveUnit = ""; //目标单位
+
+  double objectiveValue = 0; //目标值
+
+  double objectiveStartValue = 0; //目标值
+
+  double objectiveTotalValue = 0; //目标值完成
+
   Color tagColor = ColorsConfig.gray_cc_cancel;
   String circleTitle = "";
   Color circleColor = ColorsConfig.gray_cc_cancel;
@@ -99,12 +114,19 @@ class BottomBar extends StatefulWidget {
       this.isVisible = false,
       this.start_time = 0,
       this.missionModelType = 0,
+        this.folderModel,
       this.alert_time = 0,
+        this.objectiveUnit = "",
+        this.objectiveValue = 0,
+        this.objectiveStartValue = 0,
+        this.objectiveTotalValue = 0,
+
       this.end_time = 0,
       this.mission_value,
       this.onChangeListener,
       this.onTapAlertDateListener,
       this.onTapMissionModelTypeListener,
+        this.onChangeTotalValAndUnit,
       this.onTapFinishListener,
       this.onTapDateListener,
       this.onTapUpdateDateListener,
@@ -138,6 +160,7 @@ class BottomBar extends StatefulWidget {
         mission_value: this.mission_value,
         priority: this.priority,
         tagColor: this.tagColor,
+        folderModel: this.folderModel,
         time_mode: this.time_mode,
         circleTitle: this.circleTitle,
         circleColor: this.circleColor);
@@ -164,7 +187,14 @@ class BottomBarState extends State<BottomBar> {
   int missionModelType = 0;
   int? daily_end_time;
   int start_time = 0;
+  String objectiveUnit = ""; //目标单位
 
+  double objectiveValue = 0; //目标值
+
+  double objectiveStartValue = 0; //目标值
+
+  double objectiveTotalValue = 0; //目标值完成
+  List<CheckButtonStateModel> listCheckButtonStateModelTabBar = [];
   GlobalKey<CustomTabBarWidgetState> _tabBarKey = GlobalKey();
 
   // int totalTomatoes = 1;
@@ -183,11 +213,17 @@ class BottomBarState extends State<BottomBar> {
     false,
     false,
   ];
+  FolderModel? folderModel;
 
   BottomBarState(
       {this.iconCircle,
+        this.folderModel,
       this.dateStatus,
       this.time_mode = 0,
+        this.objectiveUnit = "",
+        this.objectiveValue = 0,
+        this.objectiveStartValue = 0,
+        this.objectiveTotalValue = 0,
       required this.totalTomatoes,
       this.missionModelType = 0,
       this.tagColor,
@@ -202,6 +238,7 @@ class BottomBarState extends State<BottomBar> {
   @override
   void didUpdateWidget(BottomBar oldWidget) {
     super.didUpdateWidget(oldWidget);
+    this.folderModel = this.widget.folderModel;
     this.iconCircle = this.widget.iconCircle;
     this.dateStatus = this.widget.dateStatus;
     this.mission_value = this.widget.mission_value;
@@ -211,6 +248,11 @@ class BottomBarState extends State<BottomBar> {
     this.priority = this.widget.priority;
     this.circleColor = this.widget.circleColor;
     this.circleTitle = this.widget.circleTitle;
+    this.objectiveUnit = this.widget.objectiveUnit;
+    this.objectiveValue = this.widget.objectiveValue;
+    this.objectiveStartValue = this.widget.objectiveStartValue;
+    this.objectiveTotalValue = this.widget.objectiveTotalValue;
+
     // this.missionModelType = this.widget.missionModelType;
   }
 
@@ -291,7 +333,7 @@ class BottomBarState extends State<BottomBar> {
   }
 
   void updateAlertTime() {
-    if (this.time_mode == 1) {
+    if (this.time_mode == 1 || this.time_mode == 2) {
       this.alert_time = (this.start_time ?? 0);
     } else {
       if (this.repetiveType == 0 && this.end_time != null) {
@@ -409,37 +451,45 @@ class BottomBarState extends State<BottomBar> {
                   // if (this.widget.missionModelType == 0) //
                   CustomTabBarWidget(
                     key: _tabBarKey,
-                    list: this.missionModelType == 0
-                        ? CONSTANTS.getSettingItemDetailCheckButtonList(
-                            defaultVal: 0)
-                        : this.missionModelType == 1 // 1 需要
-                            ? CONSTANTS
-                                .getOnlySettingItemDetailCheckButtonListForCalendar()
-                            : CONSTANTS
-                                .getOnlySettingItemDetailCheckButtonListForAlarm(),
+                  isAutoTrigger: true,
+                    list: getDataList(),
                     // 0 任务 1 日程 2 闹钟提醒
-                    onCheckedListener: (int index) {
-                      if (index == 1 || index == 2) {
+                    onCheckedListener: (int index, CheckButtonStateModel model) {
+                      if(model.code == 'time' || model.code == 'objective') {
+                      // if (index == 1 || index == 2) {
                         if (LoginManager.getInstance()
                                 .isVIP(shouldShowDialog: true) ==
                             false) {
                           return;
                         }
                       }
-                      this.daily_start_time = null;
-                      this.daily_end_time = null;
-                      this.time_mode = index; // 0 日期 1 时间段 2 目标
-                      this.end_time = 0;
-                      this.alert_time = 0;
-                      this.start_time = 0;
-                      setState(() {});
+                      // CheckButtonStateModel checkButtonStateModel = model;
+                      reset(model: model);
                     },
                     fontSize: 14,
                   ),
-                  if (this.time_mode == 0 || this.time_mode == 1)
-                    ...getListWidgetForTimeModeDateAndTimeSegment(context),
                   if (this.time_mode == 2)
-                    ...getListWidgetForObjective(context),
+                    Container(
+                    padding: EdgeInsets.symmetric(vertical: paddingTop),
+                    child: Row(
+                      children: [
+                        if (Utility.shouldUnit(
+                            missionModelType: this.missionModelType))
+                          getTotalValInputWidgetForObjective(),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        if (Utility.shouldTotalVal(
+                            missionModelType: this.missionModelType))
+                          getUnitInputWidgetForObjective(),
+                      ],
+                    ),
+                  ),
+
+                  if (this.time_mode == 0 || this.time_mode == 1 || this.time_mode == 2)
+                    ...getListWidgetForTimeModeDateAndTimeSegment(context),
+                  // if (this.time_mode == 2)
+                  //   ...getListWidgetForObjective(context),
                 ],
               ),
             )
@@ -447,56 +497,95 @@ class BottomBarState extends State<BottomBar> {
         ));
   }
 
-  List<Widget> getListWidgetForTimeModeObjective(BuildContext context) {
-    return [
-      Container(
-        padding: EdgeInsets.symmetric(vertical: paddingTop),
-        child: Row(
-          children: [
-            if (Utility.shouldShowBeginTime(
-                missionModelType: this.missionModelType))
-              getDailyStartTimeWidget(context),
-            SizedBox(
-              width: 0,
-            ),
-            if (Utility.shouldShowEndTime(
-                missionModelType: this.missionModelType))
-              getDailyEndTimeWidget(context),
-            this.time_mode == 1
-                ? SizedBox.shrink()
-                : Utility.shouldShowEndTime(
-                        missionModelType: this.missionModelType)
-                    ? getEndTimeWidget(context)
-                    : SizedBox.shrink(),
-          ],
-        ),
-      ),
-      this.time_mode == 1
-          ? SizedBox.shrink()
-          : Container(
-              padding: EdgeInsets.symmetric(vertical: paddingTop),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (Utility.shouldShowAlert(
-                      missionModelType: this.missionModelType))
-                    getAlertTimeWidget(context),
-                  getRepeativeWidget(context),
-                  SizedBox(
-                    width: 0,
-                  ),
-                  // getEndTimeWidget(context),
-                ],
-              ),
-            ),
-      Container(
-        padding: EdgeInsets.symmetric(vertical: paddingTop),
-        child: getBottomWidget(context),
-      )
-    ];
+  List<CheckButtonStateModel> getDataList() {
+    return listCheckButtonStateModelTabBar = (this.folderModel?.tag == 5 ? CONSTANTS.getSettingItemDetailCheckButtonListForOnlyObjective(
+                      defaultVal: 0): this.missionModelType == 0
+                      ? CONSTANTS.getSettingItemDetailCheckButtonList(
+                          defaultVal: 0)
+                      : this.missionModelType == 1 // 1 需要
+                          ? CONSTANTS
+                              .getOnlySettingItemDetailCheckButtonListForCalendar()
+                          : CONSTANTS
+                              .getOnlySettingItemDetailCheckButtonListForAlarm());
   }
+
+  void reset({CheckButtonStateModel? model}) {
+    if(model == null) {
+      model = getDataList()[0];
+    }
+       String code = model?.code ?? "";
+    this.daily_start_time = null;
+    this.daily_end_time = null;
+    switch(code) {
+      case 'date':
+        this.time_mode = 0;
+    
+        break;
+      case 'time':
+        this.time_mode = 1;
+        break;
+      case 'objective':
+        this.time_mode = 2;
+        break;
+    }
+    // this.time_mode = index; // 0 日期 1 时间段 2 目标
+    this.end_time = 0;
+    this.alert_time = 0;
+    this.start_time = 0;
+    
+    setState(() {});
+  }
+
+  // List<Widget> getListWidgetForTimeModeObjective(BuildContext context) {
+  //   return [
+  //     Container(
+  //       padding: EdgeInsets.symmetric(vertical: paddingTop),
+  //       child: Row(
+  //         children: [
+  //           if (Utility.shouldShowBeginTime(
+  //               missionModelType: this.missionModelType))
+  //             getDailyStartTimeWidget(context),
+  //           SizedBox(
+  //             width: 0,
+  //           ),
+  //           if (Utility.shouldShowEndTime(
+  //               missionModelType: this.missionModelType))
+  //             getDailyEndTimeWidget(context),
+  //           (this.time_mode == 1 || this.time_mode == 2)
+  //               ? SizedBox.shrink()
+  //               : Utility.shouldShowEndTime(
+  //                       missionModelType: this.missionModelType)
+  //                   ? getEndTimeWidget(context)
+  //                   : SizedBox.shrink(),
+  //         ],
+  //       ),
+  //     ),
+  //     (this.time_mode == 1||this.time_mode == 2)
+  //         ? SizedBox.shrink()
+  //         : Container(
+  //             padding: EdgeInsets.symmetric(vertical: paddingTop),
+  //             child: Row(
+  //               mainAxisSize: MainAxisSize.max,
+  //               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: [
+  //                 if (Utility.shouldShowAlert(
+  //                     missionModelType: this.missionModelType))
+  //                   getAlertTimeWidget(context),
+  //                 getRepeativeWidget(context),
+  //                 SizedBox(
+  //                   width: 0,
+  //                 ),
+  //                 // getEndTimeWidget(context),
+  //               ],
+  //             ),
+  //           ),
+  //     Container(
+  //       padding: EdgeInsets.symmetric(vertical: paddingTop),
+  //       child: getBottomWidget(context),
+  //     )
+  //   ];
+  // }
   SuggestionsController<SuggestionBean> suggestionsController = SuggestionsController();
   TextEditingController inputController = TextEditingController();
   FocusNode? _contentFocusNode = FocusNode();
@@ -520,6 +609,8 @@ class BottomBarState extends State<BottomBar> {
           child: TextField(
 
             inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
+
               LengthLimitingTextInputFormatter(
                   10), // 限制最大输入长度为500字符
             ],
@@ -531,7 +622,7 @@ class BottomBarState extends State<BottomBar> {
               // callback for regular enter key press
               // this.widget.onClickSendMsg(
               //     inputController.text);
-              inputController.text = '';
+              // inputController.text = '';
             },
             onEditingComplete: () {
               final isCtrlPressed = RawKeyboard
@@ -540,14 +631,14 @@ class BottomBarState extends State<BottomBar> {
                   LogicalKeyboardKey.controlLeft);
               if (isCtrlPressed) {
                 // insert a new line character
-                inputController.value =
-                    TextEditingValue(
-                      text: inputController.text + '\n',
-                      selection: TextSelection.collapsed(
-                          offset: inputController
-                              .text.length +
-                              1),
-                    );
+                // inputController.value =
+                //     TextEditingValue(
+                //       text: inputController.text + '\n',
+                //       selection: TextSelection.collapsed(
+                //           offset: inputController
+                //               .text.length +
+                //               1),
+                //     );
               } else {
                 // trigger the callback for regular enter key press
                 // this.onClickSendMsg(inputController.text);
@@ -555,7 +646,9 @@ class BottomBarState extends State<BottomBar> {
             },
             scrollController: ScrollController(),
             onChanged: (val) {
-              this.value = val;
+              // this.value = val;
+              this.objectiveTotalValue = val.toDouble();
+              this.widget.onChangeTotalValAndUnit?.call(this.objectiveTotalValue, this.objectiveUnit);
             },
             // keyboardType: TextInputType.number,
             // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -617,6 +710,9 @@ class BottomBarState extends State<BottomBar> {
           onSelected: (value) {
             inputController.text =
                 value.suggestionContent ?? '';
+            this.objectiveUnit = value.suggestionContent ?? '';
+            this.widget.onChangeTotalValAndUnit?.call(this.objectiveTotalValue, this.objectiveUnit);
+
             // this.widget.onClickSendMsg(inputController.text);
             // inputController.text = '';
           },
@@ -651,22 +747,31 @@ class BottomBarState extends State<BottomBar> {
           builder: (context, controller, focusNode) {
             return Container(
               height: 25,
-              width: 80,
+              width: 120,
               child: TextField(
+                    focusNode: _contentFocusNode = focusNode,
+                    controller: inputController = controller,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (val) {
+                      // callback for regular enter key press
+                      // this.widget.onClickSendMsg(
+                      //     inputController.text);
+                      inputController.text = '';
+                    },
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(
                       10), // 限制最大输入长度为500字符
                 ],
                 // enabled: this.isLoading2 == 0,
-                focusNode: _contentFocusNode = focusNode,
-                controller: inputController = controller,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (val) {
-                  // callback for regular enter key press
-                  // this.widget.onClickSendMsg(
-                  //     inputController.text);
-                  inputController.text = '';
-                },
+                // focusNode: _contentFocusNode = focusNode,
+                // controller: inputController = controller,
+                // textInputAction: TextInputAction.done,
+                // onSubmitted: (val) {
+                //   // callback for regular enter key press
+                //   // this.widget.onClickSendMsg(
+                //   //     inputController.text);
+                //   inputController.text = '';
+                // },
                 onEditingComplete: () {
                   final isCtrlPressed = RawKeyboard
                       .instance.keysPressed
@@ -690,6 +795,8 @@ class BottomBarState extends State<BottomBar> {
                 scrollController: ScrollController(),
                 onChanged: (val) {
                   this.value = val;
+                  this.objectiveUnit = val;
+                  this.widget.onChangeTotalValAndUnit?.call(this.objectiveTotalValue, this.objectiveUnit);
                 },
                 // keyboardType: TextInputType.number,
                 // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -718,14 +825,91 @@ class BottomBarState extends State<BottomBar> {
                     borderRadius: BorderRadius.circular(30.0),
                     borderSide: BorderSide.none,
                   ),
-                  // hintText: getI18NKey().unit,
+                  hintText: getI18NKey().unit,
                   hintStyle: TextStyle(
                       color: ThemeManager.getInstance().getInputPlaceholderColor(),
-                      fontSize: 10),
+                      fontSize: 11),
                 ),
                 // onChanged: (value) => _checkPasswordMatch(),
               ),
             );
+            // return Container(
+            //   height: 25,
+            //   width: 80,
+            //   child: TextField(
+            //     inputFormatters: [
+            //       LengthLimitingTextInputFormatter(
+            //           10), // 限制最大输入长度为500字符
+            //     ],
+            //     // enabled: this.isLoading2 == 0,
+            //     focusNode: _contentFocusNode = focusNode,
+            //     controller: inputController = controller,
+            //     textInputAction: TextInputAction.done,
+            //     onSubmitted: (val) {
+            //       // callback for regular enter key press
+            //       // this.widget.onClickSendMsg(
+            //       //     inputController.text);
+            //       inputController.text = '';
+            //     },
+            //     onEditingComplete: () {
+            //       final isCtrlPressed = RawKeyboard
+            //           .instance.keysPressed
+            //           .contains(
+            //           LogicalKeyboardKey.controlLeft);
+            //       if (isCtrlPressed) {
+            //         // insert a new line character
+            //         inputController.value =
+            //             TextEditingValue(
+            //               text: inputController.text + '\n',
+            //               selection: TextSelection.collapsed(
+            //                   offset: inputController
+            //                       .text.length +
+            //                       1),
+            //             );
+            //       } else {
+            //         // trigger the callback for regular enter key press
+            //         // this.onClickSendMsg(inputController.text);
+            //       }
+            //     },
+            //     scrollController: ScrollController(),
+            //     onChanged: (val) {
+            //       this.value = val;
+            //     },
+            //     // keyboardType: TextInputType.number,
+            //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            //     decoration: InputDecoration(
+            //       // suffixIcon: Align(
+            //       //   alignment: Alignment.centerRight,
+            //       //   widthFactor: 1.0,
+            //       //   child: CheckImage(
+            //       //     //显示隐藏密码的眼睛
+            //       //     onTapListener: (isChecked) {
+            //       //       checkedPassword1 = !isChecked;
+            //       //       setState(() {});
+            //       //       ;
+            //       //     },
+            //       //     checked: checkedPassword1,
+            //       //     autoCheck: true,
+            //       //     checkIcon:
+            //       //     Utility.getSVGPicture(R.assetsImgIcEyeSlash, size: 20),
+            //       //     uncheckIcon:
+            //       //     Utility.getSVGPicture(R.assetsImgIcEyeClose, size: 20),
+            //       //   ),
+            //       // ),
+            //       filled: true,
+            //       fillColor: ThemeManager.getInstance().getInputDecorationColor(),
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30.0),
+            //         borderSide: BorderSide.none,
+            //       ),
+            //       // hintText: getI18NKey().unit,
+            //       hintStyle: TextStyle(
+            //           color: ThemeManager.getInstance().getInputPlaceholderColor(),
+            //           fontSize: 10),
+            //     ),
+            //     // onChanged: (value) => _checkPasswordMatch(),
+            //   ),
+            // );
           },
         ),
       ],
@@ -772,7 +956,7 @@ class BottomBarState extends State<BottomBar> {
           ],
         ),
       ),
-      this.time_mode == 1
+      (this.time_mode == 1 || this.time_mode == 2)
           ? SizedBox.shrink()
           : Container(
               padding: EdgeInsets.symmetric(vertical: paddingTop),
@@ -816,7 +1000,7 @@ class BottomBarState extends State<BottomBar> {
             if (Utility.shouldShowEndTime(
                 missionModelType: this.missionModelType))
               getDailyEndTimeWidget(context),
-            this.time_mode == 1
+            (this.time_mode == 1 || this.time_mode == 2)
                 ? SizedBox.shrink()
                 : Utility.shouldShowEndTime(
                         missionModelType: this.missionModelType)
@@ -825,7 +1009,7 @@ class BottomBarState extends State<BottomBar> {
           ],
         ),
       ),
-      this.time_mode == 1
+      (this.time_mode == 1 || this.time_mode == 2)
           ? SizedBox.shrink()
           : Container(
               padding: EdgeInsets.symmetric(vertical: paddingTop),
@@ -1228,7 +1412,7 @@ class BottomBarState extends State<BottomBar> {
             width: 5,
           ),
           new Text(
-              this.time_mode == 1
+    (this.time_mode == 1 || this.time_mode == 2)
                   ? CONSTANTS.getAlertDateString(
                       Utility.getDateTimeModelFromTimeStamp(this.end_time ?? 0))
                   : this.daily_end_time != null
@@ -1253,7 +1437,7 @@ class BottomBarState extends State<BottomBar> {
         ],
       ),
       onTap: () async {
-        if (this.time_mode == 1) {
+        if (this.time_mode == 1 || this.time_mode == 2) {
           // DateTimeModel? model =
           //     await Utility.showDateTimePickerDialog(context);
           // updateAlertTime();
@@ -1320,7 +1504,7 @@ class BottomBarState extends State<BottomBar> {
             width: 5,
           ),
           new Text(
-              this.time_mode == 1
+    (this.time_mode == 1 || this.time_mode == 2)
                   ? CONSTANTS.getAlertDateString(
                       Utility.getDateTimeModelFromTimeStamp(
                           this.start_time ?? 0))
@@ -1367,7 +1551,7 @@ class BottomBarState extends State<BottomBar> {
           "eventType": "missionpage_start_time",
           "description": "开始时间",
         });
-        if (this.time_mode == 1) {
+        if (this.time_mode == 1 || this.time_mode == 2) {
           DateTimeModel? model =
               await Utility.showDateTimePickerDialog(context);
           // updateAlertTime();

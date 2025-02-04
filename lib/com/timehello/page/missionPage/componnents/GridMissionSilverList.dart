@@ -19,7 +19,9 @@ import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 import 'package:time_hello/r.dart';
 
 import '../../../common/database/apis/MongoApisManager.dart';
+import '../../../components/CustomPainterCircleProgressWidget.dart';
 import '../../../components/MissionCountDownTextWidget.dart';
+import '../../../components/SliderWithCanvasWidget.dart';
 import '../../../components/SubmissionColumnList.dart';
 import '../../../config/ENUMS.dart';
 import '../../../util/DeviceInfoManagement.dart';
@@ -149,6 +151,7 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
   double ratio = Utility.getRatioForSlider(
     numItem: 5,
   );
+
   FolderModel? getFolderModel(MissionModel? missionModel) {
     if (!TextUtil.isEmpty(this.widget._missionModel?.folder_id)) {
       List<FolderModel> wqbFolderModelList = MongoApisManager.getInstance()
@@ -161,11 +164,32 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
     return null;
   }
 
+  Function funcDebounceWithUpdateSliderVal = Utility.debounceWith((GridMissionSilverListItemState state) async {
+    // state.isLoading = true;
+    // state.tmpMissionModel?.objectiveValue = value;
+    // print("value:$value");
+    MongoApisManager.getInstance().update_MissionModel(
+        shouldUpdateLog: false,
+        missionModel: state.widget._missionModel ?? MissionModel());
+
+    MongoApisManager.getInstance().insertTimelineMissionModel(
+        shouldQueryMissionModel: false,
+        missionModel: Utility.getTimelineMissionModelFromMissionModel(
+            icon: Icons.check_circle.codePoint,
+            color: Colors.greenAccent.value,
+            sceneType: "mission",
+            eventType: "realize_mission",
+            mission_id: state.widget._missionModel?.objectId,
+            folder_id: state.widget._missionModel?.folder_id,
+            timelineMessage: getI18NKey()
+                .realize_percent(state.widget._missionModel?.title ?? "?", state.widget._missionModel?.objectivePercentString ?? "")));
+  }, Duration(milliseconds: 3000));
+
   @override
   Widget build(BuildContext context) {
     // print("grid mission silver list");
     MissionModel? _missionModel = this.widget._missionModel;
-    // FolderModel? folderModel = getFolderModel(_missionModel);
+    FolderModel? folderModel = getFolderModel(_missionModel);
     bool isDoItNow = this.isDoItNow(_missionModel);
     // TODO: implement build
     //左边文案和角标
@@ -184,15 +208,45 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
       Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          InkWell(
-              onTap: () {
-                this.widget.onTapPlayListener!(_missionModel);
-              },
-              child: Icon(
-                Icons.play_circle_outline,
-                color: Color(0xfffd5553),
-                size: 16,
-              )),
+          if (Utility.isObjectiveForMissionModel(
+                  missionModel: _missionModel ?? MissionModel()) ==
+              false)
+            InkWell(
+                onTap: () {
+                  this.widget.onTapPlayListener!(_missionModel);
+                },
+                child: Icon(
+                  Icons.play_circle_outline,
+                  color: Color(0xfffd5553),
+                  size: 16,
+                )),
+          if (Utility.isObjectiveForMissionModel(
+                  missionModel: _missionModel ?? MissionModel()) ==
+              true)
+            Container(
+                width: 20,
+                height: 20,
+                child: Stack(
+                  alignment: AlignmentDirectional.centerStart,
+                  children: [
+                    CustomPaint(
+                      size: Size(20, 20),
+                      painter: CustomPainterCircleProgressWidget(
+                        progressColor: Color(folderModel?.color ?? 0xffff8800),
+                        backgroundColor:ThemeManager.getInstance().isDark() ? Color(folderModel?.color ?? 0xffff8800 - 0xa0000000) : Color(0xffff8800 - 0xa0000000),
+                        progress: (_missionModel?.objectivePercent ?? 0) / 100,
+                      ),
+                    ),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          _missionModel?.objectivePercent == 100 ? "100": (_missionModel?.objectivePercentString ?? "0%") ,
+                          style: TextStyle(
+                              color: ThemeManager.getInstance().isDark() ? Color(folderModel?.color ?? 0xffff8800) : Color(0xffff8800),
+                              fontSize: 6),
+                        ))
+                  ],
+                )),
           ListingSecurityWidget(
             missionModdel_id: _missionModel?.objectId,
             folder_id: _missionModel?.folder_id ?? "",
@@ -226,6 +280,20 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                                   decorationColor: Color(0xffa0a0a0),
                                   decorationThickness: 2,
                                   color: ColorsConfig.gray_40))),
+
+                      if(Utility.isObjectiveForMissionModel(
+                          missionModel: _missionModel ?? MissionModel()) ==
+                          true && isHover == true)
+                        TextSpan(
+                          text:  "  ${ _missionModel?.objectiveValue?.toInt() ?? 0}/${_missionModel?.objectiveTotalValue?.toInt()} ${_missionModel?.objectiveUnit ?? ""}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: ThemeManager.getInstance().isDark()
+                                ? Colors.white70
+                                : Colors.black87,
+                          ),
+                        ),
+
                       WidgetSpan(
                           alignment: PlaceholderAlignment.middle,
                           child: Wrap(
@@ -256,7 +324,6 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                               ],
                             ],
                           )),
-
                       ...WidgetManager.getTagsWidgetSpan(
                           _missionModel ?? MissionModel(),
                           fontSize: 12),
@@ -268,7 +335,6 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                   SubmissionColumnList(
                     missionModel: _missionModel ?? MissionModel(),
                   ),
-
               ]),
           flex: 3),
       // Spacer(),
@@ -276,7 +342,7 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
           margin: EdgeInsets.fromLTRB(
               0, 0, (this.isHover == false && isDoItNow) ? 3 : 4, 0),
           alignment: Alignment.centerRight,
-          width: (this.isHover == false && isDoItNow) ? 120 : 25,
+          width: (this.isHover == false && isDoItNow) ? 120 : 120,
           height: 25,
           child: (this.isHover == true)
               ? PopupMenuButton<String>(
@@ -308,28 +374,42 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                           ['buffer_end_time'],
                       isFinished: _missionModel?.isFinished ?? false,
                     )
-                  : CheckImage(
-                      width: 25,
-                      height: 25,
-                      isSizeConfigured: true,
-                      onTapListener: (res) {
-                        if (_missionModel?.isFinished == true) {
-                          if (this.widget.onTapUnFinishListener != null)
-                            this
-                                .widget
-                                .onTapUnFinishListener
-                                ?.call(_missionModel);
-                        } else {
-                          if (this.widget.onTapFinishListener != null)
-                            this.widget.onTapFinishListener!(_missionModel);
-                        }
-                      },
-                      checked: _missionModel?.isFinished ?? false,
-                      checkIcon: Icon(Icons.check_circle,
-                          size: 20, color: ColorsConfig.calendar_green),
-                      uncheckIcon: Icon(Icons.radio_button_unchecked_outlined,
-                          color: ColorsConfig.gray_a7, size: 20),
-                    )),
+                  : Utility.isObjectiveForMissionModel(
+                              missionModel: _missionModel ?? MissionModel()) ==
+                          true
+                      ?  Text(
+            "${ _missionModel?.objectiveValue?.toInt() ?? 0}/${_missionModel?.objectiveTotalValue?.toInt()} ${_missionModel?.objectiveUnit ?? ""}",
+            style: TextStyle(
+              fontSize: 12,
+              color: ThemeManager.getInstance().isDark()
+                  ? Colors.white70
+                  : Colors.black87,
+            ),
+          )
+                      : CheckImage(
+                          width: 25,
+                          height: 25,
+                          isSizeConfigured: true,
+                          onTapListener: (res) {
+                            if (_missionModel?.isFinished == true) {
+                              if (this.widget.onTapUnFinishListener != null)
+                                this
+                                    .widget
+                                    .onTapUnFinishListener
+                                    ?.call(_missionModel);
+                            } else {
+                              if (this.widget.onTapFinishListener != null)
+                                this.widget.onTapFinishListener!(_missionModel);
+                            }
+                          },
+                          checked: _missionModel?.isFinished ?? false,
+                          checkIcon: Icon(Icons.check_circle,
+                              size: 20, color: ColorsConfig.calendar_green),
+                          uncheckIcon: Icon(
+                              Icons.radio_button_unchecked_outlined,
+                              color: ColorsConfig.gray_a7,
+                              size: 20),
+                        )),
     ];
     return Slidable(
       key: ValueKey(_missionModel),
@@ -338,17 +418,17 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
         extentRatio: ratio,
-
         children: _missionModel?.isFinished == false
             ? getUnfinishIconSlideActions(_missionModel ?? MissionModel())
             : getFinishIconSlideActions(_missionModel ?? MissionModel()),
       ),
       child: InkWell(
         onTap: () {
-          if (this.widget.multiSelectModeEnum == MultiSelectModeEnum.multiSelect) {
+          if (this.widget.multiSelectModeEnum ==
+              MultiSelectModeEnum.multiSelect) {
             if (this.widget.onTapMultiSelectListener != null) {
               _missionModel?.isSelected =
-              _missionModel.isSelected ? false : true;
+                  _missionModel.isSelected ? false : true;
               this.widget.onTapMultiSelectListener?.call(_missionModel);
               setState(() {});
             }
@@ -377,40 +457,41 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                 left: CONSTANTS.missionPageMargin + 4,
                 right: CONSTANTS.missionPageMargin + 4),
             decoration: BoxDecoration(
-              border: this.widget.multiSelectModeEnum == MultiSelectModeEnum.normal
-                  ? Border.all(
-                  width: 1.0,
-                  color: ThemeManager.getInstance().isDark()
-                      ? Color(CONSTANTS.getPriorityColor(
-                      _missionModel?.priorityStatus ?? 3))
-                      : Color(0xfff0f0f0))
-                  : Border.all(
-                  width: 2.0,
-                  color: Color((CONSTANTS.getPriorityColor(
-                      _missionModel?.priorityStatus ?? 3) -
-                      (this.widget._missionModel?.isSelected == true
-                          ? 0x00000000
-                          : 0xe0000000)))),
+              border:
+                  this.widget.multiSelectModeEnum == MultiSelectModeEnum.normal
+                      ? Border.all(
+                          width: 1.0,
+                          color: ThemeManager.getInstance().isDark()
+                              ? Color(CONSTANTS.getPriorityColor(
+                                  _missionModel?.priorityStatus ?? 3))
+                              : Color(0xfff0f0f0))
+                      : Border.all(
+                          width: 2.0,
+                          color: Color((CONSTANTS.getPriorityColor(
+                                  _missionModel?.priorityStatus ?? 3) -
+                              (this.widget._missionModel?.isSelected == true
+                                  ? 0x00000000
+                                  : 0xe0000000)))),
               image: imageProvider == null
                   ? null
                   : ThemeManager.getInstance().isDark()
-                  ? DecorationImage(
-                  image: imageProvider!,
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      ThemeManager.getInstance().isDark()
-                          ? ThemeManager.getInstance()
-                          .getCardBackgroundColor(alpha: 150)
-                          : Colors.white,
-                      BlendMode.colorBurn))
-                  : DecorationImage(
-                  image: imageProvider!,
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.white, BlendMode.colorBurn)),
+                      ? DecorationImage(
+                          image: imageProvider!,
+                          fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(
+                              ThemeManager.getInstance().isDark()
+                                  ? ThemeManager.getInstance()
+                                      .getCardBackgroundColor(alpha: 150)
+                                  : Colors.white,
+                              BlendMode.colorBurn))
+                      : DecorationImage(
+                          image: imageProvider!,
+                          fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(
+                              Colors.white, BlendMode.colorBurn)),
               color: ThemeManager.getInstance().isDark()
                   ? ThemeManager.getInstance()
-                  .getCardBackgroundColor(alpha: 150)
+                      .getCardBackgroundColor(alpha: 150)
                   : Colors.white,
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             ),
@@ -419,21 +500,21 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                 TextUtil.isEmpty(_missionModel?.background_url ?? "")
                     ? SizedBox.shrink()
                     : CachedNetworkImage(
-                    imageUrl: Utility.filterHttpUrl(
-                        _missionModel?.background_url ?? '',
-                        prefix: "oss"),
-                    imageBuilder: (context, imageProviderTmp) {
-                      Future.delayed(Duration(seconds: 0), () {
-                        imageProvider = imageProviderTmp;
-                        if (mounted) {
-                          // setState(() {});
-                        }
-                      });
-                      return Container();
-                    }),
+                        imageUrl: Utility.filterHttpUrl(
+                            _missionModel?.background_url ?? '',
+                            prefix: "oss"),
+                        imageBuilder: (context, imageProviderTmp) {
+                          Future.delayed(Duration(seconds: 0), () {
+                            imageProvider = imageProviderTmp;
+                            if (mounted) {
+                              // setState(() {});
+                            }
+                          });
+                          return Container();
+                        }),
                 Container(
-                  color: ThemeManager.getInstance()
-                      .getCardBackgroundColor(defaultColor: Color(0xb0ffffff), alpha: 150),
+                  color: ThemeManager.getInstance().getCardBackgroundColor(
+                      defaultColor: Color(0xb0ffffff), alpha: 150),
                   constraints: BoxConstraints(minHeight: 30),
                   padding: EdgeInsets.only(top: 0, bottom: 0),
                   alignment: Alignment.centerLeft,
@@ -445,6 +526,33 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: childrenRow,
                           ),
+                          if(isHover == true && Utility.isObjectiveForMissionModel(
+                              missionModel: _missionModel ?? MissionModel()) == true)
+                            Container(
+                              height: 5,
+                              margin: EdgeInsets.only(bottom: 5),
+                              child: SliderWithCanvasWidget(
+                                onChange: (double value) {
+                                  _missionModel?.objectiveValue = value;
+                                  if((_missionModel?.objectiveTotalValue ?? 0) > 0) {
+                                    if((_missionModel?.objectiveTotalValue ?? 0) <= value) {
+                                      _missionModel?.isFinished = true;
+                                    } else {
+                                      _missionModel?.isFinished = false;
+                                    }
+                                  }
+                                  // tmpMissionModel = _missionModel;
+                                  // MongoApisManager.getInstance().update_MissionModel(
+                                  //     missionModel: _missionModel ?? MissionModel());
+                                  funcDebounceWithUpdateSliderVal(this);
+                                  setState(() {});
+                                },
+                                min: _missionModel?.objectiveStartValue ?? 0,
+                                max: _missionModel?.objectiveTotalValue ?? 0,
+                                curVal: _missionModel?.objectiveValue,
+                                // onChange: (double value) {},
+                              ),
+                            )
                         ],
                       ),
                     ],

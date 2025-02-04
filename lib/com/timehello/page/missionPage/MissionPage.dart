@@ -131,6 +131,15 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   bool isListAndGridVisible = true;
   double missionPageWidth = 300;
 
+
+  String objectiveUnit = ""; //目标单位
+
+  double objectiveValue = 0; //目标值
+
+  double objectiveStartValue = 0; //目标值
+
+  double objectiveTotalValue = 0; //目标值完成
+
   List<TimeSegment> listTimeSegment = [];
 
   // int
@@ -158,6 +167,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         }
       }
       this._folderModelObjId = folderModel.objectId; //用于创建mission时保存id
+      print("folderId ${this._folderModelObjId}");
     }
     if (this._dateStatus == null) {
       if (folderStatus != null) {
@@ -361,6 +371,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         size: 20,
         color: Color(this._circleColor ?? 0xffff8800));
     this._folderModelObjId = data.objectId;
+    print("folderId ${this._folderModelObjId}");
     updateUI();
     // updateUI();
     // }, onTapCreateTagListener: (data) {
@@ -569,8 +580,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       Utility.showToastMsg(msg: getI18NKey().requesting_please_wait);
       return;
     }
+    this._missionModel?.objectiveUnit = this.objectiveUnit;
+    this._missionModel?.objectiveValue = this.objectiveValue;
+    this._missionModel?.objectiveStartValue = this.objectiveStartValue;
+    this._missionModel?.objectiveTotalValue = this.objectiveTotalValue;
+
     this._missionModel?.title = data.toString();
-    this._missionModel?.folder_id = _folderModelObjId ?? "";
+    this._missionModel?.folder_id = this._folderModelObjId ?? "";
     this._missionModel?.order_index = -1;
     this._missionModel?.tagNames = TextUtil.isEmpty(this._tagName)
         ? this.widget.folderModel?.title
@@ -707,7 +723,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   @override
   void didUpdateWidget(MissionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.folderModel?.title != this.widget.folderModel?.title) {
+    if (oldWidget.folderModel?.title != this.widget.folderModel?.title || (!TextUtil.isEmpty(oldWidget.folderModel?.objectId) && !TextUtil.isEmpty(this.widget.folderModel?.objectId) && oldWidget.folderModel?.objectId != this.widget.folderModel?.objectId)) {
       this._dateStatus =
           null; //切换文件夹时重置 这样Initdata会重新拿this.widget.folderStatus数据初始化
       bottomBarStateKey?.currentState
@@ -715,13 +731,21 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
     this.updateRightNavChildren();
     this._folderModelObjId = this.widget.folderModel?.objectId;
+    print("folderId ${this._folderModelObjId}");
+    //多个folderModel的切换
+    Future.delayed(Duration(seconds: 0), () {
+      if (mounted == true) {
+        bottomBarStateKey?.currentState?.reset();
+      }
+    });
+
     //todo 这里可以优化 否则会请求几遍 但是通过 this._folderModelObjId == this.widget.folderModel?.objectId有点问题
     this.requestDatas(shouldUpdate: false);
   }
 
   void updateRightNavChildren() {
     // && this.rightNavChildren == null
-    if (this.widget.folderModel?.tag == 1) {
+    if (this.widget.folderModel?.tag == 1 || this.widget.folderModel?.tag == 5) {
       // if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
       this.rightNavChildren = [
         IconButton(
@@ -932,7 +956,12 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   BottomBar getBottomBar(BuildContext context, {bool isVisible: false}) {
     return BottomBar(
       key: bottomBarStateKey,
+      folderModel: this.widget.folderModel,
       //底部bar 用于创建任务用
+      objectiveUnit: this.objectiveUnit,
+      objectiveValue: this.objectiveValue,
+      objectiveStartValue: this.objectiveStartValue,
+      objectiveTotalValue: this.objectiveTotalValue,
       iconCircle: this._circleIcon,
       isVisible: isVisible,
       alert_time: this._missionModel?.alert_time ?? 0,
@@ -966,6 +995,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       },
       //dateStatus 0-今天 1 明天 2 即将到来 3 待定 4 日程 5 已完成
       priority: this._priorityStatus ?? 0,
+        onChangeTotalValAndUnit: (totalval, unit) {
+          // this.objectiveValue = val;
+          this.objectiveTotalValue = totalval;
+          this.objectiveUnit = unit;
+        },
       circleColor: !TextUtil.isEmpty(this._circleColor)
           ? Color(this._circleColor ?? 0xffff8800)
           : ColorsConfig.gray_cc_cancel,
@@ -1072,6 +1106,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   size: 25,
                   color: Color(this._circleColor ?? 0xffff8800));
               this._folderModelObjId = folderModel.objectId;
+              print("folderId ${this._folderModelObjId}");
             }
             this.onClick('onClickSubmit', data);
           }));
@@ -1137,7 +1172,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           onTapUpListener: () {},
           onTapDownListener: () {},
           folderTimeModel: _folderTimeModel,
-          folderModel: this.widget.folderModel?.tag == 1
+          folderModel: (this.widget.folderModel?.tag == 1 || this.widget.folderModel?.tag == 4 || this.widget.folderModel?.tag == 5)
               ? this.widget.folderModel
               : null,
           onChangeListener: (data, numTomatoes) {
@@ -1166,6 +1201,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   size: 25,
                   color: Color(this._circleColor ?? 0xffff8800));
               this._folderModelObjId = folderModel.objectId;
+              print("folderId ${this._folderModelObjId}");
             }
             this.onClick('onClickSubmit', data);
           }));
@@ -1256,7 +1292,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     key: UniqueKey(),
                     //每次都会重新创建
                     maxWidth: Utility.isHandsetBySize() == true ? 200 : 400,
-                    isEditable: this.widget.folderModel?.tag == 2 ||
+                    isEditable: this.widget.folderModel?.tag == 5 || this.widget.folderModel?.tag == 4 || this.widget.folderModel?.tag == 2 ||
                         this.widget.folderModel?.tag == 1,
                     style: TextStyle(
                         fontSize: 20,
@@ -1307,7 +1343,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   },
                 ),
                 (this.widget.folderModel?.tag == 1 ||
-                        this.widget.folderModel?.tag == 2)
+                        this.widget.folderModel?.tag == 2 ||
+                    this.widget.folderModel?.tag == 4 ||
+                    this.widget.folderModel?.tag == 5)
                     ? InkWell(
                         onTap: () async {
                           TimelineMissionModel? timelineMissionModel = null;

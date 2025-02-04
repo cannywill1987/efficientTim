@@ -471,7 +471,8 @@ enum GameLevelModeEnum {
 enum TimelinePageFromEnum {
   normal,
   StatisticPage,
-  FolderStatisticPage
+  FolderStatisticPage,
+  ObjectivePage
 }
 
 enum GameRankingModeEnum {

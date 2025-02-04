@@ -50,20 +50,201 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `总量`
+  /// `Completion Rate`
+  String get complete_ratio {
+    return Intl.message(
+      'Completion Rate',
+      name: 'complete_ratio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Title`
+  String get title {
+    return Intl.message(
+      'Title',
+      name: 'title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the objective title of this goal`
+  String get enter_objective_title {
+    return Intl.message(
+      'Enter the objective title of this goal',
+      name: 'enter_objective_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quantified Goal`
+  String get quantified_goal {
+    return Intl.message(
+      'Quantified Goal',
+      name: 'quantified_goal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Value`
   String get total_value {
     return Intl.message(
-      '总量',
+      'Total Value',
       name: 'total_value',
       desc: '',
       args: [],
     );
   }
 
-  /// `目标`
+  /// `Enter the target value of this goal (integer)`
+  String get enter_total_value {
+    return Intl.message(
+      'Enter the target value of this goal (integer)',
+      name: 'enter_total_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit`
+  String get unit {
+    return Intl.message(
+      'Unit',
+      name: 'unit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter unit: e.g., yuan, pieces, times, etc.`
+  String get enter_unit {
+    return Intl.message(
+      'Enter unit: e.g., yuan, pieces, times, etc.',
+      name: 'enter_unit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No fixed time, check in anytime to update goal progress`
+  String get free_check_in {
+    return Intl.message(
+      'No fixed time, check in anytime to update goal progress',
+      name: 'free_check_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deadline`
+  String get deadline {
+    return Intl.message(
+      'Deadline',
+      name: 'deadline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `none`
+  String get none {
+    return Intl.message(
+      'none',
+      name: 'none',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please select start time`
+  String get please_select_daily_start_time {
+    return Intl.message(
+      'please select start time',
+      name: 'please_select_daily_start_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End time cannot be earlier than start time`
+  String get end_time_cannot_before_start_time {
+    return Intl.message(
+      'End time cannot be earlier than start time',
+      name: 'end_time_cannot_before_start_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{days} days`
+  String num_days(Object days) {
+    return Intl.message(
+      '$days days',
+      name: 'num_days',
+      desc: '',
+      args: [days],
+    );
+  }
+
+  /// `Start time`
+  String get start_time {
+    return Intl.message(
+      'Start time',
+      name: 'start_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Group Listing`
+  String get group_listing {
+    return Intl.message(
+      'Group Listing',
+      name: 'group_listing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task {title} is {percent}% completed, Goal List {folderTitle} is {folderPercent}% completed`
+  String realize_percent_with_folder(
+      Object title, Object percent, Object folderTitle, Object folderPercent) {
+    return Intl.message(
+      'Task $title is $percent% completed, Goal List $folderTitle is $folderPercent% completed',
+      name: 'realize_percent_with_folder',
+      desc: '',
+      args: [title, percent, folderTitle, folderPercent],
+    );
+  }
+
+  /// `Task {title} is {percent}% completed`
+  String realize_percent(Object title, Object percent) {
+    return Intl.message(
+      'Task $title is $percent% completed',
+      name: 'realize_percent',
+      desc: '',
+      args: [title, percent],
+    );
+  }
+
+  /// `Objective`
   String get objective_final {
     return Intl.message(
-      '目标',
+      'Objective',
       name: 'objective_final',
       desc: '',
       args: [],
@@ -1096,16 +1277,6 @@ class S {
     return Intl.message(
       'repeat by day',
       name: 'repeative_by_day',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `none`
-  String get none {
-    return Intl.message(
-      'none',
-      name: 'none',
       desc: '',
       args: [],
     );
@@ -5772,16 +5943,6 @@ class S {
     );
   }
 
-  /// `Date`
-  String get date {
-    return Intl.message(
-      'Date',
-      name: 'date',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Apple Login`
   String get apple_login {
     return Intl.message(
@@ -7779,16 +7940,6 @@ class S {
       name: 'listing_time_optional',
       desc: '',
       args: [],
-    );
-  }
-
-  /// `{days} days`
-  String num_days(Object days) {
-    return Intl.message(
-      '$days days',
-      name: 'num_days',
-      desc: '',
-      args: [days],
     );
   }
 
@@ -9941,16 +10092,6 @@ class S {
     );
   }
 
-  /// `Unit`
-  String get unit {
-    return Intl.message(
-      'Unit',
-      name: 'unit',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Day, Hour, Minute, Second`
   String get day_hour_minute_second {
     return Intl.message(
@@ -10156,36 +10297,6 @@ class S {
     return Intl.message(
       'Privacy Policy',
       name: 'privacy_pattern',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `End time cannot be earlier than start time`
-  String get end_time_cannot_before_start_time {
-    return Intl.message(
-      'End time cannot be earlier than start time',
-      name: 'end_time_cannot_before_start_time',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `please select start time`
-  String get please_select_daily_start_time {
-    return Intl.message(
-      'please select start time',
-      name: 'please_select_daily_start_time',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Start time`
-  String get start_time {
-    return Intl.message(
-      'Start time',
-      name: 'start_time',
       desc: '',
       args: [],
     );
@@ -11432,16 +11543,6 @@ class S {
     return Intl.message(
       'No',
       name: 'no',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Title`
-  String get title {
-    return Intl.message(
-      'Title',
-      name: 'title',
       desc: '',
       args: [],
     );

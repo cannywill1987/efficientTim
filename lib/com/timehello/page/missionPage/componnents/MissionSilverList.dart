@@ -189,7 +189,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
           missionModel.objectivePercentString ?? "",
           style: TextStyle(
             fontSize: 13,
-            color: Colors.white,
+            color: ThemeManager.getInstance().isDark() ? Colors.white : Colors.black,
 
           ),
         ),
@@ -197,7 +197,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
           "${missionModel?.objectiveValue?.toInt() ?? 0}/${missionModel?.objectiveTotalValue?.toInt()} ${missionModel?.objectiveUnit}",
           style: TextStyle(
             fontSize: 10,
-            color: Colors.white70,
+            color: ThemeManager.getInstance().isDark() ? Colors.white70 : Colors.black87,
           ),
         ),
       ],
@@ -587,6 +587,13 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                         child: SliderWithCanvasWidget(
                           onChange: (double value) {
                             _missionModel?.objectiveValue = value;
+                            if((_missionModel?.objectiveTotalValue ?? 0) > 0) {
+                              if((_missionModel?.objectiveTotalValue ?? 0) <= value) {
+                                _missionModel?.isFinished = true;
+                              } else {
+                                _missionModel?.isFinished = false;
+                              }
+                            }
                             tmpMissionModel = _missionModel;
                             // MongoApisManager.getInstance().update_MissionModel(
                             //     missionModel: _missionModel ?? MissionModel());
@@ -658,7 +665,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
       ),
       SizedBox(width: 2),
       Text(
-        CONSTANTS.getSegmentDateStringSubtitle(_missionModel ?? MissionModel()),
+        CONSTANTS.getSegmentDateStringSubtitleByMissionModel(_missionModel ?? MissionModel()),
         style: TextStyle(fontSize: this.fontSize, color: ColorsConfig.darkRed),
       ),
     ];
@@ -669,7 +676,21 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
     // state.tmpMissionModel?.objectiveValue = value;
     // print("value:$value");
     MongoApisManager.getInstance().update_MissionModel(
+        shouldUpdateLog: false,
         missionModel: state.tmpMissionModel ?? MissionModel());
+
+    MongoApisManager.getInstance().insertTimelineMissionModel(
+        shouldQueryMissionModel: false,
+        missionModel: Utility.getTimelineMissionModelFromMissionModel(
+            icon: Icons.check_circle.codePoint,
+            color: Colors.greenAccent.value,
+            sceneType: "mission",
+            eventType: "realize_mission",
+            mission_id: state.tmpMissionModel?.objectId,
+            folder_id: state.tmpMissionModel?.folder_id,
+            timelineMessage: getI18NKey()
+                .realize_percent(state.tmpMissionModel?.title ?? "?", state.tmpMissionModel?.objectivePercentString ?? "")));
+
   }, Duration(milliseconds: 3000));
 
   List<Widget> getDateWidget(MissionModel _missionModel) {

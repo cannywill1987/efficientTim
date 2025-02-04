@@ -125,7 +125,7 @@ class RegisterStep1State extends State<RegisterStep1> {
                 CustomTabBarWidget(
                   checkIndex: this.curTab,
                   list: tabList,
-                  onCheckedListener: (int index) {
+                  onCheckedListener: (int index, CheckButtonStateModel model) {
                     this.curTab = index;
                     setState(() {});
                   },

@@ -41,7 +41,7 @@ class HeaderNavBarState extends State<HeaderNavBar> {
               key: tabBarKey,
               list: listTabBars,
               fontSize: 12,
-              onCheckedListener: (int index) {
+              onCheckedListener: (int index, CheckButtonStateModel model) {
                 setState(() {
                   widget.onTapListener.call(index, listTabBars[index]);
                 });

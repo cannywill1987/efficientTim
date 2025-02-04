@@ -9,34 +9,30 @@ import '../util/Utility.dart';
 
 
 class ObjectiveListScreen extends StatefulWidget {
-  // MissionModel missionModel;
   List<MissionModel> missionModels = [];
-  PageModeEnum pageEnum; //用于判断创建 或者 更新
+  PageModeEnum pageEnum;
 
-  ObjectiveListScreen({
-    List<MissionModel>? missionModels, required this.pageEnum}) {
-    if(missionModels == null) {
+  ObjectiveListScreen({List<MissionModel>? missionModels, required this.pageEnum}) {
+    if (missionModels == null) {
       this.missionModels = [];
     } else {
       this.missionModels = missionModels;
     }
-  } // ObjectiveListScreen({required this.missionModel});
+  }
+
   @override
   _ObjectiveListScreenState createState() => _ObjectiveListScreenState();
 }
 
 class _ObjectiveListScreenState extends State<ObjectiveListScreen> {
-  // List<String> objectives = [];
-
   void _addObjective() {
     setState(() {
       MissionModel model = MissionModel();
-      model.time_mode = 2; // 0 日期 1 时间段 2 目标
-      model.title = "123";
-      model.objectiveUnit = "unit";
-      model.objectiveTotalValue = 300;
+      model.time_mode = 2;
+      model.title = "";
+      model.objectiveUnit = "";
+      model.objectiveTotalValue = 0;
       this.widget.missionModels.add(model);
-      // objectives.add("New Objective");
     });
   }
 
@@ -50,47 +46,46 @@ class _ObjectiveListScreenState extends State<ObjectiveListScreen> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [IconButton(
-            icon: Icon(Icons.add),
-            onPressed: _addObjective,
-          ), ...this.widget.missionModels.map((missionModel) {
+      child: Column(
+        children: [
+
+          ...this.widget.missionModels.map((missionModel) {
             int index = this.widget.missionModels.indexOf(missionModel);
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Row(
                 children: [
-                  // 删除按钮
                   IconButton(
                     icon: Icon(Icons.delete, color: Colors.red),
                     onPressed: () => _removeObjective(index),
                   ),
-
-                  // 圆角白色容器
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: ThemeManager.getInstance().getCardBackgroundColor(),
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            blurRadius: 5,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child:CreateObjectiveItem(missionModel: missionModel,)
-                      // Text(objectives[index]),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: ThemeManager.getInstance().getCardBackgroundColor(),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              blurRadius: 5,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: CreateObjectiveItem(missionModel: missionModel,)
                     ),
                   ),
                 ],
               ),
             );
-          }).toList()],
-        ),
+          }).toList(),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _addObjective,
+          ),
+
+        ],
       ),
     );
   }
@@ -107,7 +102,6 @@ class CreateObjectiveItem extends StatefulWidget {
 
 class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
   bool isQuantifyGoalEnabled = true;
-  bool isFreeCheckIn = true;
   double itemMargin = 8;
 
   late TextEditingController titleController;
@@ -151,22 +145,18 @@ class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ItemWithTitle(
-            title: '标题',
+            title: getI18NKey().title,
             child: TextField(
               controller: titleController,
               decoration: InputDecoration(
-                hintText: '输入这个目标的目标标题',
+                hintText: getI18NKey().enter_objective_title,
                 border: OutlineInputBorder(),
               ),
             ),
           ),
           SizedBox(height: itemMargin),
           ItemWithTitle(
-            title: '日期',
-            child: GestureDetector(
-              onTap: () {
-                // Handle date selection
-              },
+            title: getI18NKey().date,
               child: Container(
                 alignment: Alignment.centerRight,
                 child: Column(
@@ -178,51 +168,39 @@ class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
                     getDailyEndTimeWidget(context),
                   ],
                 ),
-              ),
-            ),
+              )
           ),
           SizedBox(height: itemMargin),
-
           ItemWithTitle(
-            title: '量化目标',
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Switch(
-                value: isQuantifyGoalEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    isQuantifyGoalEnabled = value;
-                  });
-                },
-              ),
+            title: getI18NKey().quantified_goal,
+            child: Switch(
+              value: isQuantifyGoalEnabled,
+              onChanged: (value) {
+                setState(() {
+                  isQuantifyGoalEnabled = value;
+                });
+              },
             ),
           ),
           if (isQuantifyGoalEnabled) ...[
             SizedBox(height: itemMargin),
             ItemWithTitle(
-              title: '总量',
+              title: getI18NKey().total_value,
               child: TextField(
                 controller: objectiveTotalValueController,
-                inputFormatters: [
-                  // FilteringTextInputFormatter.digitsOnly,//数字，只能是整数
-                  FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
-                ],
-                keyboardType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-
                 decoration: InputDecoration(
-                  hintText: '输入这个目标的目标数值(整数)',
+                  hintText: getI18NKey().enter_total_value,
                   border: OutlineInputBorder(),
                 ),
               ),
             ),
             SizedBox(height: itemMargin),
             ItemWithTitle(
-              title: '单位',
+              title: getI18NKey().unit,
               child: TextField(
                 controller: objectiveUnitController,
                 decoration: InputDecoration(
-                  hintText: '输入单位：如元、个、次等',
+                  hintText: getI18NKey().enter_unit,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -230,7 +208,7 @@ class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
           ],
           SizedBox(height: itemMargin),
           Text(
-            '不固定时间，随时打卡更新目标进度',
+            getI18NKey().free_check_in,
             style: TextStyle(color: Colors.blue),
           ),
         ],
@@ -377,8 +355,6 @@ class _CreateObjectiveItemState extends State<CreateObjectiveItem> {
     );
   }
 }
-
-
 class ItemWithTitle extends StatelessWidget {
   final String title;
   final Widget child;
@@ -403,12 +379,10 @@ class ItemWithTitle extends StatelessWidget {
               style: TextStyle(fontSize: 14),
             ),
           ),
-          Spacer(flex: 2),
-          Expanded(child: child),
+          Spacer(flex: 1),
+          Expanded(flex:2, child: child),
         ],
       ),
     );
   }
 }
-
-

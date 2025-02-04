@@ -120,6 +120,23 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
             height: 100,
             child: Row(
               children: <Widget>[
+                if(this.widget.folderModel?.tag == 5)
+                Expanded(
+                  key: ValueKey('Expanded33212'),
+                  child: HeaderItemWidget(
+                    key: ValueKey('HeaderItemWidget32'),
+                    shouldShowMins: false,
+                    title: getI18NKey().complete_ratio,
+                    value: this
+                        .widget
+                        .folderTimeModel
+                        ?.objectivePercentString
+                        .toString() ??
+                        "",
+                  ),
+                  flex: 1,
+                ),
+                if(this.widget.folderModel?.tag != 5)
                 Expanded(
                   key: ValueKey('Expanded332'),
                   child: HeaderItemWidget(
@@ -150,6 +167,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                   ),
                   flex: 1,
                 ),
+                if(this.widget.folderModel?.tag != 5)
                 Expanded(
                   key: ValueKey('Expanded1322'),
                   child: HeaderItemWidget(
@@ -227,6 +245,23 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               height: 100,
               child: Row(
                 children: <Widget>[
+                  if(this.widget.folderModel?.tag == 5)
+                  Expanded(
+                    key: ValueKey('Expanded3321212'),
+                    child: HeaderItemWidget(
+                      key: ValueKey('HeaderItemWidget12332'),
+                      shouldShowMins: false,
+                      title: getI18NKey().complete_ratio,
+                      value: this
+                          .widget
+                          .folderTimeModel
+                          ?.objectivePercentString
+                          .toString() ??
+                          "",
+                    ),
+                    flex: 1,
+                  ),
+                  if(this.widget.folderModel?.tag != 5)
                   Expanded(
                     key: ValueKey('Expanded332'),
                     child: HeaderItemWidget(
@@ -255,6 +290,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                             ""),
                     flex: 1,
                   ),
+                  if(this.widget.folderModel?.tag != 5)
                   Expanded(
                     key: ValueKey('Expanded1322'),
                     child: HeaderItemWidget(

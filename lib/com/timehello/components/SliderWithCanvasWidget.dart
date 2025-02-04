@@ -7,31 +7,35 @@ class SliderWithCanvasWidget extends StatelessWidget {
   final double? curVal;
   final ValueChanged<double> onChange;
   final Color color;
+  final bool? shouldOnlyShowSlider;
+  final bool enable;
 
   const SliderWithCanvasWidget({
     super.key,
     required this.min,
     required this.max,
     this.curVal,
+    this.shouldOnlyShowSlider = false,
     required this.onChange,
     this.color = const Color(0xFFFF8800),
+    this.enable = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return CanvasSlider(
-            width: constraints.maxWidth,
-            min: min,
-            max: max,
-            curVal: curVal,
-            onChange: onChange,
-            color: color,
-          );
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return CanvasSlider(
+          width: constraints.maxWidth,
+          min: min,
+          max: max,
+          shouldOnlyShowSlider: shouldOnlyShowSlider,
+          curVal: curVal,
+          onChange: onChange,
+          color: color,
+          enable: enable,
+        );
+      },
     );
   }
 }
@@ -45,16 +49,20 @@ class CanvasSlider extends StatefulWidget {
   final Color color;
   final double trackHeight;
   final Key? key;
+  final bool? shouldOnlyShowSlider;
+  final bool enable;
 
   const CanvasSlider({
     this.key,
     this.width,
+    this.shouldOnlyShowSlider = false,
     required this.min,
     required this.max,
     this.curVal,
     required this.onChange,
     this.color = const Color(0xFFFF8800),
     this.trackHeight = 1.0,
+    this.enable = true,
   });
 
   @override
@@ -95,9 +103,11 @@ class _CanvasSliderState extends State<CanvasSlider> {
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
           trackHeight: widget.trackHeight,
-          thumbShape: _isHovered
-              ? const RoundSliderThumbShape(enabledThumbRadius: 10.0)
-              : const RoundSliderThumbShape(enabledThumbRadius: 0.0),
+          thumbShape: widget.shouldOnlyShowSlider == true
+              ?  RoundSliderThumbShape(enabledThumbRadius: widget.enable? 10.0: 0)
+              : _isHovered
+                  ?  RoundSliderThumbShape(enabledThumbRadius:  widget.enable? 10.0: 0)
+                  : const RoundSliderThumbShape(enabledThumbRadius: 0.0),
           thumbColor: widget.color,
           activeTrackColor: widget.color,
           inactiveTrackColor: widget.color.withOpacity(0.5),
@@ -106,7 +116,9 @@ class _CanvasSliderState extends State<CanvasSlider> {
           value: _value,
           min: widget.min,
           max: widget.max,
-          onChanged: _isHovered ? (newValue) => setCurValue(newValue) : null,
+          onChanged: widget.enable && _isHovered
+              ? (newValue) => setCurValue(newValue)
+              : null,
         ),
       ),
     );

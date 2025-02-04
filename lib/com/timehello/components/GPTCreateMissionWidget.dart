@@ -72,7 +72,7 @@ class GPTCreateMissionWidgetListViewItem extends StatelessWidget {
             width: marginRight,
           ),
           Text(
-            this.missionModel.time_mode == 1 ? CONSTANTS.getSegmentDateStringSubtitle(this.missionModel ?? MissionModel()) : Utility.getDateTimeYMD(Utility.getDateTimeFromTimeStamp(
+            this.missionModel.time_mode == 1 ? CONSTANTS.getSegmentDateStringSubtitleByMissionModel(this.missionModel ?? MissionModel()) : Utility.getDateTimeYMD(Utility.getDateTimeFromTimeStamp(
                 this.missionModel.end_time ?? 0)),
             style: TextStyle( fontSize: 12),
           ),

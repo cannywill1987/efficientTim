@@ -355,7 +355,14 @@ class _CreateObjectiveFolderPageState<T>
         this.widget.pageNavShowEnum == PageNavShowEnum.none) {
       super.forceAppBarVisible = false;
     }
+    if(this.widget.pageEnum == PageModeEnum.edit) {
+      requestDatas();
+    }
     // selectObjectTypeModel?.icon =  IconData(this.widget.folderModel.icon ?? Icons.fiber_manual_record.codePoint, fontFamily: 'MaterialIcons');
+  }
+
+  requestDatas() {
+    this.missionModels = MongoApisManager.getInstance().queryMissioinModelsByFolderId(folderId: this.widget.folderModel.objectId ?? "");
   }
 
   @override
@@ -889,7 +896,7 @@ class _CreateObjectiveFolderPageState<T>
                       Padding(
                         padding: const EdgeInsets.only(left: 8, bottom: 8),
                         child: Text(
-                          getI18NKey().color_optional,
+                          getI18NKey().objective_final,
                           style:
                           TextStyle(fontSize: 13, color: Color(0xff999999)),
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
+import 'package:time_hello/com/timehello/page/GroupChatPage/RightFolderContainerPage.dart';
 import 'package:time_hello/com/timehello/page/folderspage/FoldersPage.dart';
 import 'package:time_hello/com/timehello/page/missionPage/MissionPage.dart';
 import 'package:time_hello/com/timehello/util/ScreenUtil.dart';
@@ -30,7 +31,7 @@ class _MobileMissionContainerPageState extends State<MobileMissionContainerPage>
       key: _scaffoldKey,
       endDrawer: Drawer(
           width: ScreenUtil.getScreenW(context) * 9 / 10,
-        child: this.isGpt ? ChatGptPage() : GroupChatPage(),
+        child: this.isGpt ? ChatGptPage() : RightFolderContainerPage(),
         // child: ChatGptPage(),
       ),
       drawer: Drawer(

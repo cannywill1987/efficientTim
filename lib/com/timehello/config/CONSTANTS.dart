@@ -1183,6 +1183,17 @@ class CONSTANTS {
     return list;
   }
 
+
+  static List<CheckButtonStateModel> getFolderTabBarSetting(
+      {bool? hasAll = false}) {
+    List<CheckButtonStateModel> list = [];
+    list.add(
+        CheckButtonStateModel(title: getI18NKey().group_listing, isCheck: true, code: "group_listing"));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().timeline, isCheck: false, code: "timeline"));
+    return list;
+  }
+
   static List<CheckButtonStateModel> getMissionDetailSetting(
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
@@ -1192,6 +1203,8 @@ class CONSTANTS {
         title: getI18NKey().multi_subtask, isCheck: false, code: "subtask"));
     list.add(CheckButtonStateModel(
         title: getI18NKey().mission_setting, isCheck: false, code: "setting"));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().timeline, isCheck: false, code: "timeline"));
     return list;
   }
 
@@ -1285,6 +1298,18 @@ class CONSTANTS {
     return list;
   }
 
+  static List<CheckButtonStateModel> getSettingItemDetailCheckButtonListForOnlyObjective(
+      {int defaultVal = 0}) {
+    List<CheckButtonStateModel> list = [];
+    // list.add(CheckButtonStateModel(
+    //     title: getI18NKey().date, isCheck: defaultVal == 0));
+    // list.add(CheckButtonStateModel(
+    //     title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().objective_final, isCheck: defaultVal == 2, code: "objective"));
+    return list;
+  }
+
   /**
    * SettingItemDetail页面的自动切换
    */
@@ -1292,11 +1317,11 @@ class CONSTANTS {
       {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        title: getI18NKey().date, isCheck: defaultVal == 0));
+        title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+        title: getI18NKey().time_segment, isCheck: defaultVal == 1, code: "time"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().objective, isCheck: defaultVal == 2));
+        title: getI18NKey().objective_final, isCheck: defaultVal == 2, code: "objective"));
     return list;
   }
 
@@ -1306,7 +1331,7 @@ class CONSTANTS {
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().date, isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+        title: getI18NKey().time_segment, isCheck: defaultVal == 1, code: "time"));
     return list;
   }
 
@@ -1314,7 +1339,7 @@ class CONSTANTS {
       {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        title: getI18NKey().date, isCheck: defaultVal == 0));
+        title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().time_segment, isCheck: defaultVal == 1));
     return list;
@@ -1324,11 +1349,11 @@ class CONSTANTS {
       {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        title: getI18NKey().date, isCheck: defaultVal == 0));
+        title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().time_segment, isCheck: defaultVal == 1));
+        title: getI18NKey().time_segment, isCheck: defaultVal == 1, code: "time"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().objective, isCheck: defaultVal == 2));
+        title: getI18NKey().objective, isCheck: defaultVal == 2, code: "objective"));
     return list;
   }
 
@@ -5097,7 +5122,7 @@ class CONSTANTS {
     return s;
   }
 
-  static String getSegmentDateStringSubtitle(MissionModel missionModel) {
+  static String getSegmentDateStringSubtitleByMissionModel(MissionModel missionModel) {
     if (missionModel.end_time == null) {
       return "";
     }
@@ -5109,6 +5134,20 @@ class CONSTANTS {
 
     return getI18NKey().date1_to_date2(s1, s2);
   }
+
+  static String getSegmentDateStringSubtitleByFolderModel(FolderModel folderModel) {
+    if (folderModel.end_time == null) {
+      return "";
+    }
+    String s1 = CONSTANTS.getAlertDateString(
+        Utility.getDateTimeModelFromTimeStamp(folderModel?.start_time ?? 0));
+
+    String s2 = CONSTANTS.getAlertDateString(
+        Utility.getDateTimeModelFromTimeStamp(folderModel?.end_time ?? 0));
+
+    return getI18NKey().date1_to_date2(s1, s2);
+  }
+
 
   static String getSegmentDateString(
       {DateTime? dateTime1, DateTime? dateTime2}) {

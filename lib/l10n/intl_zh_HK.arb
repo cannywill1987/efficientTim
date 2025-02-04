@@ -1,5 +1,7 @@
 {
   "@@locale": "zh_HK",
+  "total_value": "總量",
+  "objective_final": "目標",
   "eula": "最終用戶許可協議",
   "privacy_policy": "隱私政策",
   "auto_renew_after_trial": "試用期結束後，將自動續訂。您可隨時取消。升級即表示您同意《最終用戶許可協議》和《隱私政策》。",

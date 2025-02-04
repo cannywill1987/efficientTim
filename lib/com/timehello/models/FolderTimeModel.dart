@@ -9,10 +9,12 @@ import 'MissionModel.dart';
 part 'FolderTimeModel.g.dart';
 @JsonSerializable()
 class FolderTimeModel extends MongoDbObject{
+  String? tag;
   String? folderTitle;
   String? folderObjectId;
   List<MissionModel>? listDatas;
   String previewTimeString = ''; //预计时间 hh:mm
+  String? objectivePercentString = ''; //完成率
   int? numMissionToFinished; //待完成任务
   int? previewTime; //预计时间
   int? finishedTime; //已完成时间
@@ -24,7 +26,7 @@ class FolderTimeModel extends MongoDbObject{
   int? numTomatoesUnfinished = 0;
   int? numTomatoesFinished = 0;
 
-  FolderTimeModel({this.folderObjectId, this.folderTitle, this.numTomatoesUnfinished, this.numMissionDelayed, this.numTomatoesFinished, this.finishedTimeString = '', this.previewTimeString = '', this.previewTime, this.numMissionToFinished, this.finishedTime,
+  FolderTimeModel({this.objectivePercentString, this.tag, this.folderObjectId, this.folderTitle, this.numTomatoesUnfinished, this.numMissionDelayed, this.numTomatoesFinished, this.finishedTimeString = '', this.previewTimeString = '', this.previewTime, this.numMissionToFinished, this.finishedTime,
       this.numMissionFinished});
 
   factory FolderTimeModel.fromJson(Map<String, dynamic> json) => _$FolderTimeModelFromJson(json);

@@ -37,11 +37,13 @@ class TimeLinePage extends BaseWidget {
   final int timelinePageFromEnum;
   final bool shouldShowNav;
   final String folderObjectId;
+  final String missionObjectId;
 
   const TimeLinePage(
       {required Key key,
       required this.timelinePageFromEnum,
       this.shouldShowNav = false,
+      this.missionObjectId = "",
       this.folderObjectId = ""})
       : super(key: key);
 
@@ -112,6 +114,37 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
     return scene;
   }
 
+  requestDatasWithObjectiveId(
+      {String? message,
+      DateTime? startDateTime,
+      DateTime? endDateTime,
+      shouldUpdateUI = true}) {
+    // String? folderId = this.curSearchingFocusModel?.objectId;
+    // if (this.widget.timelinePageFromEnum ==
+    //     TimelinePageFromEnum.FolderStatisticPage.index) {
+    //   folderId = this.widget.folderObjectId;
+    // }
+    missionListOriginal = MongoApisManager.getInstance()
+        .queryWhereEqual_timelineMissionModelsByEndTime(
+      missionId: this.widget.missionObjectId,
+      fid: this.widget.folderObjectId,
+      scene: getScene(),
+      start_endTime: startDateTime?.millisecondsSinceEpoch ??
+          controller?.dateTimePicker?.startDate?.millisecondsSinceEpoch,
+      end_endTime: endDateTime?.millisecondsSinceEpoch ??
+          controller?.dateTimePicker?.endDate?.millisecondsSinceEpoch,
+    );
+    List missionListForViewFilteredd = Utility.filterTimelineMissionModel(
+        this.curSearchWords, this.missionListOriginal);
+    this.missionListForView = Utility.sortByCreatedTime(
+        missionListForViewFilteredd,
+        sortEnum: SortEnum.ascendant);
+
+    if (mounted && shouldUpdateUI) {
+      updateUI();
+    }
+  }
+
   //  根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
   requestDatas(
       {String? message,
@@ -119,13 +152,19 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
       DateTime? endDateTime,
       shouldUpdateUI = true}) {
     String? folderId = this.curSearchingFocusModel?.objectId;
+    String? missionId = this.widget.missionObjectId;
     if (this.widget.timelinePageFromEnum ==
         TimelinePageFromEnum.FolderStatisticPage.index) {
+      folderId = this.widget.folderObjectId;
+    }
+    if (this.widget.timelinePageFromEnum ==
+        TimelinePageFromEnum.ObjectivePage.index) {
       folderId = this.widget.folderObjectId;
     }
     missionListOriginal = MongoApisManager.getInstance()
         .queryWhereEqual_timelineMissionModelsByEndTime(
       fid: folderId,
+      missionId: missionId,
       scene: getScene(),
       start_endTime: startDateTime?.millisecondsSinceEpoch ??
           controller?.dateTimePicker?.startDate?.millisecondsSinceEpoch,
@@ -224,7 +263,8 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
                   eventType: "insert_manually",
                   timelineMessage: value));
       if (res != null) {
-        Utility.showToastMsg(context: context, msg: getI18NKey().insert_success);
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().insert_success);
         DialogManagement.getInstance().hideDialog(context);
       }
     }, cancelCallBack: () {
@@ -382,171 +422,183 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
   Widget baseBuild(BuildContext context) {
     double innerMargin = Utility.isHandsetBySize() ? 10 : 20.0;
     context.watch<GlobalStateEnv>().listTimelineMissionModel;
-    requestDatas();
     requestGetTags();
-    return Selector<Env, bool>(
-        selector: (_, env) => env.isVip ?? false,
-        builder: (_, settingModel, __) {
-
-          if (LoginManager.getInstance().isVIP(
-              shouldShowDialog: false,
-              paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Calendar) || TimelinePageFromEnum.normal.index != this.widget.timelinePageFromEnum)
-            return getChild(context);
-          else
-            return Stack(
-              children: [
-                getChild(context),
-                Column(
-                  children: [
-                    Expanded(child: Container(child: TransparentOverlayPage(onTapCallback: () {
-                      LoginManager.getInstance().isVIP(shouldShowDialog: true,
-                          paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.TimeLine
-                      );
-                    },),)),
-                  ],
-                )
-              ],
-            );
+    return Selector<GlobalStateEnv, List<TimelineMissionModel>>(
+        selector: (_, env) => env.listTimelineMissionModel ?? [],
+        builder: (_, listTimeline, __) {
+          requestDatas(shouldUpdateUI: false);
+          return Selector<Env, bool>(
+              selector: (_, env) => env.isVip ?? false,
+              builder: (_, settingModel, __) {
+                if (LoginManager.getInstance().isVIP(
+                        shouldShowDialog: false,
+                        paymentPromotionAdsModeEnum:
+                            PaymentPromotionAdsModeEnum.Calendar) ||
+                    TimelinePageFromEnum.normal.index !=
+                        this.widget.timelinePageFromEnum)
+                  return getChild(context);
+                else
+                  return Stack(
+                    children: [
+                      getChild(context),
+                      Column(
+                        children: [
+                          Expanded(child: Container(
+                            child: TransparentOverlayPage(
+                              onTapCallback: () {
+                                LoginManager.getInstance().isVIP(
+                                    shouldShowDialog: true,
+                                    paymentPromotionAdsModeEnum:
+                                        PaymentPromotionAdsModeEnum.TimeLine);
+                              },
+                            ),
+                          )),
+                        ],
+                      )
+                    ],
+                  );
+              });
         });
-
   }
 
   Container getChild(BuildContext context) {
     return Container(
-    color:
-        this.widget.timelinePageFromEnum == TimelinePageFromEnum.normal.index
-            ? Colors.transparent
-            : ThemeManager.getInstance()
-                .getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
-    child: Column(
-      children: [
-        this.widget.timelinePageFromEnum == TimelinePageFromEnum.normal.index
-            ? SearchBarWidget(
-                key: searchBarWidgetKey,
-                defaultValue: this.curSearchWords,
-                width: double.infinity,
-                onChangeListener: (searchWord) {
-                  onClickSearch(searchWord);
-                },
-                onClickResetListener: () {
-                  // setState(() {
-                  //   isSearchBarVisible = !isSearchBarVisible;
-                  // });
-                })
-            : SizedBox.shrink(),
-        Expanded(
-          child: Stack(
-            children: [
-              TimelineListView(
-                timelinePageFromEnum: TimelinePageFromEnum
-                    .values[this.widget.timelinePageFromEnum],
-                datas: this.missionListForView,
-                onTapDelete: (TimelineMissionModel item) {
-                  MongoApisManager.getInstance().delete_TimelineMissionModel(
-                      currentObjectId: item.objectId);
-                },
-                onTapListener: (TimelineMissionModel item) {
-                  if (item.sceneType == 'diary') {
-                    if (Utility.isHandsetBySize() == true) {
-                      Utility.pushNavigator(
-                          context,
-                          ReadOnlyPage(
-                              timelineMissionModel: item,
-                              richTextModeEnum: RichTextModeEnum.diary));
-                    } else {
-                      DialogManagement.getInstance().showPCCustomDialog(
-                          context: context,
-                          widget: ReadOnlyPage(
-                            richTextModeEnum: RichTextModeEnum.diary,
-                            timelineMissionModel: item,
-                          ));
-                    }
-                  } else if (item.sceneType == 'note') {
-                    if (Utility.isHandsetBySize() == true) {
-                      Utility.pushNavigator(
-                          context,
-                          ReadOnlyPage(
-                              timelineMissionModel: item,
-                              richTextModeEnum: RichTextModeEnum.note));
-                    } else {
-                      DialogManagement.getInstance().showPCCustomDialog(
-                          context: context,
-                          widget: ReadOnlyPage(
-                              timelineMissionModel: item,
-                              richTextModeEnum: RichTextModeEnum.note));
-                    }
-                  }
-                },
-              ),
-              if (this.widget.timelinePageFromEnum !=
-                  TimelinePageFromEnum.FolderStatisticPage.index)
-                TimeLineTagsGridViewWidget(
-                  datas: this.folderModelTags,
-                  onTapSelectedListener: (data) {
-                    FolderModel folderModel = data;
-                    if (folderModel.objectId == "-1") {
-                      this.curSearchingFocusModel = null;
-                    } else {
-                      this.curSearchingFocusModel = data;
-                    }
-                    requestDatas();
+      color:
+          this.widget.timelinePageFromEnum == TimelinePageFromEnum.normal.index
+              ? Colors.transparent
+              : ThemeManager.getInstance()
+                  .getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
+      child: Column(
+        children: [
+          this.widget.timelinePageFromEnum == TimelinePageFromEnum.normal.index
+              ? SearchBarWidget(
+                  key: searchBarWidgetKey,
+                  defaultValue: this.curSearchWords,
+                  width: double.infinity,
+                  onChangeListener: (searchWord) {
+                    onClickSearch(searchWord);
                   },
-                  onTapAddTagListener: (data) {
-                    FolderModel folderModel = FolderModel();
-                    folderModel.tag = 1; //1-normal 2-tag 3-circle
-                    if (Utility.isHandsetBySize()) {
-                      Utility.pushNavigator(
-                          context,
-                          new CreateFolderPage(
-                            pageEnum: PageModeEnum.create,
-                            folderModel: folderModel,
-                          ), callback: (res) {
-                        requestGetTags();
-                      });
-                    } else {
-                      Utility.pushDesktopNavigator(
-                          context, 'CreateFolderPage', {
-                        'PageEnum': PageModeEnum.create,
-                        'folderModel': folderModel
-                      });
-                    }
-                    // this.onClick('onTapTagListener', data);
+                  onClickResetListener: () {
+                    // setState(() {
+                    //   isSearchBarVisible = !isSearchBarVisible;
+                    // });
+                  })
+              : SizedBox.shrink(),
+          Expanded(
+            child: Stack(
+              children: [
+                TimelineListView(
+                  timelinePageFromEnum: TimelinePageFromEnum
+                      .values[this.widget.timelinePageFromEnum],
+                  datas: this.missionListForView,
+                  onTapDelete: (TimelineMissionModel item) {
+                    MongoApisManager.getInstance().delete_TimelineMissionModel(
+                        currentObjectId: item.objectId);
                   },
-                  onTapDeleteTagListener: (data) {},
+                  onTapListener: (TimelineMissionModel item) {
+                    if (item.sceneType == 'diary') {
+                      if (Utility.isHandsetBySize() == true) {
+                        Utility.pushNavigator(
+                            context,
+                            ReadOnlyPage(
+                                timelineMissionModel: item,
+                                richTextModeEnum: RichTextModeEnum.diary));
+                      } else {
+                        DialogManagement.getInstance().showPCCustomDialog(
+                            context: context,
+                            widget: ReadOnlyPage(
+                              richTextModeEnum: RichTextModeEnum.diary,
+                              timelineMissionModel: item,
+                            ));
+                      }
+                    } else if (item.sceneType == 'note') {
+                      if (Utility.isHandsetBySize() == true) {
+                        Utility.pushNavigator(
+                            context,
+                            ReadOnlyPage(
+                                timelineMissionModel: item,
+                                richTextModeEnum: RichTextModeEnum.note));
+                      } else {
+                        DialogManagement.getInstance().showPCCustomDialog(
+                            context: context,
+                            widget: ReadOnlyPage(
+                                timelineMissionModel: item,
+                                richTextModeEnum: RichTextModeEnum.note));
+                      }
+                    }
+                  },
                 ),
-              this.widget.timelinePageFromEnum ==
-                      TimelinePageFromEnum.normal.index
-                  ? Align(
-                      alignment: Utility.isHandsetBySize() == true
-                          ? Alignment(0.0, 0.85)
-                          : Alignment(0.0, 0.95),
-                      child: TimelineButtonListWidget(
-                        width: Utility.isHandsetBySize() == true ? 55 : 80,
-                        initIndex: timelineModeEnum.index,
-                        list: CONSTANTS.getTimelineButtonsList(),
-                        onTapListener: (obj) {
-                          timelineModeEnum =
-                              TimelineModeEnum.values[obj['index']];
-                          requestDatas();
-                        },
-                      ),
-                    )
-                  : SizedBox.shrink(),
-              (this.widget.timelinePageFromEnum ==
-                          TimelinePageFromEnum.normal.index &&
-                      (timelineModeEnum == TimelineModeEnum.event ||
-                          timelineModeEnum == TimelineModeEnum.diary ||
-                          timelineModeEnum == TimelineModeEnum.note))
-                  ? Positioned(
-                      bottom: Utility.isHandsetBySize() == true ? 20 : 40,
-                      right: Utility.isHandsetBySize() == true ? 20 : 40,
-                      child: getPopupMenu())
-                  : SizedBox.shrink()
-            ],
+                if (this.widget.timelinePageFromEnum !=
+                        TimelinePageFromEnum.FolderStatisticPage.index &&
+                    (this.widget.timelinePageFromEnum !=
+                        TimelinePageFromEnum.ObjectivePage.index))
+                  TimeLineTagsGridViewWidget(
+                    datas: this.folderModelTags,
+                    onTapSelectedListener: (data) {
+                      FolderModel folderModel = data;
+                      if (folderModel.objectId == "-1") {
+                        this.curSearchingFocusModel = null;
+                      } else {
+                        this.curSearchingFocusModel = data;
+                      }
+                      requestDatas();
+                    },
+                    onTapAddTagListener: (data) {
+                      FolderModel folderModel = FolderModel();
+                      folderModel.tag = 1; //1-normal 2-tag 3-circle
+                      if (Utility.isHandsetBySize()) {
+                        Utility.pushNavigator(
+                            context,
+                            new CreateFolderPage(
+                              pageEnum: PageModeEnum.create,
+                              folderModel: folderModel,
+                            ), callback: (res) {
+                          requestGetTags();
+                        });
+                      } else {
+                        Utility.pushDesktopNavigator(
+                            context, 'CreateFolderPage', {
+                          'PageEnum': PageModeEnum.create,
+                          'folderModel': folderModel
+                        });
+                      }
+                      // this.onClick('onTapTagListener', data);
+                    },
+                    onTapDeleteTagListener: (data) {},
+                  ),
+                this.widget.timelinePageFromEnum ==
+                        TimelinePageFromEnum.normal.index
+                    ? Align(
+                        alignment: Utility.isHandsetBySize() == true
+                            ? Alignment(0.0, 0.85)
+                            : Alignment(0.0, 0.95),
+                        child: TimelineButtonListWidget(
+                          width: Utility.isHandsetBySize() == true ? 55 : 80,
+                          initIndex: timelineModeEnum.index,
+                          list: CONSTANTS.getTimelineButtonsList(),
+                          onTapListener: (obj) {
+                            timelineModeEnum =
+                                TimelineModeEnum.values[obj['index']];
+                            requestDatas();
+                          },
+                        ),
+                      )
+                    : SizedBox.shrink(),
+                (this.widget.timelinePageFromEnum ==
+                            TimelinePageFromEnum.normal.index &&
+                        (timelineModeEnum == TimelineModeEnum.event ||
+                            timelineModeEnum == TimelineModeEnum.diary ||
+                            timelineModeEnum == TimelineModeEnum.note))
+                    ? Positioned(
+                        bottom: Utility.isHandsetBySize() == true ? 20 : 40,
+                        right: Utility.isHandsetBySize() == true ? 20 : 40,
+                        child: getPopupMenu())
+                    : SizedBox.shrink()
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
   }
 }

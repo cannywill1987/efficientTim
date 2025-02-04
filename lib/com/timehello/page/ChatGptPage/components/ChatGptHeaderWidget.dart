@@ -30,7 +30,7 @@ class ChatGptHeaderWidget extends StatelessWidget {
           CustomTabBarWidget(
             list: listTabBars,
             fontSize: 12,
-            onCheckedListener: (int index) {
+            onCheckedListener: (int index, CheckButtonStateModel model) {
               this.onTapListener.call(listTabBars[index]);
             },
           ),

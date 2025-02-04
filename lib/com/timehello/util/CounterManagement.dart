@@ -564,6 +564,8 @@ class CounterManagement {
         missionModel: Utility.getTimelineMissionModelFromMissionModel(
             sceneType: 'mission',
             eventType: 'stop_focusing_mission',
+            mission_id: missionModel?.objectId,
+            folder_id: missionModel?.folder_id,
             timelineMessage: getI18NKey().exist_app_focusing_mission_name(
                 missionModel?.title ?? "",
                 Utility.formatHourAndMinAndSec(this.timeUsed),
@@ -657,6 +659,8 @@ class CounterManagement {
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
               sceneType: 'mission',
               eventType: 'start_resting_mission',
+              mission_id: missionModel?.objectId,
+              folder_id: missionModel?.folder_id,
               timelineMessage:
                   getI18NKey().start_resting_name(missionModel?.title ?? ""),
               missionModel: missionModel ?? MissionModel()));
@@ -719,6 +723,8 @@ class CounterManagement {
         missionModel: Utility.getTimelineMissionModelFromMissionModel(
             sceneType: 'mission',
             eventType: 'start_focusing_mission',
+            mission_id: missionModel?.objectId,
+            folder_id: missionModel?.folder_id,
             timelineMessage: getI18NKey()
                 .start_focusing_mission_name(missionModel?.title ?? ""),
             missionModel: missionModel ?? MissionModel()));
@@ -741,6 +747,8 @@ class CounterManagement {
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
               sceneType: 'mission',
               eventType: 'complete_resting_mission',
+              mission_id: missionModel?.objectId,
+              folder_id: missionModel?.folder_id,
               timelineMessage: getI18NKey()
                   .complete_resting_mission_name(missionModel?.title ?? ""),
               missionModel: missionModel ?? MissionModel()));
@@ -749,6 +757,8 @@ class CounterManagement {
           missionModel: Utility.getTimelineMissionModelFromMissionModel(
               sceneType: 'mission',
               eventType: 'stop_resting_mission',
+              mission_id: missionModel?.objectId,
+              folder_id: missionModel?.folder_id,
               timelineMessage: getI18NKey()
                   .stop_resting_mission_name(missionModel?.title ?? ""),
               missionModel: missionModel ?? MissionModel()));
@@ -794,6 +804,8 @@ class CounterManagement {
             missionModel: Utility.getTimelineMissionModelFromMissionModel(
                 sceneType: 'mission',
                 eventType: 'complete_focusing_mission',
+                mission_id: missionModel?.objectId,
+                folder_id: missionModel?.folder_id,
                 timelineMessage: getI18NKey()
                     .complete_one_time_focusing_mission_name(
                         missionModel?.title ?? "",
@@ -805,6 +817,8 @@ class CounterManagement {
             missionModel: Utility.getTimelineMissionModelFromMissionModel(
                 sceneType: 'mission',
                 eventType: 'stop_focusing_mission',
+                mission_id: missionModel?.objectId,
+                folder_id: missionModel?.folder_id,
                 timelineMessage: getI18NKey().stop_focusing_mission_name(
                     missionModel?.title ?? "",
                     Utility.formatHourAndMinAndSec(this.timeUsed),
