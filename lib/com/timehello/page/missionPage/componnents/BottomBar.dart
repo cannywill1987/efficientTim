@@ -512,6 +512,7 @@ class BottomBarState extends State<BottomBar> {
   void reset({CheckButtonStateModel? model}) {
     if(model == null) {
       model = getDataList()[0];
+      _tabBarKey.currentState?.setChecked(0);
     }
        String code = model?.code ?? "";
     this.daily_start_time = null;

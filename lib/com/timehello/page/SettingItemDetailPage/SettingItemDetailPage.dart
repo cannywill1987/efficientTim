@@ -1773,7 +1773,7 @@ class _SettingItemDetailPageWidgetState<T>
   FocusNode? _contentFocusNode = FocusNode();
   String? value = "";
 
-  getUnitInputWidgetForObjective({String placeholder = "123"}) {
+  getUnitInputWidgetForObjective({String placeholder = ""}) {
     List<SuggestionBean> listSuggestionBean =
         MongoApisManager.getInstance().getSuggestionBeans();
     inputController = TextEditingController();

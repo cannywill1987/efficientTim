@@ -3,7 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
+import 'package:string_validator/string_validator.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.dart';
@@ -28,6 +30,7 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../../../../r.dart';
 import '../../beans/BaseBean.dart';
+import '../../beans/SuggestionBean.dart';
 import '../../beans/UserBean.dart';
 import '../../common/httpclient/HttpManager.dart';
 import '../../common/provider/GlobalStateEnv.dart';
@@ -35,6 +38,7 @@ import '../../components/CustomMarquee.dart';
 import '../../components/IconButtonListWidget.dart';
 import '../../components/MenuItem2.dart';
 import '../../components/SelectCircleDialogUtil.dart';
+import '../../components/SliderWithCanvasWidget.dart';
 import '../../components/TomatoInputNumber.dart';
 import '../../config/ENUMS.dart';
 import '../../libs/methodChannel/CounterMethodChannelManager.dart';
@@ -368,7 +372,7 @@ class _CreateMissionPageWidgetState<T>
    * 如果是不重复 用开始时间+结束时间 因为结束时间 是 年月日到日
    */
   void updateAlertTime() {
-    if (this.widget.missionModel.time_mode == 1) {
+    if (this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2) {
       this.widget.missionModel?.alert_time =
           (this.widget.missionModel?.start_time ?? 0);
     } else {
@@ -590,6 +594,76 @@ class _CreateMissionPageWidgetState<T>
                       this.onClick("onClickPriority", index);
                     },
                   ),
+                  if(this.widget.missionModel.time_mode == 2)
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: SliderWithCanvasWidget(
+                          shouldOnlyShowSlider: true,
+                          onChange: (double value) {
+                            this.widget.missionModel?.objectiveValue =
+                                value;
+                            if((this.widget.missionModel?.objectiveTotalValue ?? 0) > 0) {
+                              if((this.widget.missionModel?.objectiveTotalValue ?? 0) <= value) {
+                                this.widget.missionModel?.isFinished = true;
+                              } else {
+                                this.widget.missionModel?.isFinished = false;
+                              }
+                            }
+                            // tmpMissionModel = _missionModel;
+                            // MongoApisManager.getInstance().update_MissionModel(
+                            //     missionModel: _missionModel ?? MissionModel());
+                            // funcDebounceWithUpdateSliderVal(this);
+                            setState(() {});
+                          },
+                          min: this
+                              .widget
+                              .missionModel
+                              ?.objectiveStartValue ??
+                              0,
+                          max: this
+                              .widget
+                              .missionModel
+                              ?.objectiveTotalValue ??
+                              0,
+                          curVal: this
+                              .widget
+                              .missionModel
+                              ?.objectiveValue,
+                          // onChange: (double value) {},
+                        ),
+                      ),
+                      Text(
+                        this
+                            .widget
+                            .missionModel
+                            .objectivePercentString ??
+                            "",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: ThemeManager.getInstance().isDark()
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "${this.widget.missionModel?.objectiveValue?.toInt() ?? 0}/",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: ThemeManager.getInstance().isDark()
+                              ? Colors.white70
+                              : Colors.black87,
+                        ),
+                      ),
+                          getTotalInputWidgetForObjective(),
+                      getUnitInputWidgetForObjective(),
+                    ],
+                  ),
                 ])),
             if (Utility.shouldShowWallpaper(missionModelType: this.widget.missionModel.missionModelType))
         SizedBox(height: 5),
@@ -628,6 +702,7 @@ class _CreateMissionPageWidgetState<T>
             },
           ),
         ),
+            if(this.widget.missionModel.time_mode != 2)
         if (DeviceInfoManagement.isMacOs() || DeviceInfoManagement.isIOS())
           MenuItem2(
               title: getI18NKey().save_mode,
@@ -681,14 +756,14 @@ class _CreateMissionPageWidgetState<T>
             missionModelType: this.widget.missionModel.missionModelType))
           MenuItem2(
               title: (this.widget.missionModel.repetiveType == 0 ||
-                      this.widget.missionModel.time_mode == 1)
+                      this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2)
                   ? getI18NKey().start_time
                   : getI18NKey().daily_start_time,
               subTitle: this.widget.missionModel.repetiveType == 1
                   ? ""
                   : "(${getI18NKey().optional})",
               onTapListener: (data) async {
-                if (this.widget.missionModel.time_mode == 1) {
+                if (this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2) {
                   DateTimeModel? model =
                       await Utility.showDateTimePickerDialog(context);
                   updateAlertTime();
@@ -723,7 +798,7 @@ class _CreateMissionPageWidgetState<T>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    this.widget.missionModel.time_mode == 1
+                  (this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2)
                         ? CONSTANTS.getAlertDateString(
                             Utility.getDateTimeModelFromTimeStamp(
                                 this.widget.missionModel?.start_time ?? 0))
@@ -759,14 +834,14 @@ class _CreateMissionPageWidgetState<T>
             missionModelType: this.widget.missionModel.missionModelType))
           MenuItem2(
               title: (this.widget.missionModel.repetiveType == 0 ||
-                      this.widget.missionModel.time_mode == 1)
+                      this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2)
                   ? getI18NKey().end_time
                   : getI18NKey().daily_end_time,
               subTitle: this.widget.missionModel.repetiveType == 1
                   ? ""
                   : "(${getI18NKey().optional})",
               onTapListener: (data) async {
-                if (this.widget.missionModel.time_mode == 1) {
+                if (this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2) {
                   if (this.widget.missionModel?.start_time == null) {
                     Utility.showToastMsg(
                         context: context,
@@ -824,7 +899,7 @@ class _CreateMissionPageWidgetState<T>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    this.widget.missionModel.time_mode == 1
+                  (this.widget.missionModel.time_mode == 1 || this.widget.missionModel.time_mode == 2)
                         ? CONSTANTS.getAlertDateString(
                             Utility.getDateTimeModelFromTimeStamp(
                                 this.widget.missionModel?.end_time ?? 0))
@@ -898,6 +973,7 @@ class _CreateMissionPageWidgetState<T>
                   : Utility.getSVGPicture(R.assetsImgIcFolderOrange,
                       size: StylesConfig.iconSize,
                       color: ThemeManager.getInstance().getDefautThemeColor())),
+        if(this.widget.missionModel.time_mode != 2)
         this.widget.missionModel.isFinished == true
             ? SizedBox.shrink()
             : Utility.shouldShowTomatoes(
@@ -1014,7 +1090,7 @@ class _CreateMissionPageWidgetState<T>
               icon: Utility.getSVGPicture(R.assetsImgIcMoney2,
                   size: StylesConfig.iconSize,
                   color: ThemeManager.getInstance().getDefautThemeColor())),
-
+            if(this.widget.missionModel.time_mode != 2)
         (this.widget.missionModel.isFinished == true ||
                 this.widget.missionModel?.time_mode == 1)
             ? SizedBox.shrink()
@@ -1355,6 +1431,219 @@ class _CreateMissionPageWidgetState<T>
     // eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
     // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
   }
+
+
+
+  SuggestionsController<SuggestionBean> suggestionsUnitController =
+  SuggestionsController();
+  TextEditingController? inputUnitController;
+  FocusNode? _contentUnitFocusNode = FocusNode();
+  // String? valueUnit = "";
+
+  getUnitInputWidgetForObjective({String placeholder = ""}) {
+    List<SuggestionBean> listSuggestionBean =
+    MongoApisManager.getInstance().getSuggestionBeans();
+    inputUnitController = TextEditingController();
+    inputUnitController!.text = this.widget.missionModel.objectiveUnit ?? '';
+    return Wrap(
+      runAlignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        TypeAheadField<SuggestionBean>(
+          // controller: controller,
+          suggestionsController: suggestionsUnitController,
+          hideOnEmpty: true,
+          autoFlipDirection: true,
+          onSelected: (value) {
+            inputUnitController!.text = value.suggestionContent ?? '';
+            this.widget.missionModel.objectiveUnit =
+                value.suggestionContent ?? '';
+          },
+          itemBuilder: (BuildContext context, SuggestionBean? value) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              color: ThemeManager.getInstance().getCardBackgroundColor(),
+              alignment: Alignment.centerLeft,
+              constraints: BoxConstraints(minHeight: 40),
+              child: Text(value?.suggestion ?? ""),
+            );
+          },
+          suggestionsCallback: (search) {
+            if (TextUtil.isEmpty(search)) {
+              return listSuggestionBean;
+            }
+            List<SuggestionBean> listReturns = [];
+            for (var item in listSuggestionBean ?? []) {
+              if (item.suggestion
+                  ?.toLowerCase()
+                  .contains(search.toLowerCase()) ==
+                  true) {
+                listReturns.add(item);
+              }
+            }
+            return listReturns;
+          },
+          builder: (context, controller, focusNode) {
+            return Container(
+              height: 25,
+              width: 60,
+              child: TextField(
+                focusNode: _contentUnitFocusNode = focusNode,
+                controller: inputUnitController = controller,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (val) {
+                  inputUnitController!.text = '';
+                },
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10), // 限制最大输入长度为500字符
+                ],
+                onEditingComplete: () {
+                  final isCtrlPressed = RawKeyboard.instance.keysPressed
+                      .contains(LogicalKeyboardKey.controlLeft);
+                  if (isCtrlPressed) {
+                    // insert a new line character
+                    inputUnitController!.value = TextEditingValue(
+                      text: inputUnitController!.text + '\n',
+                      selection: TextSelection.collapsed(
+                          offset: inputUnitController!.text.length + 1),
+                    );
+                  } else {
+                  }
+                },
+                scrollController: ScrollController(),
+                onChanged: (val) {
+                  this.widget.missionModel.objectiveUnit = val;
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:
+                  ThemeManager.getInstance().getInputDecorationColor(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  hintText: getI18NKey().unit,
+                  hintStyle: TextStyle(
+                      color:
+                      ThemeManager.getInstance().getInputPlaceholderColor(),
+                      fontSize: 11),
+                ),
+                // onChanged: (value) => _checkPasswordMatch(),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  SuggestionsController<SuggestionBean> suggestionsController =
+  SuggestionsController();
+  TextEditingController? inputTotalController;
+  FocusNode? _contentTotalFocusNode = FocusNode();
+
+  Widget getTotalInputWidgetForObjective() {
+    // List<SuggestionBean> listSuggestionBean =
+    // MongoApisManager.getInstance().getSuggestionBeans();
+    // inputTotalController = TextEditingController();
+    // inputTotalController!.text = this.widget.missionModel.objectiveUnit ?? '';
+    return Wrap(
+      runAlignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Container(
+          height: 25,
+          width: 120,
+          child: TextField(
+            // focusNode: _contentTotalFocusNode = focusNode,
+            // controller: inputTotalController,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (val) {
+              // callback for regular enter key press
+              // this.widget.onClickSendMsg(
+              //     inputController.text);
+              inputTotalController!.text = '';
+            },
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp("[0-9]")), //数字包括小数
+
+              LengthLimitingTextInputFormatter(
+                  10), // 限制最大输入长度为500字符
+            ],
+            // enabled: this.isLoading2 == 0,
+            // focusNode: _contentFocusNode = focusNode,
+            // controller: inputController = controller,
+            // textInputAction: TextInputAction.done,
+            // onSubmitted: (val) {
+            //   // callback for regular enter key press
+            //   // this.widget.onClickSendMsg(
+            //   //     inputController.text);
+            //   inputController.text = '';
+            // },
+            onEditingComplete: () {
+              final isCtrlPressed = RawKeyboard.instance.keysPressed
+                  .contains(LogicalKeyboardKey.controlLeft);
+              if (isCtrlPressed) {
+                // insert a new line character
+                inputTotalController!.value = TextEditingValue(
+                  text: inputTotalController!.text + '\n',
+                  selection: TextSelection.collapsed(
+                      offset: inputTotalController!.text.length + 1),
+                );
+              } else {
+                // trigger the callback for regular enter key press
+                // this.onClickSendMsg(inputController.text);
+              }
+            },
+            scrollController: ScrollController(),
+            onChanged: (val) {
+              // this.value = val;
+              // this.objectiveTotalValue = val.toDouble();
+              this.widget.missionModel.objectiveTotalValue = val.toDouble();
+              // this.objectiveUnit = val;
+              // this.widget.onChangeTotalValAndUnit?.call(this.objectiveTotalValue, this.objectiveUnit);
+            },
+            // keyboardType: TextInputType.number,
+            // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            decoration: InputDecoration(
+              // suffixIcon: Align(
+              //   alignment: Alignment.centerRight,
+              //   widthFactor: 1.0,
+              //   child: CheckImage(
+              //     //显示隐藏密码的眼睛
+              //     onTapListener: (isChecked) {
+              //       checkedPassword1 = !isChecked;
+              //       setState(() {});
+              //       ;
+              //     },
+              //     checked: checkedPassword1,
+              //     autoCheck: true,
+              //     checkIcon:
+              //     Utility.getSVGPicture(R.assetsImgIcEyeSlash, size: 20),
+              //     uncheckIcon:
+              //     Utility.getSVGPicture(R.assetsImgIcEyeClose, size: 20),
+              //   ),
+              // ),
+              filled: true,
+              fillColor:
+              ThemeManager.getInstance().getInputDecorationColor(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none,
+              ),
+              hintText: getI18NKey().total_value,
+              hintStyle: TextStyle(
+                  color:
+                  ThemeManager.getInstance().getInputPlaceholderColor(),
+                  fontSize: 11),
+            ),
+            // onChanged: (value) => _checkPasswordMatch(),
+          ),
+        ),
+      ],
+    );
+  }
+
 
   /**
    * 点击选择优先级
