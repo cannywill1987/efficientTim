@@ -255,7 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m106(missionFinished, missionToDo, duration) =>
       "${missionFinished} 완료, ${missionToDo} 시작, ${missionToDo} 시간: ${duration}";
 
-  static String m107(title, percent) => "작업 ${title} 완료율 ${percent}%";
+  static String m107(title, percent) => "작업 ${title} 완료율 ${percent}";
 
   static String m108(title, percent, folderTitle, folderPercent) =>
       "작업 ${title} 완료율 ${percent}%, 목표 목록 ${folderTitle} 완료율 ${folderPercent}%";

@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
-  cloud_firestore
   desktop_window
   dynamic_color
   file_saver

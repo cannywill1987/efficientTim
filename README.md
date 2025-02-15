@@ -1,3 +1,6 @@
+ios构建
+ flutter build ios --no-tree-shake-icons
+ 
 端口号被占用时删除指定端口号
 1.lsof -i tcp:9999
 2.kill -9 9999
@@ -193,3 +196,4 @@ curl --location --request GET 'https://www.idcd.com/api/holiday?year=2024' \
 --header 'Timestamp: 1716085926' \
 --header 'Signature: 5b1230f42bad2ffd5ad09890a8ebb47c02d74668be0cf7bb54a0f6a14996117b' \
 --header 'SignatureMethod: HmacSHA256'
+

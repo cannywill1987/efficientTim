@@ -575,6 +575,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                               size: 14,
                             ),
                 ),
+                if(Utility.isObjectiveForMissionModel(missionModel: _missionModel ?? MissionModel()))
                 Positioned(
                   bottom: 3,
                   right: 0,

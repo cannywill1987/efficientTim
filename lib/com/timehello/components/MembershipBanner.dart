@@ -9,7 +9,11 @@ class MembershipBanner extends StatelessWidget {
   Function? onTapCallback;
   SizeEnum sizeEnum = SizeEnum.large;
 
-  MembershipBanner({this.onTapCallback, this.sizeEnum = SizeEnum.large});
+  MembershipBanner({this.onTapCallback, this.sizeEnum = SizeEnum.large}) {
+    if(Utility.isHandsetBySize()) {
+      this.sizeEnum = SizeEnum.small;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,9 @@ class MembershipBanner extends StatelessWidget {
             color: Colors.black87,
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Row(children: [
+          child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
             Utility.getSVGPicture(R.assetsImgIcVipCrown, size: 24),
             SizedBox(width: 8.0),
             Expanded(
@@ -36,6 +42,7 @@ class MembershipBanner extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+
                 this.onTapCallback?.call();
               },
               child: Container(

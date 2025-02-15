@@ -138,7 +138,7 @@ class FeatureListWidget extends StatelessWidget {
             children: [
               Text(
                 feature['title']!,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
               ),
               SizedBox(height: 4),
               Text(

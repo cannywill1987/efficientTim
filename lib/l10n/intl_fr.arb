@@ -18,7 +18,7 @@
   "start_time": "Heure de début",
   "group_listing": "Liste de groupes",
   "realize_percent_with_folder": "Tâche {title} terminée à {percent}%, Liste des objectifs {folderTitle} terminée à {folderPercent}%",
-  "realize_percent": "Tâche {title} terminée à {percent}%",
+  "realize_percent": "Tâche {title} terminée à {percent}",
   "total_value": "Valeur totale",
   "objective_final": "Objectif",
   "eula": "CLUF",

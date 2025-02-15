@@ -221,14 +221,20 @@ class Utility {
     String originalTransactionId = "";
     list.forEach((element) {
       // if (element['expires_date_ms']) {
-        if (element['expires_date_ms'] != null && productIds.contains(element['product_id']) == true) {
-          latestExpireDate = max(latestExpireDate, int.parse(element['expires_date_ms']));
-          productId = element['product_id'];
-          originalTransactionId = element['original_transaction_id'];
-        }
+      if (element['expires_date_ms'] != null &&
+          productIds.contains(element['product_id']) == true) {
+        latestExpireDate =
+            max(latestExpireDate, int.parse(element['expires_date_ms']));
+        productId = element['product_id'];
+        originalTransactionId = element['original_transaction_id'];
+      }
       // }
     });
-    return {"latestExpireDate" : latestExpireDate, "productId": productId, "originalTransactionId": originalTransactionId};
+    return {
+      "latestExpireDate": latestExpireDate,
+      "productId": productId,
+      "originalTransactionId": originalTransactionId
+    };
   }
   //
   // /**
@@ -983,13 +989,14 @@ class Utility {
       String fid, List<FolderModel> listFolderModel, List<int> tag) {
     for (int i = 0; i < listFolderModel.length; i++) {
       FolderModel model = listFolderModel[i];
-      if (model.objectId == fid && (tag == null || tag.indexOf(model.tag ?? 0) != -1)) {
+      if (model.objectId == fid &&
+          (tag == null || tag.indexOf(model.tag ?? 0) != -1)) {
         return model.title ?? "";
       }
     }
-    if(fid == "-2") {
+    if (fid == "-2") {
       return getI18NKey().apple_calendar;
-    } else if(fid == "-3") {
+    } else if (fid == "-3") {
       return getI18NKey().apple_alarm;
     }
     return getI18NKey().unorder_folderlist;
@@ -1051,7 +1058,8 @@ class Utility {
       listFolderModelTmp = listFolderModel;
     } else {
       listFolderModel.forEach((element) {
-        if (element.folderStatus == null) { // 0-归档 1-未归档
+        if (element.folderStatus == null) {
+          // 0-归档 1-未归档
           element.folderStatus = 0;
         }
         if (element.folderStatus == folderStatus) {
@@ -1068,7 +1076,7 @@ class Utility {
         listKeysTitle.add(
             getFolderTitleByFid(element.objectId ?? '', listFolderModel, [1]));
       } else if (listKeysTitle.indexOf(getFolderTitleByFid(
-          element.objectId ?? '', listFolderModel, [5])) ==
+              element.objectId ?? '', listFolderModel, [5])) ==
           -1) {
         listKeysTitle.add(
             getFolderTitleByFid(element.objectId ?? '', listFolderModel, [5]));
@@ -1077,20 +1085,20 @@ class Utility {
     listKeysTitle.sort();
     listKeysTitle
         .removeWhere((element) => element == getI18NKey().apple_calendar);
-    listKeysTitle
-        .removeWhere((element) => element == getI18NKey().apple_alarm);
+    listKeysTitle.removeWhere((element) => element == getI18NKey().apple_alarm);
     // listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, 1));
     // listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, 1));
     // 苹果日历
-    if(DeviceInfoManagement.isIOS() == true|| DeviceInfoManagement.isMacOs() == true)
+    if (DeviceInfoManagement.isIOS() == true ||
+        DeviceInfoManagement.isMacOs() == true)
       listKeysTitle.add(getFolderTitleByFid("-2", listFolderModel, [1]));
     // 苹果提醒
-    if(DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true)
+    if (DeviceInfoManagement.isIOS() == true ||
+        DeviceInfoManagement.isMacOs() == true)
       listKeysTitle.add(getFolderTitleByFid("-3", listFolderModel, [1]));
 
     listKeysTitle
         .removeWhere((element) => element == getI18NKey().unorder_folderlist);
-
 
     // if(isContainOtherFolder(listKeysTitle) == false) {
     listKeysTitle.add(getFolderTitleByFid("-1", listFolderModel, [1]));
@@ -1110,28 +1118,37 @@ class Utility {
       sessionMissionModel.folder_id = folderModel?.objectId ?? '';
       sessionMissionModel.color = folderModel?.color ?? 0xffff8800;
       list.forEach((MissionModel element) {
-        if(elementTitle?.indexOf("测试") != -1) {
+        if (elementTitle?.indexOf("测试") != -1) {
           print("1");
         }
-        if(element.title?.indexOf("123") != -1) {
+        if (element.title?.indexOf("123") != -1) {
           print("1");
         }
-        if(elementTitle?.indexOf("测试") != -1 && element.title?.indexOf("123") != -1) {
+        if (elementTitle?.indexOf("测试") != -1 &&
+            element.title?.indexOf("123") != -1) {
           print("1");
         }
-        if(elementTitle?.indexOf("测试") != -1 && element.title?.indexOf("q") != -1) {
+        if (elementTitle?.indexOf("测试") != -1 &&
+            element.title?.indexOf("q") != -1) {
           print("1");
         }
-        if(elementTitle?.indexOf("未归类清单") != -1 && element.title?.indexOf("q") != -1) {
+        if (elementTitle?.indexOf("未归类清单") != -1 &&
+            element.title?.indexOf("q") != -1) {
           print("1");
         }
-        if(element.missionModelType == 1 && elementTitle == getI18NKey().apple_calendar && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
+        if (element.missionModelType == 1 &&
+            elementTitle == getI18NKey().apple_calendar &&
+            (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
           listMissionModel.add(element);
-        } else if(element.missionModelType == 2 && elementTitle == getI18NKey().apple_alarm && (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
+        } else if (element.missionModelType == 2 &&
+            elementTitle == getI18NKey().apple_alarm &&
+            (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())) {
           listMissionModel.add(element);
-        }
-        else if (elementTitle ==
-            getFolderTitleByFid(element.folder_id ?? '', listFolderModel, [1, 5]) && element.missionModelType != 1 && element.missionModelType != 2) {
+        } else if (elementTitle ==
+                getFolderTitleByFid(
+                    element.folder_id ?? '', listFolderModel, [1, 5]) &&
+            element.missionModelType != 1 &&
+            element.missionModelType != 2) {
           listMissionModel.add(element);
         }
         // else if (elementTitle ==
@@ -1915,9 +1932,10 @@ class Utility {
   /**
    * desktop通过PC端打开页面 不包含左侧菜单栏
    */
-  static pushDesktopNavigator(BuildContext context, String page, Map data, {bool forceUpdate = false}) {
+  static pushDesktopNavigator(BuildContext context, String page, Map data,
+      {bool forceUpdate = false}) {
     data['page'] = page;
-    if(forceUpdate == true) {
+    if (forceUpdate == true) {
       // 随机数
       data['forceUpdate'] = Random().nextInt(100000);
     }
@@ -2382,15 +2400,15 @@ class Utility {
         DateTime dateTimeB = getDateTimeFromUTCString(b.updatedAt);
         int res = dateTimeA.isAfter(dateTimeB)
             ? sortEnum == SortEnum.ascendant
-            ? -1
-            : 1
+                ? -1
+                : 1
             : dateTimeA.isBefore(dateTimeB)
-            ? sortEnum == SortEnum.ascendant
-            ? 1
-            : -1
-            : 0;
+                ? sortEnum == SortEnum.ascendant
+                    ? 1
+                    : -1
+                : 0;
         return res;
-      } catch(e) {
+      } catch (e) {
         return -1;
       }
     });
@@ -2498,7 +2516,8 @@ class Utility {
     print(finishedTimeString);
     print("~~~~~~~~~~~~~~~~~~~~~~~~");
     folderTimeModel = new FolderTimeModel(
-        objectivePercentString: Utility.getPercent(totalObjective == 0 ? 0 : ( curValObjective / totalObjective)),
+        objectivePercentString: Utility.getPercent(
+            totalObjective == 0 ? 0 : (curValObjective / totalObjective)),
         numMissionDelayed: numMissionDelayed,
         numMissionToFinished: numMissionToFinished,
         numMissionFinished: numMissionFinished,
@@ -6968,13 +6987,13 @@ class Utility {
     }
   }
 
-
   /**
    * 获取任务类型和任务目标
    */
-  static MissionModelEnum getMissionModelEnumByType({MissionModel? missionModel}) {
+  static MissionModelEnum getMissionModelEnumByType(
+      {MissionModel? missionModel}) {
     // int? time_mode = 0; // 0 日期 1 时间段 2 目标
-    switch(missionModel?.time_mode) {
+    switch (missionModel?.time_mode) {
       case 0:
         return MissionModelEnum.date;
       case 1:
@@ -6984,29 +7003,35 @@ class Utility {
       default:
         return MissionModelEnum.date;
     }
-
   }
 
   //vip开关是否开
   static bool isVipSwitchOn() {
     //时常出现没返回数据的情况
-    if(DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] == null) {
+    if (DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] == null) {
       return false;
     }
-    String supportFreeVipCountryAndLanguage = DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] ?? "";
-    if(TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == true) {
+    String supportFreeVipCountryAndLanguage =
+        DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] ?? "";
+    if (TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == true) {
       return true;
     }
-    if(supportFreeVipCountryAndLanguage.indexOf("all_purchase") == true) {
+    if (supportFreeVipCountryAndLanguage.indexOf("all_purchase") == true) {
       return false;
     }
-    if(supportFreeVipCountryAndLanguage.indexOf("all") == true) {
+    if (supportFreeVipCountryAndLanguage.indexOf("all") == true) {
       return true;
     }
-    if(TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false && supportFreeVipCountryAndLanguage.indexOf(DeviceInfoManagement.getCountryCode()) != -1) {
+    if (TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false &&
+        supportFreeVipCountryAndLanguage
+                .indexOf(DeviceInfoManagement.getCountryCode()) !=
+            -1) {
       return true;
     }
-    if(TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false && supportFreeVipCountryAndLanguage.indexOf(DeviceInfoManagement.getLanguage()) != -1) {
+    if (TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false &&
+        supportFreeVipCountryAndLanguage
+                .indexOf(DeviceInfoManagement.getLanguage()) !=
+            -1) {
       return true;
     }
     return false;
@@ -7043,7 +7068,6 @@ class Utility {
     } else {
       return "";
     }
-
   }
 
   static List<MissionModel> convertReminderListToMissionList(
@@ -7062,10 +7086,10 @@ class Utility {
     missionModel.title =
         reminder.title ?? '' + "(${getI18NKey().from_reminder})";
 
-    if(missionModel.title?.indexOf("工作日重复-21:00提醒-55555555555555a") != -1) {
+    if (missionModel.title?.indexOf("工作日重复-21:00提醒-55555555555555a") != -1) {
       print("5555555555555555");
     }
-    if(missionModel.title?.indexOf("Q111222333") != -1) {
+    if (missionModel.title?.indexOf("Q111222333") != -1) {
       print("5555555555555555");
     }
 
@@ -7074,12 +7098,16 @@ class Utility {
     missionModel.folder_title = reminder.calendar;
     missionModel.group_id = null; // 分组 ID，根据需求设置
     missionModel.time_mode = 0;
-    missionModel.repetive_end_time = reminder.recurrence?.endDate?.millisecondsSinceEpoch;
+    missionModel.repetive_end_time =
+        reminder.recurrence?.endDate?.millisecondsSinceEpoch;
     missionModel.start_time =
         reminder.startDate?.millisecondsSinceEpoch; // 开始时间
     missionModel.end_time = reminder.dueDate?.millisecondsSinceEpoch; // 截止时间
-    missionModel.daily_start_time = getMillisecondFromTime(reminder.endDate?.millisecondsSinceEpoch ?? 0) - 60 * 60 * 1000; // 每日结束时间
-    missionModel.daily_end_time = getMillisecondFromTime(reminder.endDate?.millisecondsSinceEpoch ?? 0); // 每日结束时间
+    missionModel.daily_start_time =
+        getMillisecondFromTime(reminder.endDate?.millisecondsSinceEpoch ?? 0) -
+            60 * 60 * 1000; // 每日结束时间
+    missionModel.daily_end_time = getMillisecondFromTime(
+        reminder.endDate?.millisecondsSinceEpoch ?? 0); // 每日结束时间
     // reminder.dueDate?.millisecondsSinceEpoch
     missionModel.isFinished = reminder.isCompleted ?? false; // 是否完成
     List<AlarmModel> alarms = reminder.alarms ?? [];
@@ -7095,24 +7123,34 @@ class Utility {
     missionModel.do_it_now = []; // 当前未开始
 
     // 转换 RepetitiveWeekDay
-    missionModel.repetiveWeekDay = WeekDayConverter
-        .convertFromSundayToSaturdayToMondayToSunday(reminder.repetiveWeekDay);
-
+    missionModel.repetiveWeekDay =
+        WeekDayConverter.convertFromSundayToSaturdayToMondayToSunday(
+            reminder.repetiveWeekDay);
 
     // 其余未处理字段留空或按逻辑处理
     missionModel.repetiveType = reminder.repetiveType ?? 0;
     missionModel.repetiveValue = reminder.repetiveValue ?? 0;
     missionModel.repetiveWeekDay = reminder.repetiveWeekDay ?? [];
-  if(missionModel.repetiveType == 2 || missionModel.repetiveType == 3 || missionModel.repetiveType == 1) { // 按周重复 需要把yyyy mm dd切割出来
-    if(alarms[0].type == "absolute") {
-      missionModel.alert_time = alarms.length > 0 ? getMillisecondFromTime(
-          alarms[0].date?.millisecondsSinceEpoch ?? 0) : null; // 提醒时间
-    } else { // relative 如 62400000
-      missionModel.alert_time = alarms.length > 0 ? (alarms[0].date?.millisecondsSinceEpoch ?? alarms[0].offset) : ( null); // 提醒时间
+    if (missionModel.repetiveType == 2 ||
+        missionModel.repetiveType == 3 ||
+        missionModel.repetiveType == 1) {
+      // 按周重复 需要把yyyy mm dd切割出来
+      if (alarms[0].type == "absolute") {
+        missionModel.alert_time = alarms.length > 0
+            ? getMillisecondFromTime(
+                alarms[0].date?.millisecondsSinceEpoch ?? 0)
+            : null; // 提醒时间
+      } else {
+        // relative 如 62400000
+        missionModel.alert_time = alarms.length > 0
+            ? (alarms[0].date?.millisecondsSinceEpoch ?? alarms[0].offset)
+            : (null); // 提醒时间
+      }
+    } else {
+      missionModel.alert_time = alarms.length > 0
+          ? (alarms[0].date?.millisecondsSinceEpoch ?? 0)
+          : null; // 提醒时间
     }
-  } else {
-    missionModel.alert_time = alarms.length > 0 ? (alarms[0].date?.millisecondsSinceEpoch ?? 0) : null; // 提醒时间
-  }
     // missionModel.repeativeDate = reminder.repeativeDate ?? [];
 
     return missionModel;
@@ -7320,7 +7358,7 @@ class Utility {
 
   static Future requestNotification(BuildContext context) async {
     BaseBean res =
-    await CounterMethodChannelManager.getInstance().isNotificationEnabled();
+        await CounterMethodChannelManager.getInstance().isNotificationEnabled();
     if (res.data == false) {
       OkCancelResult result = await showOkCancelAlertDialog(
           context: context,
@@ -7338,9 +7376,10 @@ class Utility {
     }
   }
 
-
   static bool shouldShowAlert({missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 || missionModelType == 2;
+    return missionModelType == null ||
+        missionModelType == 0 ||
+        missionModelType == 2;
   }
 
   static bool shouldShowCircleFolderId({missionModelType = 0}) {
@@ -7348,13 +7387,16 @@ class Utility {
   }
 
   static bool shouldShowPriority({missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0  || missionModelType == 2;
+    return missionModelType == null ||
+        missionModelType == 0 ||
+        missionModelType == 2;
   }
 
   static bool shouldShowTag({missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 || missionModelType == 2;
+    return missionModelType == null ||
+        missionModelType == 0 ||
+        missionModelType == 2;
   }
-
 
   static bool shouldShowDailyIcon({missionModelType = 0}) {
     return missionModelType == null || missionModelType == 0;
@@ -7362,26 +7404,33 @@ class Utility {
 
   //创建编辑的时候 null 或者 0是默认的 1是苹果日历 2是苹果提醒 3.google日历
   static bool shouldShowBeginTime({missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 || missionModelType == 1 || missionModelType == 2;
+    return missionModelType == null ||
+        missionModelType == 0 ||
+        missionModelType == 1 ||
+        missionModelType == 2;
   }
 
   static bool shouldTotalVal({missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 ;
+    return missionModelType == null || missionModelType == 0;
   }
 
   static bool shouldUnit({missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 ;
+    return missionModelType == null || missionModelType == 0;
   }
 
-  static bool shouldShowStartTime(
-      {missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 || missionModelType == 1  || missionModelType == 2;
+  static bool shouldShowStartTime({missionModelType = 0}) {
+    return missionModelType == null ||
+        missionModelType == 0 ||
+        missionModelType == 1 ||
+        missionModelType == 2;
   }
 
   //创建编辑的时候
-  static bool shouldShowEndTime(
-      {missionModelType = 0}) {
-    return missionModelType == null || missionModelType == 0 || missionModelType == 1  || missionModelType == 2;
+  static bool shouldShowEndTime({missionModelType = 0}) {
+    return missionModelType == null ||
+        missionModelType == 0 ||
+        missionModelType == 1 ||
+        missionModelType == 2;
   }
 
   static bool shouldShowTomatoes({missionModelType = 0}) {
@@ -8161,6 +8210,24 @@ class Utility {
     } else {
       return missionModelList;
     }
+  }
+
+  /**
+   * 根据missionDataViewTypeEnum过滤missionModel
+   */
+  static List<MissionModel> filterMissionModelByMissionDataViewTypeEnum(
+      MissionDataViewTypeEnum missionDataViewTypeEnum,
+      List<MissionModel> missionModelList) {
+    if (missionDataViewTypeEnum == MissionDataViewTypeEnum.list) {
+      List<MissionModel> list = [];
+      missionModelList.forEach((element) {
+        if (element.missionModelType == 0 || element.missionModelType == null) {
+          list.add(element);
+        }
+      });
+      return list;
+    }
+    return missionModelList;
   }
 
   static List<MissionModel> filterMissionModel(
@@ -9994,14 +10061,14 @@ class Utility {
    * @param {String} time
    */
   static DateTime getDateTimeFromUTCString(String utcTime) {
-    if(TextUtil.isEmpty(utcTime)) {
+    if (TextUtil.isEmpty(utcTime)) {
       return DateTime.now();
     }
     return new DateFormat("yyyy-MM-ddTHH:mm:ssZ").parseUTC(utcTime).toLocal();
   }
 
   static DateTime getDateTimeFromString(String utcTime) {
-    if(TextUtil.isEmpty(utcTime)) {
+    if (TextUtil.isEmpty(utcTime)) {
       return DateTime.now();
     }
     return new DateFormat("yyyy-MM-ddTHH:mm:ssZ").parse(utcTime).toLocal();
@@ -10301,6 +10368,4 @@ class WeekDayConverter {
     }
     return [...sundayToSaturday.sublist(1), sundayToSaturday.first];
   }
-
-
 }

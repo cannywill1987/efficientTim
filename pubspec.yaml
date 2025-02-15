@@ -169,7 +169,7 @@ dependencies:
 
 dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有点问题
   #  dart_style: ^2.3.1 #这个版本才可以用
-  cloud_firestore: ^5.4.4
+#  cloud_firestore: ^5.4.4
   firebase_analytics: ^11.2.0
   win32: ^5.7.1
   fading_edge_scrollview: ^4.1.1

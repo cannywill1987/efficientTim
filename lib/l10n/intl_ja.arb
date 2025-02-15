@@ -18,7 +18,7 @@
   "start_time": "開始時間",
   "group_listing": "グループ一覧",
   "realize_percent_with_folder": "タスク「{title}」は{percent}%完了、目標リスト「{folderTitle}」は{folderPercent}%完了",
-  "realize_percent": "タスク「{title}」は{percent}%完了",
+  "realize_percent": "タスク「{title}」は{percent}完了",
   "total_value": "総量",
   "objective_final": "目標",
   "eula": "利用規約",

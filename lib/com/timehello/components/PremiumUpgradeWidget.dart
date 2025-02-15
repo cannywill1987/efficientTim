@@ -3,6 +3,7 @@ import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:time_hello/com/timehello/beans/PriceProductModel.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../r.dart';
@@ -49,41 +50,44 @@ class PremiumUpgradeWidgetState extends State<PremiumUpgradeWidget> {
     } catch (e) {
       print(e);
     }
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildHeaderSection(),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(height: this.marginItem),
-                      SectionTitle(title: getI18NKey().features_privileges),
-                      _buildFeatureTable(),
-                      SizedBox(height: this.marginItem),
-                      SectionTitle(title: getI18NKey().features_components),
-                      FeatureListWidget(),
-                      SizedBox(height: this.marginItem),
-                      SectionTitle(title: getI18NKey().official_recommendations),
-                      RecommendationCards(),
-                      SizedBox(height: this.marginItem),
-                      SectionTitle(title: getI18NKey().user_reviews),
-                      ReviewCards(),
-                      SizedBox(height: this.marginItem),
-                      _buildRestorePurchaseButton(),
-                    ],
+    return ColoredBox(
+      color: ThemeManager.getInstance().curThemeDataDark.colorScheme.background,
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildHeaderSection(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(height: this.marginItem),
+                        SectionTitle(title: getI18NKey().features_privileges),
+                        _buildFeatureTable(),
+                        SizedBox(height: this.marginItem),
+                        SectionTitle(title: getI18NKey().features_components),
+                        FeatureListWidget(),
+                        SizedBox(height: this.marginItem),
+                        SectionTitle(title: getI18NKey().official_recommendations),
+                        RecommendationCards(),
+                        SizedBox(height: this.marginItem),
+                        SectionTitle(title: getI18NKey().user_reviews),
+                        ReviewCards(),
+                        SizedBox(height: this.marginItem),
+                        _buildRestorePurchaseButton(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        _buildFooter(context)
-      ],
+          _buildFooter(context)
+        ],
+      ),
     );
   }
 
@@ -95,6 +99,7 @@ class PremiumUpgradeWidgetState extends State<PremiumUpgradeWidget> {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
+          color: Colors.white
         ),
       ),
       TextSpan(
@@ -115,6 +120,7 @@ class PremiumUpgradeWidgetState extends State<PremiumUpgradeWidget> {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
+            color: Colors.white
         ),
       ),
       TextSpan(

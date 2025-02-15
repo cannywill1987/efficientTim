@@ -63,11 +63,18 @@ class SubscriptionAndPriceManager {
       unknown	-1	未知订阅状态
    */
   init() async {
+    if(isIOSAndMacOS() == false) {
+      return;
+    }
     listPriceProductModel = await CounterMethodChannelManager.getInstance()
         .IAPManagerFetchProducts(listProducts: DeviceInfoManagement.isMacOs() ? [priceAnnual, priceMonthly] : [priceAnnualMobile, priceMonthlyMobile]); // 获取产品
     // 0 未开始 1 请求中 2 请求成功 3 restore成功
     await initSubscriptionState();
     print("");
+  }
+
+  bool isIOSAndMacOS() {
+    return DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true;
   }
 
   /**
@@ -113,6 +120,9 @@ class SubscriptionAndPriceManager {
   }
 
   Future<void> initSubscriptionState() async {
+    if(isIOSAndMacOS() == false) {
+      return;
+    }
     BaseBean baseBean = await CounterMethodChannelManager.getInstance()
         .checkSubscriptionState(DeviceInfoManagement.isMacOs() ? priceAnnual: priceAnnualMobile);
     if (baseBean.data == "2") {
@@ -191,7 +201,7 @@ class SubscriptionAndPriceManager {
   bool isVIP() {
     //生产环境 先不走vip
     if (EnvEnum.uat == Params.env) {
-      return true;
+      return false;
     } else {
       if (Utility.isIOS() == true || Utility.isMacOS() == true) {
         if (Utility

@@ -18,7 +18,7 @@
   "start_time": "Start Time",
   "group_listing": "Group Listing",
   "realize_percent_with_folder": "Task {title} is {percent}% completed, Goal List {folderTitle} is {folderPercent}% completed",
-  "realize_percent": "Task {title} is {percent}% completed",
+  "realize_percent": "Task {title} is {percent} completed",
   "total_value": "Total Value",
   "objective_final": "Objective",
   "eula": "EULA",

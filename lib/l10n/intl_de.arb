@@ -18,7 +18,7 @@
   "start_time": "Startzeit",
   "group_listing": "Gruppenliste",
   "realize_percent_with_folder": "Aufgabe {title} ist zu {percent}% abgeschlossen, Zielliste {folderTitle} ist zu {folderPercent}% abgeschlossen",
-  "realize_percent": "Aufgabe {title} ist zu {percent}% abgeschlossen",
+  "realize_percent": "Aufgabe {title} ist zu {percent} abgeschlossen",
   "total_value": "Gesamtwert",
   "objective_final": "Ziel",
   "eula": "EULA",

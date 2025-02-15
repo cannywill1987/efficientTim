@@ -231,10 +231,10 @@ class S {
     );
   }
 
-  /// `Task {title} is {percent}% completed`
+  /// `Task {title} is {percent} completed`
   String realize_percent(Object title, Object percent) {
     return Intl.message(
-      'Task $title is $percent% completed',
+      'Task $title is $percent completed',
       name: 'realize_percent',
       desc: '',
       args: [title, percent],

@@ -5,6 +5,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/GridMenuItem.dart';
 import 'package:time_hello/com/timehello/components/LoginAvatarWidget.dart';
@@ -15,6 +16,7 @@ import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+
 // import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/FlomoPage/FlomoPage.dart';
 import 'package:time_hello/com/timehello/page/LockScreenPage/LockScreenPage.dart';
@@ -39,6 +41,7 @@ import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/ConsumeMoneyButtonWidget.dart';
 import '../../components/DownloadListwidget.dart';
 import '../../components/EventModel.dart';
+import '../../components/MembershipBanner.dart';
 import '../../components/MoneyHandlerWidget.dart';
 import '../../components/GridMenuItem.dart';
 import '../../components/ThirdPartyLoginWidget.dart';
@@ -232,9 +235,18 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             Icons.settings,
             size: 20,
           ),
-          title: "测试用2" + ' countryCode:' + (Params.local?.countryCode ?? '')  + ' languageCode:'+ (Params.local?.languageCode ?? ''),
+          title: "测试用2" +
+              ' countryCode:' +
+              (Params.local?.countryCode ?? '') +
+              ' languageCode:' +
+              (Params.local?.languageCode ?? ''),
           onTapListener: () async {
-            Utility.showToastMsg(context: context, msg: ' countryCode:' + (Params.local?.countryCode ?? '')  + ' languageCode:'+ (Params.local?.languageCode ?? ''));
+            Utility.showToastMsg(
+                context: context,
+                msg: ' countryCode:' +
+                    (Params.local?.countryCode ?? '') +
+                    ' languageCode:' +
+                    (Params.local?.languageCode ?? ''));
             // ScreenLockManager.getInstance().showPasword();
             // screenLockCreate(
             //   context: context,
@@ -373,7 +385,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用-获取权限",
           onTapListener: () async {
-            await CounterMethodChannelManager.getInstance().requestEventReminderAccess();
+            await CounterMethodChannelManager.getInstance()
+                .requestEventReminderAccess();
 
             // CounterMethodChannelManager.getInstance().shareToWeChat(
             //     title: "title",
@@ -400,8 +413,12 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用-获取事件",
           onTapListener: () async {
-            List<EventModel> list = await CounterMethodChannelManager.getInstance().fetchCalendarEvents(startDate: 1701940406000, endDate: 1765098806000);
-            List<MissionModel> listModel = Utility.convertListEventModelToListMissionModel(list);
+            List<EventModel> list =
+                await CounterMethodChannelManager.getInstance()
+                    .fetchCalendarEvents(
+                        startDate: 1701940406000, endDate: 1765098806000);
+            List<MissionModel> listModel =
+                Utility.convertListEventModelToListMissionModel(list);
             // Utility.initCalendarModel();
 
             // final perf = Perf();
@@ -427,7 +444,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           ),
           title: "测试用-获取提醒",
           onTapListener: () async {
-            CounterMethodChannelManager.getInstance().fetchReminderReminders(startDate: 1701940406000, endDate: 1765098806000);
+            CounterMethodChannelManager.getInstance().fetchReminderReminders(
+                startDate: 1701940406000, endDate: 1765098806000);
           }));
     }
     list.add(GridMenuItem(
@@ -445,7 +463,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           onTapListener: () {
             if (LoginManager.getInstance().isVIP(
                 shouldShowDialog: true,
-                paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Lockscreen)) {
+                paymentPromotionAdsModeEnum:
+                    PaymentPromotionAdsModeEnum.Lockscreen)) {
               Utility.pushNavigator(context, LockScreenPage());
             }
           }));
@@ -503,7 +522,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-    if(Utility.isHuaWei() == false) {
+    if (Utility.isHuaWei() == false) {
       list.add(GridMenuItem(
           icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
           title: getI18NKey().ai_helper,
@@ -594,8 +613,6 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           Utility.pushNavigator(context, const WQBContainer());
         }));
 
-
-
     List<Row> listRows = [];
     //根据numGridItems 生成行数 numGridItems是代表几列
     for (int i = 0; i < list.length; i++) {
@@ -633,7 +650,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
   List<Widget> getGridViewSetting(int numGridItems) {
     List<Widget> list = [];
     list.add(GridMenuItem(
-        icon: Utility.getSVGPicture(R.assetsImgIcTomatoChecked, size: iconSize + 5),
+        icon: Utility.getSVGPicture(R.assetsImgIcTomatoChecked,
+            size: iconSize + 5),
         title: getI18NKey().tomatoClockSetting,
         onTapListener: () {
           Utility.pushNavigator(
@@ -644,8 +662,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         icon: Icon(Icons.filter_alt, size: iconSize + 5),
         title: getI18NKey().filtering_setting,
         onTapListener: () {
-          Utility.pushNavigator(
-              context,  FilterMenuSettingPage());
+          Utility.pushNavigator(context, FilterMenuSettingPage());
         }));
 
     list.add(GridMenuItem(
@@ -660,13 +677,14 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         onTapListener: () {
           Utility.pushNavigator(context, SettingPermissionPage());
         }));
-    if(Utility.isHuaWei() == false)
-    list.add(GridMenuItem(
-        icon: Utility.getSVGPicture(R.assetsImgIcFeedback, size: iconSize + 7),
-        title: getI18NKey().feedback,
-        onTapListener: () {
-          Utility.pushNavigator(context, FeedbackPage());
-        }));
+    if (Utility.isHuaWei() == false)
+      list.add(GridMenuItem(
+          icon:
+              Utility.getSVGPicture(R.assetsImgIcFeedback, size: iconSize + 7),
+          title: getI18NKey().feedback,
+          onTapListener: () {
+            Utility.pushNavigator(context, FeedbackPage());
+          }));
     list.add(GridMenuItem(
         icon: Utility.getSVGPicture(R.assetsImgIcFeedback2, size: iconSize + 7),
         title: getI18NKey().copy_qq,
@@ -736,54 +754,67 @@ class _MinePageState extends BaseWidgetState<MinePage> {
     // CalendarModel list = context.watch<GlobalStateEnv>().calendarModel;
     context.watch<GlobalStateEnv>().calendarModel;
     // context.watch<GlobalStateEnv>().calendarModel;
-    return Container(
-      child: ListView(children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            color: ThemeManager.getInstance().isDark()
-                ? null
-                : ThemeManager.getInstance().getDefautThemeColor(),
-            // gradient:
-          ),
-          height: 200,
-          child: Stack(
-            children: [
-              Center(
-                  child: LoginManager.isLogin()
-                      ? getLoginHeaderWidget()
-                      : getUnloginHeaderWidget()),
-              Positioned(
-                  bottom: 3,
-                  right: 10,
-                  child: DownloadListwidget(
-                    shouldShowWinAndAndroid:
-                        !(Utility.isIOS() || Utility.isMacOS()),
-                  ))
-            ],
-          ),
-        ),
-        // MineHeaderWidget(),
-        ...getGridViewService(3),
-        Container(
-          height: 10,
-        ),
-        ...getGridViewNote(3),
-        Container(
-          height: 10,
-        ),
-        ...getGridViewSetting(3),
-        // ...getGridView(3),
-        LoginManager.isLogin()
-            ? getLogoutItem(onTapListener: () {
+    return Selector<Env, bool>(
+        selector: (_, env) => env.isVip ?? false,
+        builder: (_, settingModel, __) {
+          return Container(
+            child: ListView(children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  color: ThemeManager.getInstance().isDark()
+                      ? null
+                      : ThemeManager.getInstance().getDefautThemeColor(),
+                  // gradient:
+                ),
+                height: 200,
+                child: Stack(
+                  children: [
+                    Center(
+                        child: LoginManager.isLogin()
+                            ? getLoginHeaderWidget()
+                            : getUnloginHeaderWidget()),
+                    Positioned(
+                        bottom: 3,
+                        right: 10,
+                        child: DownloadListwidget(
+                          shouldShowWinAndAndroid:
+                          !(Utility.isIOS() || Utility.isMacOS()),
+                        )),
+                    if (LoginManager.getInstance().isLogin2() && LoginManager.getInstance()
+                        .isVIP(shouldShowDialog: false) ==
+                        false)
+                      Positioned(left: 10, bottom: 10, child:
+                      MembershipBanner(sizeEnum: SizeEnum.small , onTapCallback: () {
+                        LoginManager.getInstance()
+                            .openSubscriptionDialog(context);
+                      },))
+                  ],
+                ),
+              ),
+              // MineHeaderWidget(),
+              ...getGridViewService(3),
+              Container(
+                height: 10,
+              ),
+              ...getGridViewNote(3),
+              Container(
+                height: 10,
+              ),
+              ...getGridViewSetting(3),
+              // ...getGridView(3),
+              LoginManager.isLogin()
+                  ? getLogoutItem(onTapListener: () {
                 LoginManager.getInstance().logout(context);
               })
-            : SizedBox.shrink(),
-        getProtocolWidget(),
-        SizedBox(
-          height: 30,
-        ),
-      ]),
-    );
+                  : SizedBox.shrink(),
+              getProtocolWidget(),
+              SizedBox(
+                height: 30,
+              ),
+            ]),
+          );
+        });
+
   }
 
   Future<void> onClickSyncCloud(BuildContext context) async {
@@ -880,7 +911,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              !TextUtil.isEmpty(LoginManager.getInstance().userBean?.username)
+              !TextUtil.isEmpty(
+                      LoginManager.getInstance().userBean?.username)
                   ? Text(
                       LoginManager.getInstance().userBean.username,
                       overflow: TextOverflow.ellipsis,
@@ -888,7 +920,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                     )
                   : TextButton(
                       onPressed: () {
-                        Utility.pushNavigator(context, SettingUserInfoPage());
+                        Utility.pushNavigator(
+                            context, SettingUserInfoPage());
                       },
                       child: Row(
                         children: [
@@ -897,13 +930,13 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                             padding: EdgeInsets.only(left: 10, right: 10),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 1, color: Colors.white),
+                                border: Border.all(
+                                    width: 1, color: Colors.white),
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(
                               getI18NKey().add_username,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14),
                             ),
                           )
                         ],
@@ -911,7 +944,9 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               SizedBox(
                 height: 3,
               ),
-              LoginManager.getInstance().getUserBean().totalFocusTimeRanking !=
+              LoginManager.getInstance()
+                              .getUserBean()
+                              .totalFocusTimeRanking !=
                           null &&
                       LoginManager.getInstance()
                               .getUserBean()
@@ -921,11 +956,13 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                       direction: Axis.vertical,
                       children: [
                         Text(
-                          getI18NKey().my_ranking(LoginManager.getInstance()
-                              .getUserBean()
-                              .totalFocusTimeRanking
-                              .toString()),
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          getI18NKey().my_ranking(
+                              LoginManager.getInstance()
+                                  .getUserBean()
+                                  .totalFocusTimeRanking
+                                  .toString()),
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 12),
                         ),
                         Text(
                           getI18NKey().total_focus_time +
@@ -935,8 +972,9 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                                           .getUserBean()
                                           .totalFocusTime ??
                                       0),
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        )
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 12),
+                        ),
                       ],
                     )
                   : SizedBox.shrink()

@@ -540,13 +540,15 @@ class DialogManagement {
       {required FlomoMissionModel flomoMissionModel,
       required Function onSubmitted}) async {
     // if(SharePreferenceUtil.getSyncInstance().getBool(key: ShareprefrenceKeys.flomoRatingDialogDontRemindAgain, defaultVal: false) == false) {
-    DialogManagement.getInstance().showFlomoRatingDialogWithOnlyChild(context,
-        child: FlomoRatingDialog(
-          flomoMissionModel: flomoMissionModel,
-          onSubmitted: (val) {
-            onSubmitted?.call(val);
-          },
-        ));
+    if(ABTestSetting.isRatingDialogOn == true) {
+      DialogManagement.getInstance().showFlomoRatingDialogWithOnlyChild(context,
+          child: FlomoRatingDialog(
+            flomoMissionModel: flomoMissionModel,
+            onSubmitted: (val) {
+              onSubmitted?.call(val);
+            },
+          ));
+    }
     // }
   }
 

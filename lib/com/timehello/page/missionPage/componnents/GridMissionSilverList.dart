@@ -342,7 +342,7 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
           margin: EdgeInsets.fromLTRB(
               0, 0, (this.isHover == false && isDoItNow) ? 3 : 4, 0),
           alignment: Alignment.centerRight,
-          width: (this.isHover == false && isDoItNow) ? 120 : 120,
+          width: (this.isHover == false && isDoItNow) ? 60 : 25,
           height: 25,
           child: (this.isHover == true)
               ? PopupMenuButton<String>(

@@ -201,7 +201,7 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
                     SizedBox(
                       width: 30,
                     ),
-                  if (LoginManager.getInstance().isVIP(shouldShowDialog: false) == false)
+                  if (LoginManager.getInstance().isLogin2() && LoginManager.getInstance().isVIP(shouldShowDialog: false) == false)
                     MembershipBanner(
                       sizeEnum: SizeEnum.small,
                       onTapCallback: () {

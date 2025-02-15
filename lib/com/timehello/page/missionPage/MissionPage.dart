@@ -131,7 +131,6 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   bool isListAndGridVisible = true;
   double missionPageWidth = 300;
 
-
   String objectiveUnit = ""; //目标单位
 
   double objectiveValue = 0; //目标值
@@ -723,7 +722,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   @override
   void didUpdateWidget(MissionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.folderModel?.title != this.widget.folderModel?.title || (!TextUtil.isEmpty(oldWidget.folderModel?.objectId) && !TextUtil.isEmpty(this.widget.folderModel?.objectId) && oldWidget.folderModel?.objectId != this.widget.folderModel?.objectId)) {
+    if (oldWidget.folderModel?.title != this.widget.folderModel?.title ||
+        (!TextUtil.isEmpty(oldWidget.folderModel?.objectId) &&
+            !TextUtil.isEmpty(this.widget.folderModel?.objectId) &&
+            oldWidget.folderModel?.objectId !=
+                this.widget.folderModel?.objectId)) {
       this._dateStatus =
           null; //切换文件夹时重置 这样Initdata会重新拿this.widget.folderStatus数据初始化
       bottomBarStateKey?.currentState
@@ -745,7 +748,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
   void updateRightNavChildren() {
     // && this.rightNavChildren == null
-    if (this.widget.folderModel?.tag == 1 || this.widget.folderModel?.tag == 5) {
+    if (this.widget.folderModel?.tag == 1 ||
+        this.widget.folderModel?.tag == 5) {
       // if (ABTestSetting.isOpenAiOn && Utility.isHuaWei() == false)
       this.rightNavChildren = [
         IconButton(
@@ -995,11 +999,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       },
       //dateStatus 0-今天 1 明天 2 即将到来 3 待定 4 日程 5 已完成
       priority: this._priorityStatus ?? 0,
-        onChangeTotalValAndUnit: (totalval, unit) {
-          // this.objectiveValue = val;
-          this.objectiveTotalValue = totalval;
-          this.objectiveUnit = unit;
-        },
+      onChangeTotalValAndUnit: (totalval, unit) {
+        // this.objectiveValue = val;
+        this.objectiveTotalValue = totalval;
+        this.objectiveUnit = unit;
+      },
       circleColor: !TextUtil.isEmpty(this._circleColor)
           ? Color(this._circleColor ?? 0xffff8800)
           : ColorsConfig.gray_cc_cancel,
@@ -1172,7 +1176,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           onTapUpListener: () {},
           onTapDownListener: () {},
           folderTimeModel: _folderTimeModel,
-          folderModel: (this.widget.folderModel?.tag == 1 || this.widget.folderModel?.tag == 4 || this.widget.folderModel?.tag == 5)
+          folderModel: (this.widget.folderModel?.tag == 1 ||
+                  this.widget.folderModel?.tag == 4 ||
+                  this.widget.folderModel?.tag == 5)
               ? this.widget.folderModel
               : null,
           onChangeListener: (data, numTomatoes) {
@@ -1292,7 +1298,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     key: UniqueKey(),
                     //每次都会重新创建
                     maxWidth: Utility.isHandsetBySize() == true ? 200 : 400,
-                    isEditable: this.widget.folderModel?.tag == 5 || this.widget.folderModel?.tag == 4 || this.widget.folderModel?.tag == 2 ||
+                    isEditable: this.widget.folderModel?.tag == 5 ||
+                        this.widget.folderModel?.tag == 4 ||
+                        this.widget.folderModel?.tag == 2 ||
                         this.widget.folderModel?.tag == 1,
                     style: TextStyle(
                         fontSize: 20,
@@ -1344,8 +1352,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 ),
                 (this.widget.folderModel?.tag == 1 ||
                         this.widget.folderModel?.tag == 2 ||
-                    this.widget.folderModel?.tag == 4 ||
-                    this.widget.folderModel?.tag == 5)
+                        this.widget.folderModel?.tag == 4 ||
+                        this.widget.folderModel?.tag == 5)
                     ? InkWell(
                         onTap: () async {
                           TimelineMissionModel? timelineMissionModel = null;
@@ -1484,6 +1492,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                               this.widget.folderStatusDate.toString() +
                               (this.widget.folderModel?.objectId ?? ""),
                           value: missionDataViewTypeEnum.index);
+                      requestDatas(shouldUpdate: false);
                       updateUI();
                     },
                   ),
@@ -1914,11 +1923,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         // this.folderStatusIsArchived = 0; // 未归档
         //FoldersPage 今天之前的 23:59:59
         missionDataViewTypeEnum = MissionDataViewTypeEnum.values[
-        curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
-            .getInt(
-            key: ShareprefrenceKeys.listAndGridView +
-                this.widget.folderStatusDate.toString(),
-            defaultVal: 2)];
+            curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
+                .getInt(
+                    key: ShareprefrenceKeys.listAndGridView +
+                        this.widget.folderStatusDate.toString(),
+                    defaultVal: 2)];
         datas = MongoApisManager.getInstance().listRemindersMissionModels;
       } else if (this.widget.folderStatusDate == 1) {
         // 用这个是因为重复的很难计算 但是calendar算好了 所以直接用这个
@@ -2020,6 +2029,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     //如果curSearchWords有值 就支持搜索功能
     if (!TextUtil.isEmpty(curSearchWords)) {
       datas = Utility.filterMissionModel(curSearchWords ?? "", datas);
+    }
+
+    //根据missionDataViewTypeEnum过滤datas 否则苹果日历和苹果提醒会显示所有任务造成混乱
+    if (this.widget.folderModel.iconType != 14 &&
+        this.widget.folderModel.iconType != 15) {
+      datas = Utility.filterMissionModelByMissionDataViewTypeEnum(
+          missionDataViewTypeEnum, datas);
     }
 
     Utility.parseMissionModelsToSessionMissionMidelListByFolderName(

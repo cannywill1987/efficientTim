@@ -226,6 +226,10 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                 response: response,
                 key: 'ab_setting',
                 code: 'register_dynamic_code');
+
+
+        ResourceDeliveryInfoBean? isRatingDialogOn = Utility.getDeliveryInfoBean(
+                  response: response, key: 'ab_setting', code: 'isRatingDialogOn');
         ResourceDeliveryInfoBean? isOpenOn = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'isOpenAiOn');
         ResourceDeliveryInfoBean? isCourseOn = Utility.getDeliveryInfoBean(
@@ -262,6 +266,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         // } else {
         //   ABTestSetting.isOpenAiOn = true;
         // }
+
+        ABTestSetting.isRatingDialogOn =  (isRatingDialogOn?.extendParamsMap?['isOn'] ??
+            true); // 开关默认开 且不是最新版本
         ABTestSetting.isOpenAiOn =  (isOpenOn?.extendParamsMap?['isOn'] ??
             true); // 开关默认开 且不是最新版本
         if (isLatestVersion && Utility.isHuaWei() == true) {

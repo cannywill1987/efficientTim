@@ -18,7 +18,7 @@
   "start_time": "시작 시간",
   "group_listing": "그룹 목록",
   "realize_percent_with_folder": "작업 {title} 완료율 {percent}%, 목표 목록 {folderTitle} 완료율 {folderPercent}%",
-  "realize_percent": "작업 {title} 완료율 {percent}%",
+  "realize_percent": "작업 {title} 완료율 {percent}",
   "total_value": "총량",
   "objective_final": "목표",
   "eula": "EULA",

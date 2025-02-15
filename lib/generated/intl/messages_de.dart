@@ -269,7 +269,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "${missionFinished} abgeschlossen, bitte starten Sie ${missionToDo}, ${missionToDo} Dauer: ${duration}";
 
   static String m107(title, percent) =>
-      "Aufgabe ${title} ist zu ${percent}% abgeschlossen";
+      "Aufgabe ${title} ist zu ${percent} abgeschlossen";
 
   static String m108(title, percent, folderTitle, folderPercent) =>
       "Aufgabe ${title} ist zu ${percent}% abgeschlossen, Zielliste ${folderTitle} ist zu ${folderPercent}% abgeschlossen";
