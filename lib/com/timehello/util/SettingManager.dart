@@ -25,6 +25,9 @@ class SettingManager {
   int isListingLatest7DaysOn = 1;
   int isListingTodoListOn = 1;
   int isListingFragmentOn = 1;
+  int isListingAppleCalendarOn = 1;
+  int isListingAppleAlarmOn = 1;
+
   int isListingAllUnfinishedMission = 1;
   int isListingFinishedOn = 1;
   int isListingCalendarVisibleOn = 1;
@@ -68,6 +71,8 @@ class SettingManager {
       if (value != null && value.isNotEmpty) {
         try {
           settingModel = SettingModel.fromJson(jsonDecode(value));
+          isListingAppleAlarmOn = settingModel.isListingAppleAlarmOn ?? 1;
+          isListingAppleCalendarOn = settingModel.isListingAppleCalendarOn ?? 1;
           isListingTodayOn = settingModel.isListingTodayOn ?? 1;
           isListingDoItNowOn = settingModel.isListingDoItNowOn ?? 1;
           isListingTomorrowOn = settingModel.isListingTomorrowOn ?? 1;
@@ -111,6 +116,8 @@ class SettingManager {
     settingModel.isListingAllUnfinishedMIssion = isListingAllUnfinishedMission;
     settingModel.isListingFinishedOn = isListingFinishedOn;
     settingModel.isListingAllOn = isListingAllOn;
+    settingModel.isListingCalendarVisibleOn = isListingCalendarVisibleOn;
+    settingModel.isListingAlarmVisibleOn = isListingAlarmVisibleOn;
 
     settingModel.isTomatoPageOn = isTomatoPageOn;
     settingModel.isTimeManagementPageOn = isTimeManagementPageOn;
@@ -131,6 +138,26 @@ class SettingManager {
     String s = jsonEncode(settingModel.toJson());
     SharePreferenceUtil.getSyncInstance().setString(key:ShareprefrenceKeys.SettingModelKey , content: s);
     Utility.getGlobalContext()?.read<Env>().settingModel = settingModel;
+  }
+
+
+  /**
+   * 1默认显示 0 隐藏 -1 有数据显示
+   * 苹果日历 清单是否显示
+   */
+  setIsListingAppleCalendarOn(int value) {
+    isListingAppleCalendarOn = value;
+    updateSettingModel();
+  }
+
+  /**
+   * 1默认显示 0 隐藏 -1 有数据显示
+   * 苹果闹钟 清单是否显示
+   */
+
+  setIsListingAppleAlarmOn(int value) {
+    isListingAppleAlarmOn = value;
+    updateSettingModel();
   }
 
   setIsAIHelperPageOn(int value) {

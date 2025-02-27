@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/util/Utility.dart';
 
 class SliderWithCanvasWidget extends StatelessWidget {
   final double min;
@@ -89,6 +90,17 @@ class _CanvasSliderState extends State<CanvasSlider> {
 
   @override
   Widget build(BuildContext context) {
+    if(Utility.isHandsetBySize() == true) {
+      return Slider(
+
+        value: _value,
+        min: widget.min,
+        max: widget.max,
+        onChanged: widget.enable
+            ? (newValue) => setCurValue(newValue)
+            : null,
+      );
+    }
     return MouseRegion(
       onEnter: (_) {
         setState(() {

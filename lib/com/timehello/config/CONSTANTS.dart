@@ -4151,6 +4151,10 @@ class CONSTANTS {
             SettingManager.getSyncInstance().isListingFinishedOn;
         int isListingCalendarVisibleOn =
             SettingManager.getSyncInstance().isListingCalendarVisibleOn;
+
+        int isListingAppleAlarmOn = SettingManager.getSyncInstance().isListingAppleAlarmOn;
+        int isListingAppleCalendarOn = SettingManager.getSyncInstance().isListingAppleCalendarOn;
+
         int isListingAllOn = SettingManager.getSyncInstance().isListingAllOn;
         int isListingAlarmVisibleOn = SettingManager.getSyncInstance().isListingAlarmVisibleOn;
 
@@ -4216,7 +4220,11 @@ class CONSTANTS {
           listFolderModel.add(FolderModelWithExtraData(
               folderModel: folderModel, folderTimeModel: folderTimeModel));
         }
-        if(DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
+        if((DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) &&((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
+            (folderTimeModel?.numMissionFinished ?? 0)) >
+            0 &&
+            isListingAppleCalendarOn == -1) ||
+            isListingAppleCalendarOn == 1)) {
           folderModel = new FolderModel();
           folderModel.title = getI18NKey().apple_calendar;
           folderModel.layoutType = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.layoutIconType14, defaultVal: 0);
@@ -4236,7 +4244,11 @@ class CONSTANTS {
                 folderModel: folderModel, folderTimeModel: folderTimeModel));
           }
         }
-        if(DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
+        if((DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())&&((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
+            (folderTimeModel?.numMissionFinished ?? 0)) >
+            0 &&
+            isListingAppleAlarmOn == -1) ||
+            isListingAppleAlarmOn == 1)) {
           folderModel = new FolderModel();
           folderModel.title = getI18NKey().apple_alarm;
           folderModel.layoutType = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.layoutIconType15, defaultVal: 0);

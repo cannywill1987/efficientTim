@@ -13,6 +13,8 @@ part 'SettingModel.g.dart';
  */
 @JsonSerializable()
 class SettingModel extends MongoDbObject{
+  int? isListingAppleCalendarOn = 1; // 1默认显示 0 隐藏 -1  有数据显示
+  int? isListingAppleAlarmOn = 1; // 1默认显示 0 隐藏 -1  有数据显示
   int? isListingTodayOn = 1; // 1默认显示 0 隐藏 -1 有数据显示
   int? isListingDoItNowOn = 1;  // 1默认显示 0 隐藏 -1  有数据显示
   int? isListingTomorrowOn = 1; // 1默认显示 0 隐藏 -1  有数据显示

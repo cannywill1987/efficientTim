@@ -283,7 +283,7 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
 
                       if(Utility.isObjectiveForMissionModel(
                           missionModel: _missionModel ?? MissionModel()) ==
-                          true && isHover == true)
+                          true)
                         TextSpan(
                           text:  "  ${ _missionModel?.objectiveValue?.toInt() ?? 0}/${_missionModel?.objectiveTotalValue?.toInt()} ${_missionModel?.objectiveUnit ?? ""}",
                           style: TextStyle(
@@ -374,18 +374,6 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                           ['buffer_end_time'],
                       isFinished: _missionModel?.isFinished ?? false,
                     )
-                  : Utility.isObjectiveForMissionModel(
-                              missionModel: _missionModel ?? MissionModel()) ==
-                          true
-                      ?  Text(
-            "${ _missionModel?.objectiveValue?.toInt() ?? 0}/${_missionModel?.objectiveTotalValue?.toInt()} ${_missionModel?.objectiveUnit ?? ""}",
-            style: TextStyle(
-              fontSize: 12,
-              color: ThemeManager.getInstance().isDark()
-                  ? Colors.white70
-                  : Colors.black87,
-            ),
-          )
                       : CheckImage(
                           width: 25,
                           height: 25,

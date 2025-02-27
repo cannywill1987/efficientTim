@@ -10,12 +10,12 @@ project 'Runner', {
   'Release' => :release,
 }
 
-
+source 'https://github.com/CocoaPods/Specs.git'
 # source 'https://github.com/zhangao0086/DKImagePickerController.git'
 # pod 'DKImagePickerController'
 # source 'https://github.com/CocoaPods/Specs.git'
 # source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
-source 'https://github.com/CocoaPods/Specs.git'
+# source 'https://github.com/CocoaPods/Specs.git'
 # pod 'FBSDKCoreKit'
 # FBSDKCoreKit (15.1.0)
 # pod 'FBSDKCoreKit', '~> 15.1.0'

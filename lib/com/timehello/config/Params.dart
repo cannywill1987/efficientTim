@@ -7,9 +7,9 @@ import '../beans/ResourceLocationInfoBean.dart';
 
 class Params {
   // kDebugMode可以用来做全局开发环境测试
-  static final EnvEnum env = EnvEnum.uat; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
+  static final EnvEnum env = EnvEnum.prd; //dev uat prd 发版前记得改local.properties的版本号才起作用 androidmanifest不起作用
   static final String mOssUrl = "http://oss.timerbell.com";
-  static final String mBaseUrl = env == EnvEnum.dev ? "http://127.0.0.1:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
+  static final String mBaseUrl = env == EnvEnum.dev ? "http://192.168.31.82:9999" : EnvEnum.uat == env? "https://www.timerbell.com" : "https://www.timerbell.com";
   static final String mUrl = env == EnvEnum.dev ? "http://localhost:3000/web" : EnvEnum.uat == env? "https://www.timerbell.com/web" : "https://www.timerbell.com/web";
 
   static final isMongoDbCacheOn = false; // mongodb的缓存是否开启
@@ -39,6 +39,7 @@ class Params {
   static ResourceDeliveryInfoBean? updateInfoDeliveryInfoBean; //用于判断更新信息展示更新对话框
   static List<ResourceLocationInfoBean>? gamePagesResourceLocationInfoBeanList; //游戏中心游戏列表
   // static final int version = '1.0.0';bl
+
 
   static final int REQUEST_TIMEOUT = 40000;
   static final int CONNECT_TIMEOUT = 40000;
