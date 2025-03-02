@@ -2089,38 +2089,44 @@ class MongoApisManager {
     this.listMissionModels.addAll(this.listPureMissionModels);
     this.listCalendarMissionModels.clear();
     this.listRemindersMissionModels.clear();
-     try {
-      BaseBean accessBaseBean = await CounterMethodChannelManager.getInstance().requestEventReminderAccess();
-      if(accessBaseBean.success == true) {
-        DateTime date = DateTime.now();
-        DateTime dateTimeStart = new DateTime(date.year - 1);
-        int timestampStart = dateTimeStart.millisecondsSinceEpoch;
-        DateTime dateTimeEnd = new DateTime(date.year + 2);
-        int timestampEnd = dateTimeEnd.millisecondsSinceEpoch;
+    if(DeviceInfoManagement.isMacOs() || DeviceInfoManagement.isIOS()) {
+      try {
+        BaseBean accessBaseBean = await CounterMethodChannelManager
+            .getInstance().requestEventReminderAccess();
+        if (accessBaseBean.success == true) {
+          DateTime date = DateTime.now();
+          DateTime dateTimeStart = new DateTime(date.year - 1);
+          int timestampStart = dateTimeStart.millisecondsSinceEpoch;
+          DateTime dateTimeEnd = new DateTime(date.year + 2);
+          int timestampEnd = dateTimeEnd.millisecondsSinceEpoch;
 
-        List<EventModel> listEventModel = await CounterMethodChannelManager
-            .getInstance().fetchCalendarEvents(
-            startDate: timestampStart.toDouble(), endDate: timestampEnd.toDouble());
-        List<MissionModel> listPhoneCalendarMissionModels = Utility
-            .convertListEventModelToListMissionModel(listEventModel);
-    
-        List<ReminderModel> listRemindsModel = await CounterMethodChannelManager
-            .getInstance().fetchReminderReminders(
-            startDate: timestampStart.toDouble(), endDate: timestampEnd.toDouble());
-        List<MissionModel> listMissionModel = Utility
-            .convertReminderListToMissionList(listRemindsModel);
-    
-    
-        this.listCalendarMissionModels = listPhoneCalendarMissionModels ?? [];
-        this.listRemindersMissionModels = listMissionModel ?? [];
-        this.listMissionModels.addAll(this.listCalendarMissionModels ?? []);
-        this.listMissionModels.addAll(this.listRemindersMissionModels ?? []);
-        if (shouldQuery == true) {
-          await Utility.initCalendarModel();
+          List<EventModel> listEventModel = await CounterMethodChannelManager
+              .getInstance().fetchCalendarEvents(
+              startDate: timestampStart.toDouble(),
+              endDate: timestampEnd.toDouble());
+          List<MissionModel> listPhoneCalendarMissionModels = Utility
+              .convertListEventModelToListMissionModel(listEventModel);
+
+          List<
+              ReminderModel> listRemindsModel = await CounterMethodChannelManager
+              .getInstance().fetchReminderReminders(
+              startDate: timestampStart.toDouble(),
+              endDate: timestampEnd.toDouble());
+          List<MissionModel> listMissionModel = Utility
+              .convertReminderListToMissionList(listRemindsModel);
+
+
+          this.listCalendarMissionModels = listPhoneCalendarMissionModels ?? [];
+          this.listRemindersMissionModels = listMissionModel ?? [];
+          this.listMissionModels.addAll(this.listCalendarMissionModels ?? []);
+          this.listMissionModels.addAll(this.listRemindersMissionModels ?? []);
+          if (shouldQuery == true) {
+            await Utility.initCalendarModel();
+          }
         }
+      } catch (e) {
+        print(e);
       }
-    } catch(e) {
-      print(e);
     }
   }
 
