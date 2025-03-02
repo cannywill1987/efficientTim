@@ -68,7 +68,7 @@
         android:layout_toLeftOf="@id/linearlayout_play"
         android:layout_toRightOf="@id/imageview"
         android:singleLine="true"
-        android:text="开始专注"
+        android:text="@string/begin_focus"
         android:textAlignment="textStart"
         android:textColor="#fff" />
 

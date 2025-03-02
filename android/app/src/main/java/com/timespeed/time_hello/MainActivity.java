@@ -30,7 +30,6 @@ public class MainActivity extends FlutterActivity {
         // 注册SecVerify Flutter插件
         CounterMethodChannelManager.getInstance().init(this, getFlutterEngine());
 //        MethodChannelManager.getInstance().init(this, getFlutterEngine());
-        LocalNotificationManager.getInstance().init(this);
 //        startService(i = new Intent(this, BackgroundService.class));
         Params.isMainActivityDestroyed = false;
 //        String signature = Utility.getSignature(this);

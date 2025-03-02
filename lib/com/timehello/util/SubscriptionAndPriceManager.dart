@@ -236,7 +236,7 @@ class SubscriptionAndPriceManager {
                 containUserBeanIdentifierAlreadyBuyAndNotExpired(
                     identifier: priceMonthlyMobile) ;
       } else {
-        return false;
+        return true;
       }
       }
 

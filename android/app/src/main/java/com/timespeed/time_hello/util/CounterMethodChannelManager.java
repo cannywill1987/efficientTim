@@ -353,11 +353,12 @@ public class CounterMethodChannelManager {
 
                             break;
                         case "initPushNotification": //同意协议后初始化推送
-                            try {
-                                Utility.initCrashHandler(flutterActivity);
-                            } catch (Exception e) {
-
-                            }
+                                LocalNotificationManager.getInstance().init(this);
+//                            try {
+//                                Utility.initCrashHandler(flutterActivity);
+//                            } catch (Exception e) {
+//
+//                            }
                             result.success(true);//返回结果给Dart
                             break;
                         case "cancelPushCounterNotification": //取消计时

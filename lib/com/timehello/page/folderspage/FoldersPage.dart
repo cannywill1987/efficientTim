@@ -74,11 +74,11 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   String? curSelectedTitle = null;
   FolderModel? curSelectedFolderModel;
   List<FolderModelWithExtraData> listDatasNormal = []; // 今天 明天 现在做列表
-  List<FolderModelWithExtraData> listDatasListing = []; // 今天 明天 现在做列表
-  List<FolderModelWithExtraData> listDatasListingObjetives = [];
-  List<FolderModelWithExtraData> listDatasTags = []; // 今天 明天 现在做列表
-  List<FolderModelWithExtraData> listDatasFilteres = []; // 过滤器
-  List<FolderModelWithExtraData> listDatasArchive = []; // 今天 明天 现在做列表
+  List<FolderModelWithExtraData> listDatasListing = []; // 清单列表
+  List<FolderModelWithExtraData> listDatasListingObjetives = []; // 清单列表-目标
+  List<FolderModelWithExtraData> listDatasTags = []; // 标签列表
+  List<FolderModelWithExtraData> listDatasFilteres = []; // 过滤器列表
+  List<FolderModelWithExtraData> listDatasArchive = []; // 归档文件列表
   bool isAddingFolder = false;
 
   @override
@@ -92,29 +92,30 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     super.initState();
     this.isAppBarVisible = false;
     this.isNavBackBtnVisible = false;
-    this.requestDatas();
+    this.requestDatas(); // 请求数据
     try {
       this.listOrderFolderModelObjectId = List<String>.from(
           CloudSharepreferenceManagement.getInstance()
-              .getArray(ShareprefrenceKeys.folderOrderObjectId, []));
+              .getArray(ShareprefrenceKeys.folderOrderObjectId, [])); // 获取排序
       this.listOrderFolderModelObjectId =
-          Utility.removeDuplicate(this.listOrderFolderModelObjectId);
+          Utility.removeDuplicate(this.listOrderFolderModelObjectId); // 去重
     } catch (e) {
       print("object");
     }
     try {
       this.listOrderFolderModelObjectIdOtherFolder = List<String>.from(
           CloudSharepreferenceManagement.getInstance().getArray(
-              ShareprefrenceKeys.folderOrderObjectIdForOtherFolders, []));
-      this.listOrderFolderModelObjectIdOtherFolder =
-          Utility.removeDuplicate(this.listOrderFolderModelObjectIdOtherFolder);
+              ShareprefrenceKeys.folderOrderObjectIdForOtherFolders,
+              [])); // 获取其他文件夹排序
+      this.listOrderFolderModelObjectIdOtherFolder = Utility.removeDuplicate(
+          this.listOrderFolderModelObjectIdOtherFolder); // 去重
     } catch (e) {}
     try {
       this.listOrderFolderModelObjectIdArchived = List<String>.from(
-          CloudSharepreferenceManagement.getInstance()
-              .getArray(ShareprefrenceKeys.folderOrderObjectIdArchived, []));
-      this.listOrderFolderModelObjectIdArchived =
-          Utility.removeDuplicate(this.listOrderFolderModelObjectIdArchived);
+          CloudSharepreferenceManagement.getInstance().getArray(
+              ShareprefrenceKeys.folderOrderObjectIdArchived, [])); // 获取归档文件排序
+      this.listOrderFolderModelObjectIdArchived = Utility.removeDuplicate(
+          this.listOrderFolderModelObjectIdArchived); // 去重
     } catch (e) {
       print("object");
     }
@@ -122,15 +123,17 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       this.listOrderFolderModelObjectIdOtherFolderArchived = List<String>.from(
           CloudSharepreferenceManagement.getInstance().getArray(
               ShareprefrenceKeys.folderOrderObjectIdForOtherFoldersArchived,
-              []));
+              [])); // 获取其他文件夹归档排序
       this.listOrderFolderModelObjectIdOtherFolderArchived =
           Utility.removeDuplicate(
-              this.listOrderFolderModelObjectIdOtherFolderArchived);
+              this.listOrderFolderModelObjectIdOtherFolderArchived); // 去重
     } catch (e) {}
 
     if (this.curSelectedTitle == null) {
-      this.curSelectedFolderModel = this.listDatasNormal?[0].folderModel;
-      this.curSelectedTitle = this.listDatasNormal?[0].folderModel.title ?? "";
+      this.curSelectedFolderModel =
+          this.listDatasNormal?[0].folderModel; // 设置默认选中文件夹
+      this.curSelectedTitle =
+          this.listDatasNormal?[0].folderModel.title ?? ""; // 设置默认选中文件夹标题
     }
   }
 
@@ -140,14 +143,20 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
       if (event.type == Params.ACTION_UPDATE_MISSION_CONTAINER) {
         // Future.delayed(Duration(seconds: 1), () {
-          this.requestDatas(shouldRefresh: true);
-          FolderModel? folderModel = event.obj['data'];
-          if(this.curSelectedFolderModel?.objectId == folderModel?.objectId) {
-            this.curSelectedFolderModel?.layoutType = event.obj['layoutType'];
-            this.curSelectedFolderModel = event.obj['data'];
+        this.requestDatas(shouldRefresh: true); // 请求数据
+        FolderModel? folderModel = event.obj['data']; // 获取数据
+        if (this.curSelectedFolderModel?.objectId == folderModel?.objectId) {
+          this.curSelectedFolderModel?.layoutType = event.obj['layoutType'];
+          this.curSelectedFolderModel = event.obj['data'];
           Utility.pushDesktopNavigator(
-              Utility.getGlobalContext(), 'MissionPage', {'data': this.curSelectedFolderModel, 'folderStatus': event.obj['layoutType']}, forceUpdate: true);
-          }
+              Utility.getGlobalContext(),
+              'MissionPage',
+              {
+                'data': this.curSelectedFolderModel,
+                'folderStatus': event.obj['layoutType']
+              },
+              forceUpdate: true); // 跳转任务页
+        }
         // });
       }
     });
@@ -155,20 +164,19 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
 
   void onClick(type, data) async {
     switch (type) {
-      case 'onCreateMissionFolderListener':
+      case 'onCreateMissionFolderListener': // 创建任务文件夹
         onCreateMissionFolderListener(data);
         break;
       case 'onTapFoldedListener':
         onTapFoldedListener(data);
         break;
-      case 'onEnterListener':
+      case 'onEnterListener': // 进入文件夹
         onEnterFolderTitleListener(data);
         break;
-      case 'onTapShowFolderChartListener':
-        //显示图表
+      case 'onTapShowFolderChartListener': // 显示图表
         onTapShowFolderChartListener(data);
         break;
-      case 'onCancelListener':
+      case 'onCancelListener': // 取消
         onCancelListener();
         break;
       case 'onTapArchiveListener':
@@ -176,16 +184,16 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         onTapArchiveListener(data);
         break;
       //创建文件夹
-      case 'onClickCreateListing':
+      case 'onClickCreateListing': // 创建清单
         onClickCreateListing();
         break;
-      case 'onClickCreateFolder':
+      case 'onClickCreateFolder': // 创建文件夹
         onClickCreateFolder();
         break;
-      case 'onClickObjective':
+      case 'onClickObjective': // 创建目标
         onClickObjective();
         break;
-      case 'onClickAddGroup':
+      case 'onClickAddGroup': // 添加组
         onClickAddGroup();
         break;
       case 'onClickMissionPage': //跳转任务页
@@ -225,12 +233,17 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 创建筛选器
+   * data是文件夹的数据
+   */
   void onTapEditFilterListener(FolderModelWithExtraData data) {
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
           new AddFilterPage(
-            folderModel: data.folderModel, pageModeEnum: PageModeEnum.edit,
+            folderModel: data.folderModel,
+            pageModeEnum: PageModeEnum.edit,
           ),
           callback: (res) {});
     } else {
@@ -258,15 +271,22 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
           new CreateFolderPage(
             pageEnum: PageModeEnum.create,
             folderModel: folderModel,
-              folderModelForFolder: data.folderModel,
+            folderModelForFolder: data.folderModel,
           ),
           callback: (res) {});
     } else {
-      Utility.pushDesktopNavigator(context, 'CreateFolderPage',
-          {'PageEnum': PageModeEnum.create, 'folderModel': folderModel, 'folderModelForFolder': data.folderModel});
+      Utility.pushDesktopNavigator(context, 'CreateFolderPage', {
+        'PageEnum': PageModeEnum.create,
+        'folderModel': folderModel,
+        'folderModelForFolder': data.folderModel
+      });
     }
   }
 
+  /**
+   * 归档
+   * data是文件夹的数据
+   */
   void onTapArchiveListener(FolderModelWithExtraData data) async {
     //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来
     int? tag = data.folderModel.tag;
@@ -287,6 +307,10 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
   }
 
+  /**
+   * 进入文件夹标题
+   * data是文件夹的数据
+   */
   void onEnterFolderTitleListener(FolderModel data) async {
     // FolderModel folderModel = FolderModel();
     // folderModel.title = data;
@@ -309,6 +333,10 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 显示图表
+   * data是文件夹的数据
+   */
   void onTapShowFolderChartListener(data) {
     Utility.openPagePCAndMobile(context,
         child: FolderSummaryPage(
@@ -317,11 +345,18 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         ));
   }
 
+  /**
+   * 取消
+   */
   void onCancelListener() {
     this.isAddingFolder = false;
     updateUI();
   }
 
+  /**
+   * PC端点击更多
+   * data是文件夹的数据
+   */
   void onClickPCMore(data) {
     SelectDateDialogUtil.show(context,
         title: data.folderModel.title,
@@ -336,16 +371,24 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     });
   }
 
+  /**
+   * 创建筛选器
+   */
   void onTapCreateFilterListener() {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 2; //1-normal 2-tag 3-circle
     folderModel.color = CONSTANTS.getColors()[0].color;
-    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_tag","description": "创建标签",});
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+      "sceneType": "folderpage",
+      "eventType": "folderpage_create_tag",
+      "description": "创建标签",
+    });
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
           new AddFilterPage(
-            folderModel: folderModel, pageModeEnum: PageModeEnum.create,
+            folderModel: folderModel,
+            pageModeEnum: PageModeEnum.create,
           ),
           callback: (res) {});
     } else {
@@ -358,7 +401,11 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 2; //1-normal 2-tag 3-circle
     folderModel.color = CONSTANTS.getColors()[0].color;
-    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_tag","description": "创建标签",});
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+      "sceneType": "folderpage",
+      "eventType": "folderpage_create_tag",
+      "description": "创建标签",
+    });
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
           context,
@@ -373,12 +420,16 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 编辑item
+   * data是文件夹的数据
+   */
   void onClickEditItem(FolderModelWithExtraData data) {
-    if(data.folderModel.tag == 4) {
+    if (data.folderModel.tag == 4) {
       onTapEditFilterListener(data);
       return;
     }
-    if(data.folderModel.tag == 5) {
+    if (data.folderModel.tag == 5) {
       if (Utility.isHandsetBySize()) {
         Utility.pushNavigator(
             context,
@@ -408,16 +459,22 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 删除item
+   * data是文件夹的数据
+   */
   Future onClickDeleteItem(FolderModelWithExtraData data) async {
     DialogManagement.getInstance().showCustomIconTitleAndDescDialog(
         Utility.getGlobalContext(),
-        checkBoxDesc:  data.folderModel.tag == 3 ? getI18NKey().confirm_delete_mission_models(data.folderModel.title ?? "") : null,
+        checkBoxDesc: data.folderModel.tag == 3
+            ? getI18NKey()
+                .confirm_delete_mission_models(data.folderModel.title ?? "")
+            : null,
         btnConfirm: getI18NKey().confirm,
         btnCancel: getI18NKey().cancel,
         iconWidget: Utility.getSVGPicture(R.assetsImgIcDeleteRemind, size: 40),
-        title: getI18NKey()
-            .confirm_delete_folder(data.folderModel.title ?? ""),
-         okCallback: (bool isCheck) async {
+        title: getI18NKey().confirm_delete_folder(data.folderModel.title ?? ""),
+        okCallback: (bool isCheck) async {
       FolderModel folderModel = data.folderModel;
       if (folderModel.tag == 3) {
         deleteFolderModelForFolder(data, isCheck: isCheck);
@@ -489,7 +546,11 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         );
       }
     } else {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_leave_group","description": "退群",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "GroupChatPage",
+        "eventType": "GroupChatPage_leave_group",
+        "description": "退群",
+      });
       ChatGroupManager.exitGroup(folderModel: data.folderModel);
       Utility.popupDesktopRightNavigator(context);
 
@@ -517,6 +578,10 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     this.requestDatas(shouldRefresh: true);
   }
 
+  /**
+   * 删除文件夹
+   * data是文件夹的数据
+   */
   Future<void> deleteFolderModel(FolderModelWithExtraData data) async {
     if (Utility.isMyFolderModel(folderModel: data.folderModel)) {
       await Future.wait([
@@ -530,7 +595,11 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             .delete_CourseModel(data.folderModel.courseModelId)
       ]);
     } else {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "GroupChatPage","eventType": "GroupChatPage_leave_group","description": "退群",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "GroupChatPage",
+        "eventType": "GroupChatPage_leave_group",
+        "description": "退群",
+      });
       ChatGroupManager.exitGroup(folderModel: data.folderModel);
       Utility.popupDesktopRightNavigator(context);
 
@@ -558,44 +627,91 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     this.requestDatas(shouldRefresh: true);
   }
 
-  // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
+  /**
+   * 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
+   * data是文件夹的数据
+   */
   void onClickMissionPage(FolderModel data, folderStatus) {
     // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 8 其他 9 现在做 Do it now 12 待定任务 13 碎片清单
-    switch(data.iconType) {
-      case 1:  // 今天
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_today","description": "今天",});
+    switch (data.iconType) {
+      case 1: // 今天
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_today",
+          "description": "今天",
+        });
         break;
       case 2: // 明天
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_tomorrow","description": "明天",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_tomorrow",
+          "description": "明天",
+        });
         break;
       case 3: // 本周
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_recent_days","description": "最近几天",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_recent_days",
+          "description": "最近几天",
+        });
         break;
       case 4: // 所有未完成任务
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_all_pending_tasks","description": "所有未完成任务",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_all_pending_tasks",
+          "description": "所有未完成任务",
+        });
         break;
       case 5: // 日程
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_schedule","description": "日程",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_schedule",
+          "description": "日程",
+        });
         break;
       case 6: // 已完成
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_completed","description": "已完成",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_completed",
+          "description": "已完成",
+        });
         break;
       case 7: //  创建清单
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_listing","description": "创建清单",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_create_listing",
+          "description": "创建清单",
+        });
         break;
       case 8: // 其他
         break;
       case 9: // 现在做 Do it now
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_current_tasks","description": "现在做",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_current_tasks",
+          "description": "现在做",
+        });
         break;
       case 10: //所有任务
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_all_tasks","description": "所有任务",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_all_tasks",
+          "description": "所有任务",
+        });
         break;
       case 12: // 待定任务
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_proxy_list","description": "代办清单",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_proxy_list",
+          "description": "代办清单",
+        });
         break;
       case 13: // 碎片清单
-        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_fragment_list","description": "碎片清单",});
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_fragment_list",
+          "description": "碎片清单",
+        });
         break;
     }
     this.curSelectedFolderModel = data;
@@ -607,9 +723,8 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             {"folderModel": data, "folderStatus": folderStatus});
       }
     } else {
-      if(data.tag == 1 || data.tag ==5) {
-      Utility.openRightSideDesktopNavigator(
-          context, 'GroupChatPage', {});
+      if (data.tag == 1 || data.tag == 5) {
+        Utility.openRightSideDesktopNavigator(context, 'GroupChatPage', {});
       } else {
         Utility.popupDesktopRightNavigator(context);
       }
@@ -620,10 +735,16 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 添加组
+   */
   onClickAddGroup() {
     DialogManagement.getInstance().showSearchFriendGroupWidget();
   }
 
+  /**
+   * 创建文件夹
+   */
   void onClickCreateFolder() {
     this.isAddingFolder = true;
     // FolderModel folderModel = FolderModel();
@@ -649,12 +770,19 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     // }
   }
 
+  /**
+   * 创建目标
+   */
   void onClickObjective() {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 5; //1-circle 2-tag
     folderModel.color = CONSTANTS.getColors()[0].color;
-    if(folderModel.tag == 5) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_objective","description": "创建目标",});
+    if (folderModel.tag == 5) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "folderpage",
+        "eventType": "folderpage_create_objective",
+        "description": "创建目标",
+      });
     }
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
@@ -670,12 +798,19 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 创建清单
+   */
   void onClickCreateListing() {
     FolderModel folderModel = FolderModel();
     folderModel.tag = 1; //1-circle 2-tag
     folderModel.color = CONSTANTS.getColors()[0].color;
-    if(folderModel.tag == 1) {
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "folderpage","eventType": "folderpage_create_listing","description": "创建清单",});
+    if (folderModel.tag == 1) {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "folderpage",
+        "eventType": "folderpage_create_listing",
+        "description": "创建清单",
+      });
     }
     if (Utility.isHandsetBySize()) {
       Utility.pushNavigator(
@@ -691,6 +826,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 构建
+   */
   @override
   baseBuild(BuildContext context) {
     // TODO: implement baseBuild
@@ -740,6 +878,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         });
   }
 
+  /**
+   * 获取菜单列表
+   */
   CustomScrollView getMenuList() {
     //
     return CustomScrollView(
@@ -802,11 +943,12 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         FolderSectionTitleWidget(
             title: getI18NKey().filterer,
             onClick: () {
-    if (LoginManager.getInstance().isVIP(
-    shouldShowDialog: true,
-    paymentPromotionAdsModeEnum: PaymentPromotionAdsModeEnum.Filterer)) {
-      this.onClick('onTapCreateFilterListener', {});
-    }
+              if (LoginManager.getInstance().isVIP(
+                  shouldShowDialog: true,
+                  paymentPromotionAdsModeEnum:
+                      PaymentPromotionAdsModeEnum.Filterer)) {
+                this.onClick('onTapCreateFilterListener', {});
+              }
             }),
         getMenuSliverList(
             list: this.listDatasFilteres,
@@ -842,6 +984,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     );
   }
 
+  /**
+   * 获取菜单列表
+   */
   MenuSilverList getMenuSliverList(
       {required List<FolderModelWithExtraData> list,
       required ValueKey key,
@@ -933,13 +1078,20 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     );
   }
 
-
+  /**
+   * 折叠
+   * data是文件夹的数据
+   */
   void onTapFoldedListener(FolderModelWithExtraData data) async {
-    await MongoApisManager.getInstance().update_FolderModelWithFM(folderModel: data.folderModel!);
+    await MongoApisManager.getInstance()
+        .update_FolderModelWithFM(folderModel: data.folderModel!);
     //更新listview
     eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
   }
 
+  /**
+   * 获取菜单列表
+   */
   FolderSilverList getMenuSliverListFolders(
       {required List<FolderModelWithExtraData> list,
       required ValueKey key,
@@ -949,7 +1101,6 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       key: key,
       datas: list,
       calendarModel: calendarModel ?? CalendarModel(),
-
       onCancelListener: () {
         this.onClick('onCancelListener', {});
       },
@@ -1043,14 +1194,14 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
           await onClickRorderEndForArchived(
               listObjectIds, otherListObjectIds, listFolderModelWithExtraData);
         }
-      }, onCreateMissionFolderListener: (item) {
+      },
+      onCreateMissionFolderListener: (item) {
         this.onClick('onCreateMissionFolderListener', item);
-      }, onTapFoldedListener: (item ) {
+      },
+      onTapFoldedListener: (item) {
         updateUI();
-    this.onClick('onTapFoldedListener', item);
-
-
-    },
+        this.onClick('onTapFoldedListener', item);
+      },
     );
   }
 
@@ -1124,6 +1275,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     updateUI();
   }
 
+  /**
+   * 请求数据
+   */
   requestDatas({bool shouldRefresh = false}) {
     calendarModel = context.read<GlobalStateEnv>().calendarModel;
     _folderModelList = context.read<GlobalStateEnv>().listFolderModels;
@@ -1162,6 +1316,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     }
   }
 
+  /**
+   * 获取item
+   */
   InkWell getItem(BuildContext context) {
     FolderModelWithExtraData _folderModelWithExtraData =
         CONSTANTS.getCreateFolderModel();

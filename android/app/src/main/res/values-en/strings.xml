@@ -19,6 +19,7 @@
     <string name="thursday">Thur.</string>
     <string name="friday">Fri.</string>
     <string name="saturday">Sat.</string>
+    <string name="begin_focus">begin focusing</string>
     <!-- 一月到12月英文缩写 -->
     <string name="january">Jan.</string>
     <string name="february">Feb.</string>
