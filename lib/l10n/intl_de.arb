@@ -1,5 +1,6 @@
 {
   "@@locale": "de",
+  "yesterday": "Gestern",
   "complete_ratio": "Abschlussrate",
   "title": "Titel",
   "enter_objective_title": "Geben Sie den Zieltitel dieses Ziels ein",
@@ -1684,5 +1685,6 @@
   "notification_setting": "Push-Einstellungen",
   "notification_setting_content": "Das Einschalten von Benachrichtigungen hilft Ihnen zu wissen, wann Aufgaben abgeschlossen oder gestartet werden",
   "privacy_protocol_content": "Vielen Dank, dass Sie uns vertrauen und dieses Produkt verwenden. Wir legen großen Wert auf Ihren Datenschutz und den Schutz persönlicher Informationen,\\n\\nBitte lesen Sie alle Bedingungen der \"Datenschutzrichtlinie\" sorgfältig durch. Erfahren Sie, was wir tun, um Ihre Informationen zu schützen\\nSpezifische Maßnahmen und Verpflichtungen, stimmen Sie zu und akzeptieren Sie alle Bedingungen, bevor Sie unsere Dienste nutzen.\\nWir werden es in Geschäftsszenarien wie der Kontoregistrierung sammeln. Im Prozess der schrittweisen Nutzung dieses Produkts müssen Sie entsprechende Geräteberechtigungen gemäß verschiedenen Geschäftsszenarien aktivieren, wie z. B. Standortinformationen, Kameraberechtigungen usw.",
-  "privacy_protocol_content2": "Wir legen großen Wert auf Ihren Datenschutz und den Schutz persönlicher Informationen und werden führende Sicherheitsmaßnahmen ergreifen, um Ihre Informationssicherheit zu schützen. Wenn Sie unsere Dienste weiterhin nutzen, stimmen Sie zu, dass wir Ihre persönlichen Informationen gemäß der \"Datenschutzrichtlinie\" sammeln, verwenden und schützen. Wenn Sie mit dem obigen Inhalt nicht einverstanden sind, können Sie wählen, die Nutzung zu stoppen."
+  "privacy_protocol_content2": "Wir legen großen Wert auf Ihren Datenschutz und den Schutz persönlicher Informationen und werden führende Sicherheitsmaßnahmen ergreifen, um Ihre Informationssicherheit zu schützen. Wenn Sie unsere Dienste weiterhin nutzen, stimmen Sie zu, dass wir Ihre persönlichen Informationen gemäß der \"Datenschutzrichtlinie\" sammeln, verwenden und schützen. Wenn Sie mit dem obigen Inhalt nicht einverstanden sind, können Sie wählen, die Nutzung zu stoppen.",
+  "week_view": "Wochenansicht"
 }

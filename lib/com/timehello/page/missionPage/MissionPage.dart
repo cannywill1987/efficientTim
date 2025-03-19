@@ -11,6 +11,7 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/SearchBarWithIconWidget.dart';
 import 'package:time_hello/com/timehello/components/StorageUsageBar.dart';
 import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
+import 'package:time_hello/com/timehello/components/WeeklyViewWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
@@ -86,60 +87,62 @@ class MissionPage extends BaseWidget {
 }
 
 class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
-  List<MissionModel> _missionModelListUnFinished = []; //未完成任务
-  List<MissionModel> _missionModelListFinished = []; //已经完成任务
-  FolderTimeModel? _folderTimeModel = new FolderTimeModel(); //头部4个参数时间
-  bool _isBottomBarVisible = false; //底部visible
-  int _numberTomatoes = 1; //番茄
-  int? _dateStatus; //dateStatus 0-今天 1 明天 2 即将到来 3 待定 4 日程 5 已完成
-  int? _missionModelType = 0; //null 或者 0是默认的 1是苹果日历 2是苹果提醒 3.google日历
-  int _priorityStatus = 3; //优先级
-  String? _tagName = ''; //创建missionPage tagName
-  String? _title = ''; //创建missin时
-  int numTomatoes = 1;
-  String? _tagId = ''; //
-  int? _tagColor; // SelectTagDialogUtil 过来，选择完标签返回
-  String? _circleTitle = ''; //目标标题 从folderModel过来 或者从SelectCircleDialogUtil
-  int? _circleColor = 0; //目标颜色
-  String? _folderModelObjId; //目标objectId 即folderId
-  Icon? _circleIcon; //目标Icon
-  MissionOrderEnum missionOrderEnum = MissionOrderEnum.orderByWords;
-  MissionModel _missionModel = MissionModel();
-  CalendarModel? calendarModel;
-  bool isRequesting = false;
-  double margin = 5;
-  List<MissionModel>? curListMissionModels = [];
+  List<MissionModel> _missionModelListUnFinished = []; // 未完成任务列表
+  List<MissionModel> _missionModelListFinished = []; // 已完成任务列表
+  FolderTimeModel? _folderTimeModel = new FolderTimeModel(); // 头部4个参数时间模型
+  bool _isBottomBarVisible = false; // 底部栏是否可见
+  int _numberTomatoes = 1; // 番茄数量
+  int? _dateStatus; // 日期状态：0-今天，1-明天，2-即将到来，3-待定，4-日程，5-已完成
+  int? _missionModelType = 0; // 任务模型类型：null或0为默认，1为苹果日历，2为苹果提醒，3为Google日历
+  int _priorityStatus = 3; // 优先级状态
+  String? _tagName = ''; // 创建任务页面的标签名称
+  String? _title = ''; // 创建任务时的标题
+  int numTomatoes = 1; // 番茄数量
+  String? _tagId = ''; // 标签ID
+  int? _tagColor; // 标签颜色，从SelectTagDialogUtil选择后返回
+  String? _circleTitle = ''; // 目标标题，从folderModel或SelectCircleDialogUtil获取
+  int? _circleColor = 0; // 目标颜色
+  String? _folderModelObjId; // 目标对象ID，即folderId
+  Icon? _circleIcon; // 目标图标
+  MissionOrderEnum missionOrderEnum = MissionOrderEnum.orderByWords; // 任务排序枚举
+  MissionModel _missionModel = MissionModel(); // 任务模型实例
+  CalendarModel? calendarModel; // 日历模型
+  bool isRequesting = false; // 是否正在请求数据
+  double margin = 5; // 边距
+  List<MissionModel>? curListMissionModels = []; // 当前任务模型列表
   GlobalKey<HeaderStatsAndInputWidgetState>? HeaderWidgetStateGlobalKey =
-      GlobalKey();
+      GlobalKey(); // 头部统计和输入组件的全局键
   GlobalKey<HeaderStatsAndInputWidgetState>?
-      HeaderWidgetStateGlobalKeyForTable = GlobalKey();
+      HeaderWidgetStateGlobalKeyForTable = GlobalKey(); // 表格头部统计和输入组件的全局键
   GlobalKey<CheckButtonListWithIconWidgetState>?
-      checkButtonListWithIconWidgetKey = GlobalKey();
-  int timestampCur = 0;
-  GlobalKey<SearchBarWidgetState>? searchBarWidgetKey = GlobalKey();
-  GlobalKey<BottomBarState>? bottomBarStateKey = GlobalKey();
-  bool isFocusing = false;
-  bool isSearchBarVisible = false;
-  String? curSearchWords = null;
-  ScrollController _scrollController = ScrollController();
-  double padding = 5;
-  MultiSelectModeEnum multiSelectModeEnum = MultiSelectModeEnum.normal;
+      checkButtonListWithIconWidgetKey = GlobalKey(); // 带图标的检查按钮列表组件的全局键
+  int timestampCur = 0; // 当前时间戳
+  GlobalKey<SearchBarWidgetState>? searchBarWidgetKey =
+      GlobalKey(); // 搜索栏组件的全局键
+  GlobalKey<BottomBarState>? bottomBarStateKey = GlobalKey(); // 底部栏组件的全局键
+  bool isFocusing = false; // 是否聚焦
+  bool isSearchBarVisible = false; // 搜索栏是否可见
+  String? curSearchWords = null; // 当前搜索词
+  ScrollController _scrollController = ScrollController(); // 滚动控制器
+  double padding = 5; // 内边距
+  MultiSelectModeEnum multiSelectModeEnum =
+      MultiSelectModeEnum.normal; // 多选模式枚举
   MissionDataViewTypeEnum missionDataViewTypeEnum =
-      MissionDataViewTypeEnum.list;
-  List<CheckButtonStateModel>? listCheckButtonStateModel;
-  int folderStatusIsArchived = -1; // -1 未归档 归档 0 未归档 1 归档
-  bool isListAndGridVisible = true;
-  double missionPageWidth = 300;
+      MissionDataViewTypeEnum.list; // 任务数据视图类型枚举
+  List<CheckButtonStateModel>? listCheckButtonStateModel; // 检查按钮状态模型列表
+  int folderStatusIsArchived = -1; // 文件夹归档状态：-1未归档，0未归档，1归档
+  bool isListAndGridVisible = true; // 列表和网格是否可见
+  double missionPageWidth = 300; // 任务页面宽度
 
-  String objectiveUnit = ""; //目标单位
+  String objectiveUnit = ""; // 目标单位
 
-  double objectiveValue = 0; //目标值
+  double objectiveValue = 0; // 目标值
 
-  double objectiveStartValue = 0; //目标值
+  double objectiveStartValue = 0; // 目标起始值
 
-  double objectiveTotalValue = 0; //目标值完成
+  double objectiveTotalValue = 0; // 目标总值完成
 
-  List<TimeSegment> listTimeSegment = [];
+  List<TimeSegment> listTimeSegment = []; // 时间段列表
 
   // int
   _MisssionPageWidgetState({folderStatus, folderModel}) {
@@ -147,15 +150,16 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     initData(folderModel, folderStatus);
   }
 
+  // 初始化数据
   void initData(FolderModel folderModel, folderStatus) {
     if (folderModel.tag == 2) {
-      //tag 2 是标签 进来的
+      // 如果标签是2，表示是标签进来的
       this._missionModel?.tagIds = [folderModel.objectId].join(',');
       this._missionModel?.tagNames = [folderModel.title].join(',');
     } else {
-      //1 就是circle 进来的
+      // 如果标签是1，表示是circle进来的
       if (!TextUtil.isEmpty(folderModel.tag)) {
-        //不是今天 明天 即将到来 待定
+        // 不是今天、明天、即将到来、待定
         this._circleColor = folderModel.color ?? 0;
         this._circleTitle = folderModel.title;
         if (folderModel.icon != null) {
@@ -165,15 +169,15 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
               color: Color(this._circleColor ?? 0xffff8800));
         }
       }
-      this._folderModelObjId = folderModel.objectId; //用于创建mission时保存id
+      this._folderModelObjId = folderModel.objectId; // 用于创建mission时保存id
       print("folderId ${this._folderModelObjId}");
     }
     if (this._dateStatus == null) {
       if (folderStatus != null) {
-        //如果来自今天 明天 即将到来等
+        // 如果来自今天、明天、即将到来等
         this._dateStatus = folderStatus;
       } else {
-        //否则来自文件夹等
+        // 否则来自文件夹等
         this._dateStatus = 0;
       }
     }
@@ -210,14 +214,15 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     super.didChangeDependencies();
   }
 
+  // 组件挂载时调用
   componentDidMount() {
     this.requestDatas();
     this.updateRightNavChildren();
     missionOrderEnum =
         SharePreferenceUtil.getSyncInstance().getMissionOrderEnum();
-    //监听广播 设置页面过来后用得上 todo 应该加一个action
+    // 监听广播 设置页面过来后用得上 todo 应该加一个action
     eventBus.on<EventFn>().listen((EventFn event) {
-      //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
+      // 这个不需要也行 但是有一个用户反馈创建用户没刷新这里
       if (event.type == Params.ACTION_UPDATE_LISTVIEW) {
         Future.delayed(Duration(seconds: 1), () {
           this.requestDatas();
@@ -237,6 +242,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     super.dispose();
   }
 
+  // 取消焦点
   void unfocus({withUpdateUI: true}) {
     HeaderWidgetStateGlobalKey?.currentState?.unfocus();
     searchBarWidgetKey?.currentState?.unfocus();
@@ -245,6 +251,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
   }
 
+  // 设置键盘可见性监听器
   setKeyboardVisibityListener() {
     this.keyboardSubscription =
         Utility.handleKeyBoardVisibility(onChange: (bool visible) {
@@ -257,6 +264,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     });
   }
 
+  // 点击显示文件夹图表
   onClickShowFolderChart(data) async {
     FolderModelWithExtraData res;
     if (data != null) {
@@ -271,15 +279,19 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
   }
 
+  // 点击事件处理
   void onClick(type, data) async {
     switch (type) {
+      case 'onTapCreateMission':
+        this.onTapCreateMission(data);
+        break;
       case 'onClickSubtitle':
         await onClickSubtitlePostpone(data);
         break;
-      case 'onClickShowFolderChart': //点击添加任务
+      case 'onClickShowFolderChart': // 点击添加任务
         onClickShowFolderChart(data);
         break;
-      case 'onClickSubmit': //添加Mission
+      case 'onClickSubmit': // 添加Mission
         if (this._numberTomatoes == 0) {
           Utility.showToastMsg(msg: getI18NKey().alertMessage1);
           return;
@@ -290,18 +302,18 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         }
         onClickSubmit(this._title);
         break;
-      case 'onClickMissionSetting': //跳转到设置叶敏
+      case 'onClickMissionSetting': // 跳转到设置页面
         onClickMissionSetting(data);
         break;
-      case 'onClickMissionDetail': //跳转到任务详情页MissionPage开始任务
-        //点击item
+      case 'onClickMissionDetail': // 跳转到任务详情页MissionPage开始任务
+        // 点击item
         onClickMissionStart(context, data, this.widget.folderModel);
         break;
-      case 'onClickDeleteItem': //侧滑点击删除
-        //创建任务
+      case 'onClickDeleteItem': // 侧滑点击删除
+        // 创建任务
         await onClickDeleteItem(data);
         break;
-      case 'onClickFinishItem': //点击完成任务
+      case 'onClickFinishItem': // 点击完成任务
         this.onClickFinishItem(data);
         break;
       case 'onClickCreateItem':
@@ -319,18 +331,19 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       case 'onTapEditTitleListener':
         this.onClickEditTitle(data);
         break;
-      // case 'onTapCreateTagListener': //去CreateFolderPage页面创建标签
+      // case 'onTapCreateTagListener': // 去CreateFolderPage页面创建标签
       //   this.onTapCreateTagListener();
       //   break;
-      case 'onTapTagListener': //创建mission时选择tag
+      case 'onTapTagListener': // 创建mission时选择tag
         await onClickCreateTag(data);
         break;
-      case 'onTapCircleListener': //穿件mission时选择目标文件夹
+      case 'onTapCircleListener': // 创建mission时选择目标文件夹
         this.onTapCircleListener(data);
         break;
     }
   }
 
+  // 点击副标题延迟
   Future<void> onClickSubtitlePostpone(data) async {
     SessionMissionModel sessionMissionModel = data;
     int endTimeToday = Utility.getFilterDateTimeFromTimeStamp(
@@ -345,6 +358,23 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
   }
 
+  onTapCreateMission(dateTime) async {
+    // print('创建任务的时间: ' + data.toString());
+    MissionModel missionModel = MissionModel();
+    missionModel.folder_id = this.widget.folderModel?.objectId;
+    missionModel?.end_time =
+        dateTime.millisecondsSinceEpoch;
+    if (Utility.isHandsetBySize() == true) {
+      Utility.pushNavigator(
+          context, CreateMissionPage(missionModel: missionModel));
+    } else {
+      DialogManagement.getInstance().showPCCustomDialog(
+          context: context,
+          widget: CreateMissionPage(missionModel: missionModel));
+    }
+  }
+
+  // 多选监听器
   onTapMultiSelectListener(data) async {
     if (data == null) {
       if (this.multiSelectModeEnum == MultiSelectModeEnum.normal) {
@@ -357,7 +387,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   /**
-   * 穿件mission时选择目标文件夹
+   * 创建mission时选择目标文件夹
    */
   Future onTapCircleListener(FolderModel data) async {
     // SelectCircleDialogUtil.show(context,
@@ -401,7 +431,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    */
   // void onTapCreateTagListener() {
   //   FolderModel folderModel = FolderModel();
-  //   folderModel.tag = 2; //1-normal 2-tag 3-circle
+  //   folderModel.tag = 2; // 1-normal 2-tag 3-circle
   //   Utility.pushNavigator(
   //       context,
   //       new CreateFolderPage(
@@ -414,6 +444,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   //   });
   // }
 
+  // 点击编辑标题
   Future onClickEditTitle(MissionModel data) async {
     if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
         false) {
@@ -443,6 +474,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     });
   }
 
+  // 点击未完成监听器
   Future onClickUnFinishListener(MissionModel data) async {
     if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
         false) {
@@ -456,6 +488,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         .update_MissionModel(missionModel: data);
   }
 
+  // 点击创建项目
   Future onClickCreateItem(FolderModel? data) async {
     MissionModel missionModel = MissionModel();
     missionModel.folder_id = data?.objectId;
@@ -471,6 +504,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
   }
 
+  // 点击立即执行
   Future onTapDoItNow(MissionModel data) async {
     if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
         false) {
@@ -499,7 +533,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         okLabel: getI18NKey().confirm,
         cancelLabel: getI18NKey().cancel,
         onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
+          // 点击对话框外围黑色区域才会走这里
           return true;
         });
     if (result == OkCancelResult.ok) {
@@ -507,6 +541,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
   }
 
+  // 点击完成任务
   Future<void> onClickFinishMission(MissionModel data) async {
     if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
         false) {
@@ -531,10 +566,10 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         .finishMissionModel(missionModel: data, context: context);
     this.requestDatas();
     CounterManagement counterManagement = CounterManagement.getInstance();
-    //不是同一个就重置重新开始计数
+    // 不是同一个就重置重新开始计数
     eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
     eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
-    //关闭的是同一个任务那就停止计时器
+    // 关闭的是同一个任务那就停止计时器
     if (counterManagement?.missionModel?.objectId == data.objectId) {
       // counterManagement.reset();
       CounterManagement.getInstance().reset();
@@ -559,7 +594,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         okLabel: getI18NKey().confirm,
         cancelLabel: getI18NKey().cancel,
         onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
+          // 点击对话框外围黑色区域才会走这里
           return true;
         });
     if (result == OkCancelResult.ok) {
@@ -592,7 +627,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         : this._tagName;
     this._missionModel?.tagIds = this.widget.folderModel?.tag == 2
         ? this.widget.folderModel?.objectId
-        : ""; //2表示在tag里创建的任务 todo, 移动端选择tags时这里要处理下 做个区分
+        : ""; // 2表示在tag里创建的任务 todo, 移动端选择tags时这里要处理下 做个区分
     this._missionModel?.total_tomotoes = this._numberTomatoes;
     this._missionModel?.tomato_duration =
         await SharePreferenceUtil.getSyncInstance().getTomatoTime();
@@ -647,7 +682,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       isRequesting = true;
     }
 
-    this.isFocusing = false; //隐藏多余的文案
+    this.isFocusing = false; // 隐藏多余的文案
     MongoApisManager.getInstance().insertMissiontData(
         missionModel: this._missionModel ?? MissionModel(),
         callback: (res) async {
@@ -734,6 +769,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     }
     this.updateRightNavChildren();
     this._folderModelObjId = this.widget.folderModel?.objectId;
+
     print("folderId ${this._folderModelObjId}");
     //多个folderModel的切换
     Future.delayed(Duration(seconds: 0), () {
@@ -835,15 +871,18 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       key: ValueKey('Container2'),
                       color: ThemeManager.getInstance().getBackgroundColor(),
                       child: this.missionDataViewTypeEnum ==
-                              MissionDataViewTypeEnum.table
-                          ? Column(
-                              children: getTableSilverListWidget(),
-                            )
-                          : CustomScrollView(
-                              controller: _scrollController,
-                              key: ValueKey('CustomScrollView1'),
-                              slivers: getSilverListWidget(),
-                            ),
+                              MissionDataViewTypeEnum.week_view
+                          ? getWeekViewWidget()
+                          : this.missionDataViewTypeEnum ==
+                                  MissionDataViewTypeEnum.table
+                              ? Column(
+                                  children: getTableSilverListWidget(),
+                                )
+                              : CustomScrollView(
+                                  controller: _scrollController,
+                                  key: ValueKey('CustomScrollView1'),
+                                  slivers: getSilverListWidget(),
+                                ),
                     ),
                   ),
                 ]),
@@ -1049,6 +1088,45 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       },
       onChangeListener: (data) => {this._numberTomatoes = data},
       totalTomatoes: this._numberTomatoes ?? 1,
+    );
+  }
+
+  Widget getWeekViewWidget() {
+    return WeeklyViewWidget(
+      missionOrderEnum: MissionOrderEnum.orderByTime,
+      onClick: (v) {},
+      folderModel: this.widget.folderModel, // 添加 'folderModel' 参数
+      onTapCreateMission: (v) {
+        this.onClick('onTapCreateMission', v); // 调用 onClick 方法
+      },
+      onTapListener: (v) {
+        this.onClick('onClickMissionSetting', v); // 调用 onClick 方法
+      },
+      onTapEditTitleListener: (v) {
+        this.onClick('onTapEditTitleListener', v); // 调用 onClick 方法
+      },
+      onTapEditListener: (v) {
+        this.onClick('onClickMissionSetting', v); // 调用 onClick 方法
+      },
+      onTapDeleteListener: (v) {
+        this.onClick('onClickDeleteItem', v); // 调用 onClick 方法
+      },
+      onTapFinishListener: (v) {
+        this.onClick('onClickFinishItem', v); // 调用 onClick 方法
+      },
+      onTapPlayListener: (v) {
+        this.onClick('onClickMissionDetail', v); // 调用 onClick 方法
+      },
+      onTapMultiSelectListener: (v, datas) {
+        // this.curListMissionModels = datas;
+        this.onClick('onTapMultiSelectListener', v); // 调用 onClick 方法
+      },
+      onTapUnFinishListener: (v) {
+        this.onClick('onClickUnFinishListener', v); // 调用 onClick 方法
+      },
+      onTapDoItNow: (v) {
+        this.onClick('onTapDoItNow', v); // 调用 onClick 方法
+      }, multiSelectModeEnum: this.multiSelectModeEnum, missionModelList: this.curListMissionModels ?? [],
     );
   }
 
@@ -1699,7 +1777,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   //     ),
   //   );
   // }
-
+  /**
+   * 构建任务表格
+   */
   Widget buildMissionTableContainerWidget(List<SessionMissionModel> list) {
     List<MissionModel> listMissionModels = [];
     list.forEach((SessionMissionModel sessionMissionModel) {
@@ -1713,6 +1793,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     );
   }
 
+  /**
+   * 构建任务表格
+   */
   List<Widget> buildGridWidget(List<SessionMissionModel> list) {
     List<Widget> listWidget = [];
     // list.forEach((SessionMissionModel model) {
@@ -1763,6 +1846,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     return listWidget;
   }
 
+  /**
+   * 构建任务列表
+   */
   List<Widget> buildListWidget(List<SessionMissionModel> list, bool isFinish) {
     List<Widget> listWidget = [];
     list.forEach((SessionMissionModel sessionMissionModel) {
@@ -1834,6 +1920,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
 //  根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
   requestDatas({bool shouldUpdate = true}) {
+    // if(this.widget.folderStatusDate == 16) {
+    //   this.missionDataViewTypeEnum = MissionDataViewTypeEnum.week_view;
+    //   return;
+    // }
+
     int curIndexListViewAndGridView = 0;
     //不能去掉 否则重新安装重新登录讲没有最新数据
     this.isListAndGridVisible = true;
@@ -1844,7 +1935,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     } catch (e) {}
     List<MissionModel> datas = [];
     curListMissionModels = [];
-    if (this.widget.folderModel?.tag == 4) {
+     if (this.widget.folderModel?.tag == 4) { //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器 5-目标模块
       curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
           .getInt(
               key: ShareprefrenceKeys.listAndGridView +
@@ -2021,6 +2112,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 defaultVal: 1);
         missionDataViewTypeEnum =
             MissionDataViewTypeEnum.values[curIndexListViewAndGridView];
+        datas = MongoApisManager.getInstance().listMissionModels;
+      } else if (this.widget.folderStatusDate == 16) {
+        this.missionDataViewTypeEnum = MissionDataViewTypeEnum.week_view;
         datas = MongoApisManager.getInstance().listMissionModels;
       }
     }

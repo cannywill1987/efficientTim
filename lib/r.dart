@@ -655,6 +655,8 @@ class R {
   static final String assetsImgIcViewColumn = 'assets/img/ic_view_column.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_priority.svg)
   static final String assetsImgIcPriority = 'assets/img/ic_priority.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_7_week.svg)
+  static final String assetsImgIc7Week = 'assets/img/ic_7_week.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_edit.svg)
   static final String assetsImgIcEdit = 'assets/img/ic_edit.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_emoji4.png)

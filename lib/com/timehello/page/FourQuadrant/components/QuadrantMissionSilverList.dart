@@ -34,6 +34,9 @@ typedef OnTapDeleteListener = void Function(dynamic obj);
 typedef OnTapPlayListener = void Function(dynamic obj);
 typedef OnDragEndListener = void Function(dynamic obj);
 
+/**
+ * 四象限任务银色列表
+ */
 class QuadrantMissionSilverList extends StatefulWidget {
   List _datas = [];
   OnTapListener? onTapListener;
@@ -85,6 +88,9 @@ class QuadrantMissionSilverList extends StatefulWidget {
   }
 }
 
+/**
+ * 四象限任务银色列表状态
+ */
 class MissionSilverState extends State<QuadrantMissionSilverList> {
   double draggableItemWidth = 0;
 
@@ -247,6 +253,9 @@ class MissionSilverState extends State<QuadrantMissionSilverList> {
   }
 }
 
+/**
+ * 四象限任务银色列表项
+ */
 class QuadrantMissionSilverListItem extends StatefulWidget {
   OnTapListener? onTapListener;
   OnTapPlayListener? onTapPlayListener;
@@ -290,6 +299,9 @@ class QuadrantMissionSilverListItem extends StatefulWidget {
   }
 }
 
+/**
+ * 四象限任务银色列表项状态
+ */ 
 class QuadrantMissionSilverListItemState
     extends State<QuadrantMissionSilverListItem> {
   bool isHover = false;
@@ -354,6 +366,10 @@ class QuadrantMissionSilverListItemState
     }
   }
 
+  /**
+   * 获取文件夹模型
+   * missionModel: 任务模型
+   */
   FolderModel? getFolderModel(MissionModel? missionModel) {
     if (!TextUtil.isEmpty(this.widget._missionModel?.folder_id)) {
       List<FolderModel> wqbFolderModelList = MongoApisManager.getInstance()
@@ -366,6 +382,10 @@ class QuadrantMissionSilverListItemState
     return null;
   }
 
+  /**
+   * 构建
+   * context: 上下文
+   */
   @override
   Widget build(BuildContext context) {
     MissionModel _missionModel = this.widget._missionModel;

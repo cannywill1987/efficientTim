@@ -5,6 +5,7 @@
 <!--    <string name="main_app_name">高效时间管理局</string>-->
 <!--    <string name="main_app_name">高效时间管理局ToDo</string>-->
     <string name="main_app_name">Podomoro ToDo</string>
+    <string name="begin_focus">begin focus</string>
 <!--    and set the values to your App ID and Client Token. For example, if your app ID is 1234 and your client token is 56789 your code looks like the following-->
     <string name="facebook_app_id">743462913842281</string>
     <string name="fb_login_protocol_scheme">fb743462913842281</string>

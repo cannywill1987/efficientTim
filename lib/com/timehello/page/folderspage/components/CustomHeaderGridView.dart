@@ -6,6 +6,9 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../../../beans/ResourceDeliveryInfoBean.dart';
 import '../../../config/CONSTANTS.dart';
 
+/**
+ * 自定义头部GridView
+ */
 class CustomHeaderGridView extends StatelessWidget {
   List<ResourceDeliveryInfoBean>? list;
   Function onTap;

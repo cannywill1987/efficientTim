@@ -2309,6 +2309,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("올해 완료된 토마토 수"),
         "yes": MessageLookupByLibrary.simpleMessage("예"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("어제"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("당신이 만든 수업입니다"),

@@ -12,6 +12,7 @@ import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/MoneyManager.dart';
 import 'package:time_hello/com/timehello/util/NotificationManager.dart';
+import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import '../beans/BaseBean.dart';
 import '../beans/UserBean.dart';
@@ -138,11 +139,10 @@ class CounterManagement {
     return mCounterManagement;
   }
 
-  set(
-      {
-        MissionModel? missionModel,
-        FolderModel? folderModel,
-        }) {
+  set({
+    MissionModel? missionModel,
+    FolderModel? folderModel,
+  }) {
     // this.timeRest =  SharePreferenceUtil.getInstance().getTomatoRestTime();
     this.missionModel = missionModel;
     this.folderModel = folderModel;
@@ -241,8 +241,11 @@ class CounterManagement {
             statusString: "",
             totalTomatees: missionModel?.total_tomotoes ?? 0,
             numTomatees: missionModel?.no_tomotoes_finished ?? 0,
-            focusedDurationInt: (missionModel?.tomato_duration ?? 1500000) ~/ 1000,
-            restingDurationInt: (SharePreferenceUtil.getSyncInstance().getTomatoRestTime()) ~/ 1000,
+            focusedDurationInt:
+                (missionModel?.tomato_duration ?? 1500000) ~/ 1000,
+            restingDurationInt:
+                (SharePreferenceUtil.getSyncInstance().getTomatoRestTime()) ~/
+                    1000,
             focusedDuration: Utility.formatTimestampHourAndMins(
                 missionModel?.time_finished ?? 0),
             bgUrl: missionModel?.background_url ?? "",
@@ -522,7 +525,7 @@ class CounterManagement {
    */
   void updateExitAppCacheData() async {
     try {
-      if(counterStatus == CounterStatus.focusing && this.timeUsed % 10 == 0) {
+      if (counterStatus == CounterStatus.focusing && this.timeUsed % 10 == 0) {
         SharePreferenceUtil.getSyncInstance().setInt(
             key: ShareprefrenceKeys.curFocusingMissionObjectIdForTimeUsedKey,
             value: this.timeUsed);
@@ -533,9 +536,7 @@ class CounterManagement {
             key: ShareprefrenceKeys.curFocusingMissionObjectIdForTotalTimeFKey,
             value: this.totalTime);
       }
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   void stopFromRelaxingStatus() {
@@ -575,7 +576,8 @@ class CounterManagement {
 
   void stopFromFocusingStatus() {
     //初始化放关机缓存
-    SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curFocusingMissionObjectIdKey, content: "");
+    SharePreferenceUtil.getSyncInstance().setString(
+        key: ShareprefrenceKeys.curFocusingMissionObjectIdKey, content: "");
     _timerUtil!.updateTotalTime(
         curTimeF = SharePreferenceUtil.getSyncInstance().getTomatoRestTime());
     counterStatus = CounterStatus.waitingToStartRelaxing;
@@ -598,17 +600,25 @@ class CounterManagement {
     // pausingRelaixing  //暂停休息中
     // 用于记录是否专注中
     //初始化放关机缓存
-    SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curFocusingMissionObjectIdKey, content: "");
+    SharePreferenceUtil.getSyncInstance().setString(
+        key: ShareprefrenceKeys.curFocusingMissionObjectIdKey, content: "");
     // SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.curFocusingMissionObjectIdForTimeUsedKey, value: 0);
     // SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.curFocusingMissionObjectIdForCurTimeFKey, value: 0);
     // SharePreferenceUtil.getSyncInstance().setInt(key: ShareprefrenceKeys.curFocusingMissionObjectIdForTotalTimeFKey, value: 0);
 
     //用于保存当前专注中的MissionModel 如果用户下次进来有值 那就证明上次是被系统关机的 通过判断missionId来判断上次是否正常退出
-    if((counterStatus == CounterStatus.focusing && pressPauseButton == true) || counterStatus == CounterStatus.pausingFocusing || counterStatus == CounterStatus.waitingToFocus) { // 马上开始专注
-      SharePreferenceUtil.getSyncInstance().setString(key: ShareprefrenceKeys.curFocusingMissionObjectIdKey, content: this.missionModel?.objectId ?? "");
+    if ((counterStatus == CounterStatus.focusing && pressPauseButton == true) ||
+        counterStatus == CounterStatus.pausingFocusing ||
+        counterStatus == CounterStatus.waitingToFocus) {
+      // 马上开始专注
+      SharePreferenceUtil.getSyncInstance().setString(
+          key: ShareprefrenceKeys.curFocusingMissionObjectIdKey,
+          content: this.missionModel?.objectId ?? "");
     }
     //休息完成或者专注完成执行这个
-    if(pressPauseButton == false && (counterStatus == CounterStatus.relaxing || counterStatus == CounterStatus.focusing)) {
+    if (pressPauseButton == false &&
+        (counterStatus == CounterStatus.relaxing ||
+            counterStatus == CounterStatus.focusing)) {
       DeviceInfoManagement.vibrate();
     }
     print(
@@ -646,11 +656,12 @@ class CounterManagement {
     } else if (CounterStatus.waitingToStartRelaxing == counterStatus) {
       AudioPlayUtil.getInstance()?.stop();
       if (SharePreferenceUtil.getSyncInstance().isRestBGMusicOn()) {
-        AudioPlayUtil.getInstance()?.play(
-            (SharePreferenceUtil.getSyncInstance().getRestingBGMusicModel())
-                    ?.localPath ??
-                CONSTANTS.getFocusAndRestingMusicModelList()[0].url!,
-            isLocal: true);
+        MusicModel model =
+            SharePreferenceUtil.getSyncInstance().getRestingBGMusicModel();
+        String? url = !TextUtil.isEmpty(model.url) == true
+            ? model.url
+            : CONSTANTS.getFocusAndRestingMusicModelList()[0].url;
+        AudioPlayUtil.getInstance()?.play(url ?? "", isLocal: true);
       }
       WakelockPlus.toggle(enable: true);
       print("打开wakelock");

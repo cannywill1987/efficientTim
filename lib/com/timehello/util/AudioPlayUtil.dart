@@ -93,6 +93,9 @@ class AudioPlayUtil {
       bool isLocal = false,
         bool shouldForcePlay = false,
       LoopMode? loopMode}) async {
+    if(path != null) {
+      path = path.trim();
+    }
     this.duration = duration;
     // final LoopMode loopMode = AssetsAudioPlayer.loop;
     // assetsAudioPlayer = AssetsAudioPlayer();

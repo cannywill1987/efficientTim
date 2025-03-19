@@ -1,0 +1,11 @@
+---
+description: for flutter code generation
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+- You can @ files here
+<!-- [cursor.md](mdc:docs/flutter/cursor.md) -->
+- You can use markdown but dont have to

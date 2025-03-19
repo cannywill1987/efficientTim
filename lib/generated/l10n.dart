@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Yesterday`
+  String get yesterday {
+    return Intl.message(
+      'Yesterday',
+      name: 'yesterday',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Completion Rate`
   String get complete_ratio {
     return Intl.message(
@@ -15498,6 +15508,16 @@ class S {
     return Intl.message(
       'We attach great importance to your privacy protection and personal information protection, and will adopt leading security measures to protect your information security. If you continue to use our services, you agree to collect, use and protect your personal information in accordance with the "Privacy Policy". If you do not agree to the above content, you can choose to stop using it.',
       name: 'privacy_protocol_content2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week View`
+  String get week_view {
+    return Intl.message(
+      'Week View',
+      name: 'week_view',
       desc: '',
       args: [],
     );

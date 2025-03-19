@@ -33,6 +33,9 @@ import '../../util/ThemeManager.dart';
 import '../../util/TimerUtil.dart';
 import '../registerPage/registerPage.dart';
 
+/**
+ * 忘记密码页面
+ */
 class ForgetPasswordPage extends BaseWidget {
   ForgetPasswordPage();
 
@@ -45,26 +48,26 @@ class ForgetPasswordPage extends BaseWidget {
 
 class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     implements LoginResult, Observer {
-  final _formKey = new GlobalKey<FormState>();
-  TextEditingController? textController1;
-  TextEditingController? textController2;
-  String? mobile;
-  String? password;
-  bool checked = false;
+  final _formKey = new GlobalKey<FormState>(); // 表单key
+  TextEditingController? textController1; // 文本编辑器1
+  TextEditingController? textController2; // 文本编辑器2
+  String? mobile; // 手机号
+  String? password; // 密码
+  bool checked = false; // 是否选中
 
-  String? countryIOSCode;
-  String? countryPhoneCode;
-  String? mobileDecrypted;
-  String? completeNumber;
-  String? _msn;
-  TimerUtil? _timerUtil;
-  int msnTotalTime = 60 * 1000;
-  int msnCurTime = 0;
-  bool isBtnEnable = true;
-  int curTab = 0;
+  String? countryIOSCode; // 国家IOS代码
+  String? countryPhoneCode; // 国家电话代码
+  String? mobileDecrypted; // 手机号解密
+  String? completeNumber; // 完整号码
+  String? _msn; // 短信验证码
+  TimerUtil? _timerUtil; // 计时器
+  int msnTotalTime = 60 * 1000; // 短信验证码总时间
+  int msnCurTime = 0; // 短信验证码当前时间
+  bool isBtnEnable = true; // 按钮是否启用
+  int curTab = 0; // 当前tab
   List<CheckButtonStateModel> tabList =
-      CONSTANTS.getLoginRegisterTabBarWidget();
-  String? email = "";
+      CONSTANTS.getLoginRegisterTabBarWidget(); // 标签列表
+  String? email = ""; // 邮箱 
 
   @override
   void initState() {
@@ -79,6 +82,11 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     msnCurTime = msnTotalTime;
   }
 
+  /**
+   * 点击事件
+   * type: 类型
+   * data: 数据
+   */
   onClick(type, data) {
     switch (type) {
       case 'onClickBack':
@@ -90,6 +98,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
+  /**
+   * 点击重置密码
+   */
   onClickResetPassword() async {
     if (this.curTab == 0) {
       if (TextUtil.isEmpty(this.mobile)) {
@@ -163,10 +174,16 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
+  /**
+   * 点击返回
+   */
   onClickBack() {
     Utility.popNavigator(context, null);
   }
 
+  /**
+   * 重置表单
+   */
   void resetForm() {
     _formKey.currentState!.reset();
   }
@@ -373,6 +390,14 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
             )));
   }
 
+  /**
+   * 请求重置密码
+   * countryPhoneCode: 国家电话代码
+   * mobile: 手机号
+   * email: 邮箱
+   * password: 密码
+   * dynamicCode: 动态码
+   */
   void requestResPwd({
     String? countryPhoneCode,
     String? mobile,
@@ -404,6 +429,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     });
   }
 
+  /**
+   * 获取输入文本框
+   */
   Widget getInputTextField() {
     if (this.curTab == 0) {
       return getMobileInputTextField();
@@ -412,7 +440,10 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
-  getEmailInputTextField() {
+  /**
+   * 获取邮箱输入文本框
+   */
+  Widget getEmailInputTextField() {
     return TextFormField(
       onChanged: (String text) async {
         if (TextUtil.isEmpty(text) == true) {
@@ -452,6 +483,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     );
   }
 
+  /**
+   * 获取手机输入文本框
+   */
   StatefulWidget getMobileInputTextField() {
     if (Utility.isGooglePlay() == true) {
       return IntlPhoneField(
@@ -542,6 +576,10 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
+  /**
+   * 请求获取动态码
+   * context: 上下文
+   */
   Future<BaseBean> requestGetDynamicCode(BuildContext context) async {
     if (this.curTab == 0) {
       BaseBean baseBean = await HttpManager.getInstance().doPostRequest(
@@ -577,6 +615,9 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
+  /**
+   * 开始计时
+   */
   void startTimer() {
     if (!_timerUtil!.isActive()) {
       _timerUtil!.setOnTimerTickCallback(
@@ -599,12 +640,21 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     }
   }
 
+  /**
+   * 登录失败
+   * errorMsg: 错误信息
+   * loginMode: 登录模式
+   */
   @override
   void loginFail(Map errorMsg, {LoginMode? loginMode}) {
     // TODO: implement loginFail
     Utility.showToastMsg(msg: errorMsg);
   }
 
+  /**
+   * 登录成功
+   * loginInfoModel: 登录信息模型
+   */
   @override
   void loginSuccess({UserBean? loginInfoModel}) async {
     // TODO: implement loginSuccess
@@ -612,6 +662,12 @@ class _ForgetPasswordPageState extends BaseWidgetState<ForgetPasswordPage>
     //     .handleLoginSuccess(context, jumpMode: this.widget.jumpMode);
   }
 
+  /**
+   * 更新
+   * o: 观察者
+   * response: 响应
+   * scene: 场景
+   */
   @override
   void update(Observable o, BaseBean response, String scene) {
     // TODO: implement update

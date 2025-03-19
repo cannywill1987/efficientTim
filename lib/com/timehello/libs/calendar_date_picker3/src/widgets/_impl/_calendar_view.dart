@@ -302,7 +302,7 @@ class _CalendarViewState extends State<_CalendarView> {
           .cast<DateTime>(),
       onChanged: _handleDateSelected,
       config: widget.config,
-      displayedMonth: month,
+      displayedMonth: month, dayPickerRowHeight: this.widget.config.rowHeight,
     );
   }
 

@@ -12,6 +12,7 @@ import com.timespeed.time_hello.service.BackgroundService;
 import com.timespeed.time_hello.util.LocalNotificationManager;
 import com.timespeed.time_hello.util.CounterMethodChannelManager;
 //import com.timespeed.time_hello.util.MethodChannelManager;
+import com.timespeed.time_hello.util.SharePreferenceUtil;
 import com.timespeed.time_hello.util.Utility;
 
 import androidx.annotation.NonNull;
@@ -53,7 +54,10 @@ public class MainActivity extends FlutterActivity {
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-        GeneratedPluginRegistrant.registerWith(flutterEngine);
+//        if(SharePreferenceUtil.getInstance(this).getBoolean(Params.sharePreferenceEngineInited, false) == true) {
+            GeneratedPluginRegistrant.registerWith(flutterEngine);
+//            SharePreferenceUtil.getInstance(this).setBoolean(Params.sharePreferenceEngineInited, true);
+//        }
 //        SecverifyPlugin.registerWith(flutterEngine);
 
         super.configureFlutterEngine(flutterEngine);

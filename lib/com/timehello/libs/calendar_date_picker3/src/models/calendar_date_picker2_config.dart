@@ -43,7 +43,9 @@ class CalendarDatePicker3Config {
     DateTime? lastDate,
     DateTime? currentDate,
     DatePickerMode? calendarViewMode,
+    this.shouldShowLunarDay = true,
     this.weekdayLabels,
+    this.rowHeight = 42,
     this.weekdayLabelTextStyle,
     this.firstDayOfWeek,
     this.controlsHeight,
@@ -80,6 +82,8 @@ class CalendarDatePicker3Config {
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
         calendarViewMode = calendarViewMode ?? DatePickerMode.day;
 
+  double rowHeight;
+
   /// The enabled date picker mode
   final CalendarDatePicker3Type calendarType;
 
@@ -94,6 +98,8 @@ class CalendarDatePicker3Config {
 
   /// The initially displayed view of the calendar picker.
   final DatePickerMode calendarViewMode;
+
+  bool shouldShowLunarDay = true;
 
   /// Custom weekday labels for the current locale, MUST starts from Sunday
   /// Examples:

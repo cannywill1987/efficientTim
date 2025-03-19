@@ -7,12 +7,15 @@ part of '../calendar_date_picker2.dart';
 class _DayPicker extends StatefulWidget {
   /// Creates a day picker.
   const _DayPicker({
+    required this.dayPickerRowHeight,
     required this.config,
     required this.displayedMonth,
     required this.selectedDates,
     required this.onChanged,
     Key? key,
   }) : super(key: key);
+
+  final double dayPickerRowHeight;
 
   /// The calendar configurations
   final CalendarDatePicker3Config config;
@@ -126,6 +129,7 @@ class _DayPickerState extends State<_DayPicker> {
     final Color todayColor = colorScheme.primary;
     final Color daySplashColor =
         widget.config.daySplashColor ?? selectedDayBackground.withOpacity(0.38);
+    _DayPickerGridDelegate _dayPickerGridDelegate = _DayPickerGridDelegate(dayPickerRowHeight: this.widget.dayPickerRowHeight);
 
     final int year = widget.displayedMonth.year;
     final int month = widget.displayedMonth.month;
@@ -309,7 +313,7 @@ class _DayPickerState extends State<_DayPicker> {
           dayWidget = InkResponse(
             focusNode: _dayFocusNodes[day - 1],
             onTap: () => widget.onChanged(dayToBuild),
-            radius: _dayPickerRowHeight / 2 + 4,
+            radius: this.widget.dayPickerRowHeight / 2 + 4,
             splashColor: daySplashColor,
             child: Semantics(
               // We want the day of month to be spoken first irrespective of the
@@ -361,7 +365,7 @@ class _DayPickerState extends State<_DayPicker> {
           child: Container(
             decoration: decoration,
             child: Center(
-              child: Utility.isChina()
+              child: Utility.isChina() && this.widget.config.shouldShowLunarDay == true
                   ? Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -394,14 +398,15 @@ class _DayPickerState extends State<_DayPicker> {
 }
 
 class _DayPickerGridDelegate extends SliverGridDelegate {
-  const _DayPickerGridDelegate();
+   _DayPickerGridDelegate({required this.dayPickerRowHeight});
+   double dayPickerRowHeight = -1;
 
   @override
   SliverGridLayout getLayout(SliverConstraints constraints) {
     const int columnCount = DateTime.daysPerWeek;
     final double tileWidth = constraints.crossAxisExtent / columnCount;
     final double tileHeight = math.min(
-      _dayPickerRowHeight,
+      dayPickerRowHeight,
       constraints.viewportMainAxisExtent / (_maxDayPickerRowCount + 1),
     );
     return SliverGridRegularTileLayout(
@@ -418,4 +423,3 @@ class _DayPickerGridDelegate extends SliverGridDelegate {
   bool shouldRelayout(_DayPickerGridDelegate oldDelegate) => false;
 }
 
-const _DayPickerGridDelegate _dayPickerGridDelegate = _DayPickerGridDelegate();

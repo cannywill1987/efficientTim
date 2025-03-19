@@ -74,6 +74,13 @@ public class SharePreferenceUtil {
         return JSON.parseObject(json, ArrayList.class);
     }
 
+    public boolean setBoolean(String key, boolean val) {
+        return mSharedPreferences.edit().putBoolean(key, val).commit();
+    }
+
+    public boolean getBoolean(String key, boolean defValue) {
+        return mSharedPreferences.getBoolean(key, defValue);
+    }
 
     /**
      * 设置优先级

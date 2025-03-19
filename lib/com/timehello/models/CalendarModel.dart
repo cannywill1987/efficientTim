@@ -96,7 +96,7 @@ class WeekModel {
 
 // @JsonSerializable()
 class DayModel {
-  DateTime? dateTime;
+  DateTime? dateTime; // 格式2024-01-01 00:00:00.000
   String? lunarDay; //农历
   int? year;
   int? weekday; //1 2 3 4 星期几  用于展示

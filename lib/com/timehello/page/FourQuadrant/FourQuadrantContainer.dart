@@ -6,6 +6,9 @@ import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementPage.da
 import 'package:time_hello/com/timehello/page/calendarPage/components/CalendarMissionListWidget.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
+/**
+ * 四象限容器
+ */
 class FourQuadrantContainer extends StatefulWidget {
   // int? folderStatusDate = 1; // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
 
@@ -22,11 +25,15 @@ class FourQuadrantContainer extends StatefulWidget {
   }
 }
 
+/**
+ * 四象限容器状态
+ */
 class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
-
-  GlobalKey<FourQuadrantPageState> TimeManagementPageStateGlobalKey = GlobalKey();
+  GlobalKey<FourQuadrantPageState> TimeManagementPageStateGlobalKey =
+      GlobalKey(); // 时间管理页面状态全局key
+  GlobalKey<FourQuadrantPageState> FourQuadrantPageStateGlobalKey =
+      GlobalKey(); // 四象限页面状态全局key
   // final CalendarController _calendarController = CalendarController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +42,18 @@ class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
       children: [
         Container(
           width: 300,
-          child: CalendarMissionListWidget(onDateRangeSelected:(DateTime? startDateTime, DateTime? endDateTime) {
-            TimeManagementPageStateGlobalKey.currentState?.selectDate(startDateTime, endDateTime == null ? null : Utility.getFilterDateTimeFromDateTime(endDateTime!, true));
+          child: CalendarMissionListWidget(onDateRangeSelected:
+              (DateTime? startDateTime, DateTime? endDateTime) {
+            TimeManagementPageStateGlobalKey.currentState?.selectDate(
+                startDateTime,
+                endDateTime == null
+                    ? null
+                    : Utility.getFilterDateTimeFromDateTime(
+                        endDateTime!, true));
           }),
         ),
-        Expanded(child: FourQuadrantPage(key: TimeManagementPageStateGlobalKey)),
+        Expanded(
+            child: FourQuadrantPage(key: TimeManagementPageStateGlobalKey)),
       ],
     );
     // return Selector<CalendarMssionEnv, MissionModel?>(
@@ -61,6 +75,5 @@ class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
     // });
     // });
     // });
-
   }
 }

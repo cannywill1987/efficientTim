@@ -6,6 +6,9 @@ import '../../../config/ColorsConfig.dart';
 import '../../../util/ThemeManager.dart';
 
 
+/**
+ * 文件夹标题组件
+ */
 class FolderSectionTitleWidget extends StatelessWidget {
   final String title;
   Widget? trailingWidget;

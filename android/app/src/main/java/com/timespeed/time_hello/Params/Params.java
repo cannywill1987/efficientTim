@@ -43,5 +43,6 @@ public class Params {
 
     public static boolean isServiceRunning = false;
     public static boolean isMainActivityDestroyed = false;
-    
+
+    public static String sharePreferenceEngineInited = "sharePreferenceEngineInited"; //是否初始化sharePreferenceEngine
 }

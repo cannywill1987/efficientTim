@@ -468,7 +468,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "announcement_placeholder": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le contenu spécifique de l\'annonce..."),
         "announcement_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez m’aider à écrire une annonce, le contenu est…"),
+            "Veuillez m\'aider à écrire une annonce, le contenu est..."),
         "answer": MessageLookupByLibrary.simpleMessage("Réponse"),
         "appThmeSetting": MessageLookupByLibrary.simpleMessage(
             "Correspondance du panneau de couleur du thème"),
@@ -1375,7 +1375,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Événement historique"),
         "history_record": MessageLookupByLibrary.simpleMessage("Historique"),
         "history_record_prompt":
-            MessageLookupByLibrary.simpleMessage("Voir l’historique."),
+            MessageLookupByLibrary.simpleMessage("Voir l\'historique."),
         "hour": MessageLookupByLibrary.simpleMessage("Heure"),
         "hour3": MessageLookupByLibrary.simpleMessage("Heure"),
         "hourAndMin": m60,
@@ -1698,7 +1698,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Catégorisez vos listes de stockage."),
         "more_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez fournir plus d’options d’écriture."),
+            "Veuillez fournir plus d\'options d\'écriture."),
         "more_reminders":
             MessageLookupByLibrary.simpleMessage("Plus de rappels"),
         "more_reminders_description": MessageLookupByLibrary.simpleMessage(
@@ -1927,7 +1927,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "outline_placeholder": MessageLookupByLibrary.simpleMessage(
             "(Exemple) Veuillez établir un plan sur le thème de la protection de l\'environnement."),
         "outline_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez m’aider à établir un plan sur le sujet de…"),
+            "Veuillez m\'aider à établir un plan sur le sujet de..."),
         "overdue_buffer": MessageLookupByLibrary.simpleMessage("délai"),
         "password": MessageLookupByLibrary.simpleMessage("mot de passe"),
         "passwordNotEmpty": MessageLookupByLibrary.simpleMessage(
@@ -2374,7 +2374,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "speech_placeholder": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le thème ou le contenu du discours..."),
         "speech_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez m’aider à écrire un discours sur le sujet de…"),
+            "Veuillez m\'aider à écrire un discours sur le sujet de..."),
         "startFocusing":
             MessageLookupByLibrary.simpleMessage("commencer à se concentrer"),
         "startResting":
@@ -2689,6 +2689,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nombre de tâches terminées cette semaine"),
         "week_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Pomodoros terminés cette semaine"),
+        "week_view": MessageLookupByLibrary.simpleMessage("Vue hebdomadaire"),
         "welcome": MessageLookupByLibrary.simpleMessage("bienvenue"),
         "welcome_to_time_department": m132,
         "whether_to_repeat":
@@ -2706,9 +2707,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "write_article":
             MessageLookupByLibrary.simpleMessage("Écrire un article"),
         "write_article_history": MessageLookupByLibrary.simpleMessage(
-            "Écrire un article L’article du temps"),
+            "Écrire un article L\'article du temps"),
         "write_article_history_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez consulter et éditer l’article précédemment écrit : L’article du temps."),
+            "Veuillez consulter et éditer l\'article précédemment écrit : L\'article du temps."),
         "write_article_placeholder": MessageLookupByLibrary.simpleMessage(
             "(Exemple) Veuillez écrire un article de 1000 mots, positif, sur le thème de la protection de l\'environnement et lui donner un titre."),
         "write_article_prompt": MessageLookupByLibrary.simpleMessage(
@@ -2719,7 +2720,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "write_essay_placeholder": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le titre ou le sujet de la rédaction..."),
         "write_essay_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez m’aider à écrire un essai, le sujet est…"),
+            "Veuillez m\'aider à écrire un essai, le sujet est..."),
         "write_your_clockin_feedback":
             MessageLookupByLibrary.simpleMessage("Notez vos pensées"),
         "wrong_question_book":
@@ -2742,7 +2743,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "xiaohongshu_placeholder": MessageLookupByLibrary.simpleMessage(
             "Qu\'est-ce que je devrais écrire avec l\'IA ?"),
         "xiaohongshu_prompt": MessageLookupByLibrary.simpleMessage(
-            "Veuillez m’aider à écrire un post Xiaohongshu, le contenu est…"),
+            "Veuillez m\'aider à écrire un post Xiaohongshu, le contenu est..."),
         "xxx_cannot_be_empty": m136,
         "year": MessageLookupByLibrary.simpleMessage("Année"),
         "year_duration_completed":
@@ -2753,6 +2754,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Le nombre de tomates terminées cette année"),
         "yes": MessageLookupByLibrary.simpleMessage("Oui"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Hier"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class": MessageLookupByLibrary.simpleMessage(
             "C\'est une classe que vous avez créée vous-même"),

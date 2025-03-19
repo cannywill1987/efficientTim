@@ -4172,6 +4172,23 @@ class CONSTANTS {
 
         folderModel = new FolderModel();
         // folderModel.id = 'id';
+        folderModel.title = getI18NKey().week_view;
+        folderModel.iconType =
+        16; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务  12 待定任务 13 碎片清单
+        folderModel.type = 2;
+        folderTimeModel = CONSTANTS.getFolderTime(
+            folderStatusDate: folderModel.iconType ?? 0,
+            calendarModel: calendarModel,
+            folderStatus: 0);
+        if (((folderTimeModel?.numMissionToFinished ?? 0) > 0 &&
+            isListingDoItNowOn == -1) ||
+            isListingDoItNowOn == 1) {
+          listFolderModel.add(FolderModelWithExtraData(
+              folderModel: folderModel, folderTimeModel: folderTimeModel));
+        }
+
+        folderModel = new FolderModel();
+        // folderModel.id = 'id';
         folderModel.title = getI18NKey().do_it_now;
         folderModel.iconType =
             9; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务  12 待定任务 13 碎片清单
@@ -5058,7 +5075,7 @@ class CONSTANTS {
     return list;
   }
 
-  // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单
+  // 1-今天 2 明天 3 本周 4 待定 5 日程 5 已完成 6 创建清单 7 创建清单 16 周显示
   static Widget getDateIcon(int iconType, [double iconSize = 25]) {
     switch (iconType) {
       case 1:
@@ -5072,7 +5089,8 @@ class CONSTANTS {
         return Utility.getSVGPicture(R.assetsImgIcTodo, size: iconSize);
       case 13:
         return Utility.getSVGPicture(R.assetsImgIcFragment, size: iconSize);
-
+      case 16:
+        return Utility.getSVGPicture(R.assetsImgIc7Week, size: iconSize);
       default:
         return Utility.getSVGPicture(R.assetsImgIcUnfinishMissions,
             size: iconSize);
@@ -5809,7 +5827,7 @@ class CONSTANTS {
   static List<MusicModel> getFocusAndRestingMusicModelList() {
     return [
       MusicModel(
-          title: 'Clock ticking sound', url: 'http://oss.timerbell.com/resourceOss/2024019-时钟滴答声.MP3	'),
+          title: 'Clock ticking sound', url: 'http://oss.timerbell.com/resourceOss/2024019-安静的夜晚蟋蟀声音.MP3'),
     ];
   }
 

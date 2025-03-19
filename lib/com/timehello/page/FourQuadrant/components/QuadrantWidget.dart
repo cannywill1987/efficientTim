@@ -24,18 +24,21 @@ import 'QuadrantMissionSilverList.dart';
 
 typedef OnRefreshListener = void Function(dynamic obj);
 
+/**
+ * 四象限组件
+ */
 class QuadrantWidget extends StatefulWidget {
-  String title;
-  String desc;
-  List<MissionModel> listMissionModelsUnfinished;
-  List<MissionModel> listMissionModelsFinished;
-  PriorityEnum priorityEnum;
-  Function onRefresh;
-  OnRefreshListener? onRefreshListener;
-  GlobalKey quadrantWidgetGlobalKey;
-  bool isHeaderVisible;
-  Function onDragingListener;
-  Function onDragEndListener;
+  String title; // 标题
+  String desc; // 描述
+  List<MissionModel> listMissionModelsUnfinished; // 未完成任务列表
+  List<MissionModel> listMissionModelsFinished; // 已完成任务列表
+  PriorityEnum priorityEnum; // 优先级
+  Function onRefresh; // 刷新
+  OnRefreshListener? onRefreshListener; // 刷新监听
+  GlobalKey quadrantWidgetGlobalKey; // 四象限组件全局key
+  bool isHeaderVisible; // 是否显示头部
+  Function onDragingListener; // 拖拽监听
+  Function onDragEndListener; // 拖拽结束监听
 
   QuadrantWidget(
       {Key? key,
@@ -499,6 +502,12 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
         ));
   }
 
+  /**
+   * 构建列表
+   * containerWidth: 容器宽度
+   * containerHeight: 容器高度
+   * onCreateListener: 创建监听
+   */
   List<Widget> buildList(
       {required double containerWidth,
       required double containerHeight,

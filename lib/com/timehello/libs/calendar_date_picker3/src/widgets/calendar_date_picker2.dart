@@ -20,11 +20,10 @@ part '_impl/year_picker.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
 
-const double _dayPickerRowHeight = 42.0;
+
 const int _maxDayPickerRowCount = 6; // A 31 day month that starts on Saturday.
 // One extra row for the day-of-week header.
-const double _maxDayPickerHeight =
-    _dayPickerRowHeight * (_maxDayPickerRowCount + 1);
+
 const double _monthPickerHorizontalPadding = 8.0;
 
 const int _yearPickerColumnCount = 3;
@@ -36,6 +35,9 @@ const double _subHeaderHeight = 52.0;
 const double _monthNavButtonsWidth = 108.0;
 
 class CalendarDatePicker3 extends StatefulWidget {
+  double dayPickerRowHeight = 42.0;
+  double maxDayPickerHeight = -1;
+
   CalendarDatePicker3({
     required this.config,
     required this.value,
@@ -46,6 +48,9 @@ class CalendarDatePicker3 extends StatefulWidget {
   }) : super(key: key) {
     const valid = true;
     const invalid = false;
+    dayPickerRowHeight = this.config.rowHeight;
+    maxDayPickerHeight =
+        dayPickerRowHeight * (_maxDayPickerRowCount + 1);
 
     if (config.calendarType == CalendarDatePicker3Type.single) {
       assert(value.length < 2,
@@ -325,7 +330,7 @@ class _CalendarDatePicker3State extends State<CalendarDatePicker3> {
       children: <Widget>[
         SizedBox(
           height: (widget.config.controlsHeight ?? _subHeaderHeight) +
-              _maxDayPickerHeight,
+              this.widget.maxDayPickerHeight,
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _CalendarView

@@ -2064,6 +2064,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("本周完成的任务数"),
         "week_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("本周完成番茄数"),
+        "week_view": MessageLookupByLibrary.simpleMessage("周显示"),
         "welcome": MessageLookupByLibrary.simpleMessage("welcome"),
         "welcome_to_time_department": m132,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage("是否重复"),
@@ -2121,6 +2122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今年完成番茄数"),
         "yes": MessageLookupByLibrary.simpleMessage("是"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("昨天"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("这是您自己创建的课程"),

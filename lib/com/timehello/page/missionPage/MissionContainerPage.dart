@@ -63,6 +63,7 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
     // TODO: implement baseBuild
     return Stack(
       children: <Widget>[
+        ////布局类型 0 列表 1 group分组 2 时间线
         ViewStubWidget(
           isShowed: this.widget.folderModel?.layoutType == 2 || this.widget.folderModel?.layoutType == 0 || this.widget.folderModel?.layoutType == null,
           child: MissionPage(onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener, onTapNavMenuListener: this.widget.onTapNavMenuListener, folderModel: this.widget.folderModel, folderStatusDate: this.widget.folderStatusDate),

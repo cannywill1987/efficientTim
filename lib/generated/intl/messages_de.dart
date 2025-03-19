@@ -2660,6 +2660,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Anzahl der Aufgaben, die diese Woche abgeschlossen wurden"),
         "week_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Abgeschlossene Pomodoros diese Woche"),
+        "week_view": MessageLookupByLibrary.simpleMessage("Wochenansicht"),
         "welcome": MessageLookupByLibrary.simpleMessage("willkommen"),
         "welcome_to_time_department": m132,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage(
@@ -2725,6 +2726,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Anzahl der Tomaten, die dieses Jahr abgeschlossen wurden"),
         "yes": MessageLookupByLibrary.simpleMessage("Ja"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Gestern"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class": MessageLookupByLibrary.simpleMessage(
             "Dies ist eine Klasse, die Sie selbst erstellt haben"),

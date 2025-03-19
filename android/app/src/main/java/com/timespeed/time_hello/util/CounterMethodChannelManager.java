@@ -37,6 +37,7 @@ import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class CounterMethodChannelManager {
     static CounterMethodChannelManager mCounterMethodChannelManager;
@@ -127,7 +128,7 @@ public class CounterMethodChannelManager {
                                 Intent intentBroadCast = new Intent(flutterActivity, MyNoteWidgetProvider.class);
                                 intentBroadCast.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                                 flutterActivity.getActivity().sendBroadcast(intentBroadCast);
-                            } else if (key.equals("2"))     {
+                            } else if (key.equals("2")) {
                                 Intent intentBroadCast = new Intent(flutterActivity, MyNote2WidgetProvider.class);
                                 intentBroadCast.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                                 flutterActivity.getActivity().sendBroadcast(intentBroadCast);
@@ -353,7 +354,17 @@ public class CounterMethodChannelManager {
 
                             break;
                         case "initPushNotification": //同意协议后初始化推送
-                                LocalNotificationManager.getInstance().init(this);
+                            //加到这里 否则上不了线，会默认先执行这个
+                            try {
+                                flutterEngine.getPlugins().add(new com.llfbandit.record.RecordPlugin());
+                            } catch (Exception e) {
+                                Log.e("TAG", "Error registering plugin record_android, com.llfbandit.record.RecordPlugin", e);
+                            }
+//                            if(SharePreferenceUtil.getInstance(flutterActivity).getBoolean(Params.sharePreferenceEngineInited, false) == false) {
+//                                GeneratedPluginRegistrant.registerWith(flutterEngine);
+//                                SharePreferenceUtil.getInstance(flutterActivity).setBoolean(Params.sharePreferenceEngineInited, true);
+//                            }
+                            LocalNotificationManager.getInstance().init(flutterActivity);
 //                            try {
 //                                Utility.initCrashHandler(flutterActivity);
 //                            } catch (Exception e) {

@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "yesterday": "Yesterday",
   "complete_ratio": "Completion Rate",
   "title": "Title",
   "enter_objective_title": "Enter the objective title of this goal",
@@ -1640,5 +1641,6 @@
   "notification_setting": "Push Settings",
   "notification_setting_content": "Turning on notifications will help you know when tasks are completed or started",
   "privacy_protocol_content": "Thank you for trusting and using this product. We attach great importance to your privacy protection and personal information protection,\\n\\nPlease read all the terms of the \"Privacy Policy\" carefully. Learn about what we do to protect your information\\nSpecific measures and commitments, agree and accept all the terms before starting to use our services.\\nWe will collect it in business scenarios such as account registration. In the process of using this product step by step, you will need to enable corresponding device permissions according to different business scenarios, such as location information, camera permissions, etc.",
-  "privacy_protocol_content2": "We attach great importance to your privacy protection and personal information protection, and will adopt leading security measures to protect your information security. If you continue to use our services, you agree to collect, use and protect your personal information in accordance with the \"Privacy Policy\". If you do not agree to the above content, you can choose to stop using it."
+  "privacy_protocol_content2": "We attach great importance to your privacy protection and personal information protection, and will adopt leading security measures to protect your information security. If you continue to use our services, you agree to collect, use and protect your personal information in accordance with the \"Privacy Policy\". If you do not agree to the above content, you can choose to stop using it.",
+  "week_view": "Week View"
 }

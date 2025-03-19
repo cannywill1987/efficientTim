@@ -132,26 +132,30 @@ class FolderSilverListState extends State<FolderSilverList> {
           ? Container()
           : DragAndDropLists(
               children: _contentsForListing,
-              lastItemTargetHeight:
-                  _contentsForListing.length == 0 ? 0 : margin,
+              lastItemTargetHeight: _contentsForListing.length == 0
+                  ? 0
+                  : margin, // 最后一个item的target高度
               //不能设置成0 否则无法拖动到文件夹 因为位置不够
-              lastListTargetSize: 3,
+              lastListTargetSize: 3, // 最后一个list的target大小
               //需要加点距离 否则最后个list无法被拖动到
-              onItemReorder: _onItemReorder,
+              onItemReorder: _onItemReorder, // 拖拽item
               // onListAdd：_onListAdd,
-              onListReorder: _onListReorder,
-              sliverList: true,
-              scrollController: _scrollController,
+              onListReorder: _onListReorder, // 拖拽list
+              sliverList: true, // 是否是sliverList
+              scrollController: _scrollController, // 滚动控制器
             ),
       key: ValueKey('menu_silver_list_2'),
     );
     // if(screenType == ScreenType.Handset) {
     // return getSliverList();
     // } else {
-    return Container();
+    // return Container();
     // }
   }
 
+  /**
+   * 获取列表
+   */
   List<DragAndDropList> getSectionList() {
     List<FolderModelWithExtraData> list = this.widget.datas;
     List<DragAndDropList> _contents = [];
@@ -199,12 +203,19 @@ class FolderSilverListState extends State<FolderSilverList> {
           //     ? null
           //     :
           header: isOther ? null : widget,
-          children: item.folderModel.isFoldedForFolderCached == true? [] : getList(item.listFolderModelWithExtraData ?? [],
-              isOthers: isOther)));
+          children: item.folderModel.isFoldedForFolderCached == true
+              ? []
+              : getList(item.listFolderModelWithExtraData ?? [],
+                  isOthers: isOther)));
     }
     return _contents;
   }
 
+  /**
+   * 获取列表
+   * list: 文件夹的数据
+   * isOthers: 是否是其他文件夹
+   */
   List<DragAndDropItem> getList(List<FolderModelWithExtraData> list,
       {bool isOthers = false}) {
     return List.generate(list.length, (index) {
@@ -278,10 +289,21 @@ class FolderSilverListState extends State<FolderSilverList> {
     });
   }
 
+  /**
+   * 构建item
+   * item: 文件夹的数据
+   */
   _buildItem(FolderModelWithExtraData item) {
     return Text(item.folderModel.title ?? "");
   }
 
+  /**
+   * 拖拽item
+   * oldItemIndex: 旧的item索引
+   * oldListIndex: 旧的列表索引
+   * newItemIndex: 新的item索引
+   * newListIndex: 新的列表索引
+   */
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
@@ -337,6 +359,9 @@ class FolderSilverListState extends State<FolderSilverList> {
     });
   }
 
+  /**
+   * 获取文件夹在列表中的索引
+   */
   int indexOfList(List<FolderModelWithExtraData> listFolderModelWithExtraData,
       FolderModelWithExtraData folderModelWithExtraData) {
     for (int i = 0; i < listFolderModelWithExtraData.length; i++) {
@@ -349,7 +374,7 @@ class FolderSilverListState extends State<FolderSilverList> {
   }
 
   /**
-   * 从DragAndDropList和DragAndDropItem拿到data数据 重新排序后的数据
+   * 获取其他文件夹的objectId
    */
   List<String> getOtherListObjectId() {
     List<String> otherObjectId = [];

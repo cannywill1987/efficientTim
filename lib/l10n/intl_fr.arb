@@ -1,5 +1,6 @@
 {
   "@@locale": "fr",
+  "yesterday": "Hier",
   "complete_ratio": "Taux d'achèvement",
   "title": "Titre",
   "enter_objective_title": "Saisissez le titre de l'objectif de ce but",
@@ -313,7 +314,7 @@
   "cmdScrollToBottom": "Faire défiler jusqu'en bas",
   "cmdScrollToTop": "Faire défiler jusqu'en haut",
   "cmdSelectAll": "Tout sélectionner",
-  "cmdTableLineBreak": "Tableau : ajouter un saut de ligne",
+  "cmdTableLineBreak": "Tableau : ajouter un saut de ligne",
   "cmdTableMoveToDownCellAtSameOffset": "Déplacer vers la cellule en dessous au même décalage",
   "cmdTableMoveToLeftCellIfItsAtStartOfCurrentCell": "Déplacer vers la cellule à gauche si au début de la cellule actuelle",
   "cmdTableMoveToRightCellIfItsAtTheEndOfCurrentCell": "Déplacer vers la cellule à droite si à la fin de la cellule actuelle",
@@ -454,25 +455,25 @@
   "write_article_prompt": "Veuillez m'aider à écrire un article sur...",
 
   "outline": "Plan",
-  "outline_prompt": "Veuillez m’aider à établir un plan sur le sujet de…",
+  "outline_prompt": "Veuillez m'aider à établir un plan sur le sujet de...",
 
   "xiaohongshu": "Xiaohongshu",
-  "xiaohongshu_prompt": "Veuillez m’aider à écrire un post Xiaohongshu, le contenu est…",
+  "xiaohongshu_prompt": "Veuillez m'aider à écrire un post Xiaohongshu, le contenu est...",
 
   "speech": "Discours",
-  "speech_prompt": "Veuillez m’aider à écrire un discours sur le sujet de…",
+  "speech_prompt": "Veuillez m'aider à écrire un discours sur le sujet de...",
 
   "announcement": "Annonce",
-  "announcement_prompt": "Veuillez m’aider à écrire une annonce, le contenu est…",
+  "announcement_prompt": "Veuillez m'aider à écrire une annonce, le contenu est...",
 
   "write_essay": "Écrire un essai",
-  "write_essay_prompt": "Veuillez m’aider à écrire un essai, le sujet est…",
+  "write_essay_prompt": "Veuillez m'aider à écrire un essai, le sujet est...",
   "more": "Plus",
-  "more_prompt": "Veuillez fournir plus d’options d’écriture.",
+  "more_prompt": "Veuillez fournir plus d'options d'écriture.",
   "history_record": "Historique",
-  "history_record_prompt": "Voir l’historique.",
-  "write_article_history": "Écrire un article L’article du temps",
-  "write_article_history_prompt": "Veuillez consulter et éditer l’article précédemment écrit : L’article du temps.",
+  "history_record_prompt": "Voir l'historique.",
+  "write_article_history": "Écrire un article L'article du temps",
+  "write_article_history_prompt": "Veuillez consulter et éditer l'article précédemment écrit : L'article du temps.",
   "xiaohongshu_history": "Xiaohongshu Aidez-moi à écrire un post Xiaohongshu",
   "xiaohongshu_history_prompt": "Veuillez consulter et éditer le post Xiaohongshu précédemment écrit : Aidez-moi à écrire un post Xiaohongshu.",
   "character_limit": "0/1000",
@@ -1701,5 +1702,6 @@
   "notification_setting": "Paramètres de notification",
   "notification_setting_content": "Activer les notifications vous aidera à savoir quand les tâches sont terminées ou commencées",
   "privacy_protocol_content": "Merci de faire confiance et d'utiliser ce produit. Nous attachons une grande importance à la protection de votre vie privée et à la protection des informations personnelles,\\n\\nVeuillez lire attentivement tous les termes de la \"Politique de confidentialité\". Apprenez ce que nous faisons pour protéger vos informations\\nMesures spécifiques et engagements, acceptez et acceptez tous les termes avant de commencer à utiliser nos services.\\nNous le recueillerons dans des scénarios commerciaux tels que l'enregistrement de compte. Dans le processus d'utilisation de ce produit étape par étape, vous devrez activer les autorisations de l'appareil correspondantes en fonction des différents scénarios commerciaux, tels que les informations de localisation, les autorisations de la caméra, etc.",
-  "privacy_protocol_content2": "Nous attachons une grande importance à la protection de votre vie privée et à la protection des informations personnelles, et adopterons des mesures de sécurité de pointe pour protéger la sécurité de vos informations. Si vous continuez à utiliser nos services, vous acceptez de collecter, d'utiliser et de protéger vos informations personnelles conformément à la \"Politique de confidentialité\". Si vous n'êtes pas d'accord avec le contenu ci-dessus, vous pouvez choisir de cesser de l'utiliser."
+  "privacy_protocol_content2": "Nous attachons une grande importance à la protection de votre vie privée et à la protection des informations personnelles, et adopterons des mesures de sécurité de pointe pour protéger la sécurité de vos informations. Si vous continuez à utiliser nos services, vous acceptez de collecter, d'utiliser et de protéger vos informations personnelles conformément à la \"Politique de confidentialité\". Si vous n'êtes pas d'accord avec le contenu ci-dessus, vous pouvez choisir de cesser de l'utiliser.",
+  "week_view": "Vue hebdomadaire"
 }

@@ -639,7 +639,7 @@ class SharePreferenceUtil {
         return musicModel;
       }
     } catch (e) {}
-    return MusicModel();
+    return MusicModel(url: "http://oss.timerbell.com/resourceOss/2024019-安静的夜晚蟋蟀声音.MP3");
   }
 
   void setMissionOrderEnum(MissionOrderEnum enumVal, {String mode = ''}) {

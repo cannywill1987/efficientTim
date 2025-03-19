@@ -2563,6 +2563,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Number of tasks completed this week"),
         "week_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "Completed Pomodoros this week"),
+        "week_view": MessageLookupByLibrary.simpleMessage("Week View"),
         "welcome": MessageLookupByLibrary.simpleMessage("welcome"),
         "welcome_to_time_department": m132,
         "whether_to_repeat":
@@ -2624,6 +2625,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed": MessageLookupByLibrary.simpleMessage(
             "The number of tomatoes completed this year"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class": MessageLookupByLibrary.simpleMessage(
             "This is a class you created yourself"),

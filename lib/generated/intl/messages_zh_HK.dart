@@ -799,9 +799,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "day": MessageLookupByLibrary.simpleMessage("日"),
         "day_hour_minute_second": MessageLookupByLibrary.simpleMessage("天時分秒"),
         "daysLater": MessageLookupByLibrary.simpleMessage("天後"),
-        "days_after_bill_day": MessageLookupByLibrary.simpleMessage("天後到賬單日"),
+        "days_after_bill_day": MessageLookupByLibrary.simpleMessage("天后到賬單日"),
         "days_after_repayment_day":
-            MessageLookupByLibrary.simpleMessage("天後到還款日"),
+            MessageLookupByLibrary.simpleMessage("天后到還款日"),
         "days_ago": m42,
         "days_later": m43,
         "de": MessageLookupByLibrary.simpleMessage("的"),
@@ -2167,6 +2167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今年完成番茄數"),
         "yes": MessageLookupByLibrary.simpleMessage("是"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("昨天"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("這是您自己創建的課程"),

@@ -224,6 +224,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   timezone: 0.9.2
   loading_animation_widget: ^1.2.1
   flutter_oss_aliyun: ^6.4.2
+  table_calendar: ^3.2.0
 
   desktop_window: 0.4.0
   test_api:
@@ -605,6 +606,7 @@ flutter:
     - assets/img/ic_emoji6.png
     - assets/img/ic_view_column.svg
     - assets/img/ic_priority.svg
+    - assets/img/ic_7_week.svg
     - assets/img/ic_edit.svg
     - assets/img/ic_emoji4.png
     - assets/img/ic_rest.svg

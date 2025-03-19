@@ -2249,6 +2249,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("今週完了したタスク数"),
         "week_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今週完了したトマト数"),
+        "week_view": MessageLookupByLibrary.simpleMessage("週表示"),
         "welcome": MessageLookupByLibrary.simpleMessage("ようこそ"),
         "welcome_to_time_department": m132,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage("繰り返すかどうか"),
@@ -2306,6 +2307,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今年完了したトマト数"),
         "yes": MessageLookupByLibrary.simpleMessage("はい"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("昨日"),
         "your_clockin_mission_with_name_has_begun": m138,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("これはあなたが作成したクラスです"),

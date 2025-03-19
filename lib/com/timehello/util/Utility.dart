@@ -1165,6 +1165,41 @@ class Utility {
     return listTmp;
   }
 
+  /// 根据不同日期返回不同格式的字符串
+  /// 今天返回"今天"，昨天返回"昨天"，明天返回"明天"
+  /// 如果是今年(但不是今/昨/明)返回"月/日"
+  /// 如果不是今年返回"年/月/日"
+  static String getFormattedDate(DateTime dateTime) {
+    // 获取当前日期用于比较
+    DateTime now = DateTime.now();
+
+    // 创建今天、昨天和明天的日期对象(不含时分秒)
+    DateTime today = DateTime(now.year, now.month, now.day);
+    DateTime yesterday = today.subtract(Duration(days: 1));
+    DateTime tomorrow = today.add(Duration(days: 1));
+
+    // 获取不含时分秒的输入日期
+    DateTime dateWithoutTime =
+        DateTime(dateTime.year, dateTime.month, dateTime.day);
+
+    // 检查是否为今天、昨天或明天
+    if (dateWithoutTime.isAtSameMomentAs(today)) {
+      return getI18NKey().today;
+    } else if (dateWithoutTime.isAtSameMomentAs(yesterday)) {
+      return getI18NKey().yesterday;
+    } else if (dateWithoutTime.isAtSameMomentAs(tomorrow)) {
+      return getI18NKey().tomorrow;
+    }
+
+    // 检查是否是今年的日期
+    if (dateTime.year == now.year) {
+      return "${dateTime.month}/${dateTime.day}";
+    }
+
+    // 不是今年的日期，返回完整年月日
+    return "${dateTime.year}/${dateTime.month}/${dateTime.day}";
+  }
+
   /**
    *
    */
@@ -4440,7 +4475,7 @@ class Utility {
     WeekModel? weekModel;
     for (int i = 0; i < list.length; i++) {
       DayModel dayModel = list[i];
-      if (dayModel.weekday == DateTime.monday) {
+      if (dayModel.weekday == DateTime.sunday) {
         weekModel = WeekModel();
       }
       weekModel?.dayModelList.add(dayModel);

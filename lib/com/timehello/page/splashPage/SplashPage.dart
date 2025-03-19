@@ -61,8 +61,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
   void initData() async {
     //登录初始化token等数据
     // AnalyticsEventsManager.getInstance().sendAnalyticsEvent(name:"SplashPage");
-    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "SplashPage","eventType": "pv"});
-
+    AnalyticsEventsManager.getInstance()
+        .sendAnalyticsEventMap({"sceneType": "SplashPage", "eventType": "pv"});
 
     await LoginManager.getInstance().init();
     //登录就重新刷新sessionId等
@@ -71,12 +71,12 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
     }
     GetResourceDeliveryManager.getInstance()
         ?.requestGetResourceDelivery('prompts', isCachableOn: true,
-        onResourceComplete:
-            (List<ResourceLocationInfoBean> response, bool isFromCache) {
-          if(response.length > 0) {
-            ResourceInfo.promptsGptResourceLocationInfoBean = response[0];
-          }
-        });
+            onResourceComplete:
+                (List<ResourceLocationInfoBean> response, bool isFromCache) {
+      if (response.length > 0) {
+        ResourceInfo.promptsGptResourceLocationInfoBean = response[0];
+      }
+    });
 
     /**
      * 打卡的默认数据
@@ -183,7 +183,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   'chatgpt_roles_for_create_mission', response);
         }
         DeliveryInfoBean.isVIPPurchaseOn = Utility.getDeliveryInfoBean(
-            response: response, key: 'isVIPPurchaseOn', code: 'isVIPPurchaseOn');
+            response: response,
+            key: 'isVIPPurchaseOn',
+            code: 'isVIPPurchaseOn');
         LoginManager.getInstance().isVIP(shouldShowDialog: false);
         MarqueInfo.marqueFolderpage = Utility.getDeliveryInfoBean(
             response: response, key: 'marque', code: 'marque_folderpage');
@@ -227,9 +229,11 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                 key: 'ab_setting',
                 code: 'register_dynamic_code');
 
-
-        ResourceDeliveryInfoBean? isRatingDialogOn = Utility.getDeliveryInfoBean(
-                  response: response, key: 'ab_setting', code: 'isRatingDialogOn');
+        ResourceDeliveryInfoBean? isRatingDialogOn =
+            Utility.getDeliveryInfoBean(
+                response: response,
+                key: 'ab_setting',
+                code: 'isRatingDialogOn');
         ResourceDeliveryInfoBean? isOpenOn = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'isOpenAiOn');
         ResourceDeliveryInfoBean? isCourseOn = Utility.getDeliveryInfoBean(
@@ -248,11 +252,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         ResourceDeliveryInfoBean? google_login_on = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'google_login_on');
 
-        ResourceDeliveryInfoBean? isGoogleLoginOn =
-        Utility.getDeliveryInfoBean(
-            response: response,
-            key: 'ab_setting',
-            code: 'isGoogleLoginOn');
+        ResourceDeliveryInfoBean? isGoogleLoginOn = Utility.getDeliveryInfoBean(
+            response: response, key: 'ab_setting', code: 'isGoogleLoginOn');
         ResourceDeliveryInfoBean? isAppleLoginOn = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'isAppleLoginOn');
 
@@ -267,10 +268,11 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         //   ABTestSetting.isOpenAiOn = true;
         // }
 
-        ABTestSetting.isRatingDialogOn =  (isRatingDialogOn?.extendParamsMap?['isOn'] ??
-            true); // 开关默认开 且不是最新版本
-        ABTestSetting.isOpenAiOn =  (isOpenOn?.extendParamsMap?['isOn'] ??
-            true); // 开关默认开 且不是最新版本
+        ABTestSetting.isRatingDialogOn =
+            (isRatingDialogOn?.extendParamsMap?['isOn'] ??
+                true); // 开关默认开 且不是最新版本
+        ABTestSetting.isOpenAiOn =
+            (isOpenOn?.extendParamsMap?['isOn'] ?? true); // 开关默认开 且不是最新版本
         if (isLatestVersion && Utility.isHuaWei() == true) {
           ABTestSetting.isCourseOn = (isOpenOn?.extendParamsMap?['isOn'] ??
               true); // 开关默认开 且不是最新ban'ben
@@ -504,6 +506,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, CreateObjectiveItem());
 
                   // Utility.pushReplacement(context, SliderWithCanvasPage());
+
+                  // Utility.pushReplacement(context, ScheduleScreen());
                   Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, FeatureListWidget());
 
