@@ -543,7 +543,7 @@ class MongoApisManager {
     this.hasLoadedSharePreferenceModel = true;
     this.listSharePreferenceModel = sharePreferenceModelList;
     if (callback != null) {
-      callback(listCreditCardModel);
+      callback(listSharePreferenceModel);
     }
     // context?.read<GlobalStateEnv>().listBillModel = listBillModel;
     return listSharePreferenceModel;

@@ -334,6 +334,7 @@ class _CalendarDatePicker3State extends State<CalendarDatePicker3> {
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _CalendarView
+        if(this.widget.config.shouldShowHeader == true)
         _DatePickerModeToggleButton(
           config: widget.config,
           mode: _mode,

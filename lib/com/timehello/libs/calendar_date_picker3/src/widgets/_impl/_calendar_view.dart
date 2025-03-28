@@ -314,6 +314,7 @@ class _CalendarViewState extends State<_CalendarView> {
     return Semantics(
       child: Column(
         children: <Widget>[
+          if(this.widget.config.shouldShowHeader == true)
           Container(
             padding: widget.config.centerAlignModePicker != true
                 ? const EdgeInsetsDirectional.only(start: 16, end: 4)

@@ -522,7 +522,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
-    if (Utility.isHuaWei() == false) {
+    if (Utility.isHuaWei() == false && ABTestSetting.isOpenAiOn) {
       list.add(GridMenuItem(
           icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
           title: getI18NKey().ai_helper,

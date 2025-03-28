@@ -51,6 +51,7 @@ class CalendarDatePicker3Config {
     this.controlsHeight,
     this.lastMonthIcon,
     this.nextMonthIcon,
+    this.shouldShowHeader = true,
     this.controlsTextStyle,
     this.dayTextStyle,
     this.selectedDayTextStyle,
@@ -81,6 +82,8 @@ class CalendarDatePicker3Config {
             DateUtils.dateOnly(lastDate ?? DateTime(DateTime.now().year + 50)),
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
         calendarViewMode = calendarViewMode ?? DatePickerMode.day;
+
+  final bool shouldShowHeader;
 
   double rowHeight;
 

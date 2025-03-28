@@ -4499,6 +4499,21 @@ class Utility {
   }
 
   /**
+   * 获取当前日期所在周的日期范围 周日到周六
+   * @param currentDate 当前日期
+   * @return 返回一个包含本周开始日期和结束日期的Map
+   */
+  static Map<String, DateTime> getCurrentThisWeekRange(DateTime currentDate) {
+    DateTime startOfWeek =
+        currentDate.subtract(Duration(days: currentDate.weekday));
+    DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+    return {
+      'startOfWeek': startOfWeek,
+      'endOfWeek': endOfWeek,
+    };
+  }
+
+  /**
    * 对于比如每日的 每周的 每月的 需要在这里支持
    */
   static initCalendarModelWithRepetiveTypesForFlomoMissionModels(

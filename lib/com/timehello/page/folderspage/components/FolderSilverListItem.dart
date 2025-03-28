@@ -400,7 +400,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         key: ValueKey(folderModelWithExtraData.folderModel),
         enabled: folderModelWithExtraData.folderModel.tag != null &&
             (folderModelWithExtraData.folderModel.tag == 1 ||
-                folderModelWithExtraData.folderModel.tag == 2),
+                folderModelWithExtraData.folderModel.tag == 2||
+                folderModelWithExtraData.folderModel.tag == 5),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
           extentRatio: ratio,

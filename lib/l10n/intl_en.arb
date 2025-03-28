@@ -1575,7 +1575,7 @@
   "thursday": "Thu",
   "friday": "Fri",
   "saturday": "Sat",
-  "sunday": "sun",
+  "sunday": "Sun",
   "tuesday": "Tue",
   "monday": "Mon",
   "dateFromMonth": "{month}/{day}",
