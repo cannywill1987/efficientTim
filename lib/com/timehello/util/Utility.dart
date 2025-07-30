@@ -7063,13 +7063,13 @@ class Utility {
     }
     String supportFreeVipCountryAndLanguage =
         DeliveryInfoBean.isVIPPurchaseOn?.extendParamsMap?['data'] ?? "";
-    if (TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == true) {
+    if (TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == 0) {
       return true;
     }
-    if (supportFreeVipCountryAndLanguage.indexOf("all_purchase") == true) {
+    if (supportFreeVipCountryAndLanguage.indexOf("all_purchase") == 0) {
       return false;
     }
-    if (supportFreeVipCountryAndLanguage.indexOf("all") == true) {
+    if (supportFreeVipCountryAndLanguage.indexOf("all") == 0) {
       return true;
     }
     if (TextUtil.isEmpty(supportFreeVipCountryAndLanguage) == false &&
@@ -8414,6 +8414,8 @@ class Utility {
     // return outputFilePath;
     return XFile(outputFilePath.path, length: await outputFilePath.length());
   }
+
+
 
   static String getFileName(String path, {hasExtension: true}) {
     String fileName = path.split('/').last;

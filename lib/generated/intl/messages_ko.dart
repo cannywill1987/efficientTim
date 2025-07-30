@@ -1680,6 +1680,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("질문을 입력하세요"),
         "please_finish_msn":
             MessageLookupByLibrary.simpleMessage("문자 메시지 비밀번호 인증을 완료하세요"),
+        "please_input_12345":
+            MessageLookupByLibrary.simpleMessage("문자 인증 코드를 입력하세요: 12345"),
+        "please_input_123456": MessageLookupByLibrary.simpleMessage(
+            "등록에 문제가 있습니다. 123456 동코드를 입력하세요"),
         "please_input_bill_amount":
             MessageLookupByLibrary.simpleMessage("청구서 금액을 입력하세요"),
         "please_input_content":

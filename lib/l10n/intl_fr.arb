@@ -1,5 +1,7 @@
 {
   "@@locale": "fr",
+  "please_input_12345": "Veuillez entrer le code de vérification SMS: 12345",
+  "please_input_123456":"Inscription avec un problème, veuillez entrer:123456 pour terminer l'inscription",
   "yesterday": "Hier",
   "complete_ratio": "Taux d'achèvement",
   "title": "Titre",

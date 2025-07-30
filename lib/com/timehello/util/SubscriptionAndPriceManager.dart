@@ -63,18 +63,22 @@ class SubscriptionAndPriceManager {
       unknown	-1	未知订阅状态
    */
   init() async {
-    if(isIOSAndMacOS() == false) {
+    if (isIOSAndMacOS() == false) {
       return;
     }
     listPriceProductModel = await CounterMethodChannelManager.getInstance()
-        .IAPManagerFetchProducts(listProducts: DeviceInfoManagement.isMacOs() ? [priceAnnual, priceMonthly] : [priceAnnualMobile, priceMonthlyMobile]); // 获取产品
+        .IAPManagerFetchProducts(
+            listProducts: DeviceInfoManagement.isMacOs()
+                ? [priceAnnual, priceMonthly]
+                : [priceAnnualMobile, priceMonthlyMobile]); // 获取产品
     // 0 未开始 1 请求中 2 请求成功 3 restore成功
     await initSubscriptionState();
     print("");
   }
 
   bool isIOSAndMacOS() {
-    return DeviceInfoManagement.isIOS() == true || DeviceInfoManagement.isMacOs() == true;
+    return DeviceInfoManagement.isIOS() == true ||
+        DeviceInfoManagement.isMacOs() == true;
   }
 
   /**
@@ -82,7 +86,8 @@ class SubscriptionAndPriceManager {
    */
   Future<void> checkAndUpdateAutosubscriptionByReceipt(
       {required BuildContext context}) async {
-    if (DeviceInfoManagement.isMacOs() == true || DeviceInfoManagement.isIOS() == true) {
+    if (DeviceInfoManagement.isMacOs() == true ||
+        DeviceInfoManagement.isIOS() == true) {
       BaseBean baseBean =
           await CounterMethodChannelManager.getInstance().getReceipt();
       String ticket = baseBean.data["res"];
@@ -91,28 +96,40 @@ class SubscriptionAndPriceManager {
         return;
       }
       HttpManager.getInstance().doPostRequest(Apis.getReceipt,
-          params: {"receiptString": ticket, "isSandbox": !Utility.isProductEnv()},
+          params: {
+            "receiptString": ticket,
+            "isSandbox": !Utility.isProductEnv()
+          },
           context: context,
           callback: (BaseBean response, String scene, bool isFromCache) {
         print("receipt String response: $response");
         if (response.success == true) {
           Map map = Utility.getLatestExpireDateOfReceipt(
               response.data['latest_receipt_info'],
-              DeviceInfoManagement.isMacOs() ? [SubscriptionAndPriceManager.priceMonthly, SubscriptionAndPriceManager.priceAnnual] : [SubscriptionAndPriceManager.priceMonthlyMobile, SubscriptionAndPriceManager.priceAnnualMobile]);
+              DeviceInfoManagement.isMacOs()
+                  ? [
+                      SubscriptionAndPriceManager.priceMonthly,
+                      SubscriptionAndPriceManager.priceAnnual
+                    ]
+                  : [
+                      SubscriptionAndPriceManager.priceMonthlyMobile,
+                      SubscriptionAndPriceManager.priceAnnualMobile
+                    ]);
           String original_transaction_id = map['originalTransactionId'];
           int latestExpireDate = map['latestExpireDate'];
           String productId = map['productId'];
           print("latestExpireDate: $latestExpireDate");
-          SubscriptionAndPriceManager.getInstance().addPurchasedProductToUserModel(
-              context: context,
-              receipt: ticket,
-              identifier: productId,
-              list: [],
-              expireDateMillis: latestExpireDate,
-              orignalTransactionId: original_transaction_id,
-              callback: (BaseBean baseBean) {
-                print("addPurchasedProductToUserModel: $baseBean");
-              });
+          SubscriptionAndPriceManager.getInstance()
+              .addPurchasedProductToUserModel(
+                  context: context,
+                  receipt: ticket,
+                  identifier: productId,
+                  list: [],
+                  expireDateMillis: latestExpireDate,
+                  orignalTransactionId: original_transaction_id,
+                  callback: (BaseBean baseBean) {
+                    print("addPurchasedProductToUserModel: $baseBean");
+                  });
         }
         // Utility.getLatestExpireDateOfReceipt(response.data['receipt']['in_app']);
       });
@@ -120,11 +137,12 @@ class SubscriptionAndPriceManager {
   }
 
   Future<void> initSubscriptionState() async {
-    if(isIOSAndMacOS() == false) {
+    if (isIOSAndMacOS() == false) {
       return;
     }
     BaseBean baseBean = await CounterMethodChannelManager.getInstance()
-        .checkSubscriptionState(DeviceInfoManagement.isMacOs() ? priceAnnual: priceAnnualMobile);
+        .checkSubscriptionState(
+            DeviceInfoManagement.isMacOs() ? priceAnnual : priceAnnualMobile);
     if (baseBean.data == "2") {
       subscriptionState = true;
     }
@@ -179,16 +197,17 @@ class SubscriptionAndPriceManager {
       BaseBean bean = await CounterMethodChannelManager.getInstance()
           .IAPPurchase(id: identifier);
       if (bean.data["status"] == 2) {
-        SubscriptionAndPriceManager.getInstance().addPurchasedProductToUserModel(
-            identifier: identifier,
-            list: [],
-            context: Utility.getGlobalContext(),
-            callback: (res) async {
-              await initSubscriptionState();
-              callback(res);
-            },
-            expireDateMillis: bean.data["expireDate"],
-            orignalTransactionId: bean.data["originalTransactionId"]);
+        SubscriptionAndPriceManager.getInstance()
+            .addPurchasedProductToUserModel(
+                identifier: identifier,
+                list: [],
+                context: Utility.getGlobalContext(),
+                callback: (res) async {
+                  await initSubscriptionState();
+                  callback(res);
+                },
+                expireDateMillis: bean.data["expireDate"],
+                orignalTransactionId: bean.data["originalTransactionId"]);
       } else {
         //失败
         callback(bean);
@@ -204,42 +223,30 @@ class SubscriptionAndPriceManager {
       return false;
     } else {
       if (Utility.isIOS() == true || Utility.isMacOS() == true) {
-        if (Utility
-            .getGlobalContext()
-            .read<Env>()
-            .isVip == true) {
+        if (Utility.getGlobalContext().read<Env>().isVip == true) {
           return true;
         }
         // 资源位拉取的本地开关
         if (Utility.isVipSwitchOn() == true) {
-          return Utility
-              .getGlobalContext()
-              .read<Env>()
-              .isVip = true;
+          return Utility.getGlobalContext().read<Env>().isVip = true;
         }
         // 未登录状态下 也可以看成vip
         if (LoginManager.getInstance().isLogin2() == false) {
-          return Utility
-              .getGlobalContext()
-              .read<Env>()
-              .isVip = true;
+          return Utility.getGlobalContext().read<Env>().isVip = true;
         }
-        return Utility
-            .getGlobalContext()
-            .read<Env>()
-            .isVip =
+        return Utility.getGlobalContext().read<Env>().isVip =
             containUserBeanIdentifierAlreadyBuyAndNotExpired(
-                identifier: priceAnnual) ||
+                    identifier: priceAnnual) ||
                 containUserBeanIdentifierAlreadyBuyAndNotExpired(
-                    identifier: priceMonthly) || containUserBeanIdentifierAlreadyBuyAndNotExpired(
-                identifier: priceAnnualMobile) ||
+                    identifier: priceMonthly) ||
                 containUserBeanIdentifierAlreadyBuyAndNotExpired(
-                    identifier: priceMonthlyMobile) ;
+                    identifier: priceAnnualMobile) ||
+                containUserBeanIdentifierAlreadyBuyAndNotExpired(
+                    identifier: priceMonthlyMobile);
       } else {
         return true;
       }
-      }
-
+    }
   }
 
   //判断 (LoginManager.getInstance().getUserBean().vipProductList ?? [])) 的 时间是否超过当前提供的expireTime的时间

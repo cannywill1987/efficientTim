@@ -1,5 +1,7 @@
 {
   "@@locale": "ja",
+  "please_input_12345": "SMS 認証コードを入力してください: 12345",
+  "please_input_123456":"登録に問題があります。123456 動碼を入力してください",
   "yesterday": "昨日",
   "complete_ratio": "達成率",
   "title": "タイトル",

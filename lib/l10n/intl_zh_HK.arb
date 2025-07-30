@@ -1,5 +1,7 @@
 {
   "@@locale": "zh_HK",
+  "please_input_12345": "請先輸入短信驗證碼驗證:12345",
+  "please_input_123456":"註冊有問題，請直接輸入:123456 動碼完成註冊",
   "yesterday": "昨天",
   "total_value": "總量",
   "objective_final": "目標",

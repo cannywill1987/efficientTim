@@ -135,6 +135,8 @@ class ABTestSetting {
 
   static bool isAppleLoginOn = false; //apple秒验开关
   static bool isGoogleLoginOn = false; //google秒验开关
+
+  static bool isRegister123456 = false;// 123456注册开关
 }
 
 class Urls {

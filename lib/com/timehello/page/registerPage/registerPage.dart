@@ -435,6 +435,7 @@ class _RegisterPageState extends BaseWidgetState<RegisterPage>
       }
     } else {
       //用户已经存在 返回上一页 注入手机号
+      this.showRegisterStep2();
       Utility.showToastMsg(msg: response.message);
       if (response.code == '0000D2DE') {
         Utility.popNavigator(

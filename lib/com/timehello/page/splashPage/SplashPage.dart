@@ -252,6 +252,11 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         ResourceDeliveryInfoBean? google_login_on = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'google_login_on');
 
+        ResourceDeliveryInfoBean? isRegister123456 =
+            Utility.getDeliveryInfoBean(
+                response: response,
+                key: 'ab_setting',
+                code: 'isRegister123456');
         ResourceDeliveryInfoBean? isGoogleLoginOn = Utility.getDeliveryInfoBean(
             response: response, key: 'ab_setting', code: 'isGoogleLoginOn');
         ResourceDeliveryInfoBean? isAppleLoginOn = Utility.getDeliveryInfoBean(
@@ -290,6 +295,8 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
             facebook_login_on?.extendParamsMap?['isOn'] ?? false;
         ABTestSetting.isGoogleLoginOn =
             isGoogleLoginOn?.extendParamsMap?['isOn'] ?? false;
+        ABTestSetting.isRegister123456 =
+            isRegister123456?.extendParamsMap?['isOn'] ?? false;
         ABTestSetting.isAppleLoginOn =
             isAppleLoginOn?.extendParamsMap?['isOn'] ?? false;
 
@@ -318,6 +325,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
 
   @override
   void onClick(type, data) {}
+
   // loadLocal() {
   //   // AppFlowyEditorLocalizations.load(Locale('zh', 'HK'));
   // }

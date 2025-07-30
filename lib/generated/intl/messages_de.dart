@@ -1968,6 +1968,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte geben Sie Ihre Frage ein"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage(
             "Bitte vervollständigen Sie die SMS-Passwort-Verifizierung"),
+        "please_input_12345": MessageLookupByLibrary.simpleMessage(
+            "Bitte geben Sie den SMS-Überprüfungscodes ein: 12345"),
+        "please_input_123456": MessageLookupByLibrary.simpleMessage(
+            "Registrierung hat ein Problem. Bitte geben Sie:123456 ein, um die Registrierung zu beenden"),
         "please_input_bill_amount": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie den Rechnungsbetrag ein"),
         "please_input_content":

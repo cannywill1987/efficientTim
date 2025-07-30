@@ -1678,6 +1678,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("質問を入力してください"),
         "please_finish_msn":
             MessageLookupByLibrary.simpleMessage("メッセージパスワードの確認を完了してください"),
+        "please_input_12345":
+            MessageLookupByLibrary.simpleMessage("SMS 認証コードを入力してください: 12345"),
+        "please_input_123456": MessageLookupByLibrary.simpleMessage(
+            "登録に問題があります。123456 動碼を入力してください"),
         "please_input_bill_amount":
             MessageLookupByLibrary.simpleMessage("請求書の金額を入力してください"),
         "please_input_content":

@@ -1,5 +1,7 @@
 {
   "@@locale": "de",
+  "please_input_12345": "Bitte geben Sie den SMS-Überprüfungscodes ein: 12345",
+  "please_input_123456":"Registrierung hat ein Problem. Bitte geben Sie:123456 ein, um die Registrierung zu beenden",
   "yesterday": "Gestern",
   "complete_ratio": "Abschlussrate",
   "title": "Titel",

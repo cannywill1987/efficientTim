@@ -1572,6 +1572,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("請輸入問題"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage("請完成短信密碼驗證"),
+        "please_input_12345":
+            MessageLookupByLibrary.simpleMessage("請先輸入短信驗證碼驗證:12345"),
+        "please_input_123456":
+            MessageLookupByLibrary.simpleMessage("註冊有問題，請直接輸入:123456 動碼完成註冊"),
         "please_input_bill_amount":
             MessageLookupByLibrary.simpleMessage("請輸入賬單金額"),
         "please_input_content": MessageLookupByLibrary.simpleMessage("請輸入內容"),

@@ -1,5 +1,7 @@
 {
   "@@locale": "zh_CN",
+  "please_input_12345": "请先输入短信验证码验证:12345",
+  "please_input_123456":"注册有问题，请直接输入:123456 动码完成注册",
   "yesterday": "昨天",
   "complete_ratio": "完成率",
   "title": "标题",

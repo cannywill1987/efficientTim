@@ -1981,6 +1981,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "veuillez entrer votre question"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage(
             "Veuillez terminer la vérification du mot de passe SMS"),
+        "please_input_12345": MessageLookupByLibrary.simpleMessage(
+            "Veuillez entrer le code de vérification SMS: 12345"),
+        "please_input_123456": MessageLookupByLibrary.simpleMessage(
+            "Inscription avec un problème, veuillez entrer:123456 pour terminer l\'inscription"),
         "please_input_bill_amount": MessageLookupByLibrary.simpleMessage(
             "Veuillez entrer le montant de la facture"),
         "please_input_content":

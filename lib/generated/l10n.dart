@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Please enter the SMS verification code: 12345`
+  String get please_input_12345 {
+    return Intl.message(
+      'Please enter the SMS verification code: 12345',
+      name: 'please_input_12345',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration has a problem, please enter:123456 to complete registration`
+  String get please_input_123456 {
+    return Intl.message(
+      'Registration has a problem, please enter:123456 to complete registration',
+      name: 'please_input_123456',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Yesterday`
   String get yesterday {
     return Intl.message(
@@ -14893,10 +14913,10 @@ class S {
     );
   }
 
-  /// `sun`
+  /// `Sun`
   String get sunday {
     return Intl.message(
-      'sun',
+      'Sun',
       name: 'sunday',
       desc: '',
       args: [],

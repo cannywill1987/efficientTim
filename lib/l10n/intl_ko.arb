@@ -1,5 +1,7 @@
 {
   "yesterday": "어제",
+  "please_input_12345": "문자 인증 코드를 입력하세요: 12345",
+  "please_input_123456":"등록에 문제가 있습니다. 123456 동코드를 입력하세요",
   "@@locale": "ko",
   "complete_ratio": "완료율",
   "title": "제목",

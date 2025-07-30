@@ -1650,8 +1650,6 @@
 			dependencies = (
 			);
 			name = NewCountdownWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = NewCountdownWidgetExtension;
 			productReference = DF16A24C2CF1961B000C0725 /* NewCountdownWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1669,8 +1667,6 @@
 			dependencies = (
 			);
 			name = New2ClockInWeekendWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = New2ClockInWeekendWidgetExtension;
 			productReference = DF5063ED2CE4B9F00053A7D2 /* New2ClockInWeekendWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1688,8 +1684,6 @@
 			dependencies = (
 			);
 			name = New2MissionListViewExtensionExtension;
-			packageProductDependencies = (
-			);
 			productName = New2MissionListViewExtensionExtension;
 			productReference = DF50642D2CE4CC4A0053A7D2 /* New2MissionListViewExtensionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1707,8 +1701,6 @@
 			dependencies = (
 			);
 			name = New2QuadrantWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = New2QuadrantWidgetExtension;
 			productReference = DF5064562CE4D63F0053A7D2 /* New2QuadrantWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1726,8 +1718,6 @@
 			dependencies = (
 			);
 			name = New2ClockInWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = New2ClockInWidgetExtension;
 			productReference = DF5064802CE4DEEE0053A7D2 /* New2ClockInWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1745,8 +1735,6 @@
 			dependencies = (
 			);
 			name = NewCalendarWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = NewCalendarWidgetExtension;
 			productReference = DF5064E32CEA37410053A7D2 /* NewCalendarWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1764,8 +1752,6 @@
 			dependencies = (
 			);
 			name = NewCustomizeMissionListViewExtension;
-			packageProductDependencies = (
-			);
 			productName = NewCustomizeMissionListViewExtension;
 			productReference = DF541B132CF0212E007678A4 /* NewCustomizeMissionListViewExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1800,8 +1786,6 @@
 			dependencies = (
 			);
 			name = LatestCalendarWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestCalendarWidgetExtension;
 			productReference = DF9876032CD631A500BFCE1C /* LatestCalendarWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1819,8 +1803,6 @@
 			dependencies = (
 			);
 			name = LatestNote1WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote1WidgetExtension;
 			productReference = DF98761A2CD631D500BFCE1C /* LatestNote1WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1838,8 +1820,6 @@
 			dependencies = (
 			);
 			name = LatestNote2WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote2WidgetExtension;
 			productReference = DF9876312CD631EB00BFCE1C /* LatestNote2WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1857,8 +1837,6 @@
 			dependencies = (
 			);
 			name = LatestNote3WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote3WidgetExtension;
 			productReference = DF9876482CD6320600BFCE1C /* LatestNote3WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1876,8 +1854,6 @@
 			dependencies = (
 			);
 			name = LatestNote4WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote4WidgetExtension;
 			productReference = DF98765F2CD6321C00BFCE1C /* LatestNote4WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1895,8 +1871,6 @@
 			dependencies = (
 			);
 			name = LatestNote5WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote5WidgetExtension;
 			productReference = DF9876762CD6322E00BFCE1C /* LatestNote5WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1914,8 +1888,6 @@
 			dependencies = (
 			);
 			name = LatestNote6WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote6WidgetExtension;
 			productReference = DF98768D2CD6323F00BFCE1C /* LatestNote6WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1933,8 +1905,6 @@
 			dependencies = (
 			);
 			name = LatestNote7WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = LatestNote7WidgetExtension;
 			productReference = DF9876A42CD6325100BFCE1C /* LatestNote7WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1952,8 +1922,6 @@
 			dependencies = (
 			);
 			name = NewCounterWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = NewCounterWidgetExtension;
 			productReference = DF9876D22CD632A600BFCE1C /* NewCounterWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";

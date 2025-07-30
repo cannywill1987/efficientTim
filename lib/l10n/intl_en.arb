@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "please_input_12345": "Please enter the SMS verification code: 12345",
+  "please_input_123456":"Registration has a problem, please enter:123456 to complete registration",
   "yesterday": "Yesterday",
   "complete_ratio": "Completion Rate",
   "title": "Title",

@@ -131,8 +131,9 @@ class RegisterStep1State extends State<RegisterStep1> {
                   },
                   fontSize: 14,
                 ),
-                SizedBox(
+                Container(
                   height: 20,
+
                 ),
 
                 getTextField(),

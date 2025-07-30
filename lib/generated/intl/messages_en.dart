@@ -1905,6 +1905,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("please enter your questing"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage(
             "Please complete SMS password verification"),
+        "please_input_12345": MessageLookupByLibrary.simpleMessage(
+            "Please enter the SMS verification code: 12345"),
+        "please_input_123456": MessageLookupByLibrary.simpleMessage(
+            "Registration has a problem, please enter:123456 to complete registration"),
         "please_input_bill_amount": MessageLookupByLibrary.simpleMessage(
             "Please enter the bill amount"),
         "please_input_content":
@@ -2303,7 +2307,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "summarize_prompt": MessageLookupByLibrary.simpleMessage(
             "Please summarize the main points of the selected paragraph."),
         "summary": MessageLookupByLibrary.simpleMessage("summary"),
-        "sunday": MessageLookupByLibrary.simpleMessage("sun"),
+        "sunday": MessageLookupByLibrary.simpleMessage("Sun"),
         "sundayShort": MessageLookupByLibrary.simpleMessage("Sun"),
         "super_notebook": MessageLookupByLibrary.simpleMessage("S-Note"),
         "super_tool": MessageLookupByLibrary.simpleMessage("Super Toolbar"),

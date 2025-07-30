@@ -161,7 +161,8 @@ dependencies:
   lottie: ^3.0.0
   #  material_symbols_icons: ^4.2719.1 #google font的icon https://fonts.google.com/icons
   flutter_sound: ^9.2.13
-  flutter_vibrate: ^1.3.0
+  flutter_vibrate:
+    path: ./thirdPartyPackages/flutter_vibrate-master
   #  calendar_date_picker2: ^0.5.5
   animate_do: ^3.3.4 #todo 不签用不用上
   flutter_styled_toast: ^2.2.1

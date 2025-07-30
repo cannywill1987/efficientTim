@@ -1313,8 +1313,6 @@
 				DF313C4B2CFF023200854A94 /* PBXTargetDependency */,
 			);
 			name = NewCountdown9WidgetExtensionExtension;
-			packageProductDependencies = (
-			);
 			productName = NewCountdown9WidgetExtensionExtension;
 			productReference = DF313C272CFEFFEF00854A94 /* NewCountdown9WidgetExtensionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1333,8 +1331,6 @@
 				DF708EAE2CF5EC5600C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note1WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note1WidgetExtension;
 			productReference = DF708CAB2CF5E6B200C0F554 /* Latest6Note1WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1353,8 +1349,6 @@
 				DF708EB02CF5EC5900C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note2WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note2WidgetExtension;
 			productReference = DF708CCD2CF5E70700C0F554 /* Latest6Note2WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1373,8 +1367,6 @@
 				DF708EB22CF5EC5E00C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note3WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note3WidgetExtension;
 			productReference = DF708CE52CF5E71600C0F554 /* Latest6Note3WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1393,8 +1385,6 @@
 				DF708EB42CF5EC6300C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note4WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note4WidgetExtension;
 			productReference = DF708CFD2CF5E72900C0F554 /* Latest6Note4WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1413,8 +1403,6 @@
 				DF708EB62CF5EC6600C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note5WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note5WidgetExtension;
 			productReference = DF708D152CF5E73B00C0F554 /* Latest6Note5WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1433,8 +1421,6 @@
 				DF708EB82CF5EC6B00C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note6WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note6WidgetExtension;
 			productReference = DF708D2D2CF5E74D00C0F554 /* Latest6Note6WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1453,8 +1439,6 @@
 				DF708EBA2CF5EC6F00C0F554 /* PBXTargetDependency */,
 			);
 			name = Latest6Note7WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = Latest6Note7WidgetExtension;
 			productReference = DF708D452CF5E75C00C0F554 /* Latest6Note7WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1473,8 +1457,6 @@
 				DF7090AE2CF61C7200C0F554 /* PBXTargetDependency */,
 			);
 			name = New7ClockInExtension;
-			packageProductDependencies = (
-			);
 			productName = New7ClockInExtension;
 			productReference = DF708F8D2CF609E700C0F554 /* New7ClockInExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1493,8 +1475,6 @@
 				DF7090AC2CF61C6D00C0F554 /* PBXTargetDependency */,
 			);
 			name = New7ClockinWeekendExtension;
-			packageProductDependencies = (
-			);
 			productName = New7ClockinWeekendExtension;
 			productReference = DF708FAF2CF60A5600C0F554 /* New7ClockinWeekendExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1513,8 +1493,6 @@
 				DF7090AA2CF61C6700C0F554 /* PBXTargetDependency */,
 			);
 			name = New7CustomizeMissionListViewExtension;
-			packageProductDependencies = (
-			);
 			productName = New7CustomizeMissionListViewExtension;
 			productReference = DF708FDF2CF6130500C0F554 /* New7CustomizeMissionListViewExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1533,8 +1511,6 @@
 				DF651B292CF70554000330E7 /* PBXTargetDependency */,
 			);
 			name = New7MissionListViewExtension;
-			packageProductDependencies = (
-			);
 			productName = New7MissionListViewExtension;
 			productReference = DF708FF72CF6131F00C0F554 /* New7MissionListViewExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1553,8 +1529,6 @@
 				DF7090A82CF61BB600C0F554 /* PBXTargetDependency */,
 			);
 			name = New7CounterWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = New7CounterWidgetExtension;
 			productReference = DF70902F2CF614D800C0F554 /* New7CounterWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1573,8 +1547,6 @@
 				DF7090A62CF61BA600C0F554 /* PBXTargetDependency */,
 			);
 			name = New7QuadrantWidgetExtensionExtension;
-			packageProductDependencies = (
-			);
 			productName = New7QuadrantWidgetExtensionExtension;
 			productReference = DF7090472CF614F500C0F554 /* New7QuadrantWidgetExtensionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1593,8 +1565,6 @@
 				DF7090A42CF61B9F00C0F554 /* PBXTargetDependency */,
 			);
 			name = New7CalendarWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = New7CalendarWidgetExtension;
 			productReference = DF70905F2CF6151100C0F554 /* New7CalendarWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";

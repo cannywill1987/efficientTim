@@ -1521,6 +1521,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_enter_your_question":
             MessageLookupByLibrary.simpleMessage("请输入问题"),
         "please_finish_msn": MessageLookupByLibrary.simpleMessage("请完成短信密码验证"),
+        "please_input_12345":
+            MessageLookupByLibrary.simpleMessage("请先输入短信验证码验证:12345"),
+        "please_input_123456":
+            MessageLookupByLibrary.simpleMessage("注册有问题，请直接输入:123456 动码完成注册"),
         "please_input_bill_amount":
             MessageLookupByLibrary.simpleMessage("请输入账单金额"),
         "please_input_content": MessageLookupByLibrary.simpleMessage("请输入内容"),

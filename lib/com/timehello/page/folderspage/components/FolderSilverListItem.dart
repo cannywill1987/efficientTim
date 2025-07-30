@@ -709,7 +709,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
           }
         },
         child: Container(
-          height: 46,
+          constraints: BoxConstraints(minHeight: 46),
           decoration: (Utility.isHandsetBySize() == false &&
                   this.widget.curSelectedTitle ==
                       _folderModelWithExtraData.folderModel.title)

@@ -112,103 +112,116 @@ class RegisterStep2State extends State<RegisterStep2> {
                 SizedBox(
                   height: 40,
                 ),
-                if(this.widget.curTab == 0 || (this.widget.curTab == 1 && Params.useGmail == false))
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFormField(
-                              onChanged: (String txt) {
-                                if(hasInputMsn == false){
-                                  AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "RegisterPage","eventType": "RegisterPage_input_phone_number","description": "手机号输入框",});
-                                }
+                if (this.widget.curTab == 0 ||
+                    (this.widget.curTab == 1 && Params.useGmail == false))
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextFormField(
+                                onChanged: (String txt) {
+                                  if (hasInputMsn == false) {
+                                    AnalyticsEventsManager.getInstance()
+                                        .sendAnalyticsEventMap({
+                                      "sceneType": "RegisterPage",
+                                      "eventType":
+                                          "RegisterPage_input_phone_number",
+                                      "description": "手机号输入框",
+                                    });
+                                  }
                                   hasInputMsn = true;
-                                this._msn = txt;
-                              },
-                              controller: textController1,
-                              maxLength: 6,
-                              obscureText: false,
-                              decoration:
-                              StylesConfig.getInputDecoration(hintText: getI18NKey().smsVerificationCode),
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: ThemeManager.getInstance()
-                                      .getTextColor(
-                                          defaultColor: Color(0xff8b97a2)),
-                                  fontWeight: FontWeight.w500),
-                              keyboardType: TextInputType.phone,
-                              validator: (value) => TextUtil.isEmpty(value)
-                                  ? getI18NKey().emailCannotBeNull
-                                  : null,
-                              onSaved: (value) {
-                                _msn = value?.trim();
-                              },
-                            ),
-                            ABTestSetting.isRegisterDynamicCode == true
-                                ? Text(
-                                    '请先输入短信验证码验证:12345',
-                                    style: TextStyle(fontSize: 12),
-                                  )
-                                : SizedBox.shrink()
-                          ],
+                                  this._msn = txt;
+                                },
+                                controller: textController1,
+                                maxLength: this.widget.curTab == 0 ? 6 : 4,
+                                obscureText: false,
+                                decoration: StylesConfig.getInputDecoration(
+                                    hintText: getI18NKey().smsVerificationCode),
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    color: ThemeManager.getInstance()
+                                        .getTextColor(
+                                            defaultColor: Color(0xff8b97a2)),
+                                    fontWeight: FontWeight.w500),
+                                keyboardType: TextInputType.phone,
+                                validator: (value) => TextUtil.isEmpty(value)
+                                    ? getI18NKey().emailCannotBeNull
+                                    : null,
+                                onSaved: (value) {
+                                  _msn = value?.trim();
+                                },
+                              ),
+                              // Utility.isChina() == true &&
+                              this.widget.curTab == 0 &&
+                                      ABTestSetting.isRegisterDynamicCode ==
+                                          true
+                                  ? Text(
+                                      getI18NKey().please_input_12345,
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  : SizedBox.shrink()
+                            ],
+                          ),
                         ),
-                      ),
-                      // Container(color: Colors.white, width: ,),
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.transparent, width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(4))),
-                        // width: 140,
-                        child: TextButton(
-                            onPressed: () {
-                              this.widget.onGetDynamicCodeListener!();
-                              startTimer();
-                            },
-                            child: Text(
-                              this.isBtnEnable == false
-                                  ? Utility.parseTimestampToSeconds(msnCurTime)
-                                      .toString()
-                                  : getI18NKey().getVerificationCode,
-                              style: TextStyle(
-                                  color: ThemeManager.getInstance()
-                                      .getTextColor(
-                                          defaultColor:
-                                              ColorsConfig.colorTextField)),
-                            )),
-                      ),
-                    ],
+                        // Container(color: Colors.white, width: ,),
+                        Container(
+                          margin: EdgeInsets.only(top: 10),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.transparent, width: 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
+                          // width: 140,
+                          child: TextButton(
+                              onPressed: () {
+                                this.widget.onGetDynamicCodeListener!();
+                                startTimer();
+                              },
+                              child: Text(
+                                this.isBtnEnable == false
+                                    ? Utility.parseTimestampToSeconds(
+                                            msnCurTime)
+                                        .toString()
+                                    : getI18NKey().getVerificationCode,
+                                style: TextStyle(
+                                    color: ThemeManager.getInstance()
+                                        .getTextColor(
+                                            defaultColor:
+                                                ColorsConfig.colorTextField)),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
                 Padding(
                     padding: EdgeInsets.only(top: 15, left: 15, right: 15),
                     child: TextFormField(
                       onChanged: (String txt) async {
-
-                        if(hasInputPassword == true) {
+                        if (hasInputPassword == true) {
                           if (this.widget.curTab == 0) {
                             AnalyticsEventsManager.getInstance()
                                 .sendAnalyticsEventMap({
                               "sceneType": "RegisterPage",
-                              "eventType": "RegisterPage_input_password_by_mobile",
+                              "eventType":
+                                  "RegisterPage_input_password_by_mobile",
                               "description": "密码输入框",
                             });
                           } else {
                             AnalyticsEventsManager.getInstance()
                                 .sendAnalyticsEventMap({
                               "sceneType": "RegisterPage",
-                              "eventType": "RegisterPage_input_password_by_email",
+                              "eventType":
+                                  "RegisterPage_input_password_by_email",
                               "description": "密码输入框",
                             });
                           }
                         }
-                         hasInputPassword = true;
+                        hasInputPassword = true;
 
                         this._password =
                             await Utility.encryptCTRAES(txt, Params.AES_PWD);
@@ -224,9 +237,7 @@ class RegisterStep2State extends State<RegisterStep2> {
                               {"msn": this._msn, "password": this._password});
                         }
                       },
-                      decoration:
-
-                      InputDecoration(
+                      decoration: InputDecoration(
                         suffixIcon: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -249,16 +260,17 @@ class RegisterStep2State extends State<RegisterStep2> {
                             ),
                           ],
                         ),
-                          labelText: getI18NKey().password,
-                          labelStyle: TextStyle(
-                              color: Color(0xff8b97a2),
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Montserrat'),
+                        labelText: getI18NKey().password,
+                        labelStyle: TextStyle(
+                            color: Color(0xff8b97a2),
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Montserrat'),
                         border: StylesConfig.borderSide,
-                        enabledBorder:StylesConfig.enableBorderSide,
-                        focusedBorder:StylesConfig.focusBorderSide,
+                        enabledBorder: StylesConfig.enableBorderSide,
+                        focusedBorder: StylesConfig.focusBorderSide,
                         filled: true,
-                        fillColor: StylesConfig.filledInputColor,),
+                        fillColor: StylesConfig.filledInputColor,
+                      ),
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: ThemeManager.getInstance()
