@@ -10,6 +10,9 @@ SettingModel _$SettingModelFromJson(Map<String, dynamic> json) => SettingModel()
   ..createdAt = json['createdAt'] as String?
   ..updatedAt = json['updatedAt'] as String?
   ..objectId = json['_id'] as String?
+  ..isListingAppleCalendarOn =
+      (json['isListingAppleCalendarOn'] as num?)?.toInt()
+  ..isListingAppleAlarmOn = (json['isListingAppleAlarmOn'] as num?)?.toInt()
   ..isListingTodayOn = (json['isListingTodayOn'] as num?)?.toInt()
   ..isListingDoItNowOn = (json['isListingDoItNowOn'] as num?)?.toInt()
   ..isListingTomorrowOn = (json['isListingTomorrowOn'] as num?)?.toInt()
@@ -33,6 +36,7 @@ SettingModel _$SettingModelFromJson(Map<String, dynamic> json) => SettingModel()
   ..isWQBContainerOn = (json['isWQBContainerOn'] as num).toInt()
   ..isCountDownListViewPageOn =
       (json['isCountDownListViewPageOn'] as num).toInt()
+  ..isCountUpListViewPageOn = (json['isCountUpListViewPageOn'] as num).toInt()
   ..isGamePageOn = (json['isGamePageOn'] as num).toInt()
   ..isLockScreenPageOn = (json['isLockScreenPageOn'] as num).toInt()
   ..isStatisticPageOn = (json['isStatisticPageOn'] as num).toInt()
@@ -44,6 +48,8 @@ Map<String, dynamic> _$SettingModelToJson(SettingModel instance) =>
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       '_id': instance.objectId,
+      'isListingAppleCalendarOn': instance.isListingAppleCalendarOn,
+      'isListingAppleAlarmOn': instance.isListingAppleAlarmOn,
       'isListingTodayOn': instance.isListingTodayOn,
       'isListingDoItNowOn': instance.isListingDoItNowOn,
       'isListingTomorrowOn': instance.isListingTomorrowOn,
@@ -63,6 +69,7 @@ Map<String, dynamic> _$SettingModelToJson(SettingModel instance) =>
       'isClockInPCPageOn': instance.isClockInPCPageOn,
       'isWQBContainerOn': instance.isWQBContainerOn,
       'isCountDownListViewPageOn': instance.isCountDownListViewPageOn,
+      'isCountUpListViewPageOn': instance.isCountUpListViewPageOn,
       'isGamePageOn': instance.isGamePageOn,
       'isLockScreenPageOn': instance.isLockScreenPageOn,
       'isStatisticPageOn': instance.isStatisticPageOn,

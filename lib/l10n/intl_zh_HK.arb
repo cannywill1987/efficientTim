@@ -1088,6 +1088,11 @@
   "count_down": "{day}天 {hour}:{mins}:{secs}",
   "count_down2": "{hour}:{mins}:{secs}",
   "count_down3": "{mins}:{secs}",
+  "count_up": "{day}天 {hour}:{mins}:{secs}",
+  "count_up2": "{hour}:{mins}:{secs}",
+  "count_up3": "{mins}:{secs}",
+  "create_countup": "創建紀念日",
+  "count_up_text": "紀念日",
   "submit": "提交",
   "rating_guide": "如果您覺得不錯，給我們一個5星好評吧，好評完截圖之後添加QQ群(群號:563144208)可以領取2个月優惠哦^^",
 

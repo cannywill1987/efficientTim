@@ -57,6 +57,7 @@ import 'package:time_hello/com/timehello/models/PushDataModel.dart';
 import 'package:time_hello/com/timehello/models/PushDataModelList.dart';
 import 'package:time_hello/com/timehello/models/SheetDataModel.dart';
 import 'package:time_hello/com/timehello/models/SquareModel.dart';
+import 'package:time_hello/com/timehello/models/StartTimeMissionModel.dart';
 import 'package:time_hello/com/timehello/models/SubmissionModel.dart';
 import 'package:time_hello/com/timehello/page/MobileTabBarHome.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/pages/games1/Games1Page.dart';
@@ -5473,6 +5474,29 @@ class Utility {
     //   }
     // });
     print(list);
+  }
+
+  static List<StartTimeMissionModel> sortStartTimeMissionModel(
+      List<StartTimeMissionModel> list) {
+    int now = getTimeStampToday();
+    List<StartTimeMissionModel> listStartTimeMissionModelFinished = [];
+    List<StartTimeMissionModel> listStartTimeMissionModelUnFinished = [];
+    list.sort((a, b) {
+      return (a.start_time ?? 0) > (b.start_time ?? 0)
+          ? 1
+          : (a.start_time ?? 0) < (b.start_time ?? 0)
+              ? -1
+              : 0;
+    });
+    list.forEach((element) {
+      if (element.start_time! < now) {
+        listStartTimeMissionModelFinished.add(element);
+      } else {
+        listStartTimeMissionModelUnFinished.add(element);
+      }
+    });
+    listStartTimeMissionModelUnFinished.addAll(listStartTimeMissionModelFinished);
+    return listStartTimeMissionModelUnFinished;
   }
 
   static DateTime? getStartDateTimeFromListMissionModels(

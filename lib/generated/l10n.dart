@@ -10192,6 +10192,96 @@ class S {
     );
   }
 
+  /// `{day} days {hour}:{mins}:{secs}`
+  String count_up(Object day, Object hour, Object mins, Object secs) {
+    return Intl.message(
+      '$day days $hour:$mins:$secs',
+      name: 'count_up',
+      desc: '',
+      args: [day, hour, mins, secs],
+    );
+  }
+
+  /// `{hour}:{mins}:{secs}`
+  String count_up2(Object hour, Object mins, Object secs) {
+    return Intl.message(
+      '$hour:$mins:$secs',
+      name: 'count_up2',
+      desc: '',
+      args: [hour, mins, secs],
+    );
+  }
+
+  /// `{mins}:{secs}`
+  String count_up3(Object mins, Object secs) {
+    return Intl.message(
+      '$mins:$secs',
+      name: 'count_up3',
+      desc: '',
+      args: [mins, secs],
+    );
+  }
+
+  /// `Create Anniversary`
+  String get create_countup {
+    return Intl.message(
+      'Create Anniversary',
+      name: 'create_countup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anniversary`
+  String get count_up_text {
+    return Intl.message(
+      'Anniversary',
+      name: 'count_up_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not set`
+  String get not_set {
+    return Intl.message(
+      'Not set',
+      name: 'not_set',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Title cannot be empty`
+  String get title_cannot_be_empty {
+    return Intl.message(
+      'Title cannot be empty',
+      name: 'title_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select start time`
+  String get please_select_start_time {
+    return Intl.message(
+      'Please select start time',
+      name: 'please_select_start_time',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `submit`
   String get submit {
     return Intl.message(

@@ -522,6 +522,13 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           JumpNavigator.onClickCustomHeaderGridView(
               context, 'CountDownListViewPage');
         }));
+    list.add(GridMenuItem(
+        icon: Utility.getSVGPicture(R.assetsImgIcMemoDay, size: iconSize),
+        title: getI18NKey().count_up_text,
+        onTapListener: () {
+          JumpNavigator.onClickCustomHeaderGridView(
+              context, 'CountUpListViewPage');
+        }));
     if (Utility.isHuaWei() == false && ABTestSetting.isOpenAiOn) {
       list.add(GridMenuItem(
           icon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: iconSize),
@@ -595,7 +602,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           Utility.pushNavigator(context, const WQBContainer());
         }));
     list.add(GridMenuItem(
-        icon: Utility.getSVGPicture(R.assetsImgIcMemoryCard, size: iconSize),
+        icon:
+            Utility.getSVGPicture(R.assetsImgIcMemoDayChecked, size: iconSize),
         title: getI18NKey().card,
         // subtitle: getI18NKey().copy_sub_title,
         onTapListener: () {
@@ -778,16 +786,22 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                         right: 10,
                         child: DownloadListwidget(
                           shouldShowWinAndAndroid:
-                          !(Utility.isIOS() || Utility.isMacOS()),
+                              !(Utility.isIOS() || Utility.isMacOS()),
                         )),
-                    if (LoginManager.getInstance().isLogin2() && LoginManager.getInstance()
-                        .isVIP(shouldShowDialog: false) ==
-                        false)
-                      Positioned(left: 10, bottom: 10, child:
-                      MembershipBanner(sizeEnum: SizeEnum.small , onTapCallback: () {
+                    if (LoginManager.getInstance().isLogin2() &&
                         LoginManager.getInstance()
-                            .openSubscriptionDialog(context);
-                      },))
+                                .isVIP(shouldShowDialog: false) ==
+                            false)
+                      Positioned(
+                          left: 10,
+                          bottom: 10,
+                          child: MembershipBanner(
+                            sizeEnum: SizeEnum.small,
+                            onTapCallback: () {
+                              LoginManager.getInstance()
+                                  .openSubscriptionDialog(context);
+                            },
+                          ))
                   ],
                 ),
               ),
@@ -804,8 +818,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               // ...getGridView(3),
               LoginManager.isLogin()
                   ? getLogoutItem(onTapListener: () {
-                LoginManager.getInstance().logout(context);
-              })
+                      LoginManager.getInstance().logout(context);
+                    })
                   : SizedBox.shrink(),
               getProtocolWidget(),
               SizedBox(
@@ -814,7 +828,6 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             ]),
           );
         });
-
   }
 
   Future<void> onClickSyncCloud(BuildContext context) async {
@@ -911,8 +924,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              !TextUtil.isEmpty(
-                      LoginManager.getInstance().userBean?.username)
+              !TextUtil.isEmpty(LoginManager.getInstance().userBean?.username)
                   ? Text(
                       LoginManager.getInstance().userBean.username,
                       overflow: TextOverflow.ellipsis,
@@ -920,8 +932,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                     )
                   : TextButton(
                       onPressed: () {
-                        Utility.pushNavigator(
-                            context, SettingUserInfoPage());
+                        Utility.pushNavigator(context, SettingUserInfoPage());
                       },
                       child: Row(
                         children: [
@@ -930,13 +941,13 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                             padding: EdgeInsets.only(left: 10, right: 10),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1, color: Colors.white),
+                                border:
+                                    Border.all(width: 1, color: Colors.white),
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(
                               getI18NKey().add_username,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 14),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
                             ),
                           )
                         ],
@@ -944,9 +955,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               SizedBox(
                 height: 3,
               ),
-              LoginManager.getInstance()
-                              .getUserBean()
-                              .totalFocusTimeRanking !=
+              LoginManager.getInstance().getUserBean().totalFocusTimeRanking !=
                           null &&
                       LoginManager.getInstance()
                               .getUserBean()
@@ -956,13 +965,11 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                       direction: Axis.vertical,
                       children: [
                         Text(
-                          getI18NKey().my_ranking(
-                              LoginManager.getInstance()
-                                  .getUserBean()
-                                  .totalFocusTimeRanking
-                                  .toString()),
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 12),
+                          getI18NKey().my_ranking(LoginManager.getInstance()
+                              .getUserBean()
+                              .totalFocusTimeRanking
+                              .toString()),
+                          style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                         Text(
                           getI18NKey().total_focus_time +
@@ -972,8 +979,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                                           .getUserBean()
                                           .totalFocusTime ??
                                       0),
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 12),
+                          style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ],
                     )

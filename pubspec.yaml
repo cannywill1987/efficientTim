@@ -319,6 +319,7 @@ flutter:
     - assets/img/icon_close.png
     - assets/img/ic_endtime2_orange.svg
     - assets/img/ic_focus_orange.svg
+    - assets/img/ic_memo_day.svg
     - assets/img/ic_autorenew.png
     - assets/img/avatar26.svg
     - assets/img/avatar32.svg
@@ -399,6 +400,7 @@ flutter:
     - assets/img/ic_guide_lottie2.json
     - assets/img/ic_setting.svg
     - assets/img/ic_emoji4_unselected.png
+    - assets/img/ic_memo_day_checked.svg
     - assets/img/ic_lockscreen.svg
     - assets/img/ic_autorenew_one.png
     - assets/img/ic_calendar_mode.svg

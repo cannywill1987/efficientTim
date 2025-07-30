@@ -34,6 +34,7 @@ class SettingModel extends MongoDbObject{
   int isClockInPCPageOn = 1;
   int isWQBContainerOn = 1;
   int isCountDownListViewPageOn = 1;
+  int isCountUpListViewPageOn = 1;
   int isGamePageOn = 1;
   int isLockScreenPageOn = 1;
   int isStatisticPageOn = 1;

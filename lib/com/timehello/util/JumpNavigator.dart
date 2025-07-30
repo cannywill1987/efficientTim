@@ -4,6 +4,7 @@ import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 
 import '../config/CONSTANTS.dart';
 import '../config/ENUMS.dart';
+import '../page/CountUpListViewPage/CountUpListViewPage.dart';
 import '../page/CreditCardManagementPage/pages/CreditCardPage.dart';
 import '../page/RecorderPage/RecordPage2.dart';
 import '../page/RichEditor/RichEditorPage.dart';
@@ -160,6 +161,22 @@ class JumpNavigator {
               context, "CountDownListViewPage", {});
         }
         break;
+        case 'CountUpListViewPage':
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "folderpage",
+            "eventType": "folderpage_flip_clock_timing",
+            "description": "倒计时",
+          });
+          if (Utility.isHandsetBySize() == true) {
+            Future.delayed(Duration(milliseconds: 100), () {
+              // Utility.showCurTab(context, CONSTANTS.getCurPage(PageEnum.CountDownListViewPage), {"curTab": 1});
+              Utility.pushNavigator(context,
+                  CountUpListViewPage(pageFromEnum: PageFromEnum.Normal));
+            });
+          } else {
+            Utility.pushDesktopMainContainerNavigator(
+                context, "CountUpListViewPage", {});
+          }
     }
   }
 }

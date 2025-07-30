@@ -8,6 +8,7 @@ import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/CountDownListViewPage/CountDownListViewPage.dart';
+import 'package:time_hello/com/timehello/page/CountUpListViewPage/CountUpListViewPage.dart';
 import 'package:time_hello/com/timehello/page/CoursePage/CoursePage.dart';
 import 'package:time_hello/com/timehello/page/CreditCardManagementPage/pages/CreditCardContainer.dart';
 import 'package:time_hello/com/timehello/page/FourQuadrant/FourQuadrantContainer.dart';
@@ -22,6 +23,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../util/AnalyticsEventsManager.dart';
 import 'AddFilterPage/AddFilterPage.dart';
+import 'CountUpListViewPage/CountUpListViewPage.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
 import 'FlomoPage/FlomoPCContainerPage.dart';
 import 'FourQuadrant/FourQuadrantPage.dart';
@@ -111,6 +113,10 @@ Widget buildBodyFunction([String? page]) {
                 ? SizedBox.shrink()
                 : const CountDownListViewPage(
                     pageFromEnum: PageFromEnum.Normal),
+            settingModel.isCountUpListViewPageOn != 1 ? SizedBox.shrink() :!(page == 'CountUpListViewPage')
+                ? SizedBox.shrink()
+                : const CountUpListViewPage(
+                pageFromEnum: PageFromEnum.Normal),
             //倒计时
             settingModel.isTomatoPageOn != 1 ? SizedBox.shrink() : Offstage(
                 offstage: !(page == 'TomatoPage'),

@@ -15,6 +15,7 @@ import 'package:time_hello/com/timehello/models/EventCollectionModel.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
+import 'package:time_hello/com/timehello/models/StartTimeMissionModel.dart';
 import 'package:time_hello/com/timehello/models/StatsModel.dart';
 import 'package:time_hello/com/timehello/models/User.dart';
 import 'package:time_hello/com/timehello/models/UserInfoModel.dart';
@@ -75,6 +76,7 @@ class MongoApisManager {
   bool hasLoadedSharePreferenceModel = false;
   bool hasLoadedTimeLineMissionModel = false;
   bool hasLoadedEndTimeMissionModels = false;
+  bool hasLoadedStartTimeMissionModels = false;
   bool hasLoadedFlomoMissionModels = false;
   bool hasLoadedStatsModels = false;
   bool hasInit = false;
@@ -101,6 +103,7 @@ class MongoApisManager {
       hasLoadedSharePreferenceModel = false;
       hasLoadedTimeLineMissionModel = false;
       hasLoadedEndTimeMissionModels = false;
+      hasLoadedStartTimeMissionModels = false;
       hasLoadedFlomoMissionModels = false;
       hasLoadedChatGptFolderModel = false;
       hasLoadedStatsModels = false;
@@ -116,6 +119,7 @@ class MongoApisManager {
       listTimelineMissionModel = [];
       listMissionModels = [];
       listEndTimeMissionModels = [];
+      listStartTimeMissionModels = [];
       listStatsModels = [];
       listPresentModel = [];
       listEventCollectionModel = [];
@@ -177,6 +181,7 @@ class MongoApisManager {
   List<MissionModel> listCalendarMissionModels = [];
   List<MissionModel> listRemindersMissionModels = [];
   List<EndTimeMissionModel> listEndTimeMissionModels = [];
+  List<StartTimeMissionModel> listStartTimeMissionModels = [];
   List<StatsModel> listStatsModels = [];
   List<PresentModel> listPresentModel = [];
   List<ChatGptFolderModel> listChatGptFolderModel = [];
@@ -272,6 +277,7 @@ class MongoApisManager {
         queryWhereEqual_presentModel();
         queryWhereEqual_TimelineMissionModel();
         queryWhereEqual_EndTimeMissionModel();
+        queryWhereEqual_StartTimeMissionModel();
         queryWhereEqual_CourseModel();
         queryWhereEqual_ChatGptFolderModel();
         // perf.stop();
@@ -1278,7 +1284,7 @@ class MongoApisManager {
       {int? start_endTime,
       int? end_endTime,
       String? fid,
-        String? missionId,
+      String? missionId,
       String? scene,
       int? repetiveType,
       callback}) {
@@ -1291,9 +1297,10 @@ class MongoApisManager {
           if (end_endTime != null && model.end_time! <= end_endTime) {
             // model.ic
             if (repetiveType == null || model.repetiveType == repetiveType) {
-              if (TextUtil.isEmpty(fid)|| model.folder_id == fid) {
+              if (TextUtil.isEmpty(fid) || model.folder_id == fid) {
                 if (scene == null || model.sceneType == scene) {
-                  if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+                  if (TextUtil.isEmpty(missionId) ||
+                      model.mission_id == missionId) {
                     list.add(model);
                   }
                   // list.add(model);
@@ -1307,7 +1314,8 @@ class MongoApisManager {
           if (repetiveType == null || model.repetiveType == repetiveType) {
             if (TextUtil.isEmpty(fid) || model.folder_id == fid) {
               if (scene == null || model.sceneType == scene) {
-                if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+                if (TextUtil.isEmpty(missionId) ||
+                    model.mission_id == missionId) {
                   list.add(model);
                 }
               }
@@ -1319,7 +1327,8 @@ class MongoApisManager {
           if (repetiveType == null || model.repetiveType == repetiveType) {
             if (TextUtil.isEmpty(fid) || model.folder_id == fid) {
               if (scene == null || model.sceneType == scene) {
-                if (TextUtil.isEmpty(missionId) || model.mission_id == missionId) {
+                if (TextUtil.isEmpty(missionId) ||
+                    model.mission_id == missionId) {
                   list.add(model);
                 }
               }
@@ -1487,9 +1496,16 @@ class MongoApisManager {
             : dateType == 3
                 ? Utility.getWeekStartTime().millisecondsSinceEpoch
                 : dateType == 4
-                    ? Utility.getNDaysAgoStartTimeByMilliseconds(valueDaysBefore)
+                    ? Utility.getNDaysAgoStartTimeByMilliseconds(
+                            valueDaysBefore)
                         .millisecondsSinceEpoch
-                    : dateType == 5 ? (filterConditionBean.startTime == 0 || filterConditionBean.startTime == null )  ? DateTime.now().millisecondsSinceEpoch : (filterConditionBean?.startTime ?? DateTime.now().millisecondsSinceEpoch) : 0;
+                    : dateType == 5
+                        ? (filterConditionBean.startTime == 0 ||
+                                filterConditionBean.startTime == null)
+                            ? DateTime.now().millisecondsSinceEpoch
+                            : (filterConditionBean?.startTime ??
+                                DateTime.now().millisecondsSinceEpoch)
+                        : 0;
     int endTime = dateType == 1
         ? Utility.getTodayEndTime().millisecondsSinceEpoch
         : dateType == 2
@@ -1499,26 +1515,32 @@ class MongoApisManager {
                 : dateType == 4
                     ? Utility.getNDaysAfterEndTimeByMilliseconds(valueDaysAfter)
                         .millisecondsSinceEpoch
-                    : dateType == 5 ? (filterConditionBean.endTime == 0 || filterConditionBean.endTime == null )  ? DateTime.now().millisecondsSinceEpoch : (filterConditionBean?.endTime ?? DateTime.now().millisecondsSinceEpoch) : 0;
+                    : dateType == 5
+                        ? (filterConditionBean.endTime == 0 ||
+                                filterConditionBean.endTime == null)
+                            ? DateTime.now().millisecondsSinceEpoch
+                            : (filterConditionBean?.endTime ??
+                                DateTime.now().millisecondsSinceEpoch)
+                        : 0;
     List listingFolderId = filterConditionBean.listingId ?? [];
     List<MissionModel> list = [];
     for (int i = 0; i < this.listMissionModels.length; i++) {
       MissionModel model = this.listMissionModels[i];
-      if(model.title == '大于今天范围') {
+      if (model.title == '大于今天范围') {
         print('大于今天范围');
       }
-      if(model.title == '支持多语言') {
+      if (model.title == '支持多语言') {
         print('支持多语言');
       }
-      if(model.title == '7天后过滤') {
+      if (model.title == '7天后过滤') {
         print('7天后过滤');
       }
 
       if (listingFolderId.length == 0 ||
           listingFolderId.indexOf(model.folder_id) != -1) {
         //如果没有筛选文件夹
-        if (Utility.isDateTimeIntersectionByMilliSeconds(startTime, endTime, model.start_time, model.end_time)) {
-
+        if (Utility.isDateTimeIntersectionByMilliSeconds(
+            startTime, endTime, model.start_time, model.end_time)) {
           if (prioritys.indexOf(model.priorityStatus ?? 3) != -1 ||
               prioritys.length == 0) {
             if (keyword.isNotEmpty) {
@@ -1529,7 +1551,8 @@ class MongoApisManager {
               list.add(model);
             }
           }
-        }else if((startTime == null || startTime ==0) && (endTime == null || endTime == 0)) {
+        } else if ((startTime == null || startTime == 0) &&
+            (endTime == null || endTime == 0)) {
           //没有时间筛选
           if (prioritys.indexOf(model.priorityStatus ?? 3) != -1 ||
               prioritys.length == 0) {
@@ -1864,10 +1887,121 @@ class MongoApisManager {
     });
 
     this.listEndTimeMissionModels = missionModels;
-    CounterMethodChannelManager.getInstance().storeEndTimeMissionList(this.listEndTimeMissionModels);
+    CounterMethodChannelManager.getInstance()
+        .storeEndTimeMissionList(this.listEndTimeMissionModels);
 
     Utility.getGlobalContext().read<GlobalStateEnv>().listEndTimeMissionModel =
         this.listEndTimeMissionModels;
+    if (callback != null) {
+      callback(missionModels);
+    }
+    return missionModels;
+  }
+
+  ///等于条件查询 - StartTimeMissionModel
+  
+  Future<List<StartTimeMissionModel>> queryWhereEqual_StartTimeMissionModel(
+      {String? folder_id,
+      String? currentObjectId,
+      bool shouldRefresh = true,
+      title,
+      time_format,
+      device_id,
+      start_time,
+      isFinished,
+      callback}) async {
+    if (TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid) ==
+            true &&
+        TextUtil.isEmpty(this.device_id) == true) {
+      return [];
+    }
+    if (shouldRefresh == false && this.hasLoadedStartTimeMissionModels == true)
+      return this.listStartTimeMissionModels;
+
+    this.hasLoadedStartTimeMissionModels = true;
+    MongoDbQuery<StartTimeMissionModel> query = MongoDbQuery();
+    MongoDbQuery<StartTimeMissionModel> queryUid = MongoDbQuery();
+    MongoDbQuery<StartTimeMissionModel> queryUidAndDeviceId = MongoDbQuery();
+
+    MongoDbQuery<StartTimeMissionModel>? query1,
+        query2,
+        query3,
+        query4,
+        query5,
+        query6;
+
+    MongoDbQuery<StartTimeMissionModel> queryDeviceId = MongoDbQuery();
+    queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
+
+    List<MongoDbQuery<StartTimeMissionModel>> list2 = [];
+    String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+        ? ''
+        : LoginManager.getInstance().getUserBean().uid;
+    if (uid?.isNotEmpty == true) {
+      queryUid.addWhereEqualTo("uid", uid ?? "");
+      list2.add(queryUid);
+    }
+    list2.add(queryDeviceId);
+
+    queryUidAndDeviceId.or(list2);
+
+    if (TextUtil.isEmpty(title) != true) {
+      query1 = MongoDbQuery();
+      query1.addWhereEqualTo("title", title);
+    }
+    if (TextUtil.isEmpty(time_format) != true) {
+      query2 = MongoDbQuery();
+      query2.addWhereEqualTo("time_format", time_format);
+    }
+    if (TextUtil.isEmpty(currentObjectId) != true) {
+      query3 = MongoDbQuery();
+      query3.addWhereEqualTo("_id", currentObjectId ?? '');
+    }
+    if (start_time != null) {
+      query4 = MongoDbQuery();
+      query4.addWhereEqualTo("start_time", start_time);
+    }
+    if (isFinished != null) {
+      query5 = MongoDbQuery();
+      query5.addWhereEqualTo("isFinished", isFinished);
+    }
+    if (TextUtil.isEmpty(device_id) != true) {
+      query6 = MongoDbQuery();
+      query6.addWhereEqualTo("device_id", device_id);
+    }
+    List<MongoDbQuery<StartTimeMissionModel>> list = [];
+    list.add(queryUidAndDeviceId);
+    if (query1 != null) list.add(query1);
+    if (query2 != null) list.add(query2);
+    if (query3 != null) list.add(query3);
+    if (query4 != null) list.add(query4);
+    if (query5 != null) list.add(query5);
+    if (query6 != null) list.add(query6);
+    query.and(list);
+    query.skip = 0;
+    query.limit = 100000;
+
+    List<dynamic> data = await query.queryObjects();
+    Utility.print(data.toString());
+    List<StartTimeMissionModel> missionModels =
+        data.map((i) => StartTimeMissionModel.fromJson(i)).toList();
+    missionModels.forEach((element) {
+      if (TextUtil.isEmpty(element.uid) == true) {
+        element.uid =
+            !TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+                ? LoginManager.getInstance().getUserBean().uid
+                : '';
+      }
+      if (TextUtil.isEmpty(this.device_id) == false) {
+        element.device_id = this.device_id;
+      }
+      if (element.start_time == null) element.start_time = 0;
+      if (element.isFinished == null) element.isFinished = false;
+    });
+
+    this.listStartTimeMissionModels = missionModels;
+    Utility.getGlobalContext().read<GlobalStateEnv>().listStartTimeMissionModel =
+        this.listStartTimeMissionModels;
     if (callback != null) {
       callback(missionModels);
     }
@@ -1935,7 +2069,6 @@ class MongoApisManager {
 
     MongoDbQuery<MissionModel>? query1, query2, query3, query4, query5, query6;
 
-
     List<MongoDbQuery<MissionModel>> list2 = [];
     String? uid = TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
         ? ''
@@ -1946,7 +2079,7 @@ class MongoApisManager {
     }
 
     MongoDbQuery<MissionModel> queryDeviceId = MongoDbQuery();
-    if(!LoginManager.getInstance().isLogin2()) {
+    if (!LoginManager.getInstance().isLogin2()) {
       queryDeviceId.addWhereEqualTo("device_id", this.device_id ?? "");
       list2.add(queryDeviceId);
     }
@@ -2056,13 +2189,13 @@ class MongoApisManager {
       }
     });
 
-
     //批量解密需要解密的 cryptoVersion=0的 -1不需要解密
     missionModels = await CryptoManager.getInstance()
         .batchDecryptMissionModels(missionModels);
     if (missionModels != null &&
         missionModels.length == 0 &&
-        Params.isFirstTime == true && Params.hasGuidMissionDataInit == true) {
+        Params.isFirstTime == true &&
+        Params.hasGuidMissionDataInit == true) {
       Params.isFirstTime = false;
       CloudSharepreferenceManagement.getInstance()
           .setBool("IsFirstTime", false);
@@ -2084,15 +2217,17 @@ class MongoApisManager {
     return missionModels;
   }
 
-  Future<void> updateCalendarAndReminderDatas({bool shouldQuery = false}) async {
+  Future<void> updateCalendarAndReminderDatas(
+      {bool shouldQuery = false}) async {
     this.listMissionModels.clear();
     this.listMissionModels.addAll(this.listPureMissionModels);
     this.listCalendarMissionModels.clear();
     this.listRemindersMissionModels.clear();
-    if(DeviceInfoManagement.isMacOs() || DeviceInfoManagement.isIOS()) {
+    if (DeviceInfoManagement.isMacOs() || DeviceInfoManagement.isIOS()) {
       try {
-        BaseBean accessBaseBean = await CounterMethodChannelManager
-            .getInstance().requestEventReminderAccess();
+        BaseBean accessBaseBean =
+            await CounterMethodChannelManager.getInstance()
+                .requestEventReminderAccess();
         if (accessBaseBean.success == true) {
           DateTime date = DateTime.now();
           DateTime dateTimeStart = new DateTime(date.year - 1);
@@ -2100,21 +2235,21 @@ class MongoApisManager {
           DateTime dateTimeEnd = new DateTime(date.year + 2);
           int timestampEnd = dateTimeEnd.millisecondsSinceEpoch;
 
-          List<EventModel> listEventModel = await CounterMethodChannelManager
-              .getInstance().fetchCalendarEvents(
-              startDate: timestampStart.toDouble(),
-              endDate: timestampEnd.toDouble());
-          List<MissionModel> listPhoneCalendarMissionModels = Utility
-              .convertListEventModelToListMissionModel(listEventModel);
+          List<EventModel> listEventModel =
+              await CounterMethodChannelManager.getInstance()
+                  .fetchCalendarEvents(
+                      startDate: timestampStart.toDouble(),
+                      endDate: timestampEnd.toDouble());
+          List<MissionModel> listPhoneCalendarMissionModels =
+              Utility.convertListEventModelToListMissionModel(listEventModel);
 
-          List<
-              ReminderModel> listRemindsModel = await CounterMethodChannelManager
-              .getInstance().fetchReminderReminders(
-              startDate: timestampStart.toDouble(),
-              endDate: timestampEnd.toDouble());
-          List<MissionModel> listMissionModel = Utility
-              .convertReminderListToMissionList(listRemindsModel);
-
+          List<ReminderModel> listRemindsModel =
+              await CounterMethodChannelManager.getInstance()
+                  .fetchReminderReminders(
+                      startDate: timestampStart.toDouble(),
+                      endDate: timestampEnd.toDouble());
+          List<MissionModel> listMissionModel =
+              Utility.convertReminderListToMissionList(listRemindsModel);
 
           this.listCalendarMissionModels = listPhoneCalendarMissionModels ?? [];
           this.listRemindersMissionModels = listMissionModel ?? [];
@@ -2153,7 +2288,6 @@ class MongoApisManager {
     }
     return list;
   }
-
 
   ///等于条件查询
   Future<List<FlomoMissionModel>> queryWhereEqual_FlomoMissionModel(
@@ -3385,6 +3519,33 @@ class MongoApisManager {
     return bmobUpdated;
   }
 
+  ///修改一条数据 - StartTimeMissionModel
+  update_StartTimeMissionModel(
+      {required StartTimeMissionModel missionModel,
+      Function? callback,
+      currentObjectId}) async {
+    StartTimeMissionModel startTimeMissionModel =
+        missionModel ?? StartTimeMissionModel();
+    if (!TextUtil.isEmpty(currentObjectId)) {
+      startTimeMissionModel.objectId = currentObjectId;
+    }
+
+    // missionModelTmp.update_time = Utility.getTimeStamp();
+    startTimeMissionModel.uid =
+        TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+            ? ''
+            : LoginManager.getInstance().getUserBean().uid;
+    MongoDbUpdated bmobUpdated = await startTimeMissionModel.update();
+    await queryWhereEqual_StartTimeMissionModel(
+      shouldRefresh: true,
+    ); //更新 missionModels
+    if (callback != null) {
+      callback(bmobUpdated);
+    }
+    print("修改一条 StartTimeMissionModel 数据成功：${bmobUpdated.message}");
+    return bmobUpdated;
+  }
+
   /**
    *  更新messages [{"date": 时间戳, satisfaction: "", message: ""}]
    */
@@ -3417,7 +3578,8 @@ class MongoApisManager {
   update_FlomoMissionModelClocksIn(
       {required FlomoMissionModel flomoMissionModel,
       String? ymd,
-      Function? callback, bool shouldInc = true}) async {
+      Function? callback,
+      bool shouldInc = true}) async {
     if (ymd == null) {
       ymd = Utility.getYMDToday();
     }
@@ -3449,20 +3611,21 @@ class MongoApisManager {
     //         eventType: "clockin_time",
     //         timelineMessage: getI18NKey().create_name_flomo_mission(clockInList.length, flomoMissionModel.daily_num_times, flomoMissionModel.title ?? "?")));
 
-    if (clockInList.length >= flomoMissionModel.daily_num_times && shouldInc == true) {
+    if (clockInList.length >= flomoMissionModel.daily_num_times &&
+        shouldInc == true) {
       return;
     }
-    if(shouldInc == true) {
+    if (shouldInc == true) {
       clockInList.add({
         "numClock": ((flomoMissionModel.clockIn?.length ?? 0) + 1),
         "totalClocks": (flomoMissionModel?.daily_num_times ?? 0) + 1,
         "timestamp": Utility.getTimeStampToday()
       });
-    } else { //打卡自减1 超过设置为0
-      if(clockInList.length > 0) {
+    } else {
+      //打卡自减1 超过设置为0
+      if (clockInList.length > 0) {
         clockInList.removeLast();
       }
-
     }
     if (flomoMissionModel.clockIn == null) {
       flomoMissionModel.clockIn = {};
@@ -3600,6 +3763,43 @@ class MongoApisManager {
       ); //更新 missionModels
       String message =
           "创建一条数据成功：${bmobSaved?.objectId} - ${bmobSaved?.createdAt}";
+      // print(message);
+      if (callback != null) {
+        callback(bmobSaved);
+      }
+      return bmobSaved;
+    } catch (e) {
+      return null;
+      // throw new Error();
+    } finally {
+      // await dbUtil.close();
+    }
+  }
+
+  Future<MongoDbSaved?> insertStartTimeMissionModel(
+      {StartTimeMissionModel? missionModel, Function? callback}) async {
+    try {
+      if ((this.device_id == null || this.device_id?.isEmpty == true) &&
+          LoginManager.isLogin() == false) {
+        Utility.showToastMsg(msg: getI18NKey().loginFirst);
+        LoginManager.getInstance()
+            .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
+        return null;
+      }
+      StartTimeMissionModel missionModelTmp =
+          missionModel ?? StartTimeMissionModel();
+      missionModelTmp.uid =
+          TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+              ? ''
+              : LoginManager.getInstance().getUserBean().uid;
+      missionModelTmp.device_id = this.device_id;
+
+      MongoDbSaved? bmobSaved = await missionModelTmp.save();
+      await queryWhereEqual_StartTimeMissionModel(
+        shouldRefresh: true,
+      ); //更新 missionModels
+      String message =
+          "创建一条 StartTimeMissionModel 数据成功：${bmobSaved?.objectId} - ${bmobSaved?.createdAt}";
       // print(message);
       if (callback != null) {
         callback(bmobSaved);
@@ -3798,25 +3998,29 @@ class MongoApisManager {
   double getFolderModelPercent({required FolderModel folderModel}) {
     double totalVal = 0;
     double curVal = 0;
-    if(folderModel.tag == 5) {
-    List<MissionModel> missionModels = queryMissioinModelsByFolderId(
-        folderId: folderModel.objectId ?? "");
-    for (MissionModel missionModel in missionModels) {
-      double? objectiveValue = (missionModel.objectiveTotalValue ??0) < (missionModel?.objectiveValue??0) ? missionModel.objectiveTotalValue : missionModel.objectiveValue; //目标值
-      double? objectiveTotalValue = missionModel.objectiveTotalValue; //目标值完成
-      curVal += objectiveValue ?? 0;
-      totalVal += objectiveTotalValue ?? 0;
+    if (folderModel.tag == 5) {
+      List<MissionModel> missionModels =
+          queryMissioinModelsByFolderId(folderId: folderModel.objectId ?? "");
+      for (MissionModel missionModel in missionModels) {
+        double? objectiveValue = (missionModel.objectiveTotalValue ?? 0) <
+                (missionModel?.objectiveValue ?? 0)
+            ? missionModel.objectiveTotalValue
+            : missionModel.objectiveValue; //目标值
+        double? objectiveTotalValue = missionModel.objectiveTotalValue; //目标值完成
+        curVal += objectiveValue ?? 0;
+        totalVal += objectiveTotalValue ?? 0;
+      }
     }
-    }
-    if(totalVal == 0) {
+    if (totalVal == 0) {
       return 0;
     }
     return curVal / totalVal;
-
   }
 
   Future<MongoDbSaved?> insertTimelineMissionModel(
-      {required TimelineMissionModel missionModel,bool shouldQueryMissionModel = true, Function? callback}) async {
+      {required TimelineMissionModel missionModel,
+      bool shouldQueryMissionModel = true,
+      Function? callback}) async {
     try {
       if ((this.device_id == null || this.device_id?.isEmpty == true) &&
           LoginManager.isLogin() == false) {
@@ -3843,7 +4047,7 @@ class MongoApisManager {
       } else {
         //更新 missionModels
         //添加到第一个
-        if(this.listTimelineMissionModel.length > 0) {
+        if (this.listTimelineMissionModel.length > 0) {
           this.listTimelineMissionModel.insert(0, missionModelTmp);
         } else {
           this.listTimelineMissionModel.add(missionModelTmp);
@@ -3860,7 +4064,6 @@ class MongoApisManager {
         //     this.listMissionModels;
         // this.listMissionModels = missionModels;
       }
-
 
       String message =
           "创建一条数据成功：${bmobSaved?.objectId ?? ""} - ${bmobSaved?.createdAt ?? ""}";
@@ -3927,13 +4130,17 @@ class MongoApisManager {
         // });
         return null;
       }
-      if(missionModel.missionModelType == 1) {
-        await CounterMethodChannelManager.getInstance().updateMissionModelToCalendar(Utility.getGlobalContext(), missionModel: missionModel);
+      if (missionModel.missionModelType == 1) {
+        await CounterMethodChannelManager.getInstance()
+            .updateMissionModelToCalendar(Utility.getGlobalContext(),
+                missionModel: missionModel);
         // calendar数据
         await updateCalendarAndReminderDatas(shouldQuery: true);
         return null;
       } else if (missionModel.missionModelType == 2) {
-        await CounterMethodChannelManager.getInstance().updateMissionModelToReminder(Utility.getGlobalContext(), missionModel: missionModel);
+        await CounterMethodChannelManager.getInstance()
+            .updateMissionModelToReminder(Utility.getGlobalContext(),
+                missionModel: missionModel);
         // calendar数据
         await updateCalendarAndReminderDatas(shouldQuery: true);
         return null;
@@ -4199,7 +4406,8 @@ class MongoApisManager {
     List<SuggestionBean> suggestionBeans = [];
     List<String> suggestionList = [];
     for (MissionModel missionModel in this.listMissionModels) {
-      if(!TextUtil.isEmpty(missionModel.objectiveUnit) && !suggestionList.contains(missionModel.objectiveUnit)) {
+      if (!TextUtil.isEmpty(missionModel.objectiveUnit) &&
+          !suggestionList.contains(missionModel.objectiveUnit)) {
         SuggestionBean bean = SuggestionBean();
         bean.suggestion = missionModel.objectiveUnit;
         bean.suggestionContent = missionModel.objectiveUnit;
@@ -4292,7 +4500,8 @@ class MongoApisManager {
                 tagColor: folderModel.tagColor,
                 timelineMessage: getI18NKey().create_name_tag(title)));
       }
-      if (folderModel.tag == 2 &&  await isTagNameExist_folderModel(folderModel: folderModel) == true) {
+      if (folderModel.tag == 2 &&
+          await isTagNameExist_folderModel(folderModel: folderModel) == true) {
         if (callback != null) {
           callback(null);
         }
@@ -4546,6 +4755,42 @@ class MongoApisManager {
     // }
   }
 
+  /**
+   * 完成该任务 - StartTimeMissionModel
+   */
+  finishStartTimeMissionModel({
+    required StartTimeMissionModel missionModel,
+    Function? callback,
+  }) async {
+    missionModel.isFinished = true;
+    // missionModel.repetiveType = 0; //把重复去掉 以免日历不断显示
+    // missionModel.repetiveValue = null;
+    // missionModel.start_time_before_finished =
+    //     missionModel.start_time; //把SettingItemDetailPage设置的start_time预存
+    //如果任务完成时间大于当前时间 则预期
+    // if (Utility.getYearMonthAndDayDateTimeByTimestamp(
+    //             missionModel.start_time ?? 0)
+    //         .compareTo(Utility.getYearMonthAndDayDateTimeByTimestamp(
+    //             Utility.getTimeStampToday())) >
+    //     0) {
+    //   missionModel.isDelayed = true;
+    // }
+    missionModel.finish_time = Utility.getTimeStampToday(); //start_time是真实时间
+    missionModel.uid =
+        TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+            ? ''
+            : LoginManager.getInstance().getUserBean().uid;
+    MongoDbUpdated bmobUpdated = await missionModel.update();
+    await queryWhereEqual_StartTimeMissionModel(
+      shouldRefresh: true,
+    ); //更新 missionModels
+    if (callback != null) {
+      callback(bmobUpdated);
+    }
+    print("修改一条 StartTimeMissionModel 数据成功：${bmobUpdated.message}");
+    return bmobUpdated;
+  }
+
   bool validMissionModel({MissionModel? missionModel}) {
     if (missionModel?.time_mode == 1 &&
         (missionModel?.start_time == null || missionModel?.start_time == 0)) {
@@ -4667,20 +4912,23 @@ class MongoApisManager {
       {required MissionModel missionModel,
       bool shouldCheckPermission = true,
       bool shouldQueryMissionModel = true,
-        bool shouldUpdateLog = true,
+      bool shouldUpdateLog = true,
       Function? callback}) async {
-    if(missionModel.missionModelType == 1) {
-      await CounterMethodChannelManager.getInstance().updateMissionModelToCalendar(Utility.getGlobalContext(), missionModel: missionModel);
+    if (missionModel.missionModelType == 1) {
+      await CounterMethodChannelManager.getInstance()
+          .updateMissionModelToCalendar(Utility.getGlobalContext(),
+              missionModel: missionModel);
       // calendar数据
       await updateCalendarAndReminderDatas(shouldQuery: true);
       return null;
     } else if (missionModel.missionModelType == 2) {
-      await CounterMethodChannelManager.getInstance().updateMissionModelToReminder(Utility.getGlobalContext(), missionModel: missionModel);
+      await CounterMethodChannelManager.getInstance()
+          .updateMissionModelToReminder(Utility.getGlobalContext(),
+              missionModel: missionModel);
       // calendar数据
       await updateCalendarAndReminderDatas(shouldQuery: true);
       return null;
     }
-
 
     if (shouldCheckPermission == true &&
         ChatGroupManager.isFolderModelEnabled(
@@ -4717,37 +4965,38 @@ class MongoApisManager {
         //     this.listMissionModels;
         // this.listMissionModels = missionModels;
       }
-      if(shouldUpdateLog == true) {
+      if (shouldUpdateLog == true) {
         if (TextUtil.isEmpty(missionModelTmp.folder_id) == true) {
           MongoDbSaved? res = await MongoApisManager.getInstance()
               .insertTimelineMissionModel(
-              missionModel: Utility.getTimelineMissionModelFromMissionModel(
-                  icon: Icons.check_circle.codePoint,
-                  color: Colors.greenAccent.value,
-                  missionModel: missionModel,
-                  mission_id: missionModelTmp.objectId,
-                  folder_id: missionModel.folder_id,
-                  sceneType: "mission",
-                  eventType: "update_mission",
-                  timelineMessage: getI18NKey()
-                      .update_name_mission2(missionModel.title ?? "?")));
+                  missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                      icon: Icons.check_circle.codePoint,
+                      color: Colors.greenAccent.value,
+                      missionModel: missionModel,
+                      mission_id: missionModelTmp.objectId,
+                      folder_id: missionModel.folder_id,
+                      sceneType: "mission",
+                      eventType: "update_mission",
+                      timelineMessage: getI18NKey()
+                          .update_name_mission2(missionModel.title ?? "?")));
         } else {
           FolderModel? folderModel = MongoApisManager.getInstance()
-              .queryWhereEqualFolderModelByObjectId(
-              objectId: missionModelTmp.folder_id) ??
+                  .queryWhereEqualFolderModelByObjectId(
+                      objectId: missionModelTmp.folder_id) ??
               null;
           MongoDbSaved? res = await MongoApisManager.getInstance()
               .insertTimelineMissionModel(
-              missionModel: Utility.getTimelineMissionModelFromMissionModel(
-                  icon: Icons.check_circle.codePoint,
-                  color: Colors.greenAccent.value,
-                  mission_id: missionModelTmp.objectId,
-                  folder_id: missionModel.folder_id,
-                  missionModel: missionModel,
-                  sceneType: "mission",
-                  eventType: "update_mission",
-                  timelineMessage: getI18NKey().update_name_mission(
-                      folderModel?.title ?? "", missionModel.title ?? "?")));
+                  missionModel: Utility.getTimelineMissionModelFromMissionModel(
+                      icon: Icons.check_circle.codePoint,
+                      color: Colors.greenAccent.value,
+                      mission_id: missionModelTmp.objectId,
+                      folder_id: missionModel.folder_id,
+                      missionModel: missionModel,
+                      sceneType: "mission",
+                      eventType: "update_mission",
+                      timelineMessage: getI18NKey().update_name_mission(
+                          folderModel?.title ?? "",
+                          missionModel.title ?? "?")));
         }
       }
 //如果计数中需要更新missionModel
@@ -5701,6 +5950,23 @@ class MongoApisManager {
     return list;
   }
 
+  batchdelete_StartTimeMissionModel(
+      {List<StartTimeMissionModel>? listParam, Function? callback}) async {
+    MongoDbBatch batch = MongoDbBatch();
+    listParam?.forEach((element) {
+      element.uid =
+          TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+              ? ''
+              : LoginManager.getInstance().getUserBean().uid;
+    });
+    List list = await batch.deleteBatch(listParam ?? []);
+    await queryWhereEqual_StartTimeMissionModel(shouldRefresh: true);
+    if (callback != null) {
+      callback(list);
+    }
+    return list;
+  }
+
   batchdelete_TimelineMissionModel(
       {List<TimelineMissionModel>? listParam, Function? callback}) async {
     MongoDbBatch batch = MongoDbBatch();
@@ -5798,6 +6064,57 @@ class MongoApisManager {
     // }
   }
 
+  ///删除一条数据 - StartTimeMissionModel
+  
+  delete_StartTimeMissionModel(
+      {currentObjectId,
+      title,
+      time_format,
+      device_id,
+      start_time,
+      isFinished,
+      Function? callback}) async {
+    if (LoginManager.isLogin() == false) {
+      Utility.showToastMsg(msg: getI18NKey().loginFirst);
+      LoginManager.getInstance()
+          .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
+      return null;
+    }
+    StartTimeMissionModel missionModel = StartTimeMissionModel();
+    if (!TextUtil.isEmpty(currentObjectId)) {
+      missionModel.objectId = currentObjectId;
+    }
+    if (!TextUtil.isEmpty(title)) {
+      missionModel.title = title;
+    }
+    if (!TextUtil.isEmpty(time_format)) {
+      missionModel.time_format = time_format;
+    }
+    if (!TextUtil.isEmpty(device_id)) {
+      missionModel.device_id = device_id;
+    }
+    if (start_time != null) {
+      missionModel.start_time = start_time;
+    }
+    if (isFinished != null) {
+      missionModel.isFinished = isFinished;
+    }
+    missionModel.uid =
+        TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+            ? ''
+            : LoginManager.getInstance().getUserBean().uid;
+    MongoDbHandled bmobHandled = await missionModel.delete();
+    await queryWhereEqual_StartTimeMissionModel(
+      shouldRefresh: true,
+    ); //更新 missionModels
+    if (callback != null) {
+      callback(bmobHandled);
+    }
+    currentObjectId = null;
+    print("删除一条 StartTimeMissionModel 数据成功：${bmobHandled.message}");
+    return bmobHandled;
+  }
+
   delete_WQBMissionModel({currentObjectId, Function? callback}) async {
     if (LoginManager.isLogin() == false) {
       Utility.showToastMsg(msg: getI18NKey().loginFirst);
@@ -5850,16 +6167,18 @@ class MongoApisManager {
           .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
       return null;
     }
-    MissionModel? model = this.queryWhereEqual_missionDataByObjectId(
-        objectId: currentObjectId);
+    MissionModel? model =
+        this.queryWhereEqual_missionDataByObjectId(objectId: currentObjectId);
 
-    if(model?.missionModelType == 1) {
-      await CounterMethodChannelManager.getInstance().deleteEvent(id: model?.objectId ?? "");
+    if (model?.missionModelType == 1) {
+      await CounterMethodChannelManager.getInstance()
+          .deleteEvent(id: model?.objectId ?? "");
       // calendar数据
       await updateCalendarAndReminderDatas(shouldQuery: true);
       return null;
     } else if (model?.missionModelType == 2) {
-      await CounterMethodChannelManager.getInstance().deleteReminder(id: model?.objectId ?? "");
+      await CounterMethodChannelManager.getInstance()
+          .deleteReminder(id: model?.objectId ?? "");
       // calendar数据
       await updateCalendarAndReminderDatas(shouldQuery: true);
       return null;
@@ -6862,6 +7181,29 @@ class MongoApisManager {
     return list;
   }
 
+  batchInsert_StartTimeMissionModels(
+      {List<StartTimeMissionModel>? listParam, Function? callback}) async {
+    if (TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid) ==
+            true &&
+        TextUtil.isEmpty(this.device_id) == true) {
+      return;
+    }
+    MongoDbBatch batch = MongoDbBatch();
+    listParam?.forEach((element) {
+      element.uid =
+          TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid)
+              ? ''
+              : LoginManager.getInstance().getUserBean().uid;
+      element.device_id = this.device_id;
+    });
+    List list = await batch.insertBatch(listParam ?? []);
+    await queryWhereEqual_StartTimeMissionModel(shouldRefresh: true);
+    if (callback != null) {
+      callback(list);
+    }
+    return list;
+  }
+
   batchInsert_MissionModelsWithParams(
       {List<MissionModel>? listParam, Function? callback}) async {
     MongoDbBatch batch = MongoDbBatch();
@@ -6903,7 +7245,9 @@ class MongoApisManager {
   }
 
   batchInsert_MissionModels(
-      {List<MissionModel>? listParam, bool? shouldQuery = true, Function? callback}) async {
+      {List<MissionModel>? listParam,
+      bool? shouldQuery = true,
+      Function? callback}) async {
     if (TextUtil.isEmpty(LoginManager.getInstance().getUserBean().uid) ==
             true &&
         TextUtil.isEmpty(this.device_id) == true) {
@@ -6917,7 +7261,7 @@ class MongoApisManager {
               : LoginManager.getInstance().getUserBean().uid;
     });
     List list = await batch.insertBatch(listParam ?? []);
-    if(shouldQuery == true) {
+    if (shouldQuery == true) {
       await queryWhereEqual_missionData(shouldRefresh: true);
     }
     MongoDbSaved? res = await MongoApisManager.getInstance()
@@ -6950,7 +7294,7 @@ class MongoApisManager {
               ? ''
               : LoginManager.getInstance().getUserBean().uid;
     });
-    if((listParam?.length ?? 0) > 0) {
+    if ((listParam?.length ?? 0) > 0) {
       List list = await batch.insertBatch(listParam ?? []);
       // await queryWhereEqual_presentModel(shouldRefresh: true);
       if (callback != null) {

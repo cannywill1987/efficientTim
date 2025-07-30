@@ -79,6 +79,8 @@ class R {
   static final String assetsImgIcEndtime2Orange = 'assets/img/ic_endtime2_orange.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_focus_orange.svg)
   static final String assetsImgIcFocusOrange = 'assets/img/ic_focus_orange.svg';
+  /// ![](http://127.0.0.1:123/assets/img/ic_memo_day.svg)
+  static final String assetsImgIcMemoDay = 'assets/img/ic_memo_day.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_autorenew.png)
   static final String assetsImgIcAutorenew = 'assets/img/ic_autorenew.png';
   /// ![](http://127.0.0.1:123/assets/img/avatar26.svg)
@@ -239,6 +241,8 @@ class R {
   static final String assetsImgIcSetting = 'assets/img/ic_setting.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_emoji4_unselected.png)
   static final String assetsImgIcEmoji4Unselected = 'assets/img/ic_emoji4_unselected.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_memo_day_checked.svg)
+  static final String assetsImgIcMemoDayChecked = 'assets/img/ic_memo_day_checked.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_lockscreen.svg)
   static final String assetsImgIcLockscreen = 'assets/img/ic_lockscreen.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_autorenew_one.png)

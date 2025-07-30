@@ -81,251 +81,257 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m26(mins, secs) => "${mins}:${secs}";
 
-  static String m27(times, total, title) =>
+  static String m27(day, hour, mins, secs) => "${day}日 ${hour}:${mins}:${secs}";
+
+  static String m28(hour, mins, secs) => "${hour}:${mins}:${secs}";
+
+  static String m29(mins, secs) => "${mins}:${secs}";
+
+  static String m30(times, total, title) =>
       "タスク${times}/${total}回 \'${title}\'を打つ";
 
-  static String m28(listing, title) => "リスト「${listing}」に打刻タスク「${title}」を作成しました";
+  static String m31(listing, title) => "リスト「${listing}」に打刻タスク「${title}」を作成しました";
 
-  static String m29(title) => "打刻タスク「${title}」を作成しました";
+  static String m32(title) => "打刻タスク「${title}」を作成しました";
 
-  static String m30(title) => "リスト「${title}」を作成しました";
+  static String m33(title) => "リスト「${title}」を作成しました";
 
-  static String m31(listing, title) => "リスト「${listing}」にタスク「${title}」を作成しました";
+  static String m34(listing, title) => "リスト「${listing}」にタスク「${title}」を作成しました";
 
-  static String m32(title) => "タスク「${title}」を作成しました";
+  static String m35(title) => "タスク「${title}」を作成しました";
 
-  static String m33(title) => "タグ「${title}」を作成しました";
+  static String m36(title) => "タグ「${title}」を作成しました";
 
-  static String m34(Folder) => "${Folder}を作成する";
+  static String m37(Folder) => "${Folder}を作成する";
 
-  static String m35(currencySymbol, price) => "${currencySymbol}${price} / 月";
+  static String m38(currencySymbol, price) => "${currencySymbol}${price} / 月";
 
-  static String m36(currencySymbol, price) => "${currencySymbol}${price} / 年";
+  static String m39(currencySymbol, price) => "${currencySymbol}${price} / 年";
 
-  static String m37(tone) => "現在の着信音:${tone}";
+  static String m40(tone) => "現在の着信音:${tone}";
 
-  static String m38(date1, date2) => "${date1}から${date2}まで";
+  static String m41(date1, date2) => "${date1}から${date2}まで";
 
-  static String m39(month, day) => "${month}月${day}日";
+  static String m42(month, day) => "${month}月${day}日";
 
-  static String m40(month, day, hour, mins) =>
+  static String m43(month, day, hour, mins) =>
       "${month}月${day}日,${hour}:${mins}";
 
-  static String m41(t0, t1, t2, t3, t4) => "${t0}/${t1}/${t2} ${t3}:${t4}";
+  static String m44(t0, t1, t2, t3, t4) => "${t0}/${t1}/${t2} ${t3}:${t4}";
 
-  static String m42(money) => "${money}日前";
+  static String m45(money) => "${money}日前";
 
-  static String m43(money) => "${money}日後";
+  static String m46(money) => "${money}日後";
 
-  static String m44(title) => "タスク \'${title}\'を削除";
+  static String m47(title) => "タスク \'${title}\'を削除";
 
-  static String m45(note) => "デスクトップウィジェット${note}";
+  static String m48(note) => "デスクトップウィジェット${note}";
 
-  static String m46(title) => "タイトル「${title}」を編集";
+  static String m49(title) => "タイトル「${title}」を編集";
 
-  static String m47(currencySymbol, dailyPrice) =>
+  static String m50(currencySymbol, dailyPrice) =>
       "日額換算 ${currencySymbol}${dailyPrice}";
 
-  static String m48(currencySymbol, monthlyPrice) =>
+  static String m51(currencySymbol, monthlyPrice) =>
       "月額換算 ${currencySymbol}${monthlyPrice}";
 
-  static String m49(n) => "毎日${n}回";
+  static String m52(n) => "毎日${n}回";
 
-  static String m50(title, time, num) =>
+  static String m53(title, time, num) =>
       "集中中にアプリを退出しました、タスク「${title}」、集中時間は${time}、${num}のバーチャルコインを獲得しました";
 
-  static String m51(title) => "タスク「${title}」を完了しました";
+  static String m54(title) => "タスク「${title}」を完了しました";
 
-  static String m52(value) => "期間：${value}";
+  static String m55(value) => "期間：${value}";
 
-  static String m53(value) => "数量：${value}";
+  static String m56(value) => "数量：${value}";
 
-  static String m54(duraiton) => "完成までの時間${duraiton}秒";
+  static String m57(duraiton) => "完成までの時間${duraiton}秒";
 
-  static String m55(correct, error, percent) =>
+  static String m58(correct, error, percent) =>
       "${correct}個正解、${error}個不正解、正確率${percent}";
 
-  static String m56(name) => "${name}をローカルに成功裏に取得しました、トレーニングを開始することができます";
+  static String m59(name) => "${name}をローカルに成功裏に取得しました、トレーニングを開始することができます";
 
-  static String m57(app_name) => "${app_name} の時間管理者として";
+  static String m60(app_name) => "${app_name} の時間管理者として";
 
-  static String m58(id) => "グループID: ${id}";
+  static String m61(id) => "グループID: ${id}";
 
-  static String m59(title) => "\"${title}\"にタスクを追加し、「エンター」キーを押して保存します";
+  static String m62(title) => "\"${title}\"にタスクを追加し、「エンター」キーを押して保存します";
 
-  static String m60(hour, min) => "${hour}時${min}分";
+  static String m63(hour, min) => "${hour}時${min}分";
 
-  static String m61(hour, min, sec) => "${hour}時${min}分${sec}秒";
+  static String m64(hour, min, sec) => "${hour}時${min}分${sec}秒";
 
-  static String m62(wordCount, charCount) =>
+  static String m65(wordCount, charCount) =>
       "(選択された) 単語数: ${wordCount}, 文字数: ${charCount}";
 
-  static String m63(xxx) => "${xxx}にジャンプ";
+  static String m66(xxx) => "${xxx}にジャンプ";
 
-  static String m64(num) => "最大${num}文字まで入力可能";
+  static String m67(num) => "最大${num}文字まで入力可能";
 
-  static String m65(max) => "${max}文字を超えることはできません";
+  static String m68(max) => "${max}文字を超えることはできません";
 
-  static String m66(time) => "最大録音時間:${time}";
+  static String m69(time) => "最大録音時間:${time}";
 
-  static String m67(min, sec) => "${min}分${sec}秒";
+  static String m70(min, sec) => "${min}分${sec}秒";
 
-  static String m68(year, month, day, weekday) =>
+  static String m71(year, month, day, weekday) =>
       "${year}年${month}月${day}日,${weekday}";
 
-  static String m69(month, day, year) => "${year}年${month}月${day}日";
+  static String m72(month, day, year) => "${year}年${month}月${day}日";
 
-  static String m70(month, year) => "${year}年${month}月";
+  static String m73(month, year) => "${year}年${month}月";
 
-  static String m71(year, month, day, hour, min, weekday) =>
+  static String m74(year, month, day, hour, min, weekday) =>
       "${year}年${month}月${day}日 ${hour}:${min},${weekday}";
 
-  static String m72(missionTitle) => "${missionTitle}タスクが進行中です、停止しますか";
+  static String m75(missionTitle) => "${missionTitle}タスクが進行中です、停止しますか";
 
-  static String m73(name) => "「${name}」タスクのリマインダー";
+  static String m76(name) => "「${name}」タスクのリマインダー";
 
-  static String m74(name) => "「${name}」打刻タスクリマインダー";
+  static String m77(name) => "「${name}」打刻タスクリマインダー";
 
-  static String m75(submission, mission) =>
+  static String m78(submission, mission) =>
       "タスク${mission}のサブタスク${submission}が始まりました、準備をしてください";
 
-  static String m76(title) => "タスク\"${title}\"";
+  static String m79(title) => "タスク\"${title}\"";
 
-  static String m77(value) => "まず、あなたの時間あたりの価値を設定してください${value}\$/時間";
+  static String m80(value) => "まず、あなたの時間あたりの価値を設定してください${value}\$/時間";
 
-  static String m78(title) => "リストのタイトルを「${title}」に変更しました";
+  static String m81(title) => "リストのタイトルを「${title}」に変更しました";
 
-  static String m79(title) => "タグを「${title}」に変更しました";
+  static String m82(title) => "タグを「${title}」に変更しました";
 
-  static String m80(month, day, weekday) => "${month}月${day}日 ${weekday}";
+  static String m83(month, day, weekday) => "${month}月${day}日 ${weekday}";
 
-  static String m81(month) => "${month}月の打刻率";
+  static String m84(month) => "${month}月の打刻率";
 
-  static String m82(month) => "${month}月の打刻ログ";
+  static String m85(month) => "${month}月の打刻ログ";
 
-  static String m83(course) => "私の${course}";
+  static String m86(course) => "私の${course}";
 
-  static String m84(ranking) => "${ranking}位";
+  static String m87(ranking) => "${ranking}位";
 
-  static String m85(ranking) => "今回のランキングは${ranking}位です";
+  static String m88(ranking) => "今回のランキングは${ranking}位です";
 
-  static String m86(days) => "${days}日遅れ";
+  static String m89(days) => "${days}日遅れ";
 
-  static String m87(newline) => "改行:${newline}";
+  static String m90(newline) => "改行:${newline}";
 
-  static String m88(title, min, secs) => "${title}(残り時間:${min}:${secs}）";
+  static String m91(title, min, secs) => "${title}(残り時間:${min}:${secs}）";
 
-  static String m89(value, hour, mins) =>
+  static String m92(value, hour, mins) =>
       "今日は${value}個のタスクを完了する必要があります、予想時間は${hour}時間${mins}分です";
 
-  static String m90(n, hour, mins) =>
+  static String m93(n, hour, mins) =>
       "${n}個のタスクが遅延しています、予想時間は${hour}時間${mins}分です";
 
-  static String m91(days) => "${days}日";
+  static String m94(days) => "${days}日";
 
-  static String m92(num) => "${num}分";
+  static String m95(num) => "${num}分";
 
-  static String m93(num, total) => "${num}ミッション / ${total}総ミッション";
+  static String m96(num, total) => "${num}ミッション / ${total}総ミッション";
 
-  static String m94(num, total) => "リスト${num}/${total}";
+  static String m97(num, total) => "リスト${num}/${total}";
 
-  static String m95(num, total) => "${num}/${total}";
+  static String m98(num, total) => "${num}/${total}";
 
-  static String m96(num) => "${num}個のタスク";
+  static String m99(num) => "${num}個のタスク";
 
-  static String m97(num) => "${num}回";
+  static String m100(num) => "${num}回";
 
-  static String m98(num) => "${num}トマト";
+  static String m101(num) => "${num}トマト";
 
-  static String m99(num) => "${num}個";
+  static String m102(num) => "${num}個";
 
-  static String m100(number) => "${number}個の賞品";
+  static String m103(number) => "${number}個の賞品";
 
-  static String m101(name) => "リスト「${name}」のパスワードを入力してください";
+  static String m104(name) => "リスト「${name}」のパスワードを入力してください";
 
-  static String m102(xxx) => "${xxx}を入力してください";
+  static String m105(xxx) => "${xxx}を入力してください";
 
-  static String m103(name) => "アプリストアで\"${name}\"を検索してください";
+  static String m106(name) => "アプリストアで\"${name}\"を検索してください";
 
-  static String m104(content) => "${content}を選択してください";
+  static String m107(content) => "${content}を選択してください";
 
-  static String m105(present) => "${present}は何コイン必要ですか";
+  static String m108(present) => "${present}は何コイン必要ですか";
 
-  static String m106(missionFinished, missionToDo, duration) =>
+  static String m109(missionFinished, missionToDo, duration) =>
       "${missionFinished}完了、${missionToDo}を開始してください、${missionToDo}の時間：${duration}";
 
-  static String m107(title, percent) => "タスク「${title}」は${percent}完了";
+  static String m110(title, percent) => "タスク「${title}」は${percent}完了";
 
-  static String m108(title, percent, folderTitle, folderPercent) =>
+  static String m111(title, percent, folderTitle, folderPercent) =>
       "タスク「${title}」は${percent}%完了、目標リスト「${folderTitle}」は${folderPercent}%完了";
 
-  static String m109(total) => "${total}回の繰り返し";
+  static String m112(total) => "${total}回の繰り返し";
 
-  static String m110(value) => "期間：${value}";
+  static String m113(value) => "期間：${value}";
 
-  static String m111(value) => "数量：${value}";
+  static String m114(value) => "数量：${value}";
 
-  static String m112(role, time, content, timestampFormat1, timestampFormat2,
+  static String m115(role, time, content, timestampFormat1, timestampFormat2,
           timestampFormat3) =>
       "あなたに${role}の役割を果たしてもらいたい、以下の内容を計画してください、時間は${time}、${content}、そしてjson objects配列を返します、JSON Objectsを返します\njsonの各フィールドのkey値と説明は以下の通りです\nString? title = \'\'; //タイトル 必須 \nint? total_tomotoes; //結果を直接計算します 完成したトマトの数 (daily_end_time - daily_start_time)/tomato_duration \nint? tomato_duration = 1500000;  //結果を直接計算します 値は常に25 * 60 * 1000ミリ秒で、1つのトマトが25分間集中することを示します \nString? end_time; //結果を直接計算します ${timestampFormat1}形式の終了時間 必須 \nint? priorityStatus; //3 なし 2 低 1 中 0 高 必須 \nString? daily_start_time; //結果を直接計算します ${timestampFormat2}形式のタスク開始時間   \nString? daily_end_time; //結果を直接計算します ${timestampFormat3}形式のタスク終了時間 \nString? message; //タスクリマインダー \n注意: nullであってはならない、key:valueのvalueは直接結果を与え、各タスクのdaily_start_timeとdaily_end_timeの時間は重複してはならない \ntitleはタイトルを明確に記述する必要があり、他の説明は必要ありません、各タスクは少なくとも5分間隔である必要があります\n 配列をルートとするjson文字列のみを返します 例[object,object,](注意:政治的な歴史については議論しない)";
 
-  static String m113(listing_name, code, app_name) =>
+  static String m116(listing_name, code, app_name) =>
       "${listing_name}のグループリスト番号は${code}です。${app_name}をダウンロードし、グループリスト番号を入力すると、パートナーと一緒に作業できます。";
 
-  static String m114(title) => "タスク「${title}」の集中を開始しました";
+  static String m117(title) => "タスク「${title}」の集中を開始しました";
 
-  static String m115(title) => "休憩「${title}」を開始しました";
+  static String m118(title) => "休憩「${title}」を開始しました";
 
-  static String m116(title, time, num) =>
+  static String m119(title, time, num) =>
       "タスク「${title}」の集中を停止しました、集中時間は${time}、${num}のバーチャルコインを獲得しました";
 
-  static String m117(title) => "休憩「${title}」を停止しました";
+  static String m120(title) => "休憩「${title}」を停止しました";
 
-  static String m118(money) => "${money}前";
+  static String m121(money) => "${money}前";
 
-  static String m119(money) => "${money}後";
+  static String m122(money) => "${money}後";
 
-  static String m120(appname) => "${appname} AI";
+  static String m123(appname) => "${appname} AI";
 
-  static String m121(date) => "${date}のデータ";
+  static String m124(date) => "${date}のデータ";
 
-  static String m122(num) => "合計 ${num}";
+  static String m125(num) => "合計 ${num}";
 
-  static String m123(num) => "合計 ${num}トマト";
+  static String m126(num) => "合計 ${num}トマト";
 
-  static String m124(trainee) =>
+  static String m127(trainee) =>
       "注意してください、実際の状況に応じて行動してください。${trainee}の回答に満足していない場合は、${trainee}と詳細な命令を通じて時間を計画するように依頼することができます。";
 
-  static String m125(trainee) => "${trainee}のアドバイス";
+  static String m128(trainee) => "${trainee}のアドバイス";
 
-  static String m126(time) => "最後の更新時間:${time}";
+  static String m129(time) => "最後の更新時間:${time}";
 
-  static String m127(listing, title) => "リスト「${listing}」のタスク「${title}」を更新しました";
+  static String m130(listing, title) => "リスト「${listing}」のタスク「${title}」を更新しました";
 
-  static String m128(title) => "タスク「${title}」を更新しました";
+  static String m131(title) => "タスク「${title}」を更新しました";
 
-  static String m129(value) => "価値:${value}";
+  static String m132(value) => "価値:${value}";
 
-  static String m130(value) => "${value}\$/時間";
+  static String m133(value) => "${value}\$/時間";
 
-  static String m131(version) => "現在のバージョン${version}";
+  static String m134(version) => "現在のバージョン${version}";
 
-  static String m132(appName) => "\"${appName}\"へようこそ";
+  static String m135(appName) => "\"${appName}\"へようこそ";
 
-  static String m133(wordCount, charCount) =>
+  static String m136(wordCount, charCount) =>
       "単語数: ${wordCount}, 文字数: ${charCount}";
 
-  static String m134(diary) => "日記「${diary}」を書きました";
+  static String m137(diary) => "日記「${diary}」を書きました";
 
-  static String m135(diary) => "ノート「${diary}」を書きました";
+  static String m138(diary) => "ノート「${diary}」を書きました";
 
-  static String m136(text) => "${text}は空にできません";
+  static String m139(text) => "${text}は空にできません";
 
-  static String m137(month, year) => "${year}年${month}月";
+  static String m140(month, year) => "${year}年${month}月";
 
-  static String m138(name) => "あなたの設定した打刻タスク「${name}」が始まりました。打刻しましょう";
+  static String m141(name) => "あなたの設定した打刻タスク「${name}」が始まりました。打刻しましょう";
 
-  static String m139(name) => "あなたのタスク「${name}」の通知が始まりました。準備してください";
+  static String m142(name) => "あなたのタスク「${name}」の通知が始まりました。準備してください";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -757,6 +763,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "count_down2": m25,
         "count_down3": m26,
         "count_down_text": MessageLookupByLibrary.simpleMessage("カウント"),
+        "count_up": m27,
+        "count_up2": m28,
+        "count_up3": m29,
+        "count_up_text": MessageLookupByLibrary.simpleMessage("記念日"),
         "countdown": MessageLookupByLibrary.simpleMessage("カウントダウン"),
         "countdown_description":
             MessageLookupByLibrary.simpleMessage("カウントダウンとウィジェットが重要な瞬間を知らせます。"),
@@ -772,6 +782,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createTag": MessageLookupByLibrary.simpleMessage("タグを作成"),
         "create_chat": MessageLookupByLibrary.simpleMessage("チャットを作成"),
         "create_copy": MessageLookupByLibrary.simpleMessage("コピーを作成"),
+        "create_countup": MessageLookupByLibrary.simpleMessage("記念日を作成"),
         "create_folder_desc": MessageLookupByLibrary.simpleMessage("フォルダを作成する"),
         "create_mission": MessageLookupByLibrary.simpleMessage("タスクを作成する"),
         "create_mission_by_content": MessageLookupByLibrary.simpleMessage(
@@ -785,17 +796,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("チャートを表示\n時間:"),
         "create_more_achieve_more":
             MessageLookupByLibrary.simpleMessage("もっと作り、もっと達成"),
-        "create_name_flomo_mission": m27,
-        "create_name_flomomission": m28,
-        "create_name_flomomission2": m29,
-        "create_name_listing": m30,
-        "create_name_mission": m31,
-        "create_name_mission2": m32,
-        "create_name_tag": m33,
+        "create_name_flomo_mission": m30,
+        "create_name_flomomission": m31,
+        "create_name_flomomission2": m32,
+        "create_name_listing": m33,
+        "create_name_mission": m34,
+        "create_name_mission2": m35,
+        "create_name_tag": m36,
         "create_present": MessageLookupByLibrary.simpleMessage("報酬を作成"),
         "create_success": MessageLookupByLibrary.simpleMessage("作成成功"),
         "create_time": MessageLookupByLibrary.simpleMessage("作成時間"),
-        "create_xxx": m34,
+        "create_xxx": m37,
         "creating_date": MessageLookupByLibrary.simpleMessage("作成日"),
         "creative_story": MessageLookupByLibrary.simpleMessage("創作ストーリー"),
         "creative_story_placeholder": MessageLookupByLibrary.simpleMessage(
@@ -806,9 +817,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "credit_limit": MessageLookupByLibrary.simpleMessage("信用限度"),
         "curAnalytics": MessageLookupByLibrary.simpleMessage("リアルタイムデータ"),
         "curTimeF": MessageLookupByLibrary.simpleMessage("開始時間"),
-        "currency_per_month": m35,
-        "currency_per_year": m36,
-        "currentRingTone": m37,
+        "currency_per_month": m38,
+        "currency_per_year": m39,
+        "currentRingTone": m40,
         "current_amount": MessageLookupByLibrary.simpleMessage("現在の金額"),
         "custom": MessageLookupByLibrary.simpleMessage("カスタム"),
         "customColor": MessageLookupByLibrary.simpleMessage("カスタムカラー"),
@@ -832,10 +843,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "data_analysis": MessageLookupByLibrary.simpleMessage("データ分析"),
         "data_statistics": MessageLookupByLibrary.simpleMessage("データ統計"),
         "date": MessageLookupByLibrary.simpleMessage("日付"),
-        "date1_to_date2": m38,
-        "dateFromMonth": m39,
-        "dateFromMonthToMins": m40,
-        "dateFromYearMonthToMins": m41,
+        "date1_to_date2": m41,
+        "dateFromMonth": m42,
+        "dateFromMonthToMins": m43,
+        "dateFromYearMonthToMins": m44,
         "dateOutOfLimit":
             MessageLookupByLibrary.simpleMessage("選択した日付が範囲を超えています"),
         "datetime": MessageLookupByLibrary.simpleMessage("日時"),
@@ -845,8 +856,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "days_after_bill_day": MessageLookupByLibrary.simpleMessage("請求日後の日数"),
         "days_after_repayment_day":
             MessageLookupByLibrary.simpleMessage("返済日後の日数"),
-        "days_ago": m42,
-        "days_later": m43,
+        "days_ago": m45,
+        "days_later": m46,
         "de": MessageLookupByLibrary.simpleMessage("の"),
         "deadLine": MessageLookupByLibrary.simpleMessage("締め切り"),
         "deadline": MessageLookupByLibrary.simpleMessage("締め切り"),
@@ -857,14 +868,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("デフォルトの集中時間"),
         "delay_mission": MessageLookupByLibrary.simpleMessage("ミッションを遅らせる"),
         "delete": MessageLookupByLibrary.simpleMessage("削除"),
-        "delete_flomo_mission": m44,
+        "delete_flomo_mission": m47,
         "delete_success": MessageLookupByLibrary.simpleMessage("削除成功"),
         "deprecated": MessageLookupByLibrary.simpleMessage("非推奨"),
         "desc_consume": MessageLookupByLibrary.simpleMessage("消費の説明"),
         "desktop_widget": MessageLookupByLibrary.simpleMessage("デスクトップウィジェット"),
         "desktop_widget_description": MessageLookupByLibrary.simpleMessage(
             "リスト、四象限、カウントダウン、カレンダー、チェックインなどの豊富なウィジェット。"),
-        "desktop_widget_with_note_n": m45,
+        "desktop_widget_with_note_n": m48,
         "detailed_analysis_reports":
             MessageLookupByLibrary.simpleMessage("詳細な分析とレポート"),
         "detailed_training_plan":
@@ -899,7 +910,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_sharing": MessageLookupByLibrary.simpleMessage("共有を編集"),
         "edit_successfully":
             MessageLookupByLibrary.simpleMessage("編集成功、タイムラインで確認してください"),
-        "edit_title": m46,
+        "edit_title": m49,
         "editing": MessageLookupByLibrary.simpleMessage("編集中"),
         "editor_recommendation":
             MessageLookupByLibrary.simpleMessage("編集者のおすすめ"),
@@ -956,18 +967,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("この目標の数値を入力してください（整数）"),
         "enter_unit":
             MessageLookupByLibrary.simpleMessage("単位を入力してください（例：円、個、回など）"),
-        "equivalent_per_day": m47,
-        "equivalent_per_month": m48,
+        "equivalent_per_day": m50,
+        "equivalent_per_month": m51,
         "es": MessageLookupByLibrary.simpleMessage("Español"),
         "eula": MessageLookupByLibrary.simpleMessage("利用規約"),
         "event": MessageLookupByLibrary.simpleMessage("イベント"),
-        "everyDayOnce": m49,
+        "everyDayOnce": m52,
         "everyone_can_edit": MessageLookupByLibrary.simpleMessage("誰でも編集可能"),
         "everyone_can_view": MessageLookupByLibrary.simpleMessage("誰でも閲覧可能"),
         "examination": MessageLookupByLibrary.simpleMessage("問題の誤解"),
         "example_demo_hint": MessageLookupByLibrary.simpleMessage(
             "例：「常に箇条書きで説明し、unwrapを使用しない、常に英語で回答を出力する」"),
-        "exist_app_focusing_mission_name": m50,
+        "exist_app_focusing_mission_name": m53,
         "explain": MessageLookupByLibrary.simpleMessage("説明する"),
         "explain_prompt":
             MessageLookupByLibrary.simpleMessage("選択した段落の主な内容と意義を説明してください。"),
@@ -991,7 +1002,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("新しいバージョンを見つけました"),
         "finish": MessageLookupByLibrary.simpleMessage("完了"),
         "finish_level": MessageLookupByLibrary.simpleMessage("完成度:"),
-        "finish_mission_name": m51,
+        "finish_mission_name": m54,
         "finish_time": MessageLookupByLibrary.simpleMessage("完成時間"),
         "finished": MessageLookupByLibrary.simpleMessage("完了"),
         "fix_spelling_grammar":
@@ -1007,10 +1018,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "focus_duration": MessageLookupByLibrary.simpleMessage("集中時間"),
         "focus_duration_distribution":
             MessageLookupByLibrary.simpleMessage("集中時間の分布"),
-        "focus_duration_with_value": m52,
+        "focus_duration_with_value": m55,
         "focus_finished_ringtone":
             MessageLookupByLibrary.simpleMessage("集中終了の着信音"),
-        "focus_numbers_with_value": m53,
+        "focus_numbers_with_value": m56,
         "focus_on_time_period_distribution":
             MessageLookupByLibrary.simpleMessage("集中時間帯の分布"),
         "focus_pause": MessageLookupByLibrary.simpleMessage("集中を一時停止"),
@@ -1089,28 +1100,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "front_card": MessageLookupByLibrary.simpleMessage("フロントカード"),
         "fullscreen": MessageLookupByLibrary.simpleMessage("全画面"),
         "gallery": MessageLookupByLibrary.simpleMessage("ギャラリー"),
-        "game1_time_usage": m54,
-        "game2_ranking_text": m55,
+        "game1_time_usage": m57,
+        "game2_ranking_text": m58,
         "game_input_waiting": MessageLookupByLibrary.simpleMessage("タイマー待ち"),
         "generate_image": MessageLookupByLibrary.simpleMessage("画像を生成"),
         "generate_qr_code": MessageLookupByLibrary.simpleMessage("QRコードを生成"),
         "gently_remind": MessageLookupByLibrary.simpleMessage("優しいリマインダー"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("認証コードを取得"),
-        "get_train_plan_successful": m56,
+        "get_train_plan_successful": m59,
         "get_training_plan":
             MessageLookupByLibrary.simpleMessage("トレーニングプランを取得"),
         "give_up": MessageLookupByLibrary.simpleMessage("諦める"),
         "go_to_setting": MessageLookupByLibrary.simpleMessage("設定へ"),
         "google_login": MessageLookupByLibrary.simpleMessage("Googleログイン"),
-        "gpt_role": m57,
+        "gpt_role": m60,
         "gpt_system_msg_forbidden": MessageLookupByLibrary.simpleMessage(
             "数学、理学、英語、大学のコース、料理、株式、自動車、試験、エンターテイメント、科学技術、金融、スポーツ、健康、法律、ファッション、ペット、旅行、健康養生、育児、メディア、電子商取引、教育、物語、ポジティブエネルギーなどのトピックについてのみ議論します。他のトピックは許可されていません。中国の歴史、台湾、チベット、新疆、ポルノ、政治、その他の中国に関連するトピック、例えば六四事件などのトピックは一切回答できません。"),
         "gpt_token_expired": MessageLookupByLibrary.simpleMessage(
             "あなたのトークンは期限切れです、cannywillのWeChatを追加してgptアクセス権を申請してください"),
         "grid": MessageLookupByLibrary.simpleMessage("カテゴリ"),
         "group_announcement": MessageLookupByLibrary.simpleMessage("グループのお知らせ"),
-        "group_id": m58,
+        "group_id": m61,
         "group_listing": MessageLookupByLibrary.simpleMessage("グループ一覧"),
         "groupview": MessageLookupByLibrary.simpleMessage("グループビュー"),
         "gtd": MessageLookupByLibrary.simpleMessage("GTD"),
@@ -1134,7 +1145,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "habit_clockin_desc": MessageLookupByLibrary.simpleMessage(
             "21日で習慣を形成し、エビングハウスが長期間にわたって学んだ知識を覚えています"),
         "hasLogined": MessageLookupByLibrary.simpleMessage("ログイン済み"),
-        "header_input_placeholder_with_title": m59,
+        "header_input_placeholder_with_title": m62,
         "heavy": MessageLookupByLibrary.simpleMessage("重い"),
         "hello": MessageLookupByLibrary.simpleMessage("こんにちは"),
         "hexValue": MessageLookupByLibrary.simpleMessage("16進数値"),
@@ -1147,8 +1158,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("履歴を表示します。"),
         "hour": MessageLookupByLibrary.simpleMessage("時間"),
         "hour3": MessageLookupByLibrary.simpleMessage("時間"),
-        "hourAndMin": m60,
-        "hourAndMinAndSec": m61,
+        "hourAndMin": m63,
+        "hourAndMinAndSec": m64,
         "i_consume": MessageLookupByLibrary.simpleMessage("私は使う"),
         "i_know": MessageLookupByLibrary.simpleMessage("了解しました"),
         "icon": MessageLookupByLibrary.simpleMessage("アイコン"),
@@ -1159,7 +1170,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "improve_writing_prompt": MessageLookupByLibrary.simpleMessage(
             "選択した段落を改善し、より明確で表現力豊かにしてください。"),
         "inSevenDays": MessageLookupByLibrary.simpleMessage("7日後"),
-        "in_selection_word_count_and_char_count": m62,
+        "in_selection_word_count_and_char_count": m65,
         "incorrectLink": MessageLookupByLibrary.simpleMessage("無効なリンク"),
         "input": MessageLookupByLibrary.simpleMessage("入力"),
         "inputSmsVerificationCode":
@@ -1217,7 +1228,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("前のグループにジャンプ"),
         "jump_to_this_version":
             MessageLookupByLibrary.simpleMessage("このバージョンをスキップ"),
-        "jump_to_xxx": m63,
+        "jump_to_xxx": m66,
         "jun": MessageLookupByLibrary.simpleMessage("6月"),
         "junFull": MessageLookupByLibrary.simpleMessage("6月"),
         "keyword": MessageLookupByLibrary.simpleMessage("キーワード"),
@@ -1325,9 +1336,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("状況を把握する"),
         "max_5m_files_size": MessageLookupByLibrary.simpleMessage(
             "ファイルサイズが5MBを超えています。もっと小さいファイルを選んでください。"),
-        "max_input_num": m64,
-        "max_words": m65,
-        "maximum_recording_time": m66,
+        "max_input_num": m67,
+        "max_words": m68,
+        "maximum_recording_time": m69,
         "may": MessageLookupByLibrary.simpleMessage("5月"),
         "mayFull": MessageLookupByLibrary.simpleMessage("5月"),
         "me": MessageLookupByLibrary.simpleMessage("私"),
@@ -1356,7 +1367,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "メモを取る際に録音機能が必要な場合があります。その際は、マイクの権限を許可する必要があります"),
         "min3": MessageLookupByLibrary.simpleMessage("分"),
-        "minAndSec": m67,
+        "minAndSec": m70,
         "min_en": MessageLookupByLibrary.simpleMessage("min"),
         "mine": MessageLookupByLibrary.simpleMessage("私の"),
         "mins": MessageLookupByLibrary.simpleMessage("分"),
@@ -1365,25 +1376,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "miss_clockin": MessageLookupByLibrary.simpleMessage("打刻漏れ"),
         "mission": MessageLookupByLibrary.simpleMessage("リスト"),
         "missionCompleted": MessageLookupByLibrary.simpleMessage("ミッション完了"),
-        "missionModelDate": m68,
-        "missionModelDate2": m69,
-        "missionModelDate3": m70,
-        "missionModelDate4": m71,
+        "missionModelDate": m71,
+        "missionModelDate2": m72,
+        "missionModelDate3": m73,
+        "missionModelDate4": m74,
         "missionNums": MessageLookupByLibrary.simpleMessage("タスク数"),
         "missionPageInputHolder":
             MessageLookupByLibrary.simpleMessage("タスクを追加...(「エンター」キーで保存)"),
-        "missionRunningAlert": m72,
+        "missionRunningAlert": m75,
         "missionToBeComplete":
             MessageLookupByLibrary.simpleMessage("未完了のミッション"),
-        "mission_alert_with_name": m73,
-        "mission_clocks_in_with_name": m74,
+        "mission_alert_with_name": m76,
+        "mission_clocks_in_with_name": m77,
         "mission_evaluation_value":
             MessageLookupByLibrary.simpleMessage("このミッションの評価価値(\$)"),
         "mission_setting": MessageLookupByLibrary.simpleMessage("ミッション設定"),
-        "mission_submission_started": m75,
-        "mission_title": m76,
+        "mission_submission_started": m78,
+        "mission_title": m79,
         "mission_value": MessageLookupByLibrary.simpleMessage("ミッションの価値"),
-        "mission_value_toast": m77,
+        "mission_value_toast": m80,
         "missioncompleted": MessageLookupByLibrary.simpleMessage("完了したミッション"),
         "mobileHeading1": MessageLookupByLibrary.simpleMessage("見出し1"),
         "mobileHeading2": MessageLookupByLibrary.simpleMessage("見出し2"),
@@ -1393,8 +1404,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("現代詩のテーマを入力してください..."),
         "modern_poetry_prompt":
             MessageLookupByLibrary.simpleMessage("現代詩を書いてください、テーマは..."),
-        "modify_name_listing": m78,
-        "modify_name_tag": m79,
+        "modify_name_listing": m81,
+        "modify_name_tag": m82,
         "module_filtering_setting":
             MessageLookupByLibrary.simpleMessage("モジュールフィルタリング設定"),
         "monday": MessageLookupByLibrary.simpleMessage("月曜日"),
@@ -1403,9 +1414,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "お金が足りません、もっと集中してタスクを完了してお金を稼ぎましょう"),
         "money_per_hour": MessageLookupByLibrary.simpleMessage("時間当たりの収入(\$)"),
         "month": MessageLookupByLibrary.simpleMessage("月"),
-        "monthDay": m80,
-        "month_clockin_rate": m81,
-        "month_clockin_record": m82,
+        "monthDay": m83,
+        "month_clockin_rate": m84,
+        "month_clockin_record": m85,
         "month_duration_completed":
             MessageLookupByLibrary.simpleMessage("今月の集中時間（分）"),
         "month_mission_completed":
@@ -1436,13 +1447,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "multi_view_desc": MessageLookupByLibrary.simpleMessage(
             "四象限、カテゴリ、リスト、グループ、タイムライン、スケジュール、ガントチャート、カレンダーなど、さまざまなビューであらゆるニーズに対応します"),
         "music": MessageLookupByLibrary.simpleMessage("音楽"),
-        "my": m83,
+        "my": m86,
         "my_answer": MessageLookupByLibrary.simpleMessage("私の"),
         "my_money_per_hour": MessageLookupByLibrary.simpleMessage("私の時間当たりの収入"),
-        "my_ranking": m84,
-        "my_ranking_this_time": m85,
+        "my_ranking": m87,
+        "my_ranking_this_time": m88,
         "n_days_ago": MessageLookupByLibrary.simpleMessage("n日前"),
-        "n_days_overdue": m86,
+        "n_days_overdue": m89,
         "name": MessageLookupByLibrary.simpleMessage("名前"),
         "need_notification_permission_content":
             MessageLookupByLibrary.simpleMessage("この機能を使用するには通知権限が必要です"),
@@ -1459,7 +1470,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_card": MessageLookupByLibrary.simpleMessage("新しいカード"),
         "new_rich_editor":
             MessageLookupByLibrary.simpleMessage("新しいリッチテキストエディター"),
-        "newline": m87,
+        "newline": m90,
         "nextMatch": MessageLookupByLibrary.simpleMessage("次の一致"),
         "nextMission": MessageLookupByLibrary.simpleMessage("次のミッション:"),
         "nextStep": MessageLookupByLibrary.simpleMessage("次へ"),
@@ -1554,11 +1565,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "進歩を追求し、今日から始めましょう。「時間管理局ToDo」を開いて、計画を実行しましょう。"),
         "notification9": MessageLookupByLibrary.simpleMessage(
             "時間は貴重です、一分一秒を大切にしましょう。「時間管理局ToDo」を使用して、時間をより価値あるものにしましょう。"),
-        "notificationTxt": m88,
+        "notificationTxt": m91,
         "notification_more":
             MessageLookupByLibrary.simpleMessage("明日の作業内容をカスタマイズしましょう"),
-        "notification_num_mission_to_finish": m89,
-        "notification_num_mission_to_finish_delay": m90,
+        "notification_num_mission_to_finish": m92,
+        "notification_num_mission_to_finish_delay": m93,
         "notification_setting": MessageLookupByLibrary.simpleMessage("プッシュ設定"),
         "notification_setting_content": MessageLookupByLibrary.simpleMessage(
             "プッシュを開くと、タスクの完了または開始状況を知るのに役立ちます"),
@@ -1567,19 +1578,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "nov": MessageLookupByLibrary.simpleMessage("11月"),
         "novFull": MessageLookupByLibrary.simpleMessage("11月"),
         "now": MessageLookupByLibrary.simpleMessage("現在"),
-        "num_days": m91,
+        "num_days": m94,
         "num_lives": MessageLookupByLibrary.simpleMessage("ライフ:"),
-        "num_mins": m92,
+        "num_mins": m95,
         "num_mission": MessageLookupByLibrary.simpleMessage("ミッション数"),
-        "num_mission_percent": m93,
-        "num_mission_total": m94,
-        "num_of_total": m95,
-        "num_tasks": m96,
+        "num_mission_percent": m96,
+        "num_mission_total": m97,
+        "num_of_total": m98,
+        "num_tasks": m99,
         "num_tasks_finished": MessageLookupByLibrary.simpleMessage("完了した計画数"),
-        "num_times": m97,
-        "num_tomatoes": m98,
-        "num_unit": m99,
-        "number_present": m100,
+        "num_times": m100,
+        "num_tomatoes": m101,
+        "num_unit": m102,
+        "number_present": m103,
         "objective": MessageLookupByLibrary.simpleMessage("目的"),
         "objective_final": MessageLookupByLibrary.simpleMessage("目標"),
         "oct": MessageLookupByLibrary.simpleMessage("10月"),
@@ -1694,7 +1705,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("メールアドレスを入力してください"),
         "please_input_first_gpt_sentence":
             MessageLookupByLibrary.simpleMessage("質問を入力してください"),
-        "please_input_folder_password": m101,
+        "please_input_folder_password": m104,
         "please_input_keyword":
             MessageLookupByLibrary.simpleMessage("タスクのキーワードを入力してください"),
         "please_input_mission_title":
@@ -1711,18 +1722,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("タスクのタイトルを入力してください"),
         "please_input_title":
             MessageLookupByLibrary.simpleMessage("タイトルを入力してください"),
-        "please_input_xxx_name": m102,
+        "please_input_xxx_name": m105,
         "please_input_your_username":
             MessageLookupByLibrary.simpleMessage("ユーザー名を設定してください"),
         "please_origin_password":
             MessageLookupByLibrary.simpleMessage("元のパスワードを入力してください"),
-        "please_seaarch_on_app_store": m103,
+        "please_seaarch_on_app_store": m106,
         "please_select_at_least_one_option_in_repeat_cycle":
             MessageLookupByLibrary.simpleMessage(
                 "リピートサイクルで少なくとも一つのオプションを選択してください"),
         "please_select_attachment":
             MessageLookupByLibrary.simpleMessage("添付ファイルを選択してください"),
-        "please_select_content": m104,
+        "please_select_content": m107,
         "please_select_daily_start_time":
             MessageLookupByLibrary.simpleMessage("開始時間を選択してください"),
         "please_select_date":
@@ -1741,7 +1752,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "postpone": MessageLookupByLibrary.simpleMessage("今日まで延期"),
         "practice": MessageLookupByLibrary.simpleMessage("トレーニング"),
         "premium_user": MessageLookupByLibrary.simpleMessage("プレミアムユーザー"),
-        "present_value_dialog": m105,
+        "present_value_dialog": m108,
         "press_release": MessageLookupByLibrary.simpleMessage("プレスリリース"),
         "press_release_placeholder":
             MessageLookupByLibrary.simpleMessage("プレスリリースの内容やテーマを入力してください..."),
@@ -1786,7 +1797,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_failed": MessageLookupByLibrary.simpleMessage("購入失敗"),
         "purchase_success": MessageLookupByLibrary.simpleMessage("購入成功"),
         "pure_mode": MessageLookupByLibrary.simpleMessage("ピュアモード"),
-        "push_counter_status_notification": m106,
+        "push_counter_status_notification": m109,
         "qq_friends": MessageLookupByLibrary.simpleMessage("QQフレンド"),
         "qq_share": MessageLookupByLibrary.simpleMessage("QQで共有"),
         "quantified_goal": MessageLookupByLibrary.simpleMessage("定量目標"),
@@ -1809,8 +1820,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("もし良ければ、5つ星の評価をお願いします。^^"),
         "ready_to_download": MessageLookupByLibrary.simpleMessage("ダウンロード準備完了"),
         "readying": MessageLookupByLibrary.simpleMessage("準備中"),
-        "realize_percent": m107,
-        "realize_percent_with_folder": m108,
+        "realize_percent": m110,
+        "realize_percent_with_folder": m111,
         "recommended_Target": MessageLookupByLibrary.simpleMessage("推奨目標"),
         "record": MessageLookupByLibrary.simpleMessage("録音"),
         "refuse": MessageLookupByLibrary.simpleMessage("拒否"),
@@ -1843,7 +1854,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "repeative_by_month": MessageLookupByLibrary.simpleMessage("毎月繰り返す"),
         "repeative_by_week": MessageLookupByLibrary.simpleMessage("毎週繰り返す"),
         "repeative_by_year": MessageLookupByLibrary.simpleMessage("毎年繰り返す"),
-        "repeative_content": m109,
+        "repeative_content": m112,
         "repetive": MessageLookupByLibrary.simpleMessage("繰り返し"),
         "repetiveType": MessageLookupByLibrary.simpleMessage("繰り返しの有無"),
         "repetiveValue": MessageLookupByLibrary.simpleMessage("繰り返しの日付"),
@@ -1873,8 +1884,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rest_completed_auto_start_play":
             MessageLookupByLibrary.simpleMessage("休憩が完了すると自動的に再生が始まります"),
         "rest_duration": MessageLookupByLibrary.simpleMessage("休憩時間"),
-        "rest_focus_duration_with_value": m110,
-        "rest_focus_numbers_with_value": m111,
+        "rest_focus_duration_with_value": m113,
+        "rest_focus_numbers_with_value": m114,
         "resting": MessageLookupByLibrary.simpleMessage("休憩中"),
         "restingFinished": MessageLookupByLibrary.simpleMessage("休憩完了"),
         "resting_music": MessageLookupByLibrary.simpleMessage("休憩中の音楽"),
@@ -1889,7 +1900,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "改訂文：政府は環境規制を強化し、公共の意識を高め、環境問題に対処するためにグリーンエネルギーを推進しています。"),
         "rich_text": MessageLookupByLibrary.simpleMessage("リッチテキスト"),
         "rmb": MessageLookupByLibrary.simpleMessage("コイン"),
-        "role_chatgpt_msg": m112,
+        "role_chatgpt_msg": m115,
         "role_message_placehodler": MessageLookupByLibrary.simpleMessage(
             "作業計画を入力してください（時間、作業内容などを明確に記述してください）"),
         "role_prompts_chatgpt_msg": MessageLookupByLibrary.simpleMessage(
@@ -1971,7 +1982,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_fail": MessageLookupByLibrary.simpleMessage("設定失敗"),
         "setting_success": MessageLookupByLibrary.simpleMessage("設定成功"),
         "share": MessageLookupByLibrary.simpleMessage("共有"),
-        "share_the_link": m113,
+        "share_the_link": m116,
         "share_to": MessageLookupByLibrary.simpleMessage("共有先"),
         "sharing_course": MessageLookupByLibrary.simpleMessage("コースを共有"),
         "sharing_listing": MessageLookupByLibrary.simpleMessage("リストを共有"),
@@ -2000,18 +2011,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "startResting": MessageLookupByLibrary.simpleMessage("休憩を開始"),
         "start_date": MessageLookupByLibrary.simpleMessage("開始日"),
         "start_focus": MessageLookupByLibrary.simpleMessage("集中を開始する"),
-        "start_focusing_mission_name": m114,
+        "start_focusing_mission_name": m117,
         "start_free_trial":
             MessageLookupByLibrary.simpleMessage("7日間の無料トライアルを開始"),
-        "start_resting_name": m115,
+        "start_resting_name": m118,
         "start_time": MessageLookupByLibrary.simpleMessage("開始時間"),
         "status_complete": MessageLookupByLibrary.simpleMessage("処理完了"),
         "status_developping": MessageLookupByLibrary.simpleMessage("開発中"),
         "status_handling": MessageLookupByLibrary.simpleMessage("処理中"),
         "status_waiting": MessageLookupByLibrary.simpleMessage("処理待ち"),
         "stop": MessageLookupByLibrary.simpleMessage("停止"),
-        "stop_focusing_mission_name": m116,
-        "stop_resting_mission_name": m117,
+        "stop_focusing_mission_name": m119,
+        "stop_resting_mission_name": m120,
         "sub_task_add_newline":
             MessageLookupByLibrary.simpleMessage("サブタスク-ポイントで改行して追加&保存"),
         "submisssion": MessageLookupByLibrary.simpleMessage("サブタスク"),
@@ -2072,9 +2083,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "thursday": MessageLookupByLibrary.simpleMessage("木曜日"),
         "thursdayShort": MessageLookupByLibrary.simpleMessage("木"),
         "time": MessageLookupByLibrary.simpleMessage("時間"),
-        "time_ago": m118,
+        "time_ago": m121,
         "time_finished": MessageLookupByLibrary.simpleMessage("集中時間"),
-        "time_later": m119,
+        "time_later": m122,
         "time_management": MessageLookupByLibrary.simpleMessage("時間管理"),
         "time_mode": MessageLookupByLibrary.simpleMessage("モード"),
         "time_not_arrive_cannot_clcokin":
@@ -2084,7 +2095,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("タスクの開始時間と終了時間を設定します。"),
         "time_slots": MessageLookupByLibrary.simpleMessage("時間枠"),
         "timefocused": MessageLookupByLibrary.simpleMessage("集中時間"),
-        "timehello": m120,
+        "timehello": m123,
         "timeline": MessageLookupByLibrary.simpleMessage("時軸"),
         "timelineview": MessageLookupByLibrary.simpleMessage("タイムラインビュー"),
         "timer": MessageLookupByLibrary.simpleMessage("タイマー"),
@@ -2101,7 +2112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tipsAlertTone": MessageLookupByLibrary.simpleMessage("アラート音"),
         "title": MessageLookupByLibrary.simpleMessage("タイトル"),
         "title_consume": MessageLookupByLibrary.simpleMessage("消費金額"),
-        "title_data": m121,
+        "title_data": m124,
         "toDoPlaceholder": MessageLookupByLibrary.simpleMessage("やること"),
         "to_login": MessageLookupByLibrary.simpleMessage("ログインページへ"),
         "today": MessageLookupByLibrary.simpleMessage("今日"),
@@ -2139,14 +2150,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalTimeMinute": MessageLookupByLibrary.simpleMessage("合計時間（分）"),
         "total_focus_duration": MessageLookupByLibrary.simpleMessage("総集中時間"),
         "total_focus_time": MessageLookupByLibrary.simpleMessage("集中時間"),
-        "total_maju": m122,
+        "total_maju": m125,
         "total_tasks_count":
             MessageLookupByLibrary.simpleMessage("タスクの総数（トマト数）"),
-        "total_tomatoes": m123,
+        "total_tomatoes": m126,
         "total_tomotoes": MessageLookupByLibrary.simpleMessage("トマトの総数"),
         "total_value": MessageLookupByLibrary.simpleMessage("総量"),
-        "trainee_advice_notice": m124,
-        "trainee_give_your_advice": m125,
+        "trainee_advice_notice": m127,
+        "trainee_give_your_advice": m128,
         "training_plan_edit": MessageLookupByLibrary.simpleMessage("クリックして編集"),
         "transaction": MessageLookupByLibrary.simpleMessage("財務"),
         "translate": MessageLookupByLibrary.simpleMessage("翻訳する"),
@@ -2192,9 +2203,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_bill": MessageLookupByLibrary.simpleMessage("請求書を更新する"),
         "update_credit_card_bill":
             MessageLookupByLibrary.simpleMessage("クレジットカードの請求書を更新する"),
-        "update_last_time": m126,
-        "update_name_mission": m127,
-        "update_name_mission2": m128,
+        "update_last_time": m129,
+        "update_name_mission": m130,
+        "update_name_mission2": m131,
         "update_now": MessageLookupByLibrary.simpleMessage("すぐに更新"),
         "update_success": MessageLookupByLibrary.simpleMessage("更新成功"),
         "update_success_restart":
@@ -2223,9 +2234,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ユーザープライバシーポリシー"),
         "user_reviews": MessageLookupByLibrary.simpleMessage("ユーザーレビュー"),
         "username": MessageLookupByLibrary.simpleMessage("ユーザー名"),
-        "value": m129,
-        "value_per_hour": m130,
-        "version_num": m131,
+        "value": m132,
+        "value_per_hour": m133,
+        "version_num": m134,
         "vertical": MessageLookupByLibrary.simpleMessage("縦画面"),
         "view": MessageLookupByLibrary.simpleMessage("ビュー"),
         "view_only": MessageLookupByLibrary.simpleMessage("閲覧のみ"),
@@ -2255,7 +2266,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("今週完了したトマト数"),
         "week_view": MessageLookupByLibrary.simpleMessage("週表示"),
         "welcome": MessageLookupByLibrary.simpleMessage("ようこそ"),
-        "welcome_to_time_department": m132,
+        "welcome_to_time_department": m135,
         "whether_to_repeat": MessageLookupByLibrary.simpleMessage("繰り返すかどうか"),
         "who_can_view_edit_files":
             MessageLookupByLibrary.simpleMessage("誰がファイルを閲覧/編集できますか"),
@@ -2263,7 +2274,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("誰がファイルを閲覧/編集できますか"),
         "wholeComepleteTime": MessageLookupByLibrary.simpleMessage("完了時間（分）"),
         "widgets": MessageLookupByLibrary.simpleMessage("ウィジェット"),
-        "word_count_and_char_count": m133,
+        "word_count_and_char_count": m136,
         "write_a_title": MessageLookupByLibrary.simpleMessage("タイトルを書く?"),
         "write_article": MessageLookupByLibrary.simpleMessage("記事を書く"),
         "write_article_history":
@@ -2290,8 +2301,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrong_question_knowledge_points":
             MessageLookupByLibrary.simpleMessage("間違った問題の知識点"),
         "wrong_thinking": MessageLookupByLibrary.simpleMessage("思考の誤り"),
-        "wrote_a_diary": m134,
-        "wrote_a_note": m135,
+        "wrote_a_diary": m137,
+        "wrote_a_note": m138,
         "xiaohongshu": MessageLookupByLibrary.simpleMessage("小紅書"),
         "xiaohongshu_history":
             MessageLookupByLibrary.simpleMessage("小紅書 小紅書の投稿を書く"),
@@ -2301,21 +2312,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("AIで何を書きますか？"),
         "xiaohongshu_prompt": MessageLookupByLibrary.simpleMessage(
             "小紅書の投稿を作成するのを手伝ってください。内容は..."),
-        "xxx_cannot_be_empty": m136,
+        "xxx_cannot_be_empty": m139,
         "year": MessageLookupByLibrary.simpleMessage("年"),
         "year_duration_completed":
             MessageLookupByLibrary.simpleMessage("今年の集中時間（分）"),
         "year_mission_completed":
             MessageLookupByLibrary.simpleMessage("今年完了したタスク数"),
-        "year_month": m137,
+        "year_month": m140,
         "year_tomatoes_completed":
             MessageLookupByLibrary.simpleMessage("今年完了したトマト数"),
         "yes": MessageLookupByLibrary.simpleMessage("はい"),
         "yesterday": MessageLookupByLibrary.simpleMessage("昨日"),
-        "your_clockin_mission_with_name_has_begun": m138,
+        "your_clockin_mission_with_name_has_begun": m141,
         "your_created_class":
             MessageLookupByLibrary.simpleMessage("これはあなたが作成したクラスです"),
-        "your_mission_with_name_has_begun": m139,
+        "your_mission_with_name_has_begun": m142,
         "your_time_prof":
             MessageLookupByLibrary.simpleMessage("あなたのパーソナルタイムマネージャー"),
         "yuan": MessageLookupByLibrary.simpleMessage("元"),

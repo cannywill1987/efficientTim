@@ -8,6 +8,8 @@ part of 'FolderTimeModel.dart';
 
 FolderTimeModel _$FolderTimeModelFromJson(Map<String, dynamic> json) =>
     FolderTimeModel(
+      objectivePercentString: json['objectivePercentString'] as String?,
+      tag: json['tag'] as String?,
       folderObjectId: json['folderObjectId'] as String?,
       folderTitle: json['folderTitle'] as String?,
       numTomatoesUnfinished: (json['numTomatoesUnfinished'] as num?)?.toInt(),
@@ -36,10 +38,12 @@ Map<String, dynamic> _$FolderTimeModelToJson(FolderTimeModel instance) =>
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       '_id': instance.objectId,
+      'tag': instance.tag,
       'folderTitle': instance.folderTitle,
       'folderObjectId': instance.folderObjectId,
       'listDatas': instance.listDatas,
       'previewTimeString': instance.previewTimeString,
+      'objectivePercentString': instance.objectivePercentString,
       'numMissionToFinished': instance.numMissionToFinished,
       'previewTime': instance.previewTime,
       'finishedTime': instance.finishedTime,

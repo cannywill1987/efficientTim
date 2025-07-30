@@ -1183,12 +1183,13 @@ class CONSTANTS {
     return list;
   }
 
-
   static List<CheckButtonStateModel> getFolderTabBarSetting(
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
-    list.add(
-        CheckButtonStateModel(title: getI18NKey().group_listing, isCheck: true, code: "group_listing"));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().group_listing,
+        isCheck: true,
+        code: "group_listing"));
     list.add(CheckButtonStateModel(
         title: getI18NKey().timeline, isCheck: false, code: "timeline"));
     return list;
@@ -1197,8 +1198,8 @@ class CONSTANTS {
   static List<CheckButtonStateModel> getMissionDetailSetting(
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
-    list.add(
-        CheckButtonStateModel(title: getI18NKey().note_text, isCheck: true, code: "note"));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().note_text, isCheck: true, code: "note"));
     list.add(CheckButtonStateModel(
         title: getI18NKey().multi_subtask, isCheck: false, code: "subtask"));
     list.add(CheckButtonStateModel(
@@ -1211,8 +1212,8 @@ class CONSTANTS {
   static List<CheckButtonStateModel> getMissionDetailSetting2(
       {bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
-    list.add(
-        CheckButtonStateModel(title: getI18NKey().note_text, isCheck: true, code: "note"));
+    list.add(CheckButtonStateModel(
+        title: getI18NKey().note_text, isCheck: true, code: "note"));
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().multi_subtask, isCheck: false));
     list.add(CheckButtonStateModel(
@@ -1298,15 +1299,18 @@ class CONSTANTS {
     return list;
   }
 
-  static List<CheckButtonStateModel> getSettingItemDetailCheckButtonListForOnlyObjective(
-      {int defaultVal = 0}) {
+  static List<CheckButtonStateModel>
+      getSettingItemDetailCheckButtonListForOnlyObjective(
+          {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().date, isCheck: defaultVal == 0));
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().time_segment, isCheck: defaultVal == 1));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().objective_final, isCheck: defaultVal == 2, code: "objective"));
+        title: getI18NKey().objective_final,
+        isCheck: defaultVal == 2,
+        code: "objective"));
     return list;
   }
 
@@ -1319,24 +1323,30 @@ class CONSTANTS {
     list.add(CheckButtonStateModel(
         title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().time_segment, isCheck: defaultVal == 1, code: "time"));
+        title: getI18NKey().time_segment,
+        isCheck: defaultVal == 1,
+        code: "time"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().objective_final, isCheck: defaultVal == 2, code: "objective"));
+        title: getI18NKey().objective_final,
+        isCheck: defaultVal == 2,
+        code: "objective"));
     return list;
   }
 
-  static List<CheckButtonStateModel> getOnlySettingItemDetailCheckButtonListForCalendar(
-      {int defaultVal = 0}) {
+  static List<CheckButtonStateModel>
+      getOnlySettingItemDetailCheckButtonListForCalendar({int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     // list.add(CheckButtonStateModel(
     //     title: getI18NKey().date, isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().time_segment, isCheck: defaultVal == 1, code: "time"));
+        title: getI18NKey().time_segment,
+        isCheck: defaultVal == 1,
+        code: "time"));
     return list;
   }
 
-  static List<CheckButtonStateModel> getOnlySettingItemDetailCheckButtonListForAlarm(
-      {int defaultVal = 0}) {
+  static List<CheckButtonStateModel>
+      getOnlySettingItemDetailCheckButtonListForAlarm({int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
         title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
@@ -1345,15 +1355,20 @@ class CONSTANTS {
     return list;
   }
 
-  static List<CheckButtonStateModel> getOnlySettingItemDetailCheckButtonListForObjective(
-      {int defaultVal = 0}) {
+  static List<CheckButtonStateModel>
+      getOnlySettingItemDetailCheckButtonListForObjective(
+          {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
         title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().time_segment, isCheck: defaultVal == 1, code: "time"));
+        title: getI18NKey().time_segment,
+        isCheck: defaultVal == 1,
+        code: "time"));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().objective, isCheck: defaultVal == 2, code: "objective"));
+        title: getI18NKey().objective,
+        isCheck: defaultVal == 2,
+        code: "objective"));
     return list;
   }
 
@@ -1609,8 +1624,8 @@ class CONSTANTS {
   // "de": "German",
   // "fr": "French",
   // "es": "Spanish",
-  static String getCurLanguage({String? countryCode, String? languageCode = ""}) {
-
+  static String getCurLanguage(
+      {String? countryCode, String? languageCode = ""}) {
     List<CheckButtonStateModel> list = getLanguageList();
     for (CheckButtonStateModel model in list) {
       if (model.code == languageCode) {
@@ -1865,17 +1880,11 @@ class CONSTANTS {
     list.add(CheckButtonStateModel(
         title: getI18NKey().four_quadrant_priority1, code: "0", isCheck: true));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().four_quadrant_priority2,
-        code: "1",
-        isCheck: true));
+        title: getI18NKey().four_quadrant_priority2, code: "1", isCheck: true));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().four_quadrant_priority3,
-        code: "2",
-        isCheck: true));
+        title: getI18NKey().four_quadrant_priority3, code: "2", isCheck: true));
     list.add(CheckButtonStateModel(
-        title: getI18NKey().four_quadrant_priority4,
-        code: "3",
-        isCheck: true));
+        title: getI18NKey().four_quadrant_priority4, code: "3", isCheck: true));
     return list;
   }
 
@@ -2075,8 +2084,10 @@ class CONSTANTS {
         isCheck: defaultVal == 1));
     return list;
   }
+
   // 用于排序
-  static List<CheckButtonStateModel> getSortMissionPagePopupMenuButtonList({int defaultVal = 0}) {
+  static List<CheckButtonStateModel> getSortMissionPagePopupMenuButtonList(
+      {int defaultVal = 0}) {
     List<CheckButtonStateModel> list = [];
 
     list.add(CheckButtonStateModel(
@@ -2126,18 +2137,21 @@ class CONSTANTS {
         isCheck: defaultVal == 0));
     list.add(CheckButtonStateModel(
         code: 'sort',
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcSort, size: size - 5, color: ThemeManager.getInstance().getDefautThemeColor()),
-        uncheckIcon:
-        Utility.getSVGPicture(R.assetsImgIcSort, size: size - 5, color: ThemeManager.getInstance().getDefautThemeColor()),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcSort,
+            size: size - 5,
+            color: ThemeManager.getInstance().getDefautThemeColor()),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcSort,
+            size: size - 5,
+            color: ThemeManager.getInstance().getDefautThemeColor()),
         title: getI18NKey().sort,
         isCheck: defaultVal == 1));
-    if(DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
+    if (DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) {
       list.add(CheckButtonStateModel(
           code: 'sync',
-          checkIcon: Utility.getSVGPicture(
-              R.assetsImgIcCloudSync, size: size - 5),
+          checkIcon:
+              Utility.getSVGPicture(R.assetsImgIcCloudSync, size: size - 5),
           uncheckIcon:
-          Utility.getSVGPicture(R.assetsImgIcCloudSync, size: size - 5),
+              Utility.getSVGPicture(R.assetsImgIcCloudSync, size: size - 5),
           title: getI18NKey().sync_desktop_widget,
           isCheck: defaultVal == 1));
     }
@@ -2182,8 +2196,10 @@ class CONSTANTS {
 
     list.add(CheckButtonStateModel(
         code: 'objective',
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcObjectiveBlue, size: size),
-        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcObjectiveBlue, size: size),
+        checkIcon:
+            Utility.getSVGPicture(R.assetsImgIcObjectiveBlue, size: size),
+        uncheckIcon:
+            Utility.getSVGPicture(R.assetsImgIcObjectiveBlue, size: size),
         title: getI18NKey().objective_final,
         isCheck: defaultVal == 1));
     list.add(CheckButtonStateModel(
@@ -2656,6 +2672,14 @@ class CONSTANTS {
             size: 20),
         'title': getI18NKey().count_down_text
       });
+    if (settingModel.isCountUpListViewPageOn == 1)
+      list.add({
+        'sceneCode': 'CountUpListViewPage',
+        'icon': Utility.getSVGPicture(R.assetsImgIcMemoDay, size: 20),
+        'iconChecked':
+            Utility.getSVGPicture(R.assetsImgIcMemoDayChecked, size: 20),
+        'title': getI18NKey().count_up_text
+      });
     if (settingModel.isGamePageOn == 1)
       list.add({
         'sceneCode': 'GamePage',
@@ -2753,6 +2777,7 @@ class CONSTANTS {
         ),
         'title': getI18NKey().analytics
       });
+
     if (settingModel.isAIHelperPageOn == 1 && ABTestSetting.isOpenAiOn)
       list.add({
         'sceneCode': 'AIHelper',
@@ -3594,7 +3619,8 @@ class CONSTANTS {
             .millisecondsSinceEpoch;
       case 3: // 最近7天
         return Utility.getFilterDateTimeFromTimeStamp(nowTime)
-            .millisecondsSinceEpoch  + 7 * 24 * 60 * 60 * 1000;
+                .millisecondsSinceEpoch +
+            7 * 24 * 60 * 60 * 1000;
       default:
         return Utility.getTimeStampToday();
     }
@@ -3655,13 +3681,17 @@ class CONSTANTS {
                       missionModel.updatedAt ?? "");
               if (dateTimeMissionModel.isBefore(todayDateTime) == false) {
                 // 今天之前都允许添加
-                if ((missionModel.missionModelType == missionModelType || (missionModelType == 0 && missionModel.missionModelType == null))) {
+                if ((missionModel.missionModelType == missionModelType ||
+                    (missionModelType == 0 &&
+                        missionModel.missionModelType == null))) {
                   listMissionModel.add(missionModel);
                 }
               }
             }
           } else {
-            if ((missionModel.missionModelType == missionModelType || (missionModelType == 0 && missionModel.missionModelType == null))) {
+            if ((missionModel.missionModelType == missionModelType ||
+                (missionModelType == 0 &&
+                    missionModel.missionModelType == null))) {
               listMissionModel.add(missionModel);
             }
           }
@@ -3724,8 +3754,8 @@ class CONSTANTS {
     List<MissionModel> datas = [];
     datas = MongoApisManager.getInstance()
         .queryWhereEqual_missionDataByFilterConditionBean(
-        filterConditionBean: folderModel?.filterConditionMapBean ??
-            FilterConditionBean());
+            filterConditionBean:
+                folderModel?.filterConditionMapBean ?? FilterConditionBean());
 
     FolderTimeModel model = Utility.getFolderTimeModel(datas, -1);
     return model;
@@ -3790,9 +3820,9 @@ class CONSTANTS {
       } else if (folderStatusDate == 10) {
         datas = MongoApisManager.getInstance()!.listMissionModels;
       } else if (folderStatusDate == 14) {
-        datas = MongoApisManager.getInstance()!.listCalendarMissionModels ;
+        datas = MongoApisManager.getInstance()!.listCalendarMissionModels;
       } else if (folderStatusDate == 15) {
-        datas = MongoApisManager.getInstance()!.listRemindersMissionModels ;
+        datas = MongoApisManager.getInstance()!.listRemindersMissionModels;
       } else if (folderStatusDate == 0 || folderStatusDate == 8) {
         //8是其他 0是目录
         //FolderPage走这里
@@ -4048,21 +4078,21 @@ class CONSTANTS {
   //     }
   //   }
 
-    /**
+  /**
      * 文件夹等
      */
-    // if (folderPageViewEnum == FolderPageViewEnum.listing) {
-    //   folderModelList.forEach((element) {
-    //     listFolderModel.add(FolderModelWithExtraData(
-    //         folderModel: element,
-    //         folderTimeModel: CONSTANTS.getFolderTime(
-    //             folderStatus: element.iconType ?? 0,
-    //             startDateTime: startDateTime,
-    //             endDateTime: endDateTime,
-    //             calendarModel: calendarModel,
-    //             objectId: element.objectId)));
-    //   });
-    // }
+  // if (folderPageViewEnum == FolderPageViewEnum.listing) {
+  //   folderModelList.forEach((element) {
+  //     listFolderModel.add(FolderModelWithExtraData(
+  //         folderModel: element,
+  //         folderTimeModel: CONSTANTS.getFolderTime(
+  //             folderStatus: element.iconType ?? 0,
+  //             startDateTime: startDateTime,
+  //             endDateTime: endDateTime,
+  //             calendarModel: calendarModel,
+  //             objectId: element.objectId)));
+  //   });
+  // }
   //
   //   folderModelList.forEach((element) {
   //     if (folderPageViewEnum == null) {
@@ -4152,11 +4182,14 @@ class CONSTANTS {
         int isListingCalendarVisibleOn =
             SettingManager.getSyncInstance().isListingCalendarVisibleOn;
 
-        int isListingAppleAlarmOn = SettingManager.getSyncInstance().isListingAppleAlarmOn;
-        int isListingAppleCalendarOn = SettingManager.getSyncInstance().isListingAppleCalendarOn;
+        int isListingAppleAlarmOn =
+            SettingManager.getSyncInstance().isListingAppleAlarmOn;
+        int isListingAppleCalendarOn =
+            SettingManager.getSyncInstance().isListingAppleCalendarOn;
 
         int isListingAllOn = SettingManager.getSyncInstance().isListingAllOn;
-        int isListingAlarmVisibleOn = SettingManager.getSyncInstance().isListingAlarmVisibleOn;
+        int isListingAlarmVisibleOn =
+            SettingManager.getSyncInstance().isListingAlarmVisibleOn;
 
         folderModel = getTodayFolderModel();
         FolderTimeModel folderTimeModel = CONSTANTS.getFolderTime(
@@ -4174,14 +4207,14 @@ class CONSTANTS {
         // folderModel.id = 'id';
         folderModel.title = getI18NKey().week_view;
         folderModel.iconType =
-        16; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务  12 待定任务 13 碎片清单
+            16; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务  12 待定任务 13 碎片清单
         folderModel.type = 2;
         folderTimeModel = CONSTANTS.getFolderTime(
             folderStatusDate: folderModel.iconType ?? 0,
             calendarModel: calendarModel,
             folderStatus: 0);
         if (((folderTimeModel?.numMissionToFinished ?? 0) > 0 &&
-            isListingDoItNowOn == -1) ||
+                isListingDoItNowOn == -1) ||
             isListingDoItNowOn == 1) {
           listFolderModel.add(FolderModelWithExtraData(
               folderModel: folderModel, folderTimeModel: folderTimeModel));
@@ -4237,49 +4270,53 @@ class CONSTANTS {
           listFolderModel.add(FolderModelWithExtraData(
               folderModel: folderModel, folderTimeModel: folderTimeModel));
         }
-        if((DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) &&((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
-            (folderTimeModel?.numMissionFinished ?? 0)) >
-            0 &&
-            isListingAppleCalendarOn == -1) ||
-            isListingAppleCalendarOn == 1)) {
+        if ((DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) &&
+            ((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
+                            (folderTimeModel?.numMissionFinished ?? 0)) >
+                        0 &&
+                    isListingAppleCalendarOn == -1) ||
+                isListingAppleCalendarOn == 1)) {
           folderModel = new FolderModel();
           folderModel.title = getI18NKey().apple_calendar;
-          folderModel.layoutType = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.layoutIconType14, defaultVal: 0);
+          folderModel.layoutType = SharePreferenceUtil.getSyncInstance()
+              .getInt(key: ShareprefrenceKeys.layoutIconType14, defaultVal: 0);
           folderModel.iconType =
-          14; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
+              14; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
           folderModel.type = 2;
           folderTimeModel = CONSTANTS.getFolderTime(
               folderStatusDate: folderModel.iconType ?? 0,
               calendarModel: calendarModel,
               folderStatus: 0);
           if ((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
-              (folderTimeModel?.numMissionFinished ?? 0)) >
-              0 &&
-              isListingCalendarVisibleOn == -1) ||
+                          (folderTimeModel?.numMissionFinished ?? 0)) >
+                      0 &&
+                  isListingCalendarVisibleOn == -1) ||
               isListingCalendarVisibleOn == 1) {
             listFolderModel.add(FolderModelWithExtraData(
                 folderModel: folderModel, folderTimeModel: folderTimeModel));
           }
         }
-        if((DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs())&&((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
-            (folderTimeModel?.numMissionFinished ?? 0)) >
-            0 &&
-            isListingAppleAlarmOn == -1) ||
-            isListingAppleAlarmOn == 1)) {
+        if ((DeviceInfoManagement.isIOS() || DeviceInfoManagement.isMacOs()) &&
+            ((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
+                            (folderTimeModel?.numMissionFinished ?? 0)) >
+                        0 &&
+                    isListingAppleAlarmOn == -1) ||
+                isListingAppleAlarmOn == 1)) {
           folderModel = new FolderModel();
           folderModel.title = getI18NKey().apple_alarm;
-          folderModel.layoutType = SharePreferenceUtil.getSyncInstance().getInt(key: ShareprefrenceKeys.layoutIconType15, defaultVal: 0);
+          folderModel.layoutType = SharePreferenceUtil.getSyncInstance()
+              .getInt(key: ShareprefrenceKeys.layoutIconType15, defaultVal: 0);
           folderModel.iconType =
-          15; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
+              15; // 1-今天 2 明天 3 本周 4 待定 5 日程 6 已完成 7 创建清单 8 其他 9 现在做 Do it now 10 所有任务
           folderModel.type = 2;
           folderTimeModel = CONSTANTS.getFolderTime(
               folderStatusDate: folderModel.iconType ?? 0,
               calendarModel: calendarModel,
               folderStatus: 0);
           if ((((folderTimeModel?.numMissionCalendarToFinished ?? 0) +
-              (folderTimeModel?.numMissionFinished ?? 0)) >
-              0 &&
-              isListingAlarmVisibleOn == -1) ||
+                          (folderTimeModel?.numMissionFinished ?? 0)) >
+                      0 &&
+                  isListingAlarmVisibleOn == -1) ||
               isListingAlarmVisibleOn == 1) {
             listFolderModel.add(FolderModelWithExtraData(
                 folderModel: folderModel, folderTimeModel: folderTimeModel));
@@ -4401,11 +4438,12 @@ class CONSTANTS {
               folderTimeModel: CONSTANTS.getFolderTimeByTag(
                 tagName: element.title ?? "",
               )));
-        } else   if (folderPageViewEnum == FolderPageViewEnum.filterer && element.tag == 4) {
+        } else if (folderPageViewEnum == FolderPageViewEnum.filterer &&
+            element.tag == 4) {
           listFolderModel.add(FolderModelWithExtraData(
               folderModel: element,
               folderTimeModel: CONSTANTS.getFolderTimeByFilter(
-                 folderModel: element,
+                folderModel: element,
               )));
         } else if (folderPageViewEnum == FolderPageViewEnum.listing_unarchive &&
             (element.tag == 1 || element.tag == 3) &&
@@ -4429,7 +4467,7 @@ class CONSTANTS {
                   endDateTime: endDateTime,
                   calendarModel: calendarModel,
                   objectId: element.objectId)));
-        }  else if (folderPageViewEnum == FolderPageViewEnum.listing_archive &&
+        } else if (folderPageViewEnum == FolderPageViewEnum.listing_archive &&
             (element.tag == 1 || element.tag == 3) &&
             (element.folderStatus == 1)) {
           listFolderModel.add(FolderModelWithExtraData(
@@ -4575,8 +4613,7 @@ class CONSTANTS {
         value: 4,
         title: getI18NKey().shortcut_setting,
         color: 0xff404040,
-        checkIcon:
-        Utility.getSVGPicture(R.assetsImgIcShortcut, size: size),
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcShortcut, size: size),
         content: "",
         isCheck: false));
     return list;
@@ -4846,22 +4883,22 @@ class CONSTANTS {
         ),
         content: "",
         isCheck: false));
-    if(ABTestSetting.isOpenAiOn)
-    list.add(CheckButtonStateModel(
-        code: "AIHelper",
-        value: 3,
-        title: getI18NKey().ai_helper,
-        color: 0xff404040,
-        checkIcon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: size),
-        content: "",
-        isCheck: false));
+    if (ABTestSetting.isOpenAiOn)
+      list.add(CheckButtonStateModel(
+          code: "AIHelper",
+          value: 3,
+          title: getI18NKey().ai_helper,
+          color: 0xff404040,
+          checkIcon: Utility.getSVGPicture(R.assetsImgIcAiHelper, size: size),
+          content: "",
+          isCheck: false));
 
     return list;
   }
 
   // 1-今天 2 明天 3 本周 4 自定义(n天前) 5 自定义(时间段) 0 无
-  static List<CheckButtonStateModel> getFilterPeriodPageCheckButtonStateModelList(
-      {bool? hasAll = false}) {
+  static List<CheckButtonStateModel>
+      getFilterPeriodPageCheckButtonStateModelList({bool? hasAll = false}) {
     List<CheckButtonStateModel> list = [];
     const double size = 16;
     list.add(CheckButtonStateModel(
@@ -4897,8 +4934,6 @@ class CONSTANTS {
         checkIcon: Utility.getSVGPicture(R.assetsImgIcThisWeek, size: size),
         content: "",
         isCheck: false));
-
-
 
     list.add(CheckButtonStateModel(
         code: "customize_days_before",
@@ -5152,7 +5187,8 @@ class CONSTANTS {
     return s;
   }
 
-  static String getSegmentDateStringSubtitleByMissionModel(MissionModel missionModel) {
+  static String getSegmentDateStringSubtitleByMissionModel(
+      MissionModel missionModel) {
     if (missionModel.end_time == null) {
       return "";
     }
@@ -5165,7 +5201,8 @@ class CONSTANTS {
     return getI18NKey().date1_to_date2(s1, s2);
   }
 
-  static String getSegmentDateStringSubtitleByFolderModel(FolderModel folderModel) {
+  static String getSegmentDateStringSubtitleByFolderModel(
+      FolderModel folderModel) {
     if (folderModel.end_time == null) {
       return "";
     }
@@ -5177,7 +5214,6 @@ class CONSTANTS {
 
     return getI18NKey().date1_to_date2(s1, s2);
   }
-
 
   static String getSegmentDateString(
       {DateTime? dateTime1, DateTime? dateTime2}) {
@@ -5827,7 +5863,8 @@ class CONSTANTS {
   static List<MusicModel> getFocusAndRestingMusicModelList() {
     return [
       MusicModel(
-          title: 'Clock ticking sound', url: 'http://oss.timerbell.com/resourceOss/2024019-安静的夜晚蟋蟀声音.MP3'),
+          title: 'Clock ticking sound',
+          url: 'http://oss.timerbell.com/resourceOss/2024019-安静的夜晚蟋蟀声音.MP3'),
     ];
   }
 

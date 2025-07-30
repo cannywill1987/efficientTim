@@ -237,6 +237,9 @@ class $AssetsImgGen {
   /// File path: assets/img/iOS.svg
   String get iOS => 'assets/img/iOS.svg';
 
+  /// File path: assets/img/ic_7_week.svg
+  String get ic7Week => 'assets/img/ic_7_week.svg';
+
   /// File path: assets/img/ic_account.svg
   String get icAccount => 'assets/img/ic_account.svg';
 
@@ -752,6 +755,12 @@ class $AssetsImgGen {
   AssetGenImage get icMasterBank =>
       const AssetGenImage('assets/img/ic_master_bank.png');
 
+  /// File path: assets/img/ic_memo_day.svg
+  String get icMemoDay => 'assets/img/ic_memo_day.svg';
+
+  /// File path: assets/img/ic_memo_day_checked.svg
+  String get icMemoDayChecked => 'assets/img/ic_memo_day_checked.svg';
+
   /// File path: assets/img/ic_memorandum.svg
   String get icMemorandum => 'assets/img/ic_memorandum.svg';
 
@@ -1241,6 +1250,7 @@ class $AssetsImgGen {
         elo,
         hipercard,
         iOS,
+        ic7Week,
         icAccount,
         icAddColumnLeft,
         icAddColumnRight,
@@ -1400,6 +1410,8 @@ class $AssetsImgGen {
         icLyubichs,
         icMac,
         icMasterBank,
+        icMemoDay,
+        icMemoDayChecked,
         icMemorandum,
         icMemoryCard,
         icMethod,

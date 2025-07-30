@@ -4,6 +4,7 @@ import 'package:time_hello/com/timehello/beans/CreditCardModel.dart';
 import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
 import 'package:time_hello/com/timehello/models/EndTimeMissionModel.dart';
 import 'package:time_hello/com/timehello/models/SharePreferenceModel.dart';
+import 'package:time_hello/com/timehello/models/StartTimeMissionModel.dart';
 
 import '../../beans/BillModel.dart';
 import '../../beans/ResourceDeliveryInfoBean.dart';
@@ -43,6 +44,7 @@ class GlobalStateEnv with ChangeNotifier, DiagnosticableTreeMixin {
   List<ChatGptFolderModel> _listChatGptFolderModel = [];
 
   List<EndTimeMissionModel> _listEndTimeMissionModel = [];
+  List<StartTimeMissionModel> _listStartTimeMissionModel = [];
   List<MissionModel> _listMissionModels = [];
   List<StatsModel> _listStatsModels = [];
   List<PresentModel> _listPresentModel = [];
@@ -113,6 +115,13 @@ class GlobalStateEnv with ChangeNotifier, DiagnosticableTreeMixin {
 
   set listEndTimeMissionModel(List<EndTimeMissionModel> value) {
     _listEndTimeMissionModel = value;
+    notifyListeners();
+  }
+
+  List<StartTimeMissionModel> get listStartTimeMissionModel => _listStartTimeMissionModel;
+
+  set listStartTimeMissionModel(List<StartTimeMissionModel> value) {
+    _listStartTimeMissionModel = value;
     notifyListeners();
   }
 

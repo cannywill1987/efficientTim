@@ -67,9 +67,9 @@ MissionModel _$MissionModelFromJson(Map<String, dynamic> json) => MissionModel(
       ..cryptoVersion = (json['cryptoVersion'] as num?)?.toInt()
       ..hasDecrypted = json['hasDecrypted'] as bool?
       ..objectiveUnit = json['objectiveUnit'] as String?
-      ..objectiveValue = (json['objectiveValue'] as num?)?.toDouble()
       ..objectiveStartValue = (json['objectiveStartValue'] as num?)?.toDouble()
       ..objectiveTotalValue = (json['objectiveTotalValue'] as num?)?.toDouble()
+      ..objectiveValue = (json['objectiveValue'] as num?)?.toDouble()
       ..end_time = (json['end_time'] as num?)?.toInt()
       ..subMissions = json['subMissions'] as List<dynamic>?;
 
@@ -125,9 +125,9 @@ Map<String, dynamic> _$MissionModelToJson(MissionModel instance) =>
       'cryptoVersion': instance.cryptoVersion,
       'hasDecrypted': instance.hasDecrypted,
       'objectiveUnit': instance.objectiveUnit,
-      'objectiveValue': instance.objectiveValue,
       'objectiveStartValue': instance.objectiveStartValue,
       'objectiveTotalValue': instance.objectiveTotalValue,
+      'objectiveValue': instance.objectiveValue,
       'end_time': instance.end_time,
       'subMissions': instance.subMissions,
     };
