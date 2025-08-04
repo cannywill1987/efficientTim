@@ -523,7 +523,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               context, 'CountDownListViewPage');
         }));
     list.add(GridMenuItem(
-        icon: Utility.getSVGPicture(R.assetsImgIcMemoDay, size: iconSize),
+        icon: Utility.getSVGPicture(R.assetsImgIcMemoDayChecked, size: iconSize),
         title: getI18NKey().count_up_text,
         onTapListener: () {
           JumpNavigator.onClickCustomHeaderGridView(
@@ -603,7 +603,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
         }));
     list.add(GridMenuItem(
         icon:
-            Utility.getSVGPicture(R.assetsImgIcMemoDayChecked, size: iconSize),
+            Utility.getSVGPicture(R.assetsImgIcCard, size: iconSize),
         title: getI18NKey().card,
         // subtitle: getI18NKey().copy_sub_title,
         onTapListener: () {

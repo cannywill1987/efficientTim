@@ -117,6 +117,8 @@ class R {
   static final String assetsImgIcObjectiveBlue = 'assets/img/ic_objective_blue.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_zhaoshang_bank.png)
   static final String assetsImgIcZhaoshangBank = 'assets/img/ic_zhaoshang_bank.png';
+  /// ![](http://127.0.0.1:123/assets/img/ic_card.svg)
+  static final String assetsImgIcCard = 'assets/img/ic_card.svg';
   /// ![](http://127.0.0.1:123/assets/img/ic_error.svg)
   static final String assetsImgIcError = 'assets/img/ic_error.svg';
   /// ![](http://127.0.0.1:123/assets/img/avatar36.svg)
