@@ -35,6 +35,7 @@ class StartTimeMissionModel extends MongoDbObject {
     this.background_url,
     this.device_id,
     this.start_time,
+    this.finish_time,
     this.isFinished,
     this.uid,
     this.message,

@@ -24,6 +24,7 @@ import '../../config/CONSTANTS.dart';
 import '../../config/Params.dart';
 import '../../interface/OnMethodChannelResponseListener.dart';
 import '../../models/EndTimeMissionModel.dart';
+import '../../models/StartTimeMissionModel.dart';
 import '../../models/FlomoMissionModel.dart';
 import '../../models/MissionModel.dart';
 import '../../models/PushDataModelList.dart';
@@ -505,9 +506,11 @@ class CounterMethodChannelManager {
       revoked	0	用户订阅被撤销
       unknown	-1	未知订阅状态
    */
-  Future<BaseBean> checkSubscriptionState( String id) async {
+  Future<BaseBean> checkSubscriptionState(String id) async {
     try {
-      String res = (await _channel.invokeMethod<String>('checkSubscriptionState', id)) ?? "";
+      String res =
+          (await _channel.invokeMethod<String>('checkSubscriptionState', id)) ??
+              "";
       return BaseBean.fromJson(jsonDecode(res));
     } catch (e) {
       return BaseBean(success: false);
@@ -516,7 +519,7 @@ class CounterMethodChannelManager {
 
   Future<BaseBean> getReceipt() async {
     try {
-      String res =  (await _channel.invokeMethod<String>('getReceipt')) ?? "";
+      String res = (await _channel.invokeMethod<String>('getReceipt')) ?? "";
       return BaseBean.fromJson(jsonDecode(res));
     } catch (e) {
       return BaseBean(success: false);
@@ -529,7 +532,8 @@ class CounterMethodChannelManager {
    */
   Future<BaseBean> restorePurchases() async {
     try {
-      String res = (await _channel.invokeMethod<String>('restorePurchases')) ?? "";
+      String res =
+          (await _channel.invokeMethod<String>('restorePurchases')) ?? "";
       return BaseBean.fromJson(jsonDecode(res));
     } catch (e) {
       return BaseBean(success: false);
@@ -538,7 +542,8 @@ class CounterMethodChannelManager {
 
   Future<BaseBean> getSubscriptionDetails() async {
     try {
-      String res = (await _channel.invokeMethod<String>('getSubscriptionDetails')) ?? "";
+      String res =
+          (await _channel.invokeMethod<String>('getSubscriptionDetails')) ?? "";
       return BaseBean.fromJson(jsonDecode(res));
     } catch (e) {
       return BaseBean(success: false);
@@ -595,6 +600,25 @@ class CounterMethodChannelManager {
       if (listModellistMap.length > 0) {
         return (await _channel.invokeMethod<bool>(
                 'storeEndTimeMissionList', listModellistMap)) ??
+            false;
+      }
+    } catch (e) {
+      Utility.print(e);
+    }
+    return false;
+  }
+
+  /**
+   * 开始时间任务列表 - 用于iOS桌面组件数据透传
+   */
+  Future<bool> storeStartTimeMissionList(
+      List<StartTimeMissionModel> list) async {
+    try {
+      List<Map> listModellistMap =
+          parseStartTimeMissionModelList(listMissionModels: list);
+      if (listModellistMap.length > 0) {
+        return (await _channel.invokeMethod<bool>(
+                'storeStartTimeMissionList', listModellistMap)) ??
             false;
       }
     } catch (e) {
@@ -717,6 +741,21 @@ class CounterMethodChannelManager {
       // if (missionModel.isFinished == false) {
       list.add(missionModel.toJson());
       // }
+    });
+    return list;
+  }
+
+  /**
+   * 解析开始时间任务模型列表为Map格式 - 用于iOS桌面组件数据透传
+   */
+  List<Map> parseStartTimeMissionModelList(
+      {required List<StartTimeMissionModel> listMissionModels}) {
+    List<Map> list = [];
+    listMissionModels.forEach((missionModel) {
+      // 过滤未完成的任务，只显示进行中的任务
+      if (missionModel?.isFinished == false) {
+        list.add(missionModel!.toJson());
+      }
     });
     return list;
   }

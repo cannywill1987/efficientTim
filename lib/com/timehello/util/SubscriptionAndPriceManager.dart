@@ -42,6 +42,12 @@ class SubscriptionAndPriceManager {
   static final String priceMonthlyMobile =
       "com.moonrainbowsoft.time.flutterTimeHello.subscriptionhMonthlyMobile"; // 按月订阅 移动端
 
+  static final String oneTimePurchase =
+      "com.moonrainbowsoft.time.flutterTimeHello.oneTimePurchase"; // 一次性付费
+  static final String oneTimePurchaseMobile =
+      "com.moonrainbowsoft.time.flutterTimeHello.oneTimePurchaseMobile"; // 一次性付费 移动端
+
+
   bool isRequesting = false;
   List<PriceProductModel>? listPriceProductModel;
   bool subscriptionState = false;
@@ -69,8 +75,8 @@ class SubscriptionAndPriceManager {
     listPriceProductModel = await CounterMethodChannelManager.getInstance()
         .IAPManagerFetchProducts(
             listProducts: DeviceInfoManagement.isMacOs()
-                ? [priceAnnual, priceMonthly]
-                : [priceAnnualMobile, priceMonthlyMobile]); // 获取产品
+                ? [priceAnnual, priceMonthly, oneTimePurchase]
+                : [priceAnnualMobile, priceMonthlyMobile, oneTimePurchaseMobile]); // 获取产品
     // 0 未开始 1 请求中 2 请求成功 3 restore成功
     await initSubscriptionState();
     print("");
@@ -109,11 +115,13 @@ class SubscriptionAndPriceManager {
               DeviceInfoManagement.isMacOs()
                   ? [
                       SubscriptionAndPriceManager.priceMonthly,
-                      SubscriptionAndPriceManager.priceAnnual
+                      SubscriptionAndPriceManager.priceAnnual,
+                      SubscriptionAndPriceManager.oneTimePurchase
                     ]
                   : [
                       SubscriptionAndPriceManager.priceMonthlyMobile,
-                      SubscriptionAndPriceManager.priceAnnualMobile
+                      SubscriptionAndPriceManager.priceAnnualMobile,
+                      SubscriptionAndPriceManager.oneTimePurchaseMobile
                     ]);
           String original_transaction_id = map['originalTransactionId'];
           int latestExpireDate = map['latestExpireDate'];
@@ -134,6 +142,27 @@ class SubscriptionAndPriceManager {
         // Utility.getLatestExpireDateOfReceipt(response.data['receipt']['in_app']);
       });
     }
+  }
+
+  Future<void> initOneTimePurchase() async {
+    if (isIOSAndMacOS() == false) {
+      return;
+    }
+    BaseBean baseBean = await CounterMethodChannelManager.getInstance()
+        .checkSubscriptionState(
+        DeviceInfoManagement.isMacOs() ? oneTimePurchase : oneTimePurchaseMobile);
+    if (baseBean.data == "2") {
+      subscriptionState = true;
+    }
+    baseBean = await CounterMethodChannelManager.getInstance()
+        .checkSubscriptionState(priceMonthly);
+    if (subscriptionState == false && baseBean.data == "2") {
+      subscriptionState = true;
+    }
+
+    // baseBean = await CounterMethodChannelManager.getInstance()
+    //     .getSubscriptionDetails();
+    print(baseBean.data);
   }
 
   Future<void> initSubscriptionState() async {
@@ -169,7 +198,27 @@ class SubscriptionAndPriceManager {
     return null;
   }
 
-  restorePurchases() async {
+  restoreOneTimePurchases() async {
+    BaseBean bean =
+    await CounterMethodChannelManager.getInstance().restorePurchases();
+    if (bean.success == false) {
+      //恢复失败
+      Utility.showToastMsg(msg: getI18NKey().restore_failed);
+    } else if (bean.data != null) {
+      //恢复成功 返回productId
+      SubscriptionAndPriceManager.getInstance().addPurchasedProductToUserModel(
+          identifier: bean.data["productId"],
+          list: [],
+          context: Utility.getGlobalContext(),
+          callback: (res) async {
+            await initOneTimePurchase();
+          },
+          expireDateMillis: bean.data["expireDate"],
+          orignalTransactionId: bean.data["originalTransactionId"]);
+    }
+  }
+
+  restoreSubscriptionPurchases() async {
     BaseBean bean =
         await CounterMethodChannelManager.getInstance().restorePurchases();
     if (bean.success == false) {

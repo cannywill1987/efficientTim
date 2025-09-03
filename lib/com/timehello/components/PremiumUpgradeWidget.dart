@@ -29,6 +29,7 @@ class PremiumUpgradeWidgetState extends State<PremiumUpgradeWidget> {
 
   PriceProductModel? priceProductModelAnnual;
   PriceProductModel? priceProductModelMonthly;
+  PriceProductModel? oneTimePurchaseProduct;
 
   List<PriceProductModel> priceProductModelList = [];
   double padding = 4;
@@ -45,8 +46,12 @@ class PremiumUpgradeWidgetState extends State<PremiumUpgradeWidget> {
       priceProductModelMonthly = DeviceInfoManagement.isMacOs() ? SubscriptionAndPriceManager.getInstance().getProduct(
           identifier: SubscriptionAndPriceManager.priceMonthly) : SubscriptionAndPriceManager.getInstance().getProduct(
           identifier: SubscriptionAndPriceManager.priceMonthlyMobile);
+
+      oneTimePurchaseProduct = DeviceInfoManagement.isMacOs() ? SubscriptionAndPriceManager.getInstance().getProduct(
+          identifier: SubscriptionAndPriceManager.oneTimePurchase) : SubscriptionAndPriceManager.getInstance().getProduct(
+          identifier: SubscriptionAndPriceManager.oneTimePurchaseMobile);
       priceProductModelList =
-      [priceProductModelAnnual!, priceProductModelMonthly!];
+      [priceProductModelAnnual!, priceProductModelMonthly!, oneTimePurchaseProduct!];
     } catch (e) {
       print(e);
     }
@@ -138,7 +143,7 @@ class PremiumUpgradeWidgetState extends State<PremiumUpgradeWidget> {
 Widget _buildRestorePurchaseButton() {
     return OutlinedButton(
       onPressed: () {
-        SubscriptionAndPriceManager.getInstance().restorePurchases();
+        SubscriptionAndPriceManager.getInstance().restoreSubscriptionPurchases();
       },
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: Colors.orange, width: 1),

@@ -14,12 +14,12 @@ if (flutterRoot == null) {
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 //if (flutterVersionCode == null) {
 //每个版本要升一级 要不应用市场不认
-    flutterVersionCode = '166'
+    flutterVersionCode = '167'
 //}
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 //if (flutterVersionName == null) {
-    flutterVersionName = '7.2.7'
+    flutterVersionName = '7.2.8'
 //}
 
 apply plugin: 'com.android.application'

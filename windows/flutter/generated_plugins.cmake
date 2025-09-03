@@ -4,17 +4,13 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
-  desktop_window
   dynamic_color
-  file_saver
   file_selector_windows
   firebase_auth
   firebase_core
   flutter_inappwebview_windows
   pasteboard
   permission_handler_windows
-  record_windows
-  system_tray
   url_launcher_windows
 )
 
