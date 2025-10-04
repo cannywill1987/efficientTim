@@ -95,7 +95,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 错误信息 .
      */
-    HashMap<String, ErrorInfo> errorInfo = new HashMap<String, CrashHandler.ErrorInfo>();
+    HashMap<String, ErrorInfo> errorInfo = new HashMap<String, ErrorInfo>();
 
     /**
      * CrashHandler . <br>
@@ -131,7 +131,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * {@inheritDoc}
      *
-     * @see java.lang.Thread.UncaughtExceptionHandler# uncaughtException(java.lang.Thread, java.lang.Throwable)
+     * @see UncaughtExceptionHandler# uncaughtException(java.lang.Thread, java.lang.Throwable)
      */
     @Override
     public void uncaughtException(final Thread thread, final Throwable ex) {

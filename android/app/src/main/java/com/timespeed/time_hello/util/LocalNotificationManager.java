@@ -131,7 +131,7 @@ public class LocalNotificationManager {
         notificationIntent.putExtra("whenMilliTimeStamp", whenMilliTimeStamp);
 
         PendingIntent pendingIntent;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(flutterActivity, id, notificationIntent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
             pendingIntent = PendingIntent.getBroadcast(flutterActivity, id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -207,9 +207,9 @@ public class LocalNotificationManager {
      * 没问题
      */
     public void showCounterNotificationFinalWithDelay(CounterStatusModel counterStatusModel, int delay, int id) {
-        android.app.NotificationManager notificationManager = (android.app.NotificationManager) this.flutterActivity.getSystemService(this.flutterActivity.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            notificationChannel = new NotificationChannel("" + id, "channel_name", android.app.NotificationManager.IMPORTANCE_HIGH);
+        NotificationManager notificationManager = (NotificationManager) this.flutterActivity.getSystemService(this.flutterActivity.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel("" + id, "channel_name", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(notificationChannel);
         }
         RemoteViews expandedView = Utility.getRemoteViews(this.flutterActivity.getApplicationContext(), counterStatusModel);
@@ -247,9 +247,9 @@ public class LocalNotificationManager {
      * 没问题
      */
     public void showNotificationFinal(CounterStatusModel counterStatusModel) {
-        android.app.NotificationManager notificationManager = (android.app.NotificationManager) this.flutterActivity.getSystemService(this.flutterActivity.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            notificationChannel = new NotificationChannel("001", "channel_name", android.app.NotificationManager.IMPORTANCE_HIGH);
+        NotificationManager notificationManager = (NotificationManager) this.flutterActivity.getSystemService(this.flutterActivity.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel("001", "channel_name", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(notificationChannel);
         }
         RemoteViews expandedView = Utility.getRemoteViews(this.flutterActivity.getApplicationContext(), counterStatusModel);
@@ -300,9 +300,9 @@ public class LocalNotificationManager {
         LocalNotificationManager.showNormalNotifcation(context, title, summary);
 
 
-        android.app.NotificationManager notificationManager = (android.app.NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel("002", "channel_name", android.app.NotificationManager.IMPORTANCE_HIGH);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel("002", "channel_name", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(notificationChannel);
         }
 //        RemoteViews collapsedView = new RemoteViews(getPackageName(),

@@ -7,8 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:time_hello/com/timehello/util/EventCollection.dart';
 
 class AnalyticsEventsManager {
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+  // static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  // FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   static AnalyticsEventsManager? instance;
   Timer? timer;
   bool? isEmailVerifiedVal=false;
@@ -26,13 +26,13 @@ class AnalyticsEventsManager {
 
 
   Future<void> _setDefaultEventParameters() async {
-    await analytics.setDefaultEventParameters(<String, dynamic>{
-      'string': 'string',
-      'int': 42,
-      'long': 12345678910,
-      'double': 42.0,
-      'bool': true.toString(),
-    });
+    // await analytics.setDefaultEventParameters(<String, dynamic>{
+    //   'string': 'string',
+    //   'int': 42,
+    //   'long': 12345678910,
+    //   'double': 42.0,
+    //   'bool': true.toString(),
+    // });
   }
 
   Future<void> signIn({required String email, required String password}) async {
@@ -93,14 +93,14 @@ class AnalyticsEventsManager {
       String eventType = data['eventType'] ?? "";
       String message = data['message'] ?? "";
       EventCollection.onCollectionJSON(data);
-      await analytics.logEvent(
-        name: sceneType + '_' + eventType,
-        parameters: <String, Object>{
-          'sceneType': sceneType,
-          'eventType': eventType,
-          'message': message,
-        },
-      );
+      // await analytics.logEvent(
+      //   name: sceneType + '_' + eventType,
+      //   parameters: <String, Object>{
+      //     'sceneType': sceneType,
+      //     'eventType': eventType,
+      //     'message': message,
+      //   },
+      // );
     } catch(e) {
       print(e);
     }
@@ -112,18 +112,18 @@ class AnalyticsEventsManager {
     // https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#public-void-logevent-string-name,-bundle-params
     //部分小米机型打不开
     try {
-      await analytics.logEvent(
-        name: name,
-        parameters: <String, Object>{
-          'event_name': name,
-          // 'int': 42,
-          // 'long': 12345678910,
-          // 'double': 42.0,
-          // // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
-          // // https://developers.google.cn/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
-          // 'bool': true.toString(),
-        },
-      );
+      // await analytics.logEvent(
+      //   name: name,
+      //   parameters: <String, Object>{
+      //     'event_name': name,
+      //     // 'int': 42,
+      //     // 'long': 12345678910,
+      //     // 'double': 42.0,
+      //     // // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
+      //     // // https://developers.google.cn/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
+      //     // 'bool': true.toString(),
+      //   },
+      // );
     } catch(e) {
       print(e);
     }

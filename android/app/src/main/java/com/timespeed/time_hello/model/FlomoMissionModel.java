@@ -24,7 +24,7 @@ class FlomoMissionModel  implements Parcelable  {
       percent = in.readFloat();
    }
 
-   public static final Parcelable.Creator<FlomoMissionModel> CREATOR = new Parcelable.Creator<FlomoMissionModel>() {
+   public static final Creator<FlomoMissionModel> CREATOR = new Creator<FlomoMissionModel>() {
       @Override
       public FlomoMissionModel createFromParcel(Parcel in) {
          return new FlomoMissionModel(in);

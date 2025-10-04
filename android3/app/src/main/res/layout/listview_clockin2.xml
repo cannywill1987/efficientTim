@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativelayout_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_corner_drawble4"
+    android:padding="10dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="50dp">
+
+                <FrameLayout
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="5dp"
+                    android:layout_height="15dp"
+                    android:background="#FF8800"
+                    />
+
+                <TextView
+                    android:id="@+id/textView_title"
+                    android:text="@string/today_clockin"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                >
+                <LinearLayout
+                    android:id="@+id/ll_priority4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ListView
+                        android:id="@+id/listview4"
+                        android:divider="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+<!--            <ListView-->
+<!--                android:id="@+id/listview4"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/bg_corner_drawble4"-->
+<!--                 />-->
+
+</LinearLayout>

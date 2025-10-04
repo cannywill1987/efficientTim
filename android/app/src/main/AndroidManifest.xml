@@ -1,25 +1,48 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.timespeed.time_hello"
-    android:minSdkVersion="21"
-    android:versionCode="1003"
-    android:versionName="1.0.3">
+    >
     <!-- Required  一些系统要求的权限，如访问网络等-->
     <uses-sdk tools:overrideLibrary="com.unicom.xiaowo.account.shield,pl.droidsonroids.gif,com.mob.secverify,com.sdk" />
     <queries>
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
     <application
-        android:name="com.timespeed.time_hello.application.TimeApplication"
-        android:allowBackup="false"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/main_app_name"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
-        tools:replace="android:label,android:allowBackup">
-<!--        不加上这句话pura70开机崩溃-->
+        >
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="true"-->
+<!--            android:launchMode="singleTop"-->
+<!--            android:taskAffinity=""-->
+<!--            android:theme="@style/LaunchTheme"-->
+<!--            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"-->
+<!--            android:hardwareAccelerated="true"-->
+<!--            android:windowSoftInputMode="adjustResize">-->
+<!--            &lt;!&ndash; Specifies an Android theme to apply to this Activity as soon as-->
+<!--                 the Android process has started. This theme is visible to the user-->
+<!--                 while the Flutter UI initializes. After that, this theme continues-->
+<!--                 to determine the Window background behind the Flutter UI. &ndash;&gt;-->
+<!--            <meta-data-->
+<!--              android:name="io.flutter.embedding.android.NormalTheme"-->
+<!--              android:resource="@style/NormalTheme"-->
+<!--              />-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
         <meta-data
             android:name="io.flutter.embedding.android.EnableImpeller"
             android:value="false" />
@@ -78,15 +101,15 @@
 
 
 
-<!--        <receiver android:name="com.timespeed.time_hello.widgets.MyCalendarWidgetProvider" android:exported="false">-->
-<!--            &lt;!&ndash;name的值是固定的，只能是android.appwidget.provider&ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />&lt;!&ndash;必须得有这个action&ndash;&gt;-->
-<!--            </intent-filter>-->
-<!--            <meta-data-->
-<!--                android:name="android.appwidget.provider"-->
-<!--                android:resource="@xml/my_calendar_appwidget" />-->
-<!--        </receiver>-->
+        <!--        <receiver android:name="com.timespeed.time_hello.widgets.MyCalendarWidgetProvider" android:exported="false">-->
+        <!--            &lt;!&ndash;name的值是固定的，只能是android.appwidget.provider&ndash;&gt;-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />&lt;!&ndash;必须得有这个action&ndash;&gt;-->
+        <!--            </intent-filter>-->
+        <!--            <meta-data-->
+        <!--                android:name="android.appwidget.provider"-->
+        <!--                android:resource="@xml/my_calendar_appwidget" />-->
+        <!--        </receiver>-->
 
 
 
@@ -384,19 +407,19 @@
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-<!--        <receiver-->
-<!--            android:name="com.timespeed.time_hello.receiver.MyMessageReceiver"-->
-<!--            android:exported="false"> &lt;!&ndash; 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 &ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />-->
-<!--            </intent-filter>-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />-->
-<!--            </intent-filter>-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <!--        <receiver-->
+        <!--            android:name="com.timespeed.time_hello.receiver.MyMessageReceiver"-->
+        <!--            android:exported="false"> &lt;!&ndash; 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 &ndash;&gt;-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />-->
+        <!--            </intent-filter>-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />-->
+        <!--            </intent-filter>-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
 
 
         <!--User defined.  For test only 继承自cn.jpush.android.service.JCommonService-->
@@ -487,7 +510,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
 
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -496,7 +519,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:node="remove"/>-->
-<!--    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>-->
+    <!--    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>-->
 
 
     <!--    阿里云相关权限-->
@@ -504,7 +527,7 @@
     <!--    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -525,7 +548,7 @@
     <!--        android:value="其他服务接入点域名" />-->
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-<!--    // 指定微信包名-->
+    <!--    // 指定微信包名-->
     <queries>
         <package android:name="com.tencent.mm" />
     </queries>
@@ -543,10 +566,19 @@
             <data android:scheme="sms" />
         </intent>
     </queries>
-<!--    适配android 11获取已安装医用列表，pcakage添加需要获取应用报名-->
+    <!--    适配android 11获取已安装医用列表，pcakage添加需要获取应用报名-->
     <queries>
         <package android:name="com.tencent.mobileqq" />
         <package android:name="com.tencent.tim" />
-    </queries>
+    </queries>    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
 </manifest>

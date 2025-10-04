@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/listview_clockin2"
+    android:initialKeyguardLayout="@layout/listview_clockin2"
+    android:minHeight="200dp"
+    android:minWidth="200dp"
+    android:resizeMode="horizontal|vertical"
+    android:previewLayout="@layout/listview_clockin2"
+    android:widgetCategory="home_screen"
+    android:previewImage="@drawable/ic_clockin"
+    android:updatePeriodMillis="3600000">
+</appwidget-provider>
+    <!--    android:widgetCategory="home_screen|searchbox|keyguard"-->
+
+
+<!--    <?xml version="1.0" encoding="utf-8"?>-->
+<!--<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:initialLayout="@layout/listview_quadrant"-->
+<!--    android:initialKeyguardLayout="@layout/listview_quadrant"-->
+<!--    android:minHeight="476dp"-->
+<!--    android:minWidth="272dp"-->
+<!--    android:previewLayout="@layout/listview_quadrant"-->
+<!--    android:previewImage="@drawable/bg_desktop_widget"-->
+<!--    android:widgetCategory="home_screen|searchbox|keyguard"-->
+<!--    android:updatePeriodMillis="86400000">-->
+<!--</appwidget-provider>-->
+<!--    android:previewImage="@drawable/bg_desktop_widget"-->
+<!--    android:widgetCategory="home_screen|searchbox|keyguard"-->

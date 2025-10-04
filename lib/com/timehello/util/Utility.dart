@@ -9,7 +9,7 @@ import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:excel/excel.dart';
 import 'package:intl/intl.dart';
 import 'package:lunar_calendar_converter_new/lunar_solar_converter.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 

@@ -1,3 +1,4 @@
+package com.timespeed.time_hello.model;
 
 public class Task {
     private String title;

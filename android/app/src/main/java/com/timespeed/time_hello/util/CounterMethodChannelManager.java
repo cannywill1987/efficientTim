@@ -355,11 +355,11 @@ public class CounterMethodChannelManager {
                             break;
                         case "initPushNotification": //同意协议后初始化推送
                             //加到这里 否则上不了线，会默认先执行这个
-                            try {
-                                flutterEngine.getPlugins().add(new com.llfbandit.record.RecordPlugin());
-                            } catch (Exception e) {
-                                Log.e("TAG", "Error registering plugin record_android, com.llfbandit.record.RecordPlugin", e);
-                            }
+//                            try {
+//                                flutterEngine.getPlugins().add(new com.llfbandit.record.RecordPlugin());
+//                            } catch (Exception e) {
+//                                Log.e("TAG", "Error registering plugin record_android, com.llfbandit.record.RecordPlugin", e);
+//                            }
 //                            if(SharePreferenceUtil.getInstance(flutterActivity).getBoolean(Params.sharePreferenceEngineInited, false) == false) {
 //                                GeneratedPluginRegistrant.registerWith(flutterEngine);
 //                                SharePreferenceUtil.getInstance(flutterActivity).setBoolean(Params.sharePreferenceEngineInited, true);

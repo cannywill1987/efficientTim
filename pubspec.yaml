@@ -1,8 +1,7 @@
 name: time_hello
-description: A new Flutter application.
-
+description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
@@ -12,15 +11,22 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # build by specifying --build-name and --build-number, respectively.
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.17.0 <3.9.1"
 
-
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
@@ -31,7 +37,7 @@ dependencies:
   #  firebase_storage: ^11.1.0
   sidebarx: ^0.16.3
   flutter_typeahead: ^5.2.0
-  fluttertoast: ^8.2.1
+  fluttertoast: ^9.0.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   dio: ^5.1.2
@@ -73,20 +79,21 @@ dependencies:
   #  native_updater: ^0.1.1
   #  bitsdojo_window_platform_interface: ^0.1.0
   file: ^6.1.4
-  permission_handler: ^10.2.0
+  permission_handler: ^12.0.1
   #  package_info: 0.4.1
-  open_file: ^3.2.1
+  open_file: ^3.5.10
   flutter_downloader: ^1.8.0+1 #删除会闪崩
   #  progress_dialog: 1.2.0
-  package_info: ^2.0.2
+  package_info_plus: ^9.0.0
   #  auto_updater: ^0.1.2
-  camera: ^0.9.4+19
+  camera: ^0.11.2
   image_cropper: ^8.0.2
   marquee: ^2.2.3
   image_picker: ^1.0.4
   cached_network_image: ^3.2.0
   url_launcher: ^6.1.4
-  flutter_native_timezone: ^2.0.0
+  flutter_native_timezone:
+    path: ./thirdPartyPackages/flutter_native_timezone-master
   flutter_parsed_text: ^2.2.1 #用于代替Text组件解析手机号 邮箱或者自定义匹配字符
   #  flutter_bugly: ^0.4.4
   #  secverify_plugin: ^1.30.7
@@ -114,19 +121,20 @@ dependencies:
   firebase_core: ^3.6.0
 
   google_sign_in: ^6.0.0
-  sign_in_with_apple: ^4.3.0
+  sign_in_with_apple: ^7.0.1
   nil: ^1.1.1
 
   #用于flutter extension
   photo_view: ^0.14.0
   video_player: ^2.4.2
   youtube_player_flutter: ^9.1.1
-  gallery_saver: ^2.3.2
+  gallery_saver:
+    path: ./thirdPartyPackages/gallery_saver-master
   string_validator: ^1.0.0
   #用于flutter quill
   collection: ^1.17.0
   flutter_colorpicker: ^1.0.3
-  #  quiver: ^3.2.1
+  quiver: ^3.2.1
   pedantic: ^1.11.1
   characters: ^1.2.1
   diff_match_patch: ^0.4.1
@@ -135,7 +143,7 @@ dependencies:
   platform: ^3.1.0
   pasteboard: ^0.2.0
   #  flutter_ali_auth: ^0.6.2
-  ali_auth: ^1.1.0
+  ali_auth: ^1.3.5
   dio_http2_adapter: ^2.0.0
   uuid: ^3.0.6
   in_app_review: ^2.0.6
@@ -155,12 +163,13 @@ dependencies:
   #  appflowy_editor: ^2.1.0
   #  flutter_credit_card: ^4.0.1 #信用卡输入框
   blurrycontainer: ^1.0.2 # 模糊背景
-  auto_orientation: ^2.3.1 #设置屏幕方向
+  auto_orientation:
+    path: ./thirdPartyPackages/auto_orientation-master #设置屏幕方向
   native_device_orientation: ^1.2.1 #获取屏幕方向
   encrypt: ^5.0.3
   lottie: ^3.0.0
   #  material_symbols_icons: ^4.2719.1 #google font的icon https://fonts.google.com/icons
-  flutter_sound: ^9.2.13
+  flutter_sound: ^9.28.0
   flutter_vibrate:
     path: ./thirdPartyPackages/flutter_vibrate-master
   #  calendar_date_picker2: ^0.5.5
@@ -170,7 +179,7 @@ dependencies:
 
 dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有点问题
   #  dart_style: ^2.3.1 #这个版本才可以用
-#  cloud_firestore: ^5.4.4
+  #  cloud_firestore: ^5.4.4
   firebase_analytics: ^11.2.0
   win32: ^5.7.1
   fading_edge_scrollview: ^4.1.1
@@ -196,7 +205,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   syncfusion_flutter_charts: ^27.1.56
   syncfusion_flutter_datagrid: ^27.1.56
   syncfusion_flutter_datagrid_export: ^27.1.56
-#  gallery_saver: 2.1.0
+  #  gallery_saver: 2.1.0
   device_info_plus: ^11.1.0 #有ffi
   record:
     path: ./thirdPartyLib/record
@@ -244,25 +253,12 @@ dev_dependencies:
 # Add this inside pubspec.yaml
 native_updater:
   git: https://github.com/loadsmileau/native_updater
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+# The following section is specific to Flutter packages.
 flutter:
-  #  plugin:
-  #    platforms:
-  #      android:
-  #        package: com.ryanheise.just_audio
-  #        pluginClass: JustAudioPlugin
-  #      ios:
-  #        pluginClass: JustAudioPlugin
-  #      macos:
-  #        pluginClass: JustAudioPlugin
-  #        default_package: bitsdojo_window_macos
-  #      windows:
-  #        default_package: bitsdojo_window_windows
-  #      linux:
-  #        default_package: bitsdojo_window_linux
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
