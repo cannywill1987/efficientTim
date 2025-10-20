@@ -1,3 +1,6 @@
+历史所有flutter版本
+https://docs.flutter.dev/install/archive
+
 ios构建
  flutter build ios --no-tree-shake-icons
  

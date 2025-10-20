@@ -83,6 +83,17 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("release")
+            // 配置ProGuard规则文件，解决FastJSON的R8构建错误
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // 启用代码压缩和混淆
+            isMinifyEnabled = true
+            isShrinkResources = true
+        }
+        debug {
+            // Debug构建也使用ProGuard规则，确保一致性
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
     // 启用 viewBinding 功能
