@@ -227,8 +227,8 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
 dev_dependencies:
   #  auto_route_generator: ^8.0.2
   json_serializable: ^6.1.5
-  flutter_test:
-    sdk: flutter
+#  flutter_test:
+#    sdk: flutter
   build_runner: ^2.4.11
   flutter_gen_runner: 5.1.0+1
   build_web_compilers: ^4.0.8

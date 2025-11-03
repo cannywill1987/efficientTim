@@ -1,0 +1,552 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.timespeed.time_hello"
+    android:minSdkVersion="21"
+    android:versionCode="1003"
+    android:versionName="1.0.3">
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-sdk tools:overrideLibrary="com.unicom.xiaowo.account.shield,pl.droidsonroids.gif,com.mob.secverify,com.sdk" />
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
+    <application
+        android:name="com.timespeed.time_hello.application.TimeApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/main_app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:label,android:allowBackup">
+<!--        不加上这句话pura70开机崩溃-->
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            tools:replace="android:exported"
+            android:name="com.pichillilorenzo.flutter_inappwebview.in_app_browser.InAppBrowserActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density" />
+        <activity
+            android:theme="@style/ThemeTransparent"
+            android:exported="false"
+            tools:replace="android:exported"
+            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ChromeCustomTabsActivity" />
+        <activity
+            android:theme="@style/ThemeTransparent"
+            android:exported="false"
+            tools:replace="android:exported"
+            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.TrustedWebActivity" />
+        <activity
+            android:theme="@style/ThemeTransparent"
+            android:exported="false"
+            tools:replace="android:exported"
+            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ChromeCustomTabsActivitySingleInstance"
+            android:launchMode="singleInstance"/>
+        <activity
+            android:theme="@style/ThemeTransparent"
+            android:exported="false"
+            tools:replace="android:exported"
+            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.TrustedWebActivitySingleInstance"
+            android:launchMode="singleInstance"/>
+
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+
+
+<!--        <receiver android:name="com.timespeed.time_hello.widgets.MyCalendarWidgetProvider" android:exported="false">-->
+<!--            &lt;!&ndash;name的值是固定的，只能是android.appwidget.provider&ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />&lt;!&ndash;必须得有这个action&ndash;&gt;-->
+<!--            </intent-filter>-->
+<!--            <meta-data-->
+<!--                android:name="android.appwidget.provider"-->
+<!--                android:resource="@xml/my_calendar_appwidget" />-->
+<!--        </receiver>-->
+
+
+
+        <receiver android:name="com.timespeed.time_hello.widgets.MyCalendar2WidgetProvider" android:exported="false"  android:label="@string/calendar">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/my_calendar2_appwidget" />
+        </receiver>
+
+        <receiver android:name="com.timespeed.time_hello.widgets.MyClockIn2WidgetProvider" android:exported="false"  android:label="@string/clockin_today">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/clockin2_appwidget" />
+        </receiver>
+
+
+        <receiver android:name="com.timespeed.time_hello.widgets.MyQuadrantWidgetProvider" android:exported="false"  android:label="@string/quadrant">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/quadrant_appwidget" />
+        </receiver>
+
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNoteWidgetProvider" android:exported="false" android:label="@string/note_1">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNote2WidgetProvider" android:exported="false"  android:label="@string/note_2">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note2_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNote3WidgetProvider" android:exported="false"  android:label="@string/note_3">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note3_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNote4WidgetProvider" android:exported="false"  android:label="@string/note_4">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note4_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNote5WidgetProvider" android:exported="false"  android:label="@string/note_5">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note5_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNote6WidgetProvider" android:exported="false"  android:label="@string/note_6">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note6_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyNote7WidgetProvider" android:exported="false"  android:label="@string/note_7">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/note7_appwidget" />
+        </receiver>
+        <receiver android:name="com.timespeed.time_hello.widgets.MyAppWidgetProvider" android:exported="false" android:label="@string/podomoro_timer">
+            <!--name的值是固定的，只能是android.appwidget.provider-->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><!--必须得有这个action-->
+
+                <action android:name="com.timespeed.time_hello.play" />
+                <action android:name="com.timespeed.time_hello.stop" />
+                <action android:name="com.timespeed.time_hello.pause" />
+                <action android:name="com.timespeed.time_hello.finish" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/screen_appwidget" />
+        </receiver>
+
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarViewsService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService1"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService2"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService3"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService4"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService5"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService6"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyCalendarRemoteViewsService7"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyClockInRemoteViewsService2"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyClockIn2WidgetProvider"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyQuadrantRemoteViewsService1"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyClockInRemoteViewsService2"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyQuadrantRemoteViewsService2"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyQuadrantRemoteViewsService3"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+
+        <service
+            android:name="com.timespeed.time_hello.widgets.MyQuadrantRemoteViewsService4"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:exported="true"
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1112263382" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.timespeed.time_hello.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="com.timespeed.time_hello"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name="com.timespeed.time_hello.MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <!-- Registered Callback URLs in TwitterApp -->
+                <data android:scheme="flutterfireauth" />
+            </intent-filter>
+            <!--            <meta-data-->
+            <!--                android:name="io.flutter.embedding.android.NormalTheme"-->
+            <!--                android:resource="@style/appwidget_providerNormalTheme" />-->
+        </activity> <!-- 请填写你自己的- appKey -->
+
+
+        <provider
+            android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"
+            android:authorities="${applicationId}.flutter_downloader.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="f0eff7269254413fbc503833de335251" /> <!-- 请填写你自己的appSecret -->
+
+        <meta-data
+            android:name="com.alibaba.app.appkey"
+            android:value="333716171" />
+
+        <!-- 消息接收监听器 （用户可自主扩展） -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+
+        <receiver
+            android:name="com.timespeed.time_hello.receiver.NotificationPublisher"
+            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.timespeed.notification" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+<!--        <receiver-->
+<!--            android:name="com.timespeed.time_hello.receiver.MyMessageReceiver"-->
+<!--            android:exported="false"> &lt;!&ndash; 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 &ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
+
+        <!--User defined.  For test only 继承自cn.jpush.android.service.JCommonService-->
+        <receiver android:name="com.timespeed.time_hello.receiver.RemoteViewsHandlerReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.timespeed.time_hello.play" />
+                <action android:name="com.timespeed.time_hello.stop" />
+                <action android:name="com.timespeed.time_hello.pause" />
+                <action android:name="com.timespeed.time_hello.finish" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+
+        <!--   自定义协议页面    -->
+        <!--    ali_auth/example/android/app/src/main/res/layout/activity_custom_web.xml   -->
+        <!--    ali_auth/example/android/app/src/main/res/drawable/icon_close.png   -->
+        <activity
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
+            android:name="com.sean.rao.aliAuth.CustomWebViewActivity"
+            android:theme="@style/AppTheme"
+            android:exported="true"
+            android:screenOrientation="sensorPortrait">
+            <intent-filter>
+                <action android:name="com.sean.rao.ali_auth_example.protocolWeb"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+
+
+        <!-- 重点关注！！！！！！！-->
+        <!-- 全屏时使用主题 android:theme="@android:style/Theme.NoTitleBar.Fullscreen" -->
+        <!-- 弹窗时使用主题 android:theme="@style/authsdk_activity_dialog" -->
+        <!-- 如果不需要使用窗口模式，不要使用authsdk_activity_dialog主题，会出现异常动画-->
+        <!-- 如果需要使用authsdk_activity_dialog主题，则screenOrientation一定不能指定明确的方向，
+        比如portrait、sensorPortrait，在8.0的系统上不允许窗口模式指定orientation，会发生crash，需要指定为behind，
+        然后在授权页的前一个页面指定具体的orientation-->
+
+        <!--协议页面webview-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:theme"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!--联通电信授权页-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:configChanges"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+
+        <!--移动授权页-->
+        <activity
+            android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:configChanges"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+    </application>
+    <meta-data
+        android:name="XG_SERVICE_PULL_UP_OFF"
+        android:value="true" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:node="remove"/>-->
+<!--    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>-->
+
+
+    <!--    阿里云相关权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 开关Wi-Fi状态，解决中国内地机型移动网络权限问题需要 -->
+
+    <!-- Optional, you'll have to check this permission by yourself. -->
+    <!--     腾讯推送 其他安卓组件如果不是广州节点用下面-->
+    <!--    上海：tpns.sh.tencent.com-->
+    <!--    新加坡：tpns.sgp.tencent.com-->
+    <!--    中国香港：tpns.hk.tencent.com-->
+    <!--    <meta-data-->
+    <!--        android:name="XG_SERVER_SUFFIX"-->
+    <!--        android:value="其他服务接入点域名" />-->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+<!--    // 指定微信包名-->
+    <queries>
+        <package android:name="com.tencent.mm" />
+    </queries>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="sms" />
+        </intent>
+    </queries>
+<!--    适配android 11获取已安装医用列表，pcakage添加需要获取应用报名-->
+    <queries>
+        <package android:name="com.tencent.mobileqq" />
+        <package android:name="com.tencent.tim" />
+    </queries>
+
+</manifest>

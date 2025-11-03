@@ -1,0 +1,339 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+//if (flutterVersionCode == null) {
+//每个版本要升一级 要不应用市场不认
+flutterVersionCode = '167'
+//}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+//if (flutterVersionName == null) {
+flutterVersionName = '7.2.8'
+//}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
+
+//apply plugin: 'com.mob.sdk'
+
+//MobSDK {
+//    appKey "37349d1054389"
+//    appSecret "263a217e653718cfb65194d23e11dda1"
+//    SecVerify {}
+//    ShareSDK {
+//        loopShare true
+//        devInfo {
+//            SinaWeibo {
+//                appKey "568898243"
+//                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+//                callbackUri "http://www.sharesdk.cn"
+//            }
+//            Wechat {
+//                appId "wxb74e3f117aec1616"
+//                appSecret "d723b4ff42b4c5c2831cadf3c81b3b77"
+//                userName "gh_afb25ac019c9"
+//                path "pages/index/index.html?id=1"
+//                withShareTicket true
+//                miniprogramType 2
+//            }
+//            QQ {
+//                appId "1112263382"
+//                appKey "mVR98boYmSbBow72"
+//            }
+//            Facebook {
+//                appKey "1412473428822331"
+//                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
+//                callbackUri "https://www.baidu.com"
+//            }
+//            Twitter {
+//                appKey "WjmQNOqQB5YwPTs3AcZXVXYn3"
+//                appSecret "CWEkJUeq1sTMt4OzKMo08iRe1OlK468NAVh0XBxNtFgvvjbRl4"
+//                callbackUri "https://www.mob.com"
+//                IsUseV2 true
+//                shareByAppClient true
+//                bypassApproval true
+//                enable true
+//            }
+//            ShortMessage {
+//                enable true
+//            }
+//            LinkedIn {
+//                appKey "ejo5ibkye3vo"
+//                appSecret "cC7B2jpxITqPLZ5M"
+//                callbackUri "http://www.sharesdk.cn"
+//            }
+//            Douyin {
+//                appKey "aw9ivykfjvi4hpwo"
+//                appSecret "42b4caa6bda60bd49f05f06d0a4956e1"
+//            }
+//            FacebookMessenger {
+//                appId "107704292745179"
+//            }
+//            WhatsApp {
+//                enable true
+//            }
+//            WechatMoments {
+//                appId "wx4868b35061f87885"
+//                appSecret "64020361b8ec4c99936c0e3999a9f249"
+//            }
+//            WechatFavorite {
+//                appId "wx4868b35061f87885"
+//                appSecret "64020361b8ec4c99936c0e3999a9f249"
+//            }
+//            QZone {
+//                appId "100371282"
+//                appKey "aed9b0303e3ed1e27bae87c33761161d"
+//            }
+//        }
+//    }
+//}
+
+//apply plugin: 'com.aliyun.ams.emas-services'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.huawei.agconnect'
+
+// 在 apply plugin: 'com.android.application' 下添加
+//apply plugin: 'com.aliyun.ams.emas-services'
+//apply plugin: "com.tencent.android.tpns"
+//classpath "com.tencent.android.tpns:tpnsplugin:1.8.0"
+android {
+    useLibrary 'org.apache.http.legacy'
+    compileSdk 34
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/libs']
+        }
+    }
+
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+//        密码 linzhibin2003
+        debug {
+            keyAlias 'sign'
+//            keyPassword '123456'
+            keyPassword 'linzhibin2003'
+            storeFile file('sign.jks')
+//            storePassword '123456'
+            storePassword 'linzhibin2003'
+        }
+        release {
+            keyAlias 'sign'
+//            keyPassword '123456'
+            keyPassword 'linzhibin2003'
+            storeFile file('sign.jks')
+//            storePassword '123456'
+            storePassword 'linzhibin2003'
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'src/main/libs'
+        }
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        //发布华为报名需要改成 com.timespeed.time_hello123
+        applicationId "com.timespeed.time_hello"
+        // You can update the following values to match your application needs. 
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
+        minSdkVersion 26
+        targetSdkVersion 33
+        multiDexEnabled true
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+//        manifestPlaceholders = [
+//                JPUSH_PKGNAME: applicationId,
+//                JPUSH_APPKEY : "1dd73715ccf3505ccefbba49",//值来自开发者平台取得的AppKey
+//                JPUSH_CHANNEL: "default_developer",
+//                MEIZU_APPKEY:"",
+//                MEIZU_APPID:"",
+//                XIAOMI_APPID:"",
+//                XIAOMI_APPKEY:"",
+//                OPPO_APPKEY:"",
+//                OPPO_APPID:"",
+//                OPPO_APPSECRET:"",
+//                VIVO_APPKEY:"",
+//                VIVO_APPID:""
+//        ]
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'armeabi'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                XG_ACCESS_ID : "1500031062",
+                XG_ACCESS_KEY : "A3H8W45GF8GC",
+        ]
+    }
+
+    packagingOptions {
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
+    }
+
+    buildTypes {
+        debug {
+            // 开启混淆
+            minifyEnabled false
+            // 开启资源压缩，编译时会自动删除未使用到的res资源
+            shrinkResources false
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+        release {
+            // 开启混淆
+            minifyEnabled false
+            // 开启资源压缩，编译时会自动删除未使用到的res资源
+            shrinkResources false
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    buildToolsVersion '34.0.0'
+}
+
+dependencies {
+//  so文件造成的崩溃问题的解决办法 需要从jni lib捞出来  https://help.aliyun.com/document_detail/40004.html
+//    https://help.aliyun.com/document_detail/190009.html
+    implementation fileTree(include: ["*.aar"], dir: 'src/main/libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0' //推送用得上
+//    implementation 'com.android.support:support-v13:28.0.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    // 引入support支持库的multidex库
+//    implementation 'com.android.support:multidex:1.0.3'
+    //或androidx支持库的multidex库
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //todo 下面两个应该没啥用 可以考虑删除掉
+//    implementation 'androidx.core:core-ktx:1.5.0'
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
+    implementation 'com.google.android.play:integrity:1.1.0'
+
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.3.0'
+//    implementation 'com.alibaba:fastjson:1.2.76'
+//    implementation 'com.mob.sdk:MobSDK2:2022.0714.1020'
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
+//    implementation 'com.facebook.android:facebook-login:latest.release'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.work:work-runtime:2.7.1'
+//    implementation files('src/main/libs/alicloud-android-beacon-1.0.7.jar')
+//    implementation files('src/main/libs/alicloud-android-crashdefend-0.0.6.jar')
+//    implementation files('src/main/    android:minHeight="72dp"  libs/alicloud-android-tool-1.0.0.jar')
+//    implementation files('src/main/libs/alicloud-android-utdid-2.6.0.jar')
+//    implementation files('src/main/libs/mipush-4.9.1.jar')
+    implementation files('src/main/libs/networksdk-3.5.8.6-open.jar')
+    implementation 'com.alibaba:fastjson:1.2.76'
+
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation files('src/main/libs/libammsdk.jar')
+    implementation files('src/main/libs/open_sdk_3.5.14.3_rc26220c_lite.jar')
+//    implementation files('libs/alicloud-android-beacon-1.0.7.jar')
+//    implementation files('libs/alicloud-android-crashdefend-0.0.6.jar')
+//    implementation files('libs/alicloud-android-tool-1.0.0.jar')
+//    implementation files('libs/alicloud-android-utdid-2.6.0.jar')
+//    implementation files('libs/mipush-4.9.1.jar')
+//    implementation files('libs/networksdk-3.5.8.6-open.jar')
+
+//    compile('com.aliyun.ams:alicloud-android-ha-adapter:1.1.5.2-open@aar') {
+//        transitive=true
+//    }
+//
+//    compile('com.aliyun.ams:alicloud-android-tlog:1.1.4.4-open@aar') {
+//        transitive=true
+//    }
+//    implementation files('src/main/libs/alicloud-android-tool-1.0.0.jar')
+//    implementation files('src/main/libs/alicloud-android-ut-5.4.4.jar')
+//    implementation files('src/main/libs/alicloud-android-utdid-2.6.0.jar')
+//    implementation files('src/main/libs/alicloud-android-utils-2.0.0.jar')
+//    implementation files('src/main/libs/mipush-4.9.1.jar')
+//    implementation files('src/main/libs/networksdk-3.5.8.6-open.jar')
+//    implementation files('src/main/libs/alicloud-android-utdid-2.5.1-proguard.jar')
+//    implementation files('src/main/libs/alicloud-android-beacon-1.0.7.jar')
+//    implementation files('src/main/libs/jcore-android-3.1.2.jar')
+//    implementation files('src/main/libs/jpush-android-4.5.0.jar')
+//    implementation files('src/main/libs/jcore-android-3.1.2.jar')
+//    implementation files('src/main/libs/jpush-android-4.5.0.jar')
+//    testImplementation 'junit:junit:4.+'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.4.1'
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+
+//    classpath "com.tencent.android.tpns:tpnsplugin:1.8.0"
+//    classpath 'com.aliyun.ams:emas-services:1.0.1'
+
+//    implementation 'cn.jiguang.sdk:jpush-google:4.5.0'  // 此处以JPush 4.5.0 Google Play版本为例
+//    implementation 'cn.jiguang.sdk:jcore-google:3.1.2'  // 此处以JCore 3.1.2 Google Play 版本为例。
+//阿里推送库
+
+//辅助通道基础依赖
+
+//华为依赖
+
+//小米依赖
+
+//OPPO依赖
+
+//vivo依赖
+
+//魅族依赖
+
+//谷歌依赖
+
+
+//阿里推送库
+//    compile 'com.aliyun.ams:alicloud-android-ha-adapter:1.1.5.2-open@aar'
+
+//华为依赖
+//    compile 'com.aliyun.ams:alicloud-android-tlog:1.1.4.4-open@aar'
+//辅助通道基础依赖
+//    implementation 'com.aliyun.ams:alicloud-android-third-push:3.7.0'
+////小米依赖
+//    compile 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.7.0'
+////OPPO依赖
+//    compile 'com.aliyun.ams:alicloud-android-third-push-oppo:3.7.0'
+////vivo依赖
+//    compile 'com.aliyun.ams:alicloud-android-third-push-vivo:3.7.0'
+////魅族依赖
+//    compile 'com.aliyun.ams:alicloud-android-third-push-meizu:3.7.0'
+////谷歌依赖
+//    compile 'com.aliyun.ams:alicloud-android-third-push-fcm:3.7.0'
+
+}
+
+flutter {
+    source '../..'
+}
