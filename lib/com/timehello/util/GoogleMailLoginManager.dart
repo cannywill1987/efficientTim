@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:time_hello/com/timehello/beans/BaseBean.dart';
@@ -28,84 +28,85 @@ class GoogleMailLoginManager {
   }
 
   unregisterAccount({required String email, required String password}) async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      String? email = user?.email;
-      bool isEmailVerified = user?.emailVerified ?? false;
-      await user?.delete();
-    } catch(e) {
-      print(e);
-    }
+    // try {
+    //   User? user = FirebaseAuth.instance.currentUser;
+    //   String? email = user?.email;
+    //   bool isEmailVerified = user?.emailVerified ?? false;
+    //   await user?.delete();
+    // } catch(e) {
+    //   print(e);
+    // }
   }
 
 
   Future<void> login({required String email, required String password, required Function callbackSuccess, required Function callbackNeedVerified, required Function callbackLoginFaile}) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      User? user = userCredential.user;
-      String? emailTmp = user?.email;
-      bool isEmailVerified = user?.emailVerified ?? false;
-      print('Signed in: ${userCredential.user}');
-      if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-        callbackNeedVerified.call();
-        print('Verification email has been sent.');
-      } else {
-        callbackSuccess.call();
-      }
-      print('Signed in: ${userCredential.user}');
-    } on FirebaseAuthException catch (e) {
-      if(e.code == 'email-already-in-use') {
-      }
-      callbackLoginFaile.call(e);
-      print('Failed with error code: ${e.code}');
-      print(e.message);
-    }
+    // try {
+    //   UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    //     email: email,
+    //     password: password,
+    //   );
+    //   User? user = userCredential.user;
+    //   String? emailTmp = user?.email;
+    //   bool isEmailVerified = user?.emailVerified ?? false;
+    //   print('Signed in: ${userCredential.user}');
+    //   if (user != null && !user.emailVerified) {
+    //     await user.sendEmailVerification();
+    //     callbackNeedVerified.call();
+    //     print('Verification email has been sent.');
+    //   } else {
+    //     callbackSuccess.call();
+    //   }
+    //   print('Signed in: ${userCredential.user}');
+    // } on FirebaseAuthException catch (e) {
+    //   if(e.code == 'email-already-in-use') {
+    //   }
+    //   callbackLoginFaile.call(e);
+    //   print('Failed with error code: ${e.code}');
+    //   print(e.message);
+    // }
   }
 
   Future<void> signIn({required String email, required String password, required Function callbackSuccess, Function? callbackNeedVerified}) async {
     // try {
     //   await FirebaseAuth.instance.currentUser?.reload();
     // } catch(e) {}
-    try {
-      // await unregisterAccount(email: email, password: password);
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      User? user = userCredential.user;
-      String? emailTmp = user?.email;
-      bool isEmailVerified = user?.emailVerified ?? false;
-      if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-        callbackSuccess();
-        print('Verification email has been sent.');
-      }
-
-      print('Signed in: ${userCredential.user}');
-    } on FirebaseAuthException catch (e) {
-      if(e.code == 'email-already-in-use') {
-        Utility.showToastMsg(msg: getI18NKey().user_exist_reset_password);
-        await login(email: email, password: password, callbackSuccess: callbackSuccess, callbackNeedVerified: callbackNeedVerified ?? callbackSuccess, callbackLoginFaile: (e) {
-
-        });
-      }
-      print('Failed with error code: ${e.code}');
-      print(e.message);
-    }
+    // try {
+    //   // await unregisterAccount(email: email, password: password);
+    //   UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    //     email: email,
+    //     password: password,
+    //   );
+    //   User? user = userCredential.user;
+    //   String? emailTmp = user?.email;
+    //   bool isEmailVerified = user?.emailVerified ?? false;
+    //   if (user != null && !user.emailVerified) {
+    //     await user.sendEmailVerification();
+    //     callbackSuccess();
+    //     print('Verification email has been sent.');
+    //   }
+    //
+    //   print('Signed in: ${userCredential.user}');
+    // } on FirebaseAuthException catch (e) {
+    //   if(e.code == 'email-already-in-use') {
+    //     Utility.showToastMsg(msg: getI18NKey().user_exist_reset_password);
+    //     await login(email: email, password: password, callbackSuccess: callbackSuccess, callbackNeedVerified: callbackNeedVerified ?? callbackSuccess, callbackLoginFaile: (e) {
+    //
+    //     });
+    //   }
+    //   print('Failed with error code: ${e.code}');
+    //   print(e.message);
+    // }
   }
 
   bool isEmailVerified() {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    this.isEmailVerifiedVal = user?.emailVerified ?? false;
-    // if(!(isEmailVerifiedVal ?? false)) {
-    //   sendVerificationEmail();
-    // }
-    return isEmailVerifiedVal ?? false;
+    // User? user = FirebaseAuth.instance.currentUser;
+    //
+    // this.isEmailVerifiedVal = user?.emailVerified ?? false;
+    // // if(!(isEmailVerifiedVal ?? false)) {
+    // //   sendVerificationEmail();
+    // // }
+    // return isEmailVerifiedVal ?? false;
+    return false;
   }
 
   cancelTimer() {
@@ -113,23 +114,24 @@ class GoogleMailLoginManager {
   }
 
   Future checkEmailVerified() async {
-    await FirebaseAuth.instance.currentUser?.reload();
-    isEmailVerifiedVal = FirebaseAuth.instance.currentUser?.emailVerified;
-    return isEmailVerifiedVal;
+    // await FirebaseAuth.instance.currentUser?.reload();
+    // isEmailVerifiedVal = FirebaseAuth.instance.currentUser?.emailVerified;
+    // return isEmailVerifiedVal;
+    return false;
     // if(isEmailVerified == false) {
     //   sendVerificationEmail();
     // }
   }
 
   resetPassword({String? email, required Function callbackSuccess, required Function callbackFail}) async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email ?? '');
-      print('Password reset email has been sent.');
-      callbackSuccess.call();
-    } on FirebaseAuthException catch(e) {
-      callbackFail.call(e);
-      print(e);
-    }
+    // try {
+    //   await FirebaseAuth.instance.sendPasswordResetEmail(email: email ?? '');
+    //   print('Password reset email has been sent.');
+    //   callbackSuccess.call();
+    // } on FirebaseAuthException catch(e) {
+    //   callbackFail.call(e);
+    //   print(e);
+    // }
   }
 
   Future<bool> isEmailExistFromServer({required String email}) async {
@@ -157,12 +159,12 @@ class GoogleMailLoginManager {
   }
 
   Future sendVerificationEmail() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      await user?.sendEmailVerification();
-    } catch(e) {
-      print(e);
-    }
+    // try {
+    //   User? user = FirebaseAuth.instance.currentUser;
+    //   await user?.sendEmailVerification();
+    // } catch(e) {
+    //   print(e);
+    // }
   }
 
 }

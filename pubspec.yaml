@@ -110,8 +110,8 @@ dependencies:
   flutter_signin_button: ^2.0.0
   #  rating_dialog: ^2.0.4
   #  firebase相关google sign in
-  firebase_auth: ^4.15.3
-  firebase_core: ^2.24.2
+#  firebase_auth: ^4.15.3
+#  firebase_core: ^2.24.2
 
   google_sign_in: ^6.0.0
   sign_in_with_apple: ^4.3.0
@@ -340,6 +340,7 @@ flutter:
     - assets/img/ic_add_column_right.png
     - assets/img/ic_add_favorable_bank.png
     - assets/img/ic_add_friend.svg
+    - assets/img/ic_admin.svg
     - assets/img/ic_ai_helper.svg
     - assets/img/ic_ai_service.svg
     - assets/img/ic_ai_voice.svg
@@ -413,6 +414,7 @@ flutter:
     - assets/img/ic_error.svg
     - assets/img/ic_expand_left.svg
     - assets/img/ic_expand_right.svg
+    - assets/img/ic_export.svg
     - assets/img/ic_eye_close.svg
     - assets/img/ic_eye_slash.svg
     - assets/img/ic_facebook.svg
@@ -461,6 +463,7 @@ flutter:
     - assets/img/ic_lightning_black.svg
     - assets/img/ic_lightning_white.svg
     - assets/img/ic_listing.svg
+    - assets/img/ic_listing_group.svg
     - assets/img/ic_lockscreen.svg
     - assets/img/ic_lockscreen_selected.svg
     - assets/img/ic_lockscreen_view.svg
@@ -468,6 +471,7 @@ flutter:
     - assets/img/ic_logo_orange.png
     - assets/img/ic_logo_red.png
     - assets/img/ic_loudspeaker.svg
+    - assets/img/ic_lyubichs.svg
     - assets/img/ic_mac.svg
     - assets/img/ic_master_bank.png
     - assets/img/ic_memorandum.svg
@@ -485,6 +489,7 @@ flutter:
     - assets/img/ic_ningbo_bank.png
     - assets/img/ic_nongye_bank.png
     - assets/img/ic_normal.svg
+    - assets/img/ic_normal_worker.svg
     - assets/img/ic_note.svg
     - assets/img/ic_note3.svg
     - assets/img/ic_no_data.svg
@@ -512,6 +517,7 @@ flutter:
     - assets/img/ic_record_recording.svg
     - assets/img/ic_record_reset.svg
     - assets/img/ic_record_start.svg
+    - assets/img/ic_remove_user.svg
     - assets/img/ic_repeative_orange.svg
     - assets/img/ic_rest.svg
     - assets/img/ic_right.svg
@@ -565,6 +571,7 @@ flutter:
     - assets/img/ic_view_listview.svg
     - assets/img/ic_view_timeline.svg
     - assets/img/ic_visa_bank.png
+    - assets/img/ic_visible.svg
     - assets/img/ic_voice_diary.svg
     - assets/img/ic_voice_note.svg
     - assets/img/ic_volume.svg
