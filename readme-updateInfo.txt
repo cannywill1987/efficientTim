@@ -32,14 +32,20 @@ Ondersteunt de Vier Kwadranten Werkmethode
 - トマト時計、リュビチの期間、定時通知、ファインマン学習法、四象限、タイムライン、音声メモ、音声日記、日記を書く、メモを取る、毎日の仕事をより刺激的にするための励ましの名言、数千のトマト時計の壁紙、PC＆モバイル同期、すべてが非常に簡単
 
 意大利文
-=Volledige functie gratis, verfrissend zonder advertenties, snelle start, essentieel voor academische elites=
-Duizenden tomaat klok wallpapers, getimed push, Feynman leermethode, vier kwadranten, tijdlijn, stemnotities, stemdagboek, schrijfdagboek, notities maken, PC&Mobile synchronisatie alles is heel eenvoudig
-Werkmethode met vier kwadranten
-~~~~~~~~~~~~~~~~~~~~~~
-德语
-Die neue Version unterstützt jetzt Tastenkombinationen, KI-Zusammenfassungen, die Erstellung von Übersichten, Schreibunterstützung und behebt einige Benutzererlebnisprobleme.
+•	Aggiunto il supporto per le lingue inglese, italiana e spagnola.
+•	Migliorata l’esperienza di lettura e le prestazioni.
+•	Correzione di piccoli bug e ottimizzazioni.
+
+西班牙语
+•	Se agregó compatibilidad con los idiomas inglés, italiano y español.
+•	Experiencia de lectura y rendimiento mejorados.
+•	Corrección de errores menores y optimizaciones.
+
 英语
-The new version now supports keyboard shortcuts, AI summaries, overview generation, writing assistance, and fixes some user experience issues.
+Added support for English, Italian, and Spanish languages.
+•	Improved reading experience and performance.
+•	Minor bug fixes and optimizations.
+
 法语
 La nouvelle version prend désormais en charge les raccourcis clavier, les résumés par IA, la génération de synthèses, l'assistance à l'écriture et corrige certains problèmes d'expérience utilisateur.
 日语
