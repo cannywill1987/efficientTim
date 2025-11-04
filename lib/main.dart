@@ -55,7 +55,7 @@ import 'com/timehello/util/SubscriptionAndPriceManager.dart';
 import 'com/timehello/util/TextUtil.dart';
 import 'com/timehello/util/TickTimeManager.dart';
 import 'generated/l10n.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.9.1"
+  sdk: ">=2.17.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -86,7 +86,7 @@ dependencies:
   #  progress_dialog: 1.2.0
   package_info_plus: ^9.0.0
   #  auto_updater: ^0.1.2
-  camera: ^0.11.2
+  camera: ^0.11.3
   image_cropper: ^8.0.2
   marquee: ^2.2.3
   image_picker: ^1.0.4
@@ -180,7 +180,7 @@ dependencies:
 dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有点问题
   #  dart_style: ^2.3.1 #这个版本才可以用
   #  cloud_firestore: ^5.4.4
-  firebase_analytics: ^11.2.0
+#  firebase_analytics: ^11.2.0
   win32: ^5.7.1
   fading_edge_scrollview: ^4.1.1
   pointer_interceptor: ^0.10.1+1 #某些依赖库用得上 我的代码用不上

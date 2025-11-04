@@ -13,6 +13,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A7BA79278FEA42AC4511ED08 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 561E1BAD78F9AC23A1E8D701 /* Pods_Runner.framework */; };
 		DF16A24D2CF1961B000C0725 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5784F29E69F55006ED7EA /* WidgetKit.framework */; };
 		DF16A24E2CF1961B000C0725 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE5785129E69F55006ED7EA /* SwiftUI.framework */; };
 		DF16A2592CF1961C000C0725 /* NewCountdownWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF16A24C2CF1961B000C0725 /* NewCountdownWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -375,7 +376,6 @@
 		DFFB435E28637801004083F6 /* MethodChannelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFB435C28637801004083F6 /* MethodChannelManager.swift */; };
 		DFFB436328637833004083F6 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFB436028637833004083F6 /* Enums.swift */; };
 		DFFB436528637833004083F6 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFB436228637833004083F6 /* Constant.swift */; };
-		EDFB7FF4C7338B1FFD2BA595 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12403D247C3FD592AEEADBE8 /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -555,11 +555,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		12403D247C3FD592AEEADBE8 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		39409DDCEADF9221B1CFFA55 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		3F52B7E8399F00091C86E887 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		561E1BAD78F9AC23A1E8D701 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -570,6 +570,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		99A14FD9D5B1D992AB54C75D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		B4ED66858AB49942F5BDCFEF /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		DF16A24C2CF1961B000C0725 /* NewCountdownWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewCountdownWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF16A25F2CF19633000C0725 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF16A2602CF19633000C0725 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -812,8 +814,6 @@
 		DFFB436228637833004083F6 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DFFF22382A3F047C00D11750 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		DFFF223A2A3F04C500D11750 /* PNSNetDetect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PNSNetDetect.framework; path = Runner/ThirdPartyLib/PNSNetDetect.framework; sourceTree = "<group>"; };
-		ED01931E187D70FE2E5F197D /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		F163CFA66F03710EA90D253F /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -833,7 +833,7 @@
 				DF7ADE8D2A54183E00BBCD90 /* WechatOpenSDK-XCFramework.xcframework in Frameworks */,
 				DF5055732A539088002E1D6A /* libsqlite3.tbd in Frameworks */,
 				DF5055722A52E536002E1D6A /* libz.tbd in Frameworks */,
-				EDFB7FF4C7338B1FFD2BA595 /* Pods_Runner.framework in Frameworks */,
+				A7BA79278FEA42AC4511ED08 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,7 +1161,7 @@
 				DF81CA9E2BB303BE00E2842E /* ManagedSettings.framework */,
 				DF81CAA02BB303BE00E2842E /* ManagedSettingsUI.framework */,
 				DF81CAB32BB3045A00E2842E /* DeviceActivity.framework */,
-				12403D247C3FD592AEEADBE8 /* Pods_Runner.framework */,
+				561E1BAD78F9AC23A1E8D701 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1169,9 +1169,9 @@
 		CA737BD360CAF83EA1DCD290 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3F52B7E8399F00091C86E887 /* Pods-Runner.debug.xcconfig */,
-				F163CFA66F03710EA90D253F /* Pods-Runner.release.xcconfig */,
-				ED01931E187D70FE2E5F197D /* Pods-Runner.profile.xcconfig */,
+				99A14FD9D5B1D992AB54C75D /* Pods-Runner.debug.xcconfig */,
+				39409DDCEADF9221B1CFFA55 /* Pods-Runner.release.xcconfig */,
+				B4ED66858AB49942F5BDCFEF /* Pods-Runner.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1598,15 +1598,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
-				E7C04B863D4A47F5A8D7BE1A /* [CP] Check Pods Manifest.lock */,
+				11BACB4B4DDA6291CB85604C /* [CP] Check Pods Manifest.lock */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				DFE5786329E69F56006ED7EA /* Embed Foundation Extensions */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				9027F26C1B411C4A5D0F887A /* [CP] Embed Pods Frameworks */,
-				3E0BA3B9F48FB0E1C19047D6 /* [CP] Copy Pods Resources */,
+				B97CE917823F962B93BCF4F8 /* [CP] Embed Pods Frameworks */,
+				84C41B52801E9D3ABABCB5A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2301,6 +2301,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		11BACB4B4DDA6291CB85604C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -2317,7 +2339,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
-		3E0BA3B9F48FB0E1C19047D6 /* [CP] Copy Pods Resources */ = {
+		84C41B52801E9D3ABABCB5A2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2338,7 +2360,22 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9027F26C1B411C4A5D0F887A /* [CP] Embed Pods Frameworks */ = {
+		9740EEB61CF901F6004384FC /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
+		};
+		B97CE917823F962B93BCF4F8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2357,43 +2394,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9740EEB61CF901F6004384FC /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
-		};
-		E7C04B863D4A47F5A8D7BE1A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3065,23 +3065,13 @@
 					"-framework",
 					"\"DKPhotoGallery\"",
 					"-framework",
-					"\"FBLPromises\"",
-					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"FirebaseAnalytics\"",
 					"-framework",
 					"\"FirebaseCore\"",
 					"-framework",
 					"\"FirebaseCoreInternal\"",
 					"-framework",
-					"\"FirebaseInstallations\"",
-					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleAppMeasurementIdentitySupport\"",
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
@@ -3123,10 +3113,6 @@
 					"-framework",
 					"\"file_picker\"",
 					"-framework",
-					"\"file_selector_ios\"",
-					"-framework",
-					"\"firebase_analytics\"",
-					"-framework",
 					"\"firebase_core\"",
 					"-framework",
 					"\"flutter_downloader\"",
@@ -3146,10 +3132,6 @@
 					"\"just_audio\"",
 					"-framework",
 					"\"nanopb\"",
-					"-framework",
-					"\"open_file\"",
-					"-framework",
-					"\"package_info\"",
 					"-framework",
 					"\"pasteboard\"",
 					"-framework",
@@ -3347,23 +3329,13 @@
 					"-framework",
 					"\"DKPhotoGallery\"",
 					"-framework",
-					"\"FBLPromises\"",
-					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"FirebaseAnalytics\"",
 					"-framework",
 					"\"FirebaseCore\"",
 					"-framework",
 					"\"FirebaseCoreInternal\"",
 					"-framework",
-					"\"FirebaseInstallations\"",
-					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleAppMeasurementIdentitySupport\"",
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
@@ -3405,10 +3377,6 @@
 					"-framework",
 					"\"file_picker\"",
 					"-framework",
-					"\"file_selector_ios\"",
-					"-framework",
-					"\"firebase_analytics\"",
-					"-framework",
 					"\"firebase_core\"",
 					"-framework",
 					"\"flutter_downloader\"",
@@ -3428,10 +3396,6 @@
 					"\"just_audio\"",
 					"-framework",
 					"\"nanopb\"",
-					"-framework",
-					"\"open_file\"",
-					"-framework",
-					"\"package_info\"",
 					"-framework",
 					"\"pasteboard\"",
 					"-framework",
@@ -3518,23 +3482,13 @@
 					"-framework",
 					"\"DKPhotoGallery\"",
 					"-framework",
-					"\"FBLPromises\"",
-					"-framework",
 					"\"FMDB\"",
-					"-framework",
-					"\"FirebaseAnalytics\"",
 					"-framework",
 					"\"FirebaseCore\"",
 					"-framework",
 					"\"FirebaseCoreInternal\"",
 					"-framework",
-					"\"FirebaseInstallations\"",
-					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleAppMeasurementIdentitySupport\"",
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
@@ -3576,10 +3530,6 @@
 					"-framework",
 					"\"file_picker\"",
 					"-framework",
-					"\"file_selector_ios\"",
-					"-framework",
-					"\"firebase_analytics\"",
-					"-framework",
 					"\"firebase_core\"",
 					"-framework",
 					"\"flutter_downloader\"",
@@ -3599,10 +3549,6 @@
 					"\"just_audio\"",
 					"-framework",
 					"\"nanopb\"",
-					"-framework",
-					"\"open_file\"",
-					"-framework",
-					"\"package_info\"",
 					"-framework",
 					"\"pasteboard\"",
 					"-framework",

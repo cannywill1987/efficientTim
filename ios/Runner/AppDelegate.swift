@@ -25,7 +25,7 @@ import Firebase
         }
         //        FirebaseApp.configure()
         if #available(iOS 14.0, *) {
-            MethodChannelManager.shareInstance(flutterViewController: self.window.rootViewController as? FlutterViewController)
+            MethodChannelManager.shareInstance(flutterViewController: self.window!.rootViewController as? FlutterViewController)
         } else {
             // Fallback on earlier versions
         };

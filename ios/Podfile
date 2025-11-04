@@ -10,7 +10,7 @@ project 'Runner', {
   'Release' => :release,
 }
 
-source 'https://github.com/CocoaPods/Specs.git'
+# source 'https://github.com/CocoaPods/Specs.git'
 # source 'https://github.com/zhangao0086/DKImagePickerController.git'
 # pod 'DKImagePickerController'
 # source 'https://github.com/CocoaPods/Specs.git'
@@ -111,3 +111,13 @@ end
 # pod 'AlicloudPush', '~> 1.9.1'
 #lzb 我加的 否则找不到FMDB framework 所以认为加上去了
 pod 'FMDB', '~> 2.7.12'
+pod 'Toast', '~> 4.0.0'
+pod 'nanopb'
+
+# pod 'FirebaseAnalytics', '~> 11.7.0'
+
+# pod 'sqflite_darwin', '~> 0.0.4'
+
+# pod 'sqflite', ''
+# pod 'open_file', '~> 1.0.0'
+# pod 'file_selector_ios', '~> 0.0.1'
