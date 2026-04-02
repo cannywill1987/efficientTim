@@ -44,6 +44,7 @@ class MenuSilverList extends StatefulWidget {
   CalendarModel calendarModel;
   FolderPageViewEnum folderPageViewEnum = FolderPageViewEnum.normal;
   String curSelectedTitle;
+  bool useUnifiedStyle;
 
   // String curSelectedTitle;
   MenuSilverList(
@@ -54,6 +55,7 @@ class MenuSilverList extends StatefulWidget {
       required this.curSelectedTitle,
       required this.folderPageViewEnum,
       required this.onUpdateTitleListener,
+      this.useUnifiedStyle = false,
       this.onTapArchiveListener,
       required this.calendarModel,
       this.onTapMoreListener,
@@ -190,6 +192,7 @@ class MenuSilverListState extends State<MenuSilverList> {
         return FolderSilverListItem(
             index: index,
             folderPageViewEnum:this.widget.folderPageViewEnum,
+            useUnifiedStyle: this.widget.useUnifiedStyle,
             calendarModel: this.widget.calendarModel,
             curSelectedTitle: this.widget.curSelectedTitle,
             // key: ValueKey(item.folderModel.objectId),

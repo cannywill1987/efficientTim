@@ -14,10 +14,12 @@ class TagsGridViewWidget extends StatefulWidget {
   OnTapListener? onTapAddTagListener;
   List<FolderModel> datas = [];
   Widget? child;
+  bool useUnifiedStyle;
   TagsGridViewWidget(
       {this.onTapAddTagListener,
       this.onTapDeleteTagListener,
         this.child,
+      this.useUnifiedStyle = false,
       required this.datas});
 
   @override
@@ -41,15 +43,24 @@ class _TagsGridViewWidgetState extends State<TagsGridViewWidget> {
 
   @override
   build(BuildContext context) {
-    // TODO: implement baseBuild
+    if (widget.useUnifiedStyle && this.widget.child == null) {
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: getItems(),
+        ),
+      );
+    }
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
         Container(
           width: Utility.isHandsetBySize() ? (MediaQuery.of(context).size.width - 30) : 250,
           child: Wrap(
-            spacing: 2, //主轴上子控件的间距
-            runSpacing: 5, //交叉轴上子控件之间的间距
+            spacing: widget.useUnifiedStyle ? 8 : 2, //主轴上子控件的间距
+            runSpacing: widget.useUnifiedStyle ? 8 : 5, //交叉轴上子控件之间的间距
             children: getItems(),
           ),
         ),
@@ -75,10 +86,20 @@ class _TagsGridViewWidgetState extends State<TagsGridViewWidget> {
           }
         },
         child: Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+            padding: EdgeInsets.symmetric(
+                vertical: widget.useUnifiedStyle ? 8 : 4,
+                horizontal: widget.useUnifiedStyle ? 12 : 6),
             decoration: BoxDecoration(
-                color: Color(folderModel.color - 0xa0000000),
-                borderRadius: BorderRadius.all(Radius.circular(20))),
+                color: widget.useUnifiedStyle
+                    ? Color(folderModel.color - 0xd0000000)
+                    : Color(folderModel.color - 0xa0000000),
+                border: widget.useUnifiedStyle
+                    ? Border.all(
+                        color: Color(folderModel.color).withValues(alpha: 0.15),
+                      )
+                    : null,
+                borderRadius: BorderRadius.all(
+                    Radius.circular(widget.useUnifiedStyle ? 18 : 20))),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -88,7 +109,10 @@ class _TagsGridViewWidgetState extends State<TagsGridViewWidget> {
                       color: Color(
                         folderModel.color,
                       ),
-                      fontSize: 13),
+                      fontSize: widget.useUnifiedStyle ? 15 : 13,
+                      fontWeight: widget.useUnifiedStyle
+                          ? FontWeight.w600
+                          : FontWeight.normal),
                 ),
                 SizedBox(
                   width: 3,
@@ -112,10 +136,17 @@ class _TagsGridViewWidgetState extends State<TagsGridViewWidget> {
   Widget getButton() {
     Color color = Color(0xff909090);
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+        padding: EdgeInsets.symmetric(
+            vertical: widget.useUnifiedStyle ? 8 : 4,
+            horizontal: widget.useUnifiedStyle ? 12 : 6),
         decoration: BoxDecoration(
             border: Border.all(width: 1, color: ThemeManager.getInstance().getTextColor(defaultColor: color)),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            color: widget.useUnifiedStyle
+                ? ThemeManager.getInstance().getCardBackgroundColor(
+                    defaultColor: const Color(0xFFFFF7EE))
+                : null,
+            borderRadius: BorderRadius.all(
+                Radius.circular(widget.useUnifiedStyle ? 18 : 20))),
         child: GestureDetector(
             onTap: () {
               if (this.widget.onTapAddTagListener != null) {

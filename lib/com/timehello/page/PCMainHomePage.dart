@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/pages/WQBFoldersPage/WQBFoldersPage.dart';
-import 'package:time_hello/com/timehello/page/folderspage/FoldersPage.dart';
+import 'package:time_hello/com/timehello/page/folderspage/NewFolderPage.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -160,10 +160,10 @@ class LeftSideFolderPage extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Container(
-                              child: FoldersPage(
+                              child: NewFolderPage(
                                 onTapListener: (Map<dynamic, dynamic> obj) {},
                               ),
-                              color: Colors.white)),
+                              color: Colors.transparent)),
                       // WindowTitleBarBox(child: MoveWindow()),
                       // Expanded(child: Container())
                     ],

@@ -11,6 +11,7 @@ import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/SearchBarWithIconWidget.dart';
 import 'package:time_hello/com/timehello/components/StorageUsageBar.dart';
 import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/components/WeeklyViewWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
@@ -59,7 +60,6 @@ import '../SettingItemDetailPage/SettingItemDetailPage.dart';
 import '../statisticPage/pages/FolderSummaryPage.dart';
 import 'componnents/BottomBar.dart';
 import 'componnents/HeaderStatsAndInputWidget.dart';
-import 'componnents/HeaderStatsAndInputWidget.dart';
 import 'componnents/MissionSilverList.dart';
 
 class MissionPage extends BaseWidget {
@@ -67,13 +67,15 @@ class MissionPage extends BaseWidget {
   int? folderStatusDate = 1; // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
   Function? onTapNavMenuListener;
   Function? onTapRightNavMenuListener;
+  final bool useUnifiedStyle;
 
   MissionPage(
       {Key? key,
       FolderModel? folderModel,
       this.onTapRightNavMenuListener,
       this.folderStatusDate,
-      this.onTapNavMenuListener}) {
+      this.onTapNavMenuListener,
+      this.useUnifiedStyle = false}) {
     FolderModel folderModelTmp = CONSTANTS.getMenuList([],
         isMobile: screenType == ScreenType.Handset)[0].folderModel;
     this.folderModel = folderModel ?? folderModelTmp;
@@ -143,6 +145,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   double objectiveTotalValue = 0; // 目标总值完成
 
   List<TimeSegment> listTimeSegment = []; // 时间段列表
+
+  bool get isUnifiedDesktop =>
+      widget.useUnifiedStyle && !Utility.isHandsetBySize();
 
   // int
   _MisssionPageWidgetState({folderStatus, folderModel}) {
@@ -847,10 +852,51 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           },
           child: Stack(key: ValueKey('Stack2'), children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: padding),
+              padding:
+                  EdgeInsets.symmetric(horizontal: isUnifiedDesktop ? 0 : padding),
               key: ValueKey('Container1'),
-              color: ThemeManager.getInstance().getBackgroundColor(),
-              child: GestureDetector(
+              color: isUnifiedDesktop
+                  ? Colors.transparent
+                  : ThemeManager.getInstance().getBackgroundColor(),
+              child: isUnifiedDesktop
+                  ? UnifiedDesktopShell(
+                      surfaceColor: Colors.transparent,
+                      child: GestureDetector(
+                        key: ValueKey('TextButton1'),
+                        onTap: () async {
+                          unfocus();
+                          await Future.delayed(Duration(milliseconds: 500));
+                          Utility.popupDesktopRightNavigator(context);
+                        },
+                        child: Stack(key: ValueKey('Stack1'), children: [
+                          RefreshIndicator(
+                            key: ValueKey('RefreshIndicator1'),
+                            onRefresh: () async {
+                              Utility.initCalendarModel();
+                              return Future.value(true);
+                            },
+                            child: Container(
+                              key: ValueKey('Container2'),
+                              color: Colors.transparent,
+                              child: this.missionDataViewTypeEnum ==
+                                      MissionDataViewTypeEnum.week_view
+                                  ? getWeekViewWidget()
+                                  : this.missionDataViewTypeEnum ==
+                                          MissionDataViewTypeEnum.table
+                                      ? Column(
+                                          children: getTableSilverListWidget(),
+                                        )
+                                      : CustomScrollView(
+                                          controller: _scrollController,
+                                          key: ValueKey('CustomScrollView1'),
+                                          slivers: getSilverListWidget(),
+                                        ),
+                            ),
+                          ),
+                        ]),
+                      ),
+                    )
+                  : GestureDetector(
                 key: ValueKey('TextButton1'),
                 onTap: () async {
                   unfocus();
@@ -1130,15 +1176,21 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     );
   }
 
+  double _getHeaderHeight() {
+    if (isUnifiedDesktop) {
+      return 126.0;
+    }
+    return Utility.isHandsetBySize() && isSearchBarVisible ? 100.0 : 60.0;
+  }
+
   List<Widget> getTableSilverListWidget() {
     List<Widget> listWidget = [];
     listWidget.add(
       //头部title
       Container(
         constraints: BoxConstraints(
-          minHeight: 60,
-          maxHeight:
-              Utility.isHandsetBySize() && isSearchBarVisible ? 100.0 : 60,
+          minHeight: _getHeaderHeight(),
+          maxHeight: _getHeaderHeight(),
         ),
         child: getHeaderWidget(),
         //是否固定头布局 默认false
@@ -1150,6 +1202,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       // if (headerWidget == null) {
       listWidget.add(HeaderStatsAndInputWidget(
           shouldSliver: false,
+          useUnifiedStyle: isUnifiedDesktop,
           key: HeaderWidgetStateGlobalKeyForTable,
           childAfterInputWidget: Utility.isHandsetBySize() &&
                   !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
@@ -1234,10 +1287,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           floating: false,
           delegate: MySliverDelegate(
             //缩小后的布局高度
-            minHeight: 60.0,
+            minHeight: _getHeaderHeight(),
             //展开后的高度
-            maxHeight:
-                Utility.isHandsetBySize() && isSearchBarVisible ? 100.0 : 60,
+            maxHeight: _getHeaderHeight(),
             child: getHeaderWidget(),
           )),
     );
@@ -1246,6 +1298,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       // if (headerWidget == null) {
       listWidget.add(HeaderStatsAndInputWidget(
           key: HeaderWidgetStateGlobalKey,
+          useUnifiedStyle: isUnifiedDesktop,
           childAfterInputWidget: Utility.isHandsetBySize() &&
                   !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
               ? null
@@ -1353,6 +1406,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 搜索框 标题等 导出框
    */
   Column getHeaderWidget() {
+    if (isUnifiedDesktop) {
+      return _buildUnifiedHeaderWidget();
+    }
     return Column(mainAxisSize: MainAxisSize.min, children: [
       CustomMarquee(
         bean: MarqueInfo.marqueMissionpage,
@@ -1412,7 +1468,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
               ],
             ),
             Row(
-              children: [
+          children: [
                 SearchBarWithIconWidget(
                   key: ValueKey("ejfiejf"),
                   onChange: (searchWord) {
@@ -1433,63 +1489,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                         this.widget.folderModel?.tag == 4 ||
                         this.widget.folderModel?.tag == 5)
                     ? InkWell(
-                        onTap: () async {
-                          TimelineMissionModel? timelineMissionModel = null;
-                          if (TextUtil.isEmpty(this
-                                  .widget
-                                  .folderModel
-                                  ?.timelineNoteObjectId) ==
-                              false) {
-                            timelineMissionModel = await MongoApisManager
-                                    .getInstance()
-                                .queryWhereEqual_TimelineMissionModelByObjectId(
-                                    objectId: this
-                                            .widget
-                                            .folderModel
-                                            ?.timelineNoteObjectId ??
-                                        "");
-                            timelineMissionModel?.sceneType = "note";
-                            timelineMissionModel?.eventType = "note";
-                          } else {
-                            timelineMissionModel = TimelineMissionModel();
-                            timelineMissionModel.folder_id =
-                                this.widget.folderModel?.objectId ?? null;
-                            timelineMissionModel.tagNames =
-                                this.widget.folderModel?.tag == 2
-                                    ? this.widget.folderModel?.title
-                                    : "";
-                            timelineMissionModel.color =
-                                this.widget.folderModel?.color;
-                            timelineMissionModel.icon =
-                                this.widget.folderModel?.icon;
-                            timelineMissionModel.sceneType = "note";
-                            timelineMissionModel.eventType = "note";
-                            // timelineMissionModel.
-                          }
-                          Utility.openPagePCAndMobile(context,
-                              child: RichEditorPage(
-                                  onOkListener: (url,
-                                      timelineMissionModelObjectId,
-                                      numberNoteWords) async {
-                                    this.widget.folderModel?.noteUrl = url;
-                                    this.widget.folderModel?.numberNoteWords =
-                                        numberNoteWords;
-                                    if (timelineMissionModelObjectId != null) {
-                                      this
-                                              .widget
-                                              .folderModel
-                                              ?.timelineNoteObjectId =
-                                          timelineMissionModelObjectId;
-                                    }
-                                    await MongoApisManager.getInstance()
-                                        .update_FolderModelWithFM(
-                                            folderModel:
-                                                this.widget.folderModel ??
-                                                    FolderModel());
-                                  },
-                                  timelineMissionModel: timelineMissionModel,
-                                  richTextModeEnum: RichTextModeEnum.getUrl));
-                        },
+                        onTap: _openFolderNoteEditor,
                         child: Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: 5,
@@ -1532,108 +1532,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                 SizedBox(
                   width: 10,
                 ),
-                Offstage(
-                  offstage: this.isListAndGridVisible == false,
-                  child: CheckButtonListWithIconWidget(
-                    key: checkButtonListWithIconWidgetKey,
-                    list: listCheckButtonStateModel ?? [],
-                    onTapListener: (obj) {
-                      CheckButtonStateModel item =
-                          listCheckButtonStateModel![obj];
-                      if (item.code == "list") {
-                        AnalyticsEventsManager.getInstance()
-                            .sendAnalyticsEventMap({
-                          "sceneType": "missionpage",
-                          "eventType": "missionpage_list_view",
-                          "description": "列表",
-                        });
-                        missionDataViewTypeEnum = MissionDataViewTypeEnum.list;
-                      } else if (item.code == "grid") {
-                        AnalyticsEventsManager.getInstance()
-                            .sendAnalyticsEventMap({
-                          "sceneType": "missionpage",
-                          "eventType": "missionpage_classify",
-                          "description": "分类",
-                        });
-                        missionDataViewTypeEnum = MissionDataViewTypeEnum.grid;
-                      } else if (item.code == "table") {
-                        AnalyticsEventsManager.getInstance()
-                            .sendAnalyticsEventMap({
-                          "sceneType": "missionpage",
-                          "eventType": "missionpage_table",
-                          "description": "表格",
-                        });
-                        missionDataViewTypeEnum = MissionDataViewTypeEnum.table;
-                      }
-                      SharePreferenceUtil.getSyncInstance().setInt(
-                          key: ShareprefrenceKeys.listAndGridView +
-                              this.widget.folderStatusDate.toString() +
-                              (this.widget.folderModel?.objectId ?? ""),
-                          value: missionDataViewTypeEnum.index);
-                      requestDatas(shouldUpdate: false);
-                      updateUI();
-                    },
-                  ),
-                ),
+                _buildViewModeSwitcher(),
                 SizedBox(
                   width: 10,
                 ),
-                CustomPopupWidget(
-                  onSelected: (CheckButtonStateModel model) {
-                    if (model.code == 'export') {
-                      onClickExport();
-                    } else if (model.code == 'sort') {
-                      OverlayManagement.getInstance()
-                          .openMissionDetailPageSettingOverlay(context,
-                              right: 40,
-                              top: 80,
-                              list: CONSTANTS
-                                  .getSortMissionPagePopupMenuButtonList(),
-                              onTapListener: (model) {
-                        String val = model.code;
-                        AnalyticsEventsManager.getInstance()
-                            .sendAnalyticsEventMap({
-                          "sceneType": "missionpage",
-                          "eventType": "missionpage_order",
-                          "description": "排序",
-                          "message": val
-                        });
-                        if (val == 'order_by_list') {
-                          this.missionOrderEnum = MissionOrderEnum.orderByWords;
-                        } else if (val == 'order_by_time') {
-                          this.missionOrderEnum = MissionOrderEnum.orderByTime;
-                        } else if (val == 'order_by_mission_priority') {
-                          this.missionOrderEnum =
-                              MissionOrderEnum.orderByPriority;
-                        } else if (val == 'order_by_mission_tag') {
-                          this.missionOrderEnum = MissionOrderEnum.orderByTag;
-                        }
-                        SharePreferenceUtil.getSyncInstance()
-                            .setMissionOrderEnum(missionOrderEnum);
-                        this.updateUI();
-                        OverlayManagement.getInstance()
-                            .dismissMissionDetailPageSettingEntry();
-                        // this.onClick("onClickSettingItem", model.code);
-                      });
-                    } else if (model.code == 'sync') {
-                      CounterMethodChannelManager.getInstance()
-                          .storeCustomizeMissionList(
-                              Utility.getListAfterOrder(
-                                      missionOrderEnum,
-                                      _missionModelListUnFinished,
-                                      -1,
-                                      this
-                                          .widget
-                                          .folderModel
-                                          .filterConditionMapBean
-                                          ?.listingId) ??
-                                  [],
-                              this.widget.folderModel?.title);
-                      Utility.showToastMsg(
-                          msg: getI18NKey().sync_desktop_widget_success);
-                    }
-                  },
-                  list: CONSTANTS.getMissionButtonList(),
+                _buildMissionActionMenu(
                   child: Icon(
                     Icons.more_horiz,
                     color: Color(0xff999999),
@@ -1662,6 +1565,316 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
               })
           : SizedBox.shrink()
     ]);
+  }
+
+  bool _canShowFolderNoteAction() {
+    return this.widget.folderModel?.tag == 1 ||
+        this.widget.folderModel?.tag == 2 ||
+        this.widget.folderModel?.tag == 4 ||
+        this.widget.folderModel?.tag == 5;
+  }
+
+  Future<void> _openFolderNoteEditor() async {
+    TimelineMissionModel? timelineMissionModel;
+    if (TextUtil.isEmpty(this.widget.folderModel?.timelineNoteObjectId) ==
+        false) {
+      timelineMissionModel = await MongoApisManager.getInstance()
+          .queryWhereEqual_TimelineMissionModelByObjectId(
+              objectId: this.widget.folderModel?.timelineNoteObjectId ?? "");
+      timelineMissionModel?.sceneType = "note";
+      timelineMissionModel?.eventType = "note";
+    } else {
+      timelineMissionModel = TimelineMissionModel();
+      timelineMissionModel.folder_id = this.widget.folderModel?.objectId ?? null;
+      timelineMissionModel.tagNames =
+          this.widget.folderModel?.tag == 2 ? this.widget.folderModel?.title : "";
+      timelineMissionModel.color = this.widget.folderModel?.color;
+      timelineMissionModel.icon = this.widget.folderModel?.icon;
+      timelineMissionModel.sceneType = "note";
+      timelineMissionModel.eventType = "note";
+    }
+
+    Utility.openPagePCAndMobile(context,
+        child: RichEditorPage(
+            onOkListener:
+                (url, timelineMissionModelObjectId, numberNoteWords) async {
+              this.widget.folderModel?.noteUrl = url;
+              this.widget.folderModel?.numberNoteWords = numberNoteWords;
+              if (timelineMissionModelObjectId != null) {
+                this.widget.folderModel?.timelineNoteObjectId =
+                    timelineMissionModelObjectId;
+              }
+              await MongoApisManager.getInstance().update_FolderModelWithFM(
+                  folderModel: this.widget.folderModel ?? FolderModel());
+            },
+            timelineMissionModel: timelineMissionModel,
+            richTextModeEnum: RichTextModeEnum.getUrl));
+  }
+
+  void _onMissionViewModeTap(int obj) {
+    CheckButtonStateModel item = listCheckButtonStateModel![obj];
+    if (item.code == "list") {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "missionpage",
+        "eventType": "missionpage_list_view",
+        "description": "列表",
+      });
+      missionDataViewTypeEnum = MissionDataViewTypeEnum.list;
+    } else if (item.code == "grid") {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "missionpage",
+        "eventType": "missionpage_classify",
+        "description": "分类",
+      });
+      missionDataViewTypeEnum = MissionDataViewTypeEnum.grid;
+    } else if (item.code == "table") {
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "missionpage",
+        "eventType": "missionpage_table",
+        "description": "表格",
+      });
+      missionDataViewTypeEnum = MissionDataViewTypeEnum.table;
+    }
+    SharePreferenceUtil.getSyncInstance().setInt(
+        key: ShareprefrenceKeys.listAndGridView +
+            this.widget.folderStatusDate.toString() +
+            (this.widget.folderModel?.objectId ?? ""),
+        value: missionDataViewTypeEnum.index);
+    requestDatas(shouldUpdate: false);
+    updateUI();
+  }
+
+  Widget _buildViewModeSwitcher() {
+    return Offstage(
+      offstage: this.isListAndGridVisible == false,
+      child: CheckButtonListWithIconWidget(
+        key: checkButtonListWithIconWidgetKey,
+        list: listCheckButtonStateModel ?? [],
+        onTapListener: (obj) {
+          _onMissionViewModeTap(obj);
+        },
+      ),
+    );
+  }
+
+  Widget _buildMissionActionMenu({required Widget child}) {
+    return CustomPopupWidget(
+      onSelected: (CheckButtonStateModel model) {
+        if (model.code == 'export') {
+          onClickExport();
+        } else if (model.code == 'sort') {
+          OverlayManagement.getInstance().openMissionDetailPageSettingOverlay(
+              context,
+              right: 40,
+              top: 80,
+              list: CONSTANTS.getSortMissionPagePopupMenuButtonList(),
+              onTapListener: (model) {
+            String val = model.code;
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "missionpage",
+              "eventType": "missionpage_order",
+              "description": "排序",
+              "message": val
+            });
+            if (val == 'order_by_list') {
+              this.missionOrderEnum = MissionOrderEnum.orderByWords;
+            } else if (val == 'order_by_time') {
+              this.missionOrderEnum = MissionOrderEnum.orderByTime;
+            } else if (val == 'order_by_mission_priority') {
+              this.missionOrderEnum = MissionOrderEnum.orderByPriority;
+            } else if (val == 'order_by_mission_tag') {
+              this.missionOrderEnum = MissionOrderEnum.orderByTag;
+            }
+            SharePreferenceUtil.getSyncInstance()
+                .setMissionOrderEnum(missionOrderEnum);
+            this.updateUI();
+            OverlayManagement.getInstance()
+                .dismissMissionDetailPageSettingEntry();
+          });
+        } else if (model.code == 'sync') {
+          CounterMethodChannelManager.getInstance().storeCustomizeMissionList(
+              Utility.getListAfterOrder(
+                      missionOrderEnum,
+                      _missionModelListUnFinished,
+                      -1,
+                      this.widget.folderModel.filterConditionMapBean?.listingId) ??
+                  [],
+              this.widget.folderModel?.title);
+          Utility.showToastMsg(msg: getI18NKey().sync_desktop_widget_success);
+        }
+      },
+      list: CONSTANTS.getMissionButtonList(),
+      child: child,
+    );
+  }
+
+  Column _buildUnifiedHeaderWidget() {
+    final Color titleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF3D2A20), defaultDarkColor: Colors.white);
+    final Color subtitleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF9A7763),
+        defaultDarkColor: Colors.white70);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        UnifiedDesktopCard(
+          margin: EdgeInsets.fromLTRB(
+              CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
+          padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
+          borderRadius: BorderRadius.circular(24),
+          child: Column(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.76),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: CustomMarquee(
+                  bean: MarqueInfo.marqueMissionpage,
+                ),
+              ),
+              const SizedBox(height: 14),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFE9D7),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Icon(
+                      Icons.assignment_outlined,
+                      color: titleColor,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Mission Workspace',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: subtitleColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            CustomTextField(
+                                key: UniqueKey(),
+                                maxWidth: 360,
+                                isEditable: this.widget.folderModel?.tag == 5 ||
+                                    this.widget.folderModel?.tag == 4 ||
+                                    this.widget.folderModel?.tag == 2 ||
+                                    this.widget.folderModel?.tag == 1,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    color: titleColor,
+                                    fontWeight: FontWeight.bold),
+                                text: this.widget.folderModel?.title ?? "",
+                                onEnterListener: (v) {
+                                  this.widget.folderModel?.title = v;
+                                  if (this.widget.folderModel != null) {
+                                    MongoApisManager.getInstance()
+                                        .update_FolderModelWithFM(
+                                            folderModel: this.widget.folderModel!,
+                                            shouldQueryMissionModel: false);
+                                  }
+                                }),
+                            const SizedBox(width: 4),
+                            ListingSecurityWidget(
+                              folder_id: this.widget.folderModel?.objectId ?? "",
+                              cryptoVersion:
+                                  this.widget.folderModel?.cryptoVersion ?? -1,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SearchBarWithIconWidget(
+                            key: ValueKey("ejfiejf_unified"),
+                            onChange: (searchWord) {
+                              onClickSearch(searchWord);
+                            },
+                            onClickSearchListener: (bool res) {
+                              this.isSearchBarVisible = res;
+                              AnalyticsEventsManager.getInstance()
+                                  .sendAnalyticsEventMap({
+                                "sceneType": "missionpage",
+                                "eventType": "missionpage_search",
+                                "description": "搜索",
+                              });
+                              updateUI();
+                            },
+                          ),
+                          if (_canShowFolderNoteAction())
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: UnifiedActionChip(
+                                onTap: _openFolderNoteEditor,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      width: 15,
+                                      height: 15,
+                                      child: Utility.getSVGPicture(
+                                        R.assetsImgIcWordDocument,
+                                        size: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      getI18NKey().add_note,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xFF8C5831),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          const SizedBox(width: 10),
+                          _buildViewModeSwitcher(),
+                          const SizedBox(width: 10),
+                          _buildMissionActionMenu(
+                            child: const UnifiedActionChip(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: Color(0xff8b6a55),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   void onClickExport() {
@@ -1801,6 +2014,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     // list.forEach((SessionMissionModel model) {
     //   if ((model.datas?.length ?? 0) > 0) {
     listWidget.add(MissionGridView(
+      useUnifiedStyle: isUnifiedDesktop,
       missionOrderEnum: this.missionOrderEnum,
       folderStatus: folderStatusIsArchived,
       multiSelectModeEnum: this.multiSelectModeEnum,
@@ -1878,6 +2092,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   : null),
         );
         listWidget.add(MissionSilverList(
+          useUnifiedStyle: isUnifiedDesktop,
           multiSelectModeEnum: this.multiSelectModeEnum,
           onTapMultiSelectListener: (MissionModel? list) {
             this.onClick('onTapMultiSelectListener', list);
@@ -2171,10 +2386,22 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         floating: false,
         delegate: MySliverDelegate(
           //缩小后的布局高度
-          minHeight: 30.0,
+          minHeight: isUnifiedDesktop ? 46.0 : 30.0,
           //展开后的高度
-          maxHeight: 30.0,
-          child: Container(
+          maxHeight: isUnifiedDesktop ? 46.0 : 30.0,
+          child: isUnifiedDesktop
+              ? UnifiedSectionPill(
+                  title: isDelay == true && title != getI18NKey().others
+                      ? "$title (${getI18NKey().already_delay})"
+                      : title,
+                  trailingText: subtitle,
+                  onTapTrailing: () {
+                    if (isDelay == true) {
+                      onClickSubtitle?.call();
+                    }
+                  },
+                )
+              : Container(
               padding: EdgeInsets.fromLTRB(25, 0, 0, 7),
               color: ThemeManager.getInstance().getBackgroundColor(
                   defaultColor: ColorsConfig.standardPageBackground),
@@ -2261,10 +2488,27 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         floating: false,
         delegate: MySliverDelegate(
             //缩小后的布局高度
-            minHeight: 40.0,
+            minHeight: isUnifiedDesktop ? 54.0 : 40.0,
             //展开后的高度
-            maxHeight: 40.0,
-            child: Row(
+            maxHeight: isUnifiedDesktop ? 54.0 : 40.0,
+            child: isUnifiedDesktop
+                ? UnifiedSectionPill(
+                    title: title,
+                    trailingText: SharePreferenceUtil.getSyncInstance()
+                                .getCompleteMissionVisible() ==
+                            false
+                        ? "Expand"
+                        : "Collapse",
+                    onTapTrailing: () {
+                      if (isEnabled == false) return;
+                      SharePreferenceUtil.getSyncInstance()
+                          .setCompleteMissionVisible(
+                              visible: !SharePreferenceUtil.getSyncInstance()
+                                  .getCompleteMissionVisible());
+                      this.updateUI();
+                    },
+                  )
+                : Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -13,6 +13,8 @@ import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 
 import '../../../main.dart';
 import '../components/AISearchBar.dart';
@@ -74,6 +76,89 @@ class OverlayManagement {
       required FolderModel folderModel,
       required MissionDetailPageState missionDetailPageState}) {
     return mOverlayManagement;
+  }
+
+  Widget buildDesktopRightFloatingPanel(
+      {required BuildContext context,
+      required Widget child,
+      double width = 430,
+      VoidCallback? onClose}) {
+    final bool isDark = ThemeManager.getInstance().getThemeMode().isDark ||
+        Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      width: width,
+      margin: const EdgeInsets.fromLTRB(18, 18, 18, 22),
+      child: UnifiedDesktopCard(
+        backgroundColor: isDark
+            ? const Color(0xFF1D1713).withValues(alpha: 0.96)
+            : const Color(0xFFFDF7EE).withValues(alpha: 0.98),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: isDark ? const Color(0xFF43372F) : const Color(0xFFEADBCB),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.10),
+            blurRadius: 34,
+            offset: const Offset(0, 18),
+          )
+        ],
+        child: Column(
+          children: [
+            Container(
+              height: 44,
+              padding: const EdgeInsets.fromLTRB(18, 10, 12, 8),
+              child: Row(
+                children: [
+                  Text(
+                    "Task Details",
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: ThemeManager.getInstance().getTextColor(
+                          defaultColor: const Color(0xFF8B6A55),
+                          defaultDarkColor: Colors.white70),
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(999),
+                    onTap: onClose ??
+                        () {
+                          Utility.popupDesktopRightNavigator(context);
+                        },
+                    child: Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? const Color(0xFF2A231E)
+                            : const Color(0xFFFFF5EC),
+                        borderRadius: BorderRadius.circular(999),
+                        border: Border.all(
+                          color: isDark
+                              ? const Color(0xFF43372F)
+                              : const Color(0xFFF1E2D5),
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.close_rounded,
+                        size: 16,
+                        color: ThemeManager.getInstance().getIconColor(
+                            defaultColor: const Color(0xFF7A6657),
+                            defaultDarkColor: Colors.white70),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(child: child),
+          ],
+        ),
+      ),
+    );
   }
 
   showPCCustomOverlay({required BuildContext context, required Widget child}) {

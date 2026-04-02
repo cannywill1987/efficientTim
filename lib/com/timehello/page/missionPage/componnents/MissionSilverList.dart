@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/components/RatingBar.dart';
 import 'package:time_hello/com/timehello/components/StateImage.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
@@ -50,6 +51,7 @@ class MissionSilverList extends StatefulWidget {
   Function? onTapDoItNow;
   bool? isSlideEnable;
   MultiSelectModeEnum multiSelectModeEnum;
+  bool useUnifiedStyle;
 
   MissionSilverList(
       {Key? key,
@@ -64,7 +66,8 @@ class MissionSilverList extends StatefulWidget {
       this.onTapEditListener,
       this.onTapEditTitleListener,
       this.onTapPlayListener,
-      this.isSlideEnable = true})
+      this.isSlideEnable = true,
+      this.useUnifiedStyle = false})
       : super(key: key) {
     this.onTapListener = onTapListener;
     this._datas = datas;
@@ -87,6 +90,7 @@ class MissionSilverState extends State<MissionSilverList> {
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, index) {
         return MissionSilverListItem(
+          useUnifiedStyle: widget.useUnifiedStyle,
           multiSelectModeEnum: this.widget.multiSelectModeEnum,
           isSlideEnable: this.widget.isSlideEnable ?? false,
           onTapListener: this.widget.onTapListener,
@@ -122,6 +126,7 @@ class MissionSilverListItem extends StatefulWidget {
   OnTapDeleteListener? onTapDeleteListener;
   OnTapEditTitleListener? onTapEditTitleListener;
   MultiSelectModeEnum multiSelectModeEnum;
+  bool useUnifiedStyle;
 
   // Map<int, Image> map = {};
   MissionSilverListItem(
@@ -139,7 +144,8 @@ class MissionSilverListItem extends StatefulWidget {
       this.onTapFinishListener,
       this.onTapDeleteListener,
       this.onTapEditListener,
-      this.isSlideEnable = false})
+      this.isSlideEnable = false,
+      this.useUnifiedStyle = false})
       : super(key: key) {
     this.onTapListener = onTapListener;
     this.index = index;
@@ -210,21 +216,28 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
     MissionModel? _missionModel = this.widget._missionModel;
     FolderModel? folderModel = getFolderModel(_missionModel);
     bool isDoItNow = this.isDoItNow(_missionModel);
+    final Color priorityAccentColor =
+        Color(CONSTANTS.getPriorityColor(_missionModel?.priorityStatus ?? 3));
 
     // TODO: implement build
     //左边文案和角标
     List<Widget> childrenRow = <Widget>[
-      Container(
-          height: 30,
+      if (widget.useUnifiedStyle)
+        const SizedBox(
+          width: 18,
+        )
+      else ...[
+        Container(
+            height: 30,
+            width: 5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: priorityAccentColor,
+            )),
+        const SizedBox(
           width: 5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Color(
-                CONSTANTS.getPriorityColor(_missionModel?.priorityStatus ?? 3)),
-          )),
-      SizedBox(
-        width: 5,
-      ),
+        ),
+      ],
       if (Utility.getMissionModelEnumByType(missionModel: _missionModel) !=
           MissionModelEnum.objective)
         Container(
@@ -380,17 +393,53 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
         _missionModel?.isFinished == true
             ? SizedBox.shrink()
             : Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: IconButton(
-                    onPressed: () {
-                      if (this.widget.onTapPlayListener != null) {
-                        this.widget.onTapPlayListener!(_missionModel);
-                      }
-                    },
-                    icon: Icon(
-                      Icons.play_circle_outline,
-                      color: Color(0xfffd5553),
-                    ))),
+                padding: EdgeInsets.fromLTRB(0, 0, widget.useUnifiedStyle ? 14 : 10, 0),
+                child: widget.useUnifiedStyle
+                    ? InkWell(
+                        onTap: () {
+                          if (this.widget.onTapPlayListener != null) {
+                            this.widget.onTapPlayListener!(_missionModel);
+                          }
+                        },
+                        borderRadius: BorderRadius.circular(999),
+                        child: Container(
+                          width: 62,
+                          height: 62,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFFFFF2E1),
+                            border: Border.all(color: const Color(0xFFE3C7AA)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.04),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Start\nFocus",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              height: 1.05,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF5E412F),
+                            ),
+                          ),
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          if (this.widget.onTapPlayListener != null) {
+                            this.widget.onTapPlayListener!(_missionModel);
+                          }
+                        },
+                        icon: Icon(
+                          Icons.play_circle_outline,
+                          color: Color(0xfffd5553),
+                        ))),
       if (Utility.getMissionModelEnumByType(missionModel: _missionModel) ==
           MissionModelEnum.objective)
         this.getSliderValue(missionModel: _missionModel ?? MissionModel()),
@@ -442,54 +491,120 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
             });
           },
           child: Container(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
             margin: EdgeInsets.only(
-              bottom: 2,
-              left: CONSTANTS.missionPageMargin,
+              bottom: widget.useUnifiedStyle ? 8 : 2,
+              left: CONSTANTS.missionPageMargin + (widget.useUnifiedStyle ? 10 : 0),
               right: CONSTANTS.missionPageMargin,
             ),
-            decoration: BoxDecoration(
-              border:
-                  this.widget.multiSelectModeEnum == MultiSelectModeEnum.normal
-                      ? Border.all(
-                          width: 1.0,
-                          color: ThemeManager.getInstance().getShadowColor(
-                            defaultColor: Color(0xfff0f0f0),
-                            defaultDarkColor:
-                                ColorsConfig.standardBorderLineColorDarkMode,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                if (widget.useUnifiedStyle)
+                  Positioned(
+                    left: -10,
+                    top: 10,
+                    bottom: 10,
+                    child: Container(
+                      width: 22,
+                      decoration: BoxDecoration(
+                        color: priorityAccentColor.withValues(alpha: 0.42),
+                        borderRadius: BorderRadius.circular(18),
+                        boxShadow: [
+                          BoxShadow(
+                            color: priorityAccentColor.withValues(alpha: 0.18),
+                            blurRadius: 14,
+                            offset: const Offset(0, 3),
                           ),
-                        )
-                      : Border.all(
-                          width: 2.0,
-                          color: Color(
-                            CONSTANTS.getPriorityColor(
-                                    _missionModel?.priorityStatus ?? 3) -
-                                (this.widget._missionModel?.isSelected == true
-                                    ? 0x00000000
-                                    : 0xe0000000),
-                          ),
-                        ),
-              image: imageProvider == null
-                  ? null
-                  : DecorationImage(
-                      image: imageProvider!,
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        ThemeManager.getInstance().getCardBackgroundColor(
-                          defaultColor: Colors.white,
-                          alpha: 150,
-                        ),
-                        BlendMode.colorBurn,
+                        ],
                       ),
                     ),
-              color: ThemeManager.getInstance().getCardBackgroundColor(
-                defaultColor: Colors.white,
-                alpha: 150,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            ),
-            child: Stack(
-              children: [
+                  ),
+                Container(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration: widget.useUnifiedStyle
+                      ? buildUnifiedDesktopCardDecoration(
+                          backgroundColor:
+                              ThemeManager.getInstance().getCardBackgroundColor(
+                            defaultColor: const Color(0xFFFFFBF7),
+                            alpha: 150,
+                          ),
+                          borderRadius: BorderRadius.circular(18),
+                          border: this.widget.multiSelectModeEnum ==
+                                  MultiSelectModeEnum.normal
+                              ? Border.all(
+                                  width: 1.0,
+                                  color: const Color(0xFFF1E1D2),
+                                )
+                              : Border.all(
+                                  width: 2.0,
+                                  color: Color(
+                                    CONSTANTS.getPriorityColor(
+                                            _missionModel?.priorityStatus ?? 3) -
+                                        (this.widget._missionModel?.isSelected == true
+                                            ? 0x00000000
+                                            : 0xe0000000),
+                                  ),
+                                ),
+                        ).copyWith(
+                          image: imageProvider == null
+                              ? null
+                              : DecorationImage(
+                                  image: imageProvider!,
+                                  fit: BoxFit.cover,
+                                  colorFilter: ColorFilter.mode(
+                                    ThemeManager.getInstance().getCardBackgroundColor(
+                                      defaultColor: Colors.white,
+                                      alpha: 150,
+                                    ),
+                                    BlendMode.colorBurn,
+                                  ),
+                                ),
+                        )
+                      : BoxDecoration(
+                          border:
+                              this.widget.multiSelectModeEnum ==
+                                      MultiSelectModeEnum.normal
+                                  ? Border.all(
+                                      width: 1.0,
+                                      color: ThemeManager.getInstance().getShadowColor(
+                                        defaultColor: Color(0xfff0f0f0),
+                                        defaultDarkColor: ColorsConfig
+                                            .standardBorderLineColorDarkMode,
+                                      ),
+                                    )
+                                  : Border.all(
+                                      width: 2.0,
+                                      color: Color(
+                                        CONSTANTS.getPriorityColor(
+                                                _missionModel?.priorityStatus ?? 3) -
+                                            (this.widget._missionModel?.isSelected ==
+                                                    true
+                                                ? 0x00000000
+                                                : 0xe0000000),
+                                      ),
+                                    ),
+                          image: imageProvider == null
+                              ? null
+                              : DecorationImage(
+                                  image: imageProvider!,
+                                  fit: BoxFit.cover,
+                                  colorFilter: ColorFilter.mode(
+                                    ThemeManager.getInstance().getCardBackgroundColor(
+                                      defaultColor: Colors.white,
+                                      alpha: 150,
+                                    ),
+                                    BlendMode.colorBurn,
+                                  ),
+                                ),
+                          color: ThemeManager.getInstance().getCardBackgroundColor(
+                            defaultColor: Colors.white,
+                            alpha: 150,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                  child: Stack(
+                    children: [
                 TextUtil.isEmpty(_missionModel?.background_url ?? "")
                     ? SizedBox.shrink()
                     : CachedNetworkImage(
@@ -508,11 +623,14 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                         },
                       ),
                 Container(
-                  color: ThemeManager.getInstance().getCardBackgroundColor(
-                    defaultColor: Color(0xb0ffffff),
-                    alpha: 150,
-                  ),
-                  constraints: BoxConstraints(minHeight: 66),
+                  color: widget.useUnifiedStyle
+                      ? Colors.transparent
+                      : ThemeManager.getInstance().getCardBackgroundColor(
+                          defaultColor: Color(0xb0ffffff),
+                          alpha: 150,
+                        ),
+                  constraints:
+                      BoxConstraints(minHeight: widget.useUnifiedStyle ? 86 : 66),
                   padding: EdgeInsets.only(top: 0, bottom: 0),
                   alignment: Alignment.centerLeft,
                   child: Stack(
@@ -525,6 +643,9 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                ),
                     ],
                   ),
                 ),

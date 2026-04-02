@@ -53,8 +53,10 @@ import 'components/MenuSilverList.dart';
 
 class FoldersPage extends BaseWidget {
   final OnMapCallback onTapListener;
+  final bool useUnifiedStyle;
 
-  const FoldersPage({required this.onTapListener});
+  const FoldersPage(
+      {required this.onTapListener, this.useUnifiedStyle = false});
 
   @override
   BaseWidgetState<BaseWidget> getState() {
@@ -845,37 +847,263 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
 
                 return Scaffold(
                     key: ValueKey('Scaffold11114'),
-                    body: Container(
-                        key: ValueKey('Container111114'),
-                        color: ThemeManager.getInstance().getLeftMenuColor(
-                            defaultColor: ThemeManager.getInstance()
-                                .getLightDefaultThemeColor()),
-                        child: Column(
-                          children: [
-                            Utility.isHandsetBySize()
-                                ? SizedBox.shrink()
-                                : CustomHeaderGridView(
-                                    key: ValueKey('custom_header_grid_view_1'),
-                                    onTap: (ResourceDeliveryInfoBean bean) {
-                                      JumpNavigator.onClickCustomHeaderGridView(
-                                          context, bean?.deliveryName ?? "");
-                                    },
-                                  ),
-                            CustomMarquee(
-                              key: ValueKey('custom_marquee_1'),
-                              bean: MarqueInfo.marqueFolderpage,
-                              paddingTop: 0,
-                            ),
-                            Expanded(
-                                key: ValueKey('expanded_1'),
-                                child: getMenuList()),
-                            screenType == ScreenType.Handset
-                                ? SizedBox.shrink()
-                                : getItem(context)
-                          ],
-                        )));
+                    backgroundColor: widget.useUnifiedStyle
+                        ? const Color(0xFFF4E4D7)
+                        : null,
+                    body: widget.useUnifiedStyle
+                        ? _buildUnifiedSidebarShell(context)
+                        : _buildDefaultSidebarShell(context));
               });
         });
+  }
+
+  Widget _buildDefaultSidebarShell(BuildContext context) {
+    return Container(
+        key: ValueKey('Container111114'),
+        color: ThemeManager.getInstance().getLeftMenuColor(
+            defaultColor:
+                ThemeManager.getInstance().getLightDefaultThemeColor()),
+        child: _buildSidebarColumn(context, showLegacyHeader: true));
+  }
+
+  Widget _buildUnifiedSidebarShell(BuildContext context) {
+    return Container(
+      key: const ValueKey('new_folder_page_shell'),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFF7D6BE),
+            Color(0xFFF5E8DA),
+            Color(0xFFDCEADD),
+          ],
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: -70,
+            left: -50,
+            child: _buildAccentBlob(
+              const Color(0xFFFFD9BB),
+              180,
+            ),
+          ),
+          Positioned(
+            top: 220,
+            left: -65,
+            child: _buildAccentBlob(
+              const Color(0xFFCDE4D6),
+              160,
+            ),
+          ),
+          Positioned(
+            right: -55,
+            top: 70,
+            child: _buildAccentBlob(
+              const Color(0xFFF6E6D3),
+              140,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                color: ThemeManager.getInstance().isDark()
+                    ? ThemeManager.getInstance().getLeftMenuColor()
+                    : const Color(0xF7FFF9F4),
+                border: Border.all(
+                  color: ThemeManager.getInstance().isDark()
+                      ? ThemeManager.getInstance().getLineColor()
+                      : const Color(0xFFF0DBC8),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.08),
+                    blurRadius: 28,
+                    offset: const Offset(0, 16),
+                  )
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(28),
+                child: _buildSidebarColumn(context, showLegacyHeader: false),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAccentBlob(Color color, double size) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(size / 2),
+      ),
+    );
+  }
+
+  Widget _buildSidebarColumn(BuildContext context,
+      {required bool showLegacyHeader}) {
+    return Column(
+      children: [
+        if (showLegacyHeader) ...[
+          Utility.isHandsetBySize()
+              ? SizedBox.shrink()
+              : CustomHeaderGridView(
+                  key: ValueKey('custom_header_grid_view_1'),
+                  onTap: (ResourceDeliveryInfoBean bean) {
+                    JumpNavigator.onClickCustomHeaderGridView(
+                        context, bean?.deliveryName ?? "");
+                  },
+                ),
+          CustomMarquee(
+            key: ValueKey('custom_marquee_1'),
+            bean: MarqueInfo.marqueFolderpage,
+            paddingTop: 0,
+          ),
+        ] else ...[
+          _buildUnifiedHeader(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(18, 0, 18, 6),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: ThemeManager.getInstance().isDark()
+                    ? ThemeManager.getInstance()
+                        .getCardBackgroundColor(defaultColor: Colors.black54)
+                    : const Color(0x66FFFFFF),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: CustomMarquee(
+                key: const ValueKey('custom_marquee_unified'),
+                bean: MarqueInfo.marqueFolderpage,
+                paddingTop: 0,
+              ),
+            ),
+          ),
+        ],
+        Expanded(
+            key: ValueKey('expanded_1'),
+            child: Padding(
+              padding: widget.useUnifiedStyle
+                  ? const EdgeInsets.only(top: 6)
+                  : EdgeInsets.zero,
+              child: getMenuList(),
+            )),
+        screenType == ScreenType.Handset
+            ? SizedBox.shrink()
+            : Padding(
+                padding: widget.useUnifiedStyle
+                    ? const EdgeInsets.fromLTRB(14, 8, 14, 16)
+                    : EdgeInsets.zero,
+                child: getItem(context),
+              )
+      ],
+    );
+  }
+
+  Widget _buildUnifiedHeader() {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final Color titleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF3C2A1E), defaultDarkColor: Colors.white);
+    final Color subtitleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFFA07B63),
+        defaultDarkColor: Colors.white70);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        decoration: BoxDecoration(
+          color: isDark
+              ? ThemeManager.getInstance()
+                  .getCardBackgroundColor(defaultColor: Colors.black54)
+              : Colors.white.withValues(alpha: 0.82),
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(
+            color: isDark
+                ? ThemeManager.getInstance().getLineColor()
+                : const Color(0xFFF1DED0),
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : const Color(0xFFFFF0E0),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.menu_rounded,
+                size: 20,
+                color: titleColor,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Time Bureau',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: titleColor,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Unified workspace',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: subtitleColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : const Color(0xFFFFE7D3),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.auto_awesome_rounded,
+                    size: 14,
+                    color: titleColor,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Focus',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: titleColor,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   /**
@@ -892,6 +1120,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             folderPageViewEnum: FolderPageViewEnum.normal),
         FolderSectionTitleWidget(
           title: getI18NKey().listing,
+          useUnifiedStyle: widget.useUnifiedStyle,
           trailingWidget: CustomPopupWidget(
               onSelected: (res) {
                 switch (res.code) {
@@ -942,6 +1171,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
 
         FolderSectionTitleWidget(
             title: getI18NKey().filterer,
+            useUnifiedStyle: widget.useUnifiedStyle,
             onClick: () {
               if (LoginManager.getInstance().isVIP(
                   shouldShowDialog: true,
@@ -956,6 +1186,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             folderPageViewEnum: FolderPageViewEnum.filterer),
         FolderSectionTitleWidget(
             title: getI18NKey().tag,
+            useUnifiedStyle: widget.useUnifiedStyle,
             onClick: () {
               this.onClick('onTapCreateTagListener', {});
             }),
@@ -966,6 +1197,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             folderPageViewEnum: FolderPageViewEnum.tag),
         FolderSectionTitleWidget(
           title: getI18NKey().archive,
+          useUnifiedStyle: widget.useUnifiedStyle,
         ),
         getMenuSliverListFolders(
             list: Utility.filterFolderModelWithExtraData(this.listDatasArchive,
@@ -992,6 +1224,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       required ValueKey key,
       required FolderPageViewEnum folderPageViewEnum}) {
     return MenuSilverList(
+      useUnifiedStyle: widget.useUnifiedStyle,
       folderPageViewEnum: folderPageViewEnum,
       key: key,
       datas: list,
@@ -1097,6 +1330,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       required ValueKey key,
       required FolderPageViewEnum folderPageViewEnum}) {
     return FolderSilverList(
+      useUnifiedStyle: widget.useUnifiedStyle,
       folderPageViewEnum: folderPageViewEnum,
       key: key,
       datas: list,

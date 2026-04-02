@@ -14,9 +14,17 @@ class BlackCheckButtonListWidget extends StatefulWidget {
   String unit = getI18NKey().min_en;
   int? initIndex;
   Color backgroundColor = ColorsConfig.chartTextColor;
+  bool useUnifiedStyle;
 
   BlackCheckButtonListWidget(
-      {Key? key, Color? backgroundColor , this.initIndex: 0, required this.list, required this.onTapListener, unit}): super(key: key) {
+      {Key? key,
+      Color? backgroundColor,
+      this.initIndex: 0,
+      required this.list,
+      required this.onTapListener,
+      this.useUnifiedStyle = false,
+      unit})
+      : super(key: key) {
     if(backgroundColor == null) {
       // this.backgroundColor = ColorsConfig.chartTextColor;
       this.backgroundColor = ThemeManager.getInstance().getDefautThemeColor();
@@ -51,12 +59,29 @@ class BlackCheckButtonListWidgetState
 
   updateList(List<CheckButtonStateModel> list) {
     this.list = list;
-    setState(){};
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    if (widget.useUnifiedStyle) {
+      return Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: ThemeManager.getInstance()
+              .getCardBackgroundColor(defaultColor: const Color(0xFFFFFBF4)),
+          border: Border.all(color: const Color(0xFFE6D6C5), width: 1),
+          borderRadius: BorderRadius.circular(999),
+        ),
+        child: Wrap(
+          spacing: 6,
+          runSpacing: 6,
+          children: getList(this.list),
+        ),
+      );
+    }
     return Container(
         padding: EdgeInsets.all(1),
         decoration: BoxDecoration(
@@ -114,6 +139,7 @@ class BlackCheckButtonListWidgetState
           backgroundColor: this.widget.backgroundColor,
           text: model.title ?? "",
           isChecked: model.isCheck ?? false,
+          useUnifiedStyle: this.widget.useUnifiedStyle,
         ));
     // if (model.isCheck == true) {
     // } else {
@@ -134,11 +160,41 @@ class BlackCheckButtonListWidgetItem extends StatelessWidget {
   double paddingHor = 10;
   double paddingVer = 3;
   Color backgroundColor;
-  BlackCheckButtonListWidgetItem({required this.backgroundColor, required this.isChecked, required this.text});
+  bool useUnifiedStyle;
+  BlackCheckButtonListWidgetItem(
+      {required this.backgroundColor,
+      required this.isChecked,
+      required this.text,
+      this.useUnifiedStyle = false});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    if (useUnifiedStyle) {
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+        decoration: BoxDecoration(
+          color: isChecked
+              ? const Color(0xFFFFEFD9)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(
+            color: isChecked ? const Color(0xFFD8BFA2) : Colors.transparent,
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isChecked
+                ? const Color(0xFF5B4332)
+                : ThemeManager.getInstance().getTextColor(
+                    defaultColor: const Color(0xFF8B7767)),
+            fontSize: 13,
+            fontWeight: isChecked ? FontWeight.w700 : FontWeight.w500,
+          ),
+        ),
+      );
+    }
     if (this.isChecked == true) {
       return Container(
           padding: EdgeInsets.symmetric(

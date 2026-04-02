@@ -51,6 +51,7 @@ class FolderSilverListItem extends StatefulWidget {
   CalendarModel calendarModel; // 日历数据
   FolderPageViewEnum folderPageViewEnum = FolderPageViewEnum.normal; // 文件夹视图枚举
   String curSelectedTitle; // 当前选中的标题
+  bool useUnifiedStyle;
   FolderSilverListItem(
       {required this.index,
       required this.folderModelWithExtraData,
@@ -60,6 +61,7 @@ class FolderSilverListItem extends StatefulWidget {
       required this.onUpdateTitleListener,
       required this.calendarModel,
       required this.curSelectedTitle,
+      this.useUnifiedStyle = false,
       this.onTapListener,
       this.onTapMoreListener,
       this.onCancelListener,
@@ -115,12 +117,10 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
     bool isItemHover = false; // 是否是item悬停
     //do it now有点问题 左边距不现实
     double marginLef =
-        folderModelWithExtraData?.folderModel.iconType == 9 ? 12 : 15;
+        folderModelWithExtraData.folderModel.iconType == 9 ? 12 : 15;
     List<Widget> children = <Widget>[
-      // 容器
-      Container(
-          margin: EdgeInsets.fromLTRB(isOthers ? 0 : marginLef, 0, 0, 0),
-          child: this.getIcon(folderModelWithExtraData.folderModel)),
+      _buildLeadingIcon(folderModelWithExtraData.folderModel,
+          isOthers: isOthers, marginLef: marginLef),
       SizedBox(
         width: itemPadding,
       ),
@@ -141,14 +141,18 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
               Text(folderModelWithExtraData.folderModel.title ?? "",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
+                      fontWeight: widget.useUnifiedStyle
+                          ? FontWeight.w600
+                          : FontWeight.w500,
+                      fontSize: widget.useUnifiedStyle ? 14 : 15,
                       color: ThemeManager.getInstance().getTextColor(
                           defaultColor:
                               folderModelWithExtraData.folderModel.iconType == 7
                                   ? ThemeManager.getInstance()
                                       .getDefautThemeColor()
-                                  : ColorsConfig.gray_40))),
+                                  : widget.useUnifiedStyle
+                                      ? const Color(0xFF3F3026)
+                                      : ColorsConfig.gray_40))),
               if (folderModelWithExtraData.folderModel.start_time != null ||
                   folderModelWithExtraData.folderModel.end_time != null)
                 Wrap(
@@ -262,8 +266,11 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                                             0), //右侧分钟
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                        fontSize: 13,
-                                        color: Color(0xffb9b9b9)))),
+                                        fontSize:
+                                            widget.useUnifiedStyle ? 12 : 13,
+                                        color: widget.useUnifiedStyle
+                                            ? const Color(0xFF977863)
+                                            : Color(0xffb9b9b9)))),
                       SizedBox(
                         width: itemPadding,
                       ),
@@ -280,7 +287,11 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                                           folderModelWithExtraData), //右侧分钟
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      fontSize: 13, color: Color(0xffb9b9b9))))
+                                      fontSize:
+                                          widget.useUnifiedStyle ? 12 : 13,
+                                      color: widget.useUnifiedStyle
+                                          ? const Color(0xFF977863)
+                                          : Color(0xffb9b9b9))))
                     ],
                   )
                 : SizedBox.shrink(),
@@ -698,6 +709,9 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
   InkWell getInnerItemWithoutContainer(
       FolderModelWithExtraData _folderModelWithExtraData, List<Widget> children,
       [bool isItemHover = false]) {
+    final bool isSelected = !Utility.isHandsetBySize() &&
+        this.widget.curSelectedTitle ==
+            _folderModelWithExtraData.folderModel.title;
     return InkWell(
         onTap: () {
           if (this.widget.onTapListener != null) {
@@ -709,29 +723,93 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
           }
         },
         child: Container(
-          constraints: BoxConstraints(minHeight: 46),
-          decoration: (Utility.isHandsetBySize() == false &&
-                  this.widget.curSelectedTitle ==
-                      _folderModelWithExtraData.folderModel.title)
+          constraints:
+              BoxConstraints(minHeight: widget.useUnifiedStyle ? 56 : 46),
+          margin: widget.useUnifiedStyle
+              ? const EdgeInsets.fromLTRB(8, 4, 12, 4)
+              : EdgeInsets.zero,
+          padding: widget.useUnifiedStyle
+              ? const EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+              : EdgeInsets.zero,
+          decoration: widget.useUnifiedStyle
               ? BoxDecoration(
-                  border: Border(
-                      right: BorderSide(
-                          width: 5,
-                          color: ThemeManager.getInstance()
-                              .getDefautThemeColor())))
-              : BoxDecoration(
-                  border: Border(
-                      right: BorderSide(
-                          width: Utility.isHandsetBySize() == false ? 5 : 0,
-                          color: ThemeManager.getInstance().isDark()
-                              ? Colors.transparent
-                              : Colors.transparent))),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: isSelected
+                        ? const Color(0xFFE6A25F)
+                        : ThemeManager.getInstance().isDark()
+                            ? ThemeManager.getInstance().getLineColor()
+                            : const Color(0xFFF0E1D2),
+                  ),
+                  gradient: isSelected
+                      ? const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFFFFE7CF),
+                            Color(0xFFF7D5B6),
+                          ],
+                        )
+                      : null,
+                  color: isSelected
+                      ? null
+                      : ThemeManager.getInstance().isDark()
+                          ? Colors.white.withValues(alpha: 0.03)
+                          : const Color(0xF7FFF9F3),
+                  boxShadow: isSelected
+                      ? [
+                          BoxShadow(
+                            color:
+                                const Color(0xFFD8A06B).withValues(alpha: 0.25),
+                            blurRadius: 18,
+                            offset: const Offset(0, 8),
+                          )
+                        ]
+                      : null,
+                )
+              : (isSelected
+                  ? BoxDecoration(
+                      border: Border(
+                          right: BorderSide(
+                              width: 5,
+                              color: ThemeManager.getInstance()
+                                  .getDefautThemeColor())))
+                  : BoxDecoration(
+                      border: Border(
+                          right: BorderSide(
+                              width: Utility.isHandsetBySize() == false ? 5 : 0,
+                              color: ThemeManager.getInstance().isDark()
+                                  ? Colors.transparent
+                                  : Colors.transparent)))),
           alignment: Alignment.centerLeft,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: children,
           ),
         ));
+  }
+
+  Widget _buildLeadingIcon(FolderModel folderModel,
+      {required bool isOthers, required double marginLef}) {
+    final Widget iconWidget = this.getIcon(folderModel) ?? const SizedBox();
+    if (!widget.useUnifiedStyle) {
+      return Container(
+          margin: EdgeInsets.fromLTRB(isOthers ? 0 : marginLef, 0, 0, 0),
+          child: iconWidget);
+    }
+    final Color baseColor = Color(folderModel.color ??
+        ThemeManager.getInstance().getDefautThemeColor().toARGB32());
+    return Container(
+      margin: EdgeInsets.fromLTRB(isOthers ? 0 : 2, 0, 0, 0),
+      width: 34,
+      height: 34,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: baseColor.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: iconWidget,
+    );
   }
 
   /**

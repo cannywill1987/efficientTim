@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -37,12 +38,13 @@ class MissionGridView extends StatelessWidget {
   Function? onTapDoItNow;
   Function onTapShowFolderChartListener;
   int folderStatus = -1;
+  bool useUnifiedStyle;
 
   MissionGridView(
       {required this.onTapListener,
       required this.onTapCreateListener,
       this.onTapDoItNow,
-        required this.folderStatus,
+      required this.folderStatus,
       required this.missionOrderEnum,
       this.onTapEditTitleListener,
       this.onTapEditListener,
@@ -53,6 +55,7 @@ class MissionGridView extends StatelessWidget {
       this.onTapMultiSelectListener,
       this.onTapUnFinishListener,
       required this.multiSelectModeEnum,
+      this.useUnifiedStyle = false,
       required this.list});
 
   @override
@@ -84,6 +87,7 @@ class MissionGridView extends StatelessWidget {
             width: width,
             multiSelectModeEnum: this.multiSelectModeEnum,
             onTapShowFolderChartListener: this.onTapShowFolderChartListener,
+            useUnifiedStyle: this.useUnifiedStyle,
           );
         },
         childCount: list.length,
@@ -115,6 +119,7 @@ class SliverGridviewItem extends StatelessWidget {
   OnTapUnFinishListener? onTapUnFinishListener;
   Function onTapCreateListener;
   Function onTapShowFolderChartListener;
+  bool useUnifiedStyle;
 
   SliverGridviewItem({
     required this.multiSelectModeEnum,
@@ -133,6 +138,7 @@ class SliverGridviewItem extends StatelessWidget {
     this.onTapPlayListener,
     this.onTapMultiSelectListener,
     this.onTapUnFinishListener,
+    this.useUnifiedStyle = false,
   });
 
   double getFinishedPercent() {
@@ -154,7 +160,18 @@ class SliverGridviewItem extends StatelessWidget {
       // print('Stack width: ${constraints.maxWidth}');
       return Container(
         clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+        decoration: useUnifiedStyle
+            ? buildUnifiedDesktopCardDecoration(
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 18,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              )
+            : BoxDecoration(borderRadius: BorderRadius.circular(5)),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -166,12 +183,17 @@ class SliverGridviewItem extends StatelessWidget {
                   height: headerHeight,
                 ),
                 Container(
-                  color: Color((folderModel?.color ?? 0xffff8800) - 0xa0000000),
+                  color: useUnifiedStyle
+                      ? Color(folderModel?.color ?? 0xffff8800)
+                          .withValues(alpha: 0.72)
+                      : Color((folderModel?.color ?? 0xffff8800) - 0xa0000000),
                   height: headerHeight,
                 ),
                 Container(
                   height: headerHeight,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: useUnifiedStyle ? 12 : 8,
+                      vertical: useUnifiedStyle ? 10 : 6),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -187,7 +209,9 @@ class SliverGridviewItem extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: subFontSize + 2,
-                                  color: ThemeManager.getInstance().isDark() ? Colors.white : Colors.black,
+                                  color: ThemeManager.getInstance().isDark()
+                                      ? Colors.white
+                                      : Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -283,7 +307,10 @@ class SliverGridviewItem extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Color(0xfff0f0f0)),
+                color: useUnifiedStyle
+                    ? const Color(0xFFFDF4EC)
+                    : ThemeManager.getInstance()
+                        .getCardBackgroundColor(defaultColor: Color(0xfff0f0f0)),
                 child: CustomScrollView(slivers: getList()),
               ),
             ),

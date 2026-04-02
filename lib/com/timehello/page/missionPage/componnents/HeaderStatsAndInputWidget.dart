@@ -8,6 +8,7 @@ import 'package:time_hello/com/timehello/common/AdaptiveForm/FormFactor.dart';
 import 'package:time_hello/com/timehello/components/CheckContainer.dart';
 import 'package:time_hello/com/timehello/components/MissionIcon.dart';
 import 'package:time_hello/com/timehello/components/TomatoInputNumber.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnSubmitListener.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
@@ -40,12 +41,14 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
   Widget? childAfterInputWidget; //在输入框后面的widget
   bool shouldShowFolderIcons = true;
   bool shouldSliver = true;
+  bool useUnifiedStyle = false;
   HeaderStatsAndInputWidget(
       {Key? key,
       List? datas,
       this.onTapUpListener,
         this.shouldSliver = true,
         this.shouldShowFolderIcons = true,
+        this.useUnifiedStyle = false,
       this.onTapDownListener,
       this.onChangeListener,
       this.childAfterInputWidget,
@@ -79,6 +82,233 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
 class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
   GlobalKey<HeaderInputState> HeaderInputStateGlobalKey = GlobalKey();
 
+  List<int> _parseHourMinute(String? value) {
+    if (TextUtil.isEmpty(value)) {
+      return [0, 0];
+    }
+    List<String> parts = (value ?? "").split(':');
+    int hour = 0;
+    int minute = 0;
+    if (parts.isNotEmpty) {
+      hour = int.tryParse(parts[0]) ?? 0;
+    }
+    if (parts.length > 1) {
+      minute = int.tryParse(parts[1]) ?? 0;
+    }
+    return [hour, minute];
+  }
+
+  String _formatHeroDuration(String? value) {
+    final List<int> result = _parseHourMinute(value);
+    return "${result[0]}h ${result[1].toString().padLeft(2, '0')}m";
+  }
+
+  double _parsePercentValue(String? value) {
+    if (TextUtil.isEmpty(value)) {
+      return 0;
+    }
+    return ((double.tryParse((value ?? "").replaceAll('%', '')) ?? 0) / 100)
+        .clamp(0, 1)
+        .toDouble();
+  }
+
+  double _getTaskProgress() {
+    int finished = widget.folderTimeModel?.numMissionFinished ?? 0;
+    int pending = widget.folderTimeModel?.numMissionToFinished ?? 0;
+    int total = finished + pending;
+    if (total <= 0) {
+      return 0;
+    }
+    return finished / total;
+  }
+
+  double _getPomodoroProgress() {
+    int finished = widget.folderTimeModel?.numTomatoesFinished ?? 0;
+    int pending = widget.folderTimeModel?.numTomatoesUnfinished ?? 0;
+    int total = finished + pending;
+    if (total <= 0) {
+      return 0;
+    }
+    return finished / total;
+  }
+
+  double _getFocusProgress() {
+    int preview = widget.folderTimeModel?.previewTime ?? 0;
+    int finished = widget.folderTimeModel?.finishedTime ?? 0;
+    int total = preview + finished;
+    if (total <= 0) {
+      return 0;
+    }
+    return finished / total;
+  }
+
+  Widget _buildUnifiedHeroOverview() {
+    final Color titleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF3A2417), defaultDarkColor: Colors.white);
+    final Color accentColor = const Color(0xFFC98261);
+    final String headline = widget.folderModel?.title ?? "Today";
+    final int finished = widget.folderTimeModel?.numMissionFinished ?? 0;
+    final int pending = widget.folderTimeModel?.numMissionToFinished ?? 0;
+    final int total = finished + pending;
+    return UnifiedDesktopCard(
+      margin: EdgeInsets.fromLTRB(
+          CONSTANTS.missionPageMargin, 8, CONSTANTS.missionPageMargin, 0),
+      padding: const EdgeInsets.fromLTRB(22, 22, 22, 20),
+      borderRadius: BorderRadius.circular(30),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool compact = constraints.maxWidth < 980;
+          final Widget left = Expanded(
+            flex: compact ? 0 : 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  headline,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: compact ? 34 : 50,
+                    fontWeight: FontWeight.w800,
+                    color: titleColor,
+                    height: 0.96,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  _formatHeroDuration(widget.folderTimeModel?.previewTimeString),
+                  style: TextStyle(
+                    fontSize: compact ? 40 : 58,
+                    fontWeight: FontWeight.w800,
+                    color: accentColor,
+                    height: 0.92,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  "Remaining",
+                  style: TextStyle(
+                    fontSize: compact ? 28 : 34,
+                    fontWeight: FontWeight.w300,
+                    color: accentColor.withValues(alpha: 0.92),
+                    height: 1,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Text(
+                  total > 0
+                      ? "$finished/$total tasks completed"
+                      : "${widget.folderTimeModel?.numMissionToFinished ?? 0} tasks planned",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: titleColor.withValues(alpha: 0.68),
+                  ),
+                ),
+              ],
+            ),
+          );
+          final Widget right = Wrap(
+            spacing: 18,
+            runSpacing: 18,
+            alignment: WrapAlignment.end,
+            children: [
+              UnifiedMetricRing(
+                value: widget.folderTimeModel?.finishedTimeString ?? "0:00",
+                label: "Focus Time",
+                subtitle: "(${widget.folderTimeModel?.finishedTimeString ?? '0:00'})",
+                progress: _getFocusProgress(),
+                color: const Color(0xFFF0B788),
+              ),
+              UnifiedMetricRing(
+                value: total > 0 ? "$finished/$total" : "0/0",
+                label: "Tasks Completed",
+                subtitle: total > 0 ? "($finished/$total)" : "(0/0)",
+                progress: _getTaskProgress(),
+                color: const Color(0xFF9EDDC9),
+              ),
+              UnifiedMetricRing(
+                value: (widget.folderTimeModel?.numTomatoesFinished ?? 0)
+                    .toString(),
+                label: "Pomodoro Sessions",
+                subtitle:
+                    "(${widget.folderTimeModel?.numTomatoesFinished ?? 0})",
+                progress: _getPomodoroProgress(),
+                color: const Color(0xFFD7B8F8),
+              ),
+            ],
+          );
+          if (compact) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                left,
+                const SizedBox(height: 20),
+                right,
+              ],
+            );
+          }
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              left,
+              const SizedBox(width: 18),
+              Expanded(flex: 4, child: right),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildUnifiedInputCard() {
+    return UnifiedDesktopCard(
+      margin: EdgeInsets.fromLTRB(
+          CONSTANTS.missionPageMargin, 14, CONSTANTS.missionPageMargin, 0),
+      padding: const EdgeInsets.all(12),
+      borderRadius: BorderRadius.circular(26),
+      backgroundColor: const Color(0xFFFFFCF8),
+      child: HeaderInputWidget(
+        shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
+        folderModel: this.widget.folderModel ?? FolderModel(),
+        key: HeaderInputStateGlobalKey,
+        onChangeListener: this.widget.onChangeListener,
+        text: this.widget.text,
+        onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
+        onSubmitListener: this.widget.onSubmitListener,
+        useUnifiedStyle: true,
+      ),
+    );
+  }
+
+  Widget _buildUnifiedDesktopContent() {
+    return Column(
+      children: [
+        _buildUnifiedHeroOverview(),
+        _buildUnifiedInputCard(),
+        this.widget.childAfterInputWidget == null
+            ? const SizedBox.shrink()
+            : this.widget.childAfterInputWidget!,
+      ],
+    );
+  }
+
+  BoxDecoration _buildStatsCardDecoration() {
+    if (widget.useUnifiedStyle) {
+      return buildUnifiedDesktopCardDecoration();
+    }
+    return BoxDecoration(
+      color: ThemeManager.getInstance()
+          .getCardBackgroundColor(defaultColor: Colors.white),
+      border: Border.all(
+        width: 1.0,
+        color: ThemeManager.getInstance()
+            .getCardBackgroundColor(defaultColor: Color(0xfff0f0f0)),
+      ),
+      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+    );
+  }
+
   resetData() {
     HeaderInputStateGlobalKey.currentState?.resetData();
   }
@@ -90,6 +320,11 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
   @override
   Widget build(BuildContext context) {
     //声明一个自变量，用来存储传递过来的参数
+    if (widget.useUnifiedStyle) {
+      return widget.shouldSliver
+          ? SliverToBoxAdapter(child: _buildUnifiedDesktopContent())
+          : _buildUnifiedDesktopContent();
+    }
     if(this.widget.shouldSliver) {
       return getSliverList();
     } else {
@@ -102,16 +337,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
        child: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
-              color: ThemeManager.getInstance()
-                  .getCardBackgroundColor(defaultColor: Colors.white),
-              border: Border.all(
-                width: 1.0,
-                color: ThemeManager.getInstance()
-                    .getCardBackgroundColor(defaultColor: Color(0xfff0f0f0)),
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            ),
+            decoration: _buildStatsCardDecoration(),
             margin: Utility.isHandsetBySize()
                 ? EdgeInsets.fromLTRB(
                 CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0)
@@ -205,6 +431,13 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
             key: ValueKey('Container1322'),
             margin: EdgeInsets.fromLTRB(
                 CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
+            padding:
+                widget.useUnifiedStyle ? const EdgeInsets.all(10) : EdgeInsets.zero,
+            decoration: widget.useUnifiedStyle
+                ? buildUnifiedDesktopCardDecoration(
+                    boxShadow: const [],
+                  )
+                : null,
             child: HeaderInputWidget(
               shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
               folderModel: this.widget.folderModel ?? FolderModel(),
@@ -213,6 +446,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               text: this.widget.text,
               onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
               onSubmitListener: this.widget.onSubmitListener,
+              useUnifiedStyle: widget.useUnifiedStyle,
             ),
           ),
           this.widget.childAfterInputWidget == null
@@ -228,15 +462,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
       delegate: SliverChildBuilderDelegate((context, index) {
         if (index == 0) {
           return Container(
-              decoration: new BoxDecoration(
-                color: ThemeManager.getInstance()
-                    .getCardBackgroundColor(defaultColor: Colors.white),
-                border:
-                    new Border.all(width: 1.0, color: ThemeManager.getInstance()
-                        .getCardBackgroundColor(defaultColor: Color(0xfff0f0f0))),
-                borderRadius:
-                    const BorderRadius.all(const Radius.circular(8.0)),
-              ),
+              decoration: _buildStatsCardDecoration(),
               margin: Utility.isHandsetBySize()
                   ? EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin, 10,
                       CONSTANTS.missionPageMargin, 0)
@@ -329,6 +555,14 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               key: ValueKey('Container1322'),
               margin: EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin, 10,
                   CONSTANTS.missionPageMargin, 0),
+              padding: widget.useUnifiedStyle
+                  ? const EdgeInsets.all(10)
+                  : EdgeInsets.zero,
+              decoration: widget.useUnifiedStyle
+                  ? buildUnifiedDesktopCardDecoration(
+                      boxShadow: const [],
+                    )
+                  : null,
               child: HeaderInputWidget(
                   shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
                   folderModel: this.widget.folderModel ?? FolderModel(),
@@ -336,7 +570,8 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                   onChangeListener: this.widget.onChangeListener,
                   text: this.widget.text,
                   onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
-                  onSubmitListener: this.widget.onSubmitListener));
+                  onSubmitListener: this.widget.onSubmitListener,
+                  useUnifiedStyle: widget.useUnifiedStyle));
         } else if (index == 2) {
           //第三个组件是用来放bottombar
           return this.widget.childAfterInputWidget == null
@@ -359,10 +594,12 @@ class HeaderInputWidget extends StatefulWidget {
   Function? onTapUpListener;
   Function? onTapDownListener;
   bool shouldShowFolderIcons = true;
+  bool useUnifiedStyle = false;
 
   HeaderInputWidget(
       {Key? key,
       this.shouldShowFolderIcons = true,
+      this.useUnifiedStyle = false,
       this.onDesktopSubmitListener,
       this.onTapUpListener,
       this.onTapDownListener,
@@ -443,7 +680,9 @@ class HeaderInputState extends State<HeaderInputWidget> {
     // });
     // TODO: implement build
     return Container(
-      color: ThemeManager.getInstance().getInputThemeColor(),
+      color: widget.useUnifiedStyle
+          ? Colors.transparent
+          : ThemeManager.getInstance().getInputThemeColor(),
       child: Focus(
           key: ValueKey('Focus11322'),
           onKey: (FocusNode node, RawKeyEvent event) {
@@ -496,8 +735,13 @@ class HeaderInputState extends State<HeaderInputWidget> {
                 fontWeight: FontWeight.w500),
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
+              isDense: widget.useUnifiedStyle,
               contentPadding:
-                  EdgeInsets.only(left: 60, right: 75, top: 0, bottom: 0),
+                  EdgeInsets.only(
+                      left: 60,
+                      right: 75,
+                      top: widget.useUnifiedStyle ? 10 : 0,
+                      bottom: widget.useUnifiedStyle ? 10 : 0),
               counterStyle:
                   TextStyle(color: Colors.transparent, fontSize: 0),
               //背景颜色，必须结合filled: true,才有效
@@ -611,7 +855,9 @@ class HeaderInputState extends State<HeaderInputWidget> {
               prefixIcon: Icon(
                 Icons.add,
                 color: ThemeManager.getInstance().getInputPlaceholderColor(
-                    defaultColor: Color(0xffd5d5d5),
+                    defaultColor: widget.useUnifiedStyle
+                        ? const Color(0xFFC58B67)
+                        : Color(0xffd5d5d5),
                     defaultDarkColor:
                         TextUtil.isEmpty(this.inputController?.text)
                             ? Color(0xff575757)
@@ -620,7 +866,9 @@ class HeaderInputState extends State<HeaderInputWidget> {
               // prefixIconColor: Color(0xffd5d5d5),
               border: _outlineInputBorder,
               prefixIconColor: ThemeManager.getInstance()
-                  .getIconColor(defaultColor: Color(0xffd5d5d5)),
+                  .getIconColor(defaultColor: widget.useUnifiedStyle
+                      ? const Color(0xFFC58B67)
+                      : Color(0xffd5d5d5)),
               floatingLabelStyle: TextStyle(
                   color: ThemeManager.getInstance()
                       .getIconColor(),
@@ -642,17 +890,51 @@ class HeaderInputState extends State<HeaderInputWidget> {
                   defaultColor: Colors.white,
                   ),
               focusColor: ThemeManager.getInstance().getInputThemeColor(
-                  defaultColor: Colors.white,
+                  defaultColor: widget.useUnifiedStyle
+                      ? const Color(0xFFFFF8F2)
+                      : Colors.white,
                   defaultDarkColor:
                       ThemeManager.getInstance().getBackgroundColor()),
               //右边距是为了放置番茄计数器
               fillColor: ThemeManager.getInstance()
-                  .getInputThemeColor(defaultColor: Colors.white),
-              focusedBorder: _outlineInputBorder,
-              enabledBorder: _outlineInputBorder,
-              disabledBorder: _outlineInputBorder,
-              focusedErrorBorder: _outlineInputBorder,
-              errorBorder: _outlineInputBorder,
+                  .getInputThemeColor(defaultColor: widget.useUnifiedStyle
+                      ? const Color(0xFFFFF8F2)
+                      : Colors.white),
+              focusedBorder: widget.useUnifiedStyle
+                  ? OutlineInputBorder(
+                      gapPadding: 0,
+                      borderRadius: BorderRadius.circular(22),
+                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
+                    )
+                  : _outlineInputBorder,
+              enabledBorder: widget.useUnifiedStyle
+                  ? OutlineInputBorder(
+                      gapPadding: 0,
+                      borderRadius: BorderRadius.circular(22),
+                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
+                    )
+                  : _outlineInputBorder,
+              disabledBorder: widget.useUnifiedStyle
+                  ? OutlineInputBorder(
+                      gapPadding: 0,
+                      borderRadius: BorderRadius.circular(22),
+                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
+                    )
+                  : _outlineInputBorder,
+              focusedErrorBorder: widget.useUnifiedStyle
+                  ? OutlineInputBorder(
+                      gapPadding: 0,
+                      borderRadius: BorderRadius.circular(22),
+                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
+                    )
+                  : _outlineInputBorder,
+              errorBorder: widget.useUnifiedStyle
+                  ? OutlineInputBorder(
+                      gapPadding: 0,
+                      borderRadius: BorderRadius.circular(22),
+                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
+                    )
+                  : _outlineInputBorder,
               // labelStyle:
               //     TextStyle(color: Color(0x00000000), fontSize: 14),
               // labelText: getI18NKey().search,
@@ -777,6 +1059,105 @@ class HeaderInputState extends State<HeaderInputWidget> {
       this.listFolderModels = list;
       this.listSheetDataModel = listSheetDataModel;
     });
+  }
+}
+
+class UnifiedMetricRing extends StatelessWidget {
+  final String value;
+  final String label;
+  final String subtitle;
+  final double progress;
+  final Color color;
+
+  const UnifiedMetricRing({
+    super.key,
+    required this.value,
+    required this.label,
+    required this.subtitle,
+    required this.progress,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 142,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 108,
+            height: 108,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white.withValues(alpha: 0.72),
+              boxShadow: [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.24),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox.expand(
+                  child: CircularProgressIndicator(
+                    value: progress <= 0 ? 0.02 : progress,
+                    strokeWidth: 9,
+                    backgroundColor: color.withValues(alpha: 0.18),
+                    valueColor: AlwaysStoppedAnimation<Color>(color),
+                  ),
+                ),
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0xFFFFFBF6),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.9),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    value,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF3D2A20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF4A3426),
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF846757),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
