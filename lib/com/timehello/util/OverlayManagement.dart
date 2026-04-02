@@ -12,6 +12,7 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/page/SettingItemDetailPage/SettingItemDetailPage.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
@@ -50,6 +51,7 @@ class OverlayManagement {
   OverlayEntry? missionDetailBottomCounterEntry; //底部计数widget
   OverlayEntry? missionDetailPageSettingEntry; //MissionDetailPage右上角列表
   OverlayEntry? mPCCustomOverlayEntry; //pc端自定义overlay
+  OverlayEntry? desktopRightFloatingOverlayEntry; // pc端右侧真正悬浮层
 
 
   OverlayEntry? customDialogEntry; //自定义对话框
@@ -82,12 +84,14 @@ class OverlayManagement {
       {required BuildContext context,
       required Widget child,
       double width = 430,
-      VoidCallback? onClose}) {
+      VoidCallback? onClose,
+      EdgeInsetsGeometry margin =
+          const EdgeInsets.fromLTRB(18, 18, 18, 22)}) {
     final bool isDark = ThemeManager.getInstance().getThemeMode().isDark ||
         Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: width,
-      margin: const EdgeInsets.fromLTRB(18, 18, 18, 22),
+      margin: margin,
       child: UnifiedDesktopCard(
         backgroundColor: isDark
             ? const Color(0xFF1D1713).withValues(alpha: 0.96)
@@ -159,6 +163,62 @@ class OverlayManagement {
         ),
       ),
     );
+  }
+
+  void openDesktopRightFloatingPage(BuildContext context,
+      {required String page, required Map data, double width = 438}) {
+    Widget? child;
+    switch (page) {
+      case 'SettingItemDetailPage':
+        child = SettingItemDetailPage(
+          key: ValueKey("setting_item_detail_overlay"),
+          missionModel: data['missionModel'],
+        );
+        break;
+    }
+    if (child == null) {
+      return;
+    }
+    final Widget panelChild = child;
+    removeDesktopRightFloatingOverlay();
+    final OverlayState overlayState = Overlay.of(context);
+    desktopRightFloatingOverlayEntry = OverlayEntry(builder: (overlayContext) {
+      return Positioned.fill(
+        child: Material(
+          color: Colors.transparent,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: removeDesktopRightFloatingOverlay,
+                  child: const SizedBox.expand(),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 72, 12, 16),
+                  child: buildDesktopRightFloatingPanel(
+                    context: overlayContext,
+                    width: width,
+                    margin: EdgeInsets.zero,
+                    onClose: removeDesktopRightFloatingOverlay,
+                    child: panelChild,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+    overlayState.insert(desktopRightFloatingOverlayEntry!);
+  }
+
+  void removeDesktopRightFloatingOverlay() {
+    desktopRightFloatingOverlayEntry?.remove();
+    desktopRightFloatingOverlayEntry = null;
   }
 
   showPCCustomOverlay({required BuildContext context, required Widget child}) {

@@ -195,7 +195,120 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
-  double get unifiedTileWidth => 196;
+  Widget buildDesktopTaskSettingsHeader() {
+    return wrapUnifiedSection(
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            this.widget.missionModel.title ?? "",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 22,
+              height: 1.12,
+              fontWeight: FontWeight.w800,
+              color: detailTitleColor,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            getI18NKey().setting,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: detailSubColor,
+            ),
+          ),
+          const SizedBox(height: 10),
+          if (!(this.widget.missionModel.missionModelType == 1 ||
+              this.widget.missionModel.missionModelType == 2))
+            BlackCheckButtonListWidget(
+              initIndex: this.widget.missionModel.time_mode,
+              backgroundColor: ColorsConfig.gray_40,
+              useUnifiedStyle: true,
+              list: CONSTANTS.getSettingItemDetailCheckButtonList(
+                  defaultVal: this.widget.missionModel.time_mode ?? 0),
+              onTapListener: (index) async {
+                this.widget.missionModel.time_mode = index;
+                this.widget.missionModel?.end_time = 0;
+                this.widget.missionModel?.start_time = 0;
+                setState(() {});
+              },
+            ),
+          const SizedBox(height: 18),
+          Text(
+            "Tags",
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: detailSubColor,
+            ),
+          ),
+          const SizedBox(height: 10),
+          TagsGridViewWidget(
+            datas: this.folderModelTags,
+            useUnifiedStyle: true,
+            onTapAddTagListener: (data) {
+              if (ChatGroupManager.isFolderModelEnabled(
+                      folderId: this.widget.missionModel.folder_id ?? "",
+                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                  false) {
+                Utility.showToastMsg(
+                    context: Utility.getGlobalContext(),
+                    msg: getI18NKey().no_auth);
+                return null;
+              }
+              this.onClick('onTapTagListener', data);
+            },
+            onTapDeleteTagListener: (data) {
+              if (ChatGroupManager.isFolderModelEnabled(
+                      folderId: this.widget.missionModel.folder_id ?? "",
+                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                  false) {
+                Utility.showToastMsg(
+                    context: Utility.getGlobalContext(),
+                    msg: getI18NKey().no_auth);
+                return null;
+              }
+              List<String> tagNamesList =
+                  this.widget.missionModel?.tagNames?.split(',') ?? [];
+              tagNamesList.remove(data.title);
+              this.widget.missionModel?.tagNames = tagNamesList.join(',');
+              requestGetTags(this.widget.missionModel?.tagNames?.split(',') ?? []);
+              this.isNeedUpdateBmob = true;
+            },
+          ),
+          if (Utility.shouldShowPriority(
+                  missionModelType: this.widget.missionModel.missionModelType) ==
+              true) ...[
+            const SizedBox(height: 18),
+            Text(
+              "Priority",
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: detailSubColor,
+              ),
+            ),
+            const SizedBox(height: 10),
+            PriorityButtonListWidget(
+              useUnifiedStyle: true,
+              list: CONSTANTS.getPriorityButtonList(),
+              initIndex: this.widget.missionModel.priorityStatus ?? 3,
+              onTapListener: (data) {
+                int index = data['index'];
+                this.onClick("onClickPriority", index);
+              },
+            ),
+          ]
+        ],
+      ),
+    );
+  }
+
+  double get unifiedTileWidth => 172;
 
   _SettingItemDetailPageWidgetState({this.curTab = 0}) {}
 
@@ -617,8 +730,10 @@ class _SettingItemDetailPageWidgetState<T>
                 CustomMarquee(
                   bean: MarqueInfo.marqueSettingItemDetail,
                 ),
-              if (this.curTab != 0)
+              if (this.curTab == 1 || (!isUnifiedDesktop && this.curTab == 2))
                 _buildMissionHeroBlock(isDoingItNow),
+              if (isUnifiedDesktop && this.curTab == 2)
+                buildDesktopTaskSettingsHeader(),
               // Container(height: 20, color: ColorsConfig.backgroundColor,),
 
               if (this.curTab == 1) ...getTabBar1WidgetList(),
@@ -1629,30 +1744,26 @@ class _SettingItemDetailPageWidgetState<T>
       );
     }
 
-    widgets.add(SectionTitleWidget(
-      title: getI18NKey().setting,
-      useUnifiedStyle: isUnifiedDesktop,
-    ));
-
-    if (!(this.widget.missionModel.missionModelType == 1 ||
-        this.widget.missionModel.missionModelType == 2)) {
-      widgets.add(
-        buildDesktopControlSection(
-          BlackCheckButtonListWidget(
-            initIndex: this.widget.missionModel.time_mode,
-            backgroundColor: ColorsConfig.gray_40,
-            useUnifiedStyle: isUnifiedDesktop,
-            list: CONSTANTS.getSettingItemDetailCheckButtonList(
-                defaultVal: this.widget.missionModel.time_mode ?? 0),
-            onTapListener: (index) async {
-              this.widget.missionModel.time_mode = index;
-              this.widget.missionModel?.end_time = 0;
-              this.widget.missionModel?.start_time = 0;
-              setState(() {});
-            },
-          ),
-        ),
-      );
+    if (!isUnifiedDesktop) {
+      widgets.add(SectionTitleWidget(
+        title: getI18NKey().setting,
+        useUnifiedStyle: false,
+        child: (this.widget.missionModel.missionModelType == 1 ||
+                this.widget.missionModel.missionModelType == 2)
+            ? null
+            : BlackCheckButtonListWidget(
+                initIndex: this.widget.missionModel.time_mode,
+                backgroundColor: ColorsConfig.gray_40,
+                list: CONSTANTS.getSettingItemDetailCheckButtonList(
+                    defaultVal: this.widget.missionModel.time_mode ?? 0),
+                onTapListener: (index) async {
+                  this.widget.missionModel.time_mode = index;
+                  this.widget.missionModel?.end_time = 0;
+                  this.widget.missionModel?.start_time = 0;
+                  setState(() {});
+                },
+              ),
+      ));
     }
 
     widgets.add(buildDesktopSettingsGrid(settingTiles));

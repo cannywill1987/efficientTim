@@ -83,8 +83,8 @@ class MenuItemState extends State<MenuItem2> {
             duration: const Duration(milliseconds: 160),
             curve: Curves.easeOutCubic,
             width: widget.width,
-            constraints: const BoxConstraints(minHeight: 116),
-            padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
+            constraints: const BoxConstraints(minHeight: 102),
+            padding: const EdgeInsets.fromLTRB(14, 13, 14, 12),
             decoration: buildUnifiedDesktopCardDecoration(
               backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(
                 defaultColor: _isHovered
@@ -120,7 +120,7 @@ class MenuItemState extends State<MenuItem2> {
                   alignment: Alignment.center,
                   child: this.widget.icon,
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: 12),
                 Text(
                   this.widget.title,
                   maxLines: 1,
