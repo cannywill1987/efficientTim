@@ -15,7 +15,6 @@ import 'package:time_hello/com/timehello/models/MissionModel.dart';
 import 'package:time_hello/com/timehello/page/SettingItemDetailPage/SettingItemDetailPage.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
-import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 
 import '../../../main.dart';
 import '../components/AISearchBar.dart';
@@ -86,80 +85,100 @@ class OverlayManagement {
       double width = 430,
       VoidCallback? onClose,
       EdgeInsetsGeometry margin =
-          const EdgeInsets.fromLTRB(18, 18, 18, 22)}) {
+          const EdgeInsets.fromLTRB(18, 18, 18, 28)}) {
     final bool isDark = ThemeManager.getInstance().getThemeMode().isDark ||
         Theme.of(context).brightness == Brightness.dark;
+    final BorderRadius panelRadius = BorderRadius.circular(32);
+    final BorderRadius innerRadius = BorderRadius.circular(24);
     return Container(
       width: width,
       margin: margin,
-      child: UnifiedDesktopCard(
-        backgroundColor: isDark
-            ? const Color(0xFF1D1713).withValues(alpha: 0.96)
-            : const Color(0xFFFDF7EE).withValues(alpha: 0.98),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: isDark ? const Color(0xFF43372F) : const Color(0xFFEADBCB),
+      child: Container(
+        decoration: BoxDecoration(
+          color: isDark
+              ? const Color(0xFF1D1713).withValues(alpha: 0.96)
+              : const Color(0xFFFDF7EE).withValues(alpha: 0.98),
+          borderRadius: panelRadius,
+          border: Border.all(
+            color: isDark ? const Color(0xFF43372F) : const Color(0xFFEADBCB),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.10),
+              blurRadius: 34,
+              offset: const Offset(0, 18),
+            )
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.10),
-            blurRadius: 34,
-            offset: const Offset(0, 18),
-          )
-        ],
-        child: Column(
-          children: [
-            Container(
-              height: 44,
-              padding: const EdgeInsets.fromLTRB(18, 10, 12, 8),
-              child: Row(
-                children: [
-                  Text(
-                    "Task Details",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: ThemeManager.getInstance().getTextColor(
-                          defaultColor: const Color(0xFF8B6A55),
-                          defaultDarkColor: Colors.white70),
-                      letterSpacing: 0.2,
+        child: ClipRRect(
+          borderRadius: panelRadius,
+          child: Column(
+            children: [
+              Container(
+                height: 44,
+                padding: const EdgeInsets.fromLTRB(18, 10, 12, 8),
+                child: Row(
+                  children: [
+                    Text(
+                      "Task Details",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: ThemeManager.getInstance().getTextColor(
+                            defaultColor: const Color(0xFF8B6A55),
+                            defaultDarkColor: Colors.white70),
+                        letterSpacing: 0.2,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(999),
-                    onTap: onClose ??
-                        () {
-                          Utility.popupDesktopRightNavigator(context);
-                        },
-                    child: Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: isDark
-                            ? const Color(0xFF2A231E)
-                            : const Color(0xFFFFF5EC),
-                        borderRadius: BorderRadius.circular(999),
-                        border: Border.all(
+                    const Spacer(),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(999),
+                      onTap: onClose ??
+                          () {
+                            Utility.popupDesktopRightNavigator(context);
+                          },
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
                           color: isDark
-                              ? const Color(0xFF43372F)
-                              : const Color(0xFFF1E2D5),
+                              ? const Color(0xFF2A231E)
+                              : const Color(0xFFFFF5EC),
+                          borderRadius: BorderRadius.circular(999),
+                          border: Border.all(
+                            color: isDark
+                                ? const Color(0xFF43372F)
+                                : const Color(0xFFF1E2D5),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.close_rounded,
+                          size: 16,
+                          color: ThemeManager.getInstance().getIconColor(
+                              defaultColor: const Color(0xFF7A6657),
+                              defaultDarkColor: Colors.white70),
                         ),
                       ),
-                      child: Icon(
-                        Icons.close_rounded,
-                        size: 16,
-                        color: ThemeManager.getInstance().getIconColor(
-                            defaultColor: const Color(0xFF7A6657),
-                            defaultDarkColor: Colors.white70),
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(child: child),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 6, 10, 10),
+                  child: ClipRRect(
+                    borderRadius: innerRadius,
+                    child: Container(
+                      color: isDark
+                          ? const Color(0xFF241D18)
+                          : const Color(0xFFFFFCF8),
+                      child: child,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -183,32 +202,19 @@ class OverlayManagement {
     removeDesktopRightFloatingOverlay();
     final OverlayState overlayState = Overlay.of(context);
     desktopRightFloatingOverlayEntry = OverlayEntry(builder: (overlayContext) {
-      return Positioned.fill(
+      return Positioned(
+        top: 72,
+        right: 14,
+        bottom: 28,
+        width: width,
         child: Material(
           color: Colors.transparent,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: removeDesktopRightFloatingOverlay,
-                  child: const SizedBox.expand(),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 72, 12, 16),
-                  child: buildDesktopRightFloatingPanel(
-                    context: overlayContext,
-                    width: width,
-                    margin: EdgeInsets.zero,
-                    onClose: removeDesktopRightFloatingOverlay,
-                    child: panelChild,
-                  ),
-                ),
-              ),
-            ],
+          child: buildDesktopRightFloatingPanel(
+            context: overlayContext,
+            width: width,
+            margin: EdgeInsets.zero,
+            onClose: removeDesktopRightFloatingOverlay,
+            child: panelChild,
           ),
         ),
       );

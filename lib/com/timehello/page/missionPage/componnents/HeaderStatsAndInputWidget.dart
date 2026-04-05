@@ -262,21 +262,43 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
   }
 
   Widget _buildUnifiedInputCard() {
+    final Widget? detailPanel = widget.childAfterInputWidget;
     return UnifiedDesktopCard(
       margin: EdgeInsets.fromLTRB(
           CONSTANTS.missionPageMargin, 14, CONSTANTS.missionPageMargin, 0),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
       borderRadius: BorderRadius.circular(26),
       backgroundColor: const Color(0xFFFFFCF8),
-      child: HeaderInputWidget(
-        shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
-        folderModel: this.widget.folderModel ?? FolderModel(),
-        key: HeaderInputStateGlobalKey,
-        onChangeListener: this.widget.onChangeListener,
-        text: this.widget.text,
-        onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
-        onSubmitListener: this.widget.onSubmitListener,
-        useUnifiedStyle: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          HeaderInputWidget(
+            shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
+            folderModel: this.widget.folderModel ?? FolderModel(),
+            key: HeaderInputStateGlobalKey,
+            onChangeListener: this.widget.onChangeListener,
+            text: this.widget.text,
+            onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
+            onSubmitListener: this.widget.onSubmitListener,
+            useUnifiedStyle: true,
+          ),
+          if (detailPanel != null)
+            AnimatedSize(
+              duration: const Duration(milliseconds: 180),
+              curve: Curves.easeOutCubic,
+              child: Column(
+                children: [
+                  const SizedBox(height: 14),
+                  Container(
+                    height: 1,
+                    color: const Color(0xFFF0E2D3),
+                  ),
+                  const SizedBox(height: 14),
+                  detailPanel,
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -286,9 +308,6 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
       children: [
         _buildUnifiedHeroOverview(),
         _buildUnifiedInputCard(),
-        this.widget.childAfterInputWidget == null
-            ? const SizedBox.shrink()
-            : this.widget.childAfterInputWidget!,
       ],
     );
   }
@@ -740,8 +759,8 @@ class HeaderInputState extends State<HeaderInputWidget> {
                   EdgeInsets.only(
                       left: 60,
                       right: 75,
-                      top: widget.useUnifiedStyle ? 10 : 0,
-                      bottom: widget.useUnifiedStyle ? 10 : 0),
+                      top: widget.useUnifiedStyle ? 8 : 0,
+                      bottom: widget.useUnifiedStyle ? 8 : 0),
               counterStyle:
                   TextStyle(color: Colors.transparent, fontSize: 0),
               //背景颜色，必须结合filled: true,才有效

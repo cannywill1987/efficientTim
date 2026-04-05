@@ -39,9 +39,29 @@ class PriorityButtonListWidgetState extends State<PriorityButtonListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    if (widget.useUnifiedStyle) {
+      return Container(
+        width: double.infinity,
+        constraints: const BoxConstraints(maxWidth: 1000),
+        child: GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.1,
+            maxCrossAxisExtent: 220,
+          ),
+          itemCount: this.list.length,
+          itemBuilder: (context, index) {
+            return getCheckButton(
+                this.list[index], this.list.indexOf(this.list[index]));
+          },
+        ),
+      );
+    }
     return Container(
-        height: widget.useUnifiedStyle ? 132 : 100,
+        height: 100,
         width: double.infinity,
         constraints: BoxConstraints(maxWidth: 1000),
         child: GridView.builder(
@@ -50,8 +70,8 @@ class PriorityButtonListWidgetState extends State<PriorityButtonListWidget> {
             crossAxisSpacing: 10,
             //设置主轴间距
             mainAxisSpacing: 10,
-            childAspectRatio: widget.useUnifiedStyle ? 2.1 : 5,
-            maxCrossAxisExtent: widget.useUnifiedStyle ? 220 : 250,
+            childAspectRatio: 5,
+            maxCrossAxisExtent: 250,
           ),
           scrollDirection: Axis.vertical,
           itemCount: this.list.length,

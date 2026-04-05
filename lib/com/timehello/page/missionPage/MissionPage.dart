@@ -1045,6 +1045,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   BottomBar getBottomBar(BuildContext context, {bool isVisible: false}) {
     return BottomBar(
       key: bottomBarStateKey,
+      useUnifiedStyle: isUnifiedDesktop,
       folderModel: this.widget.folderModel,
       //底部bar 用于创建任务用
       objectiveUnit: this.objectiveUnit,
@@ -1204,10 +1205,14 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           shouldSliver: false,
           useUnifiedStyle: isUnifiedDesktop,
           key: HeaderWidgetStateGlobalKeyForTable,
-          childAfterInputWidget: Utility.isHandsetBySize() &&
-                  !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
-              ? null
-              : getBottomBar(context, isVisible: this.isFocusing),
+          childAfterInputWidget: isUnifiedDesktop
+              ? (this.isFocusing
+                  ? getBottomBar(context, isVisible: true)
+                  : null)
+              : (Utility.isHandsetBySize() &&
+                      !DeviceInfoManagement.isMobileWeb()
+                  ? null
+                  : getBottomBar(context, isVisible: this.isFocusing)),
           //移动端key要唯一 否则每次经过这里都会实例化 造成移动端输入框点击焦点后键盘自动隐藏 pc端要新的globalkey 否则头部headerwidget无法显示
           onTapUpListener: () {},
           onTapDownListener: () {},
@@ -1299,10 +1304,14 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       listWidget.add(HeaderStatsAndInputWidget(
           key: HeaderWidgetStateGlobalKey,
           useUnifiedStyle: isUnifiedDesktop,
-          childAfterInputWidget: Utility.isHandsetBySize() &&
-                  !DeviceInfoManagement.isMobileWeb() //android ios web需要显示
-              ? null
-              : getBottomBar(context, isVisible: this.isFocusing),
+          childAfterInputWidget: isUnifiedDesktop
+              ? (this.isFocusing
+                  ? getBottomBar(context, isVisible: true)
+                  : null)
+              : (Utility.isHandsetBySize() &&
+                      !DeviceInfoManagement.isMobileWeb()
+                  ? null
+                  : getBottomBar(context, isVisible: this.isFocusing)),
           //移动端key要唯一 否则每次经过这里都会实例化 造成移动端输入框点击焦点后键盘自动隐藏 pc端要新的globalkey 否则头部headerwidget无法显示
           onTapUpListener: () {},
           onTapDownListener: () {},

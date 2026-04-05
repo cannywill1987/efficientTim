@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
-
-import '../../../r.dart';
 
 class MenuItem2 extends StatefulWidget {
   Widget icon;
@@ -106,6 +103,7 @@ class MenuItemState extends State<MenuItem2> {
               ],
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -146,14 +144,18 @@ class MenuItemState extends State<MenuItem2> {
                     ),
                   ),
                 ],
-                const Spacer(),
                 if (this.widget.rightPartContainer != null)
-                  DefaultTextStyle.merge(
-                    style: TextStyle(
-                      color: ThemeManager.getInstance().getTextColor(
-                          defaultColor: const Color(0xFF3C2A1E)),
+                  const SizedBox(height: 12),
+                if (this.widget.rightPartContainer != null)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: DefaultTextStyle.merge(
+                      style: TextStyle(
+                        color: ThemeManager.getInstance().getTextColor(
+                            defaultColor: const Color(0xFF3C2A1E)),
+                      ),
+                      child: this.widget.rightPartContainer!,
                     ),
-                    child: this.widget.rightPartContainer!,
                   ),
               ],
             ),

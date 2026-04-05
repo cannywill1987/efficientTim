@@ -58,6 +58,7 @@ typedef OnTapBottomBarMissionValueListener = void Function({dynamic data});
 
 class BottomBar extends StatefulWidget {
   bool isVisible = false;
+  bool useUnifiedStyle = false;
 
   FolderModel? folderModel;
   OnTapUpdateDateListener? onTapUpdateDateListener;
@@ -112,6 +113,7 @@ class BottomBar extends StatefulWidget {
   BottomBar(
       {Key? key,
       this.isVisible = false,
+      this.useUnifiedStyle = false,
       this.start_time = 0,
       this.missionModelType = 0,
         this.folderModel,
@@ -348,11 +350,364 @@ class BottomBarState extends State<BottomBar> {
     }
   }
 
+  Color get _desktopTextColor => ThemeManager.getInstance()
+      .getTextColor(defaultColor: const Color(0xFF463125));
+
+  Color get _desktopSubTextColor => ThemeManager.getInstance()
+      .getTextColor(defaultColor: const Color(0xFF9A7A64));
+
+  String _getDateStatusTitle() {
+    final List<CheckButtonStateModel> list =
+        CONSTANTS.getCheckButtonStateModelList();
+    final CheckButtonStateModel? model = list.cast<CheckButtonStateModel?>().firstWhere(
+          (element) => element?.value == (this.dateStatus ?? 0),
+          orElse: () => null,
+        );
+    return model?.title ?? getI18NKey().today;
+  }
+
+  Widget _buildDesktopChipShell({
+    required Widget child,
+    VoidCallback? onTap,
+    Color backgroundColor = const Color(0xFFFFFBF6),
+    Color borderColor = const Color(0xFFE7D8C8),
+    EdgeInsetsGeometry padding =
+        const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+  }) {
+    final Widget content = Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: borderColor),
+      ),
+      child: child,
+    );
+    if (onTap == null) {
+      return content;
+    }
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: onTap,
+      child: content,
+    );
+  }
+
+  Widget _buildDesktopValueChip({
+    required String label,
+    required String value,
+    required IconData icon,
+    Color? accentColor,
+    VoidCallback? onTap,
+    VoidCallback? onClear,
+  }) {
+    final Color color = accentColor ?? const Color(0xFFC78B62);
+    final bool hasValue = TextUtil.isEmpty(value) == false &&
+        value != getI18NKey().none &&
+        value != "";
+    return _buildDesktopChipShell(
+      onTap: onTap,
+      backgroundColor:
+          hasValue ? const Color(0xFFFFF5EA) : const Color(0xFFFFFBF6),
+      borderColor: hasValue ? const Color(0xFFE7C8AA) : const Color(0xFFE7D8C8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 15, color: color),
+          const SizedBox(width: 7),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: _desktopSubTextColor,
+            ),
+          ),
+          const SizedBox(width: 7),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 165),
+            child: Text(
+              value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: hasValue ? _desktopTextColor : _desktopSubTextColor,
+              ),
+            ),
+          ),
+          if (onClear != null && hasValue) ...[
+            const SizedBox(width: 7),
+            InkWell(
+              borderRadius: BorderRadius.circular(999),
+              onTap: onClear,
+              child: Icon(Icons.close,
+                  size: 14, color: _desktopSubTextColor.withValues(alpha: 0.9)),
+            ),
+          ] else ...[
+            const SizedBox(width: 4),
+            Icon(Icons.chevron_right_rounded,
+                size: 16, color: _desktopSubTextColor),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopQuickDateChip(CheckButtonStateModel model) {
+    final bool isSelected = (this.dateStatus ?? 0) == (model.value ?? 0);
+    return _buildDesktopChipShell(
+      onTap: () {
+        if (this.widget.onTapDateListener != null) {
+          this.widget.onTapDateListener?.call(model.value);
+          updateEndTimeByState(model.value);
+        }
+      },
+      backgroundColor:
+          isSelected ? const Color(0xFFFFE8C6) : const Color(0xFFFFFBF6),
+      borderColor:
+          isSelected ? const Color(0xFFE1B882) : const Color(0xFFE7D8C8),
+      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
+      child: Text(
+        model.title ?? "",
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: isSelected ? const Color(0xFF8A5A34) : _desktopTextColor,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopCreateButton() {
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_create_button",
+          "description": "创建",
+        });
+        if (this.widget.onTapFinishListener != null) {
+          this.widget.onTapFinishListener!();
+        }
+      },
+      child: Container(
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        decoration: BoxDecoration(
+          color: const Color(0xFFD09063),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFD09063).withValues(alpha: 0.22),
+              blurRadius: 12,
+              offset: const Offset(0, 8),
+            )
+          ],
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          getI18NKey().create,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopQuickActionRow(BuildContext context) {
+    final List<CheckButtonStateModel> quickDateModels =
+        CONSTANTS.getCheckButtonStateModelList().where((model) {
+      return model.code == "today" ||
+          model.code == "tomorrow" ||
+          model.code == "this_week" ||
+          model.code == "do_it_now";
+    }).toList();
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final bool compact = constraints.maxWidth < 820;
+      final Widget chips = Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children:
+            quickDateModels.map((model) => _buildDesktopQuickDateChip(model)).toList(),
+      );
+      if (compact) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            chips,
+            const SizedBox(height: 10),
+            SizedBox(width: double.infinity, child: _buildDesktopCreateButton()),
+          ],
+        );
+      }
+      return Row(
+        children: [
+          Expanded(child: chips),
+          const SizedBox(width: 14),
+          SizedBox(width: 138, child: _buildDesktopCreateButton()),
+        ],
+      );
+    });
+  }
+
+  Widget getDesktopWidget(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(2, 0, 2, 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    if (Utility.shouldShowDailyIcon(
+                        missionModelType: this.missionModelType))
+                      getDailyWidget(),
+                    if (Utility.shouldShowPriority(
+                        missionModelType: this.missionModelType))
+                      getPriorityWidget(),
+                    if (Utility.shouldShowTag(
+                        missionModelType: this.missionModelType))
+                      getTagNameWidget(),
+                    if (Utility.shouldShowCircleFolderId(
+                        missionModelType: this.missionModelType))
+                      getCircleFolderModelWidget(),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFF8F0),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFFE7D8C8)),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                child: IconButtonListWidget(
+                  popupModeEnum: PopupModeEnum.popup,
+                  initIndex: this.missionModelType,
+                  list: CONSTANTS.getMissionTypeButtonList(defaultVal: 0),
+                  onTapListener: (obj) {
+                    switch (obj['data'].code) {
+                      case 'normal':
+                        this.widget.onTapMissionModelTypeListener?.call(0);
+                        _tabBarKey.currentState?.setChecked(0);
+                        this.missionModelType = 0;
+                        this.time_mode = 0;
+                        break;
+                      case 'calendar':
+                        this.widget.onTapMissionModelTypeListener?.call(1);
+                        _tabBarKey.currentState?.setChecked(0);
+                        this.missionModelType = 1;
+                        this.time_mode = 1;
+                        break;
+                      case 'alarm':
+                        this.widget.onTapMissionModelTypeListener?.call(2);
+                        _tabBarKey.currentState?.setChecked(0);
+                        this.missionModelType = 2;
+                        this.time_mode = 0;
+                        break;
+                    }
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          CustomTabBarWidget(
+            key: _tabBarKey,
+            isAutoTrigger: true,
+            list: getDataList(),
+            onCheckedListener: (int index, CheckButtonStateModel model) {
+              if (model.code == 'time' || model.code == 'objective') {
+                if (LoginManager.getInstance().isVIP(shouldShowDialog: true) ==
+                    false) {
+                  return;
+                }
+              }
+              reset(model: model);
+            },
+            fontSize: 13,
+            useUnifiedStyle: true,
+          ),
+          if (this.time_mode == 2) ...[
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                if (Utility.shouldUnit(missionModelType: this.missionModelType))
+                  getTotalValInputWidgetForObjective(),
+                if (Utility.shouldTotalVal(
+                    missionModelType: this.missionModelType))
+                  getUnitInputWidgetForObjective(),
+              ],
+            ),
+          ],
+          if (this.time_mode == 0 || this.time_mode == 1 || this.time_mode == 2)
+            ...[
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  if (Utility.shouldShowBeginTime(
+                      missionModelType: this.missionModelType))
+                    getDailyStartTimeWidget(context),
+                  if (Utility.shouldShowEndTime(
+                      missionModelType: this.missionModelType))
+                    getDailyEndTimeWidget(context),
+                  if (!(this.time_mode == 1 || this.time_mode == 2) &&
+                      Utility.shouldShowEndTime(
+                          missionModelType: this.missionModelType))
+                    getEndTimeWidget(context),
+                ],
+              ),
+              if (!(this.time_mode == 1 || this.time_mode == 2)) ...[
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    if (Utility.shouldShowAlert(
+                        missionModelType: this.missionModelType))
+                      getAlertTimeWidget(context),
+                    getRepeativeWidget(context),
+                    if (Utility.shouldShowValue(
+                        missionModelType: this.missionModelType))
+                      getMissionValueWidget(context),
+                  ],
+                ),
+              ],
+            ],
+          const SizedBox(height: 12),
+          _buildDesktopQuickActionRow(context),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Offstage(
-        offstage: !this.widget.isVisible, child: getMobileWidget(context));
+        offstage: !this.widget.isVisible,
+        child: this.widget.useUnifiedStyle
+            ? getDesktopWidget(context)
+            : getMobileWidget(context));
   }
 
   Container getMobileWidget(BuildContext context) {
@@ -1038,6 +1393,28 @@ class BottomBarState extends State<BottomBar> {
   }
 
   CustomPopupWidget getDailyWidget() {
+    if (widget.useUnifiedStyle) {
+      return CustomPopupWidget(
+        onSelected: (v) {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_date_type",
+            "description": "任务时间类型",
+          });
+          if (this.widget.onTapDateListener != null) {
+            this.widget.onTapDateListener?.call(v.value);
+            updateEndTimeByState(v.value);
+          }
+        },
+        list: CONSTANTS.getCheckButtonStateModelList(),
+        child: _buildDesktopValueChip(
+          label: getI18NKey().today,
+          value: _getDateStatusTitle(),
+          icon: Icons.calendar_today_outlined,
+          onTap: null,
+        ),
+      );
+    }
     return CustomPopupWidget(
       onSelected: (v) {
         AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
@@ -1084,7 +1461,37 @@ class BottomBarState extends State<BottomBar> {
     );
   }
 
-  InkWell getEndTimeWidget(BuildContext context) {
+  Widget getEndTimeWidget(BuildContext context) {
+    if (widget.useUnifiedStyle) {
+      return _buildDesktopValueChip(
+        label: getI18NKey().deadLine,
+        value: end_time == null
+            ? getI18NKey().none
+            : CONSTANTS.getWeekDayString(
+                Utility.getDateTimeModelFromTimeStamp(end_time ?? 0)),
+        icon: Icons.event_outlined,
+        onTap: () async {
+          DateTimeModel? model = await Utility.showDatePickerDialog(
+              context, CONSTANTS.getDeadLineTme(this.widget.dateStatus) ?? 0);
+          this.setState(() {
+            this.end_time = model?.datetime?.millisecondsSinceEpoch;
+          });
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_end_time",
+            "description": "完成时间",
+          });
+          if (this.widget.onTapEndTimeListener != null) {
+            this.widget.onTapEndTimeListener!(data: this.end_time);
+          }
+        },
+        onClear: () {
+          setState(() {
+            this.end_time = null;
+          });
+        },
+      );
+    }
     return InkWell(
       child: Wrap(
         runAlignment: WrapAlignment.center,
@@ -1138,7 +1545,48 @@ class BottomBarState extends State<BottomBar> {
     );
   }
 
-  InkWell getAlertTimeWidget(BuildContext context) {
+  Widget getAlertTimeWidget(BuildContext context) {
+    if (widget.useUnifiedStyle) {
+      return _buildDesktopValueChip(
+        label: getI18NKey().alert,
+        value: TextUtil.isEmpty(this.alert_time) == false
+            ? (this.repetiveType == 0
+                ? CONSTANTS.getAlertDateString(
+                    Utility.getDateTimeModelFromTimeStamp(
+                        this.alert_time ?? 0))
+                : Utility.getHourAndMinsFromDateTimeFromTimeStamp(
+                    this.alert_time ?? 0))
+            : getI18NKey().none,
+        icon: Icons.notifications_none_rounded,
+        accentColor: ColorsConfig.colorGold,
+        onTap: () async {
+          DateTimeModel? model;
+          TimeOfDay? timeOfDay;
+          if (this.repetiveType == 0) {
+            model = await Utility.showDateTimePickerDialog(context);
+            if (model == null) {
+              return;
+            }
+            this.alert_time = model.timestamp ?? 0;
+          } else {
+            timeOfDay = await Utility.showTimePickerDialog(context);
+            if (timeOfDay == null) {
+              return;
+            }
+            this.alert_time =
+                timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
+          }
+          this.widget.onTapAlertDateListener?.call(this.alert_time);
+          this.setState(() {});
+          Utility.requestNotification(context);
+        },
+        onClear: () {
+          this.alert_time = 0;
+          this.widget.onTapAlertDateListener?.call(this.alert_time);
+          setState(() {});
+        },
+      );
+    }
     return InkWell(
       child: Wrap(
         runAlignment: WrapAlignment.center,
@@ -1217,7 +1665,60 @@ class BottomBarState extends State<BottomBar> {
     );
   }
 
-  InkWell getMissionValueWidget(BuildContext context) {
+  Widget getMissionValueWidget(BuildContext context) {
+    if (widget.useUnifiedStyle) {
+      return _buildDesktopValueChip(
+        label: getI18NKey().mission_value,
+        value: this.widget.mission_value == null
+            ? getI18NKey().none
+            : (this.widget.mission_value!.toString() + getI18NKey().dollar),
+        icon: Icons.paid_outlined,
+        accentColor: ColorsConfig.colorGold,
+        onTap: () async {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_task_duration",
+            "description": "任务价值",
+          });
+          if (LoginManager.getInstance().userBean.valuePerHour == null ||
+              LoginManager.getInstance().userBean.valuePerHour == 0) {
+            OverlayManagement.getInstance().openSelectMoneyPerHourOfMeOverlay(
+                context,
+                title: getI18NKey().mission_value, okCallBack: (valuePerHour) async {
+              OverlayManagement.getInstance().dismissSelectValueMoneyOverlay();
+              BaseBean response = await HttpManager.getInstance().doPostRequest(
+                  Apis.updateValuePerHour,
+                  params: {"valuePerHour": valuePerHour},
+                  context: context,
+                  shouldShowErrorToast: false);
+              if (response.success == true) {
+                LoginManager.getInstance()
+                    .setUserBean(UserBean.fromJson(response.data));
+              }
+            });
+            return;
+          }
+
+          OverlayManagement.getInstance().openSelectMoneyPerHourOfMeOverlay(
+              context,
+              title: getI18NKey().mission_value, cancelCallBack: () {
+            OverlayManagement.getInstance().dismissSelectValueMoneyOverlay();
+          }, okCallBack: (data) {
+            this.setState(() {
+              this.widget.mission_value = data;
+            });
+            OverlayManagement.getInstance().dismissSelectValueMoneyOverlay();
+            this.widget.onTapMissionValueListener
+                ?.call(data: this.widget.mission_value);
+          });
+        },
+        onClear: () {
+          setState(() {
+            this.widget.mission_value = null;
+          });
+        },
+      );
+    }
     return InkWell(
       child: Wrap(
         runAlignment: WrapAlignment.center,
@@ -1310,7 +1811,68 @@ class BottomBarState extends State<BottomBar> {
     );
   }
 
-  InkWell getRepeativeWidget(BuildContext context) {
+  Widget getRepeativeWidget(BuildContext context) {
+    if (widget.useUnifiedStyle) {
+      return _buildDesktopValueChip(
+        label: getI18NKey().repetive,
+        value: CONSTANTS.getRepetiveDateString3(
+            repetiveType: this.repetiveType,
+            repetiveValue: this.repetiveValue,
+            repetiveWeekDay: this.repetiveWeekDay),
+        icon: Icons.repeat_rounded,
+        onTap: () async {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_repeative",
+            "description": "重复",
+          });
+
+          SelectDatePeriodDialogUtil.show(context, okCallBack:
+              (valueMiddleSelected, valueRightSelected, listCheckModels) {
+            this.repetiveValue = valueMiddleSelected;
+            if (this.repetiveType != valueRightSelected) {
+              this.alert_time = 0;
+            }
+            this.repetiveType = valueRightSelected;
+            if (this.repetiveWeekDay == null ||
+                this.repetiveWeekDay?.length == 0) {
+              this.repetiveWeekDay = [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+              ];
+            }
+            this.repetiveWeekDay?[0] = listCheckModels[0].isChecked;
+            this.repetiveWeekDay?[1] = listCheckModels[1].isChecked;
+            this.repetiveWeekDay?[2] = listCheckModels[2].isChecked;
+            this.repetiveWeekDay?[3] = listCheckModels[3].isChecked;
+            this.repetiveWeekDay?[4] = listCheckModels[4].isChecked;
+            this.repetiveWeekDay?[5] = listCheckModels[5].isChecked;
+            this.repetiveWeekDay?[6] = listCheckModels[6].isChecked;
+            updateAlertTime();
+            setState(() {});
+          });
+        },
+        onClear: () {
+          this.repetiveType = 0;
+          this.repetiveValue = 0;
+          this.repetiveWeekDay = [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+          ];
+          setState(() {});
+        },
+      );
+    }
     return InkWell(
       child: Wrap(
         runAlignment: WrapAlignment.center,
@@ -1399,7 +1961,67 @@ class BottomBarState extends State<BottomBar> {
     );
   }
 
-  InkWell getDailyEndTimeWidget(BuildContext context) {
+  Widget getDailyEndTimeWidget(BuildContext context) {
+    if (widget.useUnifiedStyle) {
+      return _buildDesktopValueChip(
+        label: getI18NKey().end_time,
+        value: (this.time_mode == 1 || this.time_mode == 2)
+            ? CONSTANTS.getAlertDateString(
+                Utility.getDateTimeModelFromTimeStamp(this.end_time ?? 0))
+            : this.daily_end_time != null
+                ? Utility.formatHourAndMin2(this.daily_end_time ?? 0)
+                : getI18NKey().none,
+        icon: Icons.hourglass_bottom_rounded,
+        onTap: () async {
+          if (this.time_mode == 1 || this.time_mode == 2) {
+            DateTimeModel? model =
+                await Utility.showDateTimePickerDialog(context);
+            if ((model?.datetime?.millisecondsSinceEpoch ?? 0) <
+                (this.start_time ?? 0)) {
+              Utility.showToastMsg(
+                  context: context,
+                  msg: getI18NKey().end_time_cannot_before_start_time);
+              this.end_time = null;
+              return;
+            }
+            this.setState(() {
+              this.end_time = model?.datetime?.millisecondsSinceEpoch ?? 0;
+            });
+          } else {
+            TimeOfDay? timeOfDay = await Utility.showTimePickerDialog(context);
+            if (timeOfDay == null) {
+              return;
+            }
+            int? startTime = this.daily_start_time;
+            int? endTime =
+                timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
+            if (startTime != null && endTime != null && (startTime > endTime)) {
+              Utility.showToastMsg(
+                  msg: getI18NKey().end_time_cannot_before_start_time);
+              return;
+            }
+            this.daily_end_time = endTime;
+          }
+          if (this.widget.onTapUpdateDateListener != null) {
+            this.widget.onTapUpdateDateListener!(
+                startDate: this.time_mode == 0
+                    ? this.daily_start_time
+                    : this.start_time,
+                alertDate: this.alert_time,
+                dailyStartDate: this.time_mode == 0
+                    ? this.daily_start_time
+                    : this.start_time,
+                dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time,
+                time_mode: this.time_mode);
+          }
+          setState(() {});
+        },
+        onClear: () {
+          this.daily_end_time = null;
+          setState(() {});
+        },
+      );
+    }
     return InkWell(
       child: Wrap(
         runAlignment: WrapAlignment.center,
@@ -1491,7 +2113,80 @@ class BottomBarState extends State<BottomBar> {
     );
   }
 
-  InkWell getDailyStartTimeWidget(BuildContext context) {
+  Widget getDailyStartTimeWidget(BuildContext context) {
+    if (widget.useUnifiedStyle) {
+      return _buildDesktopValueChip(
+        label: getI18NKey().start_time,
+        value: (this.time_mode == 1 || this.time_mode == 2)
+            ? CONSTANTS.getAlertDateString(
+                Utility.getDateTimeModelFromTimeStamp(this.start_time ?? 0))
+            : this.daily_start_time != null
+                ? Utility.formatHourAndMin2(this.daily_start_time ?? 0)
+                : getI18NKey().none,
+        icon: Icons.schedule_rounded,
+        onTap: () async {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_start_time",
+            "description": "开始时间",
+          });
+          if (this.time_mode == 1 || this.time_mode == 2) {
+            DateTimeModel? model =
+                await Utility.showDateTimePickerDialog(context);
+            this.setState(() {
+              this.start_time = model?.datetime?.millisecondsSinceEpoch ?? 0;
+            });
+          } else {
+            TimeOfDay? timeOfDay = await Utility.showTimePickerDialog(context);
+            if (timeOfDay == null) {
+              return;
+            }
+            int? startTime =
+                timeOfDay.hour * 60 * 60 * 1000 + timeOfDay.minute * 60 * 1000;
+            int? endTime = this.daily_end_time;
+            if (startTime != null && endTime != null && (startTime > endTime)) {
+              Utility.showToastMsg(
+                  msg: getI18NKey().end_time_cannot_before_start_time);
+              return;
+            }
+            this.daily_start_time = startTime;
+          }
+          updateAlertTime();
+          if (this.widget.onTapUpdateDateListener != null) {
+            this.widget.onTapUpdateDateListener!(
+                startDate: this.time_mode == 0
+                    ? this.daily_start_time
+                    : this.start_time,
+                alertDate: this.alert_time,
+                dailyStartDate: this.time_mode == 0
+                    ? this.daily_start_time
+                    : this.start_time,
+                dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time,
+                time_mode: this.time_mode);
+          }
+          setState(() {});
+        },
+        onClear: () {
+          this.daily_start_time = null;
+          this.daily_end_time = null;
+          this.start_time = 0;
+          this.end_time = 0;
+          if (this.widget.onTapUpdateDateListener != null) {
+            this.widget.onTapUpdateDateListener!(
+                startDate: this.time_mode == 0
+                    ? this.daily_start_time
+                    : this.start_time,
+                alertDate: this.alert_time,
+                dailyStartDate: this.time_mode == 0
+                    ? this.daily_start_time
+                    : this.start_time,
+                dailyEndDate: this.time_mode == 0 ? this.end_time : this.end_time,
+                time_mode: this.time_mode);
+          }
+          setState(() {});
+        },
+      );
+    }
     return InkWell(
       child: Wrap(
         runAlignment: WrapAlignment.center,
@@ -1597,6 +2292,28 @@ class BottomBarState extends State<BottomBar> {
   }
 
   Widget getPriorityWidget() {
+    if (widget.useUnifiedStyle) {
+      return CustomPopupWidget(
+        onSelected: (v) {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_priority",
+            "description": "优先级",
+          });
+          if (this.widget.onTapPriorityListener != null) {
+            this.widget.onTapPriorityListener?.call(v.value);
+          }
+        },
+        list: CONSTANTS.getPriorityList(),
+        child: _buildDesktopValueChip(
+          label: getI18NKey().priorityStatus,
+          value: CONSTANTS.getPriorityDescByIndex(this.priority ?? 3),
+          icon: Icons.flag_outlined,
+          accentColor: Color(CONSTANTS.getPriorityColor(this.priority ?? 3)),
+          onTap: null,
+        ),
+      );
+    }
     return CustomPopupWidget(
       onSelected: (v) {
         AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
@@ -1614,6 +2331,27 @@ class BottomBarState extends State<BottomBar> {
   }
 
   CustomTagFolderModelSelectPopupWidget getTagNameWidget() {
+    if (widget.useUnifiedStyle) {
+      return CustomTagFolderModelSelectPopupWidget(
+        onSelected: (v) {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_tags",
+            "description": "标签",
+          });
+          if (this.widget.onTapTagListener != null) {
+            this.widget.onTapTagListener!(v);
+          }
+        },
+        child: _buildDesktopValueChip(
+          label: getI18NKey().tagNames,
+          value: TextUtil.isEmpty(this.tagName) ? getI18NKey().none : (this.tagName ?? ""),
+          icon: Icons.local_offer_outlined,
+          accentColor: this.tagColor,
+          onTap: null,
+        ),
+      );
+    }
     return CustomTagFolderModelSelectPopupWidget(
       onSelected: (v) {
         AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
@@ -1679,6 +2417,29 @@ class BottomBarState extends State<BottomBar> {
   }
 
   Widget getCircleFolderModelWidget() {
+    if (widget.useUnifiedStyle) {
+      return CustomFolderModelSelectPopupWidget(
+        onSelected: (v) {
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "missionpage",
+            "eventType": "missionpage_select_list",
+            "description": "选择清单",
+          });
+          if (this.widget.onTapCircleListener != null) {
+            this.widget.onTapCircleListener?.call(v);
+          }
+        },
+        child: _buildDesktopValueChip(
+          label: getI18NKey().task,
+          value: TextUtil.isEmpty(this.circleTitle)
+              ? getI18NKey().none
+              : (this.circleTitle ?? ""),
+          icon: Icons.folder_open_outlined,
+          accentColor: this.circleColor,
+          onTap: null,
+        ),
+      );
+    }
     return CustomFolderModelSelectPopupWidget(
       onSelected: (v) {
         AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({

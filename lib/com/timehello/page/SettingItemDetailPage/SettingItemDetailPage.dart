@@ -177,10 +177,13 @@ class _SettingItemDetailPageWidgetState<T>
     }
     return wrapUnifiedSection(
       padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
-      child: Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: children,
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: children,
+        ),
       ),
     );
   }
@@ -192,6 +195,22 @@ class _SettingItemDetailPageWidgetState<T>
     return wrapUnifiedSection(
       padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
       child: child,
+    );
+  }
+
+  Widget buildBackgroundPreviewWidget() {
+    if (TextUtil.isEmpty(this.widget.missionModel?.background_url)) {
+      return getBgSettingItem();
+    }
+    return CachedNetworkImage(
+      imageUrl: Utility.filterHttpUrl(
+          this.widget.missionModel?.background_url ?? '',
+          prefix: "oss"),
+      placeholder: (_, __) => getBgSettingItem(),
+      errorWidget: (_, __, ___) => getBgSettingItem(),
+      imageBuilder: (context, imageProviderTmp) {
+        return getBgSettingItem(imageProviderTmp: imageProviderTmp);
+      },
     );
   }
 
@@ -214,14 +233,14 @@ class _SettingItemDetailPageWidgetState<T>
           ),
           const SizedBox(height: 16),
           Text(
-            getI18NKey().setting,
+            "Task setup",
             style: TextStyle(
               fontSize: 13,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: detailSubColor,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           if (!(this.widget.missionModel.missionModelType == 1 ||
               this.widget.missionModel.missionModelType == 2))
             BlackCheckButtonListWidget(
@@ -237,72 +256,6 @@ class _SettingItemDetailPageWidgetState<T>
                 setState(() {});
               },
             ),
-          const SizedBox(height: 18),
-          Text(
-            "Tags",
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: detailSubColor,
-            ),
-          ),
-          const SizedBox(height: 10),
-          TagsGridViewWidget(
-            datas: this.folderModelTags,
-            useUnifiedStyle: true,
-            onTapAddTagListener: (data) {
-              if (ChatGroupManager.isFolderModelEnabled(
-                      folderId: this.widget.missionModel.folder_id ?? "",
-                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                  false) {
-                Utility.showToastMsg(
-                    context: Utility.getGlobalContext(),
-                    msg: getI18NKey().no_auth);
-                return null;
-              }
-              this.onClick('onTapTagListener', data);
-            },
-            onTapDeleteTagListener: (data) {
-              if (ChatGroupManager.isFolderModelEnabled(
-                      folderId: this.widget.missionModel.folder_id ?? "",
-                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
-                  false) {
-                Utility.showToastMsg(
-                    context: Utility.getGlobalContext(),
-                    msg: getI18NKey().no_auth);
-                return null;
-              }
-              List<String> tagNamesList =
-                  this.widget.missionModel?.tagNames?.split(',') ?? [];
-              tagNamesList.remove(data.title);
-              this.widget.missionModel?.tagNames = tagNamesList.join(',');
-              requestGetTags(this.widget.missionModel?.tagNames?.split(',') ?? []);
-              this.isNeedUpdateBmob = true;
-            },
-          ),
-          if (Utility.shouldShowPriority(
-                  missionModelType: this.widget.missionModel.missionModelType) ==
-              true) ...[
-            const SizedBox(height: 18),
-            Text(
-              "Priority",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: detailSubColor,
-              ),
-            ),
-            const SizedBox(height: 10),
-            PriorityButtonListWidget(
-              useUnifiedStyle: true,
-              list: CONSTANTS.getPriorityButtonList(),
-              initIndex: this.widget.missionModel.priorityStatus ?? 3,
-              onTapListener: (data) {
-                int index = data['index'];
-                this.onClick("onClickPriority", index);
-              },
-            ),
-          ]
         ],
       ),
     );
@@ -725,15 +678,16 @@ class _SettingItemDetailPageWidgetState<T>
         if (this.curTab != 0 && this.curTab != 3)
           Expanded(
             child: SingleChildScrollView(
-                child: Column(children: [
+                child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
               if (!isUnifiedDesktop)
                 CustomMarquee(
                   bean: MarqueInfo.marqueSettingItemDetail,
                 ),
               if (this.curTab == 1 || (!isUnifiedDesktop && this.curTab == 2))
                 _buildMissionHeroBlock(isDoingItNow),
-              if (isUnifiedDesktop && this.curTab == 2)
-                buildDesktopTaskSettingsHeader(),
               // Container(height: 20, color: ColorsConfig.backgroundColor,),
 
               if (this.curTab == 1) ...getTabBar1WidgetList(),
@@ -1720,28 +1674,96 @@ class _SettingItemDetailPageWidgetState<T>
                     size: StylesConfig.iconSize)),
     ];
 
-    final List<Widget> widgets = [];
     final bool shouldShowWallpaper = Utility.shouldShowWallpaper(
         missionModelType: this.widget.missionModel.missionModelType);
+
+    if (isUnifiedDesktop) {
+      return [
+        buildDesktopTaskSettingsHeader(),
+        if (shouldShowWallpaper) ...[
+          SectionTitleWidget(
+            title: "Task Background",
+            useUnifiedStyle: true,
+          ),
+          buildBackgroundPreviewWidget(),
+        ],
+        SectionTitleWidget(
+          title: "Tags",
+          useUnifiedStyle: true,
+        ),
+        wrapUnifiedSection(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+          child: TagsGridViewWidget(
+            datas: this.folderModelTags,
+            useUnifiedStyle: true,
+            onTapAddTagListener: (data) {
+              if (ChatGroupManager.isFolderModelEnabled(
+                      folderId: this.widget.missionModel.folder_id ?? "",
+                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                  false) {
+                Utility.showToastMsg(
+                    context: Utility.getGlobalContext(),
+                    msg: getI18NKey().no_auth);
+                return null;
+              }
+              this.onClick('onTapTagListener', data);
+            },
+            onTapDeleteTagListener: (data) {
+              if (ChatGroupManager.isFolderModelEnabled(
+                      folderId: this.widget.missionModel.folder_id ?? "",
+                      uid: LoginManager.getInstance().userBean.uid ?? "") ==
+                  false) {
+                Utility.showToastMsg(
+                    context: Utility.getGlobalContext(),
+                    msg: getI18NKey().no_auth);
+                return null;
+              }
+              List<String> tagNamesList =
+                  this.widget.missionModel?.tagNames?.split(',') ?? [];
+              tagNamesList.remove(data.title);
+              this.widget.missionModel?.tagNames = tagNamesList.join(',');
+              requestGetTags(this.widget.missionModel?.tagNames?.split(',') ?? []);
+              this.isNeedUpdateBmob = true;
+            },
+          ),
+        ),
+        if (Utility.shouldShowPriority(
+                missionModelType: this.widget.missionModel.missionModelType) ==
+            true) ...[
+          SectionTitleWidget(
+            title: "Priority",
+            useUnifiedStyle: true,
+          ),
+          wrapUnifiedSection(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            child: PriorityButtonListWidget(
+              useUnifiedStyle: true,
+              list: CONSTANTS.getPriorityButtonList(),
+              initIndex: this.widget.missionModel.priorityStatus ?? 3,
+              onTapListener: (data) {
+                int index = data['index'];
+                this.onClick("onClickPriority", index);
+              },
+            ),
+          ),
+        ],
+        SectionTitleWidget(
+          title: getI18NKey().setting,
+          useUnifiedStyle: true,
+        ),
+        buildDesktopSettingsGrid(settingTiles),
+        const SizedBox(height: 20),
+      ];
+    }
+
+    final List<Widget> widgets = [];
 
     if (shouldShowWallpaper) {
       widgets.add(SectionTitleWidget(
         title: getI18NKey().background_setting,
         useUnifiedStyle: isUnifiedDesktop,
       ));
-      widgets.add(
-        TextUtil.isEmpty(this.widget.missionModel?.background_url)
-            ? getBgSettingItem()
-            : CachedNetworkImage(
-                imageUrl: Utility.filterHttpUrl(
-                    this.widget.missionModel?.background_url ?? '',
-                    prefix: "oss"),
-                placeholder: (_, __) => getBgSettingItem(),
-                errorWidget: (_, __, ___) => getBgSettingItem(),
-                imageBuilder: (context, imageProviderTmp) {
-                  return getBgSettingItem(imageProviderTmp: imageProviderTmp);
-                }),
-      );
+      widgets.add(buildBackgroundPreviewWidget());
     }
 
     if (!isUnifiedDesktop) {
