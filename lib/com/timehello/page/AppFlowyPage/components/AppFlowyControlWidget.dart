@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -54,7 +55,9 @@ class AppFlowyControlWidget extends StatelessWidget {
         checkIcon: Icon(
           // windows 扩大icon
           Icons.share,
-          color: ThemeManager.getInstance().getDefautThemeColor(),
+          color: ThemeManager.getInstance().getIconColor(
+              defaultColor: ColorsConfig.missionEditorIcon,
+              defaultDarkColor: Colors.white70),
           size: 16,
         )));
 
@@ -63,7 +66,9 @@ class AppFlowyControlWidget extends StatelessWidget {
         checkIcon: Icon(
           // windows 扩大icon
           Icons.refresh,
-          color: ThemeManager.getInstance().getDefautThemeColor(),
+          color: ThemeManager.getInstance().getIconColor(
+              defaultColor: ColorsConfig.missionEditorIcon,
+              defaultDarkColor: Colors.white70),
           size: 16,
         )));
 
@@ -72,12 +77,16 @@ class AppFlowyControlWidget extends StatelessWidget {
         checkIcon: isExpand ? Icon(
           // windows 扩大icon
           Icons.open_in_full,
-          color: ThemeManager.getInstance().getDefautThemeColor(),
+          color: ThemeManager.getInstance().getIconColor(
+              defaultColor: ColorsConfig.missionEditorIcon,
+              defaultDarkColor: Colors.white70),
           size: 16,
         ):Icon(
           // windows 扩大icon
           Icons.close_fullscreen,
-          color: ThemeManager.getInstance().getDefautThemeColor(),
+          color: ThemeManager.getInstance().getIconColor(
+              defaultColor: ColorsConfig.missionEditorIcon,
+              defaultDarkColor: Colors.white70),
           size: 16,
         )));
     list.forEach((element) {

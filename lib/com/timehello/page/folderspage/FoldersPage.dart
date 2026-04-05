@@ -913,7 +913,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                 borderRadius: BorderRadius.circular(28),
                 color: ThemeManager.getInstance().isDark()
                     ? ThemeManager.getInstance().getLeftMenuColor()
-                    : const Color(0xF7FFF9F4),
+                    : ColorsConfig.missionSidebarShellBackground,
                 border: Border.all(
                   color: ThemeManager.getInstance().isDark()
                       ? ThemeManager.getInstance().getLineColor()
@@ -971,15 +971,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         ] else ...[
           _buildUnifiedHeader(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 0, 18, 6),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: ThemeManager.getInstance().isDark()
-                    ? ThemeManager.getInstance()
-                        .getCardBackgroundColor(defaultColor: Colors.black54)
-                    : const Color(0x66FFFFFF),
-                borderRadius: BorderRadius.circular(16),
-              ),
+            padding: const EdgeInsets.fromLTRB(20, 0, 18, 6),
+            child: Opacity(
+              opacity: 0.78,
               child: CustomMarquee(
                 key: const ValueKey('custom_marquee_unified'),
                 bean: MarqueInfo.marqueFolderpage,
@@ -1011,97 +1005,73 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   Widget _buildUnifiedHeader() {
     final bool isDark = ThemeManager.getInstance().isDark();
     final Color titleColor = ThemeManager.getInstance().getTextColor(
-        defaultColor: const Color(0xFF3C2A1E), defaultDarkColor: Colors.white);
+        defaultColor: ColorsConfig.missionSidebarTextPrimary,
+        defaultDarkColor: Colors.white);
     final Color subtitleColor = ThemeManager.getInstance().getTextColor(
-        defaultColor: const Color(0xFFA07B63),
+        defaultColor: ColorsConfig.missionSidebarTextSecondary,
         defaultDarkColor: Colors.white70);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          color: isDark
-              ? ThemeManager.getInstance()
-                  .getCardBackgroundColor(defaultColor: Colors.black54)
-              : Colors.white.withValues(alpha: 0.82),
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(
-            color: isDark
-                ? ThemeManager.getInstance().getLineColor()
-                : const Color(0xFFF1DED0),
+      padding: const EdgeInsets.fromLTRB(20, 20, 18, 8),
+      child: Row(
+        children: [
+          Icon(
+            Icons.menu_rounded,
+            size: 20,
+            color: titleColor,
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 38,
-              height: 38,
-              decoration: BoxDecoration(
-                color: isDark
-                    ? Colors.white.withValues(alpha: 0.08)
-                    : const Color(0xFFFFF0E0),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.menu_rounded,
-                size: 20,
-                color: titleColor,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Time Bureau',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: titleColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Unified workspace',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: subtitleColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              decoration: BoxDecoration(
-                color: isDark
-                    ? Colors.white.withValues(alpha: 0.08)
-                    : const Color(0xFFFFE7D3),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.auto_awesome_rounded,
-                    size: 14,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Time Bureau',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
                     color: titleColor,
                   ),
-                  const SizedBox(width: 6),
-                  Text(
-                    'Focus',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: titleColor,
-                    ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Unified workspace',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: subtitleColor,
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            decoration: BoxDecoration(
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.08)
+                  : ColorsConfig.missionSidebarHeaderChipBackground,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.auto_awesome_rounded,
+                  size: 14,
+                  color: titleColor,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  'Focus',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: titleColor,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -1141,23 +1111,26 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                 }
               },
               list: CONSTANTS.getFolderButtonList(),
-              child: Text(
-                getI18NKey().create,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 13,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+                decoration: BoxDecoration(
+                  color: ThemeManager.getInstance().isDark()
+                      ? Colors.white.withValues(alpha: 0.08)
+                      : ColorsConfig.missionSidebarHeaderChipBackground,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  getI18NKey().create,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     color: ThemeManager.getInstance().getTextColor(
-                        defaultColor:
-                            ThemeManager.getInstance().getDefautThemeColor(),
-                        defaultDarkColor: Colors.red),
-                    shadows: ThemeManager.getInstance().isDark()
-                        ? null
-                        : ThemeManager.getInstance().isDark()
-                            ? null
-                            : [
-                                Shadow(
-                                    color: Colors.white, offset: Offset(1, 1))
-                              ]),
+                        defaultColor: ColorsConfig.missionSidebarTextPrimary,
+                        defaultDarkColor: Colors.white),
+                  ),
+                ),
               )),
         ),
         getMenuSliverListFolders(

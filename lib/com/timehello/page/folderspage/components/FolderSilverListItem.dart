@@ -144,14 +144,14 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                       fontWeight: widget.useUnifiedStyle
                           ? FontWeight.w600
                           : FontWeight.w500,
-                      fontSize: widget.useUnifiedStyle ? 14 : 15,
+                      fontSize: widget.useUnifiedStyle ? 13.5 : 15,
                       color: ThemeManager.getInstance().getTextColor(
                           defaultColor:
                               folderModelWithExtraData.folderModel.iconType == 7
                                   ? ThemeManager.getInstance()
                                       .getDefautThemeColor()
                                   : widget.useUnifiedStyle
-                                      ? const Color(0xFF3F3026)
+                                      ? ColorsConfig.missionSidebarTextPrimary
                                       : ColorsConfig.gray_40))),
               if (folderModelWithExtraData.folderModel.start_time != null ||
                   folderModelWithExtraData.folderModel.end_time != null)
@@ -269,7 +269,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                                         fontSize:
                                             widget.useUnifiedStyle ? 12 : 13,
                                         color: widget.useUnifiedStyle
-                                            ? const Color(0xFF977863)
+                                            ? ColorsConfig
+                                                .missionSidebarTextSecondary
                                             : Color(0xffb9b9b9)))),
                       SizedBox(
                         width: itemPadding,
@@ -290,7 +291,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                                       fontSize:
                                           widget.useUnifiedStyle ? 12 : 13,
                                       color: widget.useUnifiedStyle
-                                          ? const Color(0xFF977863)
+                                          ? ColorsConfig
+                                              .missionSidebarTextSecondary
                                           : Color(0xffb9b9b9))))
                     ],
                   )
@@ -361,8 +363,13 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                           .onTapShowFolderChartListener
                           ?.call(folderModelWithExtraData);
                     },
-                    child:
-                        Utility.getSVGPicture(R.assetsImgIcBarChart, size: 15),
+                    child: Utility.getSVGPicture(
+                      R.assetsImgIcBarChart,
+                      size: 15,
+                      color: widget.useUnifiedStyle
+                          ? ColorsConfig.missionSidebarTextSecondary
+                          : null,
+                    ),
                   ),
                 // if (folderModelWithExtraData.folderModel.tag == 1 ||
                 //     folderModelWithExtraData.folderModel.tag == 2)
@@ -724,45 +731,36 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         },
         child: Container(
           constraints:
-              BoxConstraints(minHeight: widget.useUnifiedStyle ? 56 : 46),
+              BoxConstraints(minHeight: widget.useUnifiedStyle ? 52 : 46),
           margin: widget.useUnifiedStyle
-              ? const EdgeInsets.fromLTRB(8, 4, 12, 4)
+              ? const EdgeInsets.fromLTRB(8, 2, 12, 2)
               : EdgeInsets.zero,
           padding: widget.useUnifiedStyle
-              ? const EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+              ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
               : EdgeInsets.zero,
           decoration: widget.useUnifiedStyle
               ? BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: isSelected
-                        ? const Color(0xFFE6A25F)
-                        : ThemeManager.getInstance().isDark()
-                            ? ThemeManager.getInstance().getLineColor()
-                            : const Color(0xFFF0E1D2),
+                        ? ColorsConfig.missionSidebarSelectedBorder
+                        : Colors.transparent,
                   ),
-                  gradient: isSelected
-                      ? const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFFFE7CF),
-                            Color(0xFFF7D5B6),
-                          ],
-                        )
-                      : null,
                   color: isSelected
-                      ? null
-                      : ThemeManager.getInstance().isDark()
-                          ? Colors.white.withValues(alpha: 0.03)
-                          : const Color(0xF7FFF9F3),
+                      ? ColorsConfig.missionSidebarSelectedBackground
+                      : _folderModelWithExtraData.isHover == true
+                          ? ThemeManager.getInstance().isDark()
+                              ? Colors.white.withValues(alpha: 0.05)
+                              : ColorsConfig.missionSidebarHoverBackground
+                          : ThemeManager.getInstance().isDark()
+                              ? Colors.white.withValues(alpha: 0.02)
+                              : Colors.transparent,
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
-                            color:
-                                const Color(0xFFD8A06B).withValues(alpha: 0.25),
-                            blurRadius: 18,
-                            offset: const Offset(0, 8),
+                            color: ColorsConfig.missionSidebarSelectedShadow,
+                            blurRadius: 14,
+                            offset: const Offset(0, 6),
                           )
                         ]
                       : null,
@@ -797,19 +795,24 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
           margin: EdgeInsets.fromLTRB(isOthers ? 0 : marginLef, 0, 0, 0),
           child: iconWidget);
     }
-    final Color baseColor = Color(folderModel.color ??
-        ThemeManager.getInstance().getDefautThemeColor().toARGB32());
     return Container(
       margin: EdgeInsets.fromLTRB(isOthers ? 0 : 2, 0, 0, 0),
-      width: 34,
-      height: 34,
+      width: 22,
+      height: 22,
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: baseColor.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(12),
-      ),
       child: iconWidget,
     );
+  }
+
+  Color _getUnifiedSystemIconColor() {
+    return ColorsConfig.missionSidebarSystemIcon;
+  }
+
+  Color _getUnifiedCustomIconColor(FolderModel folderModel) {
+    if (folderModel.color != null && folderModel.color != 0) {
+      return Color(folderModel.color!);
+    }
+    return ColorsConfig.missionSidebarCustomIcon;
   }
 
   /**
@@ -943,12 +946,17 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
    */
   Widget? getIcon(FolderModel _folderModel) {
     int iconType = _folderModel.iconType ?? 0;
+    final bool shouldUseUnifiedTint = widget.useUnifiedStyle;
+    final Color systemTint = _getUnifiedSystemIconColor();
+    final Color customTint = _getUnifiedCustomIconColor(_folderModel);
     if (iconType != null) {
       switch (iconType) {
         case 0:
           if (_folderModel.tag == 4) {
             return Icon(Icons.filter_alt_outlined,
-                color: Color(_folderModel?.color ?? Colors.red.value),
+                color: shouldUseUnifiedTint
+                    ? customTint
+                    : Color(_folderModel.color ?? Colors.red.value),
                 size: iconSize);
           } else {
             return Icon(
@@ -963,45 +971,57 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                 color: (_folderModel.tag == 0 ||
                         _folderModel.tag == false ||
                         _folderModel.tag == null)
-                    ? Colors.pink //todo 这个是干啥 应该是默认颜色吧
-                    : Color(_folderModel.color),
+                    ? (shouldUseUnifiedTint ? systemTint : Colors.pink)
+                    : customTint,
                 size: iconSize); //颜色
             break;
           }
         case 1:
-          return Utility.getSVGPicture(R.assetsImgIcToday, size: iconSize);
+          return Utility.getSVGPicture(R.assetsImgIcToday,
+              size: iconSize, color: shouldUseUnifiedTint ? systemTint : null);
         // return Icon(Icons.wb_sunny, size: iconSize, color: Colors.green);
         // break;
         case 2:
-          return Utility.getSVGPicture(R.assetsImgIcTomorrow, size: iconSize);
+          return Utility.getSVGPicture(R.assetsImgIcTomorrow,
+              size: iconSize, color: shouldUseUnifiedTint ? systemTint : null);
         // return Icon(Icons.brightness_6,
         //     size: iconSize, color: Colors.deepOrange);
         case 3:
-          return Utility.getSVGPicture(R.assetsImgIcThisWeek, size: 16);
+          return Utility.getSVGPicture(R.assetsImgIcThisWeek,
+              size: 16, color: shouldUseUnifiedTint ? systemTint : null);
         // return Icon(Icons.system_update_alt,
         //     size: iconSize, color: Colors.blue);
         case 4:
-          return Utility.getSVGPicture(R.assetsImgIcUnfinishMissions, size: 16);
+          return Utility.getSVGPicture(R.assetsImgIcUnfinishMissions,
+              size: 16, color: shouldUseUnifiedTint ? systemTint : null);
 
         case 5:
-          return Utility.getSVGPicture(R.assetsImgIcCalendar, size: 16);
+          return Utility.getSVGPicture(R.assetsImgIcCalendar,
+              size: 16, color: shouldUseUnifiedTint ? systemTint : null);
         // return Icon(Icons.calendar_today,
         //     size: iconSize, color: ColorsConfig.calendar_green);
         case 6:
-          return Utility.getSVGPicture(R.assetsImgIcFinished, size: 18);
+          return Utility.getSVGPicture(R.assetsImgIcFinished,
+              size: 18, color: shouldUseUnifiedTint ? systemTint : null);
         case 7:
           return Utility.getSVGPicture(R.assetsImgIcCreateFolder,
               size: 18,
-              color: ThemeManager.getInstance().getDefautThemeColor());
+              color: shouldUseUnifiedTint
+                  ? systemTint
+                  : ThemeManager.getInstance().getDefautThemeColor());
         case 9:
-          return Utility.getSVGPicture(R.assetsImgIcInstantly, size: 22);
+          return Utility.getSVGPicture(R.assetsImgIcInstantly,
+              size: 22, color: shouldUseUnifiedTint ? systemTint : null);
         case 10:
-          return Utility.getSVGPicture(R.assetsImgIcAllMission, size: 14);
+          return Utility.getSVGPicture(R.assetsImgIcAllMission,
+              size: 14, color: shouldUseUnifiedTint ? systemTint : null);
 
         case 12:
-          return Utility.getSVGPicture(R.assetsImgIcTodo, size: 16);
+          return Utility.getSVGPicture(R.assetsImgIcTodo,
+              size: 16, color: shouldUseUnifiedTint ? systemTint : null);
         case 13:
-          return Utility.getSVGPicture(R.assetsImgIcFragment, size: 16);
+          return Utility.getSVGPicture(R.assetsImgIcFragment,
+              size: 16, color: shouldUseUnifiedTint ? systemTint : null);
         case 14:
           return CalendarIconWidget(
             width: 16,
@@ -1010,7 +1030,8 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         case 15:
           return Utility.getSVGPicture(R.assetsImgIcAppleAlarm, size: 16);
         case 16:
-          return Utility.getSVGPicture(R.assetsImgIc7Week, size: 16);
+          return Utility.getSVGPicture(R.assetsImgIc7Week,
+              size: 16, color: shouldUseUnifiedTint ? systemTint : null);
         // return Icon(Icons.add,
         //     size: iconSize, color: ColorsConfig.create_folder);
         // break;

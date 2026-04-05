@@ -149,6 +149,63 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   bool get isUnifiedDesktop =>
       widget.useUnifiedStyle && !Utility.isHandsetBySize();
 
+  Widget _buildUnifiedDesktopCanvas({required Widget child}) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFF8DAC4),
+            Color(0xFFF7ECDD),
+            Color(0xFFDDEDE0),
+          ],
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: -72,
+            left: -54,
+            child: Container(
+              width: 190,
+              height: 190,
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFD7B8).withValues(alpha: 0.88),
+                borderRadius: BorderRadius.circular(95),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 178,
+            left: -62,
+            child: Container(
+              width: 170,
+              height: 170,
+              decoration: BoxDecoration(
+                color: const Color(0xFFCFE6D7).withValues(alpha: 0.84),
+                borderRadius: BorderRadius.circular(85),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 64,
+            right: -48,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7E2D0).withValues(alpha: 0.82),
+                borderRadius: BorderRadius.circular(75),
+              ),
+            ),
+          ),
+          child,
+        ],
+      ),
+    );
+  }
+
   // int
   _MisssionPageWidgetState({folderStatus, folderModel}) {
     this._dateStatus = null;
@@ -859,41 +916,43 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   ? Colors.transparent
                   : ThemeManager.getInstance().getBackgroundColor(),
               child: isUnifiedDesktop
-                  ? UnifiedDesktopShell(
-                      surfaceColor: Colors.transparent,
-                      child: GestureDetector(
-                        key: ValueKey('TextButton1'),
-                        onTap: () async {
-                          unfocus();
-                          await Future.delayed(Duration(milliseconds: 500));
-                          Utility.popupDesktopRightNavigator(context);
-                        },
-                        child: Stack(key: ValueKey('Stack1'), children: [
-                          RefreshIndicator(
-                            key: ValueKey('RefreshIndicator1'),
-                            onRefresh: () async {
-                              Utility.initCalendarModel();
-                              return Future.value(true);
-                            },
-                            child: Container(
-                              key: ValueKey('Container2'),
-                              color: Colors.transparent,
-                              child: this.missionDataViewTypeEnum ==
-                                      MissionDataViewTypeEnum.week_view
-                                  ? getWeekViewWidget()
-                                  : this.missionDataViewTypeEnum ==
-                                          MissionDataViewTypeEnum.table
-                                      ? Column(
-                                          children: getTableSilverListWidget(),
-                                        )
-                                      : CustomScrollView(
-                                          controller: _scrollController,
-                                          key: ValueKey('CustomScrollView1'),
-                                          slivers: getSilverListWidget(),
-                                        ),
+                  ? _buildUnifiedDesktopCanvas(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+                        child: GestureDetector(
+                          key: ValueKey('TextButton1'),
+                          onTap: () async {
+                            unfocus();
+                            await Future.delayed(Duration(milliseconds: 500));
+                            Utility.popupDesktopRightNavigator(context);
+                          },
+                          child: Stack(key: ValueKey('Stack1'), children: [
+                            RefreshIndicator(
+                              key: ValueKey('RefreshIndicator1'),
+                              onRefresh: () async {
+                                Utility.initCalendarModel();
+                                return Future.value(true);
+                              },
+                              child: Container(
+                                key: ValueKey('Container2'),
+                                color: Colors.transparent,
+                                child: this.missionDataViewTypeEnum ==
+                                        MissionDataViewTypeEnum.week_view
+                                    ? getWeekViewWidget()
+                                    : this.missionDataViewTypeEnum ==
+                                            MissionDataViewTypeEnum.table
+                                        ? Column(
+                                            children: getTableSilverListWidget(),
+                                          )
+                                        : CustomScrollView(
+                                            controller: _scrollController,
+                                            key: ValueKey('CustomScrollView1'),
+                                            slivers: getSilverListWidget(),
+                                          ),
+                              ),
                             ),
-                          ),
-                        ]),
+                          ]),
+                        ),
                       ),
                     )
                   : GestureDetector(

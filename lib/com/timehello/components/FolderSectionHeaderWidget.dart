@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomTextField.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -141,6 +142,11 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
 
   InkWell getItem() {
     final bool isDark = ThemeManager.getInstance().isDark();
+    final Color textColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: ColorsConfig.missionSidebarTextPrimary,
+        defaultDarkColor: Colors.white);
+    final Color actionColor = ThemeManager.getInstance().getIconColor(
+        defaultColor: ColorsConfig.missionSidebarTextSecondary);
     final Widget content = Row(
       children: [
         Expanded(
@@ -150,31 +156,31 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 widget.useUnifiedStyle
-                    ? Container(
-                        width: 30,
-                        height: 30,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: isDark
-                              ? Colors.white.withValues(alpha: 0.08)
-                              : const Color(0xFFFFEDD9),
-                          borderRadius: BorderRadius.circular(10),
+                    ? SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: Center(
+                          child: Utility.getSVGPicture(
+                            R.assetsImgIcFolder,
+                            size: 15,
+                            color: ColorsConfig.missionSidebarSystemIcon,
+                          ),
                         ),
-                        child:
-                            Utility.getSVGPicture(R.assetsImgIcFolder, size: 16),
                       )
                     : Utility.getSVGPicture(R.assetsImgIcFolder, size: 20),
                 SizedBox(
-                  width: widget.useUnifiedStyle ? 10 : 6,
+                  width: widget.useUnifiedStyle ? 8 : 6,
                 ),
                 CustomTextField(
                   isEditing: this.widget.isEditing,
                   style: TextStyle(
                       fontSize: widget.useUnifiedStyle ? 13 : 14,
-                      fontWeight: FontWeight.bold,
-                      color: ThemeManager.getInstance().isDark()
-                          ? Colors.white
-                          : Colors.black),
+                      fontWeight: FontWeight.w700,
+                      color: widget.useUnifiedStyle
+                          ? textColor
+                          : ThemeManager.getInstance().isDark()
+                              ? Colors.white
+                              : Colors.black),
                   text: this.widget.title,
                   onCancelListener: () {
                     this.widget.onCancelListener?.call();
@@ -216,8 +222,10 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
                           isArchived: this.widget.isArchived),
                       child: Icon(
                         Icons.more_horiz,
-                        color: ThemeManager.getInstance()
-                            .getIconColor(defaultColor: Color(0xff909090)),
+                        color: widget.useUnifiedStyle
+                            ? actionColor
+                            : ThemeManager.getInstance()
+                                .getIconColor(defaultColor: Color(0xff909090)),
                       ),
                     ),
                   )
@@ -233,10 +241,12 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.add,
-                    color: ThemeManager.getInstance().getIconColor(
-                      defaultColor: Color(0xff909090),
-                    ),
-                    size: 20,
+                    color: widget.useUnifiedStyle
+                        ? actionColor
+                        : ThemeManager.getInstance().getIconColor(
+                            defaultColor: Color(0xff909090),
+                          ),
+                    size: widget.useUnifiedStyle ? 18 : 20,
                   ),
                 ),
               ),
@@ -258,10 +268,12 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
                   this.isFoldedForFolder == true
                       ? Icons.unfold_more
                       : Icons.unfold_less,
-                  color: ThemeManager.getInstance().getIconColor(
-                    defaultColor: Color(0xff909090),
-                  ),
-                  size: 20,
+                  color: widget.useUnifiedStyle
+                      ? actionColor
+                      : ThemeManager.getInstance().getIconColor(
+                          defaultColor: Color(0xff909090),
+                        ),
+                  size: widget.useUnifiedStyle ? 18 : 20,
                 ),
               ),
             ),
@@ -286,18 +298,15 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
       },
       child: widget.useUnifiedStyle
           ? Container(
-              margin: const EdgeInsets.only(top: 4, bottom: 4, right: 12),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              margin: const EdgeInsets.fromLTRB(8, 2, 12, 2),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: isDark
-                    ? Colors.white.withValues(alpha: 0.04)
-                    : const Color(0xCCFFF8F0),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: isDark
-                      ? ThemeManager.getInstance().getLineColor()
-                      : const Color(0xFFF0DEC9),
-                ),
+                    ? Colors.white.withValues(alpha: isHover ? 0.05 : 0.02)
+                    : isHover
+                        ? ColorsConfig.missionSidebarHoverBackground
+                        : Colors.transparent,
+                borderRadius: BorderRadius.circular(14),
               ),
               child: content,
             )

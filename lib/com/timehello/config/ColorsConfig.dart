@@ -123,4 +123,34 @@ class ColorsConfig {
   static const Color colorE5D1B2 = Color(0xffE5D1B2);
   static const Color colorF9EED2 = Color(0xffF9EED2);
   static const Color colorEFEFED = Color(0xffEFEFED);
+
+  // Mission page / setting detail shared editor palette
+  static const Color missionEditorSurface = Colors.transparent;
+  static const Color missionEditorPrimary = Color(0xFF5B4E45);
+  static const Color missionEditorSecondary = Color(0xFF8A7C72);
+  static const Color missionEditorDivider = Color(0xFFD8CCBF);
+  static const Color missionEditorIcon = Color(0xFF6A5C52);
+  static const Color missionEditorOutline = Color(0xFFD9CEC2);
+  static const Color missionEditorCounterBackground = Color(0x14FFFFFF);
+  static const Color missionEditorCounterText = Color(0xFF7B6E64);
+
+  // Mission page left folder list palette
+  static const Color missionSidebarSystemIcon = Color(0xFF7A6658);
+  static const Color missionSidebarCustomIcon = Color(0xFF7A6658);
+  static const Color missionSidebarTextPrimary = Color(0xFF3E3026);
+  static const Color missionSidebarTextSecondary = Color(0xFF8F7765);
+  static const Color missionSidebarSectionTitle = Color(0xFF8A7666);
+  static const Color missionSidebarHeaderChipBackground = Color(0xFFFFE8D4);
+  static const Color missionSidebarHoverBackground = Color(0x66FFF4E8);
+  static const Color missionSidebarSelectedBackground = Color(0xFFFFE5C9);
+  static const Color missionSidebarSelectedBorder = Color(0xFFE0AF7A);
+  static const Color missionSidebarSelectedShadow = Color(0x26D8A06B);
+  static const Color missionSidebarShellBackground = Color(0xF9FFF9F4);
+  static const Color missionDesktopEditorCanvas = Color(0xFFF8F2E9);
+
+  // Mission list desktop card palette
+  static const Color missionTaskCardBackground = Color(0xFFFFFCF8);
+  static const Color missionTaskCardBorder = Color(0xFFF0DFD1);
+  static const Color missionTaskCardShadow = Color(0x1FDAB28D);
+  static const Color missionTaskAccentShadow = Color(0x33D8A06B);
 }

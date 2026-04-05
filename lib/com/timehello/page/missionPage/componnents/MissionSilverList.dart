@@ -186,6 +186,29 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
     numItem: 5,
   );
 
+  Widget _buildUnifiedTextProtectionOverlay() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                const Color(0xF7FFFDF8),
+                const Color(0xDEFFFDF8),
+                const Color(0x9CFFFDF8),
+                const Color(0x30FFFDF8),
+                const Color(0x00FFFDF8),
+              ],
+              stops: const [0.0, 0.22, 0.42, 0.68, 1.0],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget getSliderValue({required MissionModel missionModel}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -419,7 +442,7 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            "Start\nFocus",
+                            getI18NKey().start_focus,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 12,
@@ -502,21 +525,13 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                 if (widget.useUnifiedStyle)
                   Positioned(
                     left: -10,
-                    top: 10,
-                    bottom: 10,
+                    top: 3,
+                    bottom: 3,
                     child: Container(
-                      width: 22,
+                      width: 20,
                       decoration: BoxDecoration(
-                        color: priorityAccentColor.withValues(alpha: 0.42),
-                        borderRadius: BorderRadius.circular(18),
-                        boxShadow: [
-                          BoxShadow(
-                            color: priorityAccentColor.withValues(alpha: 0.18),
-                            blurRadius: 14,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
+                        color: priorityAccentColor.withValues(alpha: 0.48),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20), topRight: Radius.circular(0), bottomRight: Radius.circular(0)),),
                     ),
                   ),
                 Container(
@@ -525,16 +540,14 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                       ? buildUnifiedDesktopCardDecoration(
                           backgroundColor:
                               ThemeManager.getInstance().getCardBackgroundColor(
-                            defaultColor: const Color(0xFFFFFBF7),
+                            defaultColor:
+                                ColorsConfig.missionTaskCardBackground,
                             alpha: 150,
                           ),
                           borderRadius: BorderRadius.circular(18),
                           border: this.widget.multiSelectModeEnum ==
                                   MultiSelectModeEnum.normal
-                              ? Border.all(
-                                  width: 1.0,
-                                  color: const Color(0xFFF1E1D2),
-                                )
+                              ? null
                               : Border.all(
                                   width: 2.0,
                                   color: Color(
@@ -545,6 +558,18 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                                             : 0xe0000000),
                                   ),
                                 ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorsConfig.missionTaskCardShadow,
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                            BoxShadow(
+                              color: Colors.white.withValues(alpha: 0.65),
+                              blurRadius: 10,
+                              offset: const Offset(-2, -2),
+                            ),
+                          ],
                         ).copyWith(
                           image: imageProvider == null
                               ? null
@@ -622,6 +647,10 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                           return Container();
                         },
                       ),
+                if (widget.useUnifiedStyle &&
+                    TextUtil.isEmpty(_missionModel?.background_url ?? "") ==
+                        false)
+                  _buildUnifiedTextProtectionOverlay(),
                 Container(
                   color: widget.useUnifiedStyle
                       ? Colors.transparent

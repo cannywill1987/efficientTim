@@ -146,7 +146,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
     final Color titleColor = ThemeManager.getInstance().getTextColor(
         defaultColor: const Color(0xFF3A2417), defaultDarkColor: Colors.white);
     final Color accentColor = const Color(0xFFC98261);
-    final String headline = widget.folderModel?.title ?? "Today";
+    final String headline = widget.folderModel?.title ?? getI18NKey().today;
     final int finished = widget.folderTimeModel?.numMissionFinished ?? 0;
     final int pending = widget.folderTimeModel?.numMissionToFinished ?? 0;
     final int total = finished + pending;
@@ -186,7 +186,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  "Remaining",
+                  "剩余",
                   style: TextStyle(
                     fontSize: compact ? 28 : 34,
                     fontWeight: FontWeight.w300,
@@ -197,8 +197,8 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                 const SizedBox(height: 14),
                 Text(
                   total > 0
-                      ? "$finished/$total tasks completed"
-                      : "${widget.folderTimeModel?.numMissionToFinished ?? 0} tasks planned",
+                      ? "$finished/$total ${getI18NKey().missionNums}"
+                      : "${widget.folderTimeModel?.numMissionToFinished ?? 0}${getI18NKey().unitMissions}",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -215,14 +215,14 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
             children: [
               UnifiedMetricRing(
                 value: widget.folderTimeModel?.finishedTimeString ?? "0:00",
-                label: "Focus Time",
+                label: getI18NKey().timefocused,
                 subtitle: "(${widget.folderTimeModel?.finishedTimeString ?? '0:00'})",
                 progress: _getFocusProgress(),
                 color: const Color(0xFFF0B788),
               ),
               UnifiedMetricRing(
                 value: total > 0 ? "$finished/$total" : "0/0",
-                label: "Tasks Completed",
+                label: getI18NKey().missionNums,
                 subtitle: total > 0 ? "($finished/$total)" : "(0/0)",
                 progress: _getTaskProgress(),
                 color: const Color(0xFF9EDDC9),
@@ -230,7 +230,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               UnifiedMetricRing(
                 value: (widget.folderTimeModel?.numTomatoesFinished ?? 0)
                     .toString(),
-                label: "Pomodoro Sessions",
+                label: getI18NKey().tomatoNums,
                 subtitle:
                     "(${widget.folderTimeModel?.numTomatoesFinished ?? 0})",
                 progress: _getPomodoroProgress(),
@@ -889,18 +889,24 @@ class HeaderInputState extends State<HeaderInputWidget> {
                       ? const Color(0xFFC58B67)
                       : Color(0xffd5d5d5)),
               floatingLabelStyle: TextStyle(
-                  color: ThemeManager.getInstance()
-                      .getIconColor(),
-                  fontSize: 14),
+                  color: widget.useUnifiedStyle
+                      ? const Color(0xFFB69179).withValues(alpha: 0.96)
+                      : ThemeManager.getInstance().getIconColor(),
+                  fontSize: widget.useUnifiedStyle ? 13 : 14,
+                  fontWeight:
+                      widget.useUnifiedStyle ? FontWeight.w600 : null),
               labelStyle: TextStyle(
-                  color: ThemeManager.getInstance()
-                      .getInputPlaceholderColor(
+                  color: widget.useUnifiedStyle
+                      ? const Color(0xFFB69179).withValues(alpha: 0.88)
+                      : ThemeManager.getInstance().getInputPlaceholderColor(
                           defaultColor: Color(0xffd5d5d5),
                           defaultDarkColor:
                               TextUtil.isEmpty(this.inputController?.text)
                                   ? Color(0xff575757)
                                   : Colors.white),
-                  fontSize: 14),
+                  fontSize: widget.useUnifiedStyle ? 13 : 14,
+                  fontWeight:
+                      widget.useUnifiedStyle ? FontWeight.w600 : null),
               //边框，一般下面的几个边框一起设置
               //keyboardType: TextInputType.number, //键盘类型
               //obscureText: true,//密码模式
@@ -957,7 +963,6 @@ class HeaderInputState extends State<HeaderInputWidget> {
               // labelStyle:
               //     TextStyle(color: Color(0x00000000), fontSize: 14),
               // labelText: getI18NKey().search,
-
               labelText: Utility.isHandsetBySize()
                   ? getI18NKey().addMissions2
                   : curFolderModel == null
@@ -1097,6 +1102,10 @@ class UnifiedMetricRing extends StatelessWidget {
     required this.color,
   });
 
+  Color get _ringTrackColor => color.withValues(alpha: 0.12);
+  Color get _ringGlowColor => color.withValues(alpha: 0.20);
+  Color get _ringShadowColor => color.withValues(alpha: 0.16);
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -1105,49 +1114,110 @@ class UnifiedMetricRing extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 108,
-            height: 108,
-            padding: const EdgeInsets.all(10),
+            width: 118,
+            height: 118,
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withValues(alpha: 0.72),
+              gradient: RadialGradient(
+                colors: [
+                  Colors.white.withValues(alpha: 0.98),
+                  const Color(0xFFFFF8F0),
+                ],
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: color.withValues(alpha: 0.24),
-                  blurRadius: 20,
-                  spreadRadius: 2,
+                  color: _ringGlowColor,
+                  blurRadius: 28,
+                  spreadRadius: 6,
+                ),
+                BoxShadow(
+                  color: _ringShadowColor,
+                  blurRadius: 22,
+                  offset: const Offset(0, 12),
+                ),
+                BoxShadow(
+                  color: Colors.white.withValues(alpha: 0.92),
+                  blurRadius: 16,
+                  offset: const Offset(-5, -5),
                 ),
               ],
             ),
             child: Stack(
               alignment: Alignment.center,
               children: [
-                SizedBox.expand(
-                  child: CircularProgressIndicator(
-                    value: progress <= 0 ? 0.02 : progress,
-                    strokeWidth: 9,
-                    backgroundColor: color.withValues(alpha: 0.18),
-                    valueColor: AlwaysStoppedAnimation<Color>(color),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0xFFFFFBF7),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.92),
+                      width: 1.4,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withValues(alpha: 0.95),
+                        blurRadius: 12,
+                        offset: const Offset(-4, -4),
+                      ),
+                      BoxShadow(
+                        color: _ringShadowColor,
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: SizedBox.expand(
+                    child: CircularProgressIndicator(
+                      value: progress <= 0 ? 0.02 : progress,
+                      strokeWidth: 10,
+                      strokeCap: StrokeCap.round,
+                      backgroundColor: _ringTrackColor,
+                      valueColor: AlwaysStoppedAnimation<Color>(color),
+                    ),
                   ),
                 ),
                 Container(
-                  width: 70,
-                  height: 70,
+                  width: 74,
+                  height: 74,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFFFFFBF6),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.9),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFFFFFEFC),
+                        Color(0xFFFFF5E9),
+                      ],
                     ),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.96),
+                      width: 1.2,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withValues(alpha: 0.95),
+                        blurRadius: 10,
+                        offset: const Offset(-4, -4),
+                      ),
+                      BoxShadow(
+                        color: _ringShadowColor,
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     value,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 19,
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF3D2A20),
+                      color: Color(0xFF2F221B),
                     ),
                   ),
                 ),

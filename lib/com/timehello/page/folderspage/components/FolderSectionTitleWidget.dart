@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../util/ThemeManager.dart';
@@ -26,14 +27,14 @@ class FolderSectionTitleWidget extends StatelessWidget {
     final Color titleColor = useUnifiedStyle
         ? ThemeManager.getInstance().getTextColor(
             context: context,
-            defaultColor: const Color(0xFF8C6753),
+            defaultColor: ColorsConfig.missionSidebarSectionTitle,
             defaultDarkColor: Colors.white70)
         : ThemeManager.getInstance()
             .getTextColor(context: context, defaultColor: Color(0xffa3a3a3));
     return SliverToBoxAdapter(
       child: Container(
         padding: useUnifiedStyle
-            ? const EdgeInsets.fromLTRB(18, 16, 18, 8)
+            ? const EdgeInsets.fromLTRB(20, 16, 18, 6)
             : const EdgeInsets.fromLTRB(15, 4, 12, 4),
         color: useUnifiedStyle
             ? Colors.transparent
@@ -49,10 +50,10 @@ class FolderSectionTitleWidget extends StatelessWidget {
               title,
               textAlign: TextAlign.left,
               style: TextStyle(
-                  fontSize: useUnifiedStyle ? 12 : 13,
+                  fontSize: useUnifiedStyle ? 11 : 13,
                   fontWeight:
                       useUnifiedStyle ? FontWeight.w700 : FontWeight.normal,
-                  letterSpacing: useUnifiedStyle ? 0.4 : 0,
+                  letterSpacing: useUnifiedStyle ? 0.3 : 0,
                   color: titleColor,
                   shadows: useUnifiedStyle || ThemeManager.getInstance().isDark()
                       ? null
@@ -64,16 +65,16 @@ class FolderSectionTitleWidget extends StatelessWidget {
             if (this.onClick != null)
               InkWell(
                 onTap: () {
-                  this.onClick?.call();
+                    this.onClick?.call();
                 },
                 child: useUnifiedStyle
                     ? Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
+                            horizontal: 9, vertical: 5),
                         decoration: BoxDecoration(
                           color: isDark
                               ? Colors.white.withValues(alpha: 0.08)
-                              : const Color(0xFFFFEAD8),
+                              : ColorsConfig.missionSidebarHeaderChipBackground,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
@@ -83,7 +84,8 @@ class FolderSectionTitleWidget extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: ThemeManager.getInstance().getTextColor(
-                                  defaultColor: const Color(0xFF8C5831),
+                                  defaultColor:
+                                      ColorsConfig.missionSidebarTextPrimary,
                                   defaultDarkColor: Colors.white)),
                         ),
                       )

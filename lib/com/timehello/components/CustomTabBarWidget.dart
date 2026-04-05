@@ -18,6 +18,10 @@ class CustomTabBarWidget extends StatefulWidget {
   double fontSize = 18;
   bool isAutoTrigger = false;
   bool useUnifiedStyle = false;
+  Color? checkedTextColor;
+  Color? uncheckedTextColor;
+  Color? checkedIndicatorColor;
+  Color? uncheckedIndicatorColor;
   CustomTabBarWidget(
       {Key? key,
         required this.fontSize,
@@ -25,6 +29,10 @@ class CustomTabBarWidget extends StatefulWidget {
       required this.onCheckedListener,
         this.isAutoTrigger = false,
         this.useUnifiedStyle = false,
+        this.checkedTextColor,
+        this.uncheckedTextColor,
+        this.checkedIndicatorColor,
+        this.uncheckedIndicatorColor,
       this.checkIndex = 0})
       : super(key: key);
 
@@ -198,9 +206,21 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
               Text(
                 model.title ?? "",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize:this.widget.fontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.tabbarChecked)),
+                style: TextStyle(
+                    fontSize: this.widget.fontSize,
+                    color: ThemeManager.getInstance().getTextColor(
+                        defaultColor: widget.checkedTextColor ??
+                            ColorsConfig.tabbarChecked)),
               ),
-              Container(width: 20, height: 2, margin: EdgeInsets.only(top: 4),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().getDefautThemeColor()),)
+              Container(
+                width: 20,
+                height: 2,
+                margin: EdgeInsets.only(top: 4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: widget.checkedIndicatorColor ??
+                        ThemeManager.getInstance().getDefautThemeColor()),
+              )
             ],
           ),
           uncheckWidget: Column(
@@ -208,9 +228,23 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
               Text(
                 model.title ?? "",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: this.widget.fontSize - 2, color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.tabbarUnchecked, defaultDarkColor: Color(0xff999999))),
+                style: TextStyle(
+                    fontSize: this.widget.fontSize - 2,
+                    color: ThemeManager.getInstance().getTextColor(
+                        defaultColor:
+                            widget.uncheckedTextColor ?? ColorsConfig.tabbarUnchecked,
+                        defaultDarkColor: Color(0xff999999))),
               ),
-              Container(width: 20, height: 4, decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().isDark() ? null: Colors.white),)
+              Container(
+                width: 20,
+                height: 4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: widget.uncheckedIndicatorColor ??
+                        (ThemeManager.getInstance().isDark()
+                            ? null
+                            : Colors.white)),
+              )
             ],
           ),
         ),

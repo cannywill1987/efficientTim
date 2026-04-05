@@ -69,12 +69,8 @@ class CustomSelectForIconsPopupWidgetState
       },
       list: this.widget.datas,
       child: Container(
-          margin: EdgeInsets.only(left: 20),
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          height: 24,
-          decoration: BoxDecoration(
-              color: ThemeManager.getInstance().getDefautThemeColor(),
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+          constraints: const BoxConstraints(minHeight: 28),
           child: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             runAlignment: WrapAlignment.center,
@@ -82,38 +78,41 @@ class CustomSelectForIconsPopupWidgetState
             children: [
               if (this.model?.checkIcon != null)
                 this.model?.checkIcon ?? SizedBox.shrink(),
-              SizedBox(
-                width: 4,
+              const SizedBox(
+                width: 6,
               ),
-              // if(this.model?.title != null) {
               Text(
                 this.model?.title ?? getI18NKey().unselected,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: ThemeManager.getInstance().getTextColor(
+                      defaultColor: const Color(0xFF8B6A55),
+                      defaultDarkColor: Colors.white70),
+                ),
               ),
-              // },
-              //半透明圆形 里面有个inkwell x关闭按钮 点击会清空folderModelForFolder
               InkWell(
                 onTap: () {
                   // folderModelForFolder = null;
                   // updateUI();
                 },
                 child: Container(
-                  margin: EdgeInsets.only(left: 5),
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                      color: Color(0x33ffffff),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  margin: const EdgeInsets.only(left: 6),
+                  padding: const EdgeInsets.all(1),
                   child: Icon(
                     Icons.close,
-                    size: 12,
-                    color: Colors.white,
+                    size: 13,
+                    color: ThemeManager.getInstance().getIconColor(
+                        defaultColor: const Color(0xFFB69179),
+                        defaultDarkColor: Colors.white70),
                   ),
                 ),
               ),
-              // 向右的白色三角箭头
               Icon(
                 Icons.arrow_drop_down,
-                color: Colors.white,
+                color: ThemeManager.getInstance().getIconColor(
+                    defaultColor: const Color(0xFFB69179),
+                    defaultDarkColor: Colors.white70),
                 size: 20,
               )
             ],

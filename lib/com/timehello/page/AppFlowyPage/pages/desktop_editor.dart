@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/util/ChatGptManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -226,12 +227,12 @@ class _DesktopEditorState extends State<DesktopEditor> {
     } else {
       return EditorStyle.desktop(
         cursorWidth: 2.0,
-        cursorColor: Colors.blue,
-        selectionColor: Colors.grey.shade300,
+        cursorColor: ColorsConfig.missionEditorPrimary,
+        selectionColor: ColorsConfig.missionEditorDivider.withValues(alpha: 0.38),
         textStyleConfiguration: TextStyleConfiguration(
           text: GoogleFonts.poppins(
             fontSize: 16,
-            color: Colors.black,
+            color: ColorsConfig.missionEditorPrimary,
           ),
           code: GoogleFonts.architectsDaughter(),
           bold: GoogleFonts.poppins(

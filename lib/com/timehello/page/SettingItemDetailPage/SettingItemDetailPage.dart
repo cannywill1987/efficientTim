@@ -104,6 +104,9 @@ class _SettingItemDetailPageWidgetState<T>
   bool isNeedUpdateBmob =
       false; //是否需要更新BMOB 需要更新就EventBus发送广播让MssionPage重新发起requestData请求
   bool isSaving = false;
+  bool isInlineEditingTitle = false;
+  TextEditingController? titleEditingController;
+  FocusNode titleEditingFocusNode = FocusNode();
 
   bool get isUnifiedDesktop => !Utility.isHandsetBySize();
 
@@ -150,6 +153,7 @@ class _SettingItemDetailPageWidgetState<T>
       padding: padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 16),
       backgroundColor: detailSectionBackground,
       borderRadius: BorderRadius.circular(24),
+      clipBehavior: Clip.antiAlias,
       border: Border.all(color: detailBorderColor),
       boxShadow: [
         BoxShadow(
@@ -220,20 +224,10 @@ class _SettingItemDetailPageWidgetState<T>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            this.widget.missionModel.title ?? "",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 22,
-              height: 1.12,
-              fontWeight: FontWeight.w800,
-              color: detailTitleColor,
-            ),
-          ),
+          buildEditableMissionTitle(fontSize: 22),
           const SizedBox(height: 16),
           Text(
-            "Task setup",
+            getI18NKey().mission_setting,
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -261,7 +255,7 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
-  double get unifiedTileWidth => 172;
+  double get unifiedTileWidth => 174;
 
   _SettingItemDetailPageWidgetState({this.curTab = 0}) {}
 
@@ -285,6 +279,8 @@ class _SettingItemDetailPageWidgetState<T>
 
     controller =
         TextEditingController(text: this.widget.missionModel?.message ?? '');
+    titleEditingController =
+        TextEditingController(text: this.widget.missionModel.title ?? '');
     // await requestGetTags(this.widget.missionModel?.tagNames.split(',') ?? ['ejizfjize']);
     if (this.widget.missionModel?.tagNames == null)
       this.widget.missionModel?.tagNames = '';
@@ -466,6 +462,10 @@ class _SettingItemDetailPageWidgetState<T>
   void didUpdateWidget(SettingItemDetailPage oldWidget) {
     controller =
         TextEditingController(text: this.widget.missionModel?.message ?? '');
+    if (!isInlineEditingTitle &&
+        oldWidget.missionModel.title != this.widget.missionModel.title) {
+      titleEditingController?.text = this.widget.missionModel.title ?? '';
+    }
   }
 
   @override
@@ -473,7 +473,108 @@ class _SettingItemDetailPageWidgetState<T>
 
   @override
   void dispose() {
+    titleEditingController?.dispose();
+    titleEditingFocusNode.dispose();
     super.dispose();
+  }
+
+  void startInlineTitleEdit() {
+    titleEditingController?.text = this.widget.missionModel.title ?? '';
+    isInlineEditingTitle = true;
+    updateUI();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      titleEditingFocusNode.requestFocus();
+      titleEditingController?.selection = TextSelection(
+        baseOffset: 0,
+        extentOffset: titleEditingController?.text.length ?? 0,
+      );
+    });
+  }
+
+  void cancelInlineTitleEdit() {
+    titleEditingController?.text = this.widget.missionModel.title ?? '';
+    isInlineEditingTitle = false;
+    titleEditingFocusNode.unfocus();
+    updateUI();
+  }
+
+  Future<void> submitInlineTitleEdit() async {
+    final String nextTitle = titleEditingController?.text.trim() ?? '';
+    if (TextUtil.isEmpty(nextTitle)) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(),
+          msg: getI18NKey().title_cannot_be_empty);
+      titleEditingFocusNode.requestFocus();
+      return;
+    }
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: this.widget.missionModel.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      cancelInlineTitleEdit();
+      return;
+    }
+
+    this.widget.missionModel.title = nextTitle;
+    if (this.widget.fromNormal == 0) {
+      await MongoApisManager.getInstance()
+          .update_MissionModel(missionModel: this.widget.missionModel);
+    }
+    isNeedUpdateBmob = true;
+    isInlineEditingTitle = false;
+    titleEditingFocusNode.unfocus();
+    updateUI();
+  }
+
+  Widget buildEditableMissionTitle({double fontSize = 22}) {
+    final TextStyle titleStyle = TextStyle(
+      fontSize: fontSize,
+      height: 1.12,
+      fontWeight: FontWeight.w800,
+      color: detailTitleColor,
+    );
+
+    if (isInlineEditingTitle) {
+      return TextField(
+        controller: titleEditingController,
+        focusNode: titleEditingFocusNode,
+        autofocus: true,
+        maxLines: 1,
+        textInputAction: TextInputAction.done,
+        style: titleStyle,
+        cursorColor: detailTitleColor,
+        decoration: const InputDecoration(
+          isDense: true,
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          contentPadding: EdgeInsets.zero,
+          filled: false,
+        ),
+        onSubmitted: (_) async {
+          await submitInlineTitleEdit();
+        },
+        onTapOutside: (_) {
+          cancelInlineTitleEdit();
+        },
+      );
+    }
+
+    return InkWell(
+      onTap: startInlineTitleEdit,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Text(
+          this.widget.missionModel.title ?? "",
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: titleStyle,
+        ),
+      ),
+    );
   }
 
   Future<MongoDbUpdated?> requestMongoDbUpdateData() async {
@@ -638,10 +739,6 @@ class _SettingItemDetailPageWidgetState<T>
       child: Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        // Container(
-        //   height: 1,
-        //   color: Color(0xffe0e0e0),
-        // ),
         CustomTabBarWidget(
           checkIndex: curTab,
           list: tabList,
@@ -656,11 +753,6 @@ class _SettingItemDetailPageWidgetState<T>
             } else {
               this.curTab = (index == 0) ? 0 : 2;
             }
-            // if(this.widget.missionModel.missionModelType == null || this.widget.missionModel.missionModelType == 0) {
-            //   this.curTab = index;
-            // } else {
-            //   this.curTab = (index == 0) ? 0 : 2;
-            // }
             updateUI();
           },
           fontSize: isUnifiedDesktop ? 13 : 14,
@@ -734,8 +826,8 @@ class _SettingItemDetailPageWidgetState<T>
                           AlwaysStoppedAnimation<Color>(Color(0xFF5B4332)),
                     ),
                   )
-                : const Text(
-                    "Save",
+                : Text(
+                    getI18NKey().save,
                     style: TextStyle(
                       color: Color(0xFF5B4332),
                       fontSize: 14,
@@ -785,16 +877,7 @@ class _SettingItemDetailPageWidgetState<T>
           Row(
             children: [
               Expanded(
-                child: Text(
-                  this.widget.missionModel?.title ?? '',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    color: detailTitleColor,
-                  ),
-                ),
+                child: buildEditableMissionTitle(fontSize: 22),
               ),
               const SizedBox(width: 12),
               buildHeaderActionChip(
@@ -1092,8 +1175,8 @@ class _SettingItemDetailPageWidgetState<T>
     return [
       Expanded(
           child: isUnifiedDesktop
-              ? wrapUnifiedSection(
-                  padding: EdgeInsets.zero,
+              ? Container(
+                  margin: const EdgeInsets.only(top: 12),
                   child: TimeLinePage(
                     missionObjectId: this.widget.missionModel.objectId ?? "",
                     folderObjectId: this.folderModel?.objectId ?? "",
@@ -1123,6 +1206,7 @@ class _SettingItemDetailPageWidgetState<T>
           true)
         MenuItem2(
             useUnifiedStyle: isUnifiedDesktop,
+            compactUnifiedStyle: isUnifiedDesktop,
             width: isUnifiedDesktop ? unifiedTileWidth : null,
             title: (this.widget.missionModel?.repetiveType == 0 ||
                     this.widget.missionModel.time_mode == 1)
@@ -1215,6 +1299,7 @@ class _SettingItemDetailPageWidgetState<T>
           true)
         MenuItem2(
             useUnifiedStyle: isUnifiedDesktop,
+            compactUnifiedStyle: isUnifiedDesktop,
             width: isUnifiedDesktop ? unifiedTileWidth : null,
             title: (this.widget.missionModel?.repetiveType == 0 ||
                     this.widget.missionModel.time_mode == 1)
@@ -1327,6 +1412,7 @@ class _SettingItemDetailPageWidgetState<T>
           true)
         MenuItem2(
             useUnifiedStyle: isUnifiedDesktop,
+            compactUnifiedStyle: isUnifiedDesktop,
             width: isUnifiedDesktop ? unifiedTileWidth : null,
             title: getI18NKey().mission,
             subTitle: this.widget.missionModel.repetiveType == 1
@@ -1385,6 +1471,7 @@ class _SettingItemDetailPageWidgetState<T>
             ? const SizedBox.shrink()
             : MenuItem2(
                 useUnifiedStyle: isUnifiedDesktop,
+                compactUnifiedStyle: isUnifiedDesktop,
                 width: isUnifiedDesktop ? unifiedTileWidth : null,
                 title: getI18NKey().tomatoNums,
                 subTitle: getI18NKey().tomatoNums3,
@@ -1424,6 +1511,7 @@ class _SettingItemDetailPageWidgetState<T>
           ? const SizedBox.shrink()
           : MenuItem2(
               useUnifiedStyle: isUnifiedDesktop,
+              compactUnifiedStyle: isUnifiedDesktop,
               width: isUnifiedDesktop ? unifiedTileWidth : null,
               title: getI18NKey().deadLine,
               onTapListener: (data) async {
@@ -1487,6 +1575,7 @@ class _SettingItemDetailPageWidgetState<T>
               ? const SizedBox.shrink()
               : MenuItem2(
                   useUnifiedStyle: isUnifiedDesktop,
+                  compactUnifiedStyle: isUnifiedDesktop,
                   width: isUnifiedDesktop ? unifiedTileWidth : null,
                   title: getI18NKey().alert,
                   subTitle: "(${getI18NKey().optional})",
@@ -1568,6 +1657,7 @@ class _SettingItemDetailPageWidgetState<T>
             ? const SizedBox.shrink()
             : MenuItem2(
                 useUnifiedStyle: isUnifiedDesktop,
+                compactUnifiedStyle: isUnifiedDesktop,
                 width: isUnifiedDesktop ? unifiedTileWidth : null,
                 title: getI18NKey().repetive,
                 subTitle: "(${getI18NKey().optional})",
@@ -1682,13 +1772,13 @@ class _SettingItemDetailPageWidgetState<T>
         buildDesktopTaskSettingsHeader(),
         if (shouldShowWallpaper) ...[
           SectionTitleWidget(
-            title: "Task Background",
+            title: getI18NKey().background_setting,
             useUnifiedStyle: true,
           ),
           buildBackgroundPreviewWidget(),
         ],
         SectionTitleWidget(
-          title: "Tags",
+          title: getI18NKey().tag,
           useUnifiedStyle: true,
         ),
         wrapUnifiedSection(
@@ -1731,7 +1821,7 @@ class _SettingItemDetailPageWidgetState<T>
                 missionModelType: this.widget.missionModel.missionModelType) ==
             true) ...[
           SectionTitleWidget(
-            title: "Priority",
+            title: getI18NKey().priority,
             useUnifiedStyle: true,
           ),
           wrapUnifiedSection(
@@ -1822,24 +1912,16 @@ class _SettingItemDetailPageWidgetState<T>
   List<Widget> getTabBar0WidgetList() {
     return [
       Expanded(
-        child: isUnifiedDesktop
-            ? wrapUnifiedSection(
-                padding: EdgeInsets.zero,
-                child: ComposedRichEditorWidget(
-                  key: composedRichEditorWidgetGlobalKey,
-                  title: getI18NKey().note_plain,
-                  onTapOk: () {},
-                  missionModel: this.widget.missionModel,
-                  saveModeEnum: SaveModeEnum.normal,
-                ),
-              )
-            : ComposedRichEditorWidget(
-                key: composedRichEditorWidgetGlobalKey,
-                title: getI18NKey().note_plain,
-                onTapOk: () {},
-                missionModel: this.widget.missionModel,
-                saveModeEnum: SaveModeEnum.normal,
-              ),
+        child: Padding(
+          padding: EdgeInsets.only(top: isUnifiedDesktop ? 12 : 0),
+          child: ComposedRichEditorWidget(
+            key: composedRichEditorWidgetGlobalKey,
+            title: getI18NKey().note_plain,
+            onTapOk: () {},
+            missionModel: this.widget.missionModel,
+            saveModeEnum: SaveModeEnum.normal,
+          ),
+        ),
       ),
       // getSubmissionListWidget(),
     ];
@@ -1956,7 +2038,7 @@ class _SettingItemDetailPageWidgetState<T>
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          "No background",
+                          getI18NKey().none,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -1973,7 +2055,7 @@ class _SettingItemDetailPageWidgetState<T>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Task Background",
+                    getI18NKey().background_setting,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -1983,8 +2065,8 @@ class _SettingItemDetailPageWidgetState<T>
                   const SizedBox(height: 6),
                   Text(
                     imageProviderTmp == null
-                        ? "Add a quiet backdrop for this task."
-                        : "Background selected",
+                        ? getI18NKey().change_background
+                        : getI18NKey().background,
                     style: TextStyle(
                       fontSize: 12,
                       height: 1.35,
@@ -2006,7 +2088,7 @@ class _SettingItemDetailPageWidgetState<T>
                       });
                     },
                     child: Text(
-                      "Choose",
+                      getI18NKey().change_bg,
                       style: TextStyle(
                         color: detailSubColor,
                         fontWeight: FontWeight.w600,

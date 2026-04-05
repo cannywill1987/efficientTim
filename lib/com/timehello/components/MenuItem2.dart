@@ -10,6 +10,7 @@ class MenuItem2 extends StatefulWidget {
   Widget? rightPartContainer;
   OnTapListener? onTapListener;
   bool useUnifiedStyle;
+  bool compactUnifiedStyle;
   double? width;
   MenuItem2(
       {required this.icon,
@@ -18,6 +19,7 @@ class MenuItem2 extends StatefulWidget {
       this.rightPartContainer,
       this.onTapListener,
       this.useUnifiedStyle = false,
+      this.compactUnifiedStyle = false,
       this.width});
 
   @override
@@ -80,8 +82,15 @@ class MenuItemState extends State<MenuItem2> {
             duration: const Duration(milliseconds: 160),
             curve: Curves.easeOutCubic,
             width: widget.width,
-            constraints: const BoxConstraints(minHeight: 102),
-            padding: const EdgeInsets.fromLTRB(14, 13, 14, 12),
+            constraints: BoxConstraints(
+              minHeight: widget.compactUnifiedStyle ? 74 : 102,
+            ),
+            padding: EdgeInsets.fromLTRB(
+              14,
+              widget.compactUnifiedStyle ? 12 : 13,
+              14,
+              widget.compactUnifiedStyle ? 12 : 12,
+            ),
             decoration: buildUnifiedDesktopCardDecoration(
               backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(
                 defaultColor: _isHovered
@@ -102,63 +111,125 @@ class MenuItemState extends State<MenuItem2> {
                 )
               ],
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: _isHovered
-                        ? const Color(0xFFFFECD8)
-                        : const Color(0xFFFFF2E2),
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  alignment: Alignment.center,
-                  child: this.widget.icon,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  this.widget.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: ThemeManager.getInstance()
-                        .getTextColor(defaultColor: const Color(0xFF6D5646)),
-                  ),
-                ),
-                if ((this.widget.subTitle ?? "").isNotEmpty) ...[
-                  const SizedBox(height: 5),
-                  Text(
-                    this.widget.subTitle ?? "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: ThemeManager.getInstance().getTextColor(
-                          defaultColor: const Color(0xFFA18A78)),
-                    ),
-                  ),
-                ],
-                if (this.widget.rightPartContainer != null)
-                  const SizedBox(height: 12),
-                if (this.widget.rightPartContainer != null)
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(
-                        color: ThemeManager.getInstance().getTextColor(
-                            defaultColor: const Color(0xFF3C2A1E)),
+            child: widget.compactUnifiedStyle
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 34,
+                        height: 34,
+                        decoration: BoxDecoration(
+                          color: _isHovered
+                              ? const Color(0xFFFFECD8)
+                              : const Color(0xFFFFF2E2),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        alignment: Alignment.center,
+                        child: this.widget.icon,
                       ),
-                      child: this.widget.rightPartContainer!,
-                    ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              this.widget.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ThemeManager.getInstance().getTextColor(
+                                    defaultColor: const Color(0xFF6D5646)),
+                              ),
+                            ),
+                            if ((this.widget.subTitle ?? "").isNotEmpty) ...[
+                              const SizedBox(height: 3),
+                              Text(
+                                this.widget.subTitle ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: ThemeManager.getInstance().getTextColor(
+                                      defaultColor: const Color(0xFFA18A78)),
+                                ),
+                              ),
+                            ],
+                            if (this.widget.rightPartContainer != null)
+                              const SizedBox(height: 5),
+                            if (this.widget.rightPartContainer != null)
+                              DefaultTextStyle.merge(
+                                style: TextStyle(
+                                  color: ThemeManager.getInstance().getTextColor(
+                                      defaultColor: const Color(0xFF3C2A1E)),
+                                ),
+                                child: this.widget.rightPartContainer!,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 34,
+                        height: 34,
+                        decoration: BoxDecoration(
+                          color: _isHovered
+                              ? const Color(0xFFFFECD8)
+                              : const Color(0xFFFFF2E2),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        alignment: Alignment.center,
+                        child: this.widget.icon,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        this.widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: ThemeManager.getInstance()
+                              .getTextColor(defaultColor: const Color(0xFF6D5646)),
+                        ),
+                      ),
+                      if ((this.widget.subTitle ?? "").isNotEmpty) ...[
+                        const SizedBox(height: 5),
+                        Text(
+                          this.widget.subTitle ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: ThemeManager.getInstance().getTextColor(
+                                defaultColor: const Color(0xFFA18A78)),
+                          ),
+                        ),
+                      ],
+                      if (this.widget.rightPartContainer != null)
+                        const SizedBox(height: 12),
+                      if (this.widget.rightPartContainer != null)
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: DefaultTextStyle.merge(
+                            style: TextStyle(
+                              color: ThemeManager.getInstance().getTextColor(
+                                  defaultColor: const Color(0xFF3C2A1E)),
+                            ),
+                            child: this.widget.rightPartContainer!,
+                          ),
+                        ),
+                    ],
                   ),
-              ],
-            ),
           ),
         ),
       );

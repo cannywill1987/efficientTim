@@ -171,7 +171,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       Container(
           width: double.infinity,
           height: 1,
-          color: ThemeManager.getInstance().getDefautThemeColor()),
+          color: ColorsConfig.missionEditorDivider),
       Expanded(
         child: getWidget(),
       )

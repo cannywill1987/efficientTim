@@ -105,6 +105,7 @@ class UnifiedDesktopCard extends StatelessWidget {
   final BorderRadiusGeometry borderRadius;
   final BoxBorder? border;
   final List<BoxShadow>? boxShadow;
+  final Clip clipBehavior;
 
   const UnifiedDesktopCard({
     super.key,
@@ -115,20 +116,33 @@ class UnifiedDesktopCard extends StatelessWidget {
     this.borderRadius = const BorderRadius.all(Radius.circular(18)),
     this.border,
     this.boxShadow,
+    this.clipBehavior = Clip.none,
   });
 
   @override
   Widget build(BuildContext context) {
+    final Widget content = padding == null
+        ? child
+        : Padding(
+            padding: padding!,
+            child: child,
+          );
+
     return Container(
       margin: margin,
-      padding: padding,
       decoration: buildUnifiedDesktopCardDecoration(
         backgroundColor: backgroundColor,
         borderRadius: borderRadius,
         border: border,
         boxShadow: boxShadow,
       ),
-      child: child,
+      child: clipBehavior == Clip.none
+          ? content
+          : ClipRRect(
+              borderRadius: borderRadius,
+              clipBehavior: clipBehavior,
+              child: content,
+            ),
     );
   }
 }

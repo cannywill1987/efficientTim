@@ -588,40 +588,37 @@ class BottomBarState extends State<BottomBar> {
                 ),
               ),
               const SizedBox(width: 12),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFF8F0),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE7D8C8)),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                child: IconButtonListWidget(
-                  popupModeEnum: PopupModeEnum.popup,
-                  initIndex: this.missionModelType,
-                  list: CONSTANTS.getMissionTypeButtonList(defaultVal: 0),
-                  onTapListener: (obj) {
-                    switch (obj['data'].code) {
-                      case 'normal':
-                        this.widget.onTapMissionModelTypeListener?.call(0);
-                        _tabBarKey.currentState?.setChecked(0);
-                        this.missionModelType = 0;
-                        this.time_mode = 0;
-                        break;
-                      case 'calendar':
-                        this.widget.onTapMissionModelTypeListener?.call(1);
-                        _tabBarKey.currentState?.setChecked(0);
-                        this.missionModelType = 1;
-                        this.time_mode = 1;
-                        break;
-                      case 'alarm':
-                        this.widget.onTapMissionModelTypeListener?.call(2);
-                        _tabBarKey.currentState?.setChecked(0);
-                        this.missionModelType = 2;
-                        this.time_mode = 0;
-                        break;
-                    }
-                    setState(() {});
-                  },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                child: Center(
+                  child: IconButtonListWidget(
+                    popupModeEnum: PopupModeEnum.popup,
+                    initIndex: this.missionModelType,
+                    list: CONSTANTS.getMissionTypeButtonList(defaultVal: 0),
+                    onTapListener: (obj) {
+                      switch (obj['data'].code) {
+                        case 'normal':
+                          this.widget.onTapMissionModelTypeListener?.call(0);
+                          _tabBarKey.currentState?.setChecked(0);
+                          this.missionModelType = 0;
+                          this.time_mode = 0;
+                          break;
+                        case 'calendar':
+                          this.widget.onTapMissionModelTypeListener?.call(1);
+                          _tabBarKey.currentState?.setChecked(0);
+                          this.missionModelType = 1;
+                          this.time_mode = 1;
+                          break;
+                        case 'alarm':
+                          this.widget.onTapMissionModelTypeListener?.call(2);
+                          _tabBarKey.currentState?.setChecked(0);
+                          this.missionModelType = 2;
+                          this.time_mode = 0;
+                          break;
+                      }
+                      setState(() {});
+                    },
+                  ),
                 ),
               ),
             ],

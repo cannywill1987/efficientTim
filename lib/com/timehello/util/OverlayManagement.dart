@@ -120,7 +120,7 @@ class OverlayManagement {
                 child: Row(
                   children: [
                     Text(
-                      "Task Details",
+                      getI18NKey().mission_setting,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
@@ -168,10 +168,11 @@ class OverlayManagement {
                   padding: const EdgeInsets.fromLTRB(10, 6, 10, 10),
                   child: ClipRRect(
                     borderRadius: innerRadius,
-                    child: Container(
-                      color: isDark
-                          ? const Color(0xFF241D18)
-                          : const Color(0xFFFFFCF8),
+                    child: Theme(
+                      data: Theme.of(context).copyWith(
+                        scaffoldBackgroundColor: Colors.transparent,
+                        canvasColor: Colors.transparent,
+                      ),
                       child: child,
                     ),
                   ),
@@ -189,6 +190,7 @@ class OverlayManagement {
     Widget? child;
     switch (page) {
       case 'SettingItemDetailPage':
+        child = Container();
         child = SettingItemDetailPage(
           key: ValueKey("setting_item_detail_overlay"),
           missionModel: data['missionModel'],
