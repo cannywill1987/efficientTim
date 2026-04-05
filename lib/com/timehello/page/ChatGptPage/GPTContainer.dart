@@ -1,21 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
-import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
+import 'package:time_hello/com/timehello/page/AIReplyAssistPage/AIReplyAssistPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTFoldersPage/GPTFoldersPage.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTRoleGridViewPage.dart';
-import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/WQBMissionPage.dart';
-import 'package:time_hello/com/timehello/page/WrongQuestionBookPage/WrongQuestionBookPage.dart';
-import 'package:time_hello/com/timehello/util/LoginManager.dart';
-
-import '../../common/provider/GlobalStateEnv.dart';
-import '../../components/TransparentOverlayPage.dart';
-import '../../config/CONSTANTS.dart';
 import '../../config/ENUMS.dart';
 import '../../util/ScreenUtil.dart';
-import '../../util/Utility.dart';
 
 class GPTContainer extends BaseWidget {
   const GPTContainer();
@@ -29,6 +18,9 @@ class GPTContainer extends BaseWidget {
 
 class GPTContainerState extends BaseWidgetState<GPTContainer> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  /// 0: 原聊天页（ChatGptPage），1: 回复助手页（AIReplyAssistPage）。
+  int _selectedTabIndex = 0;
 
   @override
   void initState() {
@@ -64,67 +56,99 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
           },
         ),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          ChatGptPage(
-            pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
+          _buildTabSwitcher(),
+          Expanded(
+            child: IndexedStack(
+              index: _selectedTabIndex,
+              children: [
+                ChatGptPage(
+                  pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
+                ),
+                const AIReplyAssistPage(),
+              ],
+            ),
           ),
-          // if (LoginManager.getInstance().isVIP(
-          //     shouldShowDialog: false,
-          //     paymentPromotionAdsModeEnum:
-          //         PaymentPromotionAdsModeEnum.AIHelper) == false)
-          //   Expanded(child: Container(
-          //     child: TransparentOverlayPage(
-          //       onTapCallback: () {
-          //         LoginManager.getInstance().isVIP(
-          //             shouldShowDialog: true,
-          //             paymentPromotionAdsModeEnum:
-          //                 PaymentPromotionAdsModeEnum.AIHelper);
-          //       },
-          //     ),
-          //   ))
         ],
       ),
     );
   }
 
   Widget baseDesktoptBuild(context) {
-    return Stack(
+    return Column(
       children: [
-        Row(
-          children: [
-            Container(
-                width: 300,
-                child: GPTFoldersPage(
-                  onTapItemListener: () {},
-                )),
-            // Container(
-            //     width: 300, child: WQBMissionPage(key: ValueKey("12121"))),
-            // Expanded(child:  WQBMissionPage(key: ValueKey("12121"))),
-            Expanded(
-                child: ChatGptPage(
-              pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
-            )),
-            // Expanded(child: GPTRoleGridViewPage())
-            // Expanded(child:  WrongQuestionBookPage(key: ValueKey("12121"), wqbMissionModel: WQBMissionModel(), isEditable: false,))
-          ],
+        _buildTabSwitcher(),
+        Expanded(
+          child: IndexedStack(
+            index: _selectedTabIndex,
+            children: [
+              Row(
+                children: [
+                  Container(
+                      width: 300,
+                      child: GPTFoldersPage(
+                        onTapItemListener: () {},
+                      )),
+                  Expanded(
+                      child: ChatGptPage(
+                    pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
+                  )),
+                ],
+              ),
+              const AIReplyAssistPage(),
+            ],
+          ),
         ),
-        // if (LoginManager.getInstance().isVIP(
-        //     shouldShowDialog: false,
-        //     paymentPromotionAdsModeEnum:
-        //     PaymentPromotionAdsModeEnum.AIHelper) == false)
-        //   Expanded(child: Container(
-        //     child: TransparentOverlayPage(
-        //       onTapCallback: () {
-        //         LoginManager.getInstance().isVIP(
-        //             shouldShowDialog: true,
-        //             paymentPromotionAdsModeEnum:
-        //             PaymentPromotionAdsModeEnum.AIHelper);
-        //       },
-        //     ),
-        //   )
-    // )
       ],
+    );
+  }
+
+  Widget _buildTabSwitcher() {
+    // 入口层做轻量 tab 切换，避免影响原有 ChatGptPage 逻辑。
+    return Container(
+      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Color(0xffeceef3), width: 1),
+        ),
+        color: Colors.white,
+      ),
+      child: Row(
+        children: [
+          _buildTabItem(index: 0, label: '聊天'),
+          const SizedBox(width: 8),
+          _buildTabItem(index: 1, label: '回复助手'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabItem({required int index, required String label}) {
+    final bool selected = _selectedTabIndex == index;
+    return InkWell(
+      onTap: () {
+        if (_selectedTabIndex != index) {
+          setState(() {
+            _selectedTabIndex = index;
+          });
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+        decoration: BoxDecoration(
+          color: selected ? const Color(0xff4f8cff) : const Color(0xfff4f6fa),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: selected ? Colors.white : const Color(0xff4f5565),
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 }

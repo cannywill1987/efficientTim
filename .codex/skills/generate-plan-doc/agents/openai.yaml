@@ -1,0 +1,7 @@
+interface:
+  display_name: "Generate Plan Doc"
+  short_description: "基于仓库模板生成完整实施规划文档"
+  default_prompt: "Use $generate-plan-doc to create a complete implementation plan from this repository's PLAN template."
+
+policy:
+  allow_implicit_invocation: true

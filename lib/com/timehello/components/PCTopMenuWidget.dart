@@ -281,10 +281,10 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
                   SizedBox(
                     width: 10,
                   ),
-                  if (ABTestSetting.isOpenAiOn == true)
+                  // if (ABTestSetting.isOpenAiOn == true)
                     InkWell(
                       onTap: () {
-                        if (ABTestSetting.isOpenAiOn == true)
+                        // if (ABTestSetting.isOpenAiOn == true)
                           Utility.openRightSideDesktopNavigator(
                               context, 'ChatGptPage', {});
                       },

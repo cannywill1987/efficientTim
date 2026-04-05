@@ -29,6 +29,7 @@ import '../../config/ColorsConfig.dart';
 import '../../config/Params.dart';
 import '../../util/AnalyticsEventsManager.dart';
 import '../../util/GetResourceDeliveryManager.dart';
+import '../AIReplyAssistPage/AIReplyAssistPage.dart';
 import '../AddFilterPage/AddFilterPage.dart';
 import '../ShortcutsPage/ShortcutsPage.dart';
 import '../TestPage/Test7Page.dart';
@@ -516,7 +517,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, SliderWithCanvasPage());
 
                   // Utility.pushReplacement(context, ScheduleScreen());
-                  Utility.pushReplacement(context, MainContainerWidget());
+                  // Utility.pushReplacement(context, const AIReplyAssistPage());
                   // Utility.pushReplacement(context, FeatureListWidget());
 
                   // Utility.pushReplacement(context, CalendarIcon());
@@ -528,7 +529,7 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
                   // Utility.pushReplacement(context, AddFilterPage());
                   // Utility.pushReplacement(context, AppflowyPage());
                   // Utility.pushReplacement(context, GroupChatSharingWidget());
-                  // Utility.pushReplacement(context, MainContainerWidget());
+                  Utility.pushReplacement(context, MainContainerWidget());
                   // Utility.pushReplacement(context, CreateAIChatGptMissionWidget(listMissionModel: [],));
 
                   // Utility.pushReplacement(context, CreateAIChatGptMissionPage());

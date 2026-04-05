@@ -1083,11 +1083,139 @@ class CounterMethodChannelManager {
   Future<bool> openSetting() async {
     // if(DeviceInfoManagement.getInstance()?.isIOS() == true || DeviceInfoManagement.getInstance()?.isMacOs()) {
     // {title, content, delay, extendsParams}
-    String res = await _channel.invokeMethod('openSetting', [
+    await _channel.invokeMethod('openSetting', [
       {"action": Params.ACTION_COUNTER_PUSH_NOTIFICATION}
     ]);
     return true;
     // }
+  }
+
+  /// 统一把原生返回转为 `Map<String, dynamic>`。
+  ///
+  /// 兼容三种形态：
+  /// 1. 原生直接回 Map
+  /// 2. 原生回弱类型 Map
+  /// 3. 原生回 JSON 字符串
+  Map<String, dynamic> _decodeAssistMapResult(dynamic raw) {
+    if (raw is Map<String, dynamic>) {
+      return raw;
+    }
+    if (raw is Map) {
+      return Map<String, dynamic>.from(raw);
+    }
+    if (raw is String) {
+      try {
+        final dynamic decoded = jsonDecode(raw);
+        if (decoded is Map<String, dynamic>) {
+          return decoded;
+        }
+        if (decoded is Map) {
+          return Map<String, dynamic>.from(decoded);
+        }
+      } catch (_) {}
+    }
+    return <String, dynamic>{};
+  }
+
+  /// `assistCaptureScreen`
+  ///
+  /// args: `{displayId}`
+  /// returns: `{pngBase64, scale, width, height, widthLogical, heightLogical}`
+  Future<Map<String, dynamic>> assistCaptureScreen({int displayId = 0}) async {
+    final dynamic raw = await _channel.invokeMethod<dynamic>(
+      'assistCaptureScreen',
+      <String, dynamic>{'displayId': displayId},
+    );
+    return _decodeAssistMapResult(raw);
+  }
+
+  /// `assistCropPng`
+  ///
+  /// args: `{pngBase64, roi, coordSpace, scale}`
+  /// returns: `{pngBase64}`
+  Future<Map<String, dynamic>> assistCropPng({
+    required String pngBase64,
+    required Map<String, dynamic> roi,
+    String coordSpace = 'logical',
+    double scale = 1.0,
+  }) async {
+    final dynamic raw = await _channel.invokeMethod<dynamic>(
+      'assistCropPng',
+      <String, dynamic>{
+        'pngBase64': pngBase64,
+        'roi': roi,
+        'coordSpace': coordSpace,
+        'scale': scale,
+      },
+    );
+    return _decodeAssistMapResult(raw);
+  }
+
+  /// `assistVisionOcr`
+  ///
+  /// args: `{pngBase64, lang, returnType}`
+  /// returns: `{text}` or `{lines:[...]}`
+  Future<Map<String, dynamic>> assistVisionOcr({
+    required String pngBase64,
+    String lang = 'zh-Hans',
+    String returnType = 'text',
+  }) async {
+    final dynamic raw = await _channel.invokeMethod<dynamic>(
+      'assistVisionOcr',
+      <String, dynamic>{
+        'pngBase64': pngBase64,
+        'lang': lang,
+        'returnType': returnType,
+      },
+    );
+    return _decodeAssistMapResult(raw);
+  }
+
+  /// `assistFocusAndPaste`
+  ///
+  /// args: `{point:{x,y}, text, coordSpace}`
+  /// returns: `{ok:true}`
+  ///
+  /// 注意：该方法只负责聚焦和粘贴，不自动发送。
+  Future<Map<String, dynamic>> assistFocusAndPaste({
+    required double x,
+    required double y,
+    required String text,
+    String coordSpace = 'logical',
+  }) async {
+    final dynamic raw = await _channel.invokeMethod<dynamic>(
+      'assistFocusAndPaste',
+      <String, dynamic>{
+        'point': <String, dynamic>{'x': x, 'y': y},
+        'text': text,
+        'coordSpace': coordSpace,
+      },
+    );
+    return _decodeAssistMapResult(raw);
+  }
+
+  /// `assistCheckPermissions`
+  ///
+  /// returns: `{screenRecording, accessibility}`
+  Future<Map<String, dynamic>> assistCheckPermissions() async {
+    final dynamic raw = await _channel.invokeMethod<dynamic>(
+      'assistCheckPermissions',
+      <String, dynamic>{},
+    );
+    return _decodeAssistMapResult(raw);
+  }
+
+  /// `assistOpenSystemSettings`
+  ///
+  /// args: `{page: screenRecording|accessibility}`
+  /// returns: `{ok:true|false}`
+  Future<Map<String, dynamic>> assistOpenSystemSettings(
+      {required String page}) async {
+    final dynamic raw = await _channel.invokeMethod<dynamic>(
+      'assistOpenSystemSettings',
+      <String, dynamic>{'page': page},
+    );
+    return _decodeAssistMapResult(raw);
   }
 
   Future<bool> hideAliyunStatusBar() async {
