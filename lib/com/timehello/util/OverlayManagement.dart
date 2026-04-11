@@ -1,4 +1,3 @@
-
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,8 +50,6 @@ class OverlayManagement {
   OverlayEntry? missionDetailPageSettingEntry; //MissionDetailPage右上角列表
   OverlayEntry? mPCCustomOverlayEntry; //pc端自定义overlay
   OverlayEntry? desktopRightFloatingOverlayEntry; // pc端右侧真正悬浮层
-
-
   OverlayEntry? customDialogEntry; //自定义对话框
   OverlayEntry? newPagePCEntry; //针对pc端新页面 普通页面用push
   OverlayEntry? selectBgDialogOverlayEntry;
@@ -60,8 +57,6 @@ class OverlayManagement {
   List<OverlayEntry>? newPagePCEntryHistoryList = []; //针对pc端新页面 普通页面用push
   OverlayEntry? lotteryNineGridViewEntry; //九宫格抽奖
   OverlayState? overlayState;
-
-
 
   BottomCounterWidget? bottomCounterWidget;
 
@@ -84,23 +79,29 @@ class OverlayManagement {
       required Widget child,
       double width = 430,
       VoidCallback? onClose,
-      EdgeInsetsGeometry margin =
-          const EdgeInsets.fromLTRB(18, 18, 18, 28)}) {
+      EdgeInsetsGeometry margin = const EdgeInsets.fromLTRB(18, 18, 18, 28)}) {
     final bool isDark = ThemeManager.getInstance().getThemeMode().isDark ||
         Theme.of(context).brightness == Brightness.dark;
-    final BorderRadius panelRadius = BorderRadius.circular(32);
-    final BorderRadius innerRadius = BorderRadius.circular(24);
+    final BorderRadius panelRadius = BorderRadius.circular(28);
+    final BorderRadius innerRadius = BorderRadius.circular(22);
+    final Color panelBackground = isDark
+        ? const Color(0xFF1F1915)
+        : const Color(0xFFFDF7EE).withValues(alpha: 0.96);
+    final Color panelBorder =
+        isDark ? const Color(0xFF443931) : const Color(0xFFEBDCCB);
+    final Color panelHeaderText = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF8B6A55),
+        defaultDarkColor: Colors.white70);
     return Container(
       width: width,
       margin: margin,
+      // PC 端右侧悬浮层统一样式：尽量与 SettingItemDetailPage 的壳保持一致。
       child: Container(
         decoration: BoxDecoration(
-          color: isDark
-              ? const Color(0xFF1D1713).withValues(alpha: 0.96)
-              : const Color(0xFFFDF7EE).withValues(alpha: 0.98),
+          color: panelBackground,
           borderRadius: panelRadius,
           border: Border.all(
-            color: isDark ? const Color(0xFF43372F) : const Color(0xFFEADBCB),
+            color: panelBorder,
           ),
           boxShadow: [
             BoxShadow(
@@ -115,8 +116,15 @@ class OverlayManagement {
           child: Column(
             children: [
               Container(
-                height: 44,
-                padding: const EdgeInsets.fromLTRB(18, 10, 12, 8),
+                height: 46,
+                padding: const EdgeInsets.fromLTRB(18, 12, 12, 10),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: panelBorder.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ),
                 child: Row(
                   children: [
                     Text(
@@ -124,9 +132,7 @@ class OverlayManagement {
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
-                        color: ThemeManager.getInstance().getTextColor(
-                            defaultColor: const Color(0xFF8B6A55),
-                            defaultDarkColor: Colors.white70),
+                        color: panelHeaderText,
                         letterSpacing: 0.2,
                       ),
                     ),
@@ -147,7 +153,7 @@ class OverlayManagement {
                           borderRadius: BorderRadius.circular(999),
                           border: Border.all(
                             color: isDark
-                                ? const Color(0xFF43372F)
+                                ? const Color(0xFF443931)
                                 : const Color(0xFFF1E2D5),
                           ),
                         ),
@@ -165,7 +171,7 @@ class OverlayManagement {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 6, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
                   child: ClipRRect(
                     borderRadius: innerRadius,
                     child: Theme(
@@ -235,31 +241,34 @@ class OverlayManagement {
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: ColorsConfig.color_background_menu,
-            border: Border.all(color: ColorsConfig.color_background_menu, width: 1),
+            border:
+                Border.all(color: ColorsConfig.color_background_menu, width: 1),
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           margin: EdgeInsets.all(60),
           child: Scaffold(
               body: Column(children: [
-                Container(
-                    height: 30,
-                    decoration: BoxDecoration(color: ColorsConfig.color_background_menu,),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ClosedButton(
-                          onTapListener: (res) {
-                            this.hidePCCustomOverlay();
-                            // removeNewPageOverlay();
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        )
-                      ],
-                    )),
-                Expanded(child: child)
-              ])));
+            Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  color: ColorsConfig.color_background_menu,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ClosedButton(
+                      onTapListener: (res) {
+                        this.hidePCCustomOverlay();
+                        // removeNewPageOverlay();
+                      },
+                    ),
+                    SizedBox(
+                      width: 10,
+                    )
+                  ],
+                )),
+            Expanded(child: child)
+          ])));
     });
     navigatorKey.currentState?.overlay
         ?.insert(mPCCustomOverlayEntry = overlayEntry);
@@ -286,7 +295,8 @@ class OverlayManagement {
       removeMissionDetailPageOverlay();
     }
     context.read<MissionDetailEnv>().timeHasUsed = timeHasUsed;
-    context.read<MissionDetailEnv>().counterStatusFromLiveActivity = counterStatusFromLiveActivity ?? CounterStatus.none;
+    context.read<MissionDetailEnv>().counterStatusFromLiveActivity =
+        counterStatusFromLiveActivity ?? CounterStatus.none;
     context.read<MissionDetailEnv>().missionModel = missionModel;
     context.read<MissionDetailEnv>().folderModel = folderModel;
     context.read<MissionDetailEnv>().pageEnum = pageEnum ?? PageEnum.Normal;
@@ -303,7 +313,7 @@ class OverlayManagement {
               // missionModel: missionModel ?? MissionModel(),
               // folderModel: folderModel ?? FolderModel(),
               // pageEnum: pageEnum
-          );
+              );
         });
     navigatorKey.currentState?.overlay?.insert(overlayEntry);
     missionDetailPageOverlayEntry = overlayEntry;
@@ -342,15 +352,15 @@ class OverlayManagement {
 
   openSelectMoneyPerHourOfMeOverlay(BuildContext context,
       {String? title,
-        String? content,
-        String? leftText,
-        String? rightText,
-        int initVal = 50,
-        CounterEnum counterEnum = CounterEnum.chronograph,
-        OnTapListener? onTapListener,
-        Function? okCallBack,
-        Function? cancelCallBack,
-        String okRouteUri = ""}) {
+      String? content,
+      String? leftText,
+      String? rightText,
+      int initVal = 50,
+      CounterEnum counterEnum = CounterEnum.chronograph,
+      OnTapListener? onTapListener,
+      Function? okCallBack,
+      Function? cancelCallBack,
+      String okRouteUri = ""}) {
     dismissSelectValueMoneyOverlay();
     // if(selectValueMoneyOverlayEntry != null){
     //   return;
@@ -375,27 +385,36 @@ class OverlayManagement {
         ?.insert(selectValueMoneyOverlayEntry = overlayEntry);
   }
 
-
   openMissionDetailPageSettingOverlay(BuildContext context,
-      {required double right, double? top, required List<CheckButtonStateModel> list, required Function onTapListener}) async {
+      {required double right,
+      double? top,
+      required List<CheckButtonStateModel> list,
+      required Function onTapListener}) async {
     var overlayState = Overlay.of(context, rootOverlay: true);
     dismissMissionDetailPageSettingEntry();
     // if(selectValueMoneyOverlayEntry != null){
     //   return;
     // }
-    OverlayEntry overlayEntry =  FullScreenOverlayEntry(builder: (context) {
-      return Stack(
-        children: [
-          SettingListViewWidget(list: list, onTapListener: onTapListener, right: right, top: top ?? 40,),
-        ],
-      );
-    },    dismissCallback: () => dismissMissionDetailPageSettingEntry(),
-    ).build();;
+    OverlayEntry overlayEntry = FullScreenOverlayEntry(
+      builder: (context) {
+        return Stack(
+          children: [
+            SettingListViewWidget(
+              list: list,
+              onTapListener: onTapListener,
+              right: right,
+              top: top ?? 40,
+            ),
+          ],
+        );
+      },
+      dismissCallback: () => dismissMissionDetailPageSettingEntry(),
+    ).build();
+    ;
     // navigatorKey.currentState?.overlay
     //     ?.insert(missionDetailPageSettingEntry = overlayEntry);
     overlayState?.insert(this.missionDetailPageSettingEntry = overlayEntry);
   }
-
 
   dismissMissionDetailPageSettingEntry() {
     if (this?.missionDetailPageSettingEntry != null) {
@@ -510,16 +529,16 @@ class OverlayManagement {
   }
 
   openCustomConfirmDialog(
-      BuildContext context, {
-        required String title,
-        String? content,
-        String? leftText,
-        String? rightText,
-        int initVal = 10,
-        OnTapListener? onTapListener,
-        required Function okCallBack,
-        required Function cancelCallBack,
-      }) {
+    BuildContext context, {
+    required String title,
+    String? content,
+    String? leftText,
+    String? rightText,
+    int initVal = 10,
+    OnTapListener? onTapListener,
+    required Function okCallBack,
+    required Function cancelCallBack,
+  }) {
     title = title ?? "";
     leftText = leftText ?? getI18NKey().cancel;
     rightText = rightText ?? getI18NKey().confirm;
@@ -544,21 +563,19 @@ class OverlayManagement {
         ?.insert(customDialogEntry = overlayEntry);
   }
 
-
   dismissCustomConfirmDialog() {
     if (this?.customDialogEntry != null) {
       this?.customDialogEntry?.remove();
       this?.customDialogEntry = null;
     }
   }
+
   dismissSelectValueMoneyOverlay() {
     if (this?.selectValueMoneyOverlayEntry != null) {
       this?.selectValueMoneyOverlayEntry?.remove();
       this?.selectValueMoneyOverlayEntry = null;
     }
   }
-
-
 
   removeSelectSliderVolumeDialogOverlay() {
     if (this?.selectSliderVolumeDialogOverlayEntry != null) {
@@ -777,12 +794,14 @@ class OverlayManagement {
     overlay = FullScreenOverlayWidgetEntry(
       top: height / 2 - 200,
       // height: 0,
-      left: width / 2 - (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
+      left: width / 2 -
+          (isHandsetBySize(context: context) ? mobileWidth : tabletWidth) / 2,
       // width: 0,
       dismissCallback: () => keepEditorFocusNotifier.decrease(),
       builder: (context) {
         return Container(
-            width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
+            width:
+                isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
             height: isHandsetBySize(context: context) ? 400 : 600,
             child: AiContentConfirmWidget(
               // shouldShowReplace: selection != null,
@@ -853,5 +872,4 @@ class OverlayManagement {
 
     Overlay.of(context, rootOverlay: true).insert(overlay!);
   }
-
 }
