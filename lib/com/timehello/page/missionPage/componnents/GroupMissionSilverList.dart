@@ -46,6 +46,11 @@ class GroupMissionSilverList extends StatefulWidget {
   List<MissionModel>? _datas = [];
   List<MissionModel>? _datasMissionModelUnfinished = [];
   List<MissionModel>? _datasMissionModelFinished = [];
+  Color? columnBackgroundColor;
+  Color? columnHeaderColor;
+  Color? columnSurfaceColor;
+  Color? columnAccentColor;
+  Color? columnBorderColor;
   OnTapListener? onTapListener;
   Function? onEnterListener;
   Function onClickCreateMission;
@@ -83,6 +88,11 @@ class GroupMissionSilverList extends StatefulWidget {
   GroupMissionSilverList(
       {Key? key,
       List<MissionModel>? datas,
+      this.columnBackgroundColor,
+      this.columnHeaderColor,
+      this.columnSurfaceColor,
+      this.columnAccentColor,
+      this.columnBorderColor,
       OnTapListener? onTapListener,
       required this.onMoveNextGroupListener,
       required this.onMovePreviousGroupListener,
@@ -185,152 +195,156 @@ class MissionSilverState extends State<GroupMissionSilverList> {
   @override
   Widget build(BuildContext context) {
     initData(this.widget.folderModel);
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Container(
-          height: 50,
-          alignment: Alignment.center,
-          child: GroupAddWidget(
-            customTextFieldKey: customTextFieldStateGlobalKey,
-            title: this.widget.groupModel.title ?? "",
-            onEnterListener: (title) {
-              this.widget.onEnterListener?.call(title);
-            },
-            onMoreListener: () {},
-            onAddMissionListener: () {
-              this.isAddingMission = this.isAddingMission ? false : true;
-              print("res:${this.isAddingMission}");
-              setState(() {});
-            },
-            totalMission: this.widget.groupModel.missionModelList?.length ?? 0,
-            groupModel: this.widget.groupModel,
-            onTapAddColumLeftGroupListener:
-                this.widget.onTapAddColumLeftGroupListener,
-            onTapAddColumRightGroupListener:
-                this.widget.onTapAddColumRightGroupListener,
-            onTapDeleteGroupListener: this.widget.onTapDeleteGroupListener,
-            onTapSelectBgColorGroupListener:
-                this.widget.onTapSelectBgColorGroupListener,
-            onUpdateGroupModelListener: (groupModel) {
-              this.widget.onUpdateGroupModelListener?.call(groupModel);
-            },
-            isFirst: this.widget.isFirstGroupWithoutOrder,
-            isLast: this.widget.isLastGroup,
-            onMoveNextGroupListener: this.widget.onMoveNextGroupListener,
-            onMovePreviousGroupListener:
-                this.widget.onMovePreviousGroupListener,
-          ),
-        ),
-        if (isAddingMission == true) getHeaderInputWidget(),
-        getBottomBar(context, isVisible: isAddingMission),
-        if (isAddingMission == true)
-          SizedBox(
-            height: 10,
-          ),
-        // if(isAddingMission)
-        //   BottomBar(totalTomatoes: 10, tagColor: Colors.red, circleColor: Colors.yellow,),
-        Expanded(
-          child: Scrollbar(
-            trackVisibility: true,
-            child: ReorderableListView(
-              primary: true,
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              buildDefaultDragHandles:
-                  !TextUtil.isEmpty(this.widget.groupModel.objectId),
-              onReorderStart: (index) {
-                // this.isReodering = true;
-                // this.resetIsReoderingMapping();
-                if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
-                  Utility.showToastMsg(
-                      msg: getI18NKey().cannot_reorder_for_group);
-                  return;
-                }
-                if (this.widget._datasMissionModelUnfinished?.length == index) {
-                  Utility.showToastMsg(
-                      msg: getI18NKey().cannot_reorder_for_group);
-                  return;
-                }
-                isReodering = true;
+    return Container(
+      decoration: BoxDecoration(
+        color: this.widget.columnBackgroundColor,
+        borderRadius: BorderRadius.circular(26),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            height: 58,
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: 2),
+            decoration: BoxDecoration(
+              color: this.widget.columnHeaderColor,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+            ),
+            child: GroupAddWidget(
+              customTextFieldKey: customTextFieldStateGlobalKey,
+              title: this.widget.groupModel.title ?? "",
+              accentColor: this.widget.columnAccentColor,
+              surfaceColor: this.widget.columnSurfaceColor,
+              onEnterListener: (title) {
+                this.widget.onEnterListener?.call(title);
+              },
+              onMoreListener: () {},
+              onAddMissionListener: () {
+                this.isAddingMission = this.isAddingMission ? false : true;
+                print("res:${this.isAddingMission}");
                 setState(() {});
-                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                print("start:${isReodering}");
-                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
               },
-              onReorderEnd: (index) {
-                // this.isReodering = false;
-
-                isReodering = false;
-                setState(() {});
-                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                print("start:${isReodering}");
-                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+              totalMission:
+                  this.widget.groupModel.missionModelList?.length ?? 0,
+              groupModel: this.widget.groupModel,
+              onTapAddColumLeftGroupListener:
+                  this.widget.onTapAddColumLeftGroupListener,
+              onTapAddColumRightGroupListener:
+                  this.widget.onTapAddColumRightGroupListener,
+              onTapDeleteGroupListener: this.widget.onTapDeleteGroupListener,
+              onTapSelectBgColorGroupListener:
+                  this.widget.onTapSelectBgColorGroupListener,
+              onUpdateGroupModelListener: (groupModel) {
+                this.widget.onUpdateGroupModelListener?.call(groupModel);
               },
-              onReorder: (oldIndex, newIndex) {
-                if (((this.widget._datasMissionModelUnfinished?.length ?? 0) ==
-                    oldIndex)) {
-                  Utility.showToastMsg(
-                      msg: getI18NKey().cannot_reorder_for_group);
-                  return;
-                }
-
-                // if (((this.widget._datasMissionModelUnfinished?.length ?? 0) == 0) && newIndex == 0) {
-                //   Utility.showToast(msg: getI18NKey().cannot_reorder_for_group);
-                //   return;
-                // }
-                if (this.widget._datasMissionModelUnfinished?.length ==
-                    oldIndex) {
-                  Utility.showToastMsg(
-                      msg: getI18NKey().cannot_reorder_for_group);
-                  return;
-                }
-                if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
-                  Utility.showToastMsg(
-                      msg: getI18NKey().cannot_reorder_for_group);
-                  return;
-                }
-                setState(() {
-                  if (newIndex > oldIndex) {
-                    newIndex -= 1;
-                  }
-                  MissionModel? item = this.widget._datas?.removeAt(
-                      (this.widget._datasMissionModelUnfinished?.length ?? 0) <
-                              oldIndex
-                          ? oldIndex - 1
-                          : oldIndex);
-                  // int length = this.widget._datas.length ?? 0;
-                  int length = Utility.filterMissionModelByFinishedState(
-                          list: this.widget._datas ?? [], isFinished: false)
-                      .length;
-                  if (item != null &&
-                      ((this.widget._datas?.length ?? 0) + 1) >= newIndex) {
-                    if (((this.widget._datas?.length ?? 0) + 1) == newIndex) {
-                      this.widget._datas?.add(item);
-                    } else {
-                      this.widget._datas?.insert(newIndex, item);
-                    }
-                    // this.widget._datas?.insert(newIndex, item!);
-                    //如果不在 this.widget._datasMissionModelUnfinished 把missionModel的isFinished设置为true
-                    // this.widget._datasMissionModelUnfinished = Utility.filterMissionModelByFinishedState(list: this.widget._datas ?? [], isFinished: false);
-                    // this.widget._datasMissionModelFinished = Utility.filterMissionModelByFinishedState(list: this.widget._datas ?? [], isFinished: true);
-                    if (newIndex < (length) + 1) {
-                      item.isFinished = false;
-                    } else {
-                      item.isFinished = true;
-                    }
-
-                    this.widget.onReorderMissionModelListListener?.call(
-                        this.widget._datas!, this.widget.groupModel, item);
-                  }
-                });
-              },
-              children: getListView(),
+              isFirst: this.widget.isFirstGroupWithoutOrder,
+              isLast: this.widget.isLastGroup,
+              onMoveNextGroupListener: this.widget.onMoveNextGroupListener,
+              onMovePreviousGroupListener:
+                  this.widget.onMovePreviousGroupListener,
             ),
           ),
-        ),
-        if (this.multiSelectModeEnum == MultiSelectModeEnum.multiSelect)
-          getMultiSelectHandleWidget(context)
-      ],
+          if (isAddingMission == true) getHeaderInputWidget(),
+          getBottomBar(context, isVisible: isAddingMission),
+          if (isAddingMission == true)
+            SizedBox(
+              height: 10,
+            ),
+          Expanded(
+            child: Scrollbar(
+              trackVisibility: true,
+              radius: Radius.circular(999),
+              thickness: 6,
+              child: ReorderableListView(
+                primary: true,
+                padding: EdgeInsets.fromLTRB(6, 8, 6, 16),
+                buildDefaultDragHandles:
+                    !TextUtil.isEmpty(this.widget.groupModel.objectId),
+                onReorderStart: (index) {
+                  if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
+                    Utility.showToastMsg(
+                        msg: getI18NKey().cannot_reorder_for_group);
+                    return;
+                  }
+                  if (this.widget._datasMissionModelUnfinished?.length ==
+                      index) {
+                    Utility.showToastMsg(
+                        msg: getI18NKey().cannot_reorder_for_group);
+                    return;
+                  }
+                  isReodering = true;
+                  setState(() {});
+                  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                  print("start:${isReodering}");
+                  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                },
+                onReorderEnd: (index) {
+                  isReodering = false;
+                  setState(() {});
+                  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                  print("start:${isReodering}");
+                  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                },
+                onReorder: (oldIndex, newIndex) {
+                  if (((this.widget._datasMissionModelUnfinished?.length ??
+                          0) ==
+                      oldIndex)) {
+                    Utility.showToastMsg(
+                        msg: getI18NKey().cannot_reorder_for_group);
+                    return;
+                  }
+
+                  if (this.widget._datasMissionModelUnfinished?.length ==
+                      oldIndex) {
+                    Utility.showToastMsg(
+                        msg: getI18NKey().cannot_reorder_for_group);
+                    return;
+                  }
+                  if (TextUtil.isEmpty(this.widget.groupModel.objectId)) {
+                    Utility.showToastMsg(
+                        msg: getI18NKey().cannot_reorder_for_group);
+                    return;
+                  }
+                  setState(() {
+                    if (newIndex > oldIndex) {
+                      newIndex -= 1;
+                    }
+                    MissionModel? item = this.widget._datas?.removeAt(
+                        (this.widget._datasMissionModelUnfinished?.length ??
+                                    0) <
+                                oldIndex
+                            ? oldIndex - 1
+                            : oldIndex);
+                    int length = Utility.filterMissionModelByFinishedState(
+                            list: this.widget._datas ?? [], isFinished: false)
+                        .length;
+                    if (item != null &&
+                        ((this.widget._datas?.length ?? 0) + 1) >= newIndex) {
+                      if (((this.widget._datas?.length ?? 0) + 1) == newIndex) {
+                        this.widget._datas?.add(item);
+                      } else {
+                        this.widget._datas?.insert(newIndex, item);
+                      }
+                      if (newIndex < (length) + 1) {
+                        item.isFinished = false;
+                      } else {
+                        item.isFinished = true;
+                      }
+
+                      this.widget.onReorderMissionModelListListener?.call(
+                          this.widget._datas!, this.widget.groupModel, item);
+                    }
+                  });
+                },
+                children: getListView(),
+              ),
+            ),
+          ),
+          if (this.multiSelectModeEnum == MultiSelectModeEnum.multiSelect)
+            getMultiSelectHandleWidget(context)
+        ],
+      ),
     );
   }
 
@@ -657,6 +671,9 @@ class MissionSilverState extends State<GroupMissionSilverList> {
       },
       onTapPlayListener: this.widget.onTapPlayListener,
       isReodering: this.isReodering,
+      columnAccentColor: this.widget.columnAccentColor,
+      cardBorderColor: this.widget.columnBorderColor,
+      cardSurfaceColor: this.widget.columnSurfaceColor,
       groupModel: this.widget.groupModel,
       onTapMoveLeftGroupListener: this.widget.onTapMoveLeftGroupListener,
       onTapMoveRightGroupListener: this.widget.onTapMoveRightGroupListener,
@@ -689,6 +706,9 @@ class GroupMissionSilverListItem extends StatefulWidget {
   MultiSelectModeEnum multiSelectModeEnum;
   bool isReodering = false;
   bool isReorderable = true; // 未分组不用拖动
+  Color? columnAccentColor;
+  Color? cardBorderColor;
+  Color? cardSurfaceColor;
   // Map<int, Image> map = {};
   GroupMissionSilverListItem(
       {Key? key,
@@ -704,6 +724,9 @@ class GroupMissionSilverListItem extends StatefulWidget {
       this.isReorderable = true,
       required this.isReodering,
       required this.multiSelectModeEnum,
+      this.columnAccentColor,
+      this.cardBorderColor,
+      this.cardSurfaceColor,
       this.onTapMultiSelectListener,
       this.onTapEditTitleListener,
       this.onTapDoItNow,
@@ -757,12 +780,15 @@ class GroupMissionSilverListItemState
     MissionModel? _missionModel = this.widget._missionModel;
     // FolderModel? folderModel = getFolderModel(_missionModel);
     bool isDoItNow = this.isDoItNow(_missionModel);
+    final double progressValue = _getMissionProgress(_missionModel);
+    final Color accentColor = this.widget.columnAccentColor ??
+        Color(CONSTANTS.getPriorityColor(_missionModel?.priorityStatus ?? 3));
     // TODO: implement build
     //左边文案和角标
     List<Widget> childrenRow = <Widget>[
       Container(
-          height: 30,
-          width: 5,
+          height: 34,
+          width: 4,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Color(
@@ -886,9 +912,34 @@ class GroupMissionSilverListItemState
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: accentColor.withAlpha(41),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: progressValue,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: accentColor,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 if ((_missionModel?.subMissions?.length ?? 0) > 0)
-                  SubmissionColumnList(
-                    missionModel: _missionModel ?? MissionModel(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 6),
+                    child: SubmissionColumnList(
+                      missionModel: _missionModel ?? MissionModel(),
+                    ),
                   ),
               ]),
           flex: 3),
@@ -955,6 +1006,8 @@ class GroupMissionSilverListItemState
   }
 
   Widget getItem(MissionModel? _missionModel, List<Widget> childrenRow) {
+    final Color accentColor = this.widget.columnAccentColor ??
+        Color(CONSTANTS.getPriorityColor(_missionModel?.priorityStatus ?? 3));
     return InkWell(
         onTap: () {
           if (this.widget.multiSelectModeEnum ==
@@ -987,18 +1040,18 @@ class GroupMissionSilverListItemState
               clipBehavior: Clip.antiAliasWithSaveLayer,
               alignment: Alignment.center,
               margin: EdgeInsets.only(
-                  bottom: 4,
-                  left: CONSTANTS.missionPageMargin,
-                  right: (CONSTANTS.missionPageMargin)),
+                  bottom: 10,
+                  left: CONSTANTS.missionPageMargin + 2,
+                  right: (CONSTANTS.missionPageMargin + 2)),
               decoration: new BoxDecoration(
                 border: this.widget.multiSelectModeEnum ==
                         MultiSelectModeEnum.normal
                     ? new Border.all(
-                        width: 1.0,
-                        color: ThemeManager.getInstance().isDark()
-                            ? Color(CONSTANTS.getPriorityColor(
-                                _missionModel?.priorityStatus ?? 3))
-                            : new Color(0xfff0f0f0))
+                        width: this.isHover ? 1.2 : 1.0,
+                        color: this.isHover
+                            ? accentColor.withAlpha(115)
+                            : (this.widget.cardBorderColor ??
+                                new Color(0xfff0f0f0)))
                     : Border.all(
                         width: 2.0,
                         color: new Color((CONSTANTS.getPriorityColor(
@@ -1015,10 +1068,25 @@ class GroupMissionSilverListItemState
                             ThemeManager.getInstance().getCardBackgroundColor(
                                 defaultColor: Colors.white),
                             BlendMode.colorBurn)),
-                color: ThemeManager.getInstance()
-                    .getCardBackgroundColor(defaultColor: Colors.white),
+                color: this.widget.cardSurfaceColor ??
+                    ThemeManager.getInstance()
+                        .getCardBackgroundColor(defaultColor: Colors.white),
                 borderRadius:
-                    const BorderRadius.all(const Radius.circular(8.0)),
+                    const BorderRadius.all(const Radius.circular(18.0)),
+                boxShadow: ThemeManager.getInstance().isDark()
+                    ? []
+                    : [
+                        BoxShadow(
+                          color: Colors.black.withAlpha(13),
+                          blurRadius: 16,
+                          offset: Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: accentColor.withAlpha(20),
+                          blurRadius: 8,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
               ),
               child: Stack(
                 children: [
@@ -1040,12 +1108,12 @@ class GroupMissionSilverListItemState
                   Container(
                     color: ThemeManager.getInstance().getCardBackgroundColor(
                         defaultColor: Colors.white, alpha: 150),
-                    // color: Colors.yellow,
-                    constraints: BoxConstraints(minHeight: 30),
+                    constraints: BoxConstraints(minHeight: 78),
                     padding: EdgeInsets.only(
-                        right: this.widget.isReorderable == true ? 5 : 28,
-                        top: 0,
-                        bottom: 0),
+                        left: 10,
+                        right: this.widget.isReorderable == true ? 8 : 28,
+                        top: 10,
+                        bottom: 10),
                     alignment: Alignment.centerLeft,
                     child: Stack(children: [
                       Column(
@@ -1066,6 +1134,37 @@ class GroupMissionSilverListItemState
   bool isDoItNow(MissionModel? _missionModel) =>
       (_missionModel != null && Utility.isDoingItNow(_missionModel));
   double fontSize = Utility.isHandsetBySize() ? 11 : 15;
+
+  /// 参考图里的卡片有明显的进度线，这里优先复用番茄数、目标值、子任务完成度，
+  /// 没有结构化进度时仍给一个基础占位，避免不同任务高度和层次感差异过大。
+  double _getMissionProgress(MissionModel? missionModel) {
+    if (missionModel == null) {
+      return 0.0;
+    }
+    if ((missionModel.total_tomotoes ?? 0) > 0) {
+      return ((missionModel.no_tomotoes_finished ?? 0) /
+              (missionModel.total_tomotoes ?? 1))
+          .clamp(0.0, 1.0);
+    }
+    if ((missionModel.objectivePercent ?? 0) > 0) {
+      return ((missionModel.objectivePercent ?? 0) / 100).clamp(0.0, 1.0);
+    }
+    final List rawSubMissions = missionModel.subMissions ?? [];
+    final int validCount = rawSubMissions
+        .where((item) =>
+            item is Map && (item["title"]?.toString().isNotEmpty ?? false))
+        .length;
+    if (validCount > 0) {
+      final int finishedCount = rawSubMissions
+          .where((item) => item is Map && item["isFinished"] == true)
+          .length;
+      return (finishedCount / validCount).clamp(0.0, 1.0);
+    }
+    if (missionModel.isFinished == true) {
+      return 1.0;
+    }
+    return 0.55;
+  }
 
   List<Widget> getFinishIconSlideActions(MissionModel _missionModel) {
     return <Widget>[

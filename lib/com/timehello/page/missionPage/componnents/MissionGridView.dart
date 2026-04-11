@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
@@ -10,7 +9,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../../../../../r.dart';
 import '../../../components/GridSectionTitleWidget.dart';
 import '../../../components/MoreWidget.dart';
-import '../../../components/SectionTitleWidget.dart';
+import '../../../config/ColorsConfig.dart';
 import '../../../config/ENUMS.dart';
 import '../../../interface/OnCallbackListener.dart';
 import '../../../models/MissionModel.dart';
@@ -157,17 +156,25 @@ class SliverGridviewItem extends StatelessWidget {
     // }
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
+      final double resolvedHeaderHeight = useUnifiedStyle ? 92 : headerHeight;
+      final Color folderTintColor = Color(folderModel?.color ?? 0xffff8800);
       // print('Stack width: ${constraints.maxWidth}');
       return Container(
         clipBehavior: Clip.antiAlias,
         decoration: useUnifiedStyle
             ? buildUnifiedDesktopCardDecoration(
-                borderRadius: BorderRadius.circular(22),
+                backgroundColor:
+                    ThemeManager.getInstance().getCardBackgroundColor(
+                  defaultColor: ColorsConfig.missionGridColumnSurface,
+                  alpha: 235,
+                ),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: Colors.transparent, width: 0),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 18,
-                    offset: const Offset(0, 10),
+                    color: ColorsConfig.missionGridColumnShadow,
+                    blurRadius: 24,
+                    offset: const Offset(0, 14),
                   ),
                 ],
               )
@@ -178,19 +185,18 @@ class SliverGridviewItem extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  color: Color(item.color ?? 0xffff8800),
+                  color: folderTintColor.withValues(alpha: 0.24),
                   width: constraints.maxWidth * getFinishedPercent(),
-                  height: headerHeight,
+                  height: resolvedHeaderHeight,
                 ),
                 Container(
                   color: useUnifiedStyle
-                      ? Color(folderModel?.color ?? 0xffff8800)
-                          .withValues(alpha: 0.72)
+                      ? folderTintColor.withValues(alpha: 0.68)
                       : Color((folderModel?.color ?? 0xffff8800) - 0xa0000000),
-                  height: headerHeight,
+                  height: resolvedHeaderHeight,
                 ),
                 Container(
-                  height: headerHeight,
+                  height: resolvedHeaderHeight,
                   padding: EdgeInsets.symmetric(
                       horizontal: useUnifiedStyle ? 12 : 8,
                       vertical: useUnifiedStyle ? 10 : 6),
@@ -218,7 +224,12 @@ class SliverGridviewItem extends StatelessWidget {
                           Wrap(
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              ListingSecurityWidget(folder_id: folderModel?.objectId ?? "", cryptoVersion: folderModel?.cryptoVersion ?? -1, size: 14, marginRight: 4,),
+                              ListingSecurityWidget(
+                                folder_id: folderModel?.objectId ?? "",
+                                cryptoVersion: folderModel?.cryptoVersion ?? -1,
+                                size: 14,
+                                marginRight: 4,
+                              ),
                               if (folderModel != null)
                                 InkWell(
                                   onTap: () {
@@ -254,20 +265,25 @@ class SliverGridviewItem extends StatelessWidget {
                           Icon(
                             Icons.calendar_today,
                             size: 15,
-                            color: ThemeManager.getInstance().getIconColor(defaultColor: subColor),
+                            color: ThemeManager.getInstance()
+                                .getIconColor(defaultColor: subColor),
                           ),
                           Text(
                             Utility.getTimeString(
                                 startTime: folderModel?.start_time,
                                 endTime: folderModel?.end_time),
                             style: TextStyle(
-                                fontSize: subFontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: subColor)),
+                                fontSize: subFontSize,
+                                color: ThemeManager.getInstance()
+                                    .getTextColor(defaultColor: subColor)),
                           ),
                           Spacer(),
                           Text(
                             '',
                             style: TextStyle(
-                                fontSize: subFontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: subColor)),
+                                fontSize: subFontSize,
+                                color: ThemeManager.getInstance()
+                                    .getTextColor(defaultColor: subColor)),
                           ),
                         ],
                       ),
@@ -284,7 +300,10 @@ class SliverGridviewItem extends StatelessWidget {
                                               item.datas ?? [])
                                       .length),
                                   style: TextStyle(
-                                      fontSize: subFontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: subColor)),
+                                      fontSize: subFontSize,
+                                      color: ThemeManager.getInstance()
+                                          .getTextColor(
+                                              defaultColor: subColor)),
                                 ),
                           Spacer(),
                           Text(
@@ -296,7 +315,9 @@ class SliverGridviewItem extends StatelessWidget {
                                         .length,
                                     item.datas?.length ?? 0),
                             style: TextStyle(
-                                fontSize: subFontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: subColor)),
+                                fontSize: subFontSize,
+                                color: ThemeManager.getInstance()
+                                    .getTextColor(defaultColor: subColor)),
                           ),
                         ],
                       ),
@@ -306,11 +327,29 @@ class SliverGridviewItem extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: Container(
-                color: useUnifiedStyle
-                    ? const Color(0xFFFDF4EC)
-                    : ThemeManager.getInstance()
-                        .getCardBackgroundColor(defaultColor: Color(0xfff0f0f0)),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: useUnifiedStyle
+                      ? ThemeManager.getInstance().getCardBackgroundColor(
+                          defaultColor: ColorsConfig.missionGridColumnBoard,
+                          alpha: 225,
+                        )
+                      : ThemeManager.getInstance().getCardBackgroundColor(
+                          defaultColor: Color(0xfff0f0f0)),
+                  gradient: useUnifiedStyle
+                      ? LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            folderTintColor.withValues(alpha: 0.08),
+                            ThemeManager.getInstance().getCardBackgroundColor(
+                              defaultColor: ColorsConfig.missionGridColumnBoard,
+                              alpha: 220,
+                            ),
+                          ],
+                        )
+                      : null,
+                ),
                 child: CustomScrollView(slivers: getList()),
               ),
             ),
@@ -322,16 +361,28 @@ class SliverGridviewItem extends StatelessWidget {
 
   List<Widget> getList() {
     List<Widget> listWidget = [];
-    listWidget.addAll(buildListWidget(Utility.getListAfterOrder(
-        this.missionOrderEnum, Utility.filterMissionModelByFinishedState(list: this.item.datas ?? [], isFinished: false), this.folderStatus) ?? [], false));
+    listWidget.addAll(buildListWidget(
+        Utility.getListAfterOrder(
+                this.missionOrderEnum,
+                Utility.filterMissionModelByFinishedState(
+                    list: this.item.datas ?? [], isFinished: false),
+                this.folderStatus) ??
+            [],
+        false));
     listWidget.add(MoreWidget(
       text: getI18NKey().missionCompleted,
       // onTapListener: () {
       //   this.onTapMoreListener.call();
       // },
     ));
-    listWidget.addAll(buildListWidget(Utility.getListAfterOrder(
-        this.missionOrderEnum, Utility.filterMissionModelByFinishedState(list: this.item.datas ?? [], isFinished: true), this.folderStatus) ?? [], true));
+    listWidget.addAll(buildListWidget(
+        Utility.getListAfterOrder(
+                this.missionOrderEnum,
+                Utility.filterMissionModelByFinishedState(
+                    list: this.item.datas ?? [], isFinished: true),
+                this.folderStatus) ??
+            [],
+        true));
     return listWidget;
   }
 
@@ -339,7 +390,7 @@ class SliverGridviewItem extends StatelessWidget {
     List<Widget> listWidget = [];
     for (int i = 0; i < list.length; i++) {
       SessionMissionModel model = list[i];
-      if((model.datas?.length ?? 0) > 0) {
+      if ((model.datas?.length ?? 0) > 0) {
         listWidget.add(SliverToBoxAdapter(
           child: GridSectionTitleWidget(
             title: model.title ?? "",
@@ -348,6 +399,7 @@ class SliverGridviewItem extends StatelessWidget {
         listWidget.add(GridMissionSilverList(
           datas: Utility.parseMissionModelsByIsFinishedAndPriority(
               model.datas ?? []),
+          useUnifiedStyle: useUnifiedStyle,
           onTapListener: (v) {
             this.onTapListener.call(v);
           },
@@ -380,7 +432,7 @@ class SliverGridviewItem extends StatelessWidget {
         ));
       }
     }
-  return listWidget;
+    return listWidget;
     // return [
     //   SliverPadding(padding: EdgeInsets.only(top: 3)),
     //   SliverToBoxAdapter(

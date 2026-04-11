@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/CustomTextField.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -16,6 +15,8 @@ import '../../../models/GroupModel.dart';
  */
 class GroupAddWidget extends StatelessWidget {
   final String title;
+  final Color? accentColor;
+  final Color? surfaceColor;
 
   // Function onEnterListener;
   final Function(String) onEnterListener;
@@ -37,10 +38,12 @@ class GroupAddWidget extends StatelessWidget {
   bool isLast;
   GroupAddWidget(
       {required this.title,
-        required this.onMoveNextGroupListener,
-        required this.onMovePreviousGroupListener,
-        required this.isFirst,
-        required this.isLast,
+      required this.onMoveNextGroupListener,
+      required this.onMovePreviousGroupListener,
+      required this.isFirst,
+      required this.isLast,
+      this.accentColor,
+      this.surfaceColor,
       this.customTextFieldKey,
       required this.totalMission,
       required this.groupModel,
@@ -56,22 +59,45 @@ class GroupAddWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    final Color iconColor = accentColor ??
+        ThemeManager.getInstance()
+            .getIconColor(defaultColor: Color(0xff6b7280));
+    final Color chipColor = surfaceColor?.withAlpha(230) ??
+        (ThemeManager.getInstance().isDark()
+            ? ThemeManager.getInstance()
+                .getCardBackgroundColor(defaultColor: Color(0xff3a3a3a))
+            : Colors.white.withAlpha(224));
     return Row(
       children: [
         SizedBox(
-          width: 15,
+          width: 14,
         ),
         CustomTextField(
             key: customTextFieldKey,
-            style: TextStyle(color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)), fontSize: fontSize),
+            style: TextStyle(
+                color: ThemeManager.getInstance()
+                    .getTextColor(defaultColor: Color(0xff404040)),
+                fontSize: 15,
+                fontWeight: FontWeight.w700),
             text: this.title,
             onEnterListener: this.onEnterListener),
         SizedBox(
-          width: 5,
+          width: 8,
         ),
-        Text(
-          this.totalMission.toString(),
-          style: TextStyle(color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xffaeb0b4)), fontSize: fontSize),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: chipColor,
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Text(
+            this.totalMission.toString(),
+            style: TextStyle(
+                color: ThemeManager.getInstance()
+                    .getTextColor(defaultColor: Color(0xff7d8590)),
+                fontSize: 12,
+                fontWeight: FontWeight.w600),
+          ),
         ),
         Spacer(),
         if (!(TextUtil.isEmpty(groupModel.objectId) == true &&
@@ -81,20 +107,31 @@ class GroupAddWidget extends StatelessWidget {
               this.groupModel.color = color;
               this.onUpdateGroupModelListener.call(groupModel);
             },
-            child: Utility.getSVGPicture(R.assetsImgIcPaintPaint, size: 16),
+            child: _buildActionShell(
+              child: Utility.getSVGPicture(R.assetsImgIcPaintPaint, size: 15),
+              iconColor: iconColor,
+              chipColor: chipColor,
+            ),
           ),
         SizedBox(
-          width: 5,
+          width: 10,
         ),
         InkWell(
             onTap: () {
               this.onAddMissionListener.call();
             },
-            child: Icon(
-              Icons.add,
-              color: Color(0xffaeb0b4),
-              size: size,
+            child: _buildActionShell(
+              chipColor: chipColor,
+              iconColor: iconColor,
+              child: Icon(
+                Icons.add,
+                color: iconColor,
+                size: 18,
+              ),
             )),
+        SizedBox(
+          width: 10,
+        ),
         CustomPopupWidget(
           onSelected: (val) async {
             switch (val.code) {
@@ -123,13 +160,36 @@ class GroupAddWidget extends StatelessWidget {
                   groupModel.title == getI18NKey().unorder_group)
               ? CONSTANTS.getUnorderGroupHeaderPopup()
               : CONSTANTS.getGroupHeaderPopup(isFirst: isFirst, isLast: isLast),
-          child: Icon(
-            Icons.more_horiz,
-            color: Color(0xffaeb0b4),
-            size: size,
+          child: _buildActionShell(
+            chipColor: chipColor,
+            iconColor: iconColor,
+            child: Icon(
+              Icons.more_horiz,
+              color: iconColor,
+              size: 18,
+            ),
           ),
         )
       ],
+    );
+  }
+
+  Widget _buildActionShell(
+      {required Widget child,
+      required Color chipColor,
+      required Color iconColor}) {
+    return Container(
+      width: 30,
+      height: 30,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: chipColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: IconTheme(
+        data: IconThemeData(color: iconColor),
+        child: child,
+      ),
     );
   }
 }

@@ -218,15 +218,18 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
           missionModel.objectivePercentString ?? "",
           style: TextStyle(
             fontSize: 13,
-            color: ThemeManager.getInstance().isDark() ? Colors.white : Colors.black,
-
+            color: ThemeManager.getInstance().isDark()
+                ? Colors.white
+                : Colors.black,
           ),
         ),
         Text(
           "${missionModel?.objectiveValue?.toInt() ?? 0}/${missionModel?.objectiveTotalValue?.toInt()} ${missionModel?.objectiveUnit}",
           style: TextStyle(
             fontSize: 10,
-            color: ThemeManager.getInstance().isDark() ? Colors.white70 : Colors.black87,
+            color: ThemeManager.getInstance().isDark()
+                ? Colors.white70
+                : Colors.black87,
           ),
         ),
       ],
@@ -407,7 +410,6 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                     // )
                   ],
                 ),
-
               ]),
           flex: 3),
       // 完成不需要显示
@@ -416,7 +418,8 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
         _missionModel?.isFinished == true
             ? SizedBox.shrink()
             : Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, widget.useUnifiedStyle ? 14 : 10, 0),
+                padding: EdgeInsets.fromLTRB(
+                    0, 0, widget.useUnifiedStyle ? 14 : 10, 0),
                 child: widget.useUnifiedStyle
                     ? InkWell(
                         onTap: () {
@@ -516,7 +519,8 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
           child: Container(
             margin: EdgeInsets.only(
               bottom: widget.useUnifiedStyle ? 8 : 2,
-              left: CONSTANTS.missionPageMargin + (widget.useUnifiedStyle ? 10 : 0),
+              left: CONSTANTS.missionPageMargin +
+                  (widget.useUnifiedStyle ? 10 : 0),
               right: CONSTANTS.missionPageMargin,
             ),
             child: Stack(
@@ -525,13 +529,25 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                 if (widget.useUnifiedStyle)
                   Positioned(
                     left: -10,
-                    top: 3,
-                    bottom: 3,
+                    top: 0,
+                    bottom: 0,
                     child: Container(
-                      width: 20,
+                      width: 23,
                       decoration: BoxDecoration(
                         color: priorityAccentColor.withValues(alpha: 0.48),
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20), topRight: Radius.circular(0), bottomRight: Radius.circular(0)),),
+                        boxShadow: [
+                          BoxShadow(
+                            color: priorityAccentColor.withValues(alpha: 0.16),
+                            blurRadius: 12,
+                            offset: const Offset(-2, 4),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            topRight: Radius.circular(0),
+                            bottomRight: Radius.circular(0)),
+                      ),
                     ),
                   ),
                 Container(
@@ -547,18 +563,35 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                           borderRadius: BorderRadius.circular(18),
                           border: this.widget.multiSelectModeEnum ==
                                   MultiSelectModeEnum.normal
-                              ? null
+                              ? Border.all(
+                                  width: 0,
+                                  color: Colors.transparent,
+                                )
                               : Border.all(
-                                  width: 2.0,
+                                  width:
+                                      this.widget._missionModel?.isSelected ==
+                                              true
+                                          ? 2.0
+                                          : 0,
                                   color: Color(
                                     CONSTANTS.getPriorityColor(
-                                            _missionModel?.priorityStatus ?? 3) -
-                                        (this.widget._missionModel?.isSelected == true
+                                            _missionModel?.priorityStatus ??
+                                                3) -
+                                        (this
+                                                    .widget
+                                                    ._missionModel
+                                                    ?.isSelected ==
+                                                true
                                             ? 0x00000000
-                                            : 0xe0000000),
+                                            : 0x00000000),
                                   ),
                                 ),
                           boxShadow: [
+                            BoxShadow(
+                              color: priorityAccentColor.withValues(alpha: 0.08),
+                              blurRadius: 18,
+                              offset: const Offset(-3, 6),
+                            ),
                             BoxShadow(
                               color: ColorsConfig.missionTaskCardShadow,
                               blurRadius: 20,
@@ -577,7 +610,8 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                                   image: imageProvider!,
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                    ThemeManager.getInstance().getCardBackgroundColor(
+                                    ThemeManager.getInstance()
+                                        .getCardBackgroundColor(
                                       defaultColor: Colors.white,
                                       alpha: 150,
                                     ),
@@ -586,42 +620,48 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                                 ),
                         )
                       : BoxDecoration(
-                          border:
-                              this.widget.multiSelectModeEnum ==
-                                      MultiSelectModeEnum.normal
-                                  ? Border.all(
-                                      width: 1.0,
-                                      color: ThemeManager.getInstance().getShadowColor(
-                                        defaultColor: Color(0xfff0f0f0),
-                                        defaultDarkColor: ColorsConfig
-                                            .standardBorderLineColorDarkMode,
-                                      ),
-                                    )
-                                  : Border.all(
-                                      width: 2.0,
-                                      color: Color(
-                                        CONSTANTS.getPriorityColor(
-                                                _missionModel?.priorityStatus ?? 3) -
-                                            (this.widget._missionModel?.isSelected ==
-                                                    true
-                                                ? 0x00000000
-                                                : 0xe0000000),
-                                      ),
-                                    ),
+                          border: this.widget.multiSelectModeEnum ==
+                                  MultiSelectModeEnum.normal
+                              ? Border.all(
+                                  width: 1.0,
+                                  color:
+                                      ThemeManager.getInstance().getShadowColor(
+                                    defaultColor: Color(0xfff0f0f0),
+                                    defaultDarkColor: ColorsConfig
+                                        .standardBorderLineColorDarkMode,
+                                  ),
+                                )
+                              : Border.all(
+                                  width: 2.0,
+                                  color: Color(
+                                    CONSTANTS.getPriorityColor(
+                                            _missionModel?.priorityStatus ??
+                                                3) -
+                                        (this
+                                                    .widget
+                                                    ._missionModel
+                                                    ?.isSelected ==
+                                                true
+                                            ? 0x00000000
+                                            : 0xe0000000),
+                                  ),
+                                ),
                           image: imageProvider == null
                               ? null
                               : DecorationImage(
                                   image: imageProvider!,
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                    ThemeManager.getInstance().getCardBackgroundColor(
+                                    ThemeManager.getInstance()
+                                        .getCardBackgroundColor(
                                       defaultColor: Colors.white,
                                       alpha: 150,
                                     ),
                                     BlendMode.colorBurn,
                                   ),
                                 ),
-                          color: ThemeManager.getInstance().getCardBackgroundColor(
+                          color:
+                              ThemeManager.getInstance().getCardBackgroundColor(
                             defaultColor: Colors.white,
                             alpha: 150,
                           ),
@@ -630,51 +670,53 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                         ),
                   child: Stack(
                     children: [
-                TextUtil.isEmpty(_missionModel?.background_url ?? "")
-                    ? SizedBox.shrink()
-                    : CachedNetworkImage(
-                        imageUrl: Utility.filterHttpUrl(
-                          _missionModel?.background_url ?? '',
-                          prefix: "oss",
+                      TextUtil.isEmpty(_missionModel?.background_url ?? "")
+                          ? SizedBox.shrink()
+                          : CachedNetworkImage(
+                              imageUrl: Utility.filterHttpUrl(
+                                _missionModel?.background_url ?? '',
+                                prefix: "oss",
+                              ),
+                              imageBuilder: (context, imageProviderTmp) {
+                                Future.delayed(Duration(seconds: 0), () {
+                                  imageProvider = imageProviderTmp;
+                                  if (mounted) {
+                                    // setState(() {});
+                                  }
+                                });
+                                return Container();
+                              },
+                            ),
+                      if (widget.useUnifiedStyle &&
+                          TextUtil.isEmpty(
+                                  _missionModel?.background_url ?? "") ==
+                              false)
+                        _buildUnifiedTextProtectionOverlay(),
+                      Container(
+                        color: widget.useUnifiedStyle
+                            ? Colors.transparent
+                            : ThemeManager.getInstance().getCardBackgroundColor(
+                                defaultColor: Color(0xb0ffffff),
+                                alpha: 150,
+                              ),
+                        constraints: BoxConstraints(
+                            minHeight: widget.useUnifiedStyle ? 86 : 66),
+                        padding: EdgeInsets.only(top: 0, bottom: 0),
+                        alignment: Alignment.centerLeft,
+                        child: Stack(
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: childrenRow,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        imageBuilder: (context, imageProviderTmp) {
-                          Future.delayed(Duration(seconds: 0), () {
-                            imageProvider = imageProviderTmp;
-                            if (mounted) {
-                              // setState(() {});
-                            }
-                          });
-                          return Container();
-                        },
                       ),
-                if (widget.useUnifiedStyle &&
-                    TextUtil.isEmpty(_missionModel?.background_url ?? "") ==
-                        false)
-                  _buildUnifiedTextProtectionOverlay(),
-                Container(
-                  color: widget.useUnifiedStyle
-                      ? Colors.transparent
-                      : ThemeManager.getInstance().getCardBackgroundColor(
-                          defaultColor: Color(0xb0ffffff),
-                          alpha: 150,
-                        ),
-                  constraints:
-                      BoxConstraints(minHeight: widget.useUnifiedStyle ? 86 : 66),
-                  padding: EdgeInsets.only(top: 0, bottom: 0),
-                  alignment: Alignment.centerLeft,
-                  child: Stack(
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: childrenRow,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
                     ],
                   ),
                 ),
@@ -725,76 +767,81 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                               size: 14,
                             ),
                 ),
-                if(Utility.isObjectiveForMissionModel(missionModel: _missionModel ?? MissionModel()))
-                Positioned(
-                  bottom: 3,
-                  right: 0,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 5,
-                        child: SliderWithCanvasWidget(
-                          onChange: (double value) {
-                            _missionModel?.objectiveValue = value;
-                            if((_missionModel?.objectiveTotalValue ?? 0) > 0) {
-                              if((_missionModel?.objectiveTotalValue ?? 0) <= value) {
-                                _missionModel?.isFinished = true;
-                              } else {
-                                _missionModel?.isFinished = false;
+                if (Utility.isObjectiveForMissionModel(
+                    missionModel: _missionModel ?? MissionModel()))
+                  Positioned(
+                    bottom: 3,
+                    right: 0,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 5,
+                          child: SliderWithCanvasWidget(
+                            onChange: (double value) {
+                              _missionModel?.objectiveValue = value;
+                              if ((_missionModel?.objectiveTotalValue ?? 0) >
+                                  0) {
+                                if ((_missionModel?.objectiveTotalValue ?? 0) <=
+                                    value) {
+                                  _missionModel?.isFinished = true;
+                                } else {
+                                  _missionModel?.isFinished = false;
+                                }
                               }
-                            }
-                            tmpMissionModel = _missionModel;
-                            // MongoApisManager.getInstance().update_MissionModel(
-                            //     missionModel: _missionModel ?? MissionModel());
-                            funcDebounceWithUpdateSliderVal(this);
-                            setState(() {});
-                          },
-                          min: _missionModel?.objectiveStartValue ?? 0,
-                          max: _missionModel?.objectiveTotalValue ?? 0,
-                          curVal: _missionModel?.objectiveValue,
-                          // onChange: (double value) {},
-                        ),
-                      ),
-                      folderModel == null
-                          ? SizedBox.shrink()
-                          : WidgetManager.getFolderModelIcon(
-                          folderModel!, 12) ??
-                          SizedBox.shrink(),
-                      SizedBox(width: 4),
-                      Text(
-                        folderModel?.title ?? "",
-                        style: ThemeManager.getInstance().getTextStyle(
-                          defaultTextStyle: TextStyle(
-                            fontSize: 10,
-                            color: Color(0xff666666),
+                              tmpMissionModel = _missionModel;
+                              // MongoApisManager.getInstance().update_MissionModel(
+                              //     missionModel: _missionModel ?? MissionModel());
+                              funcDebounceWithUpdateSliderVal(this);
+                              setState(() {});
+                            },
+                            min: _missionModel?.objectiveStartValue ?? 0,
+                            max: _missionModel?.objectiveTotalValue ?? 0,
+                            curVal: _missionModel?.objectiveValue,
+                            // onChange: (double value) {},
                           ),
                         ),
-                      ),
-                      // Wrap(
-                      //   children: [
-                      //     folderModel == null
-                      //         ? SizedBox.shrink()
-                      //         : WidgetManager.getFolderModelIcon(
-                      //         folderModel!, 12) ??
-                      //         SizedBox.shrink(),
-                      //     SizedBox(width: 4),
-                      //     Text(
-                      //       folderModel?.title ?? "",
-                      //       style: ThemeManager.getInstance().getTextStyle(
-                      //         defaultTextStyle: TextStyle(
-                      //           fontSize: 10,
-                      //           color: Color(0xff666666),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // )
-                      SizedBox(width: 15,)
-                    ],
+                        folderModel == null
+                            ? SizedBox.shrink()
+                            : WidgetManager.getFolderModelIcon(
+                                    folderModel!, 12) ??
+                                SizedBox.shrink(),
+                        SizedBox(width: 4),
+                        Text(
+                          folderModel?.title ?? "",
+                          style: ThemeManager.getInstance().getTextStyle(
+                            defaultTextStyle: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xff666666),
+                            ),
+                          ),
+                        ),
+                        // Wrap(
+                        //   children: [
+                        //     folderModel == null
+                        //         ? SizedBox.shrink()
+                        //         : WidgetManager.getFolderModelIcon(
+                        //         folderModel!, 12) ??
+                        //         SizedBox.shrink(),
+                        //     SizedBox(width: 4),
+                        //     Text(
+                        //       folderModel?.title ?? "",
+                        //       style: ThemeManager.getInstance().getTextStyle(
+                        //         defaultTextStyle: TextStyle(
+                        //           fontSize: 10,
+                        //           color: Color(0xff666666),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // )
+                        SizedBox(
+                          width: 15,
+                        )
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           ),
@@ -816,13 +863,15 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
       ),
       SizedBox(width: 2),
       Text(
-        CONSTANTS.getSegmentDateStringSubtitleByMissionModel(_missionModel ?? MissionModel()),
+        CONSTANTS.getSegmentDateStringSubtitleByMissionModel(
+            _missionModel ?? MissionModel()),
         style: TextStyle(fontSize: this.fontSize, color: ColorsConfig.darkRed),
       ),
     ];
   }
 
-  Function funcDebounceWithUpdateSliderVal = Utility.debounceWith((MissionSilverListItemState state) async {
+  Function funcDebounceWithUpdateSliderVal =
+      Utility.debounceWith((MissionSilverListItemState state) async {
     // state.isLoading = true;
     // state.tmpMissionModel?.objectiveValue = value;
     // print("value:$value");
@@ -839,9 +888,9 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
             eventType: "realize_mission",
             mission_id: state.tmpMissionModel?.objectId,
             folder_id: state.tmpMissionModel?.folder_id,
-            timelineMessage: getI18NKey()
-                .realize_percent(state.tmpMissionModel?.title ?? "?", state.tmpMissionModel?.objectivePercentString ?? "")));
-
+            timelineMessage: getI18NKey().realize_percent(
+                state.tmpMissionModel?.title ?? "?",
+                state.tmpMissionModel?.objectivePercentString ?? "")));
   }, Duration(milliseconds: 3000));
 
   List<Widget> getDateWidget(MissionModel _missionModel) {

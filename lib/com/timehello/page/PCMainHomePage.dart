@@ -119,7 +119,7 @@ class LeftSettingSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = DeviceInfoManagement.getLanguage() == 'zh' ? 55 : 80;
+    double width = DeviceInfoManagement.getLanguage() == 'zh' ? 74 : 82;
     //页面来自MinePage
     return Container(
         width: width,
