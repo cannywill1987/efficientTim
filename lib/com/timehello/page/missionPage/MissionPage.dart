@@ -38,6 +38,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import '../../../../r.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CheckButtonListWithIconWidget.dart';
+import '../../components/unified/UnifiedCheckButtonListWithIconWidget.dart';
 import '../../components/CircleWidget.dart';
 import '../../components/CustomBlackButton.dart';
 import '../../components/CustomMarquee.dart';
@@ -424,8 +425,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     // print('创建任务的时间: ' + data.toString());
     MissionModel missionModel = MissionModel();
     missionModel.folder_id = this.widget.folderModel?.objectId;
-    missionModel?.end_time =
-        dateTime.millisecondsSinceEpoch;
+    missionModel?.end_time = dateTime.millisecondsSinceEpoch;
     if (Utility.isHandsetBySize() == true) {
       Utility.pushNavigator(
           context, CreateMissionPage(missionModel: missionModel));
@@ -909,8 +909,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
           },
           child: Stack(key: ValueKey('Stack2'), children: [
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: isUnifiedDesktop ? 0 : padding),
+              padding: EdgeInsets.symmetric(
+                  horizontal: isUnifiedDesktop ? 0 : padding),
               key: ValueKey('Container1'),
               color: isUnifiedDesktop
                   ? Colors.transparent
@@ -942,7 +942,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                                     : this.missionDataViewTypeEnum ==
                                             MissionDataViewTypeEnum.table
                                         ? Column(
-                                            children: getTableSilverListWidget(),
+                                            children:
+                                                getTableSilverListWidget(),
                                           )
                                         : CustomScrollView(
                                             controller: _scrollController,
@@ -956,42 +957,43 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       ),
                     )
                   : GestureDetector(
-                key: ValueKey('TextButton1'),
-                onTap: () async {
-                  unfocus();
-                  await Future.delayed(Duration(milliseconds: 500));
-                  Utility.popupDesktopRightNavigator(context);
-                },
-                child: Stack(key: ValueKey('Stack1'), children: [
-                  RefreshIndicator(
-                    key: ValueKey('RefreshIndicator1'),
-                    onRefresh: () async {
-                      Utility.initCalendarModel();
-                      // await this.requestDatas();
-                      //模拟网络请求
-                      //结束刷新
-                      return Future.value(true);
-                    },
-                    child: Container(
-                      key: ValueKey('Container2'),
-                      color: ThemeManager.getInstance().getBackgroundColor(),
-                      child: this.missionDataViewTypeEnum ==
-                              MissionDataViewTypeEnum.week_view
-                          ? getWeekViewWidget()
-                          : this.missionDataViewTypeEnum ==
-                                  MissionDataViewTypeEnum.table
-                              ? Column(
-                                  children: getTableSilverListWidget(),
-                                )
-                              : CustomScrollView(
-                                  controller: _scrollController,
-                                  key: ValueKey('CustomScrollView1'),
-                                  slivers: getSilverListWidget(),
-                                ),
+                      key: ValueKey('TextButton1'),
+                      onTap: () async {
+                        unfocus();
+                        await Future.delayed(Duration(milliseconds: 500));
+                        Utility.popupDesktopRightNavigator(context);
+                      },
+                      child: Stack(key: ValueKey('Stack1'), children: [
+                        RefreshIndicator(
+                          key: ValueKey('RefreshIndicator1'),
+                          onRefresh: () async {
+                            Utility.initCalendarModel();
+                            // await this.requestDatas();
+                            //模拟网络请求
+                            //结束刷新
+                            return Future.value(true);
+                          },
+                          child: Container(
+                            key: ValueKey('Container2'),
+                            color:
+                                ThemeManager.getInstance().getBackgroundColor(),
+                            child: this.missionDataViewTypeEnum ==
+                                    MissionDataViewTypeEnum.week_view
+                                ? getWeekViewWidget()
+                                : this.missionDataViewTypeEnum ==
+                                        MissionDataViewTypeEnum.table
+                                    ? Column(
+                                        children: getTableSilverListWidget(),
+                                      )
+                                    : CustomScrollView(
+                                        controller: _scrollController,
+                                        key: ValueKey('CustomScrollView1'),
+                                        slivers: getSilverListWidget(),
+                                      ),
+                          ),
+                        ),
+                      ]),
                     ),
-                  ),
-                ]),
-              ),
             ),
             Utility.isHandsetBySize()
                 ? Align(
@@ -1232,7 +1234,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       },
       onTapDoItNow: (v) {
         this.onClick('onTapDoItNow', v); // 调用 onClick 方法
-      }, multiSelectModeEnum: this.multiSelectModeEnum, missionModelList: this.curListMissionModels ?? [],
+      },
+      multiSelectModeEnum: this.multiSelectModeEnum,
+      missionModelList: this.curListMissionModels ?? [],
     );
   }
 
@@ -1536,7 +1540,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
               ],
             ),
             Row(
-          children: [
+              children: [
                 SearchBarWithIconWidget(
                   key: ValueKey("ejfiejf"),
                   onChange: (searchWord) {
@@ -1653,9 +1657,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       timelineMissionModel?.eventType = "note";
     } else {
       timelineMissionModel = TimelineMissionModel();
-      timelineMissionModel.folder_id = this.widget.folderModel?.objectId ?? null;
-      timelineMissionModel.tagNames =
-          this.widget.folderModel?.tag == 2 ? this.widget.folderModel?.title : "";
+      timelineMissionModel.folder_id =
+          this.widget.folderModel?.objectId ?? null;
+      timelineMissionModel.tagNames = this.widget.folderModel?.tag == 2
+          ? this.widget.folderModel?.title
+          : "";
       timelineMissionModel.color = this.widget.folderModel?.color;
       timelineMissionModel.icon = this.widget.folderModel?.icon;
       timelineMissionModel.sceneType = "note";
@@ -1713,6 +1719,18 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Widget _buildViewModeSwitcher() {
+    if (isUnifiedDesktop) {
+      return Offstage(
+        offstage: this.isListAndGridVisible == false,
+        child: UnifiedCheckButtonListWithIconWidget(
+          key: checkButtonListWithIconWidgetKey,
+          list: listCheckButtonStateModel ?? [],
+          onTapListener: (obj) {
+            _onMissionViewModeTap(obj);
+          },
+        ),
+      );
+    }
     return Offstage(
       offstage: this.isListAndGridVisible == false,
       child: CheckButtonListWithIconWidget(
@@ -1765,7 +1783,11 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       missionOrderEnum,
                       _missionModelListUnFinished,
                       -1,
-                      this.widget.folderModel.filterConditionMapBean?.listingId) ??
+                      this
+                          .widget
+                          .folderModel
+                          .filterConditionMapBean
+                          ?.listingId) ??
                   [],
               this.widget.folderModel?.title);
           Utility.showToastMsg(msg: getI18NKey().sync_desktop_widget_success);
@@ -1788,13 +1810,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         UnifiedDesktopCard(
           margin: EdgeInsets.fromLTRB(
               CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
-          padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
+          padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
           borderRadius: BorderRadius.circular(24),
           child: Column(
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.76),
                   borderRadius: BorderRadius.circular(16),
@@ -1803,7 +1825,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   bean: MarqueInfo.marqueMissionpage,
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -1820,7 +1842,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Expanded(
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 520),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1853,13 +1876,15 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                                   if (this.widget.folderModel != null) {
                                     MongoApisManager.getInstance()
                                         .update_FolderModelWithFM(
-                                            folderModel: this.widget.folderModel!,
+                                            folderModel:
+                                                this.widget.folderModel!,
                                             shouldQueryMissionModel: false);
                                   }
                                 }),
                             const SizedBox(width: 4),
                             ListingSecurityWidget(
-                              folder_id: this.widget.folderModel?.objectId ?? "",
+                              folder_id:
+                                  this.widget.folderModel?.objectId ?? "",
                               cryptoVersion:
                                   this.widget.folderModel?.cryptoVersion ?? -1,
                             )
@@ -1868,71 +1893,81 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          SearchBarWithIconWidget(
-                            key: ValueKey("ejfiejf_unified"),
-                            onChange: (searchWord) {
-                              onClickSearch(searchWord);
-                            },
-                            onClickSearchListener: (bool res) {
-                              this.isSearchBarVisible = res;
-                              AnalyticsEventsManager.getInstance()
-                                  .sendAnalyticsEventMap({
-                                "sceneType": "missionpage",
-                                "eventType": "missionpage_search",
-                                "description": "搜索",
-                              });
-                              updateUI();
-                            },
-                          ),
-                          if (_canShowFolderNoteAction())
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: UnifiedActionChip(
-                                onTap: _openFolderNoteEditor,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    SizedBox(
-                                      width: 15,
-                                      height: 15,
-                                      child: Utility.getSVGPicture(
-                                        R.assetsImgIcWordDocument,
-                                        size: 15,
-                                      ),
+                  const Spacer(),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 460),
+                    child: SizedBox(
+                      height: 42,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          reverse: true,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SearchBarWithIconWidget(
+                                key: ValueKey("ejfiejf_unified"),
+                                onChange: (searchWord) {
+                                  onClickSearch(searchWord);
+                                },
+                                onClickSearchListener: (bool res) {
+                                  this.isSearchBarVisible = res;
+                                  AnalyticsEventsManager.getInstance()
+                                      .sendAnalyticsEventMap({
+                                    "sceneType": "missionpage",
+                                    "eventType": "missionpage_search",
+                                    "description": "搜索",
+                                  });
+                                  updateUI();
+                                },
+                              ),
+                              if (_canShowFolderNoteAction())
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: UnifiedActionChip(
+                                    onTap: _openFolderNoteEditor,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
+                                          width: 15,
+                                          height: 15,
+                                          child: Utility.getSVGPicture(
+                                            R.assetsImgIcWordDocument,
+                                            size: 15,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          getI18NKey().add_note,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xFF8C5831),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      getI18NKey().add_note,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xFF8C5831),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
+                                ),
+                              const SizedBox(width: 10),
+                              _buildViewModeSwitcher(),
+                              const SizedBox(width: 10),
+                              _buildMissionActionMenu(
+                                child: const UnifiedActionChip(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Icon(
+                                    Icons.more_horiz,
+                                    color: Color(0xff8b6a55),
+                                  ),
                                 ),
                               ),
-                            ),
-                          const SizedBox(width: 10),
-                          _buildViewModeSwitcher(),
-                          const SizedBox(width: 10),
-                          _buildMissionActionMenu(
-                            child: const UnifiedActionChip(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Icon(
-                                Icons.more_horiz,
-                                color: Color(0xff8b6a55),
-                              ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -2218,7 +2253,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     } catch (e) {}
     List<MissionModel> datas = [];
     curListMissionModels = [];
-     if (this.widget.folderModel?.tag == 4) { //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器 5-目标模块
+    if (this.widget.folderModel?.tag == 4) {
+      //1-表示各种图案circle mission;2-表示的是 tag; 3-代表文件夹;null-今天 明天 即将到来 4-过滤器 5-目标模块
       curIndexListViewAndGridView = SharePreferenceUtil.getSyncInstance()
           .getInt(
               key: ShareprefrenceKeys.listAndGridView +
@@ -2470,79 +2506,81 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   },
                 )
               : Container(
-              padding: EdgeInsets.fromLTRB(25, 0, 0, 7),
-              color: ThemeManager.getInstance().getBackgroundColor(
-                  defaultColor: ColorsConfig.standardPageBackground),
-              // color: ColorsConfig.backgroundColor,
-              alignment: Alignment(-1, 1),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Wrap(
+                  padding: EdgeInsets.fromLTRB(25, 0, 0, 7),
+                  color: ThemeManager.getInstance().getBackgroundColor(
+                      defaultColor: ColorsConfig.standardPageBackground),
+                  // color: ColorsConfig.backgroundColor,
+                  alignment: Alignment(-1, 1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        title,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: ThemeManager.getInstance()
-                                .getTextColor(defaultColor: Color(0xffa3a3a3)),
-                            shadows: ThemeManager.getInstance().isDark()
-                                ? null
-                                : [
-                                    Shadow(
-                                        color: Colors.white,
-                                        offset: Offset(1, 1))
-                                  ]),
+                      Wrap(
+                        children: [
+                          Text(
+                            title,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: ThemeManager.getInstance().getTextColor(
+                                    defaultColor: Color(0xffa3a3a3)),
+                                shadows: ThemeManager.getInstance().isDark()
+                                    ? null
+                                    : [
+                                        Shadow(
+                                            color: Colors.white,
+                                            offset: Offset(1, 1))
+                                      ]),
+                          ),
+                          if (isDelay == true && title != getI18NKey().others)
+                            Text(
+                              "(" + getI18NKey().already_delay + ")",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: ThemeManager.getInstance()
+                                      .getTextColor(
+                                          defaultColor: Colors.red,
+                                          defaultDarkColor: Colors.red),
+                                  shadows: ThemeManager.getInstance().isDark()
+                                      ? null
+                                      : [
+                                          Shadow(
+                                              color: Colors.white,
+                                              offset: Offset(1, 1))
+                                        ]),
+                            ),
+                        ],
                       ),
-                      if (isDelay == true && title != getI18NKey().others)
-                        Text(
-                          "(" + getI18NKey().already_delay + ")",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: ThemeManager.getInstance().getTextColor(
-                                  defaultColor: Colors.red,
-                                  defaultDarkColor: Colors.red),
-                              shadows: ThemeManager.getInstance().isDark()
-                                  ? null
-                                  : [
-                                      Shadow(
-                                          color: Colors.white,
-                                          offset: Offset(1, 1))
-                                    ]),
+                      if (subtitle != null && title != getI18NKey().others)
+                        InkWell(
+                          onTap: () {
+                            if (isDelay == true) {
+                              onClickSubtitle?.call();
+                            }
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              subtitle,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: ThemeManager.getInstance()
+                                      .getTextColor(
+                                          defaultColor: Colors.blue,
+                                          defaultDarkColor: Colors.blue),
+                                  shadows: ThemeManager.getInstance().isDark()
+                                      ? null
+                                      : [
+                                          Shadow(
+                                              color: Colors.white,
+                                              offset: Offset(1, 1))
+                                        ]),
+                            ),
+                          ),
                         ),
                     ],
-                  ),
-                  if (subtitle != null && title != getI18NKey().others)
-                    InkWell(
-                      onTap: () {
-                        if (isDelay == true) {
-                          onClickSubtitle?.call();
-                        }
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          subtitle,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: ThemeManager.getInstance().getTextColor(
-                                  defaultColor: Colors.blue,
-                                  defaultDarkColor: Colors.blue),
-                              shadows: ThemeManager.getInstance().isDark()
-                                  ? null
-                                  : [
-                                      Shadow(
-                                          color: Colors.white,
-                                          offset: Offset(1, 1))
-                                    ]),
-                        ),
-                      ),
-                    ),
-                ],
-              )),
+                  )),
         ));
   }
 
@@ -2577,64 +2615,69 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     },
                   )
                 : Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      height: 20,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      decoration: BoxDecoration(
-                          color: ThemeManager.getInstance()
-                              .getCardBackgroundColor(
-                                  defaultColor: Colors.white),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: Wrap(
-                        children: [
-                          InkWell(
-                              onTap: () {
-                                if (isEnabled == false) return;
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Container(
+                            height: 20,
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                            decoration: BoxDecoration(
+                                color: ThemeManager.getInstance()
+                                    .getCardBackgroundColor(
+                                        defaultColor: Colors.white),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
+                            child: Wrap(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      if (isEnabled == false) return;
+                                      SharePreferenceUtil.getSyncInstance()
+                                          .setCompleteMissionVisible(
+                                              visible: !SharePreferenceUtil
+                                                      .getSyncInstance()
+                                                  .getCompleteMissionVisible());
+                                      this.updateUI();
+                                    },
+                                    child: Text(
+                                      title,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: ThemeManager.getInstance()
+                                              .getTextColor(
+                                                  defaultColor:
+                                                      Color(0xff606060)),
+                                          shadows: ThemeManager.getInstance()
+                                                  .isDark()
+                                              ? null
+                                              : [
+                                                  Shadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(1, 1))
+                                                ]),
+                                    )),
+                                SizedBox(
+                                  width: 2,
+                                ),
                                 SharePreferenceUtil.getSyncInstance()
-                                    .setCompleteMissionVisible(
-                                        visible: !SharePreferenceUtil
-                                                .getSyncInstance()
-                                            .getCompleteMissionVisible());
-                                this.updateUI();
-                              },
-                              child: Text(
-                                title,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: ThemeManager.getInstance()
-                                        .getTextColor(
-                                            defaultColor: Color(0xff606060)),
-                                    shadows: ThemeManager.getInstance().isDark()
-                                        ? null
-                                        : [
-                                            Shadow(
-                                                color: Colors.white,
-                                                offset: Offset(1, 1))
-                                          ]),
-                              )),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          SharePreferenceUtil.getSyncInstance()
-                                      .getCompleteMissionVisible() ==
-                                  false
-                              ? Icon(Icons.arrow_drop_down,
-                                  color: ThemeManager.getInstance()
-                                      .getIconColor(
-                                          defaultColor: Color(0xff606060)),
-                                  size: 20)
-                              : Icon(Icons.arrow_drop_up,
-                                  color: ThemeManager.getInstance()
-                                      .getIconColor(
-                                          defaultColor: Color(0xff606060)),
-                                  size: 20)
-                        ],
-                      )),
-                ])));
+                                            .getCompleteMissionVisible() ==
+                                        false
+                                    ? Icon(Icons.arrow_drop_down,
+                                        color: ThemeManager.getInstance()
+                                            .getIconColor(
+                                                defaultColor:
+                                                    Color(0xff606060)),
+                                        size: 20)
+                                    : Icon(Icons.arrow_drop_up,
+                                        color: ThemeManager.getInstance()
+                                            .getIconColor(
+                                                defaultColor:
+                                                    Color(0xff606060)),
+                                        size: 20)
+                              ],
+                            )),
+                      ])));
   }
 }
 

@@ -98,6 +98,27 @@ class TimeManagementPageState extends State<TimeManagementPage> {
   final ScrollController _controller = ScrollController();
   final CalendarController _calendarController = CalendarController();
 
+  CalendarView _resolveInitialView(int storedIndex) {
+    if (storedIndex < 0 || storedIndex >= CalendarView.values.length) {
+      return CalendarView.week;
+    }
+    final CalendarView view = CalendarView.values[storedIndex];
+    if (view == CalendarView.schedule || !_allowedViewsList.contains(view)) {
+      return CalendarView.week;
+    }
+    return view;
+  }
+
+  void _normalizeControllerView() {
+    final CalendarView? view = _calendarController.view;
+    if (view == null ||
+        view == CalendarView.schedule ||
+        !_allowedViewsList.contains(view)) {
+      _calendarController.view = CalendarView.week;
+      _currentView = CalendarView.week;
+    }
+  }
+
   @override
   void initState() {
     _currentView = CalendarView.week;
@@ -106,9 +127,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
     }
     int currentView = SharePreferenceUtil.getSyncInstance().getInt(
         key: "timeManagementDefautKey", defaultVal: CalendarView.week.index);
-    if (currentView != null) {
-      _currentView = CalendarView.values[currentView];
-    }
+    _currentView = _resolveInitialView(currentView);
     _calendarController.view = _currentView;
 
     super.initState();
@@ -124,6 +143,7 @@ class TimeManagementPageState extends State<TimeManagementPage> {
 
   @override
   Widget build(BuildContext context) {
+    _normalizeControllerView();
     // CalendarModel calendarModel = context.watch<GlobalStateEnv>().calendarModel;
     // List<DayModel> dayModelList = Utility.filterDaysModels(
     //     calendarModel?.dayModelList ?? [], folderModelSearch);

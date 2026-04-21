@@ -4,6 +4,7 @@ import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/page/FourQuadrant/FourQuadrantPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/TimeManagementPage.dart';
 import 'package:time_hello/com/timehello/page/calendarPage/components/CalendarMissionListWidget.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 /**
@@ -37,25 +38,50 @@ class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Container(
-          width: 300,
-          child: CalendarMissionListWidget(onDateRangeSelected:
-              (DateTime? startDateTime, DateTime? endDateTime) {
-            TimeManagementPageStateGlobalKey.currentState?.selectDate(
-                startDateTime,
-                endDateTime == null
-                    ? null
-                    : Utility.getFilterDateTimeFromDateTime(
-                        endDateTime!, true));
-          }),
-        ),
-        Expanded(
-            child: FourQuadrantPage(key: TimeManagementPageStateGlobalKey)),
-      ],
+    final bool isDark = ThemeManager.getInstance().isDark();
+    return Container(
+      color: isDark ? const Color(0xFF171312) : const Color(0xFFF7ECDD),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            width: 300,
+            child: CalendarMissionListWidget(onDateRangeSelected:
+                (DateTime? startDateTime, DateTime? endDateTime) {
+              TimeManagementPageStateGlobalKey.currentState?.selectDate(
+                  startDateTime,
+                  endDateTime == null
+                      ? null
+                      : Utility.getFilterDateTimeFromDateTime(
+                          endDateTime!, true));
+            }),
+          ),
+          Expanded(
+              child: FourQuadrantPage(key: TimeManagementPageStateGlobalKey)),
+        ],
+      ),
     );
+    
+    // return Row(
+    //   mainAxisSize: MainAxisSize.max,
+    //   children: [
+    //     Container(
+    //       width: 300,
+    //       child: CalendarMissionListWidget(onDateRangeSelected:
+    //           (DateTime? startDateTime, DateTime? endDateTime) {
+    //         TimeManagementPageStateGlobalKey.currentState?.selectDate(
+    //             startDateTime,
+    //             endDateTime == null
+    //                 ? null
+    //                 : Utility.getFilterDateTimeFromDateTime(
+    //                     endDateTime!, true));
+    //       }),
+    //     ),
+    //     Expanded(
+    //         child: FourQuadrantPage(key: TimeManagementPageStateGlobalKey)),
+    //   ],
+    // );
+    
     // return Selector<CalendarMssionEnv, MissionModel?>(
     //     selector: (_, env) => env.curSelectedMissionModel,
     // builder: (_, curSelectedMissionModel, __) {

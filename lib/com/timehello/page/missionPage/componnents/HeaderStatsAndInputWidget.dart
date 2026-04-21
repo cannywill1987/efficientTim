@@ -46,9 +46,9 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
       {Key? key,
       List? datas,
       this.onTapUpListener,
-        this.shouldSliver = true,
-        this.shouldShowFolderIcons = true,
-        this.useUnifiedStyle = false,
+      this.shouldSliver = true,
+      this.shouldShowFolderIcons = true,
+      this.useUnifiedStyle = false,
       this.onTapDownListener,
       this.onChangeListener,
       this.childAfterInputWidget,
@@ -176,7 +176,8 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                 ),
                 const SizedBox(height: 18),
                 Text(
-                  _formatHeroDuration(widget.folderTimeModel?.previewTimeString),
+                  _formatHeroDuration(
+                      widget.folderTimeModel?.previewTimeString),
                   style: TextStyle(
                     fontSize: compact ? 40 : 58,
                     fontWeight: FontWeight.w800,
@@ -208,15 +209,17 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               ],
             ),
           );
+          final String focusTimeDisplay = Utility.formatTimestamp(
+              widget.folderTimeModel?.finishedTime ?? 0);
           final Widget right = Wrap(
             spacing: 18,
             runSpacing: 18,
             alignment: WrapAlignment.end,
             children: [
               UnifiedMetricRing(
-                value: widget.folderTimeModel?.finishedTimeString ?? "0:00",
+                value: focusTimeDisplay,
                 label: getI18NKey().timefocused,
-                subtitle: "(${widget.folderTimeModel?.finishedTimeString ?? '0:00'})",
+                subtitle: "($focusTimeDisplay)",
                 progress: _getFocusProgress(),
                 color: const Color(0xFFF0B788),
               ),
@@ -227,15 +230,21 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                 progress: _getTaskProgress(),
                 color: const Color(0xFF9EDDC9),
               ),
-              UnifiedMetricRing(
-                value: (widget.folderTimeModel?.numTomatoesFinished ?? 0)
-                    .toString(),
-                label: getI18NKey().tomatoNums,
-                subtitle:
-                    "(${widget.folderTimeModel?.numTomatoesFinished ?? 0})",
-                progress: _getPomodoroProgress(),
-                color: const Color(0xFFD7B8F8),
-              ),
+              Builder(builder: (context) {
+                final int finished =
+                    widget.folderTimeModel?.numTomatoesFinished ?? 0;
+                final int pending =
+                    widget.folderTimeModel?.numTomatoesUnfinished ?? 0;
+                final int total = finished + pending;
+                final String value = total > 0 ? "$finished/$total" : "0/0";
+                return UnifiedMetricRing(
+                  value: value,
+                  label: getI18NKey().tomatoNums,
+                  subtitle: "($value)",
+                  progress: _getPomodoroProgress(),
+                  color: const Color(0xFFD7B8F8),
+                );
+              }),
             ],
           );
           if (compact) {
@@ -344,7 +353,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
           ? SliverToBoxAdapter(child: _buildUnifiedDesktopContent())
           : _buildUnifiedDesktopContent();
     }
-    if(this.widget.shouldSliver) {
+    if (this.widget.shouldSliver) {
       return getSliverList();
     } else {
       return getUnsliverList();
@@ -352,51 +361,51 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
   }
 
   Widget getUnsliverList() {
-     return Container(
-       child: Column(
+    return Container(
+      child: Column(
         children: [
           Container(
             decoration: _buildStatsCardDecoration(),
             margin: Utility.isHandsetBySize()
-                ? EdgeInsets.fromLTRB(
-                CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0)
-                : EdgeInsets.fromLTRB(
-                CONSTANTS.missionPageMargin, 0, CONSTANTS.missionPageMargin, 0),
+                ? EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin, 10,
+                    CONSTANTS.missionPageMargin, 0)
+                : EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin, 0,
+                    CONSTANTS.missionPageMargin, 0),
             height: 100,
             child: Row(
               children: <Widget>[
-                if(this.widget.folderModel?.tag == 5)
-                Expanded(
-                  key: ValueKey('Expanded33212'),
-                  child: HeaderItemWidget(
-                    key: ValueKey('HeaderItemWidget32'),
-                    shouldShowMins: false,
-                    title: getI18NKey().complete_ratio,
-                    value: this
-                        .widget
-                        .folderTimeModel
-                        ?.objectivePercentString
-                        .toString() ??
-                        "",
+                if (this.widget.folderModel?.tag == 5)
+                  Expanded(
+                    key: ValueKey('Expanded33212'),
+                    child: HeaderItemWidget(
+                      key: ValueKey('HeaderItemWidget32'),
+                      shouldShowMins: false,
+                      title: getI18NKey().complete_ratio,
+                      value: this
+                              .widget
+                              .folderTimeModel
+                              ?.objectivePercentString
+                              .toString() ??
+                          "",
+                    ),
+                    flex: 1,
                   ),
-                  flex: 1,
-                ),
-                if(this.widget.folderModel?.tag != 5)
-                Expanded(
-                  key: ValueKey('Expanded332'),
-                  child: HeaderItemWidget(
-                    key: ValueKey('HeaderItemWidget32'),
-                    shouldShowMins: true,
-                    title: getI18NKey().previewTime,
-                    value: this
-                        .widget
-                        .folderTimeModel
-                        ?.previewTimeString
-                        .toString() ??
-                        "",
+                if (this.widget.folderModel?.tag != 5)
+                  Expanded(
+                    key: ValueKey('Expanded332'),
+                    child: HeaderItemWidget(
+                      key: ValueKey('HeaderItemWidget32'),
+                      shouldShowMins: true,
+                      title: getI18NKey().previewTime,
+                      value: this
+                              .widget
+                              .folderTimeModel
+                              ?.previewTimeString
+                              .toString() ??
+                          "",
+                    ),
+                    flex: 1,
                   ),
-                  flex: 1,
-                ),
                 Expanded(
                   key: ValueKey('Expanded132'),
                   child: HeaderItemWidget(
@@ -404,30 +413,30 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                     shouldShowMins: false,
                     title: getI18NKey().missionToBeComplete,
                     value: this
-                        .widget
-                        .folderTimeModel
-                        ?.numMissionToFinished
-                        .toString() ??
+                            .widget
+                            .folderTimeModel
+                            ?.numMissionToFinished
+                            .toString() ??
                         "",
                   ),
                   flex: 1,
                 ),
-                if(this.widget.folderModel?.tag != 5)
-                Expanded(
-                  key: ValueKey('Expanded1322'),
-                  child: HeaderItemWidget(
-                    key: ValueKey('HeaderItemWidget1322'),
-                    shouldShowMins: true,
-                    title: getI18NKey().timefocused,
-                    value: this
-                        .widget
-                        .folderTimeModel
-                        ?.finishedTimeString
-                        .toString() ??
-                        "",
+                if (this.widget.folderModel?.tag != 5)
+                  Expanded(
+                    key: ValueKey('Expanded1322'),
+                    child: HeaderItemWidget(
+                      key: ValueKey('HeaderItemWidget1322'),
+                      shouldShowMins: true,
+                      title: getI18NKey().timefocused,
+                      value: this
+                              .widget
+                              .folderTimeModel
+                              ?.finishedTimeString
+                              .toString() ??
+                          "",
+                    ),
+                    flex: 1,
                   ),
-                  flex: 1,
-                ),
                 Expanded(
                   key: ValueKey('Expanded13223'),
                   child: HeaderItemWidget(
@@ -435,10 +444,10 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                     shouldShowMins: false,
                     title: getI18NKey().missioncompleted,
                     value: this
-                        .widget
-                        .folderTimeModel
-                        ?.numMissionFinished
-                        .toString() ??
+                            .widget
+                            .folderTimeModel
+                            ?.numMissionFinished
+                            .toString() ??
                         "",
                   ),
                   flex: 1,
@@ -448,10 +457,11 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
           ),
           Container(
             key: ValueKey('Container1322'),
-            margin: EdgeInsets.fromLTRB(
-                CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
-            padding:
-                widget.useUnifiedStyle ? const EdgeInsets.all(10) : EdgeInsets.zero,
+            margin: EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin, 10,
+                CONSTANTS.missionPageMargin, 0),
+            padding: widget.useUnifiedStyle
+                ? const EdgeInsets.all(10)
+                : EdgeInsets.zero,
             decoration: widget.useUnifiedStyle
                 ? buildUnifiedDesktopCardDecoration(
                     boxShadow: const [],
@@ -472,8 +482,8 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               ? SizedBox.shrink()
               : this.widget.childAfterInputWidget!,
         ],
-           ),
-     );
+      ),
+    );
   }
 
   SliverList getSliverList() {
@@ -490,37 +500,37 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               height: 100,
               child: Row(
                 children: <Widget>[
-                  if(this.widget.folderModel?.tag == 5)
-                  Expanded(
-                    key: ValueKey('Expanded3321212'),
-                    child: HeaderItemWidget(
-                      key: ValueKey('HeaderItemWidget12332'),
-                      shouldShowMins: false,
-                      title: getI18NKey().complete_ratio,
-                      value: this
-                          .widget
-                          .folderTimeModel
-                          ?.objectivePercentString
-                          .toString() ??
-                          "",
-                    ),
-                    flex: 1,
-                  ),
-                  if(this.widget.folderModel?.tag != 5)
-                  Expanded(
-                    key: ValueKey('Expanded332'),
-                    child: HeaderItemWidget(
-                        key: ValueKey('HeaderItemWidget32'),
-                        shouldShowMins: true,
-                        title: getI18NKey().previewTime,
+                  if (this.widget.folderModel?.tag == 5)
+                    Expanded(
+                      key: ValueKey('Expanded3321212'),
+                      child: HeaderItemWidget(
+                        key: ValueKey('HeaderItemWidget12332'),
+                        shouldShowMins: false,
+                        title: getI18NKey().complete_ratio,
                         value: this
                                 .widget
                                 .folderTimeModel
-                                ?.previewTimeString
+                                ?.objectivePercentString
                                 .toString() ??
-                            ""),
-                    flex: 1,
-                  ),
+                            "",
+                      ),
+                      flex: 1,
+                    ),
+                  if (this.widget.folderModel?.tag != 5)
+                    Expanded(
+                      key: ValueKey('Expanded332'),
+                      child: HeaderItemWidget(
+                          key: ValueKey('HeaderItemWidget32'),
+                          shouldShowMins: true,
+                          title: getI18NKey().previewTime,
+                          value: this
+                                  .widget
+                                  .folderTimeModel
+                                  ?.previewTimeString
+                                  .toString() ??
+                              ""),
+                      flex: 1,
+                    ),
                   Expanded(
                     key: ValueKey('Expanded132'),
                     child: HeaderItemWidget(
@@ -535,21 +545,21 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                             ""),
                     flex: 1,
                   ),
-                  if(this.widget.folderModel?.tag != 5)
-                  Expanded(
-                    key: ValueKey('Expanded1322'),
-                    child: HeaderItemWidget(
-                        key: ValueKey('HeaderItemWidget1322'),
-                        shouldShowMins: true,
-                        title: getI18NKey().timefocused,
-                        value: this
-                                .widget
-                                .folderTimeModel
-                                ?.finishedTimeString
-                                .toString() ??
-                            ""),
-                    flex: 1,
-                  ),
+                  if (this.widget.folderModel?.tag != 5)
+                    Expanded(
+                      key: ValueKey('Expanded1322'),
+                      child: HeaderItemWidget(
+                          key: ValueKey('HeaderItemWidget1322'),
+                          shouldShowMins: true,
+                          title: getI18NKey().timefocused,
+                          value: this
+                                  .widget
+                                  .folderTimeModel
+                                  ?.finishedTimeString
+                                  .toString() ??
+                              ""),
+                      flex: 1,
+                    ),
                   Expanded(
                     key: ValueKey('Expanded13223'),
                     child: HeaderItemWidget(
@@ -646,9 +656,8 @@ class HeaderInputState extends State<HeaderInputWidget> {
   GlobalKey<TomatoInputNumberState> inputNumberGlobalKey = GlobalKey();
   OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
     gapPadding: 0,
-    borderSide: BorderSide(
-      color: ThemeManager.getInstance().getInputBorderColor()
-    ),
+    borderSide:
+        BorderSide(color: ThemeManager.getInstance().getInputBorderColor()),
   );
   Function incrementFunc = Utility.throttle((state) {
     state.inputNumberGlobalKey.currentState!.increment();
@@ -729,8 +738,12 @@ class HeaderInputState extends State<HeaderInputWidget> {
             onChanged: (text) {
               // inputController.clear();
               _value = text;
-              if(_value?.length == 1) {
-                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_add_task_input","description": "添加任务输入框",});
+              if (_value?.length == 1) {
+                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+                  "sceneType": "missionpage",
+                  "eventType": "missionpage_add_task_input",
+                  "description": "添加任务输入框",
+                });
               }
               if (this.widget.onChangeListener != null)
                 this.widget.onChangeListener!(text, numTomatoes);
@@ -750,19 +763,18 @@ class HeaderInputState extends State<HeaderInputWidget> {
             style: TextStyle(
                 fontFamily: 'Montserrat',
                 decorationColor: Colors.lightGreen,
-                color: ThemeManager.getInstance().getTextColor(defaultColor: Color(0xff404040)),
+                color: ThemeManager.getInstance()
+                    .getTextColor(defaultColor: Color(0xff404040)),
                 fontWeight: FontWeight.w500),
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               isDense: widget.useUnifiedStyle,
-              contentPadding:
-                  EdgeInsets.only(
-                      left: 60,
-                      right: 75,
-                      top: widget.useUnifiedStyle ? 8 : 0,
-                      bottom: widget.useUnifiedStyle ? 8 : 0),
-              counterStyle:
-                  TextStyle(color: Colors.transparent, fontSize: 0),
+              contentPadding: EdgeInsets.only(
+                  left: 60,
+                  right: 75,
+                  top: widget.useUnifiedStyle ? 8 : 0,
+                  bottom: widget.useUnifiedStyle ? 8 : 0),
+              counterStyle: TextStyle(color: Colors.transparent, fontSize: 0),
               //背景颜色，必须结合filled: true,才有效
               // hoverColor: Colors.white,
               // focusColor: Colors.white,
@@ -792,84 +804,85 @@ class HeaderInputState extends State<HeaderInputWidget> {
                     ),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                      key: ValueKey('Sizedbox12'),
-                      width: 3,
-                    )
+                            key: ValueKey('Sizedbox12'),
+                            width: 3,
+                          )
                         : SizedBox(
-                      key: ValueKey('Positioned21'),
-                      width: 15,
-                    ),
+                            key: ValueKey('Positioned21'),
+                            width: 15,
+                          ),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                      key: ValueKey('Positioned22'),
-                      width: 0,
-                    )
+                            key: ValueKey('Positioned22'),
+                            width: 0,
+                          )
                         : Container(
-                      key: ValueKey('container7'),
-                      width: 1,
-                      height: 25,
-                      color: ColorsConfig.dividerLine,
-                    ),
-                    !(Utility.isHandsetBySize() == false && this.widget.shouldShowFolderIcons == true)
+                            key: ValueKey('container7'),
+                            width: 1,
+                            height: 25,
+                            color: ColorsConfig.dividerLine,
+                          ),
+                    !(Utility.isHandsetBySize() == false &&
+                            this.widget.shouldShowFolderIcons == true)
                         ? SizedBox.shrink()
                         : Container(
-                        key: ValueKey('container6'),
-                        margin: EdgeInsets.only(right: 0, left: 5),
-                        child: PopupMenuButton<String>(
-                          tooltip: '',
-                          padding: EdgeInsets.all(0.0),
-                          child: Container(
-                            key: ValueKey('container11'),
-                            width: 25,
-                            height: 25,
-                            decoration: BoxDecoration(
-                                color: ThemeManager.getInstance().getColor(
-                                    defaultColor: Colors.white,
-                                    defaultDarkColor:
-                                    ThemeManager.getInstance()
-                                        .getBackgroundColor()),
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(8))),
-                            child: MissionIcon(
-                              key: ValueKey('container4'),
-                              folderModel: curFolderModel,
-                              iconSize: 12,
-                            ),
-                          ),
-                          onSelected: (String indexParam) {
-                            int index = int.parse(indexParam);
-                            if (index == -1) {
-                              this.curFolderModel = null;
-                            } else {
-                              this.curFolderModel =
-                              listFolderModels?[index];
-                            }
-                            setState(() {});
-                          },
-                          itemBuilder: (context) {
-                            // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
-                            return getPopupMenuList();
-                          },
-                        )),
+                            key: ValueKey('container6'),
+                            margin: EdgeInsets.only(right: 0, left: 5),
+                            child: PopupMenuButton<String>(
+                              tooltip: '',
+                              padding: EdgeInsets.all(0.0),
+                              child: Container(
+                                key: ValueKey('container11'),
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                    color: ThemeManager.getInstance().getColor(
+                                        defaultColor: Colors.white,
+                                        defaultDarkColor:
+                                            ThemeManager.getInstance()
+                                                .getBackgroundColor()),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                child: MissionIcon(
+                                  key: ValueKey('container4'),
+                                  folderModel: curFolderModel,
+                                  iconSize: 12,
+                                ),
+                              ),
+                              onSelected: (String indexParam) {
+                                int index = int.parse(indexParam);
+                                if (index == -1) {
+                                  this.curFolderModel = null;
+                                } else {
+                                  this.curFolderModel =
+                                      listFolderModels?[index];
+                                }
+                                setState(() {});
+                              },
+                              itemBuilder: (context) {
+                                // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
+                                return getPopupMenuList();
+                              },
+                            )),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                      key: ValueKey('SizedBox41'),
-                      width: 0,
-                    )
+                            key: ValueKey('SizedBox41'),
+                            width: 0,
+                          )
                         : SizedBox(
-                      key: ValueKey('SizedBox42'),
-                      width: 0,
-                    ),
+                            key: ValueKey('SizedBox42'),
+                            width: 0,
+                          ),
                     Utility.isHandsetBySize()
                         ? SizedBox(
-                      key: ValueKey('SizedBox414'),
-                      width: 0,
-                    )
+                            key: ValueKey('SizedBox414'),
+                            width: 0,
+                          )
                         : Icon(
-                      key: ValueKey('Icon41'),
-                      Icons.navigate_next,
-                      color: Color(0xff9a9a9a),
-                    )
+                            key: ValueKey('Icon41'),
+                            Icons.navigate_next,
+                            color: Color(0xff9a9a9a),
+                          )
                   ]),
               prefixIcon: Icon(
                 Icons.add,
@@ -884,8 +897,8 @@ class HeaderInputState extends State<HeaderInputWidget> {
               ),
               // prefixIconColor: Color(0xffd5d5d5),
               border: _outlineInputBorder,
-              prefixIconColor: ThemeManager.getInstance()
-                  .getIconColor(defaultColor: widget.useUnifiedStyle
+              prefixIconColor: ThemeManager.getInstance().getIconColor(
+                  defaultColor: widget.useUnifiedStyle
                       ? const Color(0xFFC58B67)
                       : Color(0xffd5d5d5)),
               floatingLabelStyle: TextStyle(
@@ -893,8 +906,7 @@ class HeaderInputState extends State<HeaderInputWidget> {
                       ? const Color(0xFFB69179).withValues(alpha: 0.96)
                       : ThemeManager.getInstance().getIconColor(),
                   fontSize: widget.useUnifiedStyle ? 13 : 14,
-                  fontWeight:
-                      widget.useUnifiedStyle ? FontWeight.w600 : null),
+                  fontWeight: widget.useUnifiedStyle ? FontWeight.w600 : null),
               labelStyle: TextStyle(
                   color: widget.useUnifiedStyle
                       ? const Color(0xFFB69179).withValues(alpha: 0.88)
@@ -905,15 +917,14 @@ class HeaderInputState extends State<HeaderInputWidget> {
                                   ? Color(0xff575757)
                                   : Colors.white),
                   fontSize: widget.useUnifiedStyle ? 13 : 14,
-                  fontWeight:
-                      widget.useUnifiedStyle ? FontWeight.w600 : null),
+                  fontWeight: widget.useUnifiedStyle ? FontWeight.w600 : null),
               //边框，一般下面的几个边框一起设置
               //keyboardType: TextInputType.number, //键盘类型
               //obscureText: true,//密码模式
               //背景颜色，必须结合filled: true,才有效
               hoverColor: ThemeManager.getInstance().getCardBackgroundColor(
-                  defaultColor: Colors.white,
-                  ),
+                defaultColor: Colors.white,
+              ),
               focusColor: ThemeManager.getInstance().getInputThemeColor(
                   defaultColor: widget.useUnifiedStyle
                       ? const Color(0xFFFFF8F2)
@@ -921,8 +932,8 @@ class HeaderInputState extends State<HeaderInputWidget> {
                   defaultDarkColor:
                       ThemeManager.getInstance().getBackgroundColor()),
               //右边距是为了放置番茄计数器
-              fillColor: ThemeManager.getInstance()
-                  .getInputThemeColor(defaultColor: widget.useUnifiedStyle
+              fillColor: ThemeManager.getInstance().getInputThemeColor(
+                  defaultColor: widget.useUnifiedStyle
                       ? const Color(0xFFFFF8F2)
                       : Colors.white),
               focusedBorder: widget.useUnifiedStyle
@@ -1036,8 +1047,7 @@ class HeaderInputState extends State<HeaderInputWidget> {
           Text(
             key: ValueKey('Text14'),
             getI18NKey().task ?? '',
-            style: TextStyle(
-                fontSize: 15, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
           )
         ],
       ),
@@ -1061,9 +1071,7 @@ class HeaderInputState extends State<HeaderInputWidget> {
             Text(
               key: ValueKey('Text32'),
               sheetDataModel.title ?? '',
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             )
           ],
         ),

@@ -26,19 +26,23 @@ class MissionContainerPage extends BaseWidget {
   Function? onTapRightNavMenuListener;
   bool useUnifiedStyle = false;
 
-  MissionContainerPage({this.key, this.folderModel,
-      this.folderStatusDate, this.onTapNavMenuListener, this.onTapRightNavMenuListener, this.useUnifiedStyle = false}); // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
+  MissionContainerPage(
+      {this.key,
+      this.folderModel,
+      this.folderStatusDate,
+      this.onTapNavMenuListener,
+      this.onTapRightNavMenuListener,
+      this.useUnifiedStyle =
+          false}); // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
 
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
     // TODO: implement getState
     return MissionContainerPageState();
   }
-
 }
 
 class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -67,7 +71,9 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
       children: <Widget>[
         ////布局类型 0 列表 1 group分组 2 时间线
         ViewStubWidget(
-          isShowed: this.widget.folderModel?.layoutType == 2 || this.widget.folderModel?.layoutType == 0 || this.widget.folderModel?.layoutType == null,
+          isShowed: this.widget.folderModel?.layoutType == 2 ||
+              this.widget.folderModel?.layoutType == 0 ||
+              this.widget.folderModel?.layoutType == null,
           child: this.widget.useUnifiedStyle
               ? NewMissionPage(
                   onTapRightNavMenuListener:
@@ -76,26 +82,47 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
                   folderModel: this.widget.folderModel,
                   folderStatusDate: this.widget.folderStatusDate,
                 )
-              : MissionPage(onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener, onTapNavMenuListener: this.widget.onTapNavMenuListener, folderModel: this.widget.folderModel, folderStatusDate: this.widget.folderStatusDate),
+              : MissionPage(
+                  onTapRightNavMenuListener:
+                      this.widget.onTapRightNavMenuListener,
+                  onTapNavMenuListener: this.widget.onTapNavMenuListener,
+                  folderModel: this.widget.folderModel,
+                  folderStatusDate: this.widget.folderStatusDate),
         ),
         ViewStubWidget(
           // , folderModel: this.widget.folderModel
-          child: Container(child: GroupMissionPage(key: ValueKey("eiwfjiwef"),onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener,  onTapNavMenuListener: this.widget.onTapNavMenuListener),),
+          child: Container(
+            child: GroupMissionPage(
+              key: ValueKey("eiwfjiwef"),
+              onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener,
+              onTapNavMenuListener: this.widget.onTapNavMenuListener,
+              useUnifiedStyle: this.widget.useUnifiedStyle,
+            ),
+          ),
           isShowed: this.widget.folderModel?.layoutType == 1,
         ),
         ViewStubWidget(
           // , folderModel: this.widget.folderModel
-          child: Container(child: TimeManagementMissionPage(key: ValueKey("eiwfjiwefwe"), onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener, onTapCreateMissionListener: (MissionModel missionModel){
-            if (Utility.isHandsetBySize() == true) {
-              Utility.pushNavigator(context,
-                  CreateMissionPage(missionModel: missionModel, onRefresh: () {}));
-            } else {
-              DialogManagement.getInstance().showPCCustomDialog(
-                  context: context,
-                  widget: CreateMissionPage(
-                      missionModel: missionModel, onRefresh: () {}));
-            }
-          }, onTapNavMenuListener: this.widget.onTapNavMenuListener),),
+          child: Container(
+            child: TimeManagementMissionPage(
+                key: ValueKey("eiwfjiwefwe"),
+                onTapRightNavMenuListener:
+                    this.widget.onTapRightNavMenuListener,
+                onTapCreateMissionListener: (MissionModel missionModel) {
+                  if (Utility.isHandsetBySize() == true) {
+                    Utility.pushNavigator(
+                        context,
+                        CreateMissionPage(
+                            missionModel: missionModel, onRefresh: () {}));
+                  } else {
+                    DialogManagement.getInstance().showPCCustomDialog(
+                        context: context,
+                        widget: CreateMissionPage(
+                            missionModel: missionModel, onRefresh: () {}));
+                  }
+                },
+                onTapNavMenuListener: this.widget.onTapNavMenuListener),
+          ),
           isShowed: this.widget.folderModel?.layoutType == 2,
         ),
         // Offstage(
@@ -104,5 +131,4 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
 
     // return super.baseBuild(context);
   }
-
 }

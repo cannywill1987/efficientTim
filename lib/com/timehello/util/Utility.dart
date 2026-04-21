@@ -2048,8 +2048,11 @@ class Utility {
 
   static openRightSideDesktopNavigator(
       BuildContext context, String page, Map data) {
-    if (Utility.isHandsetBySize() == false && page == 'SettingItemDetailPage') {
-      context.read<Env>().routerRightSideData = null;
+    if (Utility.isHandsetBySize() == false &&
+        (page == 'SettingItemDetailPage' || page == 'GroupChatPage')) {
+      data['page'] = page;
+      data['__overlay_ts'] = DateTime.now().millisecondsSinceEpoch;
+      context.read<Env>().routerRightSideData = data;
       OverlayManagement.getInstance()
           .openDesktopRightFloatingPage(context, page: page, data: data);
       return;
@@ -2466,6 +2469,7 @@ class Utility {
     int previewTime = 0; //预计剩下完成时间
     int numTomatoesUnfinished = 0; //未完成番茄数量
     int numTomatoesFinished = 0; //完成番茄数量
+    int numTomatoesPlanned = 0; //计划番茄数量
 
     list.forEach((data) {
       // totalTime += (data.total_tomotoes - data.no_tomotoes_finished) * getTomatoTime();
@@ -2518,6 +2522,7 @@ class Utility {
     int previewTime = 0; //预计剩下完成时间
     int numTomatoesUnfinished = 0; //未完成番茄数量
     int numTomatoesFinished = 0; //完成番茄数量
+    int numTomatoesPlanned = 0; //计划番茄数量
     int numMissionDelayed = 0; //延期任务数量
     double totalObjective = 0;
     double curValObjective = 0;
@@ -2535,12 +2540,7 @@ class Utility {
           totalObjective += data.objectiveTotalValue ?? 0;
           curValObjective += data.objectiveValue ?? 0;
           numTomatoesFinished += (data.no_tomotoes_finished ?? 0);
-          numTomatoesUnfinished = numTomatoesUnfinished +
-                      (data.total_tomotoes ?? 0) -
-                      (numTomatoesUnfinished ?? 0) >
-                  0
-              ? ((data.total_tomotoes ?? 0) - numTomatoesUnfinished)
-              : 0;
+          numTomatoesPlanned += (data.total_tomotoes ?? 0);
 
           previewTime += data.isFinished == false
               ? (data.total_tomotoes! >= (data.no_tomotoes_finished ?? 0)
@@ -2558,6 +2558,9 @@ class Utility {
     print("~~~~~~~~~~~~~~~~~~~~~~~~");
     print(finishedTimeString);
     print("~~~~~~~~~~~~~~~~~~~~~~~~");
+    numTomatoesUnfinished = numTomatoesPlanned - numTomatoesFinished > 0
+        ? (numTomatoesPlanned - numTomatoesFinished)
+        : 0;
     folderTimeModel = new FolderTimeModel(
         objectivePercentString: Utility.getPercent(
             totalObjective == 0 ? 0 : (curValObjective / totalObjective)),
@@ -5502,7 +5505,8 @@ class Utility {
         listStartTimeMissionModelUnFinished.add(element);
       }
     });
-    listStartTimeMissionModelUnFinished.addAll(listStartTimeMissionModelFinished);
+    listStartTimeMissionModelUnFinished
+        .addAll(listStartTimeMissionModelFinished);
     return listStartTimeMissionModelUnFinished;
   }
 
@@ -8445,8 +8449,6 @@ class Utility {
     // return outputFilePath;
     return XFile(outputFilePath.path, length: await outputFilePath.length());
   }
-
-
 
   static String getFileName(String path, {hasExtension: true}) {
     String fileName = path.split('/').last;

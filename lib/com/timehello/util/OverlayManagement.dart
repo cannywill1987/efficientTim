@@ -11,6 +11,7 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/page/GroupChatPage/RightFolderContainerPage.dart';
 import 'package:time_hello/com/timehello/page/SettingItemDetailPage/SettingItemDetailPage.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
@@ -78,6 +79,7 @@ class OverlayManagement {
       {required BuildContext context,
       required Widget child,
       double width = 430,
+      String? title,
       VoidCallback? onClose,
       EdgeInsetsGeometry margin = const EdgeInsets.fromLTRB(18, 18, 18, 28)}) {
     final bool isDark = ThemeManager.getInstance().getThemeMode().isDark ||
@@ -128,7 +130,7 @@ class OverlayManagement {
                 child: Row(
                   children: [
                     Text(
-                      getI18NKey().mission_setting,
+                      title ?? getI18NKey().mission_setting,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
@@ -194,6 +196,7 @@ class OverlayManagement {
   void openDesktopRightFloatingPage(BuildContext context,
       {required String page, required Map data, double width = 438}) {
     Widget? child;
+    String? title;
     switch (page) {
       case 'SettingItemDetailPage':
         child = Container();
@@ -201,6 +204,14 @@ class OverlayManagement {
           key: ValueKey("setting_item_detail_overlay"),
           missionModel: data['missionModel'],
         );
+        title = getI18NKey().mission_setting;
+        break;
+      case 'GroupChatPage':
+        child = RightFolderContainerPage(
+          key: ValueKey("group_chat_right_overlay"),
+          usePanelShell: false,
+        );
+        title = getI18NKey().group_listing;
         break;
     }
     if (child == null) {
@@ -221,6 +232,7 @@ class OverlayManagement {
             context: overlayContext,
             width: width,
             margin: EdgeInsets.zero,
+            title: title,
             onClose: removeDesktopRightFloatingOverlay,
             child: panelChild,
           ),

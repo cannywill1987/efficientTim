@@ -8,6 +8,7 @@ import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.d
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomBackgroundWidget.dart';
 import 'package:time_hello/com/timehello/components/ListingSecurityWidget.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/GroupModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
@@ -56,9 +57,13 @@ class GroupMissionPage extends BaseWidget {
   Function? onTapNavMenuListener;
   Key? key;
   Function? onTapRightNavMenuListener;
+  final bool useUnifiedStyle;
 
   GroupMissionPage(
-      {this.key, this.onTapRightNavMenuListener, this.onTapNavMenuListener})
+      {this.key,
+      this.onTapRightNavMenuListener,
+      this.onTapNavMenuListener,
+      this.useUnifiedStyle = false})
       : super(key: key);
 
   @override
@@ -84,6 +89,65 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
       GlobalKey();
   GlobalKey<SearchBarWidgetState>? searchBarWidgetKey = GlobalKey();
   String? curSearchWords = null;
+  bool get isUnifiedDesktop =>
+      widget.useUnifiedStyle && !Utility.isHandsetBySize();
+
+  Widget _buildUnifiedDesktopCanvas({required Widget child}) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFF8DAC4),
+            Color(0xFFF7ECDD),
+            Color(0xFFDDEDE0),
+          ],
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: -72,
+            left: -54,
+            child: Container(
+              width: 190,
+              height: 190,
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFD7B8).withValues(alpha: 0.88),
+                borderRadius: BorderRadius.circular(95),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 178,
+            left: -62,
+            child: Container(
+              width: 170,
+              height: 170,
+              decoration: BoxDecoration(
+                color: const Color(0xFFCFE6D7).withValues(alpha: 0.84),
+                borderRadius: BorderRadius.circular(85),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 64,
+            right: -48,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7E2D0).withValues(alpha: 0.82),
+                borderRadius: BorderRadius.circular(75),
+              ),
+            ),
+          ),
+          child,
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -727,6 +791,9 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
    * 搜索框 标题等 导出框
    */
   List<Widget> getHeaderWidget() {
+    if (isUnifiedDesktop) {
+      return [_buildUnifiedHeaderWidget()];
+    }
     return [
       // CustomMarquee(
       //   bean: MarqueInfo.marqueMissionpage,
@@ -786,57 +853,9 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
                     updateUI();
                   },
                 ),
-                (this.folderModel?.tag == 1 || this.folderModel?.tag == 2)
+                _canShowFolderNoteAction()
                     ? InkWell(
-                        onTap: () async {
-                          TimelineMissionModel? timelineMissionModel = null;
-                          if (TextUtil.isEmpty(
-                                  this.folderModel?.timelineNoteObjectId) ==
-                              false) {
-                            timelineMissionModel = await MongoApisManager
-                                    .getInstance()
-                                .queryWhereEqual_TimelineMissionModelByObjectId(
-                                    objectId: this
-                                            .folderModel
-                                            ?.timelineNoteObjectId ??
-                                        "");
-                            timelineMissionModel?.sceneType = "note";
-                            timelineMissionModel?.eventType = "note";
-                          } else {
-                            timelineMissionModel = TimelineMissionModel();
-                            timelineMissionModel.folder_id =
-                                this.folderModel?.objectId ?? null;
-                            timelineMissionModel.tagNames =
-                                this.folderModel?.tag == 2
-                                    ? this.folderModel?.title
-                                    : "";
-                            timelineMissionModel.color =
-                                this.folderModel?.color;
-                            timelineMissionModel.icon = this.folderModel?.icon;
-                            timelineMissionModel.sceneType = "note";
-                            timelineMissionModel.eventType = "note";
-                            // timelineMissionModel.
-                          }
-                          Utility.openPagePCAndMobile(context,
-                              child: RichEditorPage(
-                                  onOkListener: (url,
-                                      timelineMissionModelObjectId,
-                                      numberNoteWords) async {
-                                    this.folderModel?.noteUrl = url;
-                                    this.folderModel?.numberNoteWords =
-                                        numberNoteWords;
-                                    if (timelineMissionModelObjectId != null) {
-                                      this.folderModel?.timelineNoteObjectId =
-                                          timelineMissionModelObjectId;
-                                    }
-                                    await MongoApisManager.getInstance()
-                                        .update_FolderModelWithFM(
-                                            folderModel: this.folderModel ??
-                                                FolderModel());
-                                  },
-                                  timelineMissionModel: timelineMissionModel,
-                                  richTextModeEnum: RichTextModeEnum.getUrl));
-                        },
+                        onTap: _openFolderNoteEditor,
                         child: Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: 5,
@@ -929,6 +948,197 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
     ];
   }
 
+  bool _canShowFolderNoteAction() {
+    return this.folderModel?.tag == 1 || this.folderModel?.tag == 2;
+  }
+
+  Future<void> _openFolderNoteEditor() async {
+    TimelineMissionModel? timelineMissionModel;
+    if (TextUtil.isEmpty(this.folderModel?.timelineNoteObjectId) == false) {
+      timelineMissionModel = await MongoApisManager.getInstance()
+          .queryWhereEqual_TimelineMissionModelByObjectId(
+              objectId: this.folderModel?.timelineNoteObjectId ?? "");
+      timelineMissionModel?.sceneType = "note";
+      timelineMissionModel?.eventType = "note";
+    } else {
+      timelineMissionModel = TimelineMissionModel();
+      timelineMissionModel.folder_id = this.folderModel?.objectId ?? null;
+      timelineMissionModel.tagNames =
+          this.folderModel?.tag == 2 ? this.folderModel?.title : "";
+      timelineMissionModel.color = this.folderModel?.color;
+      timelineMissionModel.icon = this.folderModel?.icon;
+      timelineMissionModel.sceneType = "note";
+      timelineMissionModel.eventType = "note";
+    }
+    Utility.openPagePCAndMobile(context,
+        child: RichEditorPage(
+            onOkListener:
+                (url, timelineMissionModelObjectId, numberNoteWords) async {
+              this.folderModel?.noteUrl = url;
+              this.folderModel?.numberNoteWords = numberNoteWords;
+              if (timelineMissionModelObjectId != null) {
+                this.folderModel?.timelineNoteObjectId =
+                    timelineMissionModelObjectId;
+              }
+              await MongoApisManager.getInstance().update_FolderModelWithFM(
+                  folderModel: this.folderModel ?? FolderModel());
+            },
+            timelineMissionModel: timelineMissionModel,
+            richTextModeEnum: RichTextModeEnum.getUrl));
+  }
+
+  Widget _buildUnifiedHeaderWidget() {
+    final Color titleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF3D2A20), defaultDarkColor: Colors.white);
+    final Color subtitleColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: const Color(0xFF9A7763),
+        defaultDarkColor: Colors.white70);
+    return UnifiedDesktopCard(
+      margin: EdgeInsets.fromLTRB(
+          CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
+      padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+      borderRadius: BorderRadius.circular(24),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.76),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: CustomMarquee(
+              bean: MarqueInfo.marqueMissionpage,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFE9D7),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  Icons.assignment_outlined,
+                  color: titleColor,
+                ),
+              ),
+              const SizedBox(width: 12),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 520),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Mission Workspace',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: subtitleColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        CustomTextField(
+                            key: UniqueKey(),
+                            maxWidth: 360,
+                            isEditable: this.folderModel?.tag == 2 ||
+                                this.folderModel?.tag == 1,
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: titleColor,
+                                fontWeight: FontWeight.bold),
+                            text: this.folderModel?.title ?? "",
+                            onEnterListener: (v) {
+                              this.folderModel?.title = v;
+                              if (this.folderModel != null) {
+                                MongoApisManager.getInstance()
+                                    .update_FolderModelWithFM(
+                                        folderModel: this.folderModel!,
+                                        shouldQueryMissionModel: false);
+                              }
+                            }),
+                        const SizedBox(width: 4),
+                        ListingSecurityWidget(
+                          folder_id: this.folderModel?.objectId ?? "",
+                          cryptoVersion: this.folderModel?.cryptoVersion ?? -1,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 360),
+                child: SizedBox(
+                  height: 42,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      reverse: true,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SearchBarWithIconWidget(
+                            key: ValueKey("ejfiejf_unified_group"),
+                            onChange: (searchWord) {
+                              onClickSearch(searchWord);
+                            },
+                            onClickSearchListener: (bool res) {
+                              this.isSearchBarVisible = res;
+                              updateUI();
+                            },
+                          ),
+                          if (_canShowFolderNoteAction())
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: UnifiedActionChip(
+                                onTap: _openFolderNoteEditor,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      width: 15,
+                                      height: 15,
+                                      child: Utility.getSVGPicture(
+                                        R.assetsImgIcWordDocument,
+                                        size: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      getI18NKey().add_note,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xFF8C5831),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget baseBuild(BuildContext context) {
     // TODO: implement build
@@ -944,7 +1154,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
                 builder: (_, curFolderStatus, __) {
                   this.folderModel = curFolderSelected;
                   this.requestDatas();
-                  return Column(
+                  final Widget content = Column(
                     children: [
                       ...getHeaderWidget(),
                       if (Utility.isHandsetBySize() == true)
@@ -1064,6 +1274,15 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
                       ),
                     ],
                   );
+                  if (isUnifiedDesktop) {
+                    return _buildUnifiedDesktopCanvas(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+                        child: content,
+                      ),
+                    );
+                  }
+                  return content;
                 });
           }),
     );

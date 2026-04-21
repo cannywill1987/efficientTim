@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../components/PCTopMenuWidget.dart';
+import '../config/ColorsConfig.dart';
 import '../util/DeviceInfoManagement.dart';
 import '../util/KeyboardListenerManager.dart';
 import '../util/OverlayManagement.dart';
@@ -55,12 +56,14 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
       if (key == LogicalKeyboardKey.backquote) {
         Utility.toggleCurDesktopFolderPageVisibility(context);
       } else if (((HardwareKeyboard.instance.logicalKeysPressed
-          .contains(LogicalKeyboardKey.metaLeft) ||
-          HardwareKeyboard.instance.logicalKeysPressed
-              .contains(LogicalKeyboardKey.controlLeft)) &&
+                  .contains(LogicalKeyboardKey.metaLeft) ||
+              HardwareKeyboard.instance.logicalKeysPressed
+                  .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyF)) {
-        DialogManagement.getInstance()?.showAISearchBarMenuWithoutText(context: context, );
-          print("space");
+        DialogManagement.getInstance()?.showAISearchBarMenuWithoutText(
+          context: context,
+        );
+        print("space");
       }
     }
     return false;
@@ -88,9 +91,7 @@ class PCMainHomePageState extends BaseWidgetState<PCMainHomePage> {
                   child: Column(mainAxisSize: MainAxisSize.max, children: [
                 Container(
                   decoration: BoxDecoration(
-                      color: ThemeManager.getInstance().getNavigationBarColor(
-                          defaultColor: ThemeManager.getInstance()
-                              .getLightDefaultThemeColor()),
+                      color: ColorsConfig.mineLeftRailBackground,
                       border: Border(
                           bottom: BorderSide(
                               color: ThemeManager.getInstance().getLineColor(
