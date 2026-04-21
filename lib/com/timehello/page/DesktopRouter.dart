@@ -41,29 +41,36 @@ import '../util/OverlayManagement.dart';
 
 getMainPage([String? page]) {
   return Selector<Env, bool>(
-      selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
+      selector: (_, globalStateEnv) =>
+          globalStateEnv.isMiddleMissionPageVisible,
       builder: (_, isMiddleMissionPageVisible, __) {
-        // if(isMiddleMissionPageVisible == false) {
-        //   return Container();
-        // }
-        return Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            if(isMiddleMissionPageVisible == true)
-            Expanded(child: buildBodyFunction(page)),
-            Container(
-              height: double.infinity,
-              width: 2,
-              color: Color(0xff3d8f8),
-            ),
-            if(isMiddleMissionPageVisible == true)
-            RightSide()
-            else
-            Expanded(child: RightSide()),
-          ],
-        );
+        return Selector<Env, Map?>(
+            selector: (_, globalStateEnv) => globalStateEnv.routerRightSideData,
+            builder: (_, routerRightSideData, __) {
+              final String? rightPage = routerRightSideData?['page'];
+              final bool isRightSideOverlay =
+                  rightPage == 'SettingItemDetailPage' ||
+                      rightPage == 'GroupChatPage';
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (isMiddleMissionPageVisible == true)
+                    Expanded(child: buildBodyFunction(page)),
+                  if (!isRightSideOverlay)
+                    Container(
+                      height: double.infinity,
+                      width: 2,
+                      color: Color(0xff3d8f8),
+                    ),
+                  if (!isRightSideOverlay)
+                    if (isMiddleMissionPageVisible == true)
+                      RightSide()
+                    else
+                      Expanded(child: RightSide()),
+                ],
+              );
+            });
       });
-
 }
 
 // getMainTomatoPage(String page) {
@@ -99,80 +106,109 @@ Widget buildBodyFunction([String? page]) {
         // i++;
         return Stack(
           children: <Widget>[
-            settingModel.isStatisticPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'StatisticPage'),
-                child: const StatisticPage()),
+            settingModel.isStatisticPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'StatisticPage'),
+                    child: const StatisticPage()),
             //统计页面
-            settingModel.isWQBContainerOn != 1 ? SizedBox.shrink() : Offstage(
-                offstage: !(page == 'WQBContainer'),
-                child: const WQBContainer()),
+            settingModel.isWQBContainerOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'WQBContainer'),
+                    child: const WQBContainer()),
             //错题本容器
 
-            settingModel.isCountDownListViewPageOn != 1 ? SizedBox.shrink() :!(page == 'CountDownListViewPage')
+            settingModel.isCountDownListViewPageOn != 1
                 ? SizedBox.shrink()
-                : const CountDownListViewPage(
-                    pageFromEnum: PageFromEnum.Normal),
-            settingModel.isCountUpListViewPageOn != 1 ? SizedBox.shrink() :!(page == 'CountUpListViewPage')
+                : !(page == 'CountDownListViewPage')
+                    ? SizedBox.shrink()
+                    : const CountDownListViewPage(
+                        pageFromEnum: PageFromEnum.Normal),
+            settingModel.isCountUpListViewPageOn != 1
                 ? SizedBox.shrink()
-                : const CountUpListViewPage(
-                pageFromEnum: PageFromEnum.Normal),
+                : !(page == 'CountUpListViewPage')
+                    ? SizedBox.shrink()
+                    : const CountUpListViewPage(
+                        pageFromEnum: PageFromEnum.Normal),
             //倒计时
-            settingModel.isTomatoPageOn != 1 ? SizedBox.shrink() : Offstage(
-                offstage: !(page == 'TomatoPage'),
-                child: const FolderPageMainContainer(
-                  page: 'TomatoPage',
-                )),
+            settingModel.isTomatoPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'TomatoPage'),
+                    child: const FolderPageMainContainer(
+                      page: 'TomatoPage',
+                    )),
             //番茄页面
-            settingModel.isClockInPCPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'ClockInPCPage'),
-                child: const FlomoPCContainerPage()),
+            settingModel.isClockInPCPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'ClockInPCPage'),
+                    child: const FlomoPCContainerPage()),
             //打卡页面
-            settingModel.isCalendarContainerPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'CalendarContainerPage'),
-                child: CalendarPage(key: ValueKey("12dzdeaf"))),
+            settingModel.isCalendarContainerPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'CalendarContainerPage'),
+                    child: CalendarPage(key: ValueKey("12dzdeaf"))),
             //日历页面
-            settingModel.isFourQuadrantPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'FourQuadrantPage'),
-                child: const FourQuadrantContainer()),
+            settingModel.isFourQuadrantPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'FourQuadrantPage'),
+                    child: const FourQuadrantContainer()),
 
-            settingModel.isAIHelperPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'AIHelper'),
-                child: const GPTContainer()),
+            settingModel.isAIHelperPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'AIHelper'),
+                    child: const GPTContainer()),
             //四象限页面
-            settingModel.isTimelinePageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'TimelinePage'),
-                child: const TimeLinePage(
-                  key: ValueKey("vezfaf"),
-                  timelinePageFromEnum: 0,
-                )),
+            settingModel.isTimelinePageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'TimelinePage'),
+                    child: const TimeLinePage(
+                      key: ValueKey("vezfaf"),
+                      timelinePageFromEnum: 0,
+                    )),
             //时间线页面
             // Offstage(offstage: !(page=='TimeManagementPage'),child: TimeManagementPage(key: ValueKey("12dzd"), onRefresh: (){},)), //时间管理页面
-            settingModel.isTimeManagementPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'TimeManagementPage'),
-                child: TimeManagementContainer(
-                  key: ValueKey("12dz32d"),
-                )),
+            settingModel.isTimeManagementPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'TimeManagementPage'),
+                    child: TimeManagementContainer(
+                      key: ValueKey("12dz32d"),
+                    )),
             //时间管理页面
 
             !(page == 'CoursePage') ? SizedBox.shrink() : const CoursePage(),
             //课程页面
-            settingModel.isGamePageOn != 1 ? SizedBox.shrink() :!(page == 'GamePage') ? SizedBox.shrink() : const GamesPage(),
+            settingModel.isGamePageOn != 1
+                ? SizedBox.shrink()
+                : !(page == 'GamePage')
+                    ? SizedBox.shrink()
+                    : const GamesPage(),
             //游戏页面
 
             // Offstage(offstage: !(page=='CoursePage'),child: const CoursePage()), //课程页面
             // Offstage(offstage: !(page=='ChatGptPage'),child: const ChatGptPage()), //gpt聊天页面
             // !(page=='CreditCardPage') ? SizedBox.shrink() : const CreditCardContainer(), //信用卡页面
 
-            settingModel.isLockScreenPageOn != 1 ? SizedBox.shrink() :Offstage(
-                offstage: !(page == 'LockScreenPage'),
-                child: const LockScreenPage()),
+            settingModel.isLockScreenPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'LockScreenPage'),
+                    child: const LockScreenPage()),
             // Offstage(offstage: !(page=='CalendarPage'),child: Container()),
-            settingModel.isSettingPageOn != 1 ? SizedBox.shrink() :Offstage(
-
-                offstage: !(page == 'SettingPage'),
-                child: const SettingPage(
-                  pageFrom: PageFromEnum.Normal,
-                )),
+            settingModel.isSettingPageOn != 1
+                ? SizedBox.shrink()
+                : Offstage(
+                    offstage: !(page == 'SettingPage'),
+                    child: const SettingPage(
+                      pageFrom: PageFromEnum.Normal,
+                    )),
             //设置页面
             // Offstage(offstage: !(page=='GamePage'),child: const GamesPage()), //游戏页面
           ],
@@ -181,45 +217,89 @@ Widget buildBodyFunction([String? page]) {
 }
 
 void reportEvent(String? page) {
-   switch (page) {
+  switch (page) {
     case "StatisticPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_analysis","description": "分析",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_analysis",
+        "description": "分析",
+      });
       break;
     case "WQBContainer":
       break;
     case "TomatoPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_focus_god","description": "番茄钟",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_focus_god",
+        "description": "番茄钟",
+      });
       break;
     case "ClockInPCPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_punch_card","description": "打卡",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_punch_card",
+        "description": "打卡",
+      });
       break;
     case "CalendarContainerPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_calendar","description": "日历",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_calendar",
+        "description": "日历",
+      });
       break;
     case "FourQuadrantPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_four_quadrants","description": "四象限",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_four_quadrants",
+        "description": "四象限",
+      });
       break;
     case "AIHelper":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_ai_assistant","description": "AI助手",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_ai_assistant",
+        "description": "AI助手",
+      });
       break;
     case "TimelinePage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_timeline","description": "时间轴",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_timeline",
+        "description": "时间轴",
+      });
       break;
     case "TimeManagementPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_time_management","description": "时间管理",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_time_management",
+        "description": "时间管理",
+      });
       break;
     case "CoursePage":
       break;
     case "GamePage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_training","description": "训练",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_training",
+        "description": "训练",
+      });
       break;
     case "LockScreenPage":
       break;
     case "SettingPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_settings","description": "设置",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_settings",
+        "description": "设置",
+      });
       break;
     case "CountDownListViewPage":
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "pc_left_menu_bar","eventType": "pc_left_menu_bar_reversal_timing","description": "倒计时",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "pc_left_menu_bar",
+        "eventType": "pc_left_menu_bar_reversal_timing",
+        "description": "倒计时",
+      });
       break;
   }
 }
@@ -258,9 +338,9 @@ Widget desktopCenterRouter(String page, Map data) {
   switch (page) {
     case 'CreateFilterFolderPage':
       return getListWithLeftSideWidget(AddFilterPage(
-          folderModel: data['folderModel'],
-          pageModeEnum: data['PageEnum'],
-          ));
+        folderModel: data['folderModel'],
+        pageModeEnum: data['PageEnum'],
+      ));
     case 'CreateFolderPage':
       return getListWithLeftSideWidget(CreateFolderPage(
           folderModel: data['folderModel'],
@@ -299,16 +379,16 @@ Widget desktopCenterRouter(String page, Map data) {
  */
 Widget desktopRightRouter(String page, Map data) {
   // 得到屏幕宽度
-  double width  = 300;
+  double width = 300;
   double screenWidth = MediaQuery.of(Utility.getGlobalContext()).size.width;
   print("screenWidth: $screenWidth");
   double minScreenWidth = 600;
   double maxScreenWidrth = 1200;
-  if(screenWidth > maxScreenWidrth) {
+  if (screenWidth > maxScreenWidrth) {
     width = 400;
   } else if (screenWidth <= maxScreenWidrth && screenWidth < minScreenWidth) {
-    width = 300 * (1 +  (maxScreenWidrth - screenWidth) / 200) ;
-  }else {
+    width = 300 * (1 + (maxScreenWidrth - screenWidth) / 200);
+  } else {
     width = 300;
   }
   Widget getContainer(Widget child) {
@@ -317,21 +397,22 @@ Widget desktopRightRouter(String page, Map data) {
 
   switch (page) {
     case 'SettingItemDetailPage':
-      return OverlayManagement.getInstance().buildDesktopRightFloatingPanel(
-          context: Utility.getGlobalContext(),
-          width: 438,
-          child: SettingItemDetailPage(
-            key: ValueKey("ejzifjf123"),
-            missionModel: data['missionModel'],
-          ));
-      // return Selector<Env, bool>(
-      //     selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
-      //     builder: (_, isMiddleMissionPageVisible, __) {
-      //       if(isMiddleMissionPageVisible == false) {
-      //         width = 600;
-      //       }
-      //
-      //     });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        OverlayManagement.getInstance().openDesktopRightFloatingPage(
+            Utility.getGlobalContext(),
+            page: 'SettingItemDetailPage',
+            data: data,
+            width: 438);
+      });
+      return SizedBox.shrink();
+    // return Selector<Env, bool>(
+    //     selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
+    //     builder: (_, isMiddleMissionPageVisible, __) {
+    //       if(isMiddleMissionPageVisible == false) {
+    //         width = 600;
+    //       }
+    //
+    //     });
 
     case 'ChatGptPage':
       return getContainer(ChatGptPage(
@@ -340,9 +421,14 @@ Widget desktopRightRouter(String page, Map data) {
         message: data?['message'] ?? "",
       ));
     case 'GroupChatPage':
-      return getContainer(RightFolderContainerPage(
-        key: ValueKey("ejzifjf123zefzef"),
-      ));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        OverlayManagement.getInstance().openDesktopRightFloatingPage(
+            Utility.getGlobalContext(),
+            page: 'GroupChatPage',
+            data: data,
+            width: width);
+      });
+      return SizedBox.shrink();
     default:
       return SizedBox.shrink();
   }

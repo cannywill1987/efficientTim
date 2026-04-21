@@ -239,16 +239,73 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
   @override
   Widget baseBuild(BuildContext context) {
     double innerMargin = Utility.isHandsetBySize() ? 10 : 20.0;
+    final bool isDark = ThemeManager.getInstance().isDark();
     // TODO: implement build
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       this.missionPageWidth = constraints.maxWidth;
-      return Stack(
-        children: [
-          Container(
-              key: quadrantWidgetGlobalKey,
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: Column(
+      return Container(
+        decoration: isDark
+            ? BoxDecoration(
+                color: ThemeManager.getInstance()
+                    .getBackgroundColor(defaultColor: const Color(0xFF171312)),
+              )
+            : const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFFF8DAC4),
+                    Color(0xFFF7ECDD),
+                    Color(0xFFDDEDE0),
+                  ],
+                ),
+              ),
+        child: Stack(
+          children: [
+            if (!isDark)
+              Positioned(
+                top: -72,
+                left: -54,
+                child: Container(
+                  width: 190,
+                  height: 190,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFD7B8).withValues(alpha: 0.88),
+                    borderRadius: BorderRadius.circular(95),
+                  ),
+                ),
+              ),
+            if (!isDark)
+              Positioned(
+                top: 178,
+                left: -62,
+                child: Container(
+                  width: 170,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFCFE6D7).withValues(alpha: 0.84),
+                    borderRadius: BorderRadius.circular(85),
+                  ),
+                ),
+              ),
+            if (!isDark)
+              Positioned(
+                top: 64,
+                right: -48,
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF7E2D0).withValues(alpha: 0.82),
+                    borderRadius: BorderRadius.circular(75),
+                  ),
+                ),
+              ),
+            Container(
+                key: quadrantWidgetGlobalKey,
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   CustomMarquee(
@@ -259,26 +316,49 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
                   SizedBox(
                     height: 5,
                   ),
-                  // 搜索框
-                  SearchBarWidget(
-                      lastWidget: CustomPopupWidget(
-                        onSelected: (CheckButtonStateModel model) {
-                          if(model.code == 'export') {
-                            onClickExport(context);
-                          } else if (model.code == 'visibility') {
-                            onClickChangeVisibility(curIndex == 1 ? 0 :1);
-
-                          }
-                        },
-                        list: CONSTANTS.getFourQuadrantButtonList(),
-                        child: Icon(
-                          Icons.more_horiz,
-                          color: Color(0xff999999),
-                        ),
+                  // 搜索框：同步 MissionPage 的卡片化风格，避免顶部出现突兀白底输入区
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? const Color(0xFF2A211C)
+                          : const Color(0xFFFDF7EE).withValues(alpha: 0.95),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: isDark
+                            ? const Color(0xFF4A3C33)
+                            : const Color(0xFFECDDCB),
                       ),
-                      onChangeListener: (val) {
-                        this.onClick('onClickSearch', val);
-                      }),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.06),
+                          blurRadius: 14,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: SearchBarWidget(
+                        lastWidget: CustomPopupWidget(
+                          onSelected: (CheckButtonStateModel model) {
+                            if (model.code == 'export') {
+                              onClickExport(context);
+                            } else if (model.code == 'visibility') {
+                              onClickChangeVisibility(curIndex == 1 ? 0 : 1);
+                            }
+                          },
+                          list: CONSTANTS.getFourQuadrantButtonList(),
+                          child: Icon(
+                            Icons.more_horiz,
+                            color: isDark
+                                ? const Color(0xFFCEC4BB)
+                                : const Color(0xff999999),
+                          ),
+                        ),
+                        onChangeListener: (val) {
+                          this.onClick('onClickSearch', val);
+                        }),
+                  ),
                   SizedBox(
                     //头部
                     height: 5,
@@ -438,25 +518,26 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
                   ),
                 ],
               )),
-          Positioned(
-              bottom: 30,
-              right: 20,
-              child: CircleWidget(
-                onTapListener: (obj) {
-                  MissionModel missionModel = MissionModel();
-                  missionModel.end_time = CONSTANTS.getDeadLineTme((0) + 1);
+            Positioned(
+                bottom: 30,
+                right: 20,
+                child: CircleWidget(
+                  onTapListener: (obj) {
+                    MissionModel missionModel = MissionModel();
+                    missionModel.end_time = CONSTANTS.getDeadLineTme((0) + 1);
 
-                  if (Utility.isHandsetBySize() == true) {
-                    Utility.pushNavigator(
-                        context, CreateMissionPage(missionModel: missionModel));
-                  } else {
-                    DialogManagement.getInstance().showPCCustomDialog(
-                        context: context,
-                        widget: CreateMissionPage(missionModel: missionModel));
-                  }
-                },
-              ))
-        ],
+                    if (Utility.isHandsetBySize() == true) {
+                      Utility.pushNavigator(context,
+                          CreateMissionPage(missionModel: missionModel));
+                    } else {
+                      DialogManagement.getInstance().showPCCustomDialog(
+                          context: context,
+                          widget: CreateMissionPage(missionModel: missionModel));
+                    }
+                  },
+                ))
+          ],
+        ),
       );
     });
   }

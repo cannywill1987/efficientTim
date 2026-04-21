@@ -23,7 +23,9 @@ import '../../models/CheckButtonStateModel.dart';
 import '../../models/FolderModel.dart';
 
 class RightFolderContainerPage extends BaseWidget {
-  const RightFolderContainerPage({Key? key}) : super(key: key);
+  final bool usePanelShell;
+  const RightFolderContainerPage({Key? key, this.usePanelShell = true})
+      : super(key: key);
 
   @override
   _GroupChatPageState createState() => _GroupChatPageState();
@@ -54,6 +56,37 @@ class _GroupChatPageState extends BaseWidgetState<RightFolderContainerPage> {
         selector: (_, globalStateEnv) => globalStateEnv.curFolderSelected,
         builder: (_, folderModel, __) {
           this.folderModel = folderModel;
+          final Widget content = Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
+                child: CustomTabBarWidget(
+                  checkIndex: curTab,
+                  list: tabList,
+                  onCheckedListener: (int index, CheckButtonStateModel model) {
+                    this.curTab = index;
+                    updateUI();
+                  },
+                  fontSize: 13,
+                  useUnifiedStyle: true,
+                ),
+              ),
+              Expanded(
+                  child: this.curTab == 0
+                      ? GroupChatPage()
+                      : TimeLinePage(
+                          key: ValueKey("jezifzjifew"),
+                          timelinePageFromEnum:
+                              TimelinePageFromEnum.ObjectivePage.index,
+                          folderObjectId: folderModel.objectId ?? "",
+                        ))
+            ],
+          );
+          if (!this.widget.usePanelShell) {
+            return content;
+          }
           return Container(
             margin: const EdgeInsets.fromLTRB(12, 10, 12, 12),
             decoration: BoxDecoration(
@@ -70,35 +103,7 @@ class _GroupChatPageState extends BaseWidgetState<RightFolderContainerPage> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-                    child: CustomTabBarWidget(
-                      checkIndex: curTab,
-                      list: tabList,
-                      onCheckedListener:
-                          (int index, CheckButtonStateModel model) {
-                        this.curTab = index;
-                        updateUI();
-                      },
-                      fontSize: 13,
-                      useUnifiedStyle: true,
-                    ),
-                  ),
-                  Expanded(
-                      child: this.curTab == 0
-                          ? GroupChatPage()
-                          : TimeLinePage(
-                              key: ValueKey("jezifzjifew"),
-                              timelinePageFromEnum:
-                                  TimelinePageFromEnum.ObjectivePage.index,
-                              folderObjectId: folderModel.objectId ?? "",
-                            ))
-                ],
-              ),
+              child: content,
             ),
           );
         });
