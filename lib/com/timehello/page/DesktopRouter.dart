@@ -23,7 +23,6 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../util/AnalyticsEventsManager.dart';
 import 'AddFilterPage/AddFilterPage.dart';
-import 'CountUpListViewPage/CountUpListViewPage.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
 import 'FlomoPage/FlomoPCContainerPage.dart';
 import 'FourQuadrant/FourQuadrantPage.dart';
@@ -38,7 +37,7 @@ import 'WrongQuestionBookPage/WrongQuestionBookPage.dart';
 import 'calendarPage/TimeManagementPage.dart';
 import 'createFolderPage/CreateFolderPage.dart';
 import 'missionPage/MissionContainerPage.dart';
-import 'missionPage/MissionPage.dart';
+import '../util/OverlayManagement.dart';
 
 getMainPage([String? page]) {
   return Selector<Env, bool>(
@@ -276,7 +275,8 @@ Widget desktopCenterRouter(String page, Map data) {
       return getListWithLeftSideWidget(MissionContainerPage(
           key: ValueKey('MissionPage213'),
           folderModel: data['data'],
-          folderStatusDate: data['folderStatus']));
+          folderStatusDate: data['folderStatus'],
+          useUnifiedStyle: true));
     // case 'WrongQuestionBookPage':
     //   return getListWithLeftSideWidget(WrongQuestionBookPage(key: ValueKey('MissionPage21312'), wqbMissionModel: WQBMissionModel(), saveModeEnum: SaveModeEnum.normal,));
     // case 'MissionPage':
@@ -289,7 +289,8 @@ Widget desktopCenterRouter(String page, Map data) {
       return getListWithLeftSideWidget(MissionContainerPage(
           key: ValueKey('MissionPage2131'),
           folderModel: CONSTANTS.getTodayFolderModel(),
-          folderStatusDate: 1));
+          folderStatusDate: 1,
+          useUnifiedStyle: true));
   }
 }
 
@@ -316,10 +317,13 @@ Widget desktopRightRouter(String page, Map data) {
 
   switch (page) {
     case 'SettingItemDetailPage':
-      return getContainer(new SettingItemDetailPage(
-        key: ValueKey("ejzifjf123"),
-        missionModel: data['missionModel'],
-      ));
+      return OverlayManagement.getInstance().buildDesktopRightFloatingPanel(
+          context: Utility.getGlobalContext(),
+          width: 438,
+          child: SettingItemDetailPage(
+            key: ValueKey("ejzifjf123"),
+            missionModel: data['missionModel'],
+          ));
       // return Selector<Env, bool>(
       //     selector: (_, globalStateEnv) => globalStateEnv.isMiddleMissionPageVisible,
       //     builder: (_, isMiddleMissionPageVisible, __) {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/AIAppflowyEditorWidget.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/desktop_editor.dart';
 import 'package:time_hello/com/timehello/page/AppFlowyPage/pages/mobile_editor.dart';
@@ -95,7 +96,9 @@ class _EditorState extends State<Editor> {
     return Stack(
       children: [
         ColoredBox(
-          color: ThemeManager.getInstance().isDark() ? Colors.black : Colors.white,
+          color: ThemeManager.getInstance().isDark()
+              ? Colors.black
+              : ColorsConfig.missionEditorSurface,
           child: FutureBuilder<String>(
             //加载外部传进来的json数据
             future: widget.jsonString,
@@ -151,7 +154,7 @@ class _EditorState extends State<Editor> {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.1),
+              color: ColorsConfig.missionEditorCounterBackground,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(8),
                 bottomLeft: PlatformExtension.isMobile
@@ -164,13 +167,23 @@ class _EditorState extends State<Editor> {
               children: [
                 Text(
                   getI18NKey().word_count_and_char_count(wordCount, charCount),
-                  style: const TextStyle(fontSize: 11),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: ThemeManager.getInstance().getTextColor(
+                        defaultColor: ColorsConfig.missionEditorCounterText,
+                        defaultDarkColor: Colors.white70),
+                  ),
                 ),
                 if (!(editorState?.selection?.isCollapsed ?? true))
                   Text(
                     getI18NKey().in_selection_word_count_and_char_count(
                         selectedWordCount, selectedCharCount),
-                    style: const TextStyle(fontSize: 11),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: ThemeManager.getInstance().getTextColor(
+                          defaultColor: ColorsConfig.missionEditorCounterText,
+                          defaultDarkColor: Colors.white70),
+                    ),
                   ),
               ],
             ),

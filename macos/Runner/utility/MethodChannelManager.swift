@@ -9,6 +9,7 @@ import Foundation
 import FlutterMacOS
 import WidgetKit
 import SwiftUI
+import Vision
 @available(macOS 11.0, *)
 class MethodChannelManager {
     static let instance:MethodChannelManager = MethodChannelManager() // 单例模式，便于全局访问
@@ -839,6 +840,95 @@ class MethodChannelManager {
 //                    print("err \(res)")
                 }
                 break;
+            case "assistCaptureScreen":
+                // AI 回复助手：全屏截图（MVP 默认主屏）。
+                let args = call.arguments as? [String: Any] ?? [:]
+                let displayIdRaw = args["displayId"] as? Int ?? 0
+                let displayId: CGDirectDisplayID = displayIdRaw == 0
+                    ? CGMainDisplayID()
+                    : CGDirectDisplayID(displayIdRaw)
+                do {
+                    let payload = try captureMainDisplayPng(displayId: displayId)
+                    result(payload)
+                } catch {
+                    result(FlutterError(
+                        code: "ASSIST_CAPTURE_FAILED",
+                        message: error.localizedDescription,
+                        details: nil
+                    ))
+                }
+                break;
+            case "assistCropPng":
+                // AI 回复助手：按 logical ROI 裁剪 PNG。
+                let args = call.arguments as? [String: Any] ?? [:]
+                let pngBase64 = args["pngBase64"] as? String ?? ""
+                let roi = args["roi"] as? [String: Any] ?? [:]
+                let scale = args["scale"] as? Double ?? 1.0
+                do {
+                    let payload = try cropPngByLogicalRoi(
+                        pngBase64: pngBase64,
+                        roi: roi,
+                        scale: scale
+                    )
+                    result(payload)
+                } catch {
+                    result(FlutterError(
+                        code: "ASSIST_CROP_FAILED",
+                        message: error.localizedDescription,
+                        details: nil
+                    ))
+                }
+                break;
+            case "assistVisionOcr":
+                // AI 回复助手：Vision OCR（text/lines）。
+                let args = call.arguments as? [String: Any] ?? [:]
+                let pngBase64 = args["pngBase64"] as? String ?? ""
+                let lang = args["lang"] as? String ?? "zh-Hans"
+                let returnType = args["returnType"] as? String ?? "text"
+                do {
+                    let payload = try runVisionOcr(
+                        pngBase64: pngBase64,
+                        lang: lang,
+                        returnType: returnType
+                    )
+                    result(payload)
+                } catch {
+                    result(FlutterError(
+                        code: "ASSIST_OCR_FAILED",
+                        message: error.localizedDescription,
+                        details: nil
+                    ))
+                }
+                break;
+            case "assistFocusAndPaste":
+                // AI 回复助手：聚焦输入框 + Cmd+V（不发送）。
+                let args = call.arguments as? [String: Any] ?? [:]
+                let point = args["point"] as? [String: Any] ?? [:]
+                let text = args["text"] as? String ?? ""
+                do {
+                    let payload = try focusAndPaste(
+                        point: point,
+                        text: text
+                    )
+                    result(payload)
+                } catch {
+                    result(FlutterError(
+                        code: "ASSIST_PASTE_FAILED",
+                        message: error.localizedDescription,
+                        details: nil
+                    ))
+                }
+                break;
+            case "assistCheckPermissions":
+                // AI 回复助手：查询屏幕录制与辅助功能权限状态。
+                result(checkAssistPermissions())
+                break;
+            case "assistOpenSystemSettings":
+                // AI 回复助手：按页面跳转系统设置。
+                let args = call.arguments as? [String: Any] ?? [:]
+                let page = args["page"] as? String ?? "screenRecording"
+                result(["ok": openAssistSettings(page: page)])
+                break;
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -847,6 +937,242 @@ class MethodChannelManager {
         }
     }
     
+    private func captureMainDisplayPng(displayId: CGDirectDisplayID) throws -> [String: Any] {
+        // 截图前先检查屏幕录制权限；未授权时主动触发系统授权弹窗。
+        guard CGPreflightScreenCaptureAccess() else {
+            _ = CGRequestScreenCaptureAccess()
+            throw NSError(
+                domain: "assist.capture",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Screen Recording permission denied"]
+            )
+        }
+        
+        guard let image = CGDisplayCreateImage(displayId) else {
+            throw NSError(
+                domain: "assist.capture",
+                code: -2,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to capture display image"]
+            )
+        }
+        
+        let pngData = try cgImageToPngData(image)
+        let scale = NSScreen.main?.backingScaleFactor ?? 1.0
+        let widthPx = image.width
+        let heightPx = image.height
+        // 同时返回物理像素与逻辑尺寸，避免 Flutter 侧坐标换算混乱。
+        return [
+            "pngBase64": pngData.base64EncodedString(),
+            "scale": scale,
+            "width": widthPx,
+            "height": heightPx,
+            "widthLogical": Double(widthPx) / scale,
+            "heightLogical": Double(heightPx) / scale
+        ]
+    }
+    
+    private func cropPngByLogicalRoi(
+        pngBase64: String,
+        roi: [String: Any],
+        scale: Double
+    ) throws -> [String: Any] {
+        guard let image = decodeBase64ToCGImage(pngBase64) else {
+            throw NSError(
+                domain: "assist.crop",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Invalid pngBase64 data"]
+            )
+        }
+        
+        let x = roi["x"] as? Double ?? 0
+        let y = roi["y"] as? Double ?? 0
+        let w = roi["w"] as? Double ?? 0
+        let h = roi["h"] as? Double ?? 0
+        
+        var rectPx = CGRect(
+            x: x * scale,
+            y: y * scale,
+            width: w * scale,
+            height: h * scale
+        )
+        
+        // 将“左上原点 logical 坐标”转换为“CGImage 像素坐标”。
+        // 关键点：CGImage 裁剪是左下原点，因此需要翻转 Y。
+        rectPx.origin.y = Double(image.height) - (rectPx.origin.y + rectPx.size.height)
+        rectPx = rectPx.integral
+        
+        let bounds = CGRect(x: 0, y: 0, width: image.width, height: image.height)
+        rectPx = rectPx.intersection(bounds)
+        if rectPx.isNull || rectPx.width <= 0 || rectPx.height <= 0 {
+            throw NSError(
+                domain: "assist.crop",
+                code: -2,
+                userInfo: [NSLocalizedDescriptionKey: "ROI out of bounds"]
+            )
+        }
+        
+        guard let cropped = image.cropping(to: rectPx) else {
+            throw NSError(
+                domain: "assist.crop",
+                code: -3,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to crop image"]
+            )
+        }
+        
+        let pngData = try cgImageToPngData(cropped)
+        return ["pngBase64": pngData.base64EncodedString()]
+    }
+    
+    private func runVisionOcr(
+        pngBase64: String,
+        lang: String,
+        returnType: String
+    ) throws -> [String: Any] {
+        guard let image = decodeBase64ToCGImage(pngBase64) else {
+            throw NSError(
+                domain: "assist.ocr",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Invalid pngBase64 data"]
+            )
+        }
+        
+        var texts: [String] = []
+        var lines: [[String: Any]] = []
+        
+        let request = VNRecognizeTextRequest { request, error in
+            guard error == nil else { return }
+            guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
+            for observation in observations {
+                guard let candidate = observation.topCandidates(1).first else { continue }
+                let text = candidate.string.trimmingCharacters(in: .whitespacesAndNewlines)
+                if text.isEmpty { continue }
+                texts.append(text)
+                
+                if returnType == "lines" {
+                    // Vision boundingBox 是归一化坐标，需还原到像素坐标。
+                    let box = observation.boundingBox
+                    let x = box.origin.x * CGFloat(image.width)
+                    let y = (1.0 - box.origin.y - box.height) * CGFloat(image.height)
+                    let w = box.width * CGFloat(image.width)
+                    let h = box.height * CGFloat(image.height)
+                    lines.append([
+                        "text": text,
+                        "x": Double(x),
+                        "y": Double(y),
+                        "w": Double(w),
+                        "h": Double(h)
+                    ])
+                }
+            }
+        }
+        
+        request.recognitionLevel = .accurate
+        // 默认 zh-Hans，可由 Flutter 参数覆盖。
+        request.recognitionLanguages = [lang]
+        request.usesLanguageCorrection = true
+        
+        let handler = VNImageRequestHandler(cgImage: image, options: [:])
+        try handler.perform([request])
+        
+        if returnType == "lines" {
+            return ["lines": lines]
+        }
+        return ["text": texts.joined(separator: "\n")]
+    }
+    
+    private func focusAndPaste(point: [String: Any], text: String) throws -> [String: Any] {
+        // 点击与键盘模拟依赖辅助功能权限。
+        guard AXIsProcessTrusted() else {
+            throw NSError(
+                domain: "assist.paste",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Accessibility permission denied"]
+            )
+        }
+        
+        let xLogical = point["x"] as? Double ?? 0
+        let yLogical = point["y"] as? Double ?? 0
+        let scale = NSScreen.main?.backingScaleFactor ?? 1.0
+        
+        let xPx = xLogical * scale
+        let yPxTop = yLogical * scale
+        let displayHeight = Double(CGDisplayPixelsHigh(CGMainDisplayID()))
+        // Flutter 传入 top-left 逻辑坐标，这里转换到 CGEvent 坐标系。
+        let clickPoint = CGPoint(x: xPx, y: max(0, displayHeight - yPxTop))
+        
+        let source = CGEventSource(stateID: .combinedSessionState)
+        
+        // 先点击聚焦目标输入框。
+        let move = CGEvent(mouseEventSource: source, mouseType: .mouseMoved, mouseCursorPosition: clickPoint, mouseButton: .left)
+        let down = CGEvent(mouseEventSource: source, mouseType: .leftMouseDown, mouseCursorPosition: clickPoint, mouseButton: .left)
+        let up = CGEvent(mouseEventSource: source, mouseType: .leftMouseUp, mouseCursorPosition: clickPoint, mouseButton: .left)
+        move?.post(tap: .cghidEventTap)
+        down?.post(tap: .cghidEventTap)
+        up?.post(tap: .cghidEventTap)
+        
+        usleep(70_000)
+
+        // 写系统剪贴板，再模拟 Cmd+V。
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+        
+        let keyCodeV: CGKeyCode = 9 // kVK_ANSI_V
+        let keyDown = CGEvent(keyboardEventSource: source, virtualKey: keyCodeV, keyDown: true)
+        keyDown?.flags = .maskCommand
+        let keyUp = CGEvent(keyboardEventSource: source, virtualKey: keyCodeV, keyDown: false)
+        keyUp?.flags = .maskCommand
+        keyDown?.post(tap: .cghidEventTap)
+        keyUp?.post(tap: .cghidEventTap)
+        
+        return ["ok": true]
+    }
+    
+    private func checkAssistPermissions() -> [String: Any] {
+        // 与 Flutter 约定统一返回 granted/denied。
+        let screen = CGPreflightScreenCaptureAccess() ? "granted" : "denied"
+        let accessibility = AXIsProcessTrusted() ? "granted" : "denied"
+        return [
+            "screenRecording": screen,
+            "accessibility": accessibility
+        ]
+    }
+    
+    private func openAssistSettings(page: String) -> Bool {
+        // 系统设置权限页锚点：
+        // - Privacy_ScreenCapture
+        // - Privacy_Accessibility
+        let anchor = page == "accessibility"
+            ? "Privacy_Accessibility"
+            : "Privacy_ScreenCapture"
+        guard let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?\(anchor)") else {
+            return false
+        }
+        return NSWorkspace.shared.open(url)
+    }
+    
+    private func decodeBase64ToCGImage(_ value: String) -> CGImage? {
+        // base64(PNG) -> NSBitmapImageRep -> CGImage
+        guard let data = Data(base64Encoded: value, options: .ignoreUnknownCharacters) else {
+            return nil
+        }
+        guard let rep = NSBitmapImageRep(data: data) else {
+            return nil
+        }
+        return rep.cgImage
+    }
+    
+    private func cgImageToPngData(_ image: CGImage) throws -> Data {
+        // CGImage -> PNG Data（统一输出格式，便于 Flutter 渲染）。
+        let rep = NSBitmapImageRep(cgImage: image)
+        guard let data = rep.representation(using: .png, properties: [:]) else {
+            throw NSError(
+                domain: "assist.image",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to encode png"]
+            )
+        }
+        return data
+    }
+    
     
 }
-

@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/components/GPTControlWidget.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
@@ -31,7 +32,7 @@ class HeaderNavBarState extends State<HeaderNavBar> {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-          color: ThemeManager.getInstance().getCardBackgroundColor()),
+          color: ColorsConfig.missionEditorSurface),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
@@ -41,6 +42,10 @@ class HeaderNavBarState extends State<HeaderNavBar> {
               key: tabBarKey,
               list: listTabBars,
               fontSize: 12,
+              checkedTextColor: ColorsConfig.missionEditorPrimary,
+              uncheckedTextColor: ColorsConfig.missionEditorSecondary,
+              checkedIndicatorColor: ColorsConfig.missionEditorPrimary,
+              uncheckedIndicatorColor: Colors.transparent,
               onCheckedListener: (int index, CheckButtonStateModel model) {
                 setState(() {
                   widget.onTapListener.call(index, listTabBars[index]);

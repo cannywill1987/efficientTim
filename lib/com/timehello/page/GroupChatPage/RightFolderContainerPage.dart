@@ -43,31 +43,63 @@ class _GroupChatPageState extends BaseWidgetState<RightFolderContainerPage> {
 
   @override
   Widget baseBuild(BuildContext context) {
+    final bool isDark = ThemeManager.getInstance().getThemeMode().isDark ||
+        Theme.of(context).brightness == Brightness.dark;
+    final Color panelBackground = isDark
+        ? const Color(0xFF1F1915)
+        : const Color(0xFFFDF7EE).withValues(alpha: 0.96);
+    final Color panelBorder =
+        isDark ? const Color(0xFF443931) : const Color(0xFFEBDCCB);
     return Selector<Env, FolderModel>(
         selector: (_, globalStateEnv) => globalStateEnv.curFolderSelected,
         builder: (_, folderModel, __) {
           this.folderModel = folderModel;
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTabBarWidget(
-                checkIndex: curTab,
-                list: tabList,
-                onCheckedListener: (int index, CheckButtonStateModel model) {
-                  this.curTab = index;
-                  updateUI();
-                },
-                fontSize: 14,
+          return Container(
+            margin: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+            decoration: BoxDecoration(
+              color: panelBackground,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: panelBorder),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.08),
+                  blurRadius: 26,
+                  offset: const Offset(0, 14),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
+                    child: CustomTabBarWidget(
+                      checkIndex: curTab,
+                      list: tabList,
+                      onCheckedListener:
+                          (int index, CheckButtonStateModel model) {
+                        this.curTab = index;
+                        updateUI();
+                      },
+                      fontSize: 13,
+                      useUnifiedStyle: true,
+                    ),
+                  ),
+                  Expanded(
+                      child: this.curTab == 0
+                          ? GroupChatPage()
+                          : TimeLinePage(
+                              key: ValueKey("jezifzjifew"),
+                              timelinePageFromEnum:
+                                  TimelinePageFromEnum.ObjectivePage.index,
+                              folderObjectId: folderModel.objectId ?? "",
+                            ))
+                ],
               ),
-              Expanded(
-                  child: this.curTab == 0
-                      ? GroupChatPage()
-                      : TimeLinePage(
-                          key: ValueKey("jezifzjifew"),
-                          timelinePageFromEnum:
-                              TimelinePageFromEnum.ObjectivePage.index, folderObjectId: folderModel.objectId ?? "",))
-            ],
+            ),
           );
         });
   }

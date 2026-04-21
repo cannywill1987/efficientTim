@@ -1779,6 +1779,7 @@ class Utility {
 
   static popupDesktopRightNavigator(BuildContext context) {
     setDesktopMiddileMissionPage(context, isVisible: true);
+    OverlayManagement.getInstance().removeDesktopRightFloatingOverlay();
     if (context.read<Env>().routerRightSideData != null) {
       context.read<Env>().routerRightSideData = null;
     }
@@ -2047,6 +2048,12 @@ class Utility {
 
   static openRightSideDesktopNavigator(
       BuildContext context, String page, Map data) {
+    if (Utility.isHandsetBySize() == false && page == 'SettingItemDetailPage') {
+      context.read<Env>().routerRightSideData = null;
+      OverlayManagement.getInstance()
+          .openDesktopRightFloatingPage(context, page: page, data: data);
+      return;
+    }
     data['page'] = page;
     context.read<Env>().routerRightSideData = data;
   }

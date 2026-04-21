@@ -1,20 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/CustomTextField.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
-import 'package:time_hello/com/timehello/libs/flutter_slidable/src/action_pane_motions.dart';
-import 'package:time_hello/com/timehello/libs/flutter_slidable/src/slidable.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../../../r.dart';
 import '../libs/flutter_slidable/flutter_slidable.dart';
 import '../util/DeviceInfoManagement.dart';
-import '../util/LoginManager.dart';
 
 class FolderSectionHeaderWidget extends StatefulWidget {
   final String title;
+  final bool useUnifiedStyle;
   bool isEditing = false;
   bool isArchived = false;
   bool isFoldedForFolder = false;
@@ -42,7 +40,8 @@ class FolderSectionHeaderWidget extends StatefulWidget {
       this.marginTop = 0,
       required this.onCancelListener,
       required this.title,
-      this.isEditing = false})
+      this.isEditing = false,
+      this.useUnifiedStyle = false})
       : super(key: key);
 
   @override
@@ -142,6 +141,149 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
   }
 
   InkWell getItem() {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final Color textColor = ThemeManager.getInstance().getTextColor(
+        defaultColor: ColorsConfig.missionSidebarTextPrimary,
+        defaultDarkColor: Colors.white);
+    final Color actionColor = ThemeManager.getInstance().getIconColor(
+        defaultColor: ColorsConfig.missionSidebarTextSecondary);
+    final Widget content = Row(
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(top: 2, bottom: 2),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                widget.useUnifiedStyle
+                    ? SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: Center(
+                          child: Utility.getSVGPicture(
+                            R.assetsImgIcFolder,
+                            size: 15,
+                            color: ColorsConfig.missionSidebarSystemIcon,
+                          ),
+                        ),
+                      )
+                    : Utility.getSVGPicture(R.assetsImgIcFolder, size: 20),
+                SizedBox(
+                  width: widget.useUnifiedStyle ? 8 : 6,
+                ),
+                CustomTextField(
+                  isEditing: this.widget.isEditing,
+                  style: TextStyle(
+                      fontSize: widget.useUnifiedStyle ? 13 : 14,
+                      fontWeight: FontWeight.w700,
+                      color: widget.useUnifiedStyle
+                          ? textColor
+                          : ThemeManager.getInstance().isDark()
+                              ? Colors.white
+                              : Colors.black),
+                  text: this.widget.title,
+                  onCancelListener: () {
+                    this.widget.onCancelListener?.call();
+                  },
+                  onEnterListener: (data) {
+                    this.widget.onEnterListener.call(data);
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            (this.isHover == true)
+                ? Container(
+                    width: 30,
+                    height: 30,
+                    child: CustomPopupWidget(
+                      onSelected: (val) async {
+                        switch (val.code) {
+                          case "archive":
+                            if (this.widget.isArchived) {
+                              this.widget.onUnarchiveListener?.call();
+                            } else {
+                              this.widget.onArchiveListener?.call();
+                            }
+                            break;
+                          case "unarchive":
+                            this.widget.onUnarchiveListener?.call();
+                            break;
+                          case "delete":
+                            this.widget.onDeleteListener?.call();
+                            break;
+                        }
+                      },
+                      list: CONSTANTS.getFolderModelCheckButtonStateModel(
+                          isArchived: this.widget.isArchived),
+                      child: Icon(
+                        Icons.more_horiz,
+                        color: widget.useUnifiedStyle
+                            ? actionColor
+                            : ThemeManager.getInstance()
+                                .getIconColor(defaultColor: Color(0xff909090)),
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
+            if (this.widget.isArchived == false)
+              InkWell(
+                onTap: () {
+                  this.widget.onCreateMissionFolderListener?.call();
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.add,
+                    color: widget.useUnifiedStyle
+                        ? actionColor
+                        : ThemeManager.getInstance().getIconColor(
+                            defaultColor: Color(0xff909090),
+                          ),
+                    size: widget.useUnifiedStyle ? 18 : 20,
+                  ),
+                ),
+              ),
+            InkWell(
+              onTap: () {
+                if (this.isFoldedForFolder == false) {
+                  this.isFoldedForFolder = true;
+                } else {
+                  this.isFoldedForFolder = false;
+                }
+                this.widget.onTapFoldedListener?.call(this.isFoldedForFolder);
+                setState(() {});
+              },
+              child: Container(
+                width: 30,
+                height: 30,
+                alignment: Alignment.center,
+                child: Icon(
+                  this.isFoldedForFolder == true
+                      ? Icons.unfold_more
+                      : Icons.unfold_less,
+                  color: widget.useUnifiedStyle
+                      ? actionColor
+                      : ThemeManager.getInstance().getIconColor(
+                          defaultColor: Color(0xff909090),
+                        ),
+                  size: widget.useUnifiedStyle ? 18 : 20,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+          ],
+        )
+      ],
+    );
     return InkWell(
       onTap: () {
         if(this.isFoldedForFolder == false) {
@@ -154,126 +296,21 @@ class FolderSectionHeaderWidgetState extends State<FolderSectionHeaderWidget> {
 
         });
       },
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(
-                  top: 2, bottom: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Utility.getSVGPicture(R.assetsImgIcFolder, size: 20),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  CustomTextField(
-                    isEditing: this.widget.isEditing,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeManager.getInstance().isDark() ? Colors.white : Colors.black),
-                    text: this.widget.title,
-                    onCancelListener: () {
-                      this.widget.onCancelListener?.call();
-                    },
-                    onEnterListener: (data) {
-                      this.widget.onEnterListener.call(data);
-                    },
-                  )
-                ],
+      child: widget.useUnifiedStyle
+          ? Container(
+              margin: const EdgeInsets.fromLTRB(8, 2, 12, 2),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: isHover ? 0.05 : 0.02)
+                    : isHover
+                        ? ColorsConfig.missionSidebarHoverBackground
+                        : Colors.transparent,
+                borderRadius: BorderRadius.circular(14),
               ),
-            ),
-          ),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              (this.isHover == true)
-                  ? Container(
-                      // color: Colors.red,
-                      width: 30,
-                      height: 30,
-                      child: CustomPopupWidget(
-                        onSelected: (val) async {
-                          switch (val.code) {
-                            case "archive":
-                              if (this.widget.isArchived) {
-                                this.widget.onUnarchiveListener?.call();
-                              } else {
-                                this.widget.onArchiveListener?.call();
-                              }
-                              break;
-                            case "unarchive":
-                              this.widget.onUnarchiveListener?.call();
-                              break;
-                            case "delete":
-                              this.widget.onDeleteListener?.call();
-                              break;
-                          }
-                          // updateUI();
-                        },
-                        list: CONSTANTS.getFolderModelCheckButtonStateModel(
-                            isArchived: this.widget.isArchived),
-                        child: Icon(
-                          Icons.more_horiz,
-                          color: ThemeManager.getInstance()
-                              .getIconColor(defaultColor: Color(0xff909090)),
-                        ),
-                      ),
-                    )
-                  : SizedBox.shrink(),
-              //白色正方形+好 inkwell可点击
-              if (this.widget.isArchived == false)
-                InkWell(
-                  onTap: () {
-                    this.widget.onCreateMissionFolderListener?.call();
-                  },
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    alignment: Alignment.center,
-                    child: Icon(
-                      Icons.add,
-                      color: ThemeManager.getInstance().getIconColor(
-                        defaultColor: Color(0xff909090),
-                      ),
-                      size: 20,
-                    ),
-                  ),
-                ),
-              // if(this.isFoldedForFolder == false)
-                InkWell(
-                  onTap: () {
-                    if(this.isFoldedForFolder == false) {
-                      this.isFoldedForFolder = true;
-                    } else {
-                      this.isFoldedForFolder = false;
-                    }
-                    this.widget.onTapFoldedListener?.call(this.isFoldedForFolder);
-                    setState(() {
-
-                    });
-                  },
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    alignment: Alignment.center,
-                    child: Icon(
-                      this.isFoldedForFolder == true ?  Icons.unfold_more : Icons.unfold_less,
-                      color: ThemeManager.getInstance().getIconColor(
-                        defaultColor: Color(0xff909090),
-                      ),
-                      size: 20,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-            ],
-          )
-        ],
-      ),
+              child: content,
+            )
+          : content,
     );
   }
 }

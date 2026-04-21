@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/config/StylesConfig.dart';
+import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
-
-import '../../../r.dart';
 
 class MenuItem2 extends StatefulWidget {
   Widget icon;
@@ -11,7 +9,18 @@ class MenuItem2 extends StatefulWidget {
   String? subTitle;
   Widget? rightPartContainer;
   OnTapListener? onTapListener;
-  MenuItem2({required this.icon, required this.title, this.subTitle, this.rightPartContainer, this.onTapListener});
+  bool useUnifiedStyle;
+  bool compactUnifiedStyle;
+  double? width;
+  MenuItem2(
+      {required this.icon,
+      required this.title,
+      this.subTitle,
+      this.rightPartContainer,
+      this.onTapListener,
+      this.useUnifiedStyle = false,
+      this.compactUnifiedStyle = false,
+      this.width});
 
   @override
   State<StatefulWidget> createState() {
@@ -21,6 +30,8 @@ class MenuItem2 extends StatefulWidget {
 }
 
 class MenuItemState extends State<MenuItem2> {
+  bool _isHovered = false;
+
   @override
   Widget build(BuildContext context) {
     List<Widget> items = [
@@ -50,6 +61,178 @@ class MenuItemState extends State<MenuItem2> {
     if (this.widget.rightPartContainer != null) {
       items.add(this.widget.rightPartContainer!);
 
+    }
+    if (widget.useUnifiedStyle) {
+      return MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() {
+          _isHovered = true;
+        }),
+        onExit: (_) => setState(() {
+          _isHovered = false;
+        }),
+        child: InkWell(
+          onTap: () {
+            if (this.widget.onTapListener != null) {
+              this.widget.onTapListener!(null);
+            }
+          },
+          borderRadius: BorderRadius.circular(24),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 160),
+            curve: Curves.easeOutCubic,
+            width: widget.width,
+            constraints: BoxConstraints(
+              minHeight: widget.compactUnifiedStyle ? 74 : 102,
+            ),
+            padding: EdgeInsets.fromLTRB(
+              14,
+              widget.compactUnifiedStyle ? 12 : 13,
+              14,
+              widget.compactUnifiedStyle ? 12 : 12,
+            ),
+            decoration: buildUnifiedDesktopCardDecoration(
+              backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(
+                defaultColor: _isHovered
+                    ? const Color(0xFFFFF8F0)
+                    : const Color(0xFFFFFCF7),
+              ),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: _isHovered
+                    ? const Color(0xFFE1C8B0)
+                    : const Color(0xFFECDDCA),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: _isHovered ? 0.05 : 0.03),
+                  blurRadius: _isHovered ? 14 : 10,
+                  offset: const Offset(0, 6),
+                )
+              ],
+            ),
+            child: widget.compactUnifiedStyle
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 34,
+                        height: 34,
+                        decoration: BoxDecoration(
+                          color: _isHovered
+                              ? const Color(0xFFFFECD8)
+                              : const Color(0xFFFFF2E2),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        alignment: Alignment.center,
+                        child: this.widget.icon,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              this.widget.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ThemeManager.getInstance().getTextColor(
+                                    defaultColor: const Color(0xFF6D5646)),
+                              ),
+                            ),
+                            if ((this.widget.subTitle ?? "").isNotEmpty) ...[
+                              const SizedBox(height: 3),
+                              Text(
+                                this.widget.subTitle ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: ThemeManager.getInstance().getTextColor(
+                                      defaultColor: const Color(0xFFA18A78)),
+                                ),
+                              ),
+                            ],
+                            if (this.widget.rightPartContainer != null)
+                              const SizedBox(height: 5),
+                            if (this.widget.rightPartContainer != null)
+                              DefaultTextStyle.merge(
+                                style: TextStyle(
+                                  color: ThemeManager.getInstance().getTextColor(
+                                      defaultColor: const Color(0xFF3C2A1E)),
+                                ),
+                                child: this.widget.rightPartContainer!,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 34,
+                        height: 34,
+                        decoration: BoxDecoration(
+                          color: _isHovered
+                              ? const Color(0xFFFFECD8)
+                              : const Color(0xFFFFF2E2),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        alignment: Alignment.center,
+                        child: this.widget.icon,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        this.widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: ThemeManager.getInstance()
+                              .getTextColor(defaultColor: const Color(0xFF6D5646)),
+                        ),
+                      ),
+                      if ((this.widget.subTitle ?? "").isNotEmpty) ...[
+                        const SizedBox(height: 5),
+                        Text(
+                          this.widget.subTitle ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: ThemeManager.getInstance().getTextColor(
+                                defaultColor: const Color(0xFFA18A78)),
+                          ),
+                        ),
+                      ],
+                      if (this.widget.rightPartContainer != null)
+                        const SizedBox(height: 12),
+                      if (this.widget.rightPartContainer != null)
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: DefaultTextStyle.merge(
+                            style: TextStyle(
+                              color: ThemeManager.getInstance().getTextColor(
+                                  defaultColor: const Color(0xFF3C2A1E)),
+                            ),
+                            child: this.widget.rightPartContainer!,
+                          ),
+                        ),
+                    ],
+                  ),
+          ),
+        ),
+      );
     }
     // TODO: implement build
     //获取星星

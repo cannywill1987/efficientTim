@@ -57,7 +57,9 @@ class GroupMissionPage extends BaseWidget {
   Key? key;
   Function? onTapRightNavMenuListener;
 
-  GroupMissionPage({this.key, this.onTapRightNavMenuListener, this.onTapNavMenuListener}) : super(key: key);
+  GroupMissionPage(
+      {this.key, this.onTapRightNavMenuListener, this.onTapNavMenuListener})
+      : super(key: key);
 
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
@@ -102,7 +104,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
 
   didupdateWidget(oldWidget) {
     super.didUpdateWidget(oldWidget);
-this.updateRightNavChildren();
+    this.updateRightNavChildren();
   }
 
   void updateRightNavChildren() {
@@ -112,10 +114,13 @@ this.updateRightNavChildren();
       this.rightNavChildren = [
         IconButton(
             onPressed: () {
-              this.widget.onTapRightNavMenuListener?.call(this.folderModel, false);
+              this
+                  .widget
+                  .onTapRightNavMenuListener
+                  ?.call(this.folderModel, false);
             },
-            icon: Utility.getSVGPicture(
-                R.assetsImgIcListingGroup, size: StylesConfig.sizeGroup))
+            icon: Utility.getSVGPicture(R.assetsImgIcListingGroup,
+                size: StylesConfig.sizeGroup))
       ];
       updateUI();
     }
@@ -127,8 +132,10 @@ this.updateRightNavChildren();
       this.rightNavChildren = [
         IconButton(
             onPressed: () {
-              this.widget.onTapRightNavMenuListener?.call(
-                  this.folderModel, true);
+              this
+                  .widget
+                  .onTapRightNavMenuListener
+                  ?.call(this.folderModel, true);
             },
             icon: Utility.getSVGPicture(R.assetsImgIcAiVoice, size: 24))
       ];
@@ -321,10 +328,12 @@ this.updateRightNavChildren();
       GroupModel nextGroupModel = listGroupModels[currentIndex + 1];
       // nextGroupModel.missionModelObjectIdOrderList?.removeWhere((element) => element == missionModel.objectId!);
       nextGroupModel.missionModelObjectIdOrderList?.add(missionModel.objectId!);
-      nextGroupModel.missionModelObjectIdOrderList = Utility.removeDuplicates(nextGroupModel.missionModelObjectIdOrderList ?? []);
+      nextGroupModel.missionModelObjectIdOrderList = Utility.removeDuplicates(
+          nextGroupModel.missionModelObjectIdOrderList ?? []);
       // nextGroupModel.missionModelList?.removeWhere((element) => element == missionModel!);
       nextGroupModel.missionModelList?.add(missionModel);
-      nextGroupModel.missionModelList = Utility.removeDuplicates(nextGroupModel.missionModelList ?? []);
+      nextGroupModel.missionModelList =
+          Utility.removeDuplicates(nextGroupModel.missionModelList ?? []);
       missionModel.group_id = nextGroupModel.objectId;
       await Future.wait([
         MongoApisManager.getInstance().update_MissionModel(
@@ -336,8 +345,6 @@ this.updateRightNavChildren();
       });
     }
   }
-
-
 
   // onTapMultiSelectListener(data) async {
   //   if (data == null) {
@@ -351,7 +358,8 @@ this.updateRightNavChildren();
   // }
 
   Future onClickUnFinishListener(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -388,26 +396,26 @@ this.updateRightNavChildren();
         !TextUtil.isEmpty(
             CounterManagement.getInstance().missionModel?.title) &&
         data?.title != CounterManagement.getInstance().missionModel?.title) {
-      if(SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
-      Utility.showAlertDialog(
-          context: context,
-          content: getI18NKey().missionRunningAlert(
-              CounterManagement.getInstance().missionModel?.title ?? ""),
-          onConfirm: () {
-            OverlayManagement.getInstance().openMissionDetailPageOverlay(
-                context: context, missionModel: data, folderModel: folderModel);
-            // Utility.pushNavigator(
-            //     context,
-            //     new MissionDetailPage(
-            //       missionModel: data,
-            //       folderModel: this.widget.folderModel,
-            //     ));
-          });
+      if (SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+        Utility.showAlertDialog(
+            context: context,
+            content: getI18NKey().missionRunningAlert(
+                CounterManagement.getInstance().missionModel?.title ?? ""),
+            onConfirm: () {
+              OverlayManagement.getInstance().openMissionDetailPageOverlay(
+                  context: context,
+                  missionModel: data,
+                  folderModel: folderModel);
+              // Utility.pushNavigator(
+              //     context,
+              //     new MissionDetailPage(
+              //       missionModel: data,
+              //       folderModel: this.widget.folderModel,
+              //     ));
+            });
       } else {
         OverlayManagement.getInstance().openMissionDetailPageOverlay(
-            context: context,
-            missionModel: data,
-            folderModel: folderModel);
+            context: context, missionModel: data, folderModel: folderModel);
       }
     } else {
       OverlayManagement.getInstance().openMissionDetailPageOverlay(
@@ -425,7 +433,8 @@ this.updateRightNavChildren();
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -447,7 +456,8 @@ this.updateRightNavChildren();
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -484,7 +494,8 @@ this.updateRightNavChildren();
    * 侧滑点击删除
    */
   Future onClickDeleteItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
+    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
+        false) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
       return;
@@ -737,7 +748,7 @@ this.updateRightNavChildren();
               children: [
                 CustomTextField(
                     key: UniqueKey(), //每次都会重新创建
-                    maxWidth:Utility.isHandsetBySize() == true ? 200 : 400,
+                    maxWidth: Utility.isHandsetBySize() == true ? 200 : 400,
                     isEditable: this.folderModel?.tag == 2 ||
                         this.folderModel?.tag == 1,
                     style: TextStyle(
@@ -748,9 +759,10 @@ this.updateRightNavChildren();
                     text: this.folderModel?.title ?? "",
                     onEnterListener: (v) {
                       this.folderModel?.title = v;
-                      if(this.folderModel != null) {
+                      if (this.folderModel != null) {
                         MongoApisManager.getInstance().update_FolderModelWithFM(
-                            folderModel: this.folderModel!, shouldQueryMissionModel: false);
+                            folderModel: this.folderModel!,
+                            shouldQueryMissionModel: false);
                       }
                     }),
                 SizedBox(
@@ -1153,6 +1165,66 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
   // final ScrollController _scrollController = ScrollController();
   PageController controller = PageController(viewportFraction: 0.8);
 
+  Color _resolveColumnBaseColor(GroupModel? groupModel, int index) {
+    final String title = (groupModel?.title ?? "").toLowerCase();
+    const List<int> fallbackPalette = [
+      0xfff3c978,
+      0xff9cc9f3,
+      0xffb6e6bb,
+      0xffd4b4f2,
+      0xfff0c7d6,
+    ];
+    if (title.contains("未分") || title.contains("uncategor")) {
+      return const Color(0xfff3c978);
+    }
+    if (title.contains("检") || title.contains("check")) {
+      return const Color(0xff9cc9f3);
+    }
+    if (title.contains("计") || title.contains("plan")) {
+      return const Color(0xffb6e6bb);
+    }
+    if (title.contains("执") || title.contains("do")) {
+      return const Color(0xffd4b4f2);
+    }
+    if (groupModel?.color != null && groupModel!.color != 0xfff7f2f9) {
+      return Color(groupModel.color!);
+    }
+    return Color(fallbackPalette[index % fallbackPalette.length]);
+  }
+
+  /// 这里把列背景拆成“整列浅底 + 头部更深一层”，是为了更接近参考图的层次感，
+  /// 同时继续兼容分组原本允许自定义颜色的能力。
+  Map<String, Color> _resolveColumnPalette({
+    required int index,
+    GroupModel? groupModel,
+    bool isAdd = false,
+  }) {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final Color baseColor = isAdd
+        ? const Color(0xffd7e3fb)
+        : _resolveColumnBaseColor(groupModel, index);
+    if (isDark) {
+      final Color surfaceColor = ThemeManager.getInstance()
+          .getCardBackgroundColor(defaultColor: const Color(0xff2f2f2f));
+      return {
+        "background": Color.lerp(surfaceColor, baseColor, 0.14) ?? surfaceColor,
+        "header": Color.lerp(surfaceColor, baseColor, 0.26) ?? surfaceColor,
+        "surface": Color.lerp(surfaceColor, Colors.black, 0.08) ?? surfaceColor,
+        "border": (Color.lerp(baseColor, Colors.white, 0.2) ?? baseColor)
+            .withAlpha(66),
+        "accent": Color.lerp(baseColor, Colors.white, 0.08) ?? baseColor,
+      };
+    }
+    return {
+      "background": Color.lerp(baseColor, Colors.white, 0.74) ?? baseColor,
+      "header": Color.lerp(baseColor, Colors.white, 0.42) ?? baseColor,
+      "surface": Colors.white.withAlpha(240),
+      "border": (Color.lerp(baseColor, Colors.white, 0.18) ?? baseColor)
+          .withAlpha(230),
+      "accent": Color.lerp(baseColor, Colors.black, 0.06) ?? baseColor,
+    };
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -1179,8 +1251,9 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
               return _buildListItem(context,
                   key: item.objectId ??
                       Utility.getRandom(from: 1000, max: 1000000).toString(),
+                  index: index,
                   groupModel: item,
-                  isAdd: item?.isAdd ?? false, onTapAddGroupListener: (v) {
+                  isAdd: item.isAdd ?? false, onTapAddGroupListener: (v) {
                 this
                     .widget
                     .onTapAddGroupListener
@@ -1188,8 +1261,10 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
                 print("添加分组");
               });
             } else {
-              return _buildListItem(context, key: "add", isAdd: true,
-                  onTapAddGroupListener: (v) {
+              return _buildListItem(context,
+                  key: "add",
+                  index: index,
+                  isAdd: true, onTapAddGroupListener: (v) {
                 this.widget.onTapAddGroupListener.call(v, -1);
                 print("添加分组");
               });
@@ -1241,21 +1316,26 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
     list = this
         .widget
         .listGroupModels
-        .map((item) => _buildListItem(context,
-                key: item.objectId ??
+        .asMap()
+        .entries
+        .map((entry) => _buildListItem(context,
+                key: entry.value.objectId ??
                     Utility.getRandom(from: 1000, max: 1000000).toString(),
-                groupModel: item,
-                isAdd: item?.isAdd ?? false, onTapAddGroupListener: (v) {
+                index: entry.key,
+                groupModel: entry.value,
+                isAdd: entry.value.isAdd ?? false, onTapAddGroupListener: (v) {
               this
                   .widget
                   .onTapAddGroupListener
-                  .call(v, this.widget.listGroupModels.indexOf(item));
+                  .call(v, this.widget.listGroupModels.indexOf(entry.value));
               print("添加分组");
             }))
         .toList();
     //最后个添加分组
-    list.add(_buildListItem(context, key: "add", isAdd: true,
-        onTapAddGroupListener: (v) {
+    list.add(_buildListItem(context,
+        key: "add",
+        index: this.widget.listGroupModels.length,
+        isAdd: true, onTapAddGroupListener: (v) {
       this.widget.onTapAddGroupListener.call(v, -1);
       print("添加分组");
     }));
@@ -1264,6 +1344,7 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
 
   Widget _buildListItem(BuildContext context,
       {required String key,
+      required int index,
       GroupModel? groupModel,
       bool isAdd = false,
       Function? onTapAddGroupListener}) {
@@ -1274,151 +1355,184 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
         : false;
     bool isLastGroup =
         this.widget.listGroupModels.last.objectId == groupModel?.objectId;
+    final Map<String, Color> palette = _resolveColumnPalette(
+        index: index, groupModel: groupModel, isAdd: isAdd);
+    final BorderRadius borderRadius = BorderRadius.circular(26);
     return Container(
       key: Key(key),
-      width: 400,
-      child: Card(
-        color: ThemeManager.getInstance().isDark()
-            ? (groupModel?.color == null
-                ? ThemeManager.getInstance().getCardBackgroundColor()
-                : Color(groupModel!.color! - 0xc0000000))
-            : (groupModel?.color == null ? null : Color(groupModel!.color!)),
-        child: Center(
-            child: isAdd == false
-                ? GroupMissionSilverList(
-                    onTapMultiSelectListener: (MissionModel? list) {
-                      this.widget.onTapMultiSelectListener?.call(list);
-                    },
-                    onTapDoItNow: (data) {
-                      this.widget.onTapDoItNow?.call(data);
-                    },
-                    //未完成任务列表
-                    onTapUnFinishListener: (data) {
-                      this.widget.onTapUnFinishListener?.call(data);
-                      // this.onClick('onClickUnFinishListener', data); //点击完成任务
-                    },
-                    onTapEditTitleListener: (obj) {
-                      // this.widget.onTapEditTitleListener?.call(data);
-                      // this.onClick('onTapEditTitleListener', obj); //跳转到任务详情页MissionPage开始任务
-                    },
-                    onTapPlayListener: (obj) {
-                      this.widget.onTapPlayListener?.call(obj);
-                      // this.onClick('onClickMissionDetail', obj); //跳转到任务详情页MissionPage开始任务
-                    },
-                    onTapListener: (obj) {
-                      this.widget.onTapPlayListener?.call(obj);
-                      // this.onClick('onClickMissionSetting', obj); //跳转到设置叶敏
-                    },
-                    onTapDeleteListener: (data) async {
-                      this.widget.onTapDeleteListener?.call(data);
-                      // this.onClick('onClickDeleteItem', data); //侧滑点击删除
-                    },
-                    onTapEditListener: (data) {
-                      this.widget.onTapEditListener?.call(data);
-                      // this.onClick('onClickMissionSetting', data);
-                    },
-                    onTapFinishListener: (data) {
-                      this.widget.onTapFinishListener?.call(data);
-                      // this.onClick('onClickFinishItem', data); //点击完成任务
-                    },
-                    // onTapCreateListener: (data) {
-                    //   this.onClick('onClickCreateItem', data); //点击完成任务
-                    // },
-                    // onTapShowFolderChartListener: (data) {
-                    //   this.onClick('onClickShowFolderChart', data); //点击完成任务
-                    // },
-
-                    onSubmitListener: (missionModel) {},
-                    onDesktopSubmitListener: (missionModel, int numTomatoes) {},
-                    onEnterListener: (String text) {
-                      // onTapAddGroupListener?.call(text);
-                      groupModel?.title = text;
-                      this.widget.onClickUpdateTitle.call(groupModel);
-                    },
-                    datas: groupModel?.missionModelList ?? [],
-                    groupModel: groupModel ?? GroupModel(),
-                    folderModel: this.widget.folderModel,
-                    onClickCreateMission: (missionModel) {
-                      this.widget.onCreateMissionListener.call(missionModel);
-                    },
-                    onReorderMissionModelListListener:
-                        (datas, groupModel, missionModel) {
-                      this
-                          .widget
-                          .onReorderMissionModelListListener
-                          ?.call(datas, groupModel, missionModel);
-                    },
-                    onTapAddColumLeftGroupListener:
-                        this.widget.onTapAddColumLeftGroupListener,
-                    onTapAddColumRightGroupListener:
-                        this.widget.onTapAddColumRightGroupListener,
-                    onTapSelectBgColorGroupListener:
-                        this.widget.onTapSelectBgColorGroupListener,
-                    onTapDeleteGroupListener:
-                        this.widget.onTapDeleteGroupListener,
-                    onUpdateGroupModelListener: (groupModel) {
-                      this.widget.onUpdateGroupModelListener.call(groupModel);
-                    },
-                    onUpdateUIListener: () {
-                      this.widget.onUpdateUIListener.call();
-                    },
-                    onTapMoveLeftGroupListener:
-                        (MissionModel missionModel, GroupModel groupModel) {
-                      this
-                          .widget
-                          .onTapMoveLeftGroupListener
-                          ?.call(missionModel, groupModel);
-                    },
-                    onTapMoveRightGroupListener:
-                        (MissionModel missionModel, GroupModel groupModel) {
-                      this
-                          .widget
-                          .onTapMoveRightGroupListener
-                          ?.call(missionModel, groupModel);
-                    },
-                    isFirstGroup: isFirstGroup,
-                    isLastGroup: isLastGroup,
-                    isFirstGroupWithoutOrder: isFirstGroupWithoutOrder,
-                    onMoveNextGroupListener: (GroupModel groupModel) {
-                      this.widget.onMoveNextGroupListener.call(groupModel);
-                    },
-                    onMovePreviousGroupListener: (groupModel) {
-                      this.widget.onMovePreviousGroupListener.call(groupModel);
-                    },
+      width: Utility.isHandsetBySize() ? double.infinity : 360,
+      margin: EdgeInsets.fromLTRB(index == 0 ? 8 : 0, 10, 16, 12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: palette["background"],
+          borderRadius: borderRadius,
+          border: Border.all(color: palette["border"]!, width: 1),
+          boxShadow: ThemeManager.getInstance().isDark()
+              ? []
+              : [
+                  BoxShadow(
+                    color: palette["accent"]!.withAlpha(20),
+                    blurRadius: 18,
+                    offset: Offset(0, 10),
                   )
-                : Column(
-                    mainAxisSize: MainAxisSize.max,
-                    key: Key("add12312" +
-                        Utility.getRandom(from: 0, max: 10000).toString()),
-                    children: [
-                      Container(
-                        height: 50,
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          children: [
-                            CustomTextField(
-                              // key: customTextFieldStateGlobalKey,
-                              isEditing: groupModel?.isAdd ?? false,
-                              shouldUpdateText: true,
-                              onEnterListener: (String text) {
-                                onTapAddGroupListener?.call(text);
-                              },
-                              icon: Icon(
-                                Icons.add,
-                                color: Color(0xff6492fc),
-                                size: 12,
-                              ),
-                              style: TextStyle(
-                                  color: Color(0xff6492fc), fontSize: 12),
-                              text: getI18NKey().add_group,
+                ],
+        ),
+        child: ClipRRect(
+          borderRadius: borderRadius,
+          child: Center(
+              child: isAdd == false
+                  ? GroupMissionSilverList(
+                      columnBackgroundColor: palette["background"],
+                      columnHeaderColor: palette["header"],
+                      columnSurfaceColor: palette["surface"],
+                      columnAccentColor: palette["accent"],
+                      columnBorderColor: palette["border"],
+                      onTapMultiSelectListener: (MissionModel? list) {
+                        this.widget.onTapMultiSelectListener?.call(list);
+                      },
+                      onTapDoItNow: (data) {
+                        this.widget.onTapDoItNow?.call(data);
+                      },
+                      //未完成任务列表
+                      onTapUnFinishListener: (data) {
+                        this.widget.onTapUnFinishListener?.call(data);
+                        // this.onClick('onClickUnFinishListener', data); //点击完成任务
+                      },
+                      onTapEditTitleListener: (obj) {
+                        // this.widget.onTapEditTitleListener?.call(data);
+                        // this.onClick('onTapEditTitleListener', obj); //跳转到任务详情页MissionPage开始任务
+                      },
+                      onTapPlayListener: (obj) {
+                        this.widget.onTapPlayListener?.call(obj);
+                        // this.onClick('onClickMissionDetail', obj); //跳转到任务详情页MissionPage开始任务
+                      },
+                      onTapListener: (obj) {
+                        this.widget.onTapPlayListener?.call(obj);
+                        // this.onClick('onClickMissionSetting', obj); //跳转到设置叶敏
+                      },
+                      onTapDeleteListener: (data) async {
+                        this.widget.onTapDeleteListener?.call(data);
+                        // this.onClick('onClickDeleteItem', data); //侧滑点击删除
+                      },
+                      onTapEditListener: (data) {
+                        this.widget.onTapEditListener?.call(data);
+                        // this.onClick('onClickMissionSetting', data);
+                      },
+                      onTapFinishListener: (data) {
+                        this.widget.onTapFinishListener?.call(data);
+                        // this.onClick('onClickFinishItem', data); //点击完成任务
+                      },
+                      // onTapCreateListener: (data) {
+                      //   this.onClick('onClickCreateItem', data); //点击完成任务
+                      // },
+                      // onTapShowFolderChartListener: (data) {
+                      //   this.onClick('onClickShowFolderChart', data); //点击完成任务
+                      // },
+
+                      onSubmitListener: (missionModel) {},
+                      onDesktopSubmitListener:
+                          (missionModel, int numTomatoes) {},
+                      onEnterListener: (String text) {
+                        // onTapAddGroupListener?.call(text);
+                        groupModel?.title = text;
+                        this.widget.onClickUpdateTitle.call(groupModel);
+                      },
+                      datas: groupModel?.missionModelList ?? [],
+                      groupModel: groupModel ?? GroupModel(),
+                      folderModel: this.widget.folderModel,
+                      onClickCreateMission: (missionModel) {
+                        this.widget.onCreateMissionListener.call(missionModel);
+                      },
+                      onReorderMissionModelListListener:
+                          (datas, groupModel, missionModel) {
+                        this
+                            .widget
+                            .onReorderMissionModelListListener
+                            ?.call(datas, groupModel, missionModel);
+                      },
+                      onTapAddColumLeftGroupListener:
+                          this.widget.onTapAddColumLeftGroupListener,
+                      onTapAddColumRightGroupListener:
+                          this.widget.onTapAddColumRightGroupListener,
+                      onTapSelectBgColorGroupListener:
+                          this.widget.onTapSelectBgColorGroupListener,
+                      onTapDeleteGroupListener:
+                          this.widget.onTapDeleteGroupListener,
+                      onUpdateGroupModelListener: (groupModel) {
+                        this.widget.onUpdateGroupModelListener.call(groupModel);
+                      },
+                      onUpdateUIListener: () {
+                        this.widget.onUpdateUIListener.call();
+                      },
+                      onTapMoveLeftGroupListener:
+                          (MissionModel missionModel, GroupModel groupModel) {
+                        this
+                            .widget
+                            .onTapMoveLeftGroupListener
+                            ?.call(missionModel, groupModel);
+                      },
+                      onTapMoveRightGroupListener:
+                          (MissionModel missionModel, GroupModel groupModel) {
+                        this
+                            .widget
+                            .onTapMoveRightGroupListener
+                            ?.call(missionModel, groupModel);
+                      },
+                      isFirstGroup: isFirstGroup,
+                      isLastGroup: isLastGroup,
+                      isFirstGroupWithoutOrder: isFirstGroupWithoutOrder,
+                      onMoveNextGroupListener: (GroupModel groupModel) {
+                        this.widget.onMoveNextGroupListener.call(groupModel);
+                      },
+                      onMovePreviousGroupListener: (groupModel) {
+                        this
+                            .widget
+                            .onMovePreviousGroupListener
+                            .call(groupModel);
+                      },
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.max,
+                      key: Key("add12312" +
+                          Utility.getRandom(from: 0, max: 10000).toString()),
+                      children: [
+                        Container(
+                          height: 58,
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: palette["header"],
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(26),
                             ),
-                            Spacer(),
-                          ],
+                          ),
+                          child: Row(
+                            children: [
+                              CustomTextField(
+                                // key: customTextFieldStateGlobalKey,
+                                isEditing: groupModel?.isAdd ?? false,
+                                shouldUpdateText: true,
+                                onEnterListener: (String text) {
+                                  onTapAddGroupListener?.call(text);
+                                },
+                                icon: Icon(
+                                  Icons.add,
+                                  color: palette["accent"],
+                                  size: 14,
+                                ),
+                                style: TextStyle(
+                                    color: palette["accent"],
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                                text: getI18NKey().add_group,
+                              ),
+                              Spacer(),
+                            ],
+                          ),
                         ),
-                      ),
-                      Spacer()
-                    ],
-                  )),
+                        Spacer()
+                      ],
+                    )),
+        ),
       ),
     );
   }

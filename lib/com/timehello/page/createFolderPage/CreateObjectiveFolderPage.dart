@@ -81,6 +81,14 @@ class _CreateObjectiveFolderPageState<T>
         BorderSide(color: ThemeManager.getInstance().getInputBorderColor()),
   );
 
+  Color get _pageCanvasColor {
+    final bool isDark = ThemeManager.getInstance().getThemeMode().isDark;
+    if (isDark || Utility.isHandsetBySize()) {
+      return ThemeManager.getInstance().getBackgroundColor();
+    }
+    return ColorsConfig.missionDesktopEditorCanvas;
+  }
+
   _CreateObjectiveFolderPageState() {
     // this.folderModel = folderModel != null ? folderModel : new FolderModel();
     // this.pageEnum = pageEnum;
@@ -531,7 +539,7 @@ class _CreateObjectiveFolderPageState<T>
       }
     }
     return Container(
-      color: ThemeManager.getInstance().getBackgroundColor(),
+      color: _pageCanvasColor,
       padding: new EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

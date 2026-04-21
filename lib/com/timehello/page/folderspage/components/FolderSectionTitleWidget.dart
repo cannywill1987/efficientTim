@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
-import '../../../config/ColorsConfig.dart';
 import '../../../util/ThemeManager.dart';
 
 
@@ -11,17 +10,37 @@ import '../../../util/ThemeManager.dart';
  */
 class FolderSectionTitleWidget extends StatelessWidget {
   final String title;
+  final bool useUnifiedStyle;
   Widget? trailingWidget;
   Function? onClick;
-  FolderSectionTitleWidget({Key? key, required this.title, this.trailingWidget, this.onClick}) : super(key: key);
+  FolderSectionTitleWidget(
+      {Key? key,
+      required this.title,
+      this.trailingWidget,
+      this.onClick,
+      this.useUnifiedStyle = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final Color titleColor = useUnifiedStyle
+        ? ThemeManager.getInstance().getTextColor(
+            context: context,
+            defaultColor: ColorsConfig.missionSidebarSectionTitle,
+            defaultDarkColor: Colors.white70)
+        : ThemeManager.getInstance()
+            .getTextColor(context: context, defaultColor: Color(0xffa3a3a3));
     return SliverToBoxAdapter(
-      child:    Container(
-        padding: EdgeInsets.fromLTRB(15, 4, 12, 4),
-        color: ThemeManager.getInstance().getLeftMenuColor(defaultColor: ThemeManager.getInstance().getLightDefaultThemeColor()),
+      child: Container(
+        padding: useUnifiedStyle
+            ? const EdgeInsets.fromLTRB(20, 16, 18, 6)
+            : const EdgeInsets.fromLTRB(15, 4, 12, 4),
+        color: useUnifiedStyle
+            ? Colors.transparent
+            : ThemeManager.getInstance().getLeftMenuColor(
+                defaultColor:
+                    ThemeManager.getInstance().getLightDefaultThemeColor()),
         alignment: Alignment(-1, 1),
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -31,30 +50,63 @@ class FolderSectionTitleWidget extends StatelessWidget {
               title,
               textAlign: TextAlign.left,
               style: TextStyle(
-                  fontSize: 13,
-                  color: ThemeManager.getInstance().getTextColor(context: context,defaultColor: Color(0xffa3a3a3)),
-                  shadows: ThemeManager.getInstance().isDark() ? null : [
-                    Shadow(color: Colors.white, offset: Offset(1, 1))
-                  ]),
+                  fontSize: useUnifiedStyle ? 11 : 13,
+                  fontWeight:
+                      useUnifiedStyle ? FontWeight.w700 : FontWeight.normal,
+                  letterSpacing: useUnifiedStyle ? 0.3 : 0,
+                  color: titleColor,
+                  shadows: useUnifiedStyle || ThemeManager.getInstance().isDark()
+                      ? null
+                      : [
+                          Shadow(color: Colors.white, offset: Offset(1, 1))
+                        ]),
             ),
-            if(trailingWidget != null)
-              trailingWidget!,
-            if(this.onClick != null)
-            InkWell(
-              onTap: (){
-                this.onClick?.call();
-              },
-              child: Text(
-                getI18NKey().create,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 13,
-                    color: ThemeManager.getInstance().getTextColor(defaultColor: ThemeManager.getInstance().getDefautThemeColor(), defaultDarkColor: Colors.red),
-                    shadows: ThemeManager.getInstance().isDark() ? null : ThemeManager.getInstance().isDark() ? null : [
-                      Shadow(color: Colors.white, offset: Offset(1, 1))
-                    ]),
-              ),
-            )
+            if (trailingWidget != null) trailingWidget!,
+            if (this.onClick != null)
+              InkWell(
+                onTap: () {
+                    this.onClick?.call();
+                },
+                child: useUnifiedStyle
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 9, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: isDark
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : ColorsConfig.missionSidebarHeaderChipBackground,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          getI18NKey().create,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: ThemeManager.getInstance().getTextColor(
+                                  defaultColor:
+                                      ColorsConfig.missionSidebarTextPrimary,
+                                  defaultDarkColor: Colors.white)),
+                        ),
+                      )
+                    : Text(
+                        getI18NKey().create,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: ThemeManager.getInstance().getTextColor(
+                                defaultColor: ThemeManager.getInstance()
+                                    .getDefautThemeColor(),
+                                defaultDarkColor: Colors.red),
+                            shadows: ThemeManager.getInstance().isDark()
+                                ? null
+                                : [
+                                    Shadow(
+                                        color: Colors.white,
+                                        offset: Offset(1, 1))
+                                  ]),
+                      ),
+              )
           ],
         ),
       ),

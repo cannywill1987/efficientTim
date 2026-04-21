@@ -10,6 +10,7 @@ import 'package:time_hello/com/timehello/page/CreateMissionPage/CreateMissionPag
 import 'package:time_hello/com/timehello/page/missionDetailPage/MissionDetailPage.dart';
 import 'package:time_hello/com/timehello/page/missionPage/GroupMissionPage.dart';
 import 'package:time_hello/com/timehello/page/missionPage/MissionPage.dart';
+import 'package:time_hello/com/timehello/page/missionPage/NewMissionPage.dart';
 import 'package:time_hello/com/timehello/util/DialogManagement.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -23,9 +24,10 @@ class MissionContainerPage extends BaseWidget {
   int? folderStatusDate = 1;
   Function? onTapNavMenuListener;
   Function? onTapRightNavMenuListener;
+  bool useUnifiedStyle = false;
 
   MissionContainerPage({this.key, this.folderModel,
-      this.folderStatusDate, this.onTapNavMenuListener, this.onTapRightNavMenuListener}); // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
+      this.folderStatusDate, this.onTapNavMenuListener, this.onTapRightNavMenuListener, this.useUnifiedStyle = false}); // 根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 6 已完成
 
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
@@ -66,7 +68,15 @@ class MissionContainerPageState extends BaseWidgetState<MissionContainerPage> {
         ////布局类型 0 列表 1 group分组 2 时间线
         ViewStubWidget(
           isShowed: this.widget.folderModel?.layoutType == 2 || this.widget.folderModel?.layoutType == 0 || this.widget.folderModel?.layoutType == null,
-          child: MissionPage(onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener, onTapNavMenuListener: this.widget.onTapNavMenuListener, folderModel: this.widget.folderModel, folderStatusDate: this.widget.folderStatusDate),
+          child: this.widget.useUnifiedStyle
+              ? NewMissionPage(
+                  onTapRightNavMenuListener:
+                      this.widget.onTapRightNavMenuListener,
+                  onTapNavMenuListener: this.widget.onTapNavMenuListener,
+                  folderModel: this.widget.folderModel,
+                  folderStatusDate: this.widget.folderStatusDate,
+                )
+              : MissionPage(onTapRightNavMenuListener: this.widget.onTapRightNavMenuListener, onTapNavMenuListener: this.widget.onTapNavMenuListener, folderModel: this.widget.folderModel, folderStatusDate: this.widget.folderStatusDate),
         ),
         ViewStubWidget(
           // , folderModel: this.widget.folderModel

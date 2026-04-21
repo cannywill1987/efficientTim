@@ -17,12 +17,22 @@ class CustomTabBarWidget extends StatefulWidget {
   int? checkIndex = 0;
   double fontSize = 18;
   bool isAutoTrigger = false;
+  bool useUnifiedStyle = false;
+  Color? checkedTextColor;
+  Color? uncheckedTextColor;
+  Color? checkedIndicatorColor;
+  Color? uncheckedIndicatorColor;
   CustomTabBarWidget(
       {Key? key,
         required this.fontSize,
       required this.list,
       required this.onCheckedListener,
         this.isAutoTrigger = false,
+        this.useUnifiedStyle = false,
+        this.checkedTextColor,
+        this.uncheckedTextColor,
+        this.checkedIndicatorColor,
+        this.uncheckedIndicatorColor,
       this.checkIndex = 0})
       : super(key: key);
 
@@ -124,6 +134,59 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     List<Widget> listWidget = [];
     for (int i = 0; i < this.list.length; i++) {
       CheckButtonStateModel model = this.list[i];
+      if (widget.useUnifiedStyle) {
+        listWidget.add(Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(999),
+            onTap: () async {
+              this.onCheckedListener(i, model);
+              this.setChecked(i);
+              this.updateUI();
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                color: model.isCheck == true
+                    ? ThemeManager.getInstance().getCardBackgroundColor(
+                        defaultColor: const Color(0xFFFFEFDD))
+                    : ThemeManager.getInstance().getCardBackgroundColor(
+                        defaultColor: const Color(0xFFFFFBF4)),
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(
+                  color: model.isCheck == true
+                      ? const Color(0xFFD9C2A6)
+                      : const Color(0xFFECDDCA),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.03),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Text(
+                model.title ?? "",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: model.isCheck == true
+                      ? this.widget.fontSize
+                      : this.widget.fontSize - 1,
+                  fontWeight:
+                      model.isCheck == true ? FontWeight.w700 : FontWeight.w500,
+                  color: ThemeManager.getInstance().getTextColor(
+                      defaultColor: model.isCheck == true
+                          ? const Color(0xFF4A3224)
+                          : const Color(0xFF8B7767)),
+                ),
+              ),
+            ),
+          ),
+        ));
+        continue;
+      }
       listWidget.add(Container(
         margin: EdgeInsets.only(top: 10),
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -143,9 +206,21 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
               Text(
                 model.title ?? "",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize:this.widget.fontSize, color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.tabbarChecked)),
+                style: TextStyle(
+                    fontSize: this.widget.fontSize,
+                    color: ThemeManager.getInstance().getTextColor(
+                        defaultColor: widget.checkedTextColor ??
+                            ColorsConfig.tabbarChecked)),
               ),
-              Container(width: 20, height: 2, margin: EdgeInsets.only(top: 4),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().getDefautThemeColor()),)
+              Container(
+                width: 20,
+                height: 2,
+                margin: EdgeInsets.only(top: 4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: widget.checkedIndicatorColor ??
+                        ThemeManager.getInstance().getDefautThemeColor()),
+              )
             ],
           ),
           uncheckWidget: Column(
@@ -153,9 +228,23 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
               Text(
                 model.title ?? "",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: this.widget.fontSize - 2, color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.tabbarUnchecked, defaultDarkColor: Color(0xff999999))),
+                style: TextStyle(
+                    fontSize: this.widget.fontSize - 2,
+                    color: ThemeManager.getInstance().getTextColor(
+                        defaultColor:
+                            widget.uncheckedTextColor ?? ColorsConfig.tabbarUnchecked,
+                        defaultDarkColor: Color(0xff999999))),
               ),
-              Container(width: 20, height: 4, decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: ThemeManager.getInstance().isDark() ? null: Colors.white),)
+              Container(
+                width: 20,
+                height: 4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: widget.uncheckedIndicatorColor ??
+                        (ThemeManager.getInstance().isDark()
+                            ? null
+                            : Colors.white)),
+              )
             ],
           ),
         ),
@@ -165,7 +254,15 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
   }
 
   Widget build(BuildContext context) {
-    // TODO: implement build
+    if (widget.useUnifiedStyle) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          children: getTabBarWidgets(),
+        ),
+      );
+    }
     return Row(
       children: getTabBarWidgets(),
     );

@@ -463,11 +463,7 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
 
   Container getChild(BuildContext context) {
     return Container(
-      color:
-          this.widget.timelinePageFromEnum == TimelinePageFromEnum.normal.index
-              ? Colors.transparent
-              : ThemeManager.getInstance()
-                  .getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
+      color: Colors.transparent,
       child: Column(
         children: [
           this.widget.timelinePageFromEnum == TimelinePageFromEnum.normal.index

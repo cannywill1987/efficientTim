@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
+import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/models/CheckButtonStateModel.dart';
 
 import '../util/ThemeManager.dart';
@@ -61,7 +62,13 @@ return widgets;
           if (Utility.isHuaWei() == false)
           Text(
             getI18NKey().ai_title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: ThemeManager.getInstance().getTextColor(
+                  defaultColor: ColorsConfig.missionEditorPrimary,
+                  defaultDarkColor: Colors.white),
+            ),
           ),
           if (Utility.isHuaWei() == false)
           SizedBox(height: 16),
@@ -125,20 +132,31 @@ class QuickInsertButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ElevatedButton(
+        OutlinedButton(
           onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
+          style: OutlinedButton.styleFrom(
             shape: CircleBorder(),
-            padding: EdgeInsets.all(20),
-            // primary: Colors.white,
-            // onPrimary: Colors.purple,
+            padding: EdgeInsets.all(18),
+            side: BorderSide(
+              color: ColorsConfig.missionEditorOutline,
+            ),
+            backgroundColor: ColorsConfig.missionEditorSurface,
+            elevation: 0,
           ),
-          child: Icon(icon, color: ThemeManager.getInstance().getIconColor()),
+          child: Icon(
+            icon,
+            color: ThemeManager.getInstance().getIconColor(
+                defaultColor: ColorsConfig.missionEditorIcon,
+                defaultDarkColor: Colors.white70),
+          ),
         ),
         SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(color: ThemeManager.getInstance().getIconColor()),
+          style: TextStyle(
+              color: ThemeManager.getInstance().getTextColor(
+                  defaultColor: ColorsConfig.missionEditorPrimary,
+                  defaultDarkColor: Colors.white70)),
         ),
       ],
     );

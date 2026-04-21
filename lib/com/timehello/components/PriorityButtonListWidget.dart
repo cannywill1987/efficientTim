@@ -14,12 +14,14 @@ class PriorityButtonListWidget extends StatefulWidget {
   OnTapListener onTapListener;
   double? width;
   int? initIndex; //初始化默认值
+  bool useUnifiedStyle;
 
   PriorityButtonListWidget(
       {this.initIndex: 0,
       required this.list,
       required this.onTapListener,
-      this.width: 80}) {}
+      this.width: 80,
+      this.useUnifiedStyle = false}) {}
 
   @override
   State<StatefulWidget> createState() {
@@ -37,7 +39,27 @@ class PriorityButtonListWidgetState extends State<PriorityButtonListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    if (widget.useUnifiedStyle) {
+      return Container(
+        width: double.infinity,
+        constraints: const BoxConstraints(maxWidth: 1000),
+        child: GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.1,
+            maxCrossAxisExtent: 220,
+          ),
+          itemCount: this.list.length,
+          itemBuilder: (context, index) {
+            return getCheckButton(
+                this.list[index], this.list.indexOf(this.list[index]));
+          },
+        ),
+      );
+    }
     return Container(
         height: 100,
         width: double.infinity,
@@ -47,7 +69,9 @@ class PriorityButtonListWidgetState extends State<PriorityButtonListWidget> {
             //设置横向间距
             crossAxisSpacing: 10,
             //设置主轴间距
-            mainAxisSpacing: 10, childAspectRatio: 5, maxCrossAxisExtent: 250,
+            mainAxisSpacing: 10,
+            childAspectRatio: 5,
+            maxCrossAxisExtent: 250,
           ),
           scrollDirection: Axis.vertical,
           itemCount: this.list.length,
@@ -94,6 +118,58 @@ class PriorityButtonListWidgetState extends State<PriorityButtonListWidget> {
   }
 
   Widget getCheckButton(CheckButtonStateModel model, int index) {
+    if (widget.useUnifiedStyle) {
+      final PriorityEnum priority =
+          PriorityEnum.values[int.parse(model.code ?? "0")];
+      final bool isChecked = model.isCheck == true;
+      return Container(
+        width: this.widget.width,
+        height: 52,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: isChecked ? 1.5 : 1,
+            color: isChecked
+                ? Utility.getTextColorByPriority(priority)
+                : const Color(0xFFE5D7C7),
+          ),
+          color: isChecked
+              ? Utility.getBGColorByPrioritySelected(priority)[0]
+              : ThemeManager.getInstance().getCardBackgroundColor(
+                  defaultColor: const Color(0xFFFFF7EE)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
+        child: TextButton(
+            style: StylesConfig.transparentTextButtonStyle,
+            onPressed: () {
+              this.initModelListState();
+              setState(() {
+                model.isCheck = true;
+                this.widget.onTapListener({"data": model, "index": index});
+              });
+            },
+            child: Text(
+              model.title ?? '',
+              maxLines: 2,
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: isChecked
+                    ? Utility.getTextColorByPriority(priority)
+                    : ThemeManager.getInstance().getTextColor(
+                        defaultColor: const Color(0xFF4B3A2E)),
+                fontSize: isChecked ? 15 : 14,
+                fontWeight: FontWeight.w600,
+              ),
+            )),
+      );
+    }
     if (model.isCheck == true) {
       return Container(
           width: this.widget.width,
