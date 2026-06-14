@@ -12,6 +12,12 @@
       "runtimeExecutable": "flutter",
       "runtimeArgs": ["run", "-d", "web-server", "--web-port=8081"],
       "port": 8081
+    },
+    {
+      "name": "Flutter macOS",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "-d", "macos", "--host-vmservice-port=8082"],
+      "port": 8082
     }
   ]
 }

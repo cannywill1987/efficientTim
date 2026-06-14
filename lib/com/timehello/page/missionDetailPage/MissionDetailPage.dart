@@ -501,6 +501,55 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
     eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
   }
 
+  /// 由于详情页通过 Provider + Overlay 传递任务数据，页面挂载时机和任务数据写入时机
+  /// 不一定完全一致，所以这里统一负责把当前 Env 同步到页面状态，并按任务重新绑定计时器。
+  void syncMissionDetailFromEnv(MissionDetailEnv missionDetailEnv,
+      {bool shouldSyncCounter = true}) {
+    this.counterEnum = missionDetailEnv.counterEnum;
+    this.folderModel = missionDetailEnv.folderModel ?? FolderModel();
+    this.missionModel = missionDetailEnv.missionModel ?? MissionModel();
+    this.timeHasUsed = missionDetailEnv.timeHasUsed;
+    this.pageEnum = missionDetailEnv.pageEnum;
+    this.counterStatusFromLiveActivity =
+        missionDetailEnv.counterStatusFromLiveActivity ?? CounterStatus.none;
+
+    if (shouldSyncCounter) {
+      syncCounterManagementWithCurrentMission();
+    }
+  }
+
+  /// 不同任务切入详情页时，需要根据 missionId 决定是重置重新计时，还是仅替换展示中的任务。
+  void syncCounterManagementWithCurrentMission() {
+    CounterManagement counterManagement = CounterManagement.getInstance();
+    if (this.pageEnum == PageEnum.Normal) {
+      if (counterManagement.missionModel?.objectId !=
+          this.missionModel.objectId) {
+        if (counterManagement.missionModel?.objectId == null ||
+            SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
+          counterManagement.reset();
+          counterManagement.init(
+            counterEnum: this.counterEnum,
+            missionModel: this.missionModel,
+            folderModel: this.folderModel,
+            missionDetailPageState: this,
+          );
+          CounterManagement.getInstance().nextStatus(false);
+        } else {
+          counterManagement.set(
+              missionModel: this.missionModel, folderModel: this.folderModel);
+          counterManagement.triggerOnUpateUIListener();
+        }
+      }
+    } else {
+      counterManagement.reset();
+      CounterManagement.getInstance().continueFromStartTime(
+          missionModel: this.missionModel,
+          counterStatus: this.counterStatusFromLiveActivity,
+          counterEnum: this.counterEnum,
+          timeHasUsed: this.timeHasUsed);
+    }
+  }
+
   @override
   componentDidMount() {
     // TODO: implement componentDidMount
@@ -533,36 +582,10 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
         onRequestFinishListener: onRequestFinish!);
     counterManagement.addOnTimerTickListener(onTimerTickListener: onTimerTick!);
     counterManagement.addOnUpdateUIListener(onUpdateUIListener: onUpdateUI!);
-    //不是同一个就重置重新开始计数
-    if (this.pageEnum == PageEnum.Normal) {
-      if (counterManagement.missionModel?.objectId !=
-          this.missionModel.objectId) {
-        // counterManagement.missionModel?.objectId 表示第一次开始计时
-        if (counterManagement.missionModel?.objectId == null ||
-            SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
-          counterManagement.reset();
-          counterManagement.init(
-            counterEnum: this.counterEnum,
-            missionModel: this.missionModel,
-            folderModel: this.folderModel,
-            missionDetailPageState: this,
-          );
-          // CounterManagement.getInstance()!.startTimer();
-          CounterManagement.getInstance().nextStatus(false);
-        } else {
-          counterManagement.set(
-              missionModel: this.missionModel, folderModel: this.folderModel);
-        }
-      }
-    } else {
-      //liveactivity过来
-      counterManagement.reset();
-      CounterManagement.getInstance().continueFromStartTime(
-          missionModel: this.missionModel,
-          counterStatus: this.counterStatusFromLiveActivity,
-          counterEnum: this.counterEnum,
-          timeHasUsed: this.timeHasUsed);
-    }
+    syncMissionDetailFromEnv(
+      context.read<MissionDetailEnv>(),
+      shouldSyncCounter: true,
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       updateUI();
     });
@@ -586,11 +609,7 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
     MissionDetailEnv globalStateEnv = context.watch<MissionDetailEnv>();
     if (MissionDetailEnv.isFromPushTimes != isFromPush) {
       isFromPush = MissionDetailEnv.isFromPushTimes;
-      this.counterEnum = globalStateEnv.counterEnum;
-      this.folderModel = globalStateEnv.folderModel ?? FolderModel();
-      this.missionModel = globalStateEnv.missionModel ?? MissionModel();
-      this.timeHasUsed = globalStateEnv.timeHasUsed;
-      this.pageEnum = globalStateEnv.pageEnum;
+      syncMissionDetailFromEnv(globalStateEnv, shouldSyncCounter: true);
     }
     // bgMode 背景模式 0 手动 1 自动 2 纯净
     // FontMode 计时器样式 0 Flip 1 oswald 2 kablammo
