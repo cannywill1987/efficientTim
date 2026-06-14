@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
@@ -31,13 +31,20 @@ import '../components/TodayDataWidget.dart';
 class SummaryPage extends BaseWidget {
   PickerDateRange? dateTimePickerDateRange;
   CalendarTypeEnum calendarTypeEnum = CalendarTypeEnum.last7Days;
-   bool shouldShowNav;
+  bool shouldShowNav;
 
-  SummaryPage({Key? key, this.shouldShowNav = false, this.calendarTypeEnum = CalendarTypeEnum.last7Days, this.dateTimePickerDateRange}): super(key: key);
+  SummaryPage(
+      {Key? key,
+      this.shouldShowNav = false,
+      this.calendarTypeEnum = CalendarTypeEnum.last7Days,
+      this.dateTimePickerDateRange})
+      : super(key: key);
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
     // TODO: implement getState
-    return SummaryPageState(calendarTypeEnum: calendarTypeEnum, dateTimePickerDateRange: dateTimePickerDateRange);
+    return SummaryPageState(
+        calendarTypeEnum: calendarTypeEnum,
+        dateTimePickerDateRange: dateTimePickerDateRange);
   }
 }
 
@@ -59,11 +66,12 @@ class SummaryPageState extends BaseWidgetState<SummaryPage> {
   FolderModel? curSearchingFocusModel;
   GlobalKey<TodayDataWidgetState>? TodayDataWidgetGlobalKey = GlobalKey();
   GlobalKey<AllDataWidgetState> AllDataWidgetGlobalKey = GlobalKey();
-  GlobalKey<SummaryHeaderWidgetState>? SummaryHeaderWidgetGlobalKey = GlobalKey();
+  GlobalKey<SummaryHeaderWidgetState>? SummaryHeaderWidgetGlobalKey =
+      GlobalKey();
   GlobalKey<TimeLinePageState> TimeLinePageStateGlobalKey = GlobalKey();
 
-  SummaryPageState({required this.calendarTypeEnum, this.dateTimePickerDateRange});
-
+  SummaryPageState(
+      {required this.calendarTypeEnum, this.dateTimePickerDateRange});
 
   @override
   void initState() {
@@ -73,13 +81,13 @@ class SummaryPageState extends BaseWidgetState<SummaryPage> {
     controller?.dateTimePicker = dateTimePickerDateRange;
   }
 
-
   @override
   Widget baseBuild(BuildContext context) {
     // TODO: implement build
 
     return ColoredBox(
-      color: ThemeManager.getInstance().getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
+      color: ThemeManager.getInstance()
+          .getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
       child: ListView(
         cacheExtent: 10000,
         children: [
@@ -106,7 +114,7 @@ class SummaryPageState extends BaseWidgetState<SummaryPage> {
                 CommonCalendarHeaderWidget(
                     controller: controller,
                     calendarTypeEnum: calendarTypeEnum,
-                dateTimePickerDateRangeCustom: dateTimePickerDateRange,
+                    dateTimePickerDateRangeCustom: dateTimePickerDateRange,
                     onChange: (data) {
                       dateTimePickerDateRange = data;
                       requestDatas();
@@ -152,19 +160,24 @@ class SummaryPageState extends BaseWidgetState<SummaryPage> {
               paddingBottom: 0,
               child: Column(children: [
                 TitleContainerWidget(
-                  title: Utility.isHuaWei() ? getI18NKey().tasks_list:  getI18NKey().timeline,
+                  title: Utility.isHuaWei()
+                      ? getI18NKey().tasks_list
+                      : getI18NKey().timeline,
                 ),
                 Container(
                     width: double.infinity,
                     height: 2,
-                    color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: ColorsConfig.borderLineColor)),
+                    color: ThemeManager.getInstance().getCardBackgroundColor(
+                        defaultColor: ColorsConfig.borderLineColor)),
                 Expanded(
                     child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                        child:TimeLinePage(
-                        key: TimeLinePageStateGlobalKey,
-                        timelinePageFromEnum:
-                            TimelinePageFromEnum.StatisticPage.index)))
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                        child: TimeLinePage(
+                            key: TimeLinePageStateGlobalKey,
+                            pageBackgroundColor: Colors.transparent,
+                            timelinePageFromEnum:
+                                TimelinePageFromEnum.StatisticPage.index)))
               ]),
             ),
           ),
@@ -185,7 +198,7 @@ class SummaryPageState extends BaseWidgetState<SummaryPage> {
 
   componentDidMount() {
     eventBus.on<EventFn>().listen((EventFn event) {
-      if (event.type == Params.ACTION_UPDATE_LISTVIEW ) {
+      if (event.type == Params.ACTION_UPDATE_LISTVIEW) {
         this.requestDatas();
       }
     });
@@ -246,7 +259,7 @@ class SummaryPageState extends BaseWidgetState<SummaryPage> {
     await TimeLinePageStateGlobalKey!.currentState?.requestDatas(
         startDateTime: controller?.dateTimePicker?.startDate,
         endDateTime: controller?.dateTimePicker?.endDate);
-    if(mounted == true) {
+    if (mounted == true) {
       setState(() {});
     }
     // Keys.AllDataWidgetGlobalKey.currentState?.requestDatas(

@@ -52,7 +52,7 @@ class FlomoCreatePage extends BaseWidget {
 class FlomoCreatePageState extends BaseWidgetState<FlomoCreatePage> {
   double marginTop = 10;
   List<CheckModel> listWeekendCheckModels = CONSTANTS.getWeekendCheckModels();
-  FlomoRepeatModeEnum flomoRepeatModeEnum = FlomoRepeatModeEnum.byWeek;
+  FlomoRepeatModeEnum flomoRepeatModeEnum = FlomoRepeatModeEnum.byDay;
   bool shouldRefreshPushModelList = false;
   GlobalKey<FlomoPickPeriodDialogWidgetState>
       FlomoPickPeriodDialogWidgetStateGlobalKey = GlobalKey();
@@ -83,11 +83,11 @@ class FlomoCreatePageState extends BaseWidgetState<FlomoCreatePage> {
       this.widget.flomoMissionModel?.color = CONSTANTS.getColors()[0].color;
       this.widget.flomoMissionModel?.repetiveType = 1; //默认 按天重复
       this.widget.flomoMissionModel?.clocks_days = 21;
-    } else {
-      //来自于更新
-      flomoRepeatModeEnum = getFlomoRepeatModeEnumByRepetiveType(
-          this.widget.flomoMissionModel?.repetiveType ?? 1);
     }
+    // 页面上的重复方式按钮必须和模型里的 repetiveType 保持一致，
+    // 否则创建页会显示/校验“按周重复”，用户未手动切换时就会出现“保存没反应”的错觉。
+    flomoRepeatModeEnum = getFlomoRepeatModeEnumByRepetiveType(
+        this.widget.flomoMissionModel?.repetiveType ?? 1);
     // if (Utility.isHandsetBySize() == false) {
     //   isNavBackBtnVisible = false;
     // }

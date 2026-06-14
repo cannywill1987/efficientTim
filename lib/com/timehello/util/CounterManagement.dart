@@ -9,6 +9,7 @@ import 'package:time_hello/com/timehello/models/MusicModel.dart';
 import 'package:time_hello/com/timehello/page/missionDetailPage/MissionDetailPage.dart';
 import 'package:time_hello/com/timehello/util/AudioPlayUtil.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
+import 'package:time_hello/com/timehello/util/FocusRankingManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/MoneyManager.dart';
 import 'package:time_hello/com/timehello/util/NotificationManager.dart';
@@ -190,9 +191,16 @@ class CounterManagement {
           isLocal: true);
     }
     this.startTimer(this.counterEnum, isPause: true);
+    if (counterStatus == CounterStatus.focusing) {
+      FocusRankingManager.getInstance().start(
+        missionModel: missionModel,
+        timeUsedProvider: () => this.timeUsed,
+      );
+    }
   }
 
   reset() {
+    FocusRankingManager.getInstance().stop();
     this.dispose();
     counterStatus = CounterStatus.waitingToFocus;
     this._timerUtil?.cancel();
@@ -551,6 +559,7 @@ class CounterManagement {
   }
 
   void leaveAppWhenFocusing() {
+    FocusRankingManager.getInstance().stop();
     this.timeUsedByMinute = (this.timeUsed / (1000 * 60)).toInt();
     //时间够了提升值
     int localMoney = timeUsedByMinute *
@@ -575,6 +584,7 @@ class CounterManagement {
   }
 
   void stopFromFocusingStatus() {
+    FocusRankingManager.getInstance().stop();
     //初始化放关机缓存
     SharePreferenceUtil.getSyncInstance().setString(
         key: ShareprefrenceKeys.curFocusingMissionObjectIdKey, content: "");
@@ -619,12 +629,15 @@ class CounterManagement {
     if (pressPauseButton == false &&
         (counterStatus == CounterStatus.relaxing ||
             counterStatus == CounterStatus.focusing)) {
-      DeviceInfoManagement.vibrate();
+      if (SharePreferenceUtil.getSyncInstance().isFocusVibrationOn()) {
+        DeviceInfoManagement.vibrate();
+      }
     }
     print(
         "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~nextstatus~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     if (CounterStatus.focusing == counterStatus) {
       if (pressPauseButton) {
+        FocusRankingManager.getInstance().stop();
         //如果计时点击按钮就是暂停休息 点击继续
         counterStatus = CounterStatus.pausingFocusing;
         AudioPlayUtil.getInstance()?.pause();
@@ -683,6 +696,10 @@ class CounterManagement {
         AudioPlayUtil.getInstance()?.continuePlayer();
       }
       this.startTimer(this.counterEnum, isPause: true); //之前暂停 继续专注
+      FocusRankingManager.getInstance().start(
+        missionModel: missionModel,
+        timeUsedProvider: () => this.timeUsed,
+      );
       counterStatus = CounterStatus.focusing;
     } else if (CounterStatus.relaxing == counterStatus) {
       //休息中不需要暂停
@@ -730,6 +747,10 @@ class CounterManagement {
           isLocal: true);
     }
     this.startTimer(this.counterEnum);
+    FocusRankingManager.getInstance().start(
+      missionModel: missionModel,
+      timeUsedProvider: () => this.timeUsed,
+    );
     MongoApisManager.getInstance().insertTimelineMissionModel(
         missionModel: Utility.getTimelineMissionModelFromMissionModel(
             sceneType: 'mission',

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:math';
 
@@ -30,6 +31,7 @@ import 'package:time_hello/com/timehello/util/BeanParser.dart';
 import 'package:time_hello/com/timehello/util/ChatGroupManager.dart';
 import 'package:time_hello/com/timehello/util/CounterManagement.dart';
 import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
+import 'package:time_hello/com/timehello/util/MobileVoiceTaskManager.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
@@ -61,6 +63,9 @@ import '../SettingItemDetailPage/SettingItemDetailPage.dart';
 import '../statisticPage/pages/FolderSummaryPage.dart';
 import 'componnents/BottomBar.dart';
 import 'componnents/HeaderStatsAndInputWidget.dart';
+import 'componnents/MobileVoiceTaskSheet.dart';
+import 'componnents/MissionMobileListStyleHelper.dart';
+import 'componnents/MissionViewModeHelper.dart';
 import 'componnents/MissionSilverList.dart';
 
 class MissionPage extends BaseWidget {
@@ -149,6 +154,17 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
 
   bool get isUnifiedDesktop =>
       widget.useUnifiedStyle && !Utility.isHandsetBySize();
+
+  bool get isModernMobile => Utility.isHandsetBySize();
+
+  Color get _modernMobileBackgroundColor => const Color(0xFFFBFAF7);
+
+  Color _getMissionPageBackgroundColor() {
+    if (isModernMobile) {
+      return _modernMobileBackgroundColor;
+    }
+    return ThemeManager.getInstance().getBackgroundColor();
+  }
 
   Widget _buildUnifiedDesktopCanvas({required Widget child}) {
     return Container(
@@ -270,6 +286,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       )
     ];
     this.setKeyboardVisibityListener();
+  }
+
+  @override
+  AppBar baseAppBar(BuildContext context) {
+    mobileNavigationConfig =
+        isModernMobile ? _buildModernMobileNavigationConfig() : null;
+    return super.baseAppBar(context);
   }
 
   @override
@@ -581,51 +604,20 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
-    }
-
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey().confirmToFinished,
-        message: getI18NKey().confirmToFinishedContent,
-        okLabel: getI18NKey().confirm,
-        cancelLabel: getI18NKey().cancel,
-        onWillPop: () async {
-          // 点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await onClickFinishMission(data);
-    }
+    await onClickFinishMission(data);
   }
 
   // 点击完成任务
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+      folderModel: this.widget.folderModel,
+    );
+    if (!didFinish) {
       return;
     }
-
-    await MongoApisManager.getInstance().insertStatsModel(
-      title: data.title,
-      type: 1,
-      icon: this.widget.folderModel?.icon,
-      color: this.widget.folderModel?.color,
-      tagName: data.tagNames,
-      fid: this.widget.folderModel?.objectId,
-      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-      finish_time: Utility.getTimeStampToday(),
-      value: data.tomato_duration?.toDouble() ?? 0,
-      category: data.title,
-    );
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     this.requestDatas();
     CounterManagement counterManagement = CounterManagement.getInstance();
     // 不是同一个就重置重新开始计数
@@ -758,6 +750,185 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         });
     HeaderWidgetStateGlobalKey?.currentState?.resetData();
     HeaderWidgetStateGlobalKeyForTable?.currentState?.resetData();
+  }
+
+  /// 功能：打开移动端语音创建任务面板。
+  /// 说明：入口来自输入框加号长按或悬浮加号长按；创建完成后统一刷新当前任务列表。
+  Future<void> _showMobileVoiceTaskSheet({int? priorityStatus}) async {
+    if (!Utility.isHandsetBySize()) {
+      return;
+    }
+    await MobileVoiceTaskSheet.show(
+      context: context,
+      onSubmit: (payload) {
+        return _handleMobileVoiceTaskPayload(
+          payload,
+          priorityStatus: priorityStatus,
+        );
+      },
+    );
+  }
+
+  /// 功能：根据语音面板识别出的模式分流到普通创建或 AI 创建。
+  /// 说明：普通模式只把识别文本当标题；AI 模式会调用千问生成 MissionModel 标准参数。
+  Future<String?> _handleMobileVoiceTaskPayload(
+    MobileVoiceTaskPayload payload, {
+    int? priorityStatus,
+  }) async {
+    final text = payload.text.trim();
+    if (TextUtil.isEmpty(text)) {
+      throw StateError(getI18NKey().mobile_voice_task_empty);
+    }
+    if (payload.mode == MobileVoiceTaskMode.ai) {
+      return _createAiMissionFromVoiceText(
+        text,
+        priorityStatus: priorityStatus,
+      );
+    }
+    await _createPlainMissionFromVoiceText(
+      text,
+      priorityStatus: priorityStatus,
+    );
+    return getI18NKey().addsuccess;
+  }
+
+  /// 功能：调用 AI 任务创建工具处理复杂语音，例如日期、清单、优先级和多任务。
+  Future<String?> _createAiMissionFromVoiceText(
+    String text, {
+    int? priorityStatus,
+  }) async {
+    if (isRequesting == true) {
+      throw StateError(getI18NKey().requesting_please_wait);
+    }
+    isRequesting = true;
+    try {
+      final result = await MobileVoiceTaskManager.createAiMissionsFromPrompt(
+        prompt: text,
+        defaultFolderTitle: _currentVoiceTaskFolderTitle(),
+        defaultPriorityStatus: priorityStatus ?? _priorityStatus,
+        defaultDateStatus: _dateStatus,
+      );
+      if (result['ok'] != true) {
+        throw StateError(
+          result['message']?.toString() ?? getI18NKey().alertMessage2,
+        );
+      }
+      requestDatas();
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+      return _toolResultMessage(
+        result,
+        fallback: getI18NKey().addsuccess,
+      );
+    } finally {
+      isRequesting = false;
+    }
+  }
+
+  /// 功能：普通语音直接创建单条任务，保留当前页面的清单、日期、番茄和四象限默认参数。
+  Future<void> _createPlainMissionFromVoiceText(
+    String text, {
+    int? priorityStatus,
+  }) async {
+    if (isRequesting == true) {
+      throw StateError(getI18NKey().requesting_please_wait);
+    }
+    final missionModel = await _buildVoiceMissionModel(
+      title: text,
+      priorityStatus: priorityStatus,
+    );
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: missionModel.folder_id) ==
+        false) {
+      throw StateError(getI18NKey().no_auth);
+    }
+    isRequesting = true;
+    try {
+      final saved = await MongoApisManager.getInstance().insertMissiontData(
+        missionModel: missionModel,
+      );
+      if (saved == null) {
+        throw StateError(getI18NKey().alertMessage2);
+      }
+      requestDatas();
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+    } finally {
+      isRequesting = false;
+    }
+  }
+
+  /// 功能：把当前页面已有的创建任务上下文转成 MissionModel。
+  /// 说明：这里刻意复用 onClickSubmit 的关键字段，避免语音创建绕开用户已选的日期、番茄数和当前清单。
+  Future<MissionModel> _buildVoiceMissionModel({
+    required String title,
+    int? priorityStatus,
+  }) async {
+    final missionModel = MissionModel();
+    missionModel.objectiveUnit = this.objectiveUnit;
+    missionModel.objectiveValue = this.objectiveValue;
+    missionModel.objectiveStartValue = this.objectiveStartValue;
+    missionModel.objectiveTotalValue = this.objectiveTotalValue;
+    missionModel.title = title;
+    missionModel.folder_id = _folderModelObjId ?? "";
+    missionModel.order_index = -1;
+    missionModel.tagNames = TextUtil.isEmpty(this._tagName)
+        ? this.widget.folderModel?.title
+        : this._tagName;
+    missionModel.tagIds = this.widget.folderModel?.tag == 2
+        ? this.widget.folderModel?.objectId
+        : "";
+    missionModel.total_tomotoes = (_numberTomatoes <= 0 ? 1 : _numberTomatoes);
+    missionModel.tomato_duration =
+        await SharePreferenceUtil.getSyncInstance().getTomatoTime();
+    missionModel.dateStatus = _dateStatus;
+    missionModel.priorityStatus = priorityStatus ?? _priorityStatus;
+    missionModel.time_mode = bottomBarStateKey?.currentState?.time_mode ?? 0;
+    if (missionModel.time_mode == 1) {
+      missionModel.start_time = bottomBarStateKey?.currentState?.start_time;
+      missionModel.end_time = bottomBarStateKey?.currentState?.end_time;
+    } else {
+      missionModel.end_time = CONSTANTS.getDeadLineTme(this._dateStatus ?? 0);
+    }
+    missionModel.daily_start_time =
+        bottomBarStateKey?.currentState?.daily_start_time;
+    missionModel.daily_end_time =
+        bottomBarStateKey?.currentState?.daily_end_time;
+    missionModel.repetiveType = bottomBarStateKey?.currentState?.repetiveType;
+    missionModel.repetiveValue = bottomBarStateKey?.currentState?.repetiveValue;
+    missionModel.alert_time = bottomBarStateKey?.currentState?.alert_time;
+    missionModel.repetiveWeekDay =
+        bottomBarStateKey?.currentState?.repetiveWeekDay;
+    missionModel.uid = LoginManager.getInstance().userBean.uid;
+    return missionModel;
+  }
+
+  /// 功能：取当前页面适合传给 AI 的默认清单名。
+  String? _currentVoiceTaskFolderTitle() {
+    if (!TextUtil.isEmpty(_circleTitle)) {
+      return _circleTitle;
+    }
+    if (this.widget.folderModel?.tag == 1 ||
+        this.widget.folderModel?.tag == 4 ||
+        this.widget.folderModel?.tag == 5) {
+      return this.widget.folderModel?.title;
+    }
+    return null;
+  }
+
+  /// 功能：从 AI 工具返回中提取适合展示给用户的结果文案。
+  String _toolResultMessage(
+    Map<String, Object?> result, {
+    required String fallback,
+  }) {
+    final contextItems = result['contextItems'];
+    if (contextItems is List && contextItems.isNotEmpty) {
+      final first = contextItems.first;
+      if (first is Map && !TextUtil.isEmpty(first['content'])) {
+        return first['content'].toString();
+      }
+    }
+    return result['message']?.toString() ?? fallback;
   }
 
   /**
@@ -914,7 +1085,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
               key: ValueKey('Container1'),
               color: isUnifiedDesktop
                   ? Colors.transparent
-                  : ThemeManager.getInstance().getBackgroundColor(),
+                  : _getMissionPageBackgroundColor(),
               child: isUnifiedDesktop
                   ? _buildUnifiedDesktopCanvas(
                       child: Padding(
@@ -975,8 +1146,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                           },
                           child: Container(
                             key: ValueKey('Container2'),
-                            color:
-                                ThemeManager.getInstance().getBackgroundColor(),
+                            color: _getMissionPageBackgroundColor(),
                             child: this.missionDataViewTypeEnum ==
                                     MissionDataViewTypeEnum.week_view
                                 ? getWeekViewWidget()
@@ -1009,6 +1179,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     bottom: 30,
                     right: 20,
                     child: CircleWidget(
+                      onLongPress: () {
+                        unawaited(_showMobileVoiceTaskSheet());
+                      },
                       onTapListener: (obj) {
                         MissionModel missionModel = MissionModel();
                         missionModel.folder_id =
@@ -1244,6 +1417,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     if (isUnifiedDesktop) {
       return 126.0;
     }
+    if (isModernMobile) {
+      return isSearchBarVisible ? 58.0 : 0.0;
+    }
     return Utility.isHandsetBySize() && isSearchBarVisible ? 100.0 : 60.0;
   }
 
@@ -1267,6 +1443,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       listWidget.add(HeaderStatsAndInputWidget(
           shouldSliver: false,
           useUnifiedStyle: isUnifiedDesktop,
+          useMobileModernStyle: isModernMobile,
+          mobileTitle: this.widget.folderModel?.title ?? getI18NKey().today,
           key: HeaderWidgetStateGlobalKeyForTable,
           childAfterInputWidget: isUnifiedDesktop
               ? (this.isFocusing
@@ -1278,6 +1456,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   : getBottomBar(context, isVisible: this.isFocusing)),
           //移动端key要唯一 否则每次经过这里都会实例化 造成移动端输入框点击焦点后键盘自动隐藏 pc端要新的globalkey 否则头部headerwidget无法显示
           onTapUpListener: () {},
+          onVoiceTaskLongPress: () {
+            unawaited(_showMobileVoiceTaskSheet());
+          },
           onTapDownListener: () {},
           folderTimeModel: _folderTimeModel,
           folderModel: this.widget.folderModel?.tag == 1
@@ -1367,6 +1548,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       listWidget.add(HeaderStatsAndInputWidget(
           key: HeaderWidgetStateGlobalKey,
           useUnifiedStyle: isUnifiedDesktop,
+          useMobileModernStyle: isModernMobile,
+          mobileTitle: this.widget.folderModel?.title ?? getI18NKey().today,
           childAfterInputWidget: isUnifiedDesktop
               ? (this.isFocusing
                   ? getBottomBar(context, isVisible: true)
@@ -1377,6 +1560,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                   : getBottomBar(context, isVisible: this.isFocusing)),
           //移动端key要唯一 否则每次经过这里都会实例化 造成移动端输入框点击焦点后键盘自动隐藏 pc端要新的globalkey 否则头部headerwidget无法显示
           onTapUpListener: () {},
+          onVoiceTaskLongPress: () {
+            unawaited(_showMobileVoiceTaskSheet());
+          },
           onTapDownListener: () {},
           folderTimeModel: _folderTimeModel,
           folderModel: (this.widget.folderModel?.tag == 1 ||
@@ -1480,6 +1666,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   Column getHeaderWidget() {
     if (isUnifiedDesktop) {
       return _buildUnifiedHeaderWidget();
+    }
+    if (isModernMobile) {
+      return _buildModernMobileHeaderWidget();
     }
     return Column(mainAxisSize: MainAxisSize.min, children: [
       CustomMarquee(
@@ -1639,6 +1828,150 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     ]);
   }
 
+  BaseMobileNavigationConfig _buildModernMobileNavigationConfig() {
+    return BaseMobileNavigationConfig(
+      leadingWidth: 72,
+      toolbarHeight: 78,
+      titlePadding: const EdgeInsets.only(left: 8),
+      actionsPadding: const EdgeInsets.only(right: 10),
+      logoSize: 34,
+      leading: IconButton(
+        icon: const Icon(
+          Icons.menu_rounded,
+          size: 32,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          this.widget.onTapNavMenuListener?.call();
+        },
+      ),
+      logo: Utility.getSVGPicture(R.assetsImgIcTomato, size: 34),
+      title: getI18NKey().app_name,
+      subtitle: getI18NKey().app_tagline_focus_efficient_life,
+      actions: [
+        _buildModernMobileSearchButton(),
+        const SizedBox(width: 8),
+        _buildModernMobileViewModeSwitcher(),
+        const SizedBox(width: 8),
+        _buildMissionActionMenu(
+          child: const Icon(
+            Icons.more_horiz,
+            color: Color(0xFF555555),
+            size: 30,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildModernMobileSearchButton() {
+    return IconButton(
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(minWidth: 38, minHeight: 38),
+      icon: const Icon(
+        Icons.search_rounded,
+        color: Colors.black,
+        size: 30,
+      ),
+      onPressed: () {
+        this.isSearchBarVisible = !this.isSearchBarVisible;
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "missionpage",
+          "eventType": "missionpage_search",
+          "description": "搜索",
+        });
+        updateUI();
+      },
+    );
+  }
+
+  Widget _buildModernMobileViewModeSwitcher() {
+    if (this.isListAndGridVisible == false) {
+      return const SizedBox.shrink();
+    }
+    final int selectedIndex = MissionViewModeHelper.switcherIndexFromViewType(
+      missionDataViewTypeEnum,
+    );
+    final List<IconData> icons = <IconData>[
+      Icons.grid_view_rounded,
+      Icons.format_list_bulleted_rounded,
+      Icons.calendar_month_outlined,
+    ];
+    final List<int> tapIndexes = <int>[1, 0, 2];
+    return Container(
+      height: 36,
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(
+          color: const Color(0xFFB7DF42),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List<Widget>.generate(icons.length, (int visualIndex) {
+          final int switcherIndex = tapIndexes[visualIndex];
+          final bool isSelected = selectedIndex == switcherIndex;
+          return InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: () {
+              _onMissionViewModeTap(switcherIndex);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              curve: Curves.easeOutCubic,
+              width: 34,
+              height: 30,
+              decoration: BoxDecoration(
+                color:
+                    isSelected ? const Color(0xFFC8E85C) : Colors.transparent,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                icons[visualIndex],
+                size: 20,
+                color: isSelected ? Colors.white : const Color(0xFF777777),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  Column _buildModernMobileHeaderWidget() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (this.isSearchBarVisible)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+            child: SearchBarWidget(
+              key: searchBarWidgetKey,
+              defaultValue: this.curSearchWords,
+              width: double.infinity,
+              onChangeListener: (searchWord) {
+                onClickSearch(searchWord);
+              },
+              onClickResetListener: () {
+                isSearchBarVisible = !isSearchBarVisible;
+                updateUI();
+              },
+            ),
+          ),
+      ],
+    );
+  }
+
   bool _canShowFolderNoteAction() {
     return this.widget.folderModel?.tag == 1 ||
         this.widget.folderModel?.tag == 2 ||
@@ -1709,6 +2042,8 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       });
       missionDataViewTypeEnum = MissionDataViewTypeEnum.table;
     }
+    _syncViewModeSwitcherSelectionByViewTypeIndex(
+        missionDataViewTypeEnum.index);
     SharePreferenceUtil.getSyncInstance().setInt(
         key: ShareprefrenceKeys.listAndGridView +
             this.widget.folderStatusDate.toString() +
@@ -1719,11 +2054,15 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
   }
 
   Widget _buildViewModeSwitcher() {
+    final int initIndex = MissionViewModeHelper.switcherIndexFromViewType(
+      missionDataViewTypeEnum,
+    );
     if (isUnifiedDesktop) {
       return Offstage(
         offstage: this.isListAndGridVisible == false,
         child: UnifiedCheckButtonListWithIconWidget(
           key: checkButtonListWithIconWidgetKey,
+          initIndex: initIndex,
           list: listCheckButtonStateModel ?? [],
           onTapListener: (obj) {
             _onMissionViewModeTap(obj);
@@ -1735,12 +2074,27 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
       offstage: this.isListAndGridVisible == false,
       child: CheckButtonListWithIconWidget(
         key: checkButtonListWithIconWidgetKey,
+        initIndex: initIndex,
         list: listCheckButtonStateModel ?? [],
         onTapListener: (obj) {
           _onMissionViewModeTap(obj);
         },
       ),
     );
+  }
+
+  /**
+   * 功能：同步任务页右上角视图切换按钮的选中态。
+   * 说明：首次进入页面时子组件还没挂载，必须先更新父级 listCheckButtonStateModel，避免内容已经是表格但按钮仍显示“列表”。
+   */
+  void _syncViewModeSwitcherSelectionByViewTypeIndex(int viewTypeIndex) {
+    final int switcherIndex =
+        MissionViewModeHelper.switcherIndexFromViewTypeIndex(viewTypeIndex);
+    MissionViewModeHelper.syncSwitcherSelection(
+      listCheckButtonStateModel ?? <CheckButtonStateModel>[],
+      switcherIndex,
+    );
+    checkButtonListWithIconWidgetKey?.currentState?.setCurIndex(switcherIndex);
   }
 
   Widget _buildMissionActionMenu({required Widget child}) {
@@ -1794,6 +2148,9 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         }
       },
       list: CONSTANTS.getMissionButtonList(),
+      margin: EdgeInsets.zero,
+      useSoftPopupStyle: true,
+      popupWidth: 210,
       child: child,
     );
   }
@@ -1848,7 +2205,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Mission Workspace',
+                          getI18NKey().mission_workspace,
                           style: TextStyle(
                             fontSize: 11,
                             color: subtitleColor,
@@ -2117,7 +2474,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
     // list.forEach((SessionMissionModel model) {
     //   if ((model.datas?.length ?? 0) > 0) {
     listWidget.add(MissionGridView(
-      useUnifiedStyle: isUnifiedDesktop,
+      useUnifiedStyle: isUnifiedDesktop || isModernMobile,
       missionOrderEnum: this.missionOrderEnum,
       folderStatus: folderStatusIsArchived,
       multiSelectModeEnum: this.multiSelectModeEnum,
@@ -2182,9 +2539,17 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         isDelay = Utility.isDelayed(sessionMissionModel.date ?? DateTime.now());
       }
       if ((sessionMissionModel.datas?.length ?? 0) > 0) {
+        final dynamic firstMissionModel =
+            sessionMissionModel.datas?.isNotEmpty == true
+                ? sessionMissionModel.datas?.first
+                : null;
+        final Color sectionAccentColor = firstMissionModel is MissionModel
+            ? Color(CONSTANTS
+                .getPriorityColor(firstMissionModel.priorityStatus ?? 3))
+            : const Color(0xFF9EDB38);
         listWidget.add(
           initSliverPersistentHeader(sessionMissionModel.title ?? "",
-              onClickSubtitle: () {
+              sectionAccentColor: sectionAccentColor, onClickSubtitle: () {
             this.onClick('onClickSubtitle', sessionMissionModel);
           },
               isDelay: isFinish == false && isDelay,
@@ -2196,6 +2561,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         );
         listWidget.add(MissionSilverList(
           useUnifiedStyle: isUnifiedDesktop,
+          useMobileModernStyle: isModernMobile,
           multiSelectModeEnum: this.multiSelectModeEnum,
           onTapMultiSelectListener: (MissionModel? list) {
             this.onClick('onTapMultiSelectListener', list);
@@ -2437,8 +2803,7 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         datas = MongoApisManager.getInstance().listMissionModels;
       }
     }
-    checkButtonListWithIconWidgetKey?.currentState
-        ?.setCurIndex(curIndexListViewAndGridView);
+    _syncViewModeSwitcherSelectionByViewTypeIndex(curIndexListViewAndGridView);
     //如果curSearchWords有值 就支持搜索功能
     if (!TextUtil.isEmpty(curSearchWords)) {
       datas = Utility.filterMissionModel(curSearchWords ?? "", datas);
@@ -2482,7 +2847,13 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
    * 完成任务的SectionHeader
    */
   initSliverPersistentHeader(String title,
-      {bool isDelay = false, String? subtitle, Function? onClickSubtitle}) {
+      {bool isDelay = false,
+      String? subtitle,
+      Color? sectionAccentColor,
+      Function? onClickSubtitle}) {
+    final MissionMobileListStyleMetrics mobileListMetrics =
+        MissionMobileListStyleHelper.mobileModernMetrics;
+    final bool shouldUseModernMobileSection = isModernMobile;
     return SliverPersistentHeader(
         //是否固定头布局 默认false
         pinned: false,
@@ -2490,9 +2861,17 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
         floating: false,
         delegate: MySliverDelegate(
           //缩小后的布局高度
-          minHeight: isUnifiedDesktop ? 46.0 : 30.0,
+          minHeight: isUnifiedDesktop
+              ? 46.0
+              : (shouldUseModernMobileSection
+                  ? mobileListMetrics.sectionHeaderHeight
+                  : 30.0),
           //展开后的高度
-          maxHeight: isUnifiedDesktop ? 46.0 : 30.0,
+          maxHeight: isUnifiedDesktop
+              ? 46.0
+              : (shouldUseModernMobileSection
+                  ? mobileListMetrics.sectionHeaderHeight
+                  : 30.0),
           child: isUnifiedDesktop
               ? UnifiedSectionPill(
                   title: isDelay == true && title != getI18NKey().others
@@ -2505,83 +2884,166 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionPage> {
                     }
                   },
                 )
-              : Container(
-                  padding: EdgeInsets.fromLTRB(25, 0, 0, 7),
-                  color: ThemeManager.getInstance().getBackgroundColor(
-                      defaultColor: ColorsConfig.standardPageBackground),
-                  // color: ColorsConfig.backgroundColor,
-                  alignment: Alignment(-1, 1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Wrap(
+              : shouldUseModernMobileSection
+                  ? _buildModernMobileSectionHeader(
+                      title,
+                      accentColor:
+                          sectionAccentColor ?? const Color(0xFF9EDB38),
+                      isDelay: isDelay,
+                      subtitle: subtitle,
+                      onClickSubtitle: onClickSubtitle,
+                    )
+                  : Container(
+                      padding: EdgeInsets.fromLTRB(25, 0, 0, 7),
+                      color: ThemeManager.getInstance().getBackgroundColor(
+                          defaultColor: ColorsConfig.standardPageBackground),
+                      // color: ColorsConfig.backgroundColor,
+                      alignment: Alignment(-1, 1),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            title,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: ThemeManager.getInstance().getTextColor(
-                                    defaultColor: Color(0xffa3a3a3)),
-                                shadows: ThemeManager.getInstance().isDark()
-                                    ? null
-                                    : [
-                                        Shadow(
-                                            color: Colors.white,
-                                            offset: Offset(1, 1))
-                                      ]),
+                          Wrap(
+                            children: [
+                              Text(
+                                title,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    color: ThemeManager.getInstance()
+                                        .getTextColor(
+                                            defaultColor: Color(0xffa3a3a3)),
+                                    shadows: ThemeManager.getInstance().isDark()
+                                        ? null
+                                        : [
+                                            Shadow(
+                                                color: Colors.white,
+                                                offset: Offset(1, 1))
+                                          ]),
+                              ),
+                              if (isDelay == true &&
+                                  title != getI18NKey().others)
+                                Text(
+                                  "(" + getI18NKey().already_delay + ")",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: ThemeManager.getInstance()
+                                          .getTextColor(
+                                              defaultColor: Colors.red,
+                                              defaultDarkColor: Colors.red),
+                                      shadows:
+                                          ThemeManager.getInstance().isDark()
+                                              ? null
+                                              : [
+                                                  Shadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(1, 1))
+                                                ]),
+                                ),
+                            ],
                           ),
-                          if (isDelay == true && title != getI18NKey().others)
-                            Text(
-                              "(" + getI18NKey().already_delay + ")",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: ThemeManager.getInstance()
-                                      .getTextColor(
-                                          defaultColor: Colors.red,
-                                          defaultDarkColor: Colors.red),
-                                  shadows: ThemeManager.getInstance().isDark()
-                                      ? null
-                                      : [
-                                          Shadow(
-                                              color: Colors.white,
-                                              offset: Offset(1, 1))
-                                        ]),
+                          if (subtitle != null && title != getI18NKey().others)
+                            InkWell(
+                              onTap: () {
+                                if (isDelay == true) {
+                                  onClickSubtitle?.call();
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  subtitle,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: ThemeManager.getInstance()
+                                          .getTextColor(
+                                              defaultColor: Colors.blue,
+                                              defaultDarkColor: Colors.blue),
+                                      shadows:
+                                          ThemeManager.getInstance().isDark()
+                                              ? null
+                                              : [
+                                                  Shadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(1, 1))
+                                                ]),
+                                ),
+                              ),
                             ),
                         ],
-                      ),
-                      if (subtitle != null && title != getI18NKey().others)
-                        InkWell(
-                          onTap: () {
-                            if (isDelay == true) {
-                              onClickSubtitle?.call();
-                            }
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              subtitle,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: ThemeManager.getInstance()
-                                      .getTextColor(
-                                          defaultColor: Colors.blue,
-                                          defaultDarkColor: Colors.blue),
-                                  shadows: ThemeManager.getInstance().isDark()
-                                      ? null
-                                      : [
-                                          Shadow(
-                                              color: Colors.white,
-                                              offset: Offset(1, 1))
-                                        ]),
-                            ),
-                          ),
-                        ),
-                    ],
-                  )),
+                      )),
         ));
+  }
+
+  /**
+   * 功能：构建手机端新版列表分组标题。
+   * 说明：标题前的色条跟随当前分组第一条任务的优先级色，和新版列表卡片保持视觉关联。
+   */
+  Widget _buildModernMobileSectionHeader(
+    String title, {
+    required Color accentColor,
+    bool isDelay = false,
+    String? subtitle,
+    Function? onClickSubtitle,
+  }) {
+    return Container(
+      color: _getMissionPageBackgroundColor(),
+      padding: const EdgeInsets.fromLTRB(34, 8, 34, 6),
+      alignment: Alignment.centerLeft,
+      child: Row(
+        children: [
+          Container(
+            width: 4,
+            height: 26,
+            decoration: BoxDecoration(
+              color: accentColor,
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Text(
+              isDelay == true && title != getI18NKey().others
+                  ? "$title (${getI18NKey().already_delay})"
+                  : title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: ThemeManager.getInstance().getTextStyle(
+                defaultTextStyle: const TextStyle(
+                  fontSize: 17,
+                  height: 1.1,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF767676),
+                ),
+              ),
+            ),
+          ),
+          if (subtitle != null && title != getI18NKey().others)
+            InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: () {
+                if (isDelay == true) {
+                  onClickSubtitle?.call();
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Text(
+                  subtitle,
+                  style: ThemeManager.getInstance().getTextStyle(
+                    defaultTextStyle: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF78B915),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   //已完成任务

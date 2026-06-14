@@ -61,6 +61,7 @@ class _ThemePageState<T> extends BaseWidgetState<ThemePage> {
   }
 
   void initData() {
+    _ensureLightThemeOnly();
   }
 
   @override
@@ -102,6 +103,14 @@ class _ThemePageState<T> extends BaseWidgetState<ThemePage> {
     IconsGridViewWidgetStateGlobalKey = GlobalKey();
   }
 
+  /// 主题设置页已经移除暗黑模式入口，这里在进入页面时统一兜底回亮色，
+  /// 避免旧配置仍停留在暗黑模式，导致界面状态和可操作项不一致。
+  void _ensureLightThemeOnly() {
+    if (ThemeManager.getInstance().isDark()) {
+      ThemeManager.getInstance().setThemeMode(AdaptiveThemeMode.light);
+    }
+  }
+
 
 
 
@@ -128,13 +137,16 @@ class _ThemePageState<T> extends BaseWidgetState<ThemePage> {
               ),
             ),
             ColorsGridViewWidget(
-                curIndex: ThemeManager.getInstance().isDark() ? 1 : 0,
+                curIndex: 0,
                 hasTitle: true,
                 datas: CONSTANTS.getThemes(),
                 // defaultIndexColor: 0xffff8800,
                 onTapListener: (data) {
                   ColorsModel colorsModel = data;
-                  ThemeManager.getInstance().setThemeMode(colorsModel.code == "dark" ? AdaptiveThemeMode.dark : AdaptiveThemeMode.light);
+                  ThemeManager.getInstance().setThemeMode(
+                      colorsModel.code == "dark"
+                          ? AdaptiveThemeMode.dark
+                          : AdaptiveThemeMode.light);
                   setState(() {
                     // this.widget.folderModel.color = data.color;
                   });

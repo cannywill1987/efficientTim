@@ -1,6 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+/**
+ * 文件类型：页面
+ * 文件作用：展示登录入口，支持手机号登录、邮箱登录/注册、注册页和重置密码页回填账号。
+ * 主要职责：维护手机号/邮箱 Tab 状态、收集登录表单、分发登录请求，并处理登录成功或失败后的跳转。
+ */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -9,7 +13,6 @@ import 'package:time_hello/com/timehello/beans/UserBean.dart';
 import 'package:time_hello/com/timehello/common/httpclient/HttpManager.dart';
 import 'package:time_hello/com/timehello/common/httpclient/Oberver.dart';
 import 'package:time_hello/com/timehello/common/httpclient/Observable.dart';
-import 'package:time_hello/com/timehello/components/BackNavigator.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/components/CustomTabBarWidget.dart';
@@ -26,7 +29,6 @@ import 'package:time_hello/com/timehello/page/registerPage/pages/RegisterEmailVe
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/LoginUtil.dart';
-import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -37,8 +39,6 @@ import '../../util/DeviceInfoManagement.dart';
 import '../../util/GoogleMailLoginManager.dart';
 import '../../util/ThemeManager.dart';
 import '../registerPage/registerPage.dart';
-import 'components/Guide1Widget.dart';
-import 'components/Guide2Widget.dart';
 
 class LoginPage extends BaseWidget {
   final JumpModeEnum jumpMode;
@@ -90,7 +90,11 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   }
 
   componentDidMount() {
-    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "view","description": "登录曝光",});
+    AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+      "sceneType": "LoginPage",
+      "eventType": "view",
+      "description": "登录曝光",
+    });
   }
 
   onClick(type, data) {
@@ -105,7 +109,6 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
   }
 
   onClickLogin() async {
-
     if (TextUtil.isEmpty(this.password)) {
       Utility.showToastMsg(
           context: context, msg: getI18NKey().please_input_password);
@@ -117,7 +120,11 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
             context: context, msg: getI18NKey().please_input_mobile_no);
         return;
       }
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_button_login_mobile","description": "登录按钮",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "LoginPage",
+        "eventType": "LoginPage_button_login_mobile",
+        "description": "登录按钮",
+      });
       LoginManager.getInstance()?.requestPasswordLogin(
           countryPhoneCode: this.countryPhoneCode,
           // email: this.email,
@@ -133,28 +140,46 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
       //邮箱登录
       String email = await Utility.decryptCTRAES(
           this.emailEncrypted ?? "", Params.AES_PWD);
-      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_button_login_mobile","description": "登录按钮",});
+      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+        "sceneType": "LoginPage",
+        "eventType": "LoginPage_button_login_mobile",
+        "description": "登录按钮",
+      });
       //从重置密码页面过来
-      if(SharePreferenceUtil.getSyncInstance()
-          .getBool(key: ShareprefrenceKeys.needResetPassword, defaultVal: false) == true) {
+      if (SharePreferenceUtil.getSyncInstance().getBool(
+              key: ShareprefrenceKeys.needResetPassword, defaultVal: false) ==
+          true) {
         //重置密码后要登录一次验证密码是否正确
-        GoogleMailLoginManager.getInstance().login(email: email, password: await Utility.decryptCTRAES(
-            this.password ?? "", Params.AES_PWD), callbackSuccess: () async {
-          //重置密码 todo 有点风险
-          await HttpManager.getInstance().doPostRequest(Apis.resetPwdByEmail, params: {
-            "password": this.password,
-            "email": this.emailEncrypted
-          },
-            context: context, );
-          //请求邮箱密码登录
-          SharePreferenceUtil.getSyncInstance()
-              .setBool(key: ShareprefrenceKeys.needResetPassword, val: false);
-          requestEmailPasswordLogin(email);
-        }, callbackNeedVerified: () {
-          Utility.pushReplacement(context ?? Utility.getGlobalContext(), RegisterEmailVerificationPage(pageFromEnum: PageFromEnum.RegisterPage, email: email ?? "", password: password ?? ""));
-        }, callbackLoginFaile: (e) {
-          Utility.showToastMsg(msg: e.message);
-        });
+        GoogleMailLoginManager.getInstance().login(
+            email: email,
+            password: await Utility.decryptCTRAES(
+                this.password ?? "", Params.AES_PWD),
+            callbackSuccess: () async {
+              //重置密码 todo 有点风险
+              await HttpManager.getInstance().doPostRequest(
+                Apis.resetPwdByEmail,
+                params: {
+                  "password": this.password,
+                  "email": this.emailEncrypted
+                },
+                context: context,
+              );
+              //请求邮箱密码登录
+              SharePreferenceUtil.getSyncInstance().setBool(
+                  key: ShareprefrenceKeys.needResetPassword, val: false);
+              requestEmailPasswordLogin(email);
+            },
+            callbackNeedVerified: () {
+              Utility.pushReplacement(
+                  context ?? Utility.getGlobalContext(),
+                  RegisterEmailVerificationPage(
+                      pageFromEnum: PageFromEnum.RegisterPage,
+                      email: email ?? "",
+                      password: password ?? ""));
+            },
+            callbackLoginFaile: (e) {
+              Utility.showToastMsg(msg: e.message);
+            });
       } else {
         //直接邮箱登录注册
         requestEmailPasswordLogin(email);
@@ -164,9 +189,7 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
 
   void requestEmailPasswordLogin(String email) {
     LoginManager.getInstance()?.requestPasswordLogin(
-        email: email,
-        password: this.password!,
-        onComplete: this);
+        email: email, password: this.password!, onComplete: this);
   }
 
   onClickBack() {
@@ -241,17 +264,30 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                       CustomTabBarWidget(
                         key: tabBarGlobalKey,
                         list: tabList,
-                      checkIndex: this.curTab,
-                        onCheckedListener: (int index, CheckButtonStateModel model) {
+                        checkIndex: this.curTab,
+                        onCheckedListener:
+                            (int index, CheckButtonStateModel model) {
+                          // macOS 审核路径会直接点击手机号/邮箱文案，父页面状态和 Tab 内部状态必须同步刷新。
                           this.curTab = index;
-                          if(curTab == 0) {
-                            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_switch_phone","description": "手机号切换按钮",});
+                          if (curTab == 0) {
+                            AnalyticsEventsManager.getInstance()
+                                .sendAnalyticsEventMap({
+                              "sceneType": "LoginPage",
+                              "eventType": "LoginPage_switch_phone",
+                              "description": "手机号切换按钮",
+                            });
                           } else {
-                            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_switch_email","description": "邮箱切换按钮",});
+                            AnalyticsEventsManager.getInstance()
+                                .sendAnalyticsEventMap({
+                              "sceneType": "LoginPage",
+                              "eventType": "LoginPage_switch_email",
+                              "description": "邮箱切换按钮",
+                            });
                           }
                           updateUI();
                         },
                         fontSize: 14,
+                        useUnifiedStyle: true,
                       ),
                       SizedBox(
                         height: 10,
@@ -260,28 +296,34 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                       SizedBox(
                         height: 10,
                       ),
-                          TextFormField(
-                            onChanged: (String text) async {
-                              if (TextUtil.isEmpty(text) == true) {
-                                this.password = "";
-                                return;
-                              }
+                      TextFormField(
+                        onChanged: (String text) async {
+                          if (TextUtil.isEmpty(text) == true) {
+                            this.password = "";
+                            return;
+                          }
 
-                              if(hasInputPwd == false) {
-                                hasInputPwd = true;
-                                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_input_password","description": "密码输入框",});
-                              }
-                              this.password = await Utility.encryptCTRAES(
-                                  text, Params.AES_PWD);
-                            },
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: !this.checked,
-                            //密码是否可见
-                            textInputAction: TextInputAction.done,
-                            controller: textController2,
-                            // obscureText: false,
-                            decoration: StylesConfig.getInputDecoration(
-                                hintText: getI18NKey().password, suffixIcon: CheckImage(
+                          if (hasInputPwd == false) {
+                            hasInputPwd = true;
+                            AnalyticsEventsManager.getInstance()
+                                .sendAnalyticsEventMap({
+                              "sceneType": "LoginPage",
+                              "eventType": "LoginPage_input_password",
+                              "description": "密码输入框",
+                            });
+                          }
+                          this.password =
+                              await Utility.encryptCTRAES(text, Params.AES_PWD);
+                        },
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: !this.checked,
+                        //密码是否可见
+                        textInputAction: TextInputAction.done,
+                        controller: textController2,
+                        // obscureText: false,
+                        decoration: StylesConfig.getInputDecoration(
+                            hintText: getI18NKey().password,
+                            suffixIcon: CheckImage(
                               //显示隐藏密码的眼睛
                               onTapListener: (isChecked) {
                                 checked = !isChecked;
@@ -296,22 +338,22 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                   R.assetsImgIcEyeClose,
                                   size: 20),
                             )),
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                color: ThemeManager.getInstance().getTextColor(
-                                    defaultColor: Color(0xff8b97a2)),
-                                fontWeight: FontWeight.w500),
-                            validator: (value) => value!.isEmpty
-                                ? getI18NKey().passwordNotEmpty
-                                : null,
-                            onSaved: (value) {
-                              if (TextUtil.isEmpty(value) == true) {
-                                password = "";
-                                return;
-                              }
-                              password = value!.trim();
-                            },
-                          ),
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: ThemeManager.getInstance()
+                                .getTextColor(defaultColor: Color(0xff8b97a2)),
+                            fontWeight: FontWeight.w500),
+                        validator: (value) => value!.isEmpty
+                            ? getI18NKey().passwordNotEmpty
+                            : null,
+                        onSaved: (value) {
+                          if (TextUtil.isEmpty(value) == true) {
+                            password = "";
+                            return;
+                          }
+                          password = value!.trim();
+                        },
+                      ),
                       SizedBox(
                         height: 40,
                       ),
@@ -330,7 +372,10 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                                   colors: ThemeManager.getInstance()
                                       .getButtonLinearGradientBackgroundColor()),
                             ),
-                            child: new Text(this.curTab == 0 ? getI18NKey().login : getI18NKey().login_or_register,
+                            child: new Text(
+                                this.curTab == 0
+                                    ? getI18NKey().login
+                                    : getI18NKey().login_or_register,
                                 style: new TextStyle(
                                     fontSize: 20.0, color: Colors.white)),
                           )),
@@ -344,9 +389,31 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                           TextButton(
                               //注册按钮
                               onPressed: () {
-                                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_button_register","description": "注册按钮",});
+                                AnalyticsEventsManager.getInstance()
+                                    .sendAnalyticsEventMap({
+                                  "sceneType": "LoginPage",
+                                  "eventType": "LoginPage_button_register",
+                                  "description": "注册按钮",
+                                });
                                 Utility.pushNavigator(
-                                    context,  RegisterPage(curTab: this.curTab ?? 0, defaultVal: this.curTab == 0 ? (TextUtil.isEmpty(this.mobile) ? "" : ((Utility.decryptCTRAES(this.mobile ?? "" , Params.AES_PWD) ?? "") ?? "")) : (TextUtil.isEmpty(this.mobile) ? "" : (Utility.decryptCTRAES(this.emailEncrypted ?? "" , Params.AES_PWD) ?? "")),),
+                                    context,
+                                    RegisterPage(
+                                      curTab: this.curTab ?? 0,
+                                      defaultVal: this.curTab == 0
+                                          ? (TextUtil.isEmpty(this.mobile)
+                                              ? ""
+                                              : ((Utility.decryptCTRAES(
+                                                          this.mobile ?? "",
+                                                          Params.AES_PWD) ??
+                                                      "") ??
+                                                  ""))
+                                          : (TextUtil.isEmpty(this.mobile)
+                                              ? ""
+                                              : (Utility.decryptCTRAES(
+                                                      this.emailEncrypted ?? "",
+                                                      Params.AES_PWD) ??
+                                                  "")),
+                                    ),
                                     // 从注册页返回的数据
                                     callback: (data) async {
                                   this.curTab = data['curTab'];
@@ -397,7 +464,13 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                           TextButton(
                               //注册按钮
                               onPressed: () {
-                                AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_button_reset_password","description": "重置密码按钮",});
+                                AnalyticsEventsManager.getInstance()
+                                    .sendAnalyticsEventMap({
+                                  "sceneType": "LoginPage",
+                                  "eventType":
+                                      "LoginPage_button_reset_password",
+                                  "description": "重置密码按钮",
+                                });
                                 Utility.pushNavigator(
                                     context, ForgetPasswordPage(),
                                     callback: (data) async {
@@ -458,7 +531,12 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
                 if (Utility.isHandsetBySize() == false)
                   InkWell(
                     onTap: () {
-                      AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_button_back","description": "返回按钮",});
+                      AnalyticsEventsManager.getInstance()
+                          .sendAnalyticsEventMap({
+                        "sceneType": "LoginPage",
+                        "eventType": "LoginPage_button_back",
+                        "description": "返回按钮",
+                      });
                       Navigator.pop(context);
                     },
                     child: Text(
@@ -489,9 +567,13 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
           this.emailEncrypted = "";
           return;
         }
-        if(hasEmailInput == false) {
+        if (hasEmailInput == false) {
           hasEmailInput = true;
-          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_input_email","description": "邮箱输入框",});
+          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+            "sceneType": "LoginPage",
+            "eventType": "LoginPage_input_email",
+            "description": "邮箱输入框",
+          });
         }
         this.emailEncrypted = await Utility.encryptCTRAES(text, Params.AES_PWD);
       },
@@ -547,9 +629,13 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
             StylesConfig.getInputDecoration(hintText: getI18NKey().phoneNo),
         initialCountryCode: DeviceInfoManagement.getCountryCode(),
         onChanged: (phone) async {
-          if(hasMobileInput == false) {
+          if (hasMobileInput == false) {
             hasMobileInput = true;
-            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_input_phone_number","description": "手机号输入框",});
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "LoginPage",
+              "eventType": "LoginPage_input_phone_number",
+              "description": "手机号输入框",
+            });
           }
           this.countryIOSCode = phone.countryISOCode;
           this.countryPhoneCode = phone.countryCode;
@@ -572,9 +658,13 @@ class _LoginPageState extends BaseWidgetState<LoginPage>
             this.mobile = "";
             return;
           }
-          if(hasMobileInput == false) {
+          if (hasMobileInput == false) {
             hasMobileInput = true;
-            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "LoginPage","eventType": "LoginPage_input_phone_number","description": "手机号输入框",});
+            AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+              "sceneType": "LoginPage",
+              "eventType": "LoginPage_input_phone_number",
+              "description": "手机号输入框",
+            });
           }
           this.mobile = await Utility.encryptCTRAES(text, Params.AES_PWD);
         },

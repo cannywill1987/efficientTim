@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/util/OverlayManagement.dart';
 import 'package:time_hello/com/timehello/util/ScreenUtil.dart';
@@ -10,10 +9,12 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/r.dart';
 
 import '../config/CONSTANTS.dart';
+import '../util/CounterManagement.dart';
 import '../util/DialogManagement.dart';
 import '../util/SharePreferenceUtil.dart';
+import '../util/ThemeManager.dart';
 import 'BlackCheckButtonListWidget.dart';
-import 'CustomPainterCircleProgressWidget.dart';
+import 'DottedCircularProgressWidget.dart';
 
 class CustomBackgroundWidget extends StatefulWidget {
   double progress = 0;
@@ -73,11 +74,14 @@ class CustomBackgroundWidget extends StatefulWidget {
 class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
     with TickerProviderStateMixin {
   double size = 300;
+  double progress = 0;
   String? backgroundUrl;
   String? famousSentence;
+  Function? onTimerTick;
 
   initState() {
     super.initState();
+    progress = widget.progress;
     if (TextUtil.isEmpty(SharePreferenceUtil.getSyncInstance()
             .getString(key: ShareprefrenceKeys.pcBackground)) ==
         true) {
@@ -87,6 +91,22 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
           .getString(key: ShareprefrenceKeys.pcBackground);
     }
     this.famousSentence = Utility.getFamousSentence();
+
+    // 中间计时数字会自己刷新，这里单独监听计时器，避免大圆环停留在初始进度。
+    onTimerTick = (int time) {
+      if (!mounted || widget.shouldShowProgressBar != true) return;
+      setState(() {
+        progress = _getCounterProgress();
+      });
+    };
+    CounterManagement.getInstance()
+        .addOnTimerTickListener(onTimerTickListener: onTimerTick!);
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomBackgroundWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    progress = widget.progress;
   }
 
   String? getCurBackground() {
@@ -113,8 +133,12 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
 
   @override
   void dispose() {
-    super.dispose();
     // 资源释放
+    if (onTimerTick != null) {
+      CounterManagement.getInstance()
+          .removeOnTimerTickListenerList(onTimerTickListenerList: onTimerTick!);
+    }
+    super.dispose();
   }
 
   @override
@@ -147,7 +171,8 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
                   height: ScreenUtil.getScreenH(context),
                   fit: BoxFit.cover);
             },
-            imageUrl: Utility.filterHttpUrl(this.backgroundUrl ?? '', prefix: "oss"),
+            imageUrl:
+                Utility.filterHttpUrl(this.backgroundUrl ?? '', prefix: "oss"),
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -178,7 +203,9 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: this.widget.rightChildrenWidget!)),
-                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 5,
+                    ),
                   ],
                 ),
         ),
@@ -196,17 +223,12 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
         SizedBox(
           height: Utility.isHandsetBySize() ? 5 : 30,
         ),
-        Container(
-          constraints: BoxConstraints(minHeight: 50),
-          padding: EdgeInsets.symmetric(horizontal: 80),
-          child: Text(
-            this.famousSentence ?? '',
-            style: TextStyle(color: Colors.white),
+        if (this.widget.shouldShowProgressBar == false)
+          _buildFamousSentence(width: 560),
+        if (this.widget.shouldShowProgressBar == false)
+          SizedBox(
+            height: 10,
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
         if (this.widget.shouldShowProgressBar == true) getCircleWidget(),
         if (this.widget.shouldShowProgressBar == false)
           Expanded(
@@ -238,11 +260,18 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
             Opacity(
               opacity: this.widget.shouldShowProgressBar == false ? 0 : 1,
               child: Container(
-                  child: CustomPaint(
-                      size: Size(sizeP, sizeP),
-                      painter: CustomPainterCircleProgressWidget(
-                          progressColor: ColorsConfig.standardColor,
-                          progress: this.widget.progress))),
+                width: sizeP,
+                height: sizeP,
+                // 大屏专注页使用圆点环，和悬浮小计时器的圆弧进度区分开。
+                child: DottedCircularProgressWidget(
+                  progress: progress,
+                  activeColor: _getProgressActiveColor(),
+                  inactiveColor: _getProgressInactiveColor(),
+                  dotRadius: sizeP > 520 ? 3.2 : 2.6,
+                  activeDotRadius: sizeP > 520 ? 7 : 5.8,
+                  dotCount: sizeP > 520 ? 120 : 96,
+                ),
+              ),
             ),
             Container(
               // color: Colors.red,
@@ -250,6 +279,10 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  _buildFamousSentence(width: sizeP * 0.58),
+                  SizedBox(
+                    height: sizeP > 520 ? 46 : 26,
+                  ),
                   ...this.widget.centerChildrenWidget,
                   SizedBox(
                     height: 10,
@@ -261,5 +294,56 @@ class CustomBackgroundWidgetState extends State<CustomBackgroundWidget>
         ),
       );
     }));
+  }
+
+  /// 背景组件独立刷新进度，避免父级计时文案局部 setState 后圆环不重绘。
+  double _getCounterProgress() {
+    final manager = CounterManagement.getInstance();
+    if (manager.totalTime <= 0) return widget.progress;
+    return (manager.timeUsed / manager.totalTime).clamp(0.0, 1.0).toDouble();
+  }
+
+  /// 专注进度主色跟随设置页里的实时主题色，避免纯净模式仍固定橙色。
+  Color _getProgressActiveColor() {
+    return ThemeManager.getInstance().getDefautThemeColor();
+  }
+
+  /// 未激活圆点在黑底上保持可见，同时用主题色轻微染色，整体更一致。
+  Color _getProgressInactiveColor() {
+    final themeColor = _getProgressActiveColor();
+    return Color.lerp(Colors.white, themeColor, 0.16)!
+        .withValues(alpha: ThemeManager.getInstance().isDark() ? 0.36 : 0.42);
+  }
+
+  Widget _buildFamousSentence({required double width}) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: width.clamp(260, 640).toDouble()),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '“',
+            style: TextStyle(
+              color: _getProgressActiveColor(),
+              fontSize: 32,
+              fontWeight: FontWeight.w800,
+              height: 0.8,
+            ),
+          ),
+          Text(
+            this.famousSentence ?? '',
+            textAlign: TextAlign.center,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.82),
+              fontSize: 13,
+              height: 1.45,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

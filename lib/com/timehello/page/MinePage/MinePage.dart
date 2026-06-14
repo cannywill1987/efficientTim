@@ -1,21 +1,18 @@
-import 'dart:io';
-
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/components/GridMenuItem.dart';
 import 'package:time_hello/com/timehello/components/LoginAvatarWidget.dart';
+import 'package:time_hello/com/timehello/components/MissionSearchBar.dart';
 import 'package:time_hello/com/timehello/components/PCLeftMenuBarWidget.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/libs/methodChannel/CounterMethodChannelManager.dart';
 import 'package:time_hello/com/timehello/models/EventFn.dart';
-import 'package:time_hello/com/timehello/models/MissionModel.dart';
 
 // import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/FlomoPage/FlomoPage.dart';
@@ -23,11 +20,9 @@ import 'package:time_hello/com/timehello/page/LockScreenPage/LockScreenPage.dart
 import 'package:time_hello/com/timehello/page/SettingPage/pages/FilterMenuSettingPage.dart';
 import 'package:time_hello/com/timehello/page/ThemePage/ThemePage.dart';
 import 'package:time_hello/com/timehello/page/gamesPage/GamesPage.dart';
-import 'package:time_hello/com/timehello/util/CloudSharepreferenceManagement.dart';
 import 'package:time_hello/com/timehello/util/EasyLoadingManager.dart';
 import 'package:time_hello/com/timehello/util/JumpNavigator.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
-import 'package:time_hello/com/timehello/util/ScreenLockManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -41,27 +36,23 @@ import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/ConsumeMoneyButtonWidget.dart';
 import '../../components/DownloadListwidget.dart';
 import '../../components/EventModel.dart';
-import '../../components/MembershipBanner.dart';
 import '../../components/MoneyHandlerWidget.dart';
-import '../../components/GridMenuItem.dart';
 import '../../components/ThirdPartyLoginWidget.dart';
 import '../../config/ENUMS.dart';
-import '../../util/DialogManagement.dart';
-import '../../util/GetResourceDeliveryManager.dart';
-import '../../util/Perf.dart';
+import '../../util/MoneyManager.dart';
 import '../ChatGptPage/GPTContainer.dart';
 import '../FeedbackPage/FeedbackPage.dart';
-import '../FlomoPage/components/FlomoPickPeriodDialogWidget.dart';
 import '../PrivacySettingPage/PrivacySettingPage.dart';
 
 import '../SettingPage/SettingPage.dart';
 import '../SettingPage/SettingPermissionPage.dart';
 import '../SettingUserInfoPage/SettingUserInfoPage.dart';
 import '../WrongQuestionBookPage/WQBContainer.dart';
-import 'components/MineHeaderWidget.dart';
 
 /**
- * 我的叶绵绵
+ * 文件类型：页面
+ * 文件作用：展示“我的”个人中心，承接用户资料、快捷工具入口、设置入口和登录退出能力。
+ * 主要职责：移动端按个人中心视觉稿渲染资料卡和宫格工具，桌面端继续复用左侧菜单布局。
  */
 class MinePage extends BaseWidget {
   const MinePage({Key? key}) : super(key: key);
@@ -73,7 +64,28 @@ class MinePage extends BaseWidget {
   }
 }
 
+class _MobileMineMenuEntry {
+  final Widget icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _MobileMineMenuEntry({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+}
+
 class _MinePageState extends BaseWidgetState<MinePage> {
+  static const Color _mobileMineAccentColor = Color(0xFFA7DE2B);
+  static const Color _mobileMineAccentDarkColor = Color(0xFF7DAE1B);
+  static const Color _mobileMineBackgroundColor = Color(0xFFFBFFF2);
+  static const Color _mobileMineCardColor = Color(0xFFFFFFFF);
+  static const Color _mobileMineTextColor = Color(0xFF202124);
+  static const Color _mobileMineSubTextColor = Color(0xFF8C8C8C);
+
   double iconSize = 20;
 
   @override
@@ -417,8 +429,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
                 await CounterMethodChannelManager.getInstance()
                     .fetchCalendarEvents(
                         startDate: 1701940406000, endDate: 1765098806000);
-            List<MissionModel> listModel =
-                Utility.convertListEventModelToListMissionModel(list);
+            Utility.convertListEventModelToListMissionModel(list);
             // Utility.initCalendarModel();
 
             // final perf = Perf();
@@ -523,7 +534,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
               context, 'CountDownListViewPage');
         }));
     list.add(GridMenuItem(
-        icon: Utility.getSVGPicture(R.assetsImgIcMemoDayChecked, size: iconSize),
+        icon:
+            Utility.getSVGPicture(R.assetsImgIcMemoDayChecked, size: iconSize),
         title: getI18NKey().count_up_text,
         onTapListener: () {
           JumpNavigator.onClickCustomHeaderGridView(
@@ -602,8 +614,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           Utility.pushNavigator(context, const WQBContainer());
         }));
     list.add(GridMenuItem(
-        icon:
-            Utility.getSVGPicture(R.assetsImgIcCard, size: iconSize),
+        icon: Utility.getSVGPicture(R.assetsImgIcCard, size: iconSize),
         title: getI18NKey().card,
         // subtitle: getI18NKey().copy_sub_title,
         onTapListener: () {
@@ -763,71 +774,848 @@ class _MinePageState extends BaseWidgetState<MinePage> {
     context.watch<GlobalStateEnv>().calendarModel;
     // context.watch<GlobalStateEnv>().calendarModel;
     return Selector<Env, bool>(
-        selector: (_, env) => env.isVip ?? false,
-        builder: (_, settingModel, __) {
+        selector: (_, env) => env.isVip,
+        builder: (_, isVip, __) {
+          final bool isDark = ThemeManager.getInstance().isDark();
+          final Color pageBackground = isDark
+              ? ThemeManager.getInstance().getBackgroundColor(context: context)
+              : _mobileMineBackgroundColor;
+
           return Container(
-            child: ListView(children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: ThemeManager.getInstance().isDark()
-                      ? null
-                      : ThemeManager.getInstance().getDefautThemeColor(),
-                  // gradient:
-                ),
-                height: 200,
-                child: Stack(
-                  children: [
-                    Center(
-                        child: LoginManager.isLogin()
-                            ? getLoginHeaderWidget()
-                            : getUnloginHeaderWidget()),
-                    Positioned(
-                        bottom: 3,
-                        right: 10,
-                        child: DownloadListwidget(
-                          shouldShowWinAndAndroid:
-                              !(Utility.isIOS() || Utility.isMacOS()),
-                        )),
-                    if (LoginManager.getInstance().isLogin2() &&
-                        LoginManager.getInstance()
-                                .isVIP(shouldShowDialog: false) ==
-                            false)
-                      Positioned(
-                          left: 10,
-                          bottom: 10,
-                          child: MembershipBanner(
-                            sizeEnum: SizeEnum.small,
-                            onTapCallback: () {
-                              LoginManager.getInstance()
-                                  .openSubscriptionDialog(context);
-                            },
-                          ))
-                  ],
+            color: pageBackground,
+            child: SafeArea(
+              bottom: false,
+              child: SingleChildScrollView(
+                // 底部是全局悬浮胶囊导航，内容必须预留可滚动安全距离，否则宫格最后一行会被导航盖住。
+                padding: const EdgeInsets.fromLTRB(18, 14, 18, 112),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 760),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        _buildMobileMineTopBar(),
+                        const SizedBox(height: 18),
+                        _buildMobileMineProfileCard(),
+                        Transform.translate(
+                          offset: const Offset(0, -26),
+                          child: _buildMobileMineMenuPanel(),
+                        ),
+                        if (LoginManager.isLogin())
+                          getLogoutItem(onTapListener: () {
+                            LoginManager.getInstance().logout(context);
+                          }),
+                        getProtocolWidget(),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              // MineHeaderWidget(),
-              ...getGridViewService(3),
-              Container(
-                height: 10,
-              ),
-              ...getGridViewNote(3),
-              Container(
-                height: 10,
-              ),
-              ...getGridViewSetting(3),
-              // ...getGridView(3),
-              LoginManager.isLogin()
-                  ? getLogoutItem(onTapListener: () {
-                      LoginManager.getInstance().logout(context);
-                    })
-                  : SizedBox.shrink(),
-              getProtocolWidget(),
-              SizedBox(
-                height: 30,
-              ),
-            ]),
+            ),
           );
         });
+  }
+
+  /// 功能：构建移动端“我的”页顶部品牌栏。
+  /// 说明：参考设计图保留番茄 Logo、应用名和右侧快捷操作，避免复用桌面菜单导致移动端视觉过重。
+  Widget _buildMobileMineTopBar() {
+    return Row(
+      children: [
+        Utility.getSVGPicture(R.assetsImgIcTomato, size: 32),
+        const SizedBox(width: 10),
+        const Expanded(
+          child: Text(
+            '时间管理局 ToDo',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: _mobileMineTextColor,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ),
+        _buildMobileMineTopIconButton(
+          icon: Icons.search_rounded,
+          onTap: _showMobileMissionSearchDialog,
+        ),
+        _buildMobileMineNotificationButton(),
+        _buildMobileMineTopIconButton(
+          icon: Icons.settings_outlined,
+          onTap: () {
+            Utility.pushNavigator(
+              context,
+              const SettingPage(pageFrom: PageFromEnum.Normal),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  /// 功能：构建顶部普通图标按钮。
+  /// 说明：统一点击热区，保证搜索、通知和设置在移动端有足够的可点面积。
+  Widget _buildMobileMineTopIconButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(22),
+      onTap: onTap,
+      child: SizedBox(
+        width: 44,
+        height: 44,
+        child: Icon(
+          icon,
+          color: Colors.black,
+          size: 28,
+        ),
+      ),
+    );
+  }
+
+  /// 功能：构建带红点的通知入口。
+  /// 说明：当前页面仅提供入口样式，点击后沿用轻提示，后续接入消息中心时可替换 onTap。
+  Widget _buildMobileMineNotificationButton() {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        _buildMobileMineTopIconButton(
+          icon: Icons.notifications_none_rounded,
+          onTap: () {
+            Utility.showToastMsg(msg: getI18NKey().offer_next_version);
+          },
+        ),
+        Positioned(
+          top: 7,
+          right: 8,
+          child: Container(
+            width: 7,
+            height: 7,
+            decoration: const BoxDecoration(
+              color: Color(0xFFFF4D4F),
+              shape: BoxShape.circle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// 功能：弹出移动端任务搜索面板。
+  /// 说明：复用已有 MissionSearchBar，同时由外层 GestureDetector 接管黑色遮罩点击关闭。
+  void _showMobileMissionSearchDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            Utility.popNavigator(dialogContext);
+          },
+          child: Material(
+            color: Colors.transparent,
+            child: Center(
+              child: GestureDetector(
+                // 内容区自己处理点击，避免点输入框或列表时把外层遮罩关闭。
+                onTap: () {},
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 18),
+                  padding: const EdgeInsets.fromLTRB(14, 18, 14, 12),
+                  constraints: const BoxConstraints(maxWidth: 520),
+                  decoration: BoxDecoration(
+                    color: ThemeManager.getInstance().getCardBackgroundColor(
+                      defaultColor: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: MissionSearchBar(),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// 功能：构建移动端用户资料卡。
+  /// 说明：绿色大卡片承接头像、用户名、排名、专注时长、收益和平台入口，贴近设计稿的个人中心首屏。
+  Widget _buildMobileMineProfileCard() {
+    return Container(
+      // 移动端首屏还要容纳功能宫格和悬浮底栏，资料卡不能过高，否则第三行入口会被底栏压住。
+      height: LoginManager.isLogin() ? 198 : 190,
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            _mobileMineAccentColor,
+            Color(0xFFE2F6A5),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: _mobileMineAccentDarkColor.withValues(alpha: 0.18),
+            blurRadius: 24,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: LoginManager.isLogin()
+          ? _buildMobileMineLoginProfileContent()
+          : _buildMobileMineUnLoginProfileContent(),
+    );
+  }
+
+  /// 功能：构建已登录用户资料区。
+  /// 说明：移动端卡片空间很窄，采用左头像、中信息、右收益的三栏结构，避免文案被挤成零散碎片。
+  Widget _buildMobileMineLoginProfileContent() {
+    final int? ranking =
+        LoginManager.getInstance().getUserBean().totalFocusTimeRanking;
+    final int totalFocusTime =
+        LoginManager.getInstance().getUserBean().totalFocusTime ?? 0;
+    final String username = LoginManager.getInstance().getUserBean().username;
+    final bool shouldShowRanking = ranking != null && ranking >= 0;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildMobileMineAvatar(),
+              const SizedBox(width: 14),
+              Expanded(
+                child: _buildMobileMineIdentityBlock(
+                  username: username,
+                  ranking: shouldShowRanking ? ranking : null,
+                  totalFocusTime: totalFocusTime,
+                ),
+              ),
+              const SizedBox(width: 10),
+              _buildMobileMineMoneyBlock(),
+            ],
+          ),
+        ),
+        if (!(Utility.isIOS() || Utility.isMacOS())) ...[
+          const SizedBox(height: 10),
+          // iOS/Mac 端不展示客户端下载入口，否则会把移动端个人卡底部撑出黑黄溢出标记。
+          Align(
+            alignment: Alignment.centerRight,
+            child: DownloadListwidget(
+              shouldShowWinAndAndroid: true,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  /// 功能：构建资料卡中间身份信息区。
+  /// 说明：用户名、排名、专注时长使用固定层级展示，避免旧版在窄屏里出现“12 / 第213 / 名”的断裂排版。
+  Widget _buildMobileMineIdentityBlock({
+    required String username,
+    required int? ranking,
+    required int totalFocusTime,
+  }) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextUtil.isEmpty(username)
+            ? _buildMobileMineAddUsernameButton()
+            : Text(
+                username,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  height: 1.05,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+        const SizedBox(height: 9),
+        if (ranking != null)
+          _buildMobileMineInfoPill(getI18NKey().my_ranking(ranking.toString())),
+        const SizedBox(height: 7),
+        Text(
+          '${getI18NKey().total_focus_time} ${Utility.formatHourAndMin(totalFocusTime)}',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            height: 1.1,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// 功能：构建资料卡里的小信息胶囊。
+  /// 说明：排名这类短状态独立成胶囊，便于扫读，也避免和专注时长混在一起。
+  Widget _buildMobileMineInfoPill(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.22),
+        borderRadius: BorderRadius.circular(13),
+      ),
+      child: Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          height: 1,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+
+  /// 功能：构建资料卡右侧收益区。
+  /// 说明：复用金额组件和“我要花”入口，但用固定宽度约束它们，防止挤压中间身份信息。
+  Widget _buildMobileMineMoneyBlock() {
+    return SizedBox(
+      width: 104,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            getI18NKey().mine_hourly_value(
+              MoneyManager.getInstance().localMoneyMake,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.9),
+              fontSize: 11,
+              height: 1.1,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 7),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Utility.getSVGPicture(R.assetsImgIcMoney2, size: 15),
+              const SizedBox(width: 4),
+              Flexible(
+                child: Text(
+                  MoneyManager.getInstance().getLocalMoney().toString(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    height: 1,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Transform.translate(
+            offset: const Offset(15, 0),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerRight,
+              child: ConsumeMoneyButtonWidget(
+                pageFrom: PageFromEnum.MobileMinePage,
+                onTapListener: (obj) {},
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 功能：构建未登录资料区。
+  /// 说明：保留原登录入口和第三方登录能力，只把视觉放入新的绿色卡片。
+  Widget _buildMobileMineUnLoginProfileContent() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 220,
+          height: 48,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: _mobileMineAccentDarkColor,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+            ),
+            onPressed: () {
+              this.onClick('onClickToLogin', null);
+            },
+            child: Text(
+              getI18NKey().login,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 14),
+        ThirdPartyLoginWidget(
+          onTapGoogle: () {},
+          onTapFacebook: () {},
+        ),
+      ],
+    );
+  }
+
+  /// 功能：构建移动端头像容器。
+  /// 说明：LoginAvatarWidget 原始尺寸较小，这里只在“我的”资料卡中放大显示，不改变公共组件默认尺寸。
+  Widget _buildMobileMineAvatar() {
+    return Container(
+      width: 76,
+      height: 76,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.35),
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white, width: 3),
+      ),
+      child: Center(
+        child: SizedBox(
+          width: 66,
+          height: 66,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: LoginAvatarWidget(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 功能：构建添加用户名按钮。
+  /// 说明：沿用进入用户资料页的老入口，视觉改成资料卡中的白色描边按钮。
+  Widget _buildMobileMineAddUsernameButton() {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: () {
+        Utility.pushNavigator(context, SettingUserInfoPage());
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white, width: 1.4),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.person_add_alt_1_outlined,
+              color: Colors.white,
+              size: 18,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              getI18NKey().add_username,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 功能：构建移动端功能宫格面板。
+  /// 说明：把旧的三组 GridMenuItem 收敛成一个白色面板，四列展示更接近设计图且滚动更紧凑。
+  Widget _buildMobileMineMenuPanel() {
+    final List<_MobileMineMenuEntry> entries = _getMobileMineMenuEntries();
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(18, 28, 18, 24),
+      decoration: BoxDecoration(
+        color: _mobileMineCardColor,
+        borderRadius: BorderRadius.circular(26),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 28,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: entries.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          mainAxisSpacing: 18,
+          crossAxisSpacing: 10,
+          // 四列宫格里包含图标、双行标题和副标题，原 0.98 高度不足会在真机 Debug 下溢出。
+          childAspectRatio: 0.62,
+        ),
+        itemBuilder: (context, index) {
+          return _buildMobileMineMenuItem(entries[index]);
+        },
+      ),
+    );
+  }
+
+  /// 功能：构建单个功能入口。
+  /// 说明：图标放在独立小白卡内，标题和副标题固定行数，避免长文案挤压整体宫格。
+  Widget _buildMobileMineMenuItem(_MobileMineMenuEntry entry) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(18),
+      onTap: entry.onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: 54,
+            height: 54,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: const Color(0xFFF2F2F2)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 16,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: SizedBox(
+              width: 34,
+              height: 34,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: entry.icon,
+              ),
+            ),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            entry.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: _mobileMineTextColor,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              height: 1.14,
+            ),
+          ),
+          const SizedBox(height: 3),
+          Text(
+            entry.subtitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: _mobileMineSubTextColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 功能：汇总移动端“我的”页工具入口。
+  /// 说明：保留原三组菜单的跳转能力，并按设计图顺序合并为一个四列宫格。
+  List<_MobileMineMenuEntry> _getMobileMineMenuEntries() {
+    final double menuIconSize = 30;
+    final List<_MobileMineMenuEntry> entries = [
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcClockinSelected,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().clock_in,
+        subtitle: getI18NKey().mine_menu_subtitle_habit_building,
+        onTap: () {
+          Utility.pushNavigator(context, FlomoPage());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcFocusTraining,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().focus_campus,
+        subtitle: getI18NKey().mine_menu_subtitle_focus_training,
+        onTap: () {
+          Utility.pushNavigator(context, GamesPage());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcTimeline, size: menuIconSize),
+        title: Utility.isHuaWei()
+            ? getI18NKey().tasks_list
+            : getI18NKey().timeline,
+        subtitle: getI18NKey().mine_menu_subtitle_time_record,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(context, 'timeline');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcAddnote, size: menuIconSize),
+        title: getI18NKey().add_note,
+        subtitle: getI18NKey().mine_menu_subtitle_capture_ideas,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(context, 'addnote');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcVoiceNote, size: menuIconSize),
+        title: getI18NKey().note_diary,
+        subtitle: getI18NKey().mine_menu_subtitle_voice_to_text,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(context, 'voicenote');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcNote, size: menuIconSize),
+        title: getI18NKey().write_diary,
+        subtitle: getI18NKey().mine_menu_subtitle_daily_record,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(context, 'writediary');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcVoiceDiary,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().voice_diary,
+        subtitle: getI18NKey().mine_menu_subtitle_voice_record,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(context, 'voicediary');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcCountdownTimerSelected,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().count_down_text,
+        subtitle: getI18NKey().mine_menu_subtitle_focus_timing,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(
+              context, 'CountDownListViewPage');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcMemoDayChecked,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().count_up_text,
+        subtitle: getI18NKey().mine_menu_subtitle_important_days,
+        onTap: () {
+          JumpNavigator.onClickCustomHeaderGridView(
+              context, 'CountUpListViewPage');
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcNote3, size: menuIconSize),
+        title: getI18NKey().note_n,
+        subtitle: getI18NKey().mine_menu_subtitle_note_management,
+        onTap: () {
+          context.read<GlobalStateEnv>().wqbModeEnum = WQBModeEnum.note;
+          Utility.pushNavigator(context, const WQBContainer());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon:
+            Utility.getSVGPicture(R.assetsImgIcMemorandum, size: menuIconSize),
+        title: getI18NKey().memorandum,
+        subtitle: getI18NKey().mine_menu_subtitle_memo_reminder,
+        onTap: () {
+          context.read<GlobalStateEnv>().wqbModeEnum = WQBModeEnum.memorandum;
+          Utility.pushNavigator(context, const WQBContainer());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcWrongQuestionBook,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().wrong_question_book,
+        subtitle: getI18NKey().mine_menu_subtitle_wrong_question_review,
+        onTap: () {
+          context.read<GlobalStateEnv>().wqbModeEnum =
+              WQBModeEnum.wrong_question_book;
+          Utility.pushNavigator(context, const WQBContainer());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcCard, size: menuIconSize),
+        title: getI18NKey().card,
+        subtitle: getI18NKey().mine_menu_subtitle_knowledge_cards,
+        onTap: () {
+          context.read<GlobalStateEnv>().wqbModeEnum = WQBModeEnum.card;
+          Utility.pushNavigator(context, const WQBContainer());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(
+          R.assetsImgIcTomatoChecked,
+          size: menuIconSize,
+        ),
+        title: getI18NKey().tomatoClockSetting,
+        subtitle: getI18NKey().mine_menu_subtitle_pomodoro_focus,
+        onTap: () {
+          Utility.pushNavigator(
+            context,
+            const SettingPage(pageFrom: PageFromEnum.Normal),
+          );
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: const Icon(Icons.filter_alt, color: Colors.black, size: 30),
+        title: getI18NKey().filtering_setting,
+        subtitle: getI18NKey().mine_menu_subtitle_task_filter,
+        onTap: () {
+          Utility.pushNavigator(context, FilterMenuSettingPage());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcTheme, size: menuIconSize),
+        title: getI18NKey().theme,
+        subtitle: getI18NKey().mine_menu_subtitle_interface_theme,
+        onTap: () {
+          Utility.pushNavigator(context, ThemePage());
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon:
+            Utility.getSVGPicture(R.assetsImgIcPermission, size: menuIconSize),
+        title: getI18NKey().permission_setting,
+        subtitle: getI18NKey().mine_menu_subtitle_privacy_permission,
+        onTap: () {
+          Utility.pushNavigator(context, SettingPermissionPage());
+        },
+      ),
+    ];
+
+    if (Utility.isIOS()) {
+      entries.insert(
+        1,
+        _MobileMineMenuEntry(
+          icon: Utility.getSVGPicture(
+            R.assetsImgIcLockscreenView,
+            size: menuIconSize,
+          ),
+          title: getI18NKey().lock_app_setting,
+          subtitle: getI18NKey().mine_menu_subtitle_lock_screen_widget,
+          onTap: () {
+            if (LoginManager.getInstance().isVIP(
+              shouldShowDialog: true,
+              paymentPromotionAdsModeEnum:
+                  PaymentPromotionAdsModeEnum.Lockscreen,
+            )) {
+              Utility.pushNavigator(context, LockScreenPage());
+            }
+          },
+        ),
+      );
+    }
+
+    if (Utility.isHuaWei() == false) {
+      entries.add(
+        _MobileMineMenuEntry(
+          icon:
+              Utility.getSVGPicture(R.assetsImgIcFeedback, size: menuIconSize),
+          title: getI18NKey().feedback,
+          subtitle: getI18NKey().mine_menu_subtitle_user_feedback,
+          onTap: () {
+            Utility.pushNavigator(context, FeedbackPage());
+          },
+        ),
+      );
+    }
+
+    entries.addAll([
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcFeedback2, size: menuIconSize),
+        title: getI18NKey().copy_qq,
+        subtitle: getI18NKey().mine_menu_subtitle_community,
+        onTap: () {
+          if (Localizations.localeOf(Utility.getGlobalContext()).languageCode !=
+              'zh') {
+            Utility.openExternalWebView(url: Urls.facebook);
+          } else {
+            Utility.copyToClipboard('563144208', shouldShowToast: false);
+            Utility.showToastMsg(
+                context: context, msg: getI18NKey().copy_qq_success);
+          }
+        },
+      ),
+      _MobileMineMenuEntry(
+        icon: Utility.getSVGPicture(R.assetsImgIcCloudSync, size: menuIconSize),
+        title: getI18NKey().cloud_sync,
+        subtitle: getI18NKey().cloud_sync_content,
+        onTap: () async {
+          await onClickSyncCloud(context);
+        },
+      ),
+    ]);
+
+    if (Utility.isHuaWei() == false && ABTestSetting.isOpenAiOn) {
+      entries.add(
+        _MobileMineMenuEntry(
+          icon:
+              Utility.getSVGPicture(R.assetsImgIcAiHelper, size: menuIconSize),
+          title: getI18NKey().ai_helper,
+          subtitle: getI18NKey().mine_menu_subtitle_ai_assistant,
+          onTap: () {
+            Utility.pushNavigator(context, const GPTContainer());
+          },
+        ),
+      );
+    }
+
+    if (Utility.isHandsetBySize() && LoginManager.isLogin()) {
+      entries.add(
+        _MobileMineMenuEntry(
+          icon: Utility.getSVGPicture(
+            R.assetsImgIcPrivacySetting,
+            size: menuIconSize,
+          ),
+          title: getI18NKey().privacy_management,
+          subtitle: getI18NKey().mine_menu_subtitle_data_management,
+          onTap: () {
+            Utility.pushNavigator(context, PrivacySettingPage());
+          },
+        ),
+      );
+    }
+
+    return entries;
   }
 
   Future<void> onClickSyncCloud(BuildContext context) async {
@@ -924,7 +1712,7 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              !TextUtil.isEmpty(LoginManager.getInstance().userBean?.username)
+              !TextUtil.isEmpty(LoginManager.getInstance().userBean.username)
                   ? Text(
                       LoginManager.getInstance().userBean.username,
                       overflow: TextOverflow.ellipsis,

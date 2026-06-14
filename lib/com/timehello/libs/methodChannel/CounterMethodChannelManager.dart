@@ -1,4 +1,7 @@
+/// 文件职责：统一管理 Flutter 与各平台原生端的 MethodChannel 通信。
+/// 说明：新增跨端能力时优先复用本类，避免 iOS、Android、Windows、macOS 各自散落 channel 名称。
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -31,11 +34,11 @@ import '../../models/PushDataModelList.dart';
 import '../../models/SessionMissionModel.dart';
 import '../../util/DeviceInfoManagement.dart';
 
-import 'dart:convert';
-
 class CounterMethodChannelManager {
   static const MethodChannel _channel =
       const MethodChannel('com.efficienttime.counter');
+  static const String _iapLogTag = 'IAP_METHOD_CHANNEL';
+  static const String _methodCommonBridge = 'commonBridge';
   static CounterMethodChannelManager? _instance;
   List<OnMethodChannelResponseListener> onMethodChannelResponseLisntenerList =
       [];
@@ -57,6 +60,125 @@ class CounterMethodChannelManager {
         }
       ]));
     } catch (e) {}
+  }
+
+  /// 功能：跨 iOS、Android、Windows、macOS 的公共原生桥接入口。
+  /// 说明：用 action 承载具体业务，四端返回统一 Map，后续新增原生能力时无需再新增一套 channel。
+  Future<Map<String, dynamic>> invokeCommonBridge({
+    required String action,
+    Map<String, dynamic> params = const <String, dynamic>{},
+  }) async {
+    try {
+      final dynamic result = await _channel.invokeMethod(_methodCommonBridge, [
+        {
+          "action": action,
+          "params": params,
+        }
+      ]);
+      return _normalizeCommonBridgeResult(result, action: action);
+    } catch (e, stackTrace) {
+      debugPrint(
+        '[COMMON_METHOD_CHANNEL][common-bridge-error] action=$action error=$e stackTrace=$stackTrace',
+      );
+      return <String, dynamic>{
+        "success": false,
+        "platform": _currentBridgePlatform(),
+        "action": action,
+        "code": "COMMON_BRIDGE_ERROR",
+        "message": e.toString(),
+        "data": params,
+      };
+    }
+  }
+
+  /// 功能：兼容原生端返回 Map 或 JSON 字符串两种格式，保持 Flutter 业务层读取稳定。
+  Map<String, dynamic> _normalizeCommonBridgeResult(
+    dynamic result, {
+    required String action,
+  }) {
+    if (result is Map) {
+      return Map<String, dynamic>.from(result);
+    }
+    if (result is String && result.isNotEmpty) {
+      final dynamic json = jsonDecode(result);
+      if (json is Map) {
+        return Map<String, dynamic>.from(json);
+      }
+    }
+    return <String, dynamic>{
+      "success": false,
+      "platform": _currentBridgePlatform(),
+      "action": action,
+      "code": "COMMON_BRIDGE_EMPTY_RESULT",
+      "message": "Native common bridge returned empty result.",
+      "data": null,
+    };
+  }
+
+  /// 功能：为公共桥接器提供 Flutter 侧兜底平台名，原生通道异常时仍能定位端类型。
+  String _currentBridgePlatform() {
+    if (DeviceInfoManagement.isIOS()) {
+      return "ios";
+    }
+    if (DeviceInfoManagement.isAndroid()) {
+      return "android";
+    }
+    if (DeviceInfoManagement.isMacOs()) {
+      return "macos";
+    }
+    if (DeviceInfoManagement.isWindows()) {
+      return "windows";
+    }
+    return "unknown";
+  }
+
+  /// 功能：统一输出内购 MethodChannel 关键日志。
+  /// 说明：内购链路跨 Flutter 与原生 StoreKit，Unknown Error 通常需要同时看到入参、原始返回和异常栈。
+  void _logIap(String message,
+      {String event = 'iap-log', Object? error, StackTrace? stackTrace}) {
+    final String now = _logTimestamp();
+    debugPrint('[$now][$_iapLogTag][$event] $message');
+    if (error != null) {
+      debugPrint('[$now][$_iapLogTag][$event] error=$error');
+    }
+    if (stackTrace != null) {
+      debugPrint('[$now][$_iapLogTag][$event] stackTrace=$stackTrace');
+    }
+  }
+
+  /// 功能：生成统一日志时间前缀，格式固定为 MMDD HH:mm:ss，方便按时间段搜索。
+  String _logTimestamp() {
+    final DateTime now = DateTime.now();
+    String two(int value) => value.toString().padLeft(2, '0');
+    return '${two(now.month)}${two(now.day)} ${two(now.hour)}:${two(now.minute)}:${two(now.second)}';
+  }
+
+  /// 功能：记录 BaseBean 的核心字段，避免直接打印 receipt 等敏感长文本。
+  /// 入参：method 表示当前调用的方法名，bean 为解析后的接口结果。
+  void _logBaseBean(String method, BaseBean bean,
+      {String event = 'iap-result'}) {
+    _logIap(
+      '$method parsed success=${bean.success}, code=${bean.code}, '
+      'message=${bean.message}, data=${_safeIapData(bean.data)}',
+      event: event,
+    );
+  }
+
+  /// 功能：对内购返回数据做脱敏，便于排查同时避免日志里出现完整票据。
+  String _safeIapData(dynamic data) {
+    if (data is Map) {
+      final Map safe = Map.from(data);
+      for (final key in ['res', 'receipt', 'receiptString']) {
+        if (safe[key] is String) {
+          safe[key] = '<redacted length=${(safe[key] as String).length}>';
+        }
+      }
+      return safe.toString();
+    }
+    if (data is String && data.length > 120) {
+      return '<redacted string length=${data.length}>';
+    }
+    return data.toString();
   }
 
   Future<bool> shareToQQ(
@@ -490,11 +612,18 @@ class CounterMethodChannelManager {
 
   Future<BaseBean> IAPPurchase({required String id}) async {
     try {
+      _logIap('IAPPurchase start productId=$id',
+          event: 'purchase-channel-start');
       String res =
           (await _channel.invokeMethod<String>('IAPpurchase', id)) ?? "";
-      return BaseBean.fromJson(jsonDecode(res));
-    } catch (e) {
-      return BaseBean(success: false);
+      _logIap('IAPPurchase rawResponse=$res', event: 'purchase-channel-raw');
+      final BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      _logBaseBean('IAPPurchase', bean, event: 'purchase-channel-result');
+      return bean;
+    } catch (e, stackTrace) {
+      _logIap('IAPPurchase failed productId=$id',
+          event: 'purchase-channel-error', error: e, stackTrace: stackTrace);
+      return BaseBean(success: false, message: e.toString());
     }
   }
 
@@ -508,21 +637,37 @@ class CounterMethodChannelManager {
    */
   Future<BaseBean> checkSubscriptionState(String id) async {
     try {
+      _logIap('checkSubscriptionState start productId=$id',
+          event: 'subscription-state-start');
       String res =
           (await _channel.invokeMethod<String>('checkSubscriptionState', id)) ??
               "";
-      return BaseBean.fromJson(jsonDecode(res));
-    } catch (e) {
-      return BaseBean(success: false);
+      _logIap('checkSubscriptionState rawResponse=$res',
+          event: 'subscription-state-raw');
+      final BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      _logBaseBean('checkSubscriptionState', bean,
+          event: 'subscription-state-result');
+      return bean;
+    } catch (e, stackTrace) {
+      _logIap('checkSubscriptionState failed productId=$id',
+          event: 'subscription-state-error', error: e, stackTrace: stackTrace);
+      return BaseBean(success: false, message: e.toString());
     }
   }
 
   Future<BaseBean> getReceipt() async {
     try {
+      _logIap('getReceipt start', event: 'receipt-start');
       String res = (await _channel.invokeMethod<String>('getReceipt')) ?? "";
-      return BaseBean.fromJson(jsonDecode(res));
-    } catch (e) {
-      return BaseBean(success: false);
+      _logIap('getReceipt rawResponseLength=${res.length}',
+          event: 'receipt-raw');
+      final BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      _logBaseBean('getReceipt', bean, event: 'receipt-result');
+      return bean;
+    } catch (e, stackTrace) {
+      _logIap('getReceipt failed',
+          event: 'receipt-error', error: e, stackTrace: stackTrace);
+      return BaseBean(success: false, message: e.toString());
     }
   }
 
@@ -532,21 +677,39 @@ class CounterMethodChannelManager {
    */
   Future<BaseBean> restorePurchases() async {
     try {
+      _logIap('restorePurchases start', event: 'restore-channel-start');
       String res =
           (await _channel.invokeMethod<String>('restorePurchases')) ?? "";
-      return BaseBean.fromJson(jsonDecode(res));
-    } catch (e) {
-      return BaseBean(success: false);
+      _logIap('restorePurchases rawResponse=$res',
+          event: 'restore-channel-raw');
+      final BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      _logBaseBean('restorePurchases', bean, event: 'restore-channel-result');
+      return bean;
+    } catch (e, stackTrace) {
+      _logIap('restorePurchases failed',
+          event: 'restore-channel-error', error: e, stackTrace: stackTrace);
+      return BaseBean(success: false, message: e.toString());
     }
   }
 
   Future<BaseBean> getSubscriptionDetails() async {
     try {
+      _logIap('getSubscriptionDetails start',
+          event: 'subscription-details-start');
       String res =
           (await _channel.invokeMethod<String>('getSubscriptionDetails')) ?? "";
-      return BaseBean.fromJson(jsonDecode(res));
-    } catch (e) {
-      return BaseBean(success: false);
+      _logIap('getSubscriptionDetails rawResponse=$res',
+          event: 'subscription-details-raw');
+      final BaseBean bean = BaseBean.fromJson(jsonDecode(res));
+      _logBaseBean('getSubscriptionDetails', bean,
+          event: 'subscription-details-result');
+      return bean;
+    } catch (e, stackTrace) {
+      _logIap('getSubscriptionDetails failed',
+          event: 'subscription-details-error',
+          error: e,
+          stackTrace: stackTrace);
+      return BaseBean(success: false, message: e.toString());
     }
   }
 
@@ -554,18 +717,28 @@ class CounterMethodChannelManager {
       {required List<String> listProducts}) async {
     try {
       if (listProducts.length > 0) {
+        _logIap('IAPManagerFetchProducts start productIds=$listProducts',
+            event: 'product-fetch-start');
         String res = (await _channel.invokeMethod<String>(
                 'IAPManagerFetchProducts', listProducts)) ??
             "";
+        _logIap('IAPManagerFetchProducts rawResponse=$res',
+            event: 'product-fetch-raw');
         Map<String, dynamic> json = jsonDecode(res);
         final events = (json['data'] as List).map((e) {
           e['price'] = e['price'].toDouble() ?? 0.0;
           return PriceProductModel.fromJson(e);
         }).toList();
+        _logIap(
+            'IAPManagerFetchProducts parsed count=${events.length}, identifiers=${events.map((e) => e.identifier).toList()}',
+            event: 'product-fetch-result');
         return events;
       }
-    } catch (e) {
-      print(e);
+      _logIap('IAPManagerFetchProducts skipped empty productIds',
+          event: 'product-fetch-skip');
+    } catch (e, stackTrace) {
+      _logIap('IAPManagerFetchProducts failed productIds=$listProducts',
+          event: 'product-fetch-error', error: e, stackTrace: stackTrace);
     }
     return [];
   }

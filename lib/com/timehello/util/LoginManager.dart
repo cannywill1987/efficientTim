@@ -366,20 +366,29 @@ class LoginManager {
         loginTypeEnum: LoginTypeEnum.google);
   }
 
-  bool isVIP({BuildContext? context, required bool shouldShowDialog, bool shouldForceShowDialog = false, PaymentPromotionAdsModeEnum paymentPromotionAdsModeEnum = PaymentPromotionAdsModeEnum.TimeSegment}) {
-    if(context == null) {
+  bool isVIP(
+      {BuildContext? context,
+      required bool shouldShowDialog,
+      bool shouldForceShowDialog = false,
+      PaymentPromotionAdsModeEnum paymentPromotionAdsModeEnum =
+          PaymentPromotionAdsModeEnum.TimeSegment}) {
+    if (context == null) {
       context = Utility.getGlobalContext();
     }
-    if (shouldShowDialog == true && SubscriptionAndPriceManager.getInstance().isVIP() == false) {
+
+    /**
+     * 功能：统一从订阅管理器读取会员状态，并按需打开会员弹窗。
+     * 说明：shouldForceShowDialog 之前没有参与判断，导致“立即升级”这类主动入口在本地状态被判为 VIP 时不会弹窗。
+     */
+    bool isVip = SubscriptionAndPriceManager.getInstance().isVIP();
+    if (shouldShowDialog == true &&
+        (shouldForceShowDialog == true || isVip == false)) {
       openSubscriptionDialog(context);
-      return false;
-    } else {
-      bool isVip = SubscriptionAndPriceManager.getInstance().isVIP();
-      if (isVip == true) {
-        print("${isVip}");
-      }
-      return isVip;
     }
+    if (isVip == true) {
+      print("${isVip}");
+    }
+    return isVip;
   }
 
   void openSubscriptionDialog(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
+import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 class CustomButtonWidget extends StatefulWidget {
   OnTapListener? onTapListener;
@@ -16,8 +17,7 @@ class CustomButtonWidget extends StatefulWidget {
 
   CustomButtonWidget(
       {Key? key, this.onTapListener, this.status, this.text, this.icon})
-      : super(key: key) {
-  }
+      : super(key: key) {}
 
   @override
   State<StatefulWidget> createState() {
@@ -41,6 +41,7 @@ class CustomButtonState extends State<CustomButtonWidget> {
   }
 
   Widget getCustomButtunStartStatus() {
+    final Color themeColor = ThemeManager.getInstance().getDefautThemeColor();
     return TextButton(
         style: StylesConfig.transparentTextButtonStyle,
         onPressed: () {
@@ -49,26 +50,36 @@ class CustomButtonState extends State<CustomButtonWidget> {
           }
         },
         child: Container(
-            margin: EdgeInsets.fromLTRB(15, 20, 15, 0),
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+            margin: const EdgeInsets.fromLTRB(15, 18, 15, 0),
+            padding: const EdgeInsets.symmetric(horizontal: 28),
             alignment: Alignment.center,
-            height: 40,
+            height: 54,
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.all(Radius.circular(200))),
+                color: Colors.black.withValues(alpha: 0.22),
+                border: Border.all(color: themeColor, width: 1),
+                borderRadius: const BorderRadius.all(Radius.circular(200)),
+                boxShadow: [
+                  BoxShadow(
+                    color: themeColor.withValues(alpha: 0.24),
+                    blurRadius: 22,
+                    spreadRadius: -8,
+                  )
+                ]),
             child: Wrap(
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
               direction: Axis.horizontal,
               children: [
-                this.widget.icon ?? SizedBox.shrink(),
-                SizedBox(
-                  width: 2,
+                Icon(
+                  Icons.play_arrow_rounded,
+                  size: 25,
+                  color: ColorsConfig.white,
                 ),
+                const SizedBox(width: 8),
                 Text(
                   this.widget.text ?? "",
                   style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 21,
                       color: ColorsConfig.white,
                       fontWeight: FontWeight.w600),
                 )
@@ -77,6 +88,7 @@ class CustomButtonState extends State<CustomButtonWidget> {
   }
 
   Widget getCustomButtunPauseStatus() {
+    final Color themeColor = ThemeManager.getInstance().getDefautThemeColor();
     return TextButton(
         style: StylesConfig.transparentTextButtonStyle,
         onPressed: () {
@@ -86,24 +98,38 @@ class CustomButtonState extends State<CustomButtonWidget> {
         },
         child: FittedBox(
             child: Container(
-                margin: EdgeInsets.fromLTRB(15, 20, 15, 0),
-                padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
+                margin: const EdgeInsets.fromLTRB(15, 18, 15, 0),
+                padding: const EdgeInsets.symmetric(horizontal: 36),
                 alignment: Alignment.center,
-                height: 40,
+                height: 54,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.all(Radius.circular(200))),
+                    color: Colors.black.withValues(alpha: 0.22),
+                    border: Border.all(color: themeColor, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(200)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: themeColor.withValues(alpha: 0.24),
+                        blurRadius: 22,
+                        spreadRadius: -8,
+                      )
+                    ]),
                 child: Wrap(
                   alignment: WrapAlignment.center,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   direction: Axis.horizontal,
                   children: [
+                    Icon(
+                      Icons.pause_rounded,
+                      size: 23,
+                      color: ColorsConfig.white,
+                    ),
+                    const SizedBox(width: 8),
                     Text(
                       this.widget.text ?? '',
                       style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 21,
                           color: Colors.white,
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w700),
                     )
                   ],
                 ))));

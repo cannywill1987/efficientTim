@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:time_hello/com/timehello/common/provider/CalendarMssionEnv.dart';
-import 'package:time_hello/com/timehello/components/CustomBlackButton.dart';
 import 'package:time_hello/com/timehello/components/CustomPopupWidget.dart';
 import 'package:time_hello/com/timehello/components/ListingFilterWidget.dart';
 import 'package:time_hello/com/timehello/components/TimeRatioComponent.dart';
@@ -12,7 +13,6 @@ import 'package:time_hello/com/timehello/util/TextUtil.dart';
 
 import '../../common/database/apis/MongoApisManager.dart';
 import '../../components/BaseWidget.dart';
-import '../../components/BlackCheckButtonListWidget.dart';
 import '../../components/CircleWidget.dart';
 import '../../components/CommonCalendarHeaderWidget.dart';
 import '../../components/CustomMarquee.dart';
@@ -27,10 +27,12 @@ import '../../models/FolderModel.dart';
 import '../../models/MissionModel.dart';
 import '../../models/SessionMissionModel.dart';
 import '../../util/DialogManagement.dart';
+import '../../util/MobileVoiceTaskManager.dart';
 import '../../util/SharePreferenceUtil.dart';
 import '../../util/ThemeManager.dart';
 import '../../util/Utility.dart';
 import '../CreateMissionPage/CreateMissionPage.dart';
+import '../missionPage/componnents/MobileVoiceTaskSheet.dart';
 import 'components/QuadrantWidget.dart';
 import '../../components/SearchBarWidget.dart';
 
@@ -70,6 +72,12 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
   DateTime? endDateTime;
   double missionPageWidth = 300;
 
+  bool get isStandardFourQuadrantOrder =>
+      SharePreferenceUtil.getSyncInstance().getFourQuadrantOrderMode() == 1;
+
+  String get fourQuadrantOrderModeTitle =>
+      isStandardFourQuadrantOrder ? '标准顺序（右上=紧急&重要）' : '当前顺序';
+
   selectDate(DateTime? startDateTime, DateTime? endDateTime) {
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
@@ -97,8 +105,57 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
     eventBus.on<EventFn>().listen((EventFn event) {
       if (event.type == Params.ACTION_UPDATE_LISTVIEW) {
         this.requestDatas();
+      } else if (event.type == Params.ACTION_UPDATE_ALL_UI && mounted) {
+        updateUI();
       }
     });
+  }
+
+  Widget buildQuadrantItem({
+    required GlobalKey<QuadrantWidgetState> widgetKey,
+    required SessionMissionModel? sessionMissionModel,
+    required PriorityEnum priorityEnum,
+    required String title,
+    required String desc,
+    required EdgeInsets padding,
+  }) {
+    return Expanded(
+        child: Container(
+      padding: padding,
+      child: QuadrantWidget(
+        key: widgetKey,
+        isHeaderVisible: this.curIndex == 1,
+        quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
+        onRefresh: () {
+          this.requestDatas();
+        },
+        onRefreshListener: (missionModel) {
+          this.onClick("onRefreshListener", missionModel);
+        },
+        listMissionModelsFinished:
+            Utility.getMissionModelFinished(sessionMissionModel?.datas ?? []),
+        listMissionModelsUnfinished:
+            Utility.getMissionModelUnfinished(sessionMissionModel?.datas ?? []),
+        priorityEnum: priorityEnum,
+        title: title,
+        desc: desc,
+        onDragingListener: onDragingListener,
+        onDragEndListener: resetBorder,
+      ),
+    ));
+  }
+
+  Widget buildQuadrantRow({
+    required Widget left,
+    required Widget right,
+  }) {
+    // 外层 Column 已经用 Expanded 控制每一行高度，这里只返回 Row，避免 Expanded 嵌套导致 ParentDataWidget 冲突。
+    return Row(
+      children: [
+        left,
+        right,
+      ],
+    );
   }
 
   //  根据iconcType 1-今天 2 明天 3 即将到来 4 待定 5 日程 5 已完成
@@ -128,6 +185,93 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
     // //待定 还没设定时间的
     // Utility.throttle(() async {
     // })();
+  }
+
+  /// 功能：四象限页面长按加号时打开移动端语音创建任务面板。
+  /// 说明：浮动加号没有明确象限时使用默认优先级；如果后续从象限卡片传入 priorityStatus，则会带入 AI 和普通创建。
+  Future<void> _showMobileVoiceTaskSheet({int? priorityStatus}) async {
+    if (!Utility.isHandsetBySize()) {
+      return;
+    }
+    await MobileVoiceTaskSheet.show(
+      context: context,
+      onSubmit: (payload) {
+        return _handleMobileVoiceTaskPayload(
+          payload,
+          priorityStatus: priorityStatus,
+        );
+      },
+    );
+  }
+
+  /// 功能：处理四象限语音创建任务的普通/AI 分流。
+  Future<String?> _handleMobileVoiceTaskPayload(
+    MobileVoiceTaskPayload payload, {
+    int? priorityStatus,
+  }) async {
+    final text = payload.text.trim();
+    if (TextUtil.isEmpty(text)) {
+      throw StateError(getI18NKey().mobile_voice_task_empty);
+    }
+    if (payload.mode == MobileVoiceTaskMode.ai) {
+      final result = await MobileVoiceTaskManager.createAiMissionsFromPrompt(
+        prompt: text,
+        defaultPriorityStatus: priorityStatus,
+        defaultDateStatus: 1,
+      );
+      if (result['ok'] != true) {
+        throw StateError(result['message']?.toString() ?? '');
+      }
+      requestDatas();
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+      return _toolResultMessage(result, fallback: getI18NKey().addsuccess);
+    }
+
+    await _createPlainVoiceMission(
+      title: text,
+      priorityStatus: priorityStatus,
+    );
+    return getI18NKey().addsuccess;
+  }
+
+  /// 功能：四象限普通语音直接创建单条任务。
+  /// 说明：这里保持与原浮动加号一致，默认创建今天日期任务；象限入口会额外带上 priorityStatus。
+  Future<void> _createPlainVoiceMission({
+    required String title,
+    int? priorityStatus,
+  }) async {
+    final missionModel = MissionModel();
+    missionModel.title = title;
+    missionModel.end_time = CONSTANTS.getDeadLineTme(1);
+    missionModel.dateStatus = 1;
+    missionModel.priorityStatus = priorityStatus ?? 3;
+    missionModel.total_tomotoes = 1;
+    missionModel.tomato_duration =
+        await SharePreferenceUtil.getSyncInstance().getTomatoTime();
+    final saved = await MongoApisManager.getInstance().insertMissiontData(
+      missionModel: missionModel,
+    );
+    if (saved == null) {
+      throw StateError(getI18NKey().alertMessage2);
+    }
+    requestDatas();
+    eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+    eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+  }
+
+  /// 功能：从 AI 创建工具结果里提取可展示文案。
+  String _toolResultMessage(
+    Map<String, Object?> result, {
+    required String fallback,
+  }) {
+    final contextItems = result['contextItems'];
+    if (contextItems is List && contextItems.isNotEmpty) {
+      final first = contextItems.first;
+      if (first is Map && !TextUtil.isEmpty(first['content'])) {
+        return first['content'].toString();
+      }
+    }
+    return result['message']?.toString() ?? fallback;
   }
 
   filterSessionMissinModelIntoFourParts(
@@ -187,7 +331,59 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
       case 'onRefreshListener':
         this.onRefreshListener(data);
         break;
+      case 'onClickOrderMode':
+        onClickOrderMode();
+        break;
     }
+  }
+
+  void onClickOrderMode() {
+    showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: Text('位置顺序'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('当前顺序'),
+                  trailing: SharePreferenceUtil.getSyncInstance()
+                              .getFourQuadrantOrderMode() ==
+                          0
+                      ? Icon(Icons.check,
+                          color:
+                              ThemeManager.getInstance().getDefautThemeColor())
+                      : null,
+                  onTap: () {
+                    SharePreferenceUtil.getSyncInstance()
+                        .setFourQuadrantOrderMode(0);
+                    Navigator.of(dialogContext).pop();
+                    updateUI();
+                  },
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('标准顺序（右上=紧急&重要）'),
+                  trailing: SharePreferenceUtil.getSyncInstance()
+                              .getFourQuadrantOrderMode() ==
+                          1
+                      ? Icon(Icons.check,
+                          color:
+                              ThemeManager.getInstance().getDefautThemeColor())
+                      : null,
+                  onTap: () {
+                    SharePreferenceUtil.getSyncInstance()
+                        .setFourQuadrantOrderMode(1);
+                    Navigator.of(dialogContext).pop();
+                    updateUI();
+                  },
+                )
+              ],
+            ),
+          );
+        });
   }
 
   void onRefreshListener(MissionModel missionMdeo) {
@@ -251,277 +447,197 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
                     .getBackgroundColor(defaultColor: const Color(0xFF171312)),
               )
             : const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFFF8DAC4),
-                    Color(0xFFF7ECDD),
-                    Color(0xFFDDEDE0),
-                  ],
-                ),
+                color: Colors.white,
               ),
         child: Stack(
           children: [
-            if (!isDark)
-              Positioned(
-                top: -72,
-                left: -54,
-                child: Container(
-                  width: 190,
-                  height: 190,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFD7B8).withValues(alpha: 0.88),
-                    borderRadius: BorderRadius.circular(95),
-                  ),
-                ),
-              ),
-            if (!isDark)
-              Positioned(
-                top: 178,
-                left: -62,
-                child: Container(
-                  width: 170,
-                  height: 170,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFCFE6D7).withValues(alpha: 0.84),
-                    borderRadius: BorderRadius.circular(85),
-                  ),
-                ),
-              ),
-            if (!isDark)
-              Positioned(
-                top: 64,
-                right: -48,
-                child: Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF7E2D0).withValues(alpha: 0.82),
-                    borderRadius: BorderRadius.circular(75),
-                  ),
-                ),
-              ),
             Container(
                 key: quadrantWidgetGlobalKey,
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  CustomMarquee(
-                    paddingHor: 0,
-                    paddingTop: 0,
-                    bean: MarqueInfo.marqueFourQuadrantPage,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  // 搜索框：同步 MissionPage 的卡片化风格，避免顶部出现突兀白底输入区
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: isDark
-                          ? const Color(0xFF2A211C)
-                          : const Color(0xFFFDF7EE).withValues(alpha: 0.95),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: isDark
-                            ? const Color(0xFF4A3C33)
-                            : const Color(0xFFECDDCB),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.06),
-                          blurRadius: 14,
-                          offset: const Offset(0, 6),
-                        ),
-                      ],
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    CustomMarquee(
+                      paddingHor: 0,
+                      paddingTop: 0,
+                      bean: MarqueInfo.marqueFourQuadrantPage,
                     ),
-                    child: SearchBarWidget(
-                        lastWidget: CustomPopupWidget(
-                          onSelected: (CheckButtonStateModel model) {
-                            if (model.code == 'export') {
-                              onClickExport(context);
-                            } else if (model.code == 'visibility') {
-                              onClickChangeVisibility(curIndex == 1 ? 0 : 1);
-                            }
-                          },
-                          list: CONSTANTS.getFourQuadrantButtonList(),
-                          child: Icon(
-                            Icons.more_horiz,
-                            color: isDark
-                                ? const Color(0xFFCEC4BB)
-                                : const Color(0xff999999),
-                          ),
-                        ),
-                        onChangeListener: (val) {
-                          this.onClick('onClickSearch', val);
-                        }),
-                  ),
-                  SizedBox(
-                    //头部
-                    height: 5,
-                  ),
-                  TimeRatioComponent(
-                      scene: "FourQuadrantPage",
-                      firstChild:         this.calendarTypeEnum == CalendarTypeEnum.custom ?
-          CommonCalendarHeaderWidget(
-          controller: controller,
-          calendarTypeEnum: calendarTypeEnum,
-          onChange: (data) {
-            dateTimePickerDateRange = data;
-            requestDatas();
-          }):null,
-                      progressSortEnum: ProgressSortEnum.priority,
-                      lastChild: getListingWidget(context),
-                      width: this.missionPageWidth,
-                      startTime: this.startDateTime,
-                      endTime: this.endDateTime,
+                    SizedBox(
                       height: 5,
-                      // totalTime: 24 * 60 * 60, // 一天的总秒数
-                      listMissionModels: this.missionListForView
-                      // [
-                      //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
-                      //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
-                      //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
-                      //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
-                      //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
-                      // ],
-                      ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                      child: Row(
-                    children: [
-                      Expanded(
-                          child: Container(
-                        padding: EdgeInsets.only(right: 5),
-                        child: QuadrantWidget(
-                          key: quadrantWidgetGlobalKey1,
-                          isHeaderVisible: this.curIndex == 1,
-                          quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
-                          onRefresh: () {
-                            this.requestDatas();
-                          },
-                          onRefreshListener: (missionModel) {
-                            this.onClick("onRefreshListener", missionModel);
-                          },
-                          listMissionModelsFinished:
-                              Utility.getMissionModelFinished(
-                                  listSessionMissionModelRed1?.datas ?? []),
-                          listMissionModelsUnfinished:
-                              Utility.getMissionModelUnfinished(
-                                  listSessionMissionModelRed1?.datas ?? []),
-                          priorityEnum: PriorityEnum.red1,
-                          title: getI18NKey().four_quadrant_priority1,
-                          desc: getI18NKey().four_quadrant_priority1_desc,
-                          onDragingListener: onDragingListener,
-                          onDragEndListener: resetBorder,
+                    ),
+                    // 搜索框：同步 MissionPage 的卡片化风格，避免顶部出现突兀白底输入区
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? const Color(0xFF2A211C)
+                            : const Color(0xFFFDF7EE).withValues(alpha: 0.95),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isDark
+                              ? const Color(0xFF4A3C33)
+                              : const Color(0xFFECDDCB),
                         ),
-                      )),
-                      Expanded(
-                          child: Container(
-                        padding: EdgeInsets.only(left: 5),
-                        child: QuadrantWidget(
-                          key: quadrantWidgetGlobalKey2,
-                          isHeaderVisible: this.curIndex == 1,
-                          quadrantWidgetGlobalKey: this.quadrantWidgetGlobalKey,
-                          onRefreshListener: (missionModel) {
-                            this.onClick("onRefreshListener", missionModel);
-                          },
-                          onRefresh: () {
-                            this.requestDatas();
-                          },
-                          listMissionModelsFinished:
-                              Utility.getMissionModelFinished(
-                                  listSessionMissionModelYellow2?.datas ?? []),
-                          listMissionModelsUnfinished:
-                              Utility.getMissionModelUnfinished(
-                                  listSessionMissionModelYellow2?.datas ?? []),
-                          priorityEnum: PriorityEnum.yellow2,
-                          title: getI18NKey().four_quadrant_priority2,
-                          desc: getI18NKey().four_quadrant_priority2_desc,
-                          onDragingListener: onDragingListener,
-                          onDragEndListener: resetBorder,
-                        ),
-                      )),
-                    ],
-                  )),
-                  SizedBox(
-                    height: innerMargin,
-                  ),
-                  Expanded(
-                      child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.only(right: 5),
-                          child: QuadrantWidget(
-                            key: quadrantWidgetGlobalKey3,
-                            isHeaderVisible: this.curIndex == 1,
-                            quadrantWidgetGlobalKey:
-                                this.quadrantWidgetGlobalKey,
-                            onRefreshListener: (missionModel) {
-                              this.onClick("onRefreshListener", missionModel);
-                            },
-                            onRefresh: () {
-                              this.requestDatas();
-                            },
-                            listMissionModelsFinished:
-                                Utility.getMissionModelFinished(
-                                    listSessionMissionModelBlue3?.datas ?? []),
-                            listMissionModelsUnfinished:
-                                Utility.getMissionModelUnfinished(
-                                    listSessionMissionModelBlue3?.datas ?? []),
-                            priorityEnum: PriorityEnum.blue3,
-                            title: getI18NKey().four_quadrant_priority3,
-                            desc: getI18NKey().four_quadrant_priority3_desc,
-                            onDragingListener: onDragingListener,
-                            onDragEndListener: resetBorder,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.06),
+                            blurRadius: 14,
+                            offset: const Offset(0, 6),
                           ),
-                        ),
+                        ],
                       ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.only(left: 5),
-                          child: QuadrantWidget(
-                            key: quadrantWidgetGlobalKey4,
-                            isHeaderVisible: this.curIndex == 1,
-                            quadrantWidgetGlobalKey:
-                                this.quadrantWidgetGlobalKey,
-                            onRefreshListener: (missionModel) {
-                              this.onClick("onRefreshListener", missionModel);
+                      child: SearchBarWidget(
+                          lastWidget: CustomPopupWidget(
+                            onSelected: (CheckButtonStateModel model) {
+                              if (model.code == 'export') {
+                                onClickExport(context);
+                              } else if (model.code == 'visibility') {
+                                onClickChangeVisibility(curIndex == 1 ? 0 : 1);
+                              } else if (model.code == 'position_order') {
+                                onClick('onClickOrderMode', null);
+                              }
                             },
-                            onRefresh: () {
-                              this.requestDatas();
-                            },
-                            listMissionModelsFinished:
-                                Utility.getMissionModelFinished(
-                                    listSessionMissionModelGreen4?.datas ?? []),
-                            listMissionModelsUnfinished:
-                                Utility.getMissionModelUnfinished(
-                                    listSessionMissionModelGreen4?.datas ?? []),
-                            priorityEnum: PriorityEnum.green4,
-                            title: getI18NKey().four_quadrant_priority4,
-                            desc: getI18NKey().four_quadrant_priority4_desc,
-                            onDragingListener: onDragingListener,
-                            onDragEndListener: resetBorder,
+                            list: CONSTANTS.getFourQuadrantButtonList(),
+                            child: Icon(
+                              Icons.more_horiz,
+                              color: isDark
+                                  ? const Color(0xFFCEC4BB)
+                                  : const Color(0xff999999),
+                            ),
                           ),
+                          onChangeListener: (val) {
+                            this.onClick('onClickSearch', val);
+                          }),
+                    ),
+                    SizedBox(
+                      //头部
+                      height: 5,
+                    ),
+                    TimeRatioComponent(
+                        scene: "FourQuadrantPage",
+                        firstChild:
+                            this.calendarTypeEnum == CalendarTypeEnum.custom
+                                ? CommonCalendarHeaderWidget(
+                                    controller: controller,
+                                    calendarTypeEnum: calendarTypeEnum,
+                                    onChange: (data) {
+                                      dateTimePickerDateRange = data;
+                                      requestDatas();
+                                    })
+                                : null,
+                        progressSortEnum: ProgressSortEnum.priority,
+                        lastChild: getListingWidget(context),
+                        width: this.missionPageWidth,
+                        startTime: this.startDateTime,
+                        endTime: this.endDateTime,
+                        height: 5,
+                        // totalTime: 24 * 60 * 60, // 一天的总秒数
+                        listMissionModels: this.missionListForView
+                        // [
+                        //   TimeSegment(label: 'Segment 1', value: 1* 60 * 60, color: Colors.red, totalValue: 2 * 60 * 60, onTap: () => print("Segment 1 clicked")),
+                        //   TimeSegment(label: 'Segment 2', value: 1* 60 * 60, color: Colors.orange, totalValue: 3 * 60 * 60, onTap: () => print("Segment 2 clicked")),
+                        //   TimeSegment(label: 'Segment 3', value: 1* 60 * 60, color: Colors.yellow, totalValue: 5 * 60 * 60, onTap: () => print("Segment 3 clicked")),
+                        //   TimeSegment(label: 'Segment 4', value: 1* 60 * 60, color: Colors.green, totalValue: 4 * 60 * 60, onTap: () => print("Segment 4 clicked")),
+                        //   TimeSegment(label: 'Segment 5', value: 1* 60 * 60, color: Colors.blue, totalValue: 10 * 60 * 60, onTap: () => print("Segment 5 clicked")),
+                        // ],
                         ),
-                      )
-                    ],
-                  )),
-                  SizedBox(
-                    height: innerMargin,
-                  ),
-                ],
-              )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                        child: buildQuadrantRow(
+                      left: isStandardFourQuadrantOrder
+                          ? buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey3,
+                              sessionMissionModel: listSessionMissionModelBlue3,
+                              priorityEnum: PriorityEnum.blue3,
+                              title: getI18NKey().four_quadrant_priority3,
+                              desc: getI18NKey().four_quadrant_priority3_desc,
+                              padding: EdgeInsets.only(right: 5),
+                            )
+                          : buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey1,
+                              sessionMissionModel: listSessionMissionModelRed1,
+                              priorityEnum: PriorityEnum.red1,
+                              title: getI18NKey().four_quadrant_priority1,
+                              desc: getI18NKey().four_quadrant_priority1_desc,
+                              padding: EdgeInsets.only(right: 5),
+                            ),
+                      right: isStandardFourQuadrantOrder
+                          ? buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey1,
+                              sessionMissionModel: listSessionMissionModelRed1,
+                              priorityEnum: PriorityEnum.red1,
+                              title: getI18NKey().four_quadrant_priority1,
+                              desc: getI18NKey().four_quadrant_priority1_desc,
+                              padding: EdgeInsets.only(left: 5),
+                            )
+                          : buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey2,
+                              sessionMissionModel:
+                                  listSessionMissionModelYellow2,
+                              priorityEnum: PriorityEnum.yellow2,
+                              title: getI18NKey().four_quadrant_priority2,
+                              desc: getI18NKey().four_quadrant_priority2_desc,
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                    )),
+                    SizedBox(
+                      height: innerMargin,
+                    ),
+                    Expanded(
+                        child: buildQuadrantRow(
+                      left: isStandardFourQuadrantOrder
+                          ? buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey4,
+                              sessionMissionModel:
+                                  listSessionMissionModelGreen4,
+                              priorityEnum: PriorityEnum.green4,
+                              title: getI18NKey().four_quadrant_priority4,
+                              desc: getI18NKey().four_quadrant_priority4_desc,
+                              padding: EdgeInsets.only(right: 5),
+                            )
+                          : buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey3,
+                              sessionMissionModel: listSessionMissionModelBlue3,
+                              priorityEnum: PriorityEnum.blue3,
+                              title: getI18NKey().four_quadrant_priority3,
+                              desc: getI18NKey().four_quadrant_priority3_desc,
+                              padding: EdgeInsets.only(right: 5),
+                            ),
+                      right: isStandardFourQuadrantOrder
+                          ? buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey2,
+                              sessionMissionModel:
+                                  listSessionMissionModelYellow2,
+                              priorityEnum: PriorityEnum.yellow2,
+                              title: getI18NKey().four_quadrant_priority2,
+                              desc: getI18NKey().four_quadrant_priority2_desc,
+                              padding: EdgeInsets.only(left: 5),
+                            )
+                          : buildQuadrantItem(
+                              widgetKey: quadrantWidgetGlobalKey4,
+                              sessionMissionModel:
+                                  listSessionMissionModelGreen4,
+                              priorityEnum: PriorityEnum.green4,
+                              title: getI18NKey().four_quadrant_priority4,
+                              desc: getI18NKey().four_quadrant_priority4_desc,
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                    )),
+                    SizedBox(
+                      height: innerMargin,
+                    ),
+                  ],
+                )),
             Positioned(
                 bottom: 30,
                 right: 20,
                 child: CircleWidget(
+                  onLongPress: () {
+                    unawaited(_showMobileVoiceTaskSheet());
+                  },
                   onTapListener: (obj) {
                     MissionModel missionModel = MissionModel();
                     missionModel.end_time = CONSTANTS.getDeadLineTme((0) + 1);
@@ -532,7 +648,8 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
                     } else {
                       DialogManagement.getInstance().showPCCustomDialog(
                           context: context,
-                          widget: CreateMissionPage(missionModel: missionModel));
+                          widget:
+                              CreateMissionPage(missionModel: missionModel));
                     }
                   },
                 ))
@@ -601,23 +718,20 @@ class FourQuadrantPageState extends BaseWidgetState<FourQuadrantPage> {
   }
 
   void onClickChangeVisibility(index) {
-                  this.curIndex = index;
+    this.curIndex = index;
     SharePreferenceUtil.getSyncInstance().setInt(
-        key: ShareprefrenceKeys.fourquadrantVisible,
-        value: this.curIndex);
+        key: ShareprefrenceKeys.fourquadrantVisible, value: this.curIndex);
     setState(() {});
   }
 
   void onClickExport(BuildContext context) {
-            TextEditingController textEditingController =
-        TextEditingController();
+    TextEditingController textEditingController = TextEditingController();
     String s = Utility.getContentFromMissionList(
         datas: this.missionListForView,
         listCheckButtonModel: CONSTANTS.getExportButtonsList());
     textEditingController.text = s;
     ExportMissionListDialogUtil.show(context,
-        textEditingController: textEditingController,
-        onTapListener: (res) {
+        textEditingController: textEditingController, onTapListener: (res) {
       List<CheckButtonStateModel> data = res['data'];
       MissionOrderEnum missionOrderEnum = res['enum'];
       String s = Utility.getContentFromMissionList(

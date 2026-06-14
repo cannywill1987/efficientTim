@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
-import 'package:time_hello/com/timehello/models/WeekendCheckModel.dart';
-import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
-import 'package:time_hello/com/timehello/util/DeviceInfoManagement.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
 import '../models/CheckButtonStateModel.dart';
 import 'CheckContainer.dart';
 
+/**
+ * 文件类型：通用组件
+ * 文件作用：用于在页面内展示一组单选 Tab，并把选中项回调给业务页面。
+ * 主要职责：维护本组件的选中态、同步父组件传入的 checkIndex，并提供旧版下划线样式与新版统一胶囊样式。
+ */
 typedef OnCheckedListener = void Function(int obj, CheckButtonStateModel data);
 
 class CustomTabBarWidget extends StatefulWidget {
-  List<CheckButtonStateModel> list;
-  OnCheckedListener onCheckedListener;
-  int? checkIndex = 0;
-  double fontSize = 18;
-  bool isAutoTrigger = false;
-  bool useUnifiedStyle = false;
-  Color? checkedTextColor;
-  Color? uncheckedTextColor;
-  Color? checkedIndicatorColor;
-  Color? uncheckedIndicatorColor;
+  final List<CheckButtonStateModel> list;
+  final OnCheckedListener onCheckedListener;
+  final int? checkIndex;
+  final double fontSize;
+  final bool isAutoTrigger;
+  final bool useUnifiedStyle;
+  final Color? checkedTextColor;
+  final Color? uncheckedTextColor;
+  final Color? checkedIndicatorColor;
+  final Color? uncheckedIndicatorColor;
   CustomTabBarWidget(
       {Key? key,
-        required this.fontSize,
+      required this.fontSize,
       required this.list,
       required this.onCheckedListener,
-        this.isAutoTrigger = false,
-        this.useUnifiedStyle = false,
-        this.checkedTextColor,
-        this.uncheckedTextColor,
-        this.checkedIndicatorColor,
-        this.uncheckedIndicatorColor,
+      this.isAutoTrigger = false,
+      this.useUnifiedStyle = false,
+      this.checkedTextColor,
+      this.uncheckedTextColor,
+      this.checkedIndicatorColor,
+      this.uncheckedIndicatorColor,
       this.checkIndex = 0})
       : super(key: key);
 
@@ -41,7 +42,8 @@ class CustomTabBarWidget extends StatefulWidget {
     // TODO: implement createState
     return CustomTabBarWidgetState(
         list: this.list,
-        onCheckedListener: this.onCheckedListener, checkIndex: this.checkIndex);
+        onCheckedListener: this.onCheckedListener,
+        checkIndex: this.checkIndex);
   }
 }
 
@@ -52,18 +54,19 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
   // List<CheckModel> list = CONSTANTS.getTomatoesTabbar();
 
   CustomTabBarWidgetState(
-      {required this.list, required this.onCheckedListener, required this.checkIndex}) {
+      {required this.list,
+      required this.onCheckedListener,
+      required this.checkIndex}) {
     // setChecked(this.checkIndex ?? 0);
   }
 
   initState() {
+    super.initState();
     setChecked(checkIndex ?? 0);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if(this.widget.isAutoTrigger == true && mounted == true) {
-        if (this.onCheckedListener != null) {
-          this.onCheckedListener(checkIndex ?? 0, this.list[checkIndex ?? 0]);
-        }
+      if (this.widget.isAutoTrigger == true && mounted == true) {
+        this.onCheckedListener(checkIndex ?? 0, this.list[checkIndex ?? 0]);
       }
     });
     // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
@@ -74,17 +77,24 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     super.didUpdateWidget(oldWidget);
     if (isEqual(list1: oldWidget.list, list2: this.widget.list) == false) {
       this.list = this.widget.list;
-      setChecked(0);
+      setChecked(this.widget.checkIndex ?? 0);
+      return;
+    }
+    if (oldWidget.checkIndex != this.widget.checkIndex) {
+      // 父页面可能在注册/找回密码返回后主动切换 Tab，这里必须同步内部状态，否则 UI 会看起来点了没反应。
+      setChecked(this.widget.checkIndex ?? 0);
     }
   }
 
   //比较title
-  bool isEqual({List<CheckButtonStateModel> list1 = const [], List<CheckButtonStateModel> list2 = const []}) {
-    if(list1.length != list2.length) {
+  bool isEqual(
+      {List<CheckButtonStateModel> list1 = const [],
+      List<CheckButtonStateModel> list2 = const []}) {
+    if (list1.length != list2.length) {
       return false;
     }
-    for(int i = 0; i < list1.length; i++) {
-      if(list1[i].title != list2[i].title) {
+    for (int i = 0; i < list1.length; i++) {
+      if (list1[i].title != list2[i].title) {
         return false;
       }
     }
@@ -97,17 +107,22 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     });
   }
 
+  /// 功能：切换当前选中的 Tab，并保护外部传入的 index 不越界。
+  /// 说明：登录页等场景会根据地区或子页返回值动态设置 index，兜底后可避免异常中断点击反馈。
   void setChecked(int index) {
-    if(index == 0) {
+    if (this.list.isEmpty) {
+      return;
+    }
+    final int safeIndex = index.clamp(0, this.list.length - 1).toInt();
+    if (safeIndex == 0) {
       // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_calendar_date","description": "日期",});
-    } else if(index == 1) {
+    } else if (safeIndex == 1) {
       // AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({"sceneType": "missionpage","eventType": "missionpage_time_period","description": "时间段",});
     }
     this.resetList();
-    this.list[index].isCheck = true;
-    setState(() {
-
-    });
+    this.list[safeIndex].isCheck = true;
+    this.checkIndex = safeIndex;
+    setState(() {});
     // this.widget.list.forEach((element) {
     //   if (element.index == index) {
     //     element.isChecked = true;
@@ -195,9 +210,7 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
           isNeedUpdateUI: false,
           checked: model.isCheck,
           onCheckedListener: (index, data) async {
-            if (this.onCheckedListener != null) {
-              this.onCheckedListener(i, model);
-            }
+            this.onCheckedListener(i, model);
             this.setChecked(i);
             this.updateUI();
           },
@@ -231,8 +244,8 @@ class CustomTabBarWidgetState extends State<CustomTabBarWidget> {
                 style: TextStyle(
                     fontSize: this.widget.fontSize - 2,
                     color: ThemeManager.getInstance().getTextColor(
-                        defaultColor:
-                            widget.uncheckedTextColor ?? ColorsConfig.tabbarUnchecked,
+                        defaultColor: widget.uncheckedTextColor ??
+                            ColorsConfig.tabbarUnchecked,
                         defaultDarkColor: Color(0xff999999))),
               ),
               Container(

@@ -10974,6 +10974,26 @@ class S {
     );
   }
 
+  /// `Turn on vibration`
+  String get turn_on_vibration {
+    return Intl.message(
+      'Turn on vibration',
+      name: 'turn_on_vibration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turn off vibration`
+  String get turn_off_vibration {
+    return Intl.message(
+      'Turn off vibration',
+      name: 'turn_off_vibration',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No Notification Permission`
   String get no_notification_permission_title {
     return Intl.message(
@@ -12718,6 +12738,16 @@ class S {
     );
   }
 
+  /// `Focus time | Efficient life`
+  String get app_tagline_focus_efficient_life {
+    return Intl.message(
+      'Focus time | Efficient life',
+      name: 'app_tagline_focus_efficient_life',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Permission settings`
   String get permission_setting {
     return Intl.message(
@@ -13519,6 +13549,16 @@ class S {
     );
   }
 
+  /// `Or select a quick amount`
+  String get or_select_quick_amount {
+    return Intl.message(
+      'Or select a quick amount',
+      name: 'or_select_quick_amount',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SPEND`
   String get i_consume {
     return Intl.message(
@@ -13644,6 +13684,586 @@ class S {
     return Intl.message(
       'concentrate on',
       name: 'focus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Focus`
+  String get focus_short {
+    return Intl.message(
+      'Focus',
+      name: 'focus_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite friends`
+  String get invite_friends {
+    return Intl.message(
+      'Invite friends',
+      name: 'invite_friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get apply_action {
+    return Intl.message(
+      'Apply',
+      name: 'apply_action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a value`
+  String get input_value_hint {
+    return Intl.message(
+      'Enter a value',
+      name: 'input_value_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Focus Buddy`
+  String get focus_companion {
+    return Intl.message(
+      'Focus Buddy',
+      name: 'focus_companion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Focus Ranking`
+  String get focus_ranking {
+    return Intl.message(
+      'Focus Ranking',
+      name: 'focus_ranking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable sharing`
+  String get share_open {
+    return Intl.message(
+      'Enable sharing',
+      name: 'share_open',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disable sharing`
+  String get share_close {
+    return Intl.message(
+      'Disable sharing',
+      name: 'share_close',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get focus_companion_active {
+    return Intl.message(
+      'Active',
+      name: 'focus_companion_active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Most`
+  String get focus_companion_most {
+    return Intl.message(
+      'Most',
+      name: 'focus_companion_most',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Less`
+  String get focus_companion_less {
+    return Intl.message(
+      'Less',
+      name: 'focus_companion_less',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in to view focus ranking`
+  String get login_to_view_focus_ranking {
+    return Intl.message(
+      'Log in to view focus ranking',
+      name: 'login_to_view_focus_ranking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No one is focusing right now`
+  String get no_one_focusing_now {
+    return Intl.message(
+      'No one is focusing right now',
+      name: 'no_one_focusing_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No ranking data today`
+  String get no_focus_ranking_data_today {
+    return Intl.message(
+      'No ranking data today',
+      name: 'no_focus_ranking_data_today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Me too`
+  String get me_too {
+    return Intl.message(
+      'Me too',
+      name: 'me_too',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous month`
+  String get previous_month {
+    return Intl.message(
+      'Previous month',
+      name: 'previous_month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next month`
+  String get next_month {
+    return Intl.message(
+      'Next month',
+      name: 'next_month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remaining`
+  String get remaining {
+    return Intl.message(
+      'Remaining',
+      name: 'remaining',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record voice`
+  String get record_voice {
+    return Intl.message(
+      'Record voice',
+      name: 'record_voice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add thoughts or extra notes with audio`
+  String get record_voice_description {
+    return Intl.message(
+      'Add thoughts or extra notes with audio',
+      name: 'record_voice_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current duration`
+  String get current_duration {
+    return Intl.message(
+      'Current duration',
+      name: 'current_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Max recording`
+  String get max_record_duration {
+    return Intl.message(
+      'Max recording',
+      name: 'max_record_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to start recording`
+  String get tap_to_start_recording {
+    return Intl.message(
+      'Tap to start recording',
+      name: 'tap_to_start_recording',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording...`
+  String get recording_now {
+    return Intl.message(
+      'Recording...',
+      name: 'recording_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording`
+  String get app_ai_voice_recording {
+    return Intl.message(
+      'Recording',
+      name: 'app_ai_voice_recording',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transcribing`
+  String get app_ai_voice_transcribing {
+    return Intl.message(
+      'Transcribing',
+      name: 'app_ai_voice_transcribing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap end to finish recording. Cancel will discard it.`
+  String get app_ai_voice_stop_hint {
+    return Intl.message(
+      'Tap end to finish recording. Cancel will discard it.',
+      name: 'app_ai_voice_stop_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Converting to text...`
+  String get app_ai_voice_transcribing_hint {
+    return Intl.message(
+      'Converting to text...',
+      name: 'app_ai_voice_transcribing_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel recording`
+  String get app_ai_voice_cancel_recording {
+    return Intl.message(
+      'Cancel recording',
+      name: 'app_ai_voice_cancel_recording',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End recording`
+  String get app_ai_voice_stop_recording {
+    return Intl.message(
+      'End recording',
+      name: 'app_ai_voice_stop_recording',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transcribing`
+  String get app_ai_voice_transcribing_action {
+    return Intl.message(
+      'Transcribing',
+      name: 'app_ai_voice_transcribing_action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Mode`
+  String get mobile_voice_task_ai_mode {
+    return Intl.message(
+      'AI Mode',
+      name: 'mobile_voice_task_ai_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voice Mode`
+  String get mobile_voice_task_record_mode {
+    return Intl.message(
+      'Voice Mode',
+      name: 'mobile_voice_task_record_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Say what you need to do`
+  String get mobile_voice_task_speak_title {
+    return Intl.message(
+      'Say what you need to do',
+      name: 'mobile_voice_task_speak_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I am listening. What should I add?`
+  String get mobile_voice_task_listening_text {
+    return Intl.message(
+      'I am listening. What should I add?',
+      name: 'mobile_voice_task_listening_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No speech was recognized. Please try again.`
+  String get mobile_voice_task_empty {
+    return Intl.message(
+      'No speech was recognized. Please try again.',
+      name: 'mobile_voice_task_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI is creating tasks...`
+  String get mobile_voice_task_ai_creating {
+    return Intl.message(
+      'AI is creating tasks...',
+      name: 'mobile_voice_task_ai_creating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creating task...`
+  String get mobile_voice_task_direct_creating {
+    return Intl.message(
+      'Creating task...',
+      name: 'mobile_voice_task_direct_creating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paused`
+  String get recording_paused {
+    return Intl.message(
+      'Paused',
+      name: 'recording_paused',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear audio records better`
+  String get record_tip_clear {
+    return Intl.message(
+      'Clear audio records better',
+      name: 'record_tip_clear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release to finish, up to 10 minutes`
+  String get record_tip_max {
+    return Intl.message(
+      'Release to finish, up to 10 minutes',
+      name: 'record_tip_max',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can preview or re-record after finishing`
+  String get record_tip_replay {
+    return Intl.message(
+      'You can preview or re-record after finishing',
+      name: 'record_tip_replay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1. Recording`
+  String get recording_step_title {
+    return Intl.message(
+      '1. Recording',
+      name: 'recording_step_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2. Playback preview`
+  String get playback_preview {
+    return Intl.message(
+      '2. Playback preview',
+      name: 'playback_preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording complete`
+  String get record_complete {
+    return Intl.message(
+      'Recording complete',
+      name: 'record_complete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finish a recording to preview it`
+  String get no_recording_preview {
+    return Intl.message(
+      'Finish a recording to preview it',
+      name: 'no_recording_preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording info`
+  String get recording_info {
+    return Intl.message(
+      'Recording info',
+      name: 'recording_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording duration`
+  String get record_duration {
+    return Intl.message(
+      'Recording duration',
+      name: 'record_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording time`
+  String get record_time {
+    return Intl.message(
+      'Recording time',
+      name: 'record_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording device`
+  String get record_device {
+    return Intl.message(
+      'Recording device',
+      name: 'record_device',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Audio quality`
+  String get audio_quality {
+    return Intl.message(
+      'Audio quality',
+      name: 'audio_quality',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good`
+  String get quality_good {
+    return Intl.message(
+      'Good',
+      name: 'quality_good',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Built-in microphone`
+  String get built_in_microphone {
+    return Intl.message(
+      'Built-in microphone',
+      name: 'built_in_microphone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Re-record`
+  String get rerecord {
+    return Intl.message(
+      'Re-record',
+      name: 'rerecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you satisfied with this recording?`
+  String get record_satisfied_prompt {
+    return Intl.message(
+      'Are you satisfied with this recording?',
+      name: 'record_satisfied_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time Bureau`
+  String get time_bureau {
+    return Intl.message(
+      'Time Bureau',
+      name: 'time_bureau',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unified workspace`
+  String get unified_workspace {
+    return Intl.message(
+      'Unified workspace',
+      name: 'unified_workspace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mission Workspace`
+  String get mission_workspace {
+    return Intl.message(
+      'Mission Workspace',
+      name: 'mission_workspace',
       desc: '',
       args: [],
     );
@@ -13776,6 +14396,16 @@ class S {
     return Intl.message(
       'Sort by task priority',
       name: 'order_by_mission_priority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Position order`
+  String get position_order {
+    return Intl.message(
+      'Position order',
+      name: 'position_order',
       desc: '',
       args: [],
     );
@@ -15628,6 +16258,276 @@ class S {
     return Intl.message(
       'Week View',
       name: 'week_view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Build habits`
+  String get mine_menu_subtitle_habit_building {
+    return Intl.message(
+      'Build habits',
+      name: 'mine_menu_subtitle_habit_building',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Improve focus`
+  String get mine_menu_subtitle_focus_training {
+    return Intl.message(
+      'Improve focus',
+      name: 'mine_menu_subtitle_focus_training',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time records`
+  String get mine_menu_subtitle_time_record {
+    return Intl.message(
+      'Time records',
+      name: 'mine_menu_subtitle_time_record',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capture ideas`
+  String get mine_menu_subtitle_capture_ideas {
+    return Intl.message(
+      'Capture ideas',
+      name: 'mine_menu_subtitle_capture_ideas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voice to text`
+  String get mine_menu_subtitle_voice_to_text {
+    return Intl.message(
+      'Voice to text',
+      name: 'mine_menu_subtitle_voice_to_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily records`
+  String get mine_menu_subtitle_daily_record {
+    return Intl.message(
+      'Daily records',
+      name: 'mine_menu_subtitle_daily_record',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voice records`
+  String get mine_menu_subtitle_voice_record {
+    return Intl.message(
+      'Voice records',
+      name: 'mine_menu_subtitle_voice_record',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Focus timer`
+  String get mine_menu_subtitle_focus_timing {
+    return Intl.message(
+      'Focus timer',
+      name: 'mine_menu_subtitle_focus_timing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Important days`
+  String get mine_menu_subtitle_important_days {
+    return Intl.message(
+      'Important days',
+      name: 'mine_menu_subtitle_important_days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage notes`
+  String get mine_menu_subtitle_note_management {
+    return Intl.message(
+      'Manage notes',
+      name: 'mine_menu_subtitle_note_management',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Memo reminders`
+  String get mine_menu_subtitle_memo_reminder {
+    return Intl.message(
+      'Memo reminders',
+      name: 'mine_menu_subtitle_memo_reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review mistakes`
+  String get mine_menu_subtitle_wrong_question_review {
+    return Intl.message(
+      'Review mistakes',
+      name: 'mine_menu_subtitle_wrong_question_review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Knowledge cards`
+  String get mine_menu_subtitle_knowledge_cards {
+    return Intl.message(
+      'Knowledge cards',
+      name: 'mine_menu_subtitle_knowledge_cards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pomodoro focus`
+  String get mine_menu_subtitle_pomodoro_focus {
+    return Intl.message(
+      'Pomodoro focus',
+      name: 'mine_menu_subtitle_pomodoro_focus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task filters`
+  String get mine_menu_subtitle_task_filter {
+    return Intl.message(
+      'Task filters',
+      name: 'mine_menu_subtitle_task_filter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Interface theme`
+  String get mine_menu_subtitle_interface_theme {
+    return Intl.message(
+      'Interface theme',
+      name: 'mine_menu_subtitle_interface_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy permissions`
+  String get mine_menu_subtitle_privacy_permission {
+    return Intl.message(
+      'Privacy permissions',
+      name: 'mine_menu_subtitle_privacy_permission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock screen widgets`
+  String get mine_menu_subtitle_lock_screen_widget {
+    return Intl.message(
+      'Lock screen widgets',
+      name: 'mine_menu_subtitle_lock_screen_widget',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User feedback`
+  String get mine_menu_subtitle_user_feedback {
+    return Intl.message(
+      'User feedback',
+      name: 'mine_menu_subtitle_user_feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Community`
+  String get mine_menu_subtitle_community {
+    return Intl.message(
+      'Community',
+      name: 'mine_menu_subtitle_community',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smart assistant`
+  String get mine_menu_subtitle_ai_assistant {
+    return Intl.message(
+      'Smart assistant',
+      name: 'mine_menu_subtitle_ai_assistant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data management`
+  String get mine_menu_subtitle_data_management {
+    return Intl.message(
+      'Data management',
+      name: 'mine_menu_subtitle_data_management',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hourly {value}$`
+  String mine_hourly_value(Object value) {
+    return Intl.message(
+      'Hourly $value\$',
+      name: 'mine_hourly_value',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `realtime transcription`
+  String get mobile_voice_task_realtime_checkbox {
+    return Intl.message(
+      'realtime transcription',
+      name: 'mobile_voice_task_realtime_checkbox',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Listening and converting to text...`
+  String get mobile_voice_task_realtime_listening_text {
+    return Intl.message(
+      'Listening and converting to text...',
+      name: 'mobile_voice_task_realtime_listening_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Realtime text is updating`
+  String get mobile_voice_task_realtime_hint {
+    return Intl.message(
+      'Realtime text is updating',
+      name: 'mobile_voice_task_realtime_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Realtime transcription is unavailable. Switched to recording transcription.`
+  String get mobile_voice_task_realtime_fallback {
+    return Intl.message(
+      'Realtime transcription is unavailable. Switched to recording transcription.',
+      name: 'mobile_voice_task_realtime_fallback',
       desc: '',
       args: [],
     );

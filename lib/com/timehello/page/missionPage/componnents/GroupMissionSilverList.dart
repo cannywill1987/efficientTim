@@ -5,6 +5,9 @@ import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
+import 'package:time_hello/com/timehello/libs/DragAndDropLists/lib/drag_and_drop_item.dart';
+import 'package:time_hello/com/timehello/libs/DragAndDropLists/lib/drag_and_drop_list.dart';
+import 'package:time_hello/com/timehello/libs/DragAndDropLists/lib/drag_and_drop_lists.dart';
 import 'package:time_hello/com/timehello/libs/flutter_slidable/src/action_pane_motions.dart';
 import 'package:time_hello/com/timehello/libs/flutter_slidable/src/actions.dart';
 import 'package:time_hello/com/timehello/libs/flutter_slidable/src/slidable.dart';
@@ -58,6 +61,7 @@ class GroupMissionSilverList extends StatefulWidget {
   Function onUpdateGroupModelListener;
   Function onTapMoveLeftGroupListener;
   Function onTapMoveRightGroupListener;
+  Function onDragMissionBetweenGroupsListener;
   Function onUpdateUIListener;
   MissionSilverState? menuSilverListState;
   OnTapEditTitleListener? onTapEditTitleListener;
@@ -101,6 +105,7 @@ class GroupMissionSilverList extends StatefulWidget {
       required this.isLastGroup,
       required this.onTapMoveLeftGroupListener,
       required this.onTapMoveRightGroupListener,
+      required this.onDragMissionBetweenGroupsListener,
       required this.onUpdateUIListener,
       required this.onUpdateGroupModelListener,
       required this.onTapAddColumLeftGroupListener,
@@ -679,6 +684,289 @@ class MissionSilverState extends State<GroupMissionSilverList> {
       onTapMoveRightGroupListener: this.widget.onTapMoveRightGroupListener,
       isFirstGroup: this.widget.isFirstGroup,
       isLastGroup: this.widget.isLastGroup,
+    );
+  }
+}
+
+class DesktopGroupMissionColumn extends StatefulWidget {
+  final FolderModel folderModel;
+  final GroupModel groupModel;
+  final Color? columnHeaderColor;
+  final Color? columnSurfaceColor;
+  final Color? columnAccentColor;
+  final Color? columnBorderColor;
+  final OnTapEditTitleListener? onTapEditTitleListener;
+  final OnTapEditListener? onTapEditListener;
+  final OnTapDeleteListener? onTapDeleteListener;
+  final OnTapFinishListener? onTapFinishListener;
+  final OnTapPlayListener? onTapPlayListener;
+  final OnTapMultiSelectListener? onTapMultiSelectListener;
+  final OnTapUnFinishListener? onTapUnFinishListener;
+  final Function? onTapDoItNow;
+  final Function onClickCreateMission;
+  final Function onUpdateGroupModelListener;
+  final Function onTapAddColumLeftGroupListener;
+  final Function onTapAddColumRightGroupListener;
+  final Function onTapDeleteGroupListener;
+  final Function onTapSelectBgColorGroupListener;
+  final Function onMoveNextGroupListener;
+  final Function onMovePreviousGroupListener;
+  final bool isFirstGroupWithoutOrder;
+  final bool isLastGroup;
+
+  const DesktopGroupMissionColumn({
+    super.key,
+    required this.folderModel,
+    required this.groupModel,
+    required this.columnHeaderColor,
+    required this.columnSurfaceColor,
+    required this.columnAccentColor,
+    required this.columnBorderColor,
+    required this.onTapEditTitleListener,
+    required this.onTapEditListener,
+    required this.onTapDeleteListener,
+    required this.onTapFinishListener,
+    required this.onTapPlayListener,
+    required this.onTapMultiSelectListener,
+    required this.onTapUnFinishListener,
+    required this.onTapDoItNow,
+    required this.onClickCreateMission,
+    required this.onUpdateGroupModelListener,
+    required this.onTapAddColumLeftGroupListener,
+    required this.onTapAddColumRightGroupListener,
+    required this.onTapDeleteGroupListener,
+    required this.onTapSelectBgColorGroupListener,
+    required this.onMoveNextGroupListener,
+    required this.onMovePreviousGroupListener,
+    required this.isFirstGroupWithoutOrder,
+    required this.isLastGroup,
+  });
+
+  @override
+  State<DesktopGroupMissionColumn> createState() =>
+      _DesktopGroupMissionColumnState();
+}
+
+class _DesktopGroupMissionColumnState extends State<DesktopGroupMissionColumn> {
+  bool isAddingMission = false;
+  final GlobalKey<HeaderInputState> customTextFieldGlobalKey = GlobalKey();
+  final GlobalKey<CustomTextFieldState> customTextFieldStateGlobalKey =
+      GlobalKey();
+  final GlobalKey<BottomBarState> bottomBarStateKey = GlobalKey();
+
+  MissionModel _missionModel = MissionModel();
+  int? _tagColor;
+  String? _circleTitle = '';
+  int? _circleColor = 0;
+  String? _folderModelObjId;
+  Icon? _circleIcon;
+  int _startTime = 0;
+  int _endTime = 0;
+  int? _dateStatus;
+  int _priorityStatus = 3;
+  String? _tagName = '';
+  int _numberTomatoes = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    _initMissionDraft(widget.folderModel);
+    return Column(
+      children: [
+        Container(
+          height: 58,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          decoration: BoxDecoration(
+            color: widget.columnHeaderColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(26)),
+          ),
+          child: GroupAddWidget(
+            customTextFieldKey: customTextFieldStateGlobalKey,
+            title: widget.groupModel.title ?? "",
+            accentColor: widget.columnAccentColor,
+            surfaceColor: widget.columnSurfaceColor,
+            onEnterListener: (title) {
+              widget.groupModel.title = title;
+              widget.onUpdateGroupModelListener.call(widget.groupModel);
+            },
+            onMoreListener: () {},
+            onAddMissionListener: () {
+              setState(() {
+                isAddingMission = !isAddingMission;
+              });
+            },
+            totalMission: widget.groupModel.missionModelList?.length ?? 0,
+            groupModel: widget.groupModel,
+            onTapAddColumLeftGroupListener:
+                widget.onTapAddColumLeftGroupListener,
+            onTapAddColumRightGroupListener:
+                widget.onTapAddColumRightGroupListener,
+            onTapDeleteGroupListener: widget.onTapDeleteGroupListener,
+            onTapSelectBgColorGroupListener:
+                widget.onTapSelectBgColorGroupListener,
+            onUpdateGroupModelListener: widget.onUpdateGroupModelListener,
+            isFirst: widget.isFirstGroupWithoutOrder,
+            isLast: widget.isLastGroup,
+            onMoveNextGroupListener: widget.onMoveNextGroupListener,
+            onMovePreviousGroupListener: widget.onMovePreviousGroupListener,
+          ),
+        ),
+        if (isAddingMission) _buildHeaderInputWidget(),
+        _buildBottomBar(context, isVisible: isAddingMission),
+        if (isAddingMission) const SizedBox(height: 10),
+      ],
+    );
+  }
+
+  void _initMissionDraft(FolderModel folderModel) {
+    _missionModel.total_tomotoes = _numberTomatoes;
+    _missionModel.tomato_duration =
+        SharePreferenceUtil.getSyncInstance().getTomatoTime();
+    if (folderModel.tag == 2) {
+      _missionModel.tagIds = [folderModel.objectId].join(',');
+      _missionModel.tagNames = [folderModel.title].join(',');
+    } else {
+      if (!TextUtil.isEmpty(folderModel.tag)) {
+        _circleColor = folderModel.color ?? 0;
+        _circleTitle = folderModel.title;
+        if (folderModel.icon != null) {
+          _circleIcon = Icon(
+              IconData(folderModel.icon!, fontFamily: 'MaterialIcons'),
+              size: 20,
+              color: Color(_circleColor ?? 0xffff8800));
+        }
+      }
+      _folderModelObjId = folderModel.objectId;
+    }
+    _dateStatus ??= 0;
+  }
+
+  Widget _buildHeaderInputWidget() {
+    return Container(
+      key: const ValueKey('desktop_group_header_input'),
+      margin: EdgeInsets.fromLTRB(
+          CONSTANTS.missionPageMargin, 10, CONSTANTS.missionPageMargin, 0),
+      child: HeaderInputWidget(
+        folderModel: widget.folderModel,
+        key: customTextFieldGlobalKey,
+        onChangeListener: (val, numTomatoes) {
+          _missionModel.title = val;
+          _numberTomatoes = numTomatoes;
+          _missionModel.total_tomotoes = numTomatoes;
+        },
+        text: "",
+        onDesktopSubmitListener: (dynamic obj, int numTomatoes) {
+          _missionModel.total_tomotoes = numTomatoes;
+          _missionModel.title = obj;
+          _missionModel.group_id = widget.groupModel.objectId;
+          _missionModel.folder_id = widget.folderModel.objectId;
+          widget.onClickCreateMission(_missionModel);
+          setState(() {
+            isAddingMission = false;
+            _missionModel = MissionModel();
+          });
+        },
+        onSubmitListener: (val) {
+          final String title = val['inputContent'];
+          final int numTomatoes = val['numTomatoes'];
+          _missionModel.total_tomotoes = numTomatoes;
+          _missionModel.title = title;
+          _missionModel.group_id = widget.groupModel.objectId;
+          _missionModel.folder_id = widget.folderModel.objectId;
+          widget.onClickCreateMission(_missionModel);
+          setState(() {
+            isAddingMission = false;
+            _missionModel = MissionModel();
+          });
+        },
+      ),
+    );
+  }
+
+  BottomBar _buildBottomBar(BuildContext context, {required bool isVisible}) {
+    return BottomBar(
+      key: bottomBarStateKey,
+      start_time: _startTime,
+      end_time: _endTime,
+      iconCircle: _circleIcon,
+      isVisible: isVisible,
+      circleTitle: _circleTitle ?? "",
+      dateStatus: _dateStatus ?? 0,
+      priority: _priorityStatus,
+      circleColor: !TextUtil.isEmpty(_circleColor)
+          ? Color(_circleColor ?? 0xffff8800)
+          : ColorsConfig.gray_cc_cancel,
+      tagName: _tagName ?? "",
+      tagColor: _tagColor != null
+          ? Color(_tagColor ?? 0xffff8800)
+          : ColorsConfig.gray_cc_cancel,
+      totalTomatoes: _numberTomatoes,
+      onTapFinishListener: ({data}) {
+        _missionModel.group_id = widget.groupModel.objectId;
+        _missionModel.folder_id = _folderModelObjId;
+        widget.onClickCreateMission(_missionModel);
+      },
+      onTapUpdateDateListener: (
+          {dynamic startDate,
+          dynamic alertDate,
+          dynamic dailyStartDate,
+          dynamic dailyEndDate,
+          int time_mode = 0}) {
+        _missionModel.time_mode = time_mode;
+        if (time_mode == 0) {
+          _missionModel.daily_start_time = dailyStartDate;
+          _missionModel.daily_end_time = dailyEndDate;
+          _missionModel.alert_time = alertDate;
+        } else {
+          _missionModel.start_time = dailyStartDate;
+          _missionModel.end_time = dailyEndDate;
+          _missionModel.alert_time = alertDate;
+        }
+      },
+      onTapMissionValueListener: ({data}) {
+        _missionModel.mission_value = data;
+      },
+      onTapEndTimeListener: ({data}) {
+        _missionModel.end_time = data;
+      },
+      onTapDateListener: (data) {
+        setState(() {
+          _dateStatus = data;
+          _missionModel.dateStatus = _dateStatus;
+        });
+      },
+      onTapPriorityListener: (data) {
+        setState(() {
+          _priorityStatus = data;
+          _missionModel.priorityStatus = _priorityStatus;
+        });
+      },
+      onTapCircleListener: (data) {
+        if (data is! FolderModel) {
+          return;
+        }
+        setState(() {
+          _circleColor = data.color;
+          _circleTitle = data.title;
+          _circleIcon = Icon(
+              IconData(data.icon ?? 0, fontFamily: 'MaterialIcons'),
+              size: 20,
+              color: Color(_circleColor ?? 0xffff8800));
+          _folderModelObjId = data.objectId;
+        });
+      },
+      onTapTagListener: (data) {
+        if (data is! FolderModel) {
+          return;
+        }
+        setState(() {
+          _tagColor = data.color;
+          _tagName = data.title;
+          _missionModel.tagNames = [_tagName].join(',');
+          _missionModel.tagIds = [data.objectId].join(',');
+        });
+      },
+      onChangeListener: (data) => {_numberTomatoes = data},
     );
   }
 }

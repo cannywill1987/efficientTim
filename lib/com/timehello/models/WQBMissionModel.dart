@@ -45,7 +45,8 @@ class WQBMissionModel extends MongoDbObject {
 
   String wqbKnowledgeRichContentUrl = ""; //知识点错题本 如果是富文本就是Url
 
-  List wqbKnowledgeRecordUrls = []; //录音url
+  List wqbKnowledgeRecordUrls =
+      []; //录音列表，单条 map 支持 url、duration、localUrl、fileSize、recordText 等字段
 
   List<String>? wqbKnowledgeSmallUrls = []; // 数组用于存储图片url
 
@@ -59,7 +60,8 @@ class WQBMissionModel extends MongoDbObject {
 
   String wqbWrongQuestionRichContentUrl = ""; //错题 如果是富文本就是Url
 
-  List wqbWrongQuestionRecordUrls = []; //录音url
+  List wqbWrongQuestionRecordUrls =
+      []; //录音列表，单条 map 支持 url、duration、localUrl、fileSize、recordText 等字段
 
   List<String>? wqbWrongQuestionSmallUrls = []; // 数组用于存储图片url
 
@@ -69,7 +71,8 @@ class WQBMissionModel extends MongoDbObject {
 
   int wqbTypeAnswer = 0; //正解的三种格式 0 图片 1 录音 2 纯文本 3 富文本
 
-  List wqbAnswerRecordUrls = []; //录音url
+  List wqbAnswerRecordUrls =
+      []; //录音列表，单条 map 支持 url、duration、localUrl、fileSize、recordText 等字段
 
   List<String>? wqbAnswerSmallUrls = []; // 数组用于存储图片url
 

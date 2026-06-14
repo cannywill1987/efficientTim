@@ -9,6 +9,7 @@ import Foundation
 import Flutter
 import WidgetKit
 import SwiftUI
+import StoreKit
 
 @available(iOS 14.0, *)
 class MethodChannelManager {
@@ -16,6 +17,45 @@ class MethodChannelManager {
     var channel:FlutterMethodChannel?;
     
     @AppStorage("uid", store: UserDefaults(suiteName: Params.groupName)) var uid : String = ""
+
+    /// 生成统一日志时间前缀，格式固定为 MMDD HH:mm:ss，方便和 Flutter 日志一起搜索。
+    static func logTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMdd HH:mm:ss"
+        return formatter.string(from: Date())
+    }
+
+    /// 将 StoreKit 的订阅周期单位转成 Flutter 易解析的字符串，避免两端各自猜枚举值。
+    @available(iOS 15.0, *)
+    static func subscriptionPeriodUnitText(_ unit: Product.SubscriptionPeriod.Unit) -> String {
+        switch unit {
+        case .day:
+            return "day"
+        case .week:
+            return "week"
+        case .month:
+            return "month"
+        case .year:
+            return "year"
+        @unknown default:
+            return "unknown"
+        }
+    }
+
+    /// 将 StoreKit 的优惠支付模式转成稳定字符串，Flutter 根据 freeTrial 判断是否展示免费试用文案。
+    @available(iOS 15.0, *)
+    static func subscriptionOfferPaymentModeText(_ paymentMode: Product.SubscriptionOffer.PaymentMode) -> String {
+        switch paymentMode {
+        case .freeTrial:
+            return "freeTrial"
+        case .payAsYouGo:
+            return "payAsYouGo"
+        case .payUpFront:
+            return "payUpFront"
+        default:
+            return "unknown"
+        }
+    }
     
     static func shareInstance(flutterViewController: FlutterViewController?) -> MethodChannelManager {
         if (instance.channel == nil) {
@@ -30,8 +70,33 @@ class MethodChannelManager {
     //    init() {
     //    }
     //
+    /// 功能：构造公共桥接器统一返回结构，后续新增 action 时优先在这里分发。
+    private func buildCommonBridgeResult(_ call: FlutterMethodCall, platform: String) -> [String: Any] {
+        let args = firstMapArgument(call)
+        return [
+            "success": true,
+            "platform": platform,
+            "action": args["action"] as? String ?? "",
+            "data": args["params"] ?? [:]
+        ]
+    }
+
+    /// 功能：兼容 Flutter 侧常用的 List<Map> 入参，也允许未来直接传 Map。
+    private func firstMapArgument(_ call: FlutterMethodCall) -> [String: Any] {
+        if let list = call.arguments as? [[String: Any]], let first = list.first {
+            return first
+        }
+        if let map = call.arguments as? [String: Any] {
+            return map
+        }
+        return [:]
+    }
+
     public func handleMethodChannel(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
+        case "commonBridge":
+            result(buildCommonBridgeResult(call, platform: "ios"))
+            break
         case "getReceipt":
             if #available(iOS 15.0, *) {
                 let res = IAPManager.shared.getReceipt()
@@ -163,7 +228,8 @@ class MethodChannelManager {
                            await IAPManager.shared.fetchProducts(productIDs: list) { products in
                                // 处理获取到的产品数组
                                if products.isEmpty {
-                                   print("No products available.")
+                                   print("[\(Self.logTimestamp())][IAP_NATIVE][product-fetch-empty] requestedProductIds=\(list)")
+                                   result("{\"success\": true, \"data\": []}")
                                } else {
                                    do {
                                        // 将 SKProduct 转换为字典数组
@@ -192,21 +258,16 @@ class MethodChannelManager {
 //                                                           productDictionary["paymentMode"] = subscription.paymentMode.rawValue // 支付模式
 
                                                        // 获取支付周期的单位
-                                                           switch subscription.subscriptionPeriod.unit {
-                                                           case .day:
-                                                               productDictionary["periodUnit"] = "day"
-                                                           case .week:
-                                                               productDictionary["periodUnit"] = "week"
-                                                           case .month:
-                                                               productDictionary["periodUnit"] = "month"
-                                                           case .year:
-                                                               productDictionary["periodUnit"] = "year"
-                                                           @unknown default:
-                                                               productDictionary["periodUnit"] = "unknown"
-                                                           }
+                                                       productDictionary["periodUnit"] = Self.subscriptionPeriodUnitText(subscription.subscriptionPeriod.unit)
                                                        
                                                        productDictionary["periodValue"] = subscription.subscriptionPeriod.value
-//                                                           productDictionary["periodCount"] = subscription.introductoryOffer?.type
+                                                       // 订阅的试用期来自 App Store Connect 的 introductory offer；一次性购买没有该字段。
+                                                       if let introductoryOffer = subscription.introductoryOffer {
+                                                           productDictionary["introductoryOfferPaymentMode"] = Self.subscriptionOfferPaymentModeText(introductoryOffer.paymentMode)
+                                                           productDictionary["introductoryOfferPeriodUnit"] = Self.subscriptionPeriodUnitText(introductoryOffer.period.unit)
+                                                           productDictionary["introductoryOfferPeriodValue"] = introductoryOffer.period.value
+                                                           productDictionary["introductoryOfferPeriodCount"] = introductoryOffer.periodCount
+                                                       }
                                                    }
                                                }
                                                
@@ -240,7 +301,7 @@ class MethodChannelManager {
                            }
                        }
                    } else {
-                       // Fallback on earlier versions
+                       result("{\"success\": false, \"data\": [], \"error\": \"StoreKit2 requires iOS 15.0 or later.\"}")
                    }
                    break;
         case "deleteReminder":
@@ -964,4 +1025,3 @@ class MethodChannelManager {
     //
     //
 }
-

@@ -145,7 +145,8 @@ class MissionModel extends MongoDbObject {
 
   String? noteRichContentUrl = ""; //知识点错题本 如果是富文本就是Url
 
-  List? noteRecordUrls = []; //录音url
+  List? noteRecordUrls =
+      []; //录音列表，单条 map 支持 url、duration、localUrl、fileSize、recordText 等字段
 
   List? attachmentUrls = []; //附件url {}
 
@@ -193,7 +194,7 @@ class MissionModel extends MongoDbObject {
 
   set objectiveValue(double? val) {
     if (objectiveTotalValue != null && objectiveTotalValue != 0) {
-      objectivePercent = ((val??0) / objectiveTotalValue!) * 100;
+      objectivePercent = ((val ?? 0) / objectiveTotalValue!) * 100;
     } else {
       objectivePercent = 0;
     }

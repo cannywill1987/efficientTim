@@ -511,48 +511,19 @@ class CalendarMissionListWidgetState extends State<CalendarMissionListWidget> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
-    }
-
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey().confirmToFinished,
-        message: getI18NKey().confirmToFinishedContent,
-        okLabel: getI18NKey().confirm,
-        cancelLabel: getI18NKey().cancel,
-        onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await onClickFinishMission(data);
-    }
+    await onClickFinishMission(data);
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+      folderModel: this.folderModel,
+    );
+    if (!didFinish) {
       return;
     }
-
-    await MongoApisManager.getInstance().insertStatsModel(
-      title: data.title,
-      type: 1,
-      icon: this.folderModel?.icon,
-      color: this.folderModel?.color,
-      tagName: data.tagNames,
-      fid: this.folderModel?.objectId,
-      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-      finish_time: Utility.getTimeStampToday(),
-      value: data.tomato_duration?.toDouble() ?? 0,
-      category: data.title,
-    );
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     this.requestDatas();
     CounterManagement counterManagement = CounterManagement.getInstance();
     //不是同一个就重置重新开始计数

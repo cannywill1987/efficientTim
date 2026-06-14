@@ -17,6 +17,7 @@ import 'dart:math';
 import 'drag_and_drop_builder_parameters.dart';
 import 'drag_and_drop_item.dart';
 import 'drag_and_drop_item_target.dart';
+import 'drag_and_drop_layout_log.dart';
 import 'drag_and_drop_list_interface.dart';
 import 'drag_and_drop_list_target.dart';
 import 'drag_and_drop_list_wrapper.dart';
@@ -382,6 +383,10 @@ class DragAndDropListsState extends State<DragAndDropLists> {
 
   @override
   Widget build(BuildContext context) {
+    dragBoardLog(
+      'board-build-start',
+      'axis=${widget.axis}, children=${widget.children.length}, listWidth=${widget.listWidth}, listPadding=${widget.listPadding}, disableScrolling=${widget.disableScrolling}, sliverList=${widget.sliverList}, removeTopPadding=${widget.removeTopPadding}',
+    );
     var parameters = DragAndDropBuilderParameters(
       listGhost: widget.listGhost,
       listGhostOpacity: widget.listGhostOpacity,
@@ -493,10 +498,28 @@ class DragAndDropListsState extends State<DragAndDropLists> {
 
   Widget _buildListView(DragAndDropBuilderParameters parameters,
       DragAndDropListTarget dragAndDropListTarget) {
-    Widget _listView = ListView(
-      scrollDirection: widget.axis,
-      controller: _scrollController,
-      children: _buildOuterList(dragAndDropListTarget, parameters),
+    final List<Widget> outerChildren =
+        _buildOuterList(dragAndDropListTarget, parameters);
+    dragBoardLog(
+      'board-listview-create',
+      'axis=${widget.axis}, childWidgets=${outerChildren.length}, sourceChildren=${widget.children.length}, listWidth=${parameters.listWidth}, controllerHasClients=${_scrollController?.hasClients}',
+    );
+
+    Widget _listView = LayoutBuilder(
+      builder: (context, constraints) {
+        // 这里记录 ListView 从父级拿到的真实约束，用来判断横向 sliver 是否拿到了无限宽或异常高度。
+        dragBoardLog(
+          'board-listview-constraints',
+          '${dragBoardConstraints(constraints)}, axis=${widget.axis}, childWidgets=${outerChildren.length}',
+          onceKey:
+              'listview-${widget.axis}-${outerChildren.length}-${constraints.maxWidth}-${constraints.maxHeight}',
+        );
+        return ListView(
+          scrollDirection: widget.axis,
+          controller: _scrollController,
+          children: outerChildren,
+        );
+      },
     );
 
     return widget.removeTopPadding
@@ -512,6 +535,10 @@ class DragAndDropListsState extends State<DragAndDropLists> {
       DragAndDropBuilderParameters parameters) {
     bool includeSeparators = widget.listDivider != null;
     int childrenCount = _calculateChildrenCount(includeSeparators);
+    dragBoardLog(
+      'board-outer-list-build',
+      'axis=${widget.axis}, includeSeparators=$includeSeparators, calculatedChildren=$childrenCount, sourceChildren=${widget.children.length}',
+    );
 
     return List.generate(childrenCount, (index) {
       return _buildInnerList(index, childrenCount, dragAndDropListTarget,
@@ -535,13 +562,30 @@ class DragAndDropListsState extends State<DragAndDropLists> {
       bool includeSeparators,
       DragAndDropBuilderParameters parameters) {
     if (index == childrenCount - 1) {
+      dragBoardLog(
+        'board-inner-list-target',
+        'index=$index, childrenCount=$childrenCount, axis=${widget.axis}',
+        onceKey: 'inner-target-${widget.axis}-$index-$childrenCount',
+      );
       return dragAndDropListTarget;
     } else if (includeSeparators && index.isOdd) {
+      dragBoardLog(
+        'board-inner-list-divider',
+        'index=$index, childrenCount=$childrenCount, axis=${widget.axis}',
+        onceKey: 'inner-divider-${widget.axis}-$index-$childrenCount',
+      );
       return widget.listDivider!;
     } else {
+      final int sourceIndex = (includeSeparators ? index / 2 : index).toInt();
+      final DragAndDropListInterface sourceList = widget.children[sourceIndex];
+      dragBoardLog(
+        'board-inner-list-wrapper',
+        'index=$index, sourceIndex=$sourceIndex, type=${sourceList.runtimeType}, itemCount=${sourceList.children?.length}, canDrag=${sourceList.canDrag}, axis=${widget.axis}',
+        onceKey:
+            'inner-wrapper-${widget.axis}-$index-$sourceIndex-${sourceList.runtimeType}-${sourceList.children?.length}',
+      );
       return DragAndDropListWrapper(
-        dragAndDropList:
-            widget.children[(includeSeparators ? index / 2 : index).toInt()],
+        dragAndDropList: sourceList,
         parameters: parameters,
       );
     }

@@ -59,13 +59,15 @@ class MissionGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isModernMobileGrid =
+        useUnifiedStyle && Utility.isHandsetBySize();
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         // crossAxisCount: 2,
         maxCrossAxisExtent: width, // 固定宽度
-        childAspectRatio: 0.7, // 宽高比
-        mainAxisSpacing: 10.0, // 主轴间距
-        crossAxisSpacing: 10.0, // 横轴间距
+        childAspectRatio: isModernMobileGrid ? 0.82 : 0.7, // 宽高比
+        mainAxisSpacing: isModernMobileGrid ? 12.0 : 10.0, // 主轴间距
+        crossAxisSpacing: isModernMobileGrid ? 12.0 : 10.0, // 横轴间距
       ),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
@@ -145,6 +147,36 @@ class SliverGridviewItem extends StatelessWidget {
         ((item.datas?.length ?? 0) > 0 ? (item.datas?.length ?? 1) : 1);
   }
 
+  /// 功能：为桌面端 Kanban 列生成低饱和表面色，让每列能继承清单色但不抢任务卡片的视觉层级。
+  Color _buildUnifiedColumnSurfaceColor(Color folderTintColor) {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final Color baseColor = isDark
+        ? ColorsConfig.missionGridColumnDarkSurface
+        : ColorsConfig.missionGridColumnSurface;
+    return Color.alphaBlend(
+      folderTintColor.withValues(alpha: isDark ? 0.18 : 0.10),
+      baseColor,
+    );
+  }
+
+  /// 功能：为列体生成参考设计里的半透明色块，空区域也能保留轻微的看板分区感。
+  Color _buildUnifiedColumnBoardColor(Color folderTintColor) {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final Color baseColor = isDark
+        ? ColorsConfig.missionGridColumnDarkBoard
+        : ColorsConfig.missionGridColumnBoard;
+    return Color.alphaBlend(
+      folderTintColor.withValues(alpha: isDark ? 0.20 : 0.14),
+      baseColor,
+    );
+  }
+
+  /// 功能：为列头生成比主体更明确的状态色，避免之前颜色过深导致和正文抢焦点。
+  Color _buildUnifiedColumnHeaderColor(Color folderTintColor) {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    return folderTintColor.withValues(alpha: isDark ? 0.34 : 0.32);
+  }
+
   @override
   Widget build(BuildContext context) {
     // if (!TextUtil.isEmpty(item.folder_id)) {
@@ -156,25 +188,38 @@ class SliverGridviewItem extends StatelessWidget {
     // }
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      final double resolvedHeaderHeight = useUnifiedStyle ? 92 : headerHeight;
+      final double resolvedHeaderHeight = useUnifiedStyle ? 84 : headerHeight;
+      final double resolvedHeaderVerticalGap = useUnifiedStyle ? 3 : 5;
       final Color folderTintColor = Color(folderModel?.color ?? 0xffff8800);
+      final Color columnSurfaceColor =
+          _buildUnifiedColumnSurfaceColor(folderTintColor);
+      final Color columnBoardColor =
+          _buildUnifiedColumnBoardColor(folderTintColor);
+      final Color columnHeaderColor =
+          _buildUnifiedColumnHeaderColor(folderTintColor);
       // print('Stack width: ${constraints.maxWidth}');
       return Container(
         clipBehavior: Clip.antiAlias,
         decoration: useUnifiedStyle
             ? buildUnifiedDesktopCardDecoration(
-                backgroundColor:
-                    ThemeManager.getInstance().getCardBackgroundColor(
-                  defaultColor: ColorsConfig.missionGridColumnSurface,
-                  alpha: 235,
+                backgroundColor: columnSurfaceColor,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(
+                  color: ThemeManager.getInstance().isDark()
+                      ? Colors.white.withValues(alpha: 0.06)
+                      : Colors.white.withValues(alpha: 0.36),
+                  width: 1,
                 ),
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: Colors.transparent, width: 0),
                 boxShadow: [
                   BoxShadow(
                     color: ColorsConfig.missionGridColumnShadow,
-                    blurRadius: 24,
-                    offset: const Offset(0, 14),
+                    blurRadius: 20,
+                    offset: const Offset(0, 12),
+                  ),
+                  BoxShadow(
+                    color: folderTintColor.withValues(alpha: 0.10),
+                    blurRadius: 22,
+                    offset: const Offset(0, 10),
                   ),
                 ],
               )
@@ -185,21 +230,34 @@ class SliverGridviewItem extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  color: folderTintColor.withValues(alpha: 0.24),
+                  color: folderTintColor.withValues(alpha: 0.20),
                   width: constraints.maxWidth * getFinishedPercent(),
                   height: resolvedHeaderHeight,
                 ),
                 Container(
-                  color: useUnifiedStyle
-                      ? folderTintColor.withValues(alpha: 0.68)
-                      : Color((folderModel?.color ?? 0xffff8800) - 0xa0000000),
+                  decoration: BoxDecoration(
+                    color: useUnifiedStyle
+                        ? columnHeaderColor
+                        : Color(
+                            (folderModel?.color ?? 0xffff8800) - 0xa0000000),
+                    gradient: useUnifiedStyle
+                        ? LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              columnHeaderColor.withValues(alpha: 0.92),
+                              columnHeaderColor.withValues(alpha: 0.64),
+                            ],
+                          )
+                        : null,
+                  ),
                   height: resolvedHeaderHeight,
                 ),
                 Container(
                   height: resolvedHeaderHeight,
                   padding: EdgeInsets.symmetric(
-                      horizontal: useUnifiedStyle ? 12 : 8,
-                      vertical: useUnifiedStyle ? 10 : 6),
+                      horizontal: useUnifiedStyle ? 14 : 8,
+                      vertical: useUnifiedStyle ? 7 : 6),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -217,7 +275,7 @@ class SliverGridviewItem extends StatelessWidget {
                                   fontSize: subFontSize + 2,
                                   color: ThemeManager.getInstance().isDark()
                                       ? Colors.white
-                                      : Colors.black,
+                                      : const Color(0xFF2F251F),
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -235,7 +293,7 @@ class SliverGridviewItem extends StatelessWidget {
                                   onTap: () {
                                     this
                                         .onTapShowFolderChartListener
-                                        ?.call(folderModel);
+                                        .call(folderModel);
                                   },
                                   child: Utility.getSVGPicture(
                                       R.assetsImgIcBarChart,
@@ -248,7 +306,7 @@ class SliverGridviewItem extends StatelessWidget {
                               MissionCustomButton(
                                 text: getI18NKey().create,
                                 fontSize: 12,
-                                color: Color(item?.color ?? 0xffff8800),
+                                color: Color(item.color ?? 0xffff8800),
                                 onTapListener: () {
                                   this.onTapCreateListener.call(folderModel);
                                 },
@@ -258,7 +316,7 @@ class SliverGridviewItem extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 5,
+                        height: resolvedHeaderVerticalGap,
                       ),
                       Row(
                         children: [
@@ -288,7 +346,7 @@ class SliverGridviewItem extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 5,
+                        height: resolvedHeaderVerticalGap,
                       ),
                       Row(
                         children: [
@@ -330,10 +388,7 @@ class SliverGridviewItem extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: useUnifiedStyle
-                      ? ThemeManager.getInstance().getCardBackgroundColor(
-                          defaultColor: ColorsConfig.missionGridColumnBoard,
-                          alpha: 225,
-                        )
+                      ? columnBoardColor
                       : ThemeManager.getInstance().getCardBackgroundColor(
                           defaultColor: Color(0xfff0f0f0)),
                   gradient: useUnifiedStyle
@@ -341,16 +396,16 @@ class SliverGridviewItem extends StatelessWidget {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            folderTintColor.withValues(alpha: 0.08),
-                            ThemeManager.getInstance().getCardBackgroundColor(
-                              defaultColor: ColorsConfig.missionGridColumnBoard,
-                              alpha: 220,
-                            ),
+                            columnBoardColor.withValues(alpha: 0.96),
+                            columnBoardColor.withValues(alpha: 0.76),
                           ],
                         )
                       : null,
                 ),
-                child: CustomScrollView(slivers: getList()),
+                child: Padding(
+                  padding: EdgeInsets.only(top: useUnifiedStyle ? 8 : 0),
+                  child: CustomScrollView(slivers: getList()),
+                ),
               ),
             ),
           ],
@@ -361,6 +416,13 @@ class SliverGridviewItem extends StatelessWidget {
 
   List<Widget> getList() {
     List<Widget> listWidget = [];
+    if (useUnifiedStyle && (this.item.datas?.isEmpty ?? true)) {
+      listWidget.add(SliverFillRemaining(
+        hasScrollBody: false,
+        child: _buildUnifiedEmptyState(),
+      ));
+      return listWidget;
+    }
     listWidget.addAll(buildListWidget(
         Utility.getListAfterOrder(
                 this.missionOrderEnum,
@@ -384,6 +446,44 @@ class SliverGridviewItem extends StatelessWidget {
             [],
         true));
     return listWidget;
+  }
+
+  /// 功能：为空看板列提供轻量空状态，避免移动端卡片下半部分大面积灰块显得未完成。
+  Widget _buildUnifiedEmptyState() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Utility.getSVGPicture(R.assetsImgIcNoData, size: 58),
+            const SizedBox(height: 12),
+            Text(
+              getI18NKey().no_task,
+              style: ThemeManager.getInstance().getTextStyle(
+                defaultTextStyle: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF4A4A4A),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              getI18NKey().no_mission_desc,
+              textAlign: TextAlign.center,
+              style: ThemeManager.getInstance().getTextStyle(
+                defaultTextStyle: const TextStyle(
+                  fontSize: 12,
+                  height: 1.35,
+                  color: Color(0xFF777777),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   List<Widget> buildListWidget(List<SessionMissionModel> list, bool isFinish) {

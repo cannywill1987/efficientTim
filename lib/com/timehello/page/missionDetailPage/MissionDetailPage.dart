@@ -48,6 +48,7 @@ import 'components/CounterModeButtonListWidget.dart';
 import 'components/CounterWidget.dart';
 import 'components/CustomButtonWidget.dart';
 import 'components/FlipCounterWidget.dart';
+import 'components/FocusRankingWidget.dart';
 import 'components/HeaderStatusMissionDetailWidget.dart';
 import 'components/HeaderStatusWidget.dart';
 import 'components/MissionDataTodayFocusDurationWidget.dart';
@@ -174,6 +175,26 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
                 key: ShareprefrenceKeys.pcBackground, content: imgUrl);
             OverlayManagement.getInstance().hideSelectBgDialog();
             bgKey.currentState?.next();
+          });
+        } else if (data == 'focus_vibration') {
+          final bool nextValue =
+              !SharePreferenceUtil.getSyncInstance().isFocusVibrationOn();
+          SharePreferenceUtil.getSyncInstance()
+              .setFocusVibrationOn(isOn: nextValue);
+          Utility.showToastMsg(
+              context: context,
+              msg: nextValue
+                  ? getI18NKey().turn_on_vibration
+                  : getI18NKey().turn_off_vibration);
+          OverlayManagement.getInstance().removeMissionDetailPageOverlay();
+          Future.delayed(const Duration(milliseconds: 100), () {
+            if (!mounted) {
+              return;
+            }
+            OverlayManagement.getInstance().openMissionDetailPageOverlay(
+                context: context,
+                missionModel: this.missionModel,
+                folderModel: this.folderModel);
           });
         } else if (data == 'auto_next') {
           //选择自动循环
@@ -317,66 +338,24 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
-    }
-
-    OverlayManagement.getInstance().openCustomConfirmDialog(
-        Utility.getGlobalContext(),
-        title: getI18NKey().confirmToFinished,
-        content: getI18NKey().confirmToFinishedContent,
-        rightText: getI18NKey().confirm,
-        leftText: getI18NKey().cancel,
-        initVal: SharePreferenceUtil.getSyncInstance().getAudioVolume(),
-        okCallBack: (int) async {
-      await onClickFinishMission(data);
-    }, cancelCallBack: () {});
-    // OkCancelResult result = await showOkCancelAlertDialog(
-    //     context: context,
-    //     title: getI18NKey().confirmToFinished,
-    //     message: getI18NKey().confirmToFinishedContent,
-    //     okLabel: getI18NKey().confirm,
-    //     cancelLabel: getI18NKey().cancel,
-    //     onWillPop: () async {
-    //       //点击对话框外围黑色区域才会走这里
-    //       return true;
-    //     });
-    // if (result == OkCancelResult.ok) {
-    //   await onClickFinishMission(data);
-    // }
+    await onClickFinishMission(data);
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+      folderModel: this.folderModel,
+    );
+    if (!didFinish) {
       return;
     }
-
-    await MongoApisManager.getInstance().insertStatsModel(
-      title: data.title,
-      type: 1,
-      icon: this.folderModel?.icon,
-      color: this.folderModel?.color,
-      tagName: data.tagNames,
-      fid: this.folderModel?.objectId,
-      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-      finish_time: Utility.getTimeStampToday(),
-      value: data.tomato_duration?.toDouble() ?? 0,
-      category: data.title,
-    );
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     // this.requestDatas();
     CounterManagement counterManagement = CounterManagement.getInstance();
     //不是同一个就重置重新开始计数
     eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
     eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
-    OverlayManagement.getInstance().dismissCustomConfirmDialog();
     onClickBack();
     // Utility.popNavigator(context);
     //关闭的是同一个任务那就停止计时器
@@ -406,16 +385,16 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
                   .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyB)) {
         // ctrl+b&cmd+b begin, 开始专注 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().startFocusing();
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().startFocusing();
       } else if ((HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.metaLeft) ||
               HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyS) {
         // ctrl+s&cmd+s stop,停止拴住 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().stopFromFocusingStatus();
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().stopFromFocusingStatus();
       } else if ((HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.metaLeft) ||
               HardwareKeyboard.instance.logicalKeysPressed
@@ -423,20 +402,20 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
           key == LogicalKeyboardKey.keyP) {
         // ctrl+p&cmd+p pause,暂停专属拴住 ok
         // CounterManagement.getInstance().pauseTimer();
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().nextStatus(true);
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().nextStatus(true);
       } else if ((HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.metaLeft) ||
               HardwareKeyboard.instance.logicalKeysPressed
                   .contains(LogicalKeyboardKey.controlLeft)) &&
           key == LogicalKeyboardKey.keyR) {
         // ctrl+r&cmd+r resume,继续专注 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().nextStatus(false);
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().nextStatus(false);
       } else if (key == LogicalKeyboardKey.space) {
         // 空格 下一个状态 ok
-        if(CounterManagement.getInstance().missionModel  != null)
-        CounterManagement.getInstance().nextStatus(true);
+        if (CounterManagement.getInstance().missionModel != null)
+          CounterManagement.getInstance().nextStatus(true);
       }
       // else if (
       // (HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) || HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft)) && key == LogicalKeyboardKey.keyF) { // ctrl+f&cmd+f finish,完成专注
@@ -538,21 +517,23 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
       if (counterManagement.missionModel?.objectId !=
           this.missionModel.objectId) {
         // counterManagement.missionModel?.objectId 表示第一次开始计时
-        if (counterManagement.missionModel?.objectId == null ||
-            SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()) {
-          counterManagement.reset();
-          counterManagement.init(
-            counterEnum: this.counterEnum,
-            missionModel: this.missionModel,
-            folderModel: this.folderModel,
-            missionDetailPageState: this,
-          );
-          // CounterManagement.getInstance()!.startTimer();
-          CounterManagement.getInstance().nextStatus(false);
-        } else {
-          counterManagement.set(
-              missionModel: this.missionModel, folderModel: this.folderModel);
-        }
+        // if (counterManagement.missionModel?.objectId == null ) {
+        // ||
+        // SharePreferenceUtil.getSyncInstance().getSwitchMissionTitle()
+        counterManagement.reset();
+        counterManagement.init(
+          counterEnum: this.counterEnum,
+          missionModel: this.missionModel,
+          folderModel: this.folderModel,
+          missionDetailPageState: this,
+        );
+        // CounterManagement.getInstance()!.startTimer();
+        CounterManagement.getInstance().nextStatus(false);
+        // } else {
+        //   // 主要是为了计数中的任务重新重这里进来
+        //   counterManagement.set(
+        //       missionModel: this.missionModel, folderModel: this.folderModel);
+        // }
       }
     } else {
       //liveactivity过来
@@ -712,20 +693,8 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
               //
               // });
             },
-            shouldShowProgressBar: (bgMode == 0 || bgMode == 1) &&
-                (fontMode != 0) &&
-                !(CounterManagement.getInstance().isCounterTimerExecuting ==
-                        true &&
-                    CounterManagement.getInstance().counterStatus ==
-                        CounterStatus.focusing),
-            progress: ((CounterManagement.getInstance().counterEnum ==
-                            CounterEnum.timer &&
-                        CounterManagement.getInstance().counterStatus ==
-                            CounterStatus.focusing) ||
-                    CounterManagement.getInstance().totalTime == 0)
-                ? 0
-                : CounterManagement.getInstance().timeUsed /
-                    CounterManagement.getInstance().totalTime,
+            shouldShowProgressBar: fontMode != 0,
+            progress: _getCounterProgress(),
             headerChildrenWidget: [
               getBackNavigator(context),
               HeaderStatusMissionDetailWidget(
@@ -784,6 +753,15 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
             width: rightStatsChildWidth,
             padding: EdgeInsets.symmetric(vertical: 10),
             child: getFocusDurationToday(),
+          )),
+      SizedBox(
+        height: rightChildMargin,
+      ),
+      MissionDetailTitleContainerWidget(
+          title: getI18NKey().focus_companion,
+          child: FocusRankingWidget(
+            width: rightStatsChildWidth,
+            height: 260,
           )),
       SizedBox(
         height: rightChildMargin,
@@ -877,8 +855,9 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   }
 
   Padding getHeaderWidget(BuildContext context) {
+    final Color focusTextColor = Colors.white.withValues(alpha: 0.88);
     return Padding(
-      padding: const EdgeInsets.only(top: 3, left: 30, right: 30),
+      padding: const EdgeInsets.only(top: 10, left: 28, right: 30),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -888,15 +867,19 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
             children: [
               Text(
                 getI18NKey().background,
-                style: TextStyle(color: Color(0xff424242)),
+                style: TextStyle(
+                  color: focusTextColor,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               SizedBox(
-                width: 5,
+                width: 8,
               ),
               BlackCheckButtonListWidget(
                 // initIndex: 1,
                 initIndex: SharePreferenceUtil.getSyncInstance().getBgMode(),
-                backgroundColor: ColorsConfig.gray_40,
+                useFocusDetailStyle: true,
                 list: CONSTANTS.getBGOnAndOffButtonList(
                     defaultVal:
                         SharePreferenceUtil.getSyncInstance().getBgMode()),
@@ -988,14 +971,54 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
   }
 
   InkWell getSwitchFont() {
+    final Color themeColor = ThemeManager.getInstance().getDefautThemeColor();
     return InkWell(
+        borderRadius: BorderRadius.circular(999),
         onTap: () {
           fontMode = Utility.switchCounterFont();
           updateUI();
         },
-        child: Text(
-          getI18NKey().switch_font,
-          style: TextStyle(color: Colors.white, fontSize: 14),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: const Color(0xff121820).withValues(alpha: 0.82),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.08),
+              width: 1,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 18,
+                height: 18,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: themeColor.withValues(alpha: 0.16),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  'Aa',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.88),
+                    fontSize: 9,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                getI18NKey().switch_font,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.86),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
         ));
   }
 
@@ -1103,5 +1126,12 @@ class MissionDetailPageState<T> extends BaseWidgetState<MissionDetailPage> {
         fontMode: this.fontMode,
       );
     }
+  }
+
+  /// 统一计算专注页大圆环进度，正计时和倒计时都使用已用时占比。
+  double _getCounterProgress() {
+    final manager = CounterManagement.getInstance();
+    if (manager.totalTime <= 0) return 0;
+    return (manager.timeUsed / manager.totalTime).clamp(0.0, 1.0).toDouble();
   }
 }

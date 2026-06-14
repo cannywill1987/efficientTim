@@ -76,8 +76,8 @@ class DialogManagement {
       {Widget? iconWidget,
       String? title,
       String? desc,
-        String? btnConfirm,
-        String? btnCancel,
+      String? btnConfirm,
+      String? btnCancel,
       String? checkBoxDesc,
       bool isChecked = false,
       Function? okCallback}) async {
@@ -153,14 +153,12 @@ class DialogManagement {
               ),
             ],
           ),
-        ),
-        cancelCallback: () {
-          DialogManagement.getInstance().hideDialog(context, false);
-        },
-        okCallback: () {
-          okCallback?.call(isCheck);
-          DialogManagement.getInstance().hideDialog(context, true);
-        });
+        ), cancelCallback: () {
+      DialogManagement.getInstance().hideDialog(context, false);
+    }, okCallback: () {
+      okCallback?.call(isCheck);
+      DialogManagement.getInstance().hideDialog(context, true);
+    });
     return result;
   }
 
@@ -192,7 +190,7 @@ class DialogManagement {
       Widget? child,
       barrierDismissible: true,
       shouldShowButtons: true,
-        shouldShowCancelButton: true,
+      shouldShowCancelButton: true,
       String? okText,
       String? cancelText,
       EdgeInsets? margin,
@@ -245,21 +243,21 @@ class DialogManagement {
                         if (shouldShowButtons == true)
                           Row(
                             children: [
-                              if(shouldShowCancelButton == true)
-                              Expanded(
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        if (cancelCallback != null) {
-                                          cancelCallback();
-                                        }
-                                      },
-                                      child: Text(
-                                          cancelText ?? getI18NKey().refuse,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              decoration: TextDecoration.none,
-                                              color: Color(0xffbbbbbb),
-                                              fontSize: 15)))),
+                              if (shouldShowCancelButton == true)
+                                Expanded(
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          if (cancelCallback != null) {
+                                            cancelCallback();
+                                          }
+                                        },
+                                        child: Text(
+                                            cancelText ?? getI18NKey().refuse,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                decoration: TextDecoration.none,
+                                                color: Color(0xffbbbbbb),
+                                                fontSize: 15)))),
                               // if(shouldShowCancelButton == true)
                               Container(
                                 width: shouldShowCancelButton == true ? 1 : 0,
@@ -363,9 +361,10 @@ class DialogManagement {
         }));
   }
 
-  void showFinishDialog(BuildContext context, {required Function okCallback}) {
-    showDialog(
+  Future<bool?> showFinishDialog(BuildContext context) {
+    return showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         bool isChecked = false;
         return AlertDialog(
@@ -396,16 +395,13 @@ class DialogManagement {
             TextButton(
               child: Text(getI18NKey().cancel),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(null);
               },
             ),
             TextButton(
               child: Text(getI18NKey().confirm),
               onPressed: () {
-                Navigator.of(context).pop();
-                // 在这里处理确定按钮的逻辑
-                okCallback.call(isChecked);
-                // Navigator.of(context).pop();
+                Navigator.of(context).pop(isChecked);
               },
             ),
           ],
@@ -414,7 +410,6 @@ class DialogManagement {
     );
   }
 
-
   void showAISearchBarMenuWithoutText({
     required BuildContext context,
     // bool isHighlight,
@@ -422,8 +417,6 @@ class DialogManagement {
     Function? onContinue,
     Function? onCopy,
   }) {
-
-
     // void dismissOverlay() {
     //   // keepEditorFocusNotifier.decrease();
     //   if(cmdFContainerWidgetDialog != null) {
@@ -436,25 +429,27 @@ class DialogManagement {
       context: context,
       builder: (BuildContext context) {
         return cmdFContainerWidgetDialog = AlertDialog(
-            backgroundColor:ThemeManager.getInstance().getCardBackgroundColor(),
+          backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
-                      width: isHandsetBySize(context: context) ? mobileWidth : tabletWidth,
+                      width: isHandsetBySize(context: context)
+                          ? mobileWidth
+                          : tabletWidth,
                       // height: 600,
                       decoration: BoxDecoration(
-                          color: ThemeManager.getInstance().getCardBackgroundColor(), borderRadius: BorderRadius.circular(8)),
+                          color: ThemeManager.getInstance()
+                              .getCardBackgroundColor(),
+                          borderRadius: BorderRadius.circular(8)),
                       child: CmdFContainerWidget())
                 ],
               );
             },
           ),
-          actions: <Widget>[
-
-          ],
+          actions: <Widget>[],
         );
       },
     );
@@ -473,7 +468,6 @@ class DialogManagement {
     //
     // Overlay.of(context, rootOverlay: true).insert(overlay!);
   }
-
 
   void showMonthDialog(BuildContext context,
       {required String title,
@@ -540,7 +534,7 @@ class DialogManagement {
       {required FlomoMissionModel flomoMissionModel,
       required Function onSubmitted}) async {
     // if(SharePreferenceUtil.getSyncInstance().getBool(key: ShareprefrenceKeys.flomoRatingDialogDontRemindAgain, defaultVal: false) == false) {
-    if(ABTestSetting.isRatingDialogOn == true) {
+    if (ABTestSetting.isRatingDialogOn == true) {
       DialogManagement.getInstance().showFlomoRatingDialogWithOnlyChild(context,
           child: FlomoRatingDialog(
             flomoMissionModel: flomoMissionModel,
@@ -557,100 +551,101 @@ class DialogManagement {
     //   CounterMethodChannelManager.getInstance().requestReview();
     // } else if (Utility.isIOS() == true) {
     // if (Params.channelEnum != ChannelEnum.vivo) {
-      bool hasRating = await CloudSharepreferenceManagement.getInstance()
-          .getBool(ShareprefrenceKeys.hasRating + scene, false);
-      bool hasRatingGlobal = await CloudSharepreferenceManagement.getInstance()
-          .getBool(ShareprefrenceKeys.hasRating, false);
+    bool hasRating = await CloudSharepreferenceManagement.getInstance()
+        .getBool(ShareprefrenceKeys.hasRating + scene, false);
+    bool hasRatingGlobal = await CloudSharepreferenceManagement.getInstance()
+        .getBool(ShareprefrenceKeys.hasRating, false);
 
-      if (hasRating == false && hasRatingGlobal == false) {
-        DialogManagement.getInstance().showRatingDialogWithOnlyChild(context,
-            child: RatingDialog(
-                force: false,
-                starSize: 28,
-                submitButtonTextStyle: TextStyle(fontSize: 20),
-                image: Container(
-                    clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.white,
-                  ),
-                  child: Image.asset(
-                    R.assetsImgBgRatingGuide,
-                    width: 100,
-                    height: 100,
-                  ),
+    if (hasRating == false && hasRatingGlobal == false) {
+      DialogManagement.getInstance().showRatingDialogWithOnlyChild(context,
+          child: RatingDialog(
+              force: false,
+              starSize: 28,
+              submitButtonTextStyle: TextStyle(fontSize: 20),
+              image: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white,
                 ),
-                title: Text(getI18NKey().rating_guide, style: TextStyle(fontSize: 16),),
-                submitButtonText: getI18NKey().submit,
-                onDontRemindAgainListener: () {
-                  CloudSharepreferenceManagement.getInstance()
-                      .setBool(ShareprefrenceKeys.hasRating + scene, true);
+                child: Image.asset(
+                  R.assetsImgBgRatingGuide,
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+              title: Text(
+                getI18NKey().rating_guide,
+                style: TextStyle(fontSize: 16),
+              ),
+              submitButtonText: getI18NKey().submit,
+              onDontRemindAgainListener: () {
+                CloudSharepreferenceManagement.getInstance()
+                    .setBool(ShareprefrenceKeys.hasRating + scene, true);
+                EventCollection.onCollectionJSON({
+                  "sceneType": scene,
+                  "eventType": EVENTNAME.rating_refuse,
+                  "message": "",
+                });
+              },
+              onClickCopyQQ: () {
+                Utility.copyToClipboard("563144208", shouldShowToast: false);
+                EventCollection.onCollectionJSON({
+                  "sceneType": scene,
+                  "eventType": EVENTNAME.rating_add_qq,
+                  "message": "",
+                });
+                Utility.showToastMsg(
+                    context: context, msg: getI18NKey().copy_qq_success);
+              },
+              onSubmitted: (d) async {
+                if (!TextUtil.isEmpty(scene)) {
                   EventCollection.onCollectionJSON({
                     "sceneType": scene,
-                    "eventType": EVENTNAME.rating_refuse,
+                    "eventType": EVENTNAME.rating,
                     "message": "",
+                    "value1": d.rating
                   });
-                },
-                onClickCopyQQ: () {
-                  Utility.copyToClipboard("563144208", shouldShowToast: false);
-                  EventCollection.onCollectionJSON({
-                    "sceneType": scene,
-                    "eventType": EVENTNAME.rating_add_qq,
-                    "message": "",
-                  });
-                  Utility.showToastMsg(
-                      context: context, msg: getI18NKey().copy_qq_success);
-                },
-                onSubmitted: (d) async {
-                  if (!TextUtil.isEmpty(scene)) {
-                    EventCollection.onCollectionJSON({
-                      "sceneType": scene,
-                      "eventType": EVENTNAME.rating,
-                      "message": "",
-                      "value1": d.rating
-                    });
-                  }
-                  CloudSharepreferenceManagement.getInstance()
-                      .setBool(ShareprefrenceKeys.hasRating + scene, true);
-                  CloudSharepreferenceManagement.getInstance()
-                      .setBool(ShareprefrenceKeys.hasRating, true);
-                  // SharePreferenceUtil.getSyncInstance()
-                  //     .setBool(key: ShareprefrenceKeys.hasRating, val: true);
-                  if (!TextUtil.isEmpty(d.comment)) {
-                    MongoApisManager.getInstance().insertCommentModel(
-                        title: d.comment,
-                        content: d.comment,
-                        username:
-                            LoginManager.getInstance().getUserBean().username,
-                        avatar:
-                            LoginManager.getInstance().getUserBean().avatar);
-                  }
-                  if (d.rating >= 4) {
-                    if (Utility.isIOS() == true || Utility.isMacOS() == true) {
-                      // String s = "https://itunes.apple.com/app/id${Utility.isMacOS()
-                      //     ? '1663772116'
-                      //     : '1663610373'}?action=write-review";
-                      // Utility.openExternalWebView(url: s);
-                      if (Utility.isIOS()) {
-                        final InAppReview inAppReview = InAppReview.instance;
-                        if (await inAppReview.isAvailable()) {
-                          inAppReview.requestReview();
-                        } else {
-                          inAppReview.openStoreListing(
-                              appStoreId: Utility.isMacOS()
-                                  ? '1663772116'
-                                  : '1663610373');
-                        }
+                }
+                CloudSharepreferenceManagement.getInstance()
+                    .setBool(ShareprefrenceKeys.hasRating + scene, true);
+                CloudSharepreferenceManagement.getInstance()
+                    .setBool(ShareprefrenceKeys.hasRating, true);
+                // SharePreferenceUtil.getSyncInstance()
+                //     .setBool(key: ShareprefrenceKeys.hasRating, val: true);
+                if (!TextUtil.isEmpty(d.comment)) {
+                  MongoApisManager.getInstance().insertCommentModel(
+                      title: d.comment,
+                      content: d.comment,
+                      username:
+                          LoginManager.getInstance().getUserBean().username,
+                      avatar: LoginManager.getInstance().getUserBean().avatar);
+                }
+                if (d.rating >= 4) {
+                  if (Utility.isIOS() == true || Utility.isMacOS() == true) {
+                    // String s = "https://itunes.apple.com/app/id${Utility.isMacOS()
+                    //     ? '1663772116'
+                    //     : '1663610373'}?action=write-review";
+                    // Utility.openExternalWebView(url: s);
+                    if (Utility.isIOS()) {
+                      final InAppReview inAppReview = InAppReview.instance;
+                      if (await inAppReview.isAvailable()) {
+                        inAppReview.requestReview();
                       } else {
-                        CounterMethodChannelManager.getInstance()
-                            .requestReview();
+                        inAppReview.openStoreListing(
+                            appStoreId: Utility.isMacOS()
+                                ? '1663772116'
+                                : '1663610373');
                       }
                     } else {
-                      Utility.openExternalWebView(url: Urls.ratingGuide);
+                      CounterMethodChannelManager.getInstance().requestReview();
                     }
+                  } else {
+                    Utility.openExternalWebView(url: Urls.ratingGuide);
                   }
-                }));
-      }
+                }
+              }));
+    }
     // }
     // }
   }
@@ -716,7 +711,8 @@ class DialogManagement {
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                      constraints: BoxConstraints(minHeight: 200, maxWidth: 500),
+                      constraints:
+                          BoxConstraints(minHeight: 200, maxWidth: 500),
                       margin: Utility.isHandsetBySize()
                           ? EdgeInsets.symmetric(
                               horizontal: 20, vertical: mobileVerticalPadding)
@@ -818,7 +814,9 @@ class DialogManagement {
     },
         okText: getI18NKey().confirm,
         child: Container(
-          width: 400,
+          // 群清单权限弹窗包含权限、密码与分享三个模块，桌面端需要更宽的内容区，
+          // 避免按钮和说明文字被挤成手机样式。
+          width: Utility.isHandsetBySize() ? double.infinity : 820,
           child: Column(
             children: [
               GroupChatPermissionSharingWidget(
@@ -979,10 +977,11 @@ class DialogManagement {
       {Function? okCallback,
       String? title,
       String? content,
-        String? text,
+      String? text,
       String? hint}) async {
     // String text = "";
-    TextEditingController _originPasswordController = TextEditingController(text: text);
+    TextEditingController _originPasswordController =
+        TextEditingController(text: text);
     // GlobalKey<CustomMultiInputWidgetState>
     // customMultiInputWidgetStateGlobalKey = GlobalKey();
     // if (TextUtil.isEmpty(folderId) == true) {
@@ -1431,11 +1430,15 @@ class DialogManagement {
       {required BuildContext context,
       required Widget widget,
       double? width,
-      double? height}) {
+      double? height,
+      bool showShell = true}) {
     showDialog(
         barrierColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
+          if (showShell == false) {
+            return widget;
+          }
           // if (dialogContent == null) {
           return Container(
               clipBehavior: Clip.antiAlias,
@@ -1565,15 +1568,15 @@ class DialogManagement {
   void showRequestVoicePermissiondialog(BuildContext context,
       {Function? okCallback, Function? cancelCallback}) {
     // Utility.isHuaWei() == true &&
-        bool q = SharePreferenceUtil.getSyncInstance().getBool(
-            key: ShareprefrenceKeys.hasMicrophonePermissionRequested + "123" +
-                Params.curVersion,
-            defaultVal: false);
-    if (
-    Utility.isHuaWei() == true && q ==
-            false) {
+    bool q = SharePreferenceUtil.getSyncInstance().getBool(
+        key: ShareprefrenceKeys.hasMicrophonePermissionRequested +
+            "123" +
+            Params.curVersion,
+        defaultVal: false);
+    if (Utility.isHuaWei() == true && q == false) {
       SharePreferenceUtil.getSyncInstance().setBool(
-          key: ShareprefrenceKeys.hasMicrophonePermissionRequested + "123" +
+          key: ShareprefrenceKeys.hasMicrophonePermissionRequested +
+              "123" +
               Params.curVersion,
           val: true);
       Utility.showAlertDialog(

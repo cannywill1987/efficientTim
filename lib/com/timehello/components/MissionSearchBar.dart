@@ -404,53 +404,21 @@ class MissionSearchBarState extends State<MissionSearchBar> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
-    }
-
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey().confirmToFinished,
-        message: getI18NKey().confirmToFinishedContent,
-        okLabel: getI18NKey().confirm,
-        cancelLabel: getI18NKey().cancel,
-        onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await onClickFinishMission(data);
-    }
+    await onClickFinishMission(data);
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    List<FolderModel> folderModel = await MongoApisManager.getInstance().queryWhereEqual_folderModelWithFolderId(data.folder_id);
+    FolderModel? folderModel1 = folderModel.isNotEmpty ? folderModel.first : null;
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+      folderModel: folderModel1,
+    );
+    if (!didFinish) {
       return;
     }
-
-    List<FolderModel> folderModel = await MongoApisManager.getInstance().queryWhereEqual_folderModelWithFolderId(data.folder_id);
-    FolderModel? folderModel1 = folderModel.first;
-
-    await MongoApisManager.getInstance().insertStatsModel(
-      title: data.title,
-      type: 1,
-      icon: folderModel1?.icon,
-      color: folderModel1?.color,
-      tagName: data.tagNames,
-      fid: folderModel1?.objectId,
-      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-      finish_time: Utility.getTimeStampToday(),
-      value: data.tomato_duration?.toDouble() ?? 0,
-      category: data.title,
-    );
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     // this.requestDatas();
     // CounterManagement counterManagement = CounterManagement.getInstance();
     //不是同一个就重置重新开始计数

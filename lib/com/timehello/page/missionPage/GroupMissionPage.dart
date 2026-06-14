@@ -51,6 +51,9 @@ import '../WrongQuestionBookPage/components/WQBNoteWidget.dart';
 import '../missionPage/componnents/MissionGridView.dart';
 import 'componnents/GroupMissionSilverList.dart';
 import 'componnents/MissionSilverList.dart';
+import '../../libs/DragAndDropLists/lib/drag_and_drop_item.dart';
+import '../../libs/DragAndDropLists/lib/drag_and_drop_list.dart';
+import '../../libs/DragAndDropLists/lib/drag_and_drop_lists.dart';
 
 class GroupMissionPage extends BaseWidget {
   // FolderModel? folderModel; //FoldersPage页面传入的数据
@@ -235,6 +238,17 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
         this.onTapMoveRightGroupListener(
             data['missionModel'], data['groupModel']);
         break;
+      case "onDragMissionBetweenGroupsListener":
+        this.onDragMissionBetweenGroupsListener(
+          movedMission: data['missionModel'],
+          sourceGroupModel: data['sourceGroupModel'],
+          targetGroupModel: data['targetGroupModel'],
+          orderedSourceMissionModels:
+              List<MissionModel>.from(data['orderedSourceMissionModels'] ?? []),
+          orderedTargetMissionModels:
+              List<MissionModel>.from(data['orderedTargetMissionModels'] ?? []),
+        );
+        break;
       case 'onClickDoItNow':
         Utility.onClickUpdateTimeDoItNow(context, [data]);
         break;
@@ -410,6 +424,86 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
     }
   }
 
+  Future<void> onDragMissionBetweenGroupsListener(
+      {required MissionModel movedMission,
+      required GroupModel sourceGroupModel,
+      required GroupModel targetGroupModel,
+      required List<MissionModel> orderedSourceMissionModels,
+      required List<MissionModel> orderedTargetMissionModels}) async {
+    final bool isSameGroup =
+        sourceGroupModel.objectId == targetGroupModel.objectId;
+    final List<MissionModel> missionsToPersist = [];
+    final List<GroupModel> groupsToPersist = [];
+
+    void syncMissionOrder(List<MissionModel> missionModels) {
+      for (int i = 0; i < missionModels.length; i++) {
+        missionModels[i].order_index = i;
+      }
+    }
+
+    syncMissionOrder(orderedSourceMissionModels);
+    if (isSameGroup) {
+      targetGroupModel.missionModelList = orderedTargetMissionModels;
+      targetGroupModel.missionModelObjectIdOrderList =
+          orderedTargetMissionModels
+              .map((element) => element.objectId ?? '')
+              .where((element) => element.isNotEmpty)
+              .toList();
+      missionsToPersist.addAll(orderedTargetMissionModels);
+      if (TextUtil.isEmpty(targetGroupModel.objectId) == false) {
+        groupsToPersist.add(targetGroupModel);
+      }
+    } else {
+      syncMissionOrder(orderedTargetMissionModels);
+      movedMission.group_id = targetGroupModel.objectId;
+
+      sourceGroupModel.missionModelList = orderedSourceMissionModels;
+      targetGroupModel.missionModelList = orderedTargetMissionModels;
+
+      if (TextUtil.isEmpty(sourceGroupModel.objectId) == false) {
+        sourceGroupModel.missionModelObjectIdOrderList =
+            orderedSourceMissionModels
+                .map((element) => element.objectId ?? '')
+                .where((element) => element.isNotEmpty)
+                .toList();
+        groupsToPersist.add(sourceGroupModel);
+      }
+      if (TextUtil.isEmpty(targetGroupModel.objectId) == false) {
+        targetGroupModel.missionModelObjectIdOrderList =
+            orderedTargetMissionModels
+                .map((element) => element.objectId ?? '')
+                .where((element) => element.isNotEmpty)
+                .toList();
+        groupsToPersist.add(targetGroupModel);
+      }
+      missionsToPersist.addAll(orderedSourceMissionModels);
+      missionsToPersist.addAll(orderedTargetMissionModels);
+    }
+
+    final List<MissionModel> uniqueMissionModels = [];
+    final Set<String> missionIds = {};
+    for (final MissionModel missionModel in missionsToPersist) {
+      final String missionId =
+          missionModel.objectId ?? missionModel.title ?? "";
+      if (missionIds.add(missionId)) {
+        uniqueMissionModels.add(missionModel);
+      }
+    }
+
+    if (groupsToPersist.isEmpty) {
+      await MongoApisManager.getInstance().batchUpdate_MissionModel2(
+          listParam: uniqueMissionModels, shouldRefresh: true);
+    } else {
+      await Future.wait([
+        MongoApisManager.getInstance().batchUpdate_MissionModel2(
+            listParam: uniqueMissionModels, shouldRefresh: false),
+        MongoApisManager.getInstance().batchUpdate_GroupModel(
+            listParam: groupsToPersist, shouldRefresh: true),
+      ]);
+    }
+    updateUI();
+  }
+
   // onTapMultiSelectListener(data) async {
   //   if (data == null) {
   //     if (this.multiSelectModeEnum == MultiSelectModeEnum.normal) {
@@ -497,50 +591,19 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
-    }
-
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey().confirmToFinished,
-        message: getI18NKey().confirmToFinishedContent,
-        okLabel: getI18NKey().confirm,
-        cancelLabel: getI18NKey().cancel,
-        onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await onClickFinishMission(data);
-    }
+    await onClickFinishMission(data);
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+      folderModel: this.folderModel,
+    );
+    if (!didFinish) {
       return;
     }
-
-    await MongoApisManager.getInstance().insertStatsModel(
-      title: data.title,
-      type: 1,
-      icon: this.folderModel?.icon,
-      color: this.folderModel?.color,
-      tagName: data.tagNames,
-      fid: this.folderModel?.objectId,
-      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-      finish_time: Utility.getTimeStampToday(),
-      value: data.tomato_duration?.toDouble() ?? 0,
-      category: data.title,
-    );
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     // this.requestDatas();
     updateUI();
     CounterManagement counterManagement = CounterManagement.getInstance();
@@ -1033,7 +1096,7 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Mission Workspace',
+                      getI18NKey().mission_workspace,
                       style: TextStyle(
                         fontSize: 11,
                         color: subtitleColor,
@@ -1260,6 +1323,26 @@ class GroupMissionPageState extends BaseWidgetState<GroupMissionPage> {
                               "groupModel": groupModel
                             });
                           },
+                          onDragMissionBetweenGroupsListener: (
+                            MissionModel missionMode,
+                            GroupModel sourceGroupModel,
+                            GroupModel targetGroupModel,
+                            List<MissionModel> orderedSourceMissionModels,
+                            List<MissionModel> orderedTargetMissionModels,
+                          ) {
+                            this.onClick(
+                              "onDragMissionBetweenGroupsListener",
+                              {
+                                "missionModel": missionMode,
+                                "sourceGroupModel": sourceGroupModel,
+                                "targetGroupModel": targetGroupModel,
+                                "orderedSourceMissionModels":
+                                    orderedSourceMissionModels,
+                                "orderedTargetMissionModels":
+                                    orderedTargetMissionModels,
+                              },
+                            );
+                          },
                           onMoveNextGroupListener: (GroupModel groupModel) {
                             this.onClick("onMoveNextGroupListener", groupModel);
                           },
@@ -1336,6 +1419,7 @@ class DraggableHorizontalList extends StatefulWidget {
   final Function onUpdateUIListener;
   final Function onTapMoveLeftGroupListener;
   final Function onTapMoveRightGroupListener;
+  final Function onDragMissionBetweenGroupsListener;
   final Function onMoveNextGroupListener;
   final Function onMovePreviousGroupListener;
   final Function onMobilePageChangeLinstener;
@@ -1353,6 +1437,7 @@ class DraggableHorizontalList extends StatefulWidget {
       required this.onMoveNextGroupListener,
       required this.onMovePreviousGroupListener,
       required this.onTapMoveRightGroupListener,
+      required this.onDragMissionBetweenGroupsListener,
       required this.onUpdateUIListener,
       required this.onTapEditListener,
       required this.onTapDeleteListener,
@@ -1382,7 +1467,10 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
   // final List<String> items = List.generate(15, (index) => 'Item ${index + 1}');
   // GlobalKey<CustomTextFieldState> customTextFieldStateGlobalKey = GlobalKey();
   // final ScrollController _scrollController = ScrollController();
+  static const double _desktopColumnWidth = 360;
+  static const double _desktopColumnGap = 18;
   PageController controller = PageController(viewportFraction: 0.8);
+  final ScrollController _desktopBoardScrollController = ScrollController();
 
   Color _resolveColumnBaseColor(GroupModel? groupModel, int index) {
     final String title = (groupModel?.title ?? "").toLowerCase();
@@ -1490,44 +1578,308 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
             }
           });
     } else {
-      return Scrollbar(
-        // controller: _scrollController,
-        thumbVisibility: true,
-        trackVisibility: true,
-        scrollbarOrientation: ScrollbarOrientation.top,
-        child: ReorderableListView(
-          primary: true,
-          scrollDirection: Axis.horizontal,
-          onReorder: (oldIndex, newIndex) {
-            if (oldIndex == 0 || newIndex == 0) {
-              Utility.showToastMsg(
-                  context: context,
-                  msg: getI18NKey().unorder_group_not_order_toast);
-              return;
-            }
-            if (oldIndex == this.widget.listGroupModels.length - 1 ||
-                newIndex == this.widget.listGroupModels.length - 1) {
-              Utility.showToastMsg(
-                  context: context, msg: getI18NKey().add_group_cannot_reorder);
-              return;
-            }
-            setState(() {
-              if (newIndex > oldIndex) {
-                newIndex -= 1;
-              }
-              final GroupModel item =
-                  this.widget.listGroupModels.removeAt(oldIndex);
-              this.widget.listGroupModels.insert(newIndex, item);
-              this
-                  .widget
-                  .onReorderFinishListener
-                  .call(this.widget.listGroupModels);
-            });
+      return _buildDesktopDragBoard(context);
+    }
+  }
+
+  Widget _buildDesktopDragBoard(BuildContext context) {
+    final List<DragAndDropList> dragLists = _buildDesktopDragLists();
+    return Scrollbar(
+      controller: _desktopBoardScrollController,
+      thumbVisibility: true,
+      trackVisibility: true,
+      scrollbarOrientation: ScrollbarOrientation.top,
+      child: DragAndDropLists(
+        children: dragLists,
+        axis: Axis.horizontal,
+        // listPadding 会从列表可见宽度里扣除；这里把列宽和间距分开算，
+        // 保持每个看板列仍是 360，同时让列与列之间有稳定呼吸感。
+        listWidth: _desktopColumnWidth + _desktopColumnGap,
+        sliverList: false,
+        scrollController: _desktopBoardScrollController,
+        listDragOnLongPress: true,
+        itemDragOnLongPress: true,
+        lastItemTargetHeight: 24,
+        listPadding: const EdgeInsets.only(right: _desktopColumnGap),
+        listGhost: const SizedBox(
+          width: _desktopColumnWidth,
+          child: Card(
+            elevation: 0,
+            color: Colors.transparent,
+          ),
+        ),
+        itemGhost: Container(
+          constraints: const BoxConstraints(minHeight: 78),
+          decoration: BoxDecoration(
+            color: Colors.white.withAlpha(150),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: Colors.white.withAlpha(120)),
+          ),
+        ),
+        itemTargetOnWillAccept: (incoming, target) {
+          final dynamic data = (target.parent is DragAndDropList)
+              ? (target.parent as DragAndDropList).data
+              : null;
+          return !(data is Map && data['isAdd'] == true);
+        },
+        onListReorder: _onDesktopListReorder,
+        onItemReorder: _onDesktopItemReorder,
+      ),
+    );
+  }
+
+  List<DragAndDropList> _buildDesktopDragLists() {
+    final List<DragAndDropList> dragLists = [];
+    for (int index = 0; index < widget.listGroupModels.length; index++) {
+      final GroupModel groupModel = widget.listGroupModels[index];
+      final bool isFirstGroup =
+          (TextUtil.isEmpty(groupModel.objectId) == true &&
+              groupModel.title == getI18NKey().unorder_group);
+      final bool isFirstGroupWithoutOrder = widget.listGroupModels.length > 1
+          ? widget.listGroupModels[1].objectId == groupModel.objectId
+          : false;
+      final bool isLastGroup =
+          widget.listGroupModels.last.objectId == groupModel.objectId;
+      final Map<String, Color> palette = _resolveColumnPalette(
+          index: index, groupModel: groupModel, isAdd: false);
+      dragLists.add(
+        DragAndDropList(
+          data: {
+            'groupModel': groupModel,
+            'isAdd': false,
           },
-          children: buildList(context),
+          canDrag: !isFirstGroup,
+          decoration: BoxDecoration(
+            color: palette["background"],
+            borderRadius: BorderRadius.circular(26),
+            border: Border.all(color: palette["border"]!, width: 1),
+            boxShadow: ThemeManager.getInstance().isDark()
+                ? []
+                : [
+                    BoxShadow(
+                      color: palette["accent"]!.withAlpha(20),
+                      blurRadius: 18,
+                      offset: const Offset(0, 10),
+                    )
+                  ],
+          ),
+          header: DesktopGroupMissionColumn(
+            key: ValueKey(groupModel.objectId ?? groupModel.title),
+            folderModel: widget.folderModel,
+            groupModel: groupModel,
+            columnHeaderColor: palette["header"],
+            columnSurfaceColor: palette["surface"],
+            columnAccentColor: palette["accent"],
+            columnBorderColor: palette["border"],
+            onTapEditTitleListener: widget.onTapEditListener,
+            onTapEditListener: widget.onTapEditListener,
+            onTapDeleteListener: widget.onTapDeleteListener,
+            onTapFinishListener: widget.onTapFinishListener,
+            onTapPlayListener: widget.onTapPlayListener,
+            onTapMultiSelectListener: widget.onTapMultiSelectListener,
+            onTapUnFinishListener: widget.onTapUnFinishListener,
+            onTapDoItNow: widget.onTapDoItNow,
+            onClickCreateMission: widget.onCreateMissionListener,
+            onUpdateGroupModelListener: widget.onUpdateGroupModelListener,
+            onTapAddColumLeftGroupListener:
+                widget.onTapAddColumLeftGroupListener,
+            onTapAddColumRightGroupListener:
+                widget.onTapAddColumRightGroupListener,
+            onTapDeleteGroupListener: widget.onTapDeleteGroupListener,
+            onTapSelectBgColorGroupListener:
+                widget.onTapSelectBgColorGroupListener,
+            onMoveNextGroupListener: widget.onMoveNextGroupListener,
+            onMovePreviousGroupListener: widget.onMovePreviousGroupListener,
+            isFirstGroupWithoutOrder: isFirstGroupWithoutOrder,
+            isLastGroup: isLastGroup,
+          ),
+          children: _buildDesktopMissionItems(
+            groupModel: groupModel,
+            isFirstGroup: isFirstGroup,
+            isLastGroup: isLastGroup,
+            palette: palette,
+          ),
+          contentsWhenEmpty: Container(
+            constraints: const BoxConstraints(minHeight: 96),
+            alignment: Alignment.center,
+            child: Text(
+              getI18NKey().add_group,
+              style: TextStyle(
+                color: palette["accent"],
+                fontSize: 12,
+              ),
+            ),
+          ),
         ),
       );
     }
+    dragLists.add(
+      DragAndDropList(
+        data: {'isAdd': true},
+        canDrag: false,
+        decoration: BoxDecoration(
+          color: _resolveColumnPalette(
+              index: widget.listGroupModels.length,
+              groupModel: null,
+              isAdd: true)["background"],
+          borderRadius: BorderRadius.circular(26),
+        ),
+        header: _buildDesktopAddGroupHeader(
+          index: widget.listGroupModels.length,
+          onTapAddGroupListener: (v) {
+            widget.onTapAddGroupListener.call(v, -1);
+          },
+        ),
+        children: const [],
+        contentsWhenEmpty: const SizedBox.shrink(),
+        lastTarget: const SizedBox.shrink(),
+      ),
+    );
+    return dragLists;
+  }
+
+  /// 功能：构建桌面横向看板末尾的“新增分组”列头。
+  /// 说明：这里不能复用 `_buildListItem(isAdd: true)`，因为那个组件是整列布局，
+  /// 内部带 Spacer，需要父级提供有限高度；而 DragAndDropList 的 header 会以非 flex 子节点方式测量，
+  /// 复用整列组件会触发 unbounded height 断言，导致整个横向看板空白。
+  Widget _buildDesktopAddGroupHeader({
+    required int index,
+    Function? onTapAddGroupListener,
+  }) {
+    final Map<String, Color> palette = _resolveColumnPalette(
+      index: index,
+      groupModel: null,
+      isAdd: true,
+    );
+    return Container(
+      key: const Key("desktop_add_group_header"),
+      height: 58,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: palette["header"],
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(26),
+        ),
+      ),
+      child: Row(
+        children: [
+          CustomTextField(
+            isEditing: false,
+            shouldUpdateText: true,
+            onEnterListener: (String text) {
+              onTapAddGroupListener?.call(text);
+            },
+            icon: Icon(
+              Icons.add,
+              color: palette["accent"],
+              size: 14,
+            ),
+            style: TextStyle(
+              color: palette["accent"],
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+            text: getI18NKey().add_group,
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  List<DragAndDropItem> _buildDesktopMissionItems(
+      {required GroupModel groupModel,
+      required bool isFirstGroup,
+      required bool isLastGroup,
+      required Map<String, Color> palette}) {
+    final List<MissionModel> missions = groupModel.missionModelList ?? [];
+    return missions.map((MissionModel missionModel) {
+      return DragAndDropItem(
+        data: missionModel,
+        child: GroupMissionSilverListItem(
+          key: ValueKey(missionModel.objectId ?? missionModel.title),
+          multiSelectModeEnum: MultiSelectModeEnum.normal,
+          isSlideEnable: false,
+          onTapListener: widget.onTapPlayListener,
+          isReorderable: TextUtil.isEmpty(groupModel.objectId),
+          missionModel: missionModel,
+          onTapDoItNow: widget.onTapDoItNow,
+          onTapUnFinishListener: widget.onTapUnFinishListener,
+          onTapEditTitleListener: null,
+          onTapEditListener: widget.onTapEditListener,
+          onTapDeleteListener: widget.onTapDeleteListener,
+          onTapFinishListener: widget.onTapFinishListener,
+          onTapMultiSelectListener: widget.onTapMultiSelectListener,
+          onTapPlayListener: widget.onTapPlayListener,
+          isReodering: false,
+          columnAccentColor: palette["accent"],
+          cardBorderColor: palette["border"],
+          cardSurfaceColor: palette["surface"],
+          groupModel: groupModel,
+          onTapMoveLeftGroupListener: widget.onTapMoveLeftGroupListener,
+          onTapMoveRightGroupListener: widget.onTapMoveRightGroupListener,
+          isFirstGroup: isFirstGroup,
+          isLastGroup: isLastGroup,
+        ),
+      );
+    }).toList();
+  }
+
+  void _onDesktopListReorder(int oldListIndex, int newListIndex) {
+    if (oldListIndex >= widget.listGroupModels.length ||
+        newListIndex >= widget.listGroupModels.length) {
+      return;
+    }
+    setState(() {
+      final GroupModel movedGroup =
+          widget.listGroupModels.removeAt(oldListIndex);
+      widget.listGroupModels.insert(newListIndex, movedGroup);
+      widget.onReorderFinishListener.call(widget.listGroupModels);
+    });
+  }
+
+  void _onDesktopItemReorder(
+      int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
+    if (oldListIndex >= widget.listGroupModels.length ||
+        newListIndex >= widget.listGroupModels.length) {
+      return;
+    }
+    setState(() {
+      final GroupModel sourceGroupModel = widget.listGroupModels[oldListIndex];
+      final GroupModel targetGroupModel = widget.listGroupModels[newListIndex];
+      final List<MissionModel> sourceMissionModels =
+          List<MissionModel>.from(sourceGroupModel.missionModelList ?? []);
+      final List<MissionModel> targetMissionModels = oldListIndex ==
+              newListIndex
+          ? sourceMissionModels
+          : List<MissionModel>.from(targetGroupModel.missionModelList ?? []);
+
+      final MissionModel movedMission =
+          sourceMissionModels.removeAt(oldItemIndex);
+      final List<MissionModel> receiverMissionModels =
+          oldListIndex == newListIndex
+              ? sourceMissionModels
+              : targetMissionModels;
+      if (newItemIndex > receiverMissionModels.length) {
+        newItemIndex = receiverMissionModels.length;
+      }
+      receiverMissionModels.insert(newItemIndex, movedMission);
+
+      if (oldListIndex == newListIndex) {
+        sourceGroupModel.missionModelList = receiverMissionModels;
+      } else {
+        sourceGroupModel.missionModelList = sourceMissionModels;
+        targetGroupModel.missionModelList = receiverMissionModels;
+      }
+
+      widget.onDragMissionBetweenGroupsListener.call(
+        movedMission,
+        sourceGroupModel,
+        targetGroupModel,
+        List<MissionModel>.from(sourceGroupModel.missionModelList ?? []),
+        List<MissionModel>.from(targetGroupModel.missionModelList ?? []),
+      );
+    });
   }
 
   List<Widget> buildList(BuildContext context) {
@@ -1669,6 +2021,13 @@ class DraggableHorizontalListState extends State<DraggableHorizontalList> {
                             .onReorderMissionModelListListener
                             ?.call(datas, groupModel, missionModel);
                       },
+                      onDragMissionBetweenGroupsListener: (
+                        MissionModel missionModel,
+                        GroupModel sourceGroupModel,
+                        GroupModel targetGroupModel,
+                        List<MissionModel> orderedSourceMissionModels,
+                        List<MissionModel> orderedTargetMissionModels,
+                      ) {},
                       onTapAddColumLeftGroupListener:
                           this.widget.onTapAddColumLeftGroupListener,
                       onTapAddColumRightGroupListener:

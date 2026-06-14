@@ -40,7 +40,8 @@ class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
   Widget build(BuildContext context) {
     final bool isDark = ThemeManager.getInstance().isDark();
     return Container(
-      color: isDark ? const Color(0xFF171312) : const Color(0xFFF7ECDD),
+      // 四象限页左侧日历/清单栏跟随页面主背景，浅色模式保持纯白，避免和右侧白底页面割裂。
+      color: isDark ? const Color(0xFF171312) : Colors.white,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -61,7 +62,7 @@ class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
         ],
       ),
     );
-    
+
     // return Row(
     //   mainAxisSize: MainAxisSize.max,
     //   children: [
@@ -81,7 +82,7 @@ class _FourQuadrantContainerState extends State<FourQuadrantContainer> {
     //         child: FourQuadrantPage(key: TimeManagementPageStateGlobalKey)),
     //   ],
     // );
-    
+
     // return Selector<CalendarMssionEnv, MissionModel?>(
     //     selector: (_, env) => env.curSelectedMissionModel,
     // builder: (_, curSelectedMissionModel, __) {

@@ -8,12 +8,15 @@ import 'package:time_hello/com/timehello/models/EndTimeMissionModel.dart';
 import '../../common/provider/GlobalStateEnv.dart';
 import '../../components/CircleWidget.dart';
 import '../../config/ENUMS.dart';
-import '../../util/DialogManagement.dart';
 import '../../util/Utility.dart';
 import '../createEndTimePage/CreateEndTimePage.dart';
 import 'components/CountDownListView.dart';
-import 'models/Countdown.dart';
 
+/**
+ * 文件类型：页面
+ * 文件作用：倒计时入口页，负责从全局状态读取倒计时列表并承接新增、编辑、删除和完成操作。
+ * 主要职责：保持原有数据操作链路，把新版列表视觉交给 CountDownListView 和 CountdownItem 渲染。
+ */
 class CountDownListViewPage extends BaseWidget {
   final PageFromEnum pageFromEnum = PageFromEnum.Normal;
 
@@ -33,18 +36,22 @@ class CountDownListViewPage extends BaseWidget {
   }
 }
 
-class _CountDownListViewPageState extends BaseWidgetState<CountDownListViewPage> {
+class _CountDownListViewPageState
+    extends BaseWidgetState<CountDownListViewPage> {
   List<EndTimeMissionModel>? listEndTimeMissionModel;
 
   void onClick(type, data) async {
-    switch(type) {
+    switch (type) {
       case 'onTapFinishListener':
         this.onClickFinishItem(data);
         break;
       case 'onTapUnFinishListener':
         break;
       case 'onTapEditListener':
-        Utility.openPagePCAndMobile(context, child:CreateEndTimePage(missionModel: data,));
+        Utility.openPagePCAndMobile(context,
+            child: CreateEndTimePage(
+              missionModel: data,
+            ));
         break;
       case 'onTapDeleteListener':
         this.onClickDeleteItem(data);
@@ -97,7 +104,8 @@ class _CountDownListViewPageState extends BaseWidgetState<CountDownListViewPage>
   @override
   void initState() {
     super.initState();
-    if(this.widget.pageFromEnum == PageFromEnum.Normal) { //正常push
+    if (this.widget.pageFromEnum == PageFromEnum.Normal) {
+      //正常push
       this.isNavBackBtnVisible = true; //从首页过来
     } else {
       this.isAppBarVisible = false;
@@ -107,38 +115,41 @@ class _CountDownListViewPageState extends BaseWidgetState<CountDownListViewPage>
 
   @override
   baseBuild(BuildContext context) {
+    // 列表数据仍来自 GlobalStateEnv，避免 UI 改版影响原有同步和排序逻辑。
     listEndTimeMissionModel =
         context.watch<GlobalStateEnv>().listEndTimeMissionModel;
-    listEndTimeMissionModel = Utility.sortEndTimeMissionModel(listEndTimeMissionModel ?? []);
-    return  Stack(
-        children: [
-          CountDownListView(
-            list: listEndTimeMissionModel ?? [],
-            onTapFinishListener: (data) {
-                this.onClick("onTapFinishListener", data);
-            },
-            onTapUnFinishListener: (data) {
-              this.onClick("onTapUnFinishListener", data);
-            },
-            onTapEditListener: (data) {
-              this.onClick("onTapEditListener", data);
-            },
-            onTapDeleteListener: (data) {
-              this.onClick("onTapDeleteListener", data);
-            },
-            onTapListener: (data) {
-              this.onClick("onTapListener", data);
-            },
-          ),
-          Positioned(
-              bottom: 30,
-              right: 20,
-              child: CircleWidget(
-                onTapListener: (obj) {
-                  Utility.openPagePCAndMobile(context, child:CreateEndTimePage());
-                },
-              ))
-        ],
+    listEndTimeMissionModel =
+        Utility.sortEndTimeMissionModel(listEndTimeMissionModel ?? []);
+    return Stack(
+      children: [
+        CountDownListView(
+          list: listEndTimeMissionModel ?? [],
+          onTapFinishListener: (data) {
+            this.onClick("onTapFinishListener", data);
+          },
+          onTapUnFinishListener: (data) {
+            this.onClick("onTapUnFinishListener", data);
+          },
+          onTapEditListener: (data) {
+            this.onClick("onTapEditListener", data);
+          },
+          onTapDeleteListener: (data) {
+            this.onClick("onTapDeleteListener", data);
+          },
+          onTapListener: (data) {
+            this.onClick("onTapListener", data);
+          },
+        ),
+        Positioned(
+            bottom: 30,
+            right: 20,
+            child: CircleWidget(
+              onTapListener: (obj) {
+                Utility.openPagePCAndMobile(context,
+                    child: CreateEndTimePage());
+              },
+            ))
+      ],
     );
   }
 }

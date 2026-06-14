@@ -1,5 +1,9 @@
-import "dart:math";
-import 'package:flutter/cupertino.dart';
+/**
+ * 文件类型：计时器悬浮组件
+ * 文件作用：展示当前专注/休息倒计时，并提供移动端拖拽、点击详情和桌面端控制按钮入口。
+ * 主要职责：监听 CounterManagement 的状态变化，同步刷新底部计时器 UI，并统一打开 MissionDetailPage 详情浮层。
+ */
+
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/CustomPainterCircleProgressWidget.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
@@ -12,7 +16,6 @@ import 'package:time_hello/com/timehello/util/SharePreferenceUtil.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import 'CustomTextButton.dart';
-import 'dart:math';
 
 class BottomCounterWidget extends StatefulWidget {
   @override
@@ -32,8 +35,12 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
   // bool draggable = true;
 
   Offset prevOffset = Offset(0, 0);
-  Offset curOffset = Offset(SharePreferenceUtil.getSyncInstance().getMobileCounterPosX(), SharePreferenceUtil.getSyncInstance().getMobileCounterPosY());
-  Offset curLocalOffset = Offset(SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosX(),SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosY());
+  Offset curOffset = Offset(
+      SharePreferenceUtil.getSyncInstance().getMobileCounterPosX(),
+      SharePreferenceUtil.getSyncInstance().getMobileCounterPosY());
+  Offset curLocalOffset = Offset(
+      SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosX(),
+      SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosY());
   // //静止状态下的offset
   // Offset idleOffset = Offset(0, 0);
   // //本次移动的offset
@@ -41,11 +48,15 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
   // //最后一次down事件的offset
   // Offset lastStartOffset = Offset(0, 0);
 
-
   @override
   void initState() {
-    curOffset = Offset(SharePreferenceUtil.getSyncInstance().getMobileCounterPosX(), SharePreferenceUtil.getSyncInstance().getMobileCounterPosY());
-    curLocalOffset = Offset(SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosX(),SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosY());
+    super.initState();
+    curOffset = Offset(
+        SharePreferenceUtil.getSyncInstance().getMobileCounterPosX(),
+        SharePreferenceUtil.getSyncInstance().getMobileCounterPosY());
+    curLocalOffset = Offset(
+        SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosX(),
+        SharePreferenceUtil.getSyncInstance().getLocalMobileCounterPosY());
     // idleOffset = moveOffset * 1;
     CounterManagement counterManagement = CounterManagement.getInstance();
     counterManagement.addOnRequestFinishListener(
@@ -72,7 +83,7 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
         onUpdateUIListener: onUpdateUI = () {
       if (isDisposed == false) {
         Future.delayed(Duration(milliseconds: 200)).then((e) {
-          if(mounted == true) {
+          if (mounted == true) {
             setState(() {});
           }
         });
@@ -80,10 +91,12 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
     });
   }
 
-
   @override
   void didUpdateWidget(BottomCounterWidget oldWidget) {
-    curOffset = Offset(SharePreferenceUtil.getSyncInstance().getMobileCounterPosX(), SharePreferenceUtil.getSyncInstance().getMobileCounterPosY());
+    super.didUpdateWidget(oldWidget);
+    curOffset = Offset(
+        SharePreferenceUtil.getSyncInstance().getMobileCounterPosX(),
+        SharePreferenceUtil.getSyncInstance().getMobileCounterPosY());
     // idleOffset = moveOffset * 1;
   }
 
@@ -105,106 +118,133 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
     // TODO: implement build
     final size = MediaQuery.of(context).size;
     // print("1111111" + draggable.toString());
-    return
-      Utility.isHandsetBySize() == true ? Positioned(
-        top: curOffset.dy - curLocalOffset.dy,
-        left:  curOffset.dx - curLocalOffset.dx,
-        child: GestureDetector(
-          // 移动开始
-          onPanStart: (DragStartDetails details) {
-            print("start, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}");
-            // print("global dx:${details.globalPosition.dx},global dy:${details.globalPosition.dy}, local dx:${details.localPosition.dx},local dy:${details.localPosition.dy},");
-              curLocalOffset = details.localPosition;
-            setState(() {
-              curOffset = Offset(details.globalPosition.dx , details.globalPosition.dy);
-              // moveOffset = lastStartOffset;
-              // draggable = true;
-            });
-          },
-          // 移动中
-          onPanUpdate: (DragUpdateDetails details) {
-            print("update, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}, ${details.delta.dx}, ${details.delta.dy}");
-             // prevOffset = Offset(curOffset.dx, curOffset.dy);
-             // curOffset = Offset(curOffset.dx - (prevOffset.dx - details.globalPosition.dx - details.localPosition.dx), curOffset.dy - (prevOffset.dy - details.globalPosition.dy - details.localPosition.dy));
-            // if((curOffset.dx - details.globalPosition.dx).abs() <10 && (curOffset.dy - details.globalPosition.dy).abs() <10) {
-            if((details.globalPosition.dx + curLocalOffset.dx + 40) < size.width && (details.globalPosition.dy + curLocalOffset.dy + 40) < size.height) {
-              curOffset =
-                  Offset(details.globalPosition.dx, details.globalPosition.dy);
-              setState(() {});
-            }
-            // }
-          },
-          // 移动结束
-          onPanEnd: (DragEndDetails detail) {
-            print("end");
-            // setState(() {
-            //   idleOffset = moveOffset * 1;
-            // });
-            // prevOffset = Offset(curOffset.dx, curOffset.dy);
-            // curOffset = detail.globalPosition;
-            if(curOffset.dx > 0) SharePreferenceUtil.getSyncInstance().setMobileCounterPosX(curOffset.dx);
-            if(curOffset.dy > 0) SharePreferenceUtil.getSyncInstance().setMobileCounterPosY(curOffset.dy);
-            if(curLocalOffset.dx > 0) SharePreferenceUtil.getSyncInstance().setLocalMobileCounterPosX(curLocalOffset.dx);
-            if(curLocalOffset.dy > 0) SharePreferenceUtil.getSyncInstance().setLocalMobileCounterPosY(curLocalOffset.dy);
-          },
-          child: getCounterWidget(context)
-        ),
-      ) : Positioned(
-        top: curOffset.dy - curLocalOffset.dy,
-        left:  size.width / 2 - 35,
-        child: GestureDetector(
-          // 移动开始
-            onPanStart: (DragStartDetails details) {
-              print("start, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}");
-              // print("global dx:${details.globalPosition.dx},global dy:${details.globalPosition.dy}, local dx:${details.localPosition.dx},local dy:${details.localPosition.dy},");
-              curLocalOffset = details.localPosition;
-              setState(() {
-                curOffset = Offset(details.globalPosition.dx , details.globalPosition.dy);
-                // moveOffset = lastStartOffset;
-                // draggable = true;
-              });
-            },
-            // 移动中
-            onPanUpdate: (DragUpdateDetails details) {
-              print("update, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}, ${details.delta.dx}, ${details.delta.dy}");
-              // prevOffset = Offset(curOffset.dx, curOffset.dy);
-              // curOffset = Offset(curOffset.dx - (prevOffset.dx - details.globalPosition.dx - details.localPosition.dx), curOffset.dy - (prevOffset.dy - details.globalPosition.dy - details.localPosition.dy));
-              // if((curOffset.dx - details.globalPosition.dx).abs() <10 && (curOffset.dy - details.globalPosition.dy).abs() <10) {
-              if((details.globalPosition.dx + curLocalOffset.dx + 40) < size.width && (details.globalPosition.dy + curLocalOffset.dy + 40) < size.height) {
-                // if(details.globalPosition.dy < 40) {
-                //   details.globalPosition.dy = 40;
-                // }
-                curOffset =
-                    Offset(details.globalPosition.dx, details.globalPosition.dy < 40 ? 40 : details.globalPosition.dy);
-                setState(() {});
-              }
-              // }
-            },
-            // 移动结束
-            onPanEnd: (DragEndDetails detail) {
-              print("end");
-              // setState(() {
-              //   idleOffset = moveOffset * 1;
-              // });
-              // prevOffset = Offset(curOffset.dx, curOffset.dy);
-              // curOffset = detail.globalPosition;
-              // if(curOffset.dx > 0) SharePreferenceUtil.getSyncInstance().setMobileCounterPosX(curOffset.dx);
-              if(curOffset.dy > 0) SharePreferenceUtil.getSyncInstance().setMobileCounterPosY(curOffset.dy);
-              // if(curLocalOffset.dx > 0) SharePreferenceUtil.getSyncInstance().setLocalMobileCounterPosX(curLocalOffset.dx);
-              if(curLocalOffset.dy > 0) SharePreferenceUtil.getSyncInstance().setLocalMobileCounterPosY(curLocalOffset.dy);
-            },
-            child: getCounterWidget(context)
-        ),
-      );
+    return Utility.isHandsetBySize() == true
+        ? Positioned(
+            top: curOffset.dy - curLocalOffset.dy,
+            left: curOffset.dx - curLocalOffset.dx,
+            child: GestureDetector(
+                // 移动开始
+                onPanStart: (DragStartDetails details) {
+                  print(
+                      "start, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}");
+                  // print("global dx:${details.globalPosition.dx},global dy:${details.globalPosition.dy}, local dx:${details.localPosition.dx},local dy:${details.localPosition.dy},");
+                  curLocalOffset = details.localPosition;
+                  setState(() {
+                    curOffset = Offset(
+                        details.globalPosition.dx, details.globalPosition.dy);
+                    // moveOffset = lastStartOffset;
+                    // draggable = true;
+                  });
+                },
+                // 移动中
+                onPanUpdate: (DragUpdateDetails details) {
+                  print(
+                      "update, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}, ${details.delta.dx}, ${details.delta.dy}");
+                  // prevOffset = Offset(curOffset.dx, curOffset.dy);
+                  // curOffset = Offset(curOffset.dx - (prevOffset.dx - details.globalPosition.dx - details.localPosition.dx), curOffset.dy - (prevOffset.dy - details.globalPosition.dy - details.localPosition.dy));
+                  // if((curOffset.dx - details.globalPosition.dx).abs() <10 && (curOffset.dy - details.globalPosition.dy).abs() <10) {
+                  if ((details.globalPosition.dx + curLocalOffset.dx + 40) <
+                          size.width &&
+                      (details.globalPosition.dy + curLocalOffset.dy + 40) <
+                          size.height) {
+                    curOffset = Offset(
+                        details.globalPosition.dx, details.globalPosition.dy);
+                    setState(() {});
+                  }
+                  // }
+                },
+                // 移动结束
+                onPanEnd: (DragEndDetails detail) {
+                  print("end");
+                  // setState(() {
+                  //   idleOffset = moveOffset * 1;
+                  // });
+                  // prevOffset = Offset(curOffset.dx, curOffset.dy);
+                  // curOffset = detail.globalPosition;
+                  if (curOffset.dx > 0)
+                    SharePreferenceUtil.getSyncInstance()
+                        .setMobileCounterPosX(curOffset.dx);
+                  if (curOffset.dy > 0)
+                    SharePreferenceUtil.getSyncInstance()
+                        .setMobileCounterPosY(curOffset.dy);
+                  if (curLocalOffset.dx > 0)
+                    SharePreferenceUtil.getSyncInstance()
+                        .setLocalMobileCounterPosX(curLocalOffset.dx);
+                  if (curLocalOffset.dy > 0)
+                    SharePreferenceUtil.getSyncInstance()
+                        .setLocalMobileCounterPosY(curLocalOffset.dy);
+                },
+                child: getCounterWidget(context)),
+          )
+        : Positioned(
+            top: curOffset.dy - curLocalOffset.dy,
+            left: size.width / 2 - 35,
+            child: GestureDetector(
+                // 移动开始
+                onPanStart: (DragStartDetails details) {
+                  print(
+                      "start, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}");
+                  // print("global dx:${details.globalPosition.dx},global dy:${details.globalPosition.dy}, local dx:${details.localPosition.dx},local dy:${details.localPosition.dy},");
+                  curLocalOffset = details.localPosition;
+                  setState(() {
+                    curOffset = Offset(
+                        details.globalPosition.dx, details.globalPosition.dy);
+                    // moveOffset = lastStartOffset;
+                    // draggable = true;
+                  });
+                },
+                // 移动中
+                onPanUpdate: (DragUpdateDetails details) {
+                  print(
+                      "update, ${curLocalOffset.dx}, ${curLocalOffset.dy}, ${curOffset.dx}, ${curOffset.dy}, ${details.delta.dx}, ${details.delta.dy}");
+                  // prevOffset = Offset(curOffset.dx, curOffset.dy);
+                  // curOffset = Offset(curOffset.dx - (prevOffset.dx - details.globalPosition.dx - details.localPosition.dx), curOffset.dy - (prevOffset.dy - details.globalPosition.dy - details.localPosition.dy));
+                  // if((curOffset.dx - details.globalPosition.dx).abs() <10 && (curOffset.dy - details.globalPosition.dy).abs() <10) {
+                  if ((details.globalPosition.dx + curLocalOffset.dx + 40) <
+                          size.width &&
+                      (details.globalPosition.dy + curLocalOffset.dy + 40) <
+                          size.height) {
+                    // if(details.globalPosition.dy < 40) {
+                    //   details.globalPosition.dy = 40;
+                    // }
+                    curOffset = Offset(
+                        details.globalPosition.dx,
+                        details.globalPosition.dy < 40
+                            ? 40
+                            : details.globalPosition.dy);
+                    setState(() {});
+                  }
+                  // }
+                },
+                // 移动结束
+                onPanEnd: (DragEndDetails detail) {
+                  print("end");
+                  // setState(() {
+                  //   idleOffset = moveOffset * 1;
+                  // });
+                  // prevOffset = Offset(curOffset.dx, curOffset.dy);
+                  // curOffset = detail.globalPosition;
+                  // if(curOffset.dx > 0) SharePreferenceUtil.getSyncInstance().setMobileCounterPosX(curOffset.dx);
+                  if (curOffset.dy > 0)
+                    SharePreferenceUtil.getSyncInstance()
+                        .setMobileCounterPosY(curOffset.dy);
+                  // if(curLocalOffset.dx > 0) SharePreferenceUtil.getSyncInstance().setLocalMobileCounterPosX(curLocalOffset.dx);
+                  if (curLocalOffset.dy > 0)
+                    SharePreferenceUtil.getSyncInstance()
+                        .setLocalMobileCounterPosY(curLocalOffset.dy);
+                },
+                child: getCounterWidget(context)),
+          );
   }
 
   SingleChildRenderObjectWidget getCounterWidget(BuildContext context) {
     //通过这里判断底部的计数器是否应该显示
     return CounterManagement.getInstance().missionModel != null
-            ? Align(
+        ? Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-                padding: EdgeInsets.only(bottom: Utility.isHandsetBySize() ? 20 : 70),
+                padding: EdgeInsets.only(
+                    bottom: Utility.isHandsetBySize() ? 20 : 70),
                 child: MouseRegion(
                     onEnter: (_) {
                       setState(() {
@@ -219,9 +259,8 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                     },
                     child: GestureDetector(
                         onDoubleTap: () {
-                          if (!Utility.isHandsetBySize()) {
-                            onClickPushMissionDetailPage(context);
-                          }
+                          // 双击手势一旦被识别，Flutter 不会再触发下方 onTap；移动端也要在这里打开任务详情。
+                          onClickPushMissionDetailPage(context);
                         },
                         onTap: () {
                           if (Utility.isHandsetBySize()) {
@@ -237,7 +276,7 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                             child: Utility.isHandsetBySize()
                                 ? getMobileBottomCounterWidget(context)
                                 : getPCBottomCounterWidget(context))))))
-            : SizedBox.shrink();
+        : SizedBox.shrink();
   }
 
   getMobileBottomCounterWidget(BuildContext context) {
@@ -247,10 +286,9 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors:
-                  CounterManagement.getInstance().shouldShowRedFocusStatus()
-                      ? ColorsConfig.listColorsLightRedToRed
-                      : ColorsConfig.listColorsLightBlueToBlue),
+              colors: CounterManagement.getInstance().shouldShowRedFocusStatus()
+                  ? ColorsConfig.listColorsLightRedToRed
+                  : ColorsConfig.listColorsLightBlueToBlue),
           borderRadius: BorderRadius.all(Radius.circular(25)),
         ),
         child: Stack(
@@ -259,16 +297,17 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
             CustomPaint(
               size: Size(40, 40),
               painter: CustomPainterCircleProgressWidget(
-                  progress: CounterManagement.getInstance()
-                          .shouldShowRedFocusStatus()
-                      ? 1 -
-                          (CounterManagement.getInstance().curTimeF) /
-                              SharePreferenceUtil.getSyncInstance()!.getTomatoTime()
-                      : 1 -
-                          (CounterManagement.getInstance().curTimeF) /
-                              SharePreferenceUtil.getSyncInstance()!
-                                  .getTomatoRestTime(),
-                  ),
+                progress:
+                    CounterManagement.getInstance().shouldShowRedFocusStatus()
+                        ? 1 -
+                            (CounterManagement.getInstance().curTimeF) /
+                                SharePreferenceUtil.getSyncInstance()
+                                    .getTomatoTime()
+                        : 1 -
+                            (CounterManagement.getInstance().curTimeF) /
+                                SharePreferenceUtil.getSyncInstance()
+                                    .getTomatoRestTime(),
+              ),
             ),
             Align(
                 alignment: Alignment.center,
@@ -289,10 +328,10 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
             padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: CounterManagement.getInstance()
-                          .shouldShowRedFocusStatus()
-                      ? ColorsConfig.listColorsLightRedToRed
-                      : ColorsConfig.listColorsLightBlueToBlue),
+                  colors:
+                      CounterManagement.getInstance().shouldShowRedFocusStatus()
+                          ? ColorsConfig.listColorsLightRedToRed
+                          : ColorsConfig.listColorsLightBlueToBlue),
               borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
             child: Row(
@@ -310,21 +349,21 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                               CustomPaint(
                                 size: Size(40, 40),
                                 painter: CustomPainterCircleProgressWidget(
-                                    progress: CounterManagement.getInstance()
-                                            .shouldShowRedFocusStatus()
-                                        ? 1 -
-                                            (CounterManagement.getInstance()
-                                                        .curTimeF) /
-                                                SharePreferenceUtil
-                                                        .getSyncInstance()!
-                                                    .getTomatoTime()
-                                        : 1 -
-                                            (CounterManagement.getInstance()
-                                                        .curTimeF) /
-                                                SharePreferenceUtil
-                                                        .getSyncInstance()!
-                                                    .getTomatoRestTime(),
-                                    ),
+                                  progress: CounterManagement.getInstance()
+                                          .shouldShowRedFocusStatus()
+                                      ? 1 -
+                                          (CounterManagement.getInstance()
+                                                  .curTimeF) /
+                                              SharePreferenceUtil
+                                                      .getSyncInstance()
+                                                  .getTomatoTime()
+                                      : 1 -
+                                          (CounterManagement.getInstance()
+                                                  .curTimeF) /
+                                              SharePreferenceUtil
+                                                      .getSyncInstance()
+                                                  .getTomatoRestTime(),
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.center,
@@ -354,19 +393,20 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                   CounterManagement.getInstance().counterStatus ==
                           CounterStatus.focusing
                       ? CustomTextButton(
+                          width: 25,
+                          height: 25,
+                          onPressed: () {
+                            CounterManagement.getInstance().nextStatus(true);
+                          },
+                          child: Container(
                             width: 25,
                             height: 25,
-                            onPressed: () {
-                              CounterManagement.getInstance().nextStatus(true);
-                            },
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white, width: 1),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Icon(Icons.pause,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.white, width: 1),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Icon(Icons.pause,
                                 color: Colors.white, size: 20),
                           ),
                         )
@@ -374,10 +414,10 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                   //完成
                   CounterManagement.getInstance().counterStatus ==
                           CounterStatus.relaxing
-                      ?  CustomTextButton(
-                    width: 25,
-                    height: 25,
-                    onPressed: () {
+                      ? CustomTextButton(
+                          width: 25,
+                          height: 25,
+                          onPressed: () {
                             CounterManagement.getInstance().nextStatus(true);
                           },
                           child: Container(
@@ -400,10 +440,10 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                               CounterStatus.pausingFocusing ||
                           CounterManagement.getInstance().counterStatus ==
                               CounterStatus.waitingToFocus)
-                      ?  CustomTextButton(
-                      width: 25,
-                      height: 25,
-                      onPressed: () {
+                      ? CustomTextButton(
+                          width: 25,
+                          height: 25,
+                          onPressed: () {
                             CounterManagement.getInstance().nextStatus(true);
                           },
                           child: Container(
@@ -424,10 +464,10 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
                   //停止
                   CounterManagement.getInstance().counterStatus ==
                           CounterStatus.pausingFocusing
-                      ?  CustomTextButton(
-                      width: 25,
-                      height: 25,
-                      onPressed: () {
+                      ? CustomTextButton(
+                          width: 25,
+                          height: 25,
+                          onPressed: () {
                             CounterManagement.getInstance()
                                 .stopFromFocusingStatus();
                           },
@@ -451,7 +491,7 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
         Positioned(
             left: 3,
             top: 3,
-            child:  CustomTextButton(
+            child: CustomTextButton(
               width: 10,
               height: 10,
               onPressed: () {
@@ -479,8 +519,10 @@ class BottomCounterWidgetState extends State<BottomCounterWidget> {
   void onClickPushMissionDetailPage(BuildContext context) {
     OverlayManagement.getInstance().openMissionDetailPageOverlay(
         context: context,
-        missionModel: CounterManagement.getInstance().missionModel ?? MissionModel(),
-        folderModel: CounterManagement.getInstance().folderModel ?? FolderModel());
+        missionModel:
+            CounterManagement.getInstance().missionModel ?? MissionModel(),
+        folderModel:
+            CounterManagement.getInstance().folderModel ?? FolderModel());
     // Utility.pushNavigator(
     //     context,
     //     new MissionDetailPage(

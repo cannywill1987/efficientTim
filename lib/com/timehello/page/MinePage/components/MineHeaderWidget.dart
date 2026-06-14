@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
+import 'package:time_hello/com/timehello/page/AIPage/AIPage.dart';
 import 'package:time_hello/com/timehello/page/CoursePage/CoursePage.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 
@@ -78,7 +78,7 @@ class MineHeaderWidget extends StatelessWidget {
                 .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
             return null;
           }
-          Utility.pushNavigator(context, ChatGptPage());
+          Utility.pushNavigator(context, AIPage());
         } else if (model.deliveryName == 'training') {
           if (LoginManager.isLogin() == false) {
             Utility.showToastMsg(msg: getI18NKey().loginFirst);

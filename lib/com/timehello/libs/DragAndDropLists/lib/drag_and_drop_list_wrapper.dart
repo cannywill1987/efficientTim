@@ -1,4 +1,5 @@
 import 'drag_and_drop_builder_parameters.dart';
+import 'drag_and_drop_layout_log.dart';
 import 'drag_and_drop_list_interface.dart';
 import 'drag_handle.dart';
 import 'measure_size.dart';
@@ -31,6 +32,12 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
 
   @override
   Widget build(BuildContext context) {
+    dragBoardLog(
+      'board-wrapper-build-start',
+      'type=${widget.dragAndDropList.runtimeType}, itemCount=${widget.dragAndDropList.children?.length}, canDrag=${widget.dragAndDropList.canDrag}, axis=${widget.parameters.axis}, listWidth=${widget.parameters.listWidth}, listPadding=${widget.parameters.listPadding}, disableScrolling=${widget.parameters.disableScrolling}',
+      onceKey:
+          'wrapper-start-${widget.parameters.axis}-${widget.dragAndDropList.runtimeType}-${widget.dragAndDropList.children?.length}-${widget.parameters.listWidth}',
+    );
     Widget dragAndDropListContents =
         widget.dragAndDropList.generateWidget(widget.parameters);
 
@@ -210,14 +217,29 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
     }
     if (widget.parameters.axis == Axis.horizontal &&
         !widget.parameters.disableScrolling) {
-      toReturn = SingleChildScrollView(
-        child: Container(
-          child: toReturn,
-        ),
+      // 横向模式外层已经由 DragAndDropLists 的 ListView 负责横向滚动；
+      // 这里不能再包默认纵向 SingleChildScrollView，否则会把 Padding/Stack 子树变成完全无约束，
+      // 导致首个看板列 RenderStack 无法完成 layout，页面表现为空白。
+      dragBoardLog(
+        'board-wrapper-horizontal-scroll-skip',
+        'type=${widget.dragAndDropList.runtimeType}, itemCount=${widget.dragAndDropList.children?.length}, listWidth=${widget.parameters.listWidth}, padding=${widget.parameters.listPadding}',
+        onceKey:
+            'wrapper-horizontal-scroll-skip-${widget.dragAndDropList.runtimeType}-${widget.dragAndDropList.children?.length}-${widget.parameters.listWidth}',
       );
     }
 
-    return toReturn;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // 记录每一列包装层拿到的约束，重点排查横向 ListView 子节点是否出现无限宽或缺失高度。
+        dragBoardLog(
+          'board-wrapper-constraints',
+          '${dragBoardConstraints(constraints)}, type=${widget.dragAndDropList.runtimeType}, itemCount=${widget.dragAndDropList.children?.length}, axis=${widget.parameters.axis}',
+          onceKey:
+              'wrapper-constraints-${widget.parameters.axis}-${widget.dragAndDropList.runtimeType}-${widget.dragAndDropList.children?.length}-${constraints.maxWidth}-${constraints.maxHeight}',
+        );
+        return toReturn;
+      },
+    );
   }
 
   Material buildFeedbackWithHandle(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
 import 'package:time_hello/com/timehello/page/AIReplyAssistPage/AIReplyAssistPage.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
+import 'package:time_hello/com/timehello/page/AIPage/AIPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/pages/GPTFoldersPage/GPTFoldersPage.dart';
 import '../../config/ENUMS.dart';
 import '../../util/ScreenUtil.dart';
@@ -63,7 +63,7 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
             child: IndexedStack(
               index: _selectedTabIndex,
               children: [
-                ChatGptPage(
+                AIPage(
                   pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
                 ),
                 const AIReplyAssistPage(),
@@ -91,7 +91,7 @@ class GPTContainerState extends BaseWidgetState<GPTContainer> {
                         onTapItemListener: () {},
                       )),
                   Expanded(
-                      child: ChatGptPage(
+                      child: AIPage(
                     pageGPTFromEnum: PageGPTFromEnum.AIHelperPage,
                   )),
                 ],

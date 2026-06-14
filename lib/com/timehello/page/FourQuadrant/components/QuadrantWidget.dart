@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
@@ -14,10 +16,12 @@ import '../../../models/EventFn.dart';
 import '../../../models/MissionModel.dart';
 import '../../../util/CounterManagement.dart';
 import '../../../util/DialogManagement.dart';
+import '../../../util/MobileVoiceTaskManager.dart';
 import '../../../util/LoginManager.dart';
 import '../../../util/OverlayManagement.dart';
 import '../../../util/TextUtil.dart';
 import '../../CreateMissionPage/CreateMissionPage.dart';
+import '../../missionPage/componnents/MobileVoiceTaskSheet.dart';
 import '../../SettingItemDetailPage/SettingItemDetailPage.dart';
 import '../../missionPage/MissionPage.dart';
 import 'QuadrantMissionSilverList.dart';
@@ -64,6 +68,128 @@ class QuadrantWidget extends StatefulWidget {
 
 class QuadrantWidgetState extends State<QuadrantWidget> {
   bool isShowed = false; //当前滑动到那个容器
+
+  /// 功能：获取当前象限的主色。
+  /// 说明：四象限页面只用主色做信息提示，不再大面积铺满高饱和背景，避免任务列表阅读负担过重。
+  Color get _priorityAccentColor =>
+      Utility.getTextColorByPriority(this.widget.priorityEnum);
+
+  /// 功能：获取象限卡片的浅背景色。
+  /// 说明：亮色模式下把四色降低到极轻的底色，暗色模式继续沿用全局卡片背景，避免破坏暗黑模式。
+  Color _getQuadrantSurfaceColor() {
+    if (ThemeManager.getInstance().isDark()) {
+      return ThemeManager.getInstance().getCardBackgroundColor();
+    }
+    return Color.lerp(Colors.white, _priorityAccentColor, 0.045) ??
+        Colors.white;
+  }
+
+  /// 功能：获取象限顶部标题区域背景色。
+  /// 说明：标题区域保留轻微色彩识别，但比旧版渐变更克制，接近参考图里的白底卡片风格。
+  Color _getQuadrantTitleBackgroundColor() {
+    if (ThemeManager.getInstance().isDark()) {
+      return ThemeManager.getInstance().getCardBackgroundColor();
+    }
+    return Color.lerp(Colors.white, _priorityAccentColor, 0.08) ?? Colors.white;
+  }
+
+  /// 功能：获取“待完成/已完成”分组条背景色。
+  /// 说明：分组条只做轻色块提示，避免旧版红黄绿蓝横条过重。
+  Color _getSectionHeaderBackgroundColor() {
+    if (ThemeManager.getInstance().isDark()) {
+      return ThemeManager.getInstance().getCardBackgroundColor();
+    }
+    return Color.lerp(Colors.white, _priorityAccentColor, 0.12) ?? Colors.white;
+  }
+
+  /// 功能：获取象限边框颜色。
+  /// 说明：拖拽悬停时稍微加深，普通状态保持轻描边。
+  Color _getQuadrantBorderColor() {
+    return _priorityAccentColor.withAlpha(isShowed ? 120 : 54);
+  }
+
+  /// 功能：象限内部加号长按时打开语音创建任务面板。
+  /// 说明：与页面浮动加号不同，象限内部入口会把当前象限优先级作为默认参数传给普通创建和 AI 创建。
+  Future<void> _showMobileVoiceTaskSheet() async {
+    if (!Utility.isHandsetBySize()) {
+      return;
+    }
+    await MobileVoiceTaskSheet.show(
+      context: context,
+      onSubmit: _handleMobileVoiceTaskPayload,
+    );
+  }
+
+  /// 功能：按普通/AI 模式创建当前象限任务。
+  Future<String?> _handleMobileVoiceTaskPayload(
+    MobileVoiceTaskPayload payload,
+  ) async {
+    final text = payload.text.trim();
+    if (TextUtil.isEmpty(text)) {
+      throw StateError(getI18NKey().mobile_voice_task_empty);
+    }
+    final priorityStatus =
+        CONSTANTS.getPriorityByPriorityEnum(this.widget.priorityEnum);
+    if (payload.mode == MobileVoiceTaskMode.ai) {
+      final result = await MobileVoiceTaskManager.createAiMissionsFromPrompt(
+        prompt: text,
+        defaultPriorityStatus: priorityStatus,
+        defaultDateStatus: 1,
+      );
+      if (result['ok'] != true) {
+        throw StateError(result['message']?.toString() ?? '');
+      }
+      eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+      this.widget.onRefresh();
+      return _toolResultMessage(result, fallback: getI18NKey().addsuccess);
+    }
+
+    await _createPlainVoiceMission(
+      title: text,
+      priorityStatus: priorityStatus,
+    );
+    return getI18NKey().addsuccess;
+  }
+
+  /// 功能：普通语音直接创建当前象限任务。
+  Future<void> _createPlainVoiceMission({
+    required String title,
+    required int priorityStatus,
+  }) async {
+    final missionModel = MissionModel();
+    missionModel.title = title;
+    missionModel.end_time = CONSTANTS.getDeadLineTme(1);
+    missionModel.dateStatus = 1;
+    missionModel.priorityStatus = priorityStatus;
+    missionModel.total_tomotoes = 1;
+    missionModel.tomato_duration =
+        await SharePreferenceUtil.getSyncInstance().getTomatoTime();
+    final saved = await MongoApisManager.getInstance().insertMissiontData(
+      missionModel: missionModel,
+    );
+    if (saved == null) {
+      throw StateError(getI18NKey().alertMessage2);
+    }
+    eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+    eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+    this.widget.onRefresh();
+  }
+
+  /// 功能：从 AI 工具结果中取创建成功文案。
+  String _toolResultMessage(
+    Map<String, Object?> result, {
+    required String fallback,
+  }) {
+    final contextItems = result['contextItems'];
+    if (contextItems is List && contextItems.isNotEmpty) {
+      final first = contextItems.first;
+      if (first is Map && !TextUtil.isEmpty(first['content'])) {
+        return first['content'].toString();
+      }
+    }
+    return result['message']?.toString() ?? fallback;
+  }
+
   void onClick(type, data) async {
     switch (type) {
       case 'onClickMissionSetting': //跳转到设置叶敏
@@ -111,56 +237,18 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
    * 点击完成任务
    */
   Future onClickFinishItem(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
-    }
-
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey().confirmToFinished,
-        message: getI18NKey().confirmToFinishedContent,
-        okLabel: getI18NKey().confirm,
-        cancelLabel: getI18NKey().cancel,
-        onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await onClickFinishMission(data);
-    }
+    await onClickFinishMission(data);
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+    );
+    if (!didFinish) {
       return;
     }
-
-    FolderModel? folderModel = await MongoApisManager.getInstance()
-        .queryfolderModelWithFolderId(data.folder_id);
-    if (folderModel == null) {
-      folderModel = FolderModel();
-    }
-    await MongoApisManager.getInstance().insertStatsModel(
-      title: data.title,
-      type: 1,
-      icon: folderModel.icon,
-      color: folderModel.color,
-      mission_id: data.objectId,
-      fid: folderModel.objectId,
-      tagName: data.tagNames,
-      begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-      finish_time: Utility.getTimeStampToday(),
-      value: data.tomato_duration?.toDouble() ?? 0,
-      category: data.title,
-    );
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     this.widget.onRefresh();
     CounterManagement counterManagement = CounterManagement.getInstance();
     //不是同一个就重置重新开始计数
@@ -335,15 +423,13 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
                   height: Utility.isHandsetBySize() ? 45 : 50.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: ThemeManager.getInstance().isDark()
-                          ? ThemeManager.getInstance().getCardBackgroundColor()
-                          : null,
-                      gradient: ThemeManager.getInstance().isDark()
-                          ? null
-                          : LinearGradient(
-                              colors: Utility.getBGColorByPriority(
-                                  this.widget.priorityEnum)),
-                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                    color: _getQuadrantTitleBackgroundColor(),
+                    border: Border.all(
+                      color: _getQuadrantBorderColor(),
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                  ),
                   child: Align(
                     alignment: Alignment.center,
                     child: Wrap(
@@ -380,21 +466,13 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
                   clipBehavior: Clip.antiAlias,
                   // padding: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                      border: !this.isShowed
-                          ? null
-                          : Border.all(
-                              color: Utility.getTextColorByPriority(
-                                  this.widget.priorityEnum),
-                              width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: ThemeManager.getInstance().isDark()
-                          ? ThemeManager.getInstance().getCardBackgroundColor()
-                          : null,
-                      gradient: ThemeManager.getInstance().isDark()
-                          ? null
-                          : LinearGradient(
-                              colors: Utility.getBGColorByPriority(
-                                  this.widget.priorityEnum))),
+                    border: Border.all(
+                      color: _getQuadrantBorderColor(),
+                      width: isShowed ? 1.2 : 1,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: _getQuadrantSurfaceColor(),
+                  ),
                   child: CustomScrollView(
                     slivers: buildList(
                         containerWidth: constraints.maxWidth,
@@ -441,9 +519,8 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
           maxHeight: Utility.isHandsetBySize() ? 25 : 35.0,
           child: Container(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: Utility.getBGColorByPrioritySelected(
-                          this.widget.priorityEnum))),
+                color: _getSectionHeaderBackgroundColor(),
+              ),
               padding: EdgeInsets.fromLTRB(
                   Utility.isHandsetBySize() ? 10 : 25.0,
                   0,
@@ -478,6 +555,9 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
                       onTap: () {
                         onTapCreateListener?.call();
                       },
+                      onLongPress: () {
+                        unawaited(_showMobileVoiceTaskSheet());
+                      },
                       child: Text(
                         subtitle ?? "",
                         textAlign: TextAlign.left,
@@ -490,10 +570,10 @@ class QuadrantWidgetState extends State<QuadrantWidget> {
                             shadows: ThemeManager.getInstance().isDark()
                                 ? null
                                 : [
-                              Shadow(
-                                  color: Colors.white,
-                                  offset: Offset(1, 1))
-                            ]),
+                                    Shadow(
+                                        color: Colors.white,
+                                        offset: Offset(1, 1))
+                                  ]),
                       ),
                     ),
                   if (subtitle != null) SizedBox(width: 15),

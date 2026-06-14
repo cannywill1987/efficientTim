@@ -1,5 +1,9 @@
 # Repository Guidelines
 
+## 如果写代码需要参考错题本
+docs/AI错题本.md
+
+
 ## 项目结构与模块组织
 本仓库是一个 Flutter 多端项目。主要业务代码位于 `lib/`，其中核心逻辑集中在 `lib/com/timehello/`，共享组件在 `lib/widgets/`，生成代码在 `lib/generated/` 与 `lib/gen/`，国际化资源在 `lib/l10n/`。静态资源统一放在 `assets/`，常见子目录包括 `assets/img/`、`assets/fonts/`、`assets/opencc/`。平台工程位于 `android/`、`ios/`、`macos/`、`web/`、`windows/`，脚本放在 `scripts/`，测试放在 `test/`。
 
@@ -14,6 +18,9 @@
 - `pub global run intl_utils:generate`：在修改 ARB 后重新生成国际化代码。
 - `flutter build apk --release --no-tree-shake-icons`：生成 Android 发布包。
 
+#web页面代码路径
+web相关改动在/Users/linzhibin/Desktop/work/project/bff/code/time-hello-web
+
 ## 代码风格与命名规范
 遵循 Dart 默认风格，使用 2 空格缩进，并在 Flutter 组件参数较多时保留尾随逗号以提升格式化可读性。类名使用 `PascalCase`，方法和变量使用 `camelCase`，文件名使用 `snake_case.dart`。不要手动修改 `*.g.dart` 等生成文件，应通过 `build_runner` 重新生成。提交前至少运行一次 `flutter analyze`。
 
@@ -25,9 +32,9 @@
 - 结构较复杂的桌面端 UI 组件
 
 注释要求：
-
+- 能加注释的地方尽量加
 - 优先写“为什么这样做”，不要只写表面动作
-- 使用中文，便于团队后续维护
+- 尽量使用中文，便于团队后续维护
 - 只在关键位置添加，避免无意义注释堆积
 
 ## 测试规范
@@ -82,6 +89,7 @@
 如果任务涉及图片上传、文件上传、OSS 上传、阿里云 OSS 直传、上传头像、上传音频、上传文档或查找公共上传方法，请先阅读：
 
 - `docs/知识库/oss上传方法.md`
+- `docs/知识库/阿里云的方式.md`
 
 并优先使用本地 skill：
 
@@ -95,6 +103,29 @@
 - `AliyunStoreManager` 的 OSS 直传方法
 
 不要在未确认现有链路前，重新手写一套上传逻辑。
+
+如果明确需要阿里云 OSS 直传，或录音、音频、大文件保存时需要先上传到 OSS，再写业务数据，默认按 `docs/知识库/阿里云的方式.md` 的 `AliyunStoreManager.getInstance().uploadFileByFilePath(...)` 方案实现。
+
+## Flutter 录音规则
+如果任务涉及 Flutter 客户端里的录音、语音笔记、语音日记、错题本录音、录音预览、重新录制、录音保存、音频回放、麦克风权限、录音上传 OSS，或“录音弹窗/录音页面”这类问题，请先阅读：
+
+- `docs/知识库/录音的方式.md`
+- `docs/知识库/阿里云的方式.md`
+
+默认优先复用现有实现：
+
+- `RecordPage2`
+- `record` 的 `AudioRecorder`
+- `audioplayers` 的本地文件回放
+- `AliyunStoreManager.getInstance().uploadFileByFilePath(...)`
+
+实现时默认遵守：
+
+- 录音结束后先在当前弹窗内回放预览，不要立即上传保存
+- 用户点击 `Confirm` / `确认` 后再上传 OSS 并写业务数据
+- 音频上传必须显式传 `DocType.audio`
+- 保存录音业务数据时同时保留 OSS URL、本地路径、时长和文件大小
+- 新增录音文案必须先改 `lib/l10n/*.arb`，再生成 `lib/generated/*`，业务代码通过 `getI18NKey().xxx` 使用
 
 ## Flutter 网络请求规则
 如果任务涉及 Flutter 客户端里的网络请求、接口调用、GET/POST、流式请求、文件上传、图片上传、请求缓存、observer 回调，或查找项目现有网络层实现，请先阅读：

@@ -45,6 +45,7 @@ class MenuSilverList extends StatefulWidget {
   FolderPageViewEnum folderPageViewEnum = FolderPageViewEnum.normal;
   String curSelectedTitle;
   bool useUnifiedStyle;
+  bool useMobileModernStyle;
 
   // String curSelectedTitle;
   MenuSilverList(
@@ -56,6 +57,7 @@ class MenuSilverList extends StatefulWidget {
       required this.folderPageViewEnum,
       required this.onUpdateTitleListener,
       this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false,
       this.onTapArchiveListener,
       required this.calendarModel,
       this.onTapMoreListener,
@@ -131,7 +133,11 @@ class MenuSilverListState extends State<MenuSilverList> {
       case 6:
         return folderModelWithExtraData.folderTimeModel.finishedTimeString;
       case 10:
-        String finishedTimeString = Utility.formatTimestampWithoutZero(folderModelWithExtraData.folderTimeModel.previewTime??0 + (folderModelWithExtraData.folderTimeModel.finishedTime ??0));
+        String finishedTimeString = Utility.formatTimestampWithoutZero(
+            folderModelWithExtraData.folderTimeModel.previewTime ??
+                0 +
+                    (folderModelWithExtraData.folderTimeModel.finishedTime ??
+                        0));
         return finishedTimeString;
       // case 14:
       //   String finishedTimeString = Utility.formatTimestampWithoutZero(folderModelWithExtraData.folderTimeModel.previewTime??0 + (folderModelWithExtraData.folderTimeModel.finishedTime ??0));
@@ -165,7 +171,11 @@ class MenuSilverListState extends State<MenuSilverList> {
         return folderModelWithExtraData.folderTimeModel.numMissionFinished
             .toString();
       case 10:
-        return ((folderModelWithExtraData.folderTimeModel.numMissionFinished ?? 0)+ (folderModelWithExtraData.folderTimeModel?.numMissionToFinished ?? 0))
+        return ((folderModelWithExtraData.folderTimeModel.numMissionFinished ??
+                    0) +
+                (folderModelWithExtraData
+                        .folderTimeModel?.numMissionToFinished ??
+                    0))
             .toString();
       case 11:
         return folderModelWithExtraData.folderTimeModel.numMissionFinished
@@ -191,8 +201,9 @@ class MenuSilverListState extends State<MenuSilverList> {
       delegate: SliverChildBuilderDelegate((context, index) {
         return FolderSilverListItem(
             index: index,
-            folderPageViewEnum:this.widget.folderPageViewEnum,
+            folderPageViewEnum: this.widget.folderPageViewEnum,
             useUnifiedStyle: this.widget.useUnifiedStyle,
+            useMobileModernStyle: this.widget.useMobileModernStyle,
             calendarModel: this.widget.calendarModel,
             curSelectedTitle: this.widget.curSelectedTitle,
             // key: ValueKey(item.folderModel.objectId),
@@ -256,5 +267,4 @@ class MenuSilverListState extends State<MenuSilverList> {
       }, childCount: this.widget.datas?.length, addAutomaticKeepAlives: false),
     );
   }
-
 }

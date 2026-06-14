@@ -150,28 +150,16 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionDetailMissionPa
   }
 
   Future<void> onClickFinishMission(MissionModel data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) == false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    FolderModel? folderModel = MongoApisManager.getInstance().queryWhereEqualFolderModelByObjectId(objectId: data.folder_id ?? "");
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+      folderModel: folderModel,
+    );
+    if (!didFinish) {
       return;
     }
-    FolderModel? folderModel = MongoApisManager.getInstance().queryWhereEqualFolderModelByObjectId(objectId: data.folder_id ?? "");
-    if (folderModel != null) {
-      await MongoApisManager.getInstance().insertStatsModel(
-        title: data.title,
-        type: 1,
-        icon: folderModel?.icon,
-        color: folderModel?.color,
-        tagName: data.tagNames,
-        fid: folderModel?.objectId,
-        begin_time: Utility.getTimestampFromDateTime(data.createdAt ?? ""),
-        finish_time: Utility.getTimeStampToday(),
-        value: data.tomato_duration?.toDouble() ?? 0,
-        category: data.title,
-      );
-    }
-    await MongoApisManager.getInstance()
-        .finishMissionModel(missionModel: data, context: context);
     this.requestDatas();
     CounterManagement counterManagement = CounterManagement.getInstance();
     //不是同一个就重置重新开始计数
@@ -549,4 +537,3 @@ class _MisssionPageWidgetState<T> extends BaseWidgetState<MissionDetailMissionPa
 
   //已完成任务
 }
-

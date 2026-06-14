@@ -1,3 +1,8 @@
+/**
+ * 文件类型：页面
+ * 文件作用：展示时间轴数据，支持独立时间轴页面以及统计数据页内嵌展示。
+ * 主要职责：处理时间轴筛选、标签筛选、列表渲染和不同入口的页面背景适配。
+ */
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -38,11 +43,13 @@ class TimeLinePage extends BaseWidget {
   final bool shouldShowNav;
   final String folderObjectId;
   final String missionObjectId;
+  final Color? pageBackgroundColor;
 
   const TimeLinePage(
       {required Key key,
       required this.timelinePageFromEnum,
       this.shouldShowNav = false,
+      this.pageBackgroundColor,
       this.missionObjectId = "",
       this.folderObjectId = ""})
       : super(key: key);
@@ -343,6 +350,7 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
                     Future.delayed(Duration(milliseconds: 100), () {
                       DialogManagement.getInstance().showPCCustomDialog(
                           context: context,
+                          showShell: false,
                           widget: const RecordPage2(
                             richTextModeEnum: RichTextModeEnum.diary,
                             shouldShowTitle: null,
@@ -353,6 +361,7 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
                     Future.delayed(Duration(milliseconds: 100), () {
                       DialogManagement.getInstance().showPCCustomDialog(
                           context: context,
+                          showShell: false,
                           widget: const RecordPage2(
                             richTextModeEnum: RichTextModeEnum.note,
                             shouldShowTitle: null,
@@ -420,6 +429,10 @@ class TimeLinePageState extends BaseWidgetState<TimeLinePage> {
 
   @override
   Widget baseBuild(BuildContext context) {
+    // TimeLinePage 会被独立页面和数据统计页复用；内嵌统计页时需要透出父级背景，避免出现白色块。
+    color = widget.pageBackgroundColor ??
+        ThemeManager.getInstance()
+            .getBackgroundColor(defaultColor: Colors.white);
     double innerMargin = Utility.isHandsetBySize() ? 10 : 20.0;
     context.watch<GlobalStateEnv>().listTimelineMissionModel;
     requestGetTags();

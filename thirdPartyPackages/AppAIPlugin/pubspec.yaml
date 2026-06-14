@@ -1,0 +1,38 @@
+name: app_ai_plugin
+description: >-
+  Flutter plugin shell that hosts the Continue (continue.dev) GUI inside a
+  WebView and routes its host/core protocol to Dart adapters and a native
+  Continue binary subprocess. Targets macOS, iOS, and Android.
+version: 0.0.1
+homepage: https://github.com/cannywill/AIPlugin
+repository: https://github.com/cannywill/AIPlugin
+issue_tracker: https://github.com/cannywill/AIPlugin/issues
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  webview_flutter: ^4.13.1
+  plugin_platform_interface: ^2.0.2
+  sqflite: ^2.4.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.cannywill.app_ai_plugin
+        pluginClass: AppAiPlugin
+      ios:
+        pluginClass: AppAiPlugin
+      macos:
+        pluginClass: AppAiPlugin

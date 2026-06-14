@@ -11,8 +11,11 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/models/FolderModel.dart';
 import 'package:time_hello/com/timehello/models/MissionModel.dart';
+import 'package:time_hello/com/timehello/page/AIPage/AIPage.dart';
 import 'package:time_hello/com/timehello/page/GroupChatPage/RightFolderContainerPage.dart';
 import 'package:time_hello/com/timehello/page/SettingItemDetailPage/SettingItemDetailPage.dart';
+import 'package:time_hello/com/timehello/page/WebviewPage/WebviewPage.dart';
+import 'package:time_hello/com/timehello/util/AIInterfaceManager.dart';
 import 'package:time_hello/com/timehello/util/WidgetManager.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 
@@ -55,6 +58,10 @@ class OverlayManagement {
   OverlayEntry? newPagePCEntry; //针对pc端新页面 普通页面用push
   OverlayEntry? selectBgDialogOverlayEntry;
   OverlayEntry? loadingEntry; //针对pc端新页面 普通页面用push
+  OverlayEntry? desktopAiFloatingOverlayEntry; // AI 面板需要关闭保活，避免流式回复被 dispose 打断
+  bool desktopAiFloatingOverlayVisible = false;
+  Map desktopAiFloatingOverlayData = {};
+  double desktopAiFloatingOverlayWidth = 438;
   List<OverlayEntry>? newPagePCEntryHistoryList = []; //针对pc端新页面 普通页面用push
   OverlayEntry? lotteryNineGridViewEntry; //九宫格抽奖
   OverlayState? overlayState;
@@ -195,6 +202,13 @@ class OverlayManagement {
 
   void openDesktopRightFloatingPage(BuildContext context,
       {required String page, required Map data, double width = 438}) {
+    if (page == 'ChatGptPage') {
+      removeDesktopRightFloatingOverlay();
+      openDesktopAiFloatingPage(context, data: data, width: width);
+      return;
+    }
+
+    hideDesktopAiFloatingOverlay();
     Widget? child;
     String? title;
     switch (page) {
@@ -212,6 +226,22 @@ class OverlayManagement {
           usePanelShell: false,
         );
         title = getI18NKey().group_listing;
+        break;
+      case 'WebviewPage':
+        final String url = (data['url'] ?? '').toString();
+        if (url.trim().isEmpty) {
+          return;
+        }
+        title = (data['title'] ?? '').toString();
+        if (title.trim().isEmpty) {
+          title = 'WebView';
+        }
+        child = WebviewPage(
+          key: ValueKey("webview_right_overlay_$url"),
+          url: url,
+          title: title,
+          showAppBar: false,
+        );
         break;
     }
     if (child == null) {
@@ -245,6 +275,81 @@ class OverlayManagement {
   void removeDesktopRightFloatingOverlay() {
     desktopRightFloatingOverlayEntry?.remove();
     desktopRightFloatingOverlayEntry = null;
+  }
+
+  void openDesktopAiFloatingPage(BuildContext context,
+      {required Map data, double width = 438}) {
+    desktopAiFloatingOverlayData = data;
+    desktopAiFloatingOverlayWidth = width;
+    desktopAiFloatingOverlayVisible = true;
+    AIInterfaceManager.getInstance().setAiPanelHidden(false);
+
+    if (desktopAiFloatingOverlayEntry != null) {
+      desktopAiFloatingOverlayEntry?.markNeedsBuild();
+      return;
+    }
+
+    final OverlayState overlayState = Overlay.of(context);
+    desktopAiFloatingOverlayEntry = OverlayEntry(builder: (overlayContext) {
+      final currentData = desktopAiFloatingOverlayData;
+      return Positioned(
+        top: 72,
+        right: 14,
+        bottom: 28,
+        width: desktopAiFloatingOverlayWidth,
+        child: IgnorePointer(
+          ignoring: !desktopAiFloatingOverlayVisible,
+          child: Offstage(
+            offstage: !desktopAiFloatingOverlayVisible,
+            child: Material(
+              color: Colors.transparent,
+              child: buildDesktopRightFloatingPanel(
+                context: overlayContext,
+                width: desktopAiFloatingOverlayWidth,
+                margin: EdgeInsets.zero,
+                title: getI18NKey().chatgpt,
+                onClose: () {
+                  hideDesktopAiFloatingOverlay();
+                  try {
+                    Utility.popupDesktopRightNavigator(
+                        Utility.getGlobalContext());
+                  } catch (_) {
+                    try {
+                      Utility.popupDesktopRightNavigator(overlayContext);
+                    } catch (_) {
+                      // Overlay 的 builder context 在部分桌面层级下拿不到 Provider；
+                      // 面板已经隐藏，路由清理失败不应影响正在进行的 AI 回复。
+                    }
+                  }
+                },
+                child: AIPage(
+                  key: const ValueKey("chat_gpt_right_overlay_cached"),
+                  createNewMission: currentData['createNewMission'] ?? false,
+                  message: currentData['message'] ?? "",
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+    overlayState.insert(desktopAiFloatingOverlayEntry!);
+  }
+
+  void hideDesktopAiFloatingOverlay() {
+    if (desktopAiFloatingOverlayEntry == null) {
+      return;
+    }
+    desktopAiFloatingOverlayVisible = false;
+    AIInterfaceManager.getInstance().setAiPanelHidden(true);
+    desktopAiFloatingOverlayEntry?.markNeedsBuild();
+  }
+
+  void removeDesktopAiFloatingOverlay() {
+    desktopAiFloatingOverlayEntry?.remove();
+    desktopAiFloatingOverlayEntry = null;
+    desktopAiFloatingOverlayVisible = false;
+    AIInterfaceManager.getInstance().setAiPanelHidden(false);
   }
 
   showPCCustomOverlay({required BuildContext context, required Widget child}) {

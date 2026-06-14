@@ -157,6 +157,14 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
     numItem: 5,
   );
 
+  /// 功能：生成桌面端 Kanban 小卡片表面色，保留白色浮层质感并兼容暗黑模式。
+  Color _buildUnifiedMissionCardSurface() {
+    if (ThemeManager.getInstance().isDark()) {
+      return ColorsConfig.missionGridCardDarkSurface;
+    }
+    return ColorsConfig.missionGridCardSurface;
+  }
+
   FolderModel? getFolderModel(MissionModel? missionModel) {
     if (!TextUtil.isEmpty(this.widget._missionModel?.folder_id)) {
       List<FolderModel> wqbFolderModelList = MongoApisManager.getInstance()
@@ -456,30 +464,31 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
           },
           child: Container(
             margin: EdgeInsets.only(
-                bottom: useUnifiedStyle ? 8 : 2,
-                left: CONSTANTS.missionPageMargin + (useUnifiedStyle ? 10 : 4),
-                right: CONSTANTS.missionPageMargin + 4),
+                bottom: useUnifiedStyle ? 10 : 2,
+                left: CONSTANTS.missionPageMargin + (useUnifiedStyle ? 14 : 4),
+                right:
+                    CONSTANTS.missionPageMargin + (useUnifiedStyle ? 10 : 4)),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
                 if (useUnifiedStyle)
                   Positioned(
-                    left: -6,
-                    top: 0,
-                    bottom: 0,
+                    left: -8,
+                    top: 1,
+                    bottom: 1,
                     child: Container(
-                      width: 17,
+                      width: 20,
                       decoration: BoxDecoration(
-                        color: priorityAccentColor.withValues(alpha: 0.44),
+                        color: priorityAccentColor.withValues(alpha: 0.48),
                         borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(14),
-                          bottomLeft: Radius.circular(14),
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: priorityAccentColor.withValues(alpha: 0.18),
-                            blurRadius: 10,
-                            offset: const Offset(-2, 4),
+                            color: priorityAccentColor.withValues(alpha: 0.20),
+                            blurRadius: 12,
+                            offset: const Offset(-3, 4),
                           ),
                         ],
                       ),
@@ -489,12 +498,8 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: useUnifiedStyle
                       ? buildUnifiedDesktopCardDecoration(
-                          backgroundColor:
-                              ThemeManager.getInstance().getCardBackgroundColor(
-                            defaultColor: ColorsConfig.missionGridCardSurface,
-                            alpha: 238,
-                          ),
-                          borderRadius: BorderRadius.circular(16),
+                          backgroundColor: _buildUnifiedMissionCardSurface(),
+                          borderRadius: BorderRadius.circular(12),
                           border: this.widget.multiSelectModeEnum ==
                                   MultiSelectModeEnum.normal
                               ? Border.all(width: 0, color: Colors.transparent)
@@ -508,17 +513,18 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                                 ),
                           boxShadow: [
                             BoxShadow(
-                              color: priorityAccentColor.withValues(alpha: 0.08),
-                              blurRadius: 14,
-                              offset: const Offset(-2, 6),
+                              color:
+                                  priorityAccentColor.withValues(alpha: 0.12),
+                              blurRadius: 16,
+                              offset: const Offset(-3, 7),
                             ),
                             BoxShadow(
                               color: ColorsConfig.missionGridCardShadow,
-                              blurRadius: 16,
-                              offset: const Offset(0, 8),
+                              blurRadius: 18,
+                              offset: const Offset(0, 9),
                             ),
                             BoxShadow(
-                              color: Colors.white.withValues(alpha: 0.5),
+                              color: Colors.white.withValues(alpha: 0.58),
                               blurRadius: 8,
                               offset: const Offset(-1, -1),
                             ),
@@ -595,14 +601,15 @@ class GridMissionSilverListItemState extends State<GridMissionSilverListItem> {
                             ? ThemeManager.getInstance().getCardBackgroundColor(
                                 defaultColor:
                                     ColorsConfig.missionGridCardOverlay,
-                                alpha: 230,
+                                alpha: imageProvider == null ? 248 : 222,
                               )
                             : ThemeManager.getInstance().getCardBackgroundColor(
                                 defaultColor: Color(0xb0ffffff), alpha: 150),
-                        constraints: const BoxConstraints(minHeight: 30),
+                        constraints: BoxConstraints(
+                            minHeight: useUnifiedStyle ? 58 : 30),
                         padding: EdgeInsets.symmetric(
                           horizontal: useUnifiedStyle ? 12 : 0,
-                          vertical: useUnifiedStyle ? 10 : 0,
+                          vertical: useUnifiedStyle ? 9 : 0,
                         ),
                         alignment: Alignment.centerLeft,
                         child: Column(

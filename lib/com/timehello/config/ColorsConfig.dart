@@ -281,10 +281,13 @@ class ColorsConfig {
   static const Color missionTaskAccentShadow = Color(0x33D8A06B);
 
   // Mission grid desktop palette
-  static const Color missionGridColumnSurface = Color(0xF0FFF9F1);
-  static const Color missionGridColumnBoard = Color(0xDFF4F7F7);
+  static const Color missionGridColumnSurface = Color(0xF7FFFBF4);
+  static const Color missionGridColumnBoard = Color(0xC9FFF9F0);
   static const Color missionGridColumnShadow = Color(0x1ACDA987);
-  static const Color missionGridCardSurface = Color(0xFFFDFBF8);
-  static const Color missionGridCardOverlay = Color(0xF7FFFDF9);
-  static const Color missionGridCardShadow = Color(0x24D5B08B);
+  static const Color missionGridCardSurface = Color(0xF8FFFDF9);
+  static const Color missionGridCardOverlay = Color(0xEFFFFDF8);
+  static const Color missionGridCardShadow = Color(0x2BD5B08B);
+  static const Color missionGridColumnDarkSurface = Color(0xE923211F);
+  static const Color missionGridColumnDarkBoard = Color(0xC91D1B19);
+  static const Color missionGridCardDarkSurface = Color(0xF72B2825);
 }

@@ -785,6 +785,18 @@ class Utility {
     listMissionModelTmpToRemove.forEach((element) {
       listMissionModel.remove(element);
     });
+    // 当分组没有持久化顺序列表时，退回到 order_index，
+    // 这样未分组任务在拖拽后刷新仍能保持相对顺序。
+    listMissionModel.sort((MissionModel a, MissionModel b) {
+      final int orderA = a.order_index ?? 0;
+      final int orderB = b.order_index ?? 0;
+      if (orderA != orderB) {
+        return orderA.compareTo(orderB);
+      }
+      return (a.createdAt ?? "")
+          .toString()
+          .compareTo((b.createdAt ?? "").toString());
+    });
     listMissionModelTmp.addAll(listMissionModel);
     return listMissionModelTmp;
   }
@@ -1490,32 +1502,11 @@ class Utility {
       FolderModel? folderModel,
       int? timestampCurrent,
       required Function finishCallback}) async {
-    //判断是否是重复任务提示
-    if (missionModel.repetiveType == 0) {
-      OkCancelResult result = await showOkCancelAlertDialog(
-          context: context,
-          title: getI18NKey().confirmToFinished,
-          message: getI18NKey().confirmToFinishedContent,
-          okLabel: getI18NKey().confirm,
-          cancelLabel: getI18NKey().cancel,
-          onWillPop: () async {
-            //点击对话框外围黑色区域才会走这里
-            return true;
-          });
-      if (result == OkCancelResult.ok) {
-        await Utility.requestMissionModelFinish(
-            context, missionModel, timestampCurrent, folderModel, () {
-          finishCallback();
-        });
-        // eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-      }
-    } else {
-      await Utility.requestMissionModelFinish(
-          context, missionModel, timestampCurrent, folderModel, () {
-        finishCallback();
-        // this.requestDatas();
-      });
-    }
+    await Utility.requestMissionModelFinish(
+        context, missionModel, timestampCurrent, folderModel, () {
+      finishCallback();
+      // this.requestDatas();
+    });
   }
 
   static Future<void> requestMissionModelFinish(
@@ -1524,71 +1515,16 @@ class Utility {
       int? timestampCurrent,
       FolderModel? folderModel,
       Function finishCallback) async {
-    if (ChatGroupManager.isFolderModelEnabled(
-            folderId: missionModel.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
-      return;
+    bool didHandle =
+        await MongoApisManager.getInstance()!.handleFinishMissionModel(
+      missionModel: missionModel,
+      context: context,
+      folderModel: folderModel,
+      curMonthTimeStamp: timestampCurrent,
+    );
+    if (didHandle) {
+      finishCallback.call();
     }
-    //如果任务已经完成 点击则取消任务完成
-    if (missionModel.isFinished == true) {
-      missionModel.isFinished = false;
-      await MongoApisManager.getInstance()
-          .update_MissionModel(missionModel: missionModel);
-    } else {
-      //如果是重复任务
-      if (missionModel.repetiveType! > 0 && missionModel.isFinished == false) {
-        //先判断在这个时间是否完成了任务
-        bool isFinish = Utility.getIsFinishOfMissionModel(
-            missionModel: missionModel,
-            curMonthTimeStamp: timestampCurrent ?? 0);
-        //循环任务 且 missionModel.isFinished = false的处理方式
-        await MongoApisManager.getInstance()!.finishMissionModel(
-            isFinished: !isFinish,
-            missionModel: missionModel,
-            context: context,
-            shouldForceFinishedWithoutRepeativeDialog: false,
-            curMonthTimeStamp: timestampCurrent);
-        //操作插入统计数据
-        if (isFinish == false) {
-          await MongoApisManager.getInstance()!.insertStatsModel(
-            title: missionModel.title,
-            type: 1,
-            icon: folderModel?.icon,
-            color: folderModel?.color ?? 0xffff880,
-            tagName: missionModel.tagNames,
-            fid: folderModel?.objectId ?? null,
-            finish_time: Utility.getTimeStampToday(),
-            value: missionModel.tomato_duration?.toDouble() ?? 0,
-            category: missionModel.title,
-            begin_time: 0,
-          );
-        }
-      } else {
-        //非重复任务 完成任务 直接完成该任务
-        await MongoApisManager.getInstance()!.finishMissionModel(
-            missionModel: missionModel,
-            context: context,
-            shouldForceFinishedWithoutRepeativeDialog: false,
-            curMonthTimeStamp: timestampCurrent);
-        if (missionModel.isFinished == false) {
-          await MongoApisManager.getInstance()!.insertStatsModel(
-            title: missionModel.title,
-            type: 1,
-            icon: folderModel?.icon,
-            color: folderModel?.color ?? 0xffff880,
-            tagName: missionModel.tagNames,
-            fid: folderModel?.objectId ?? null,
-            finish_time: Utility.getTimeStampToday(),
-            value: missionModel.tomato_duration?.toDouble() ?? 0,
-            category: missionModel.title,
-            begin_time: 0,
-          );
-        }
-      }
-    }
-    finishCallback.call();
   }
 
   /**
@@ -1740,12 +1676,16 @@ class Utility {
   static openPagePCAndMobile(
     BuildContext context, {
     required Widget child,
+    bool showPCShell = true,
   }) {
     if (Utility.isHandsetBySize() == true) {
       Utility.pushNavigator(context, child);
     } else {
-      DialogManagement.getInstance()
-          .showPCCustomDialog(context: context, widget: child);
+      DialogManagement.getInstance().showPCCustomDialog(
+        context: context,
+        widget: child,
+        showShell: showPCShell,
+      );
     }
   }
 
@@ -1779,7 +1719,14 @@ class Utility {
 
   static popupDesktopRightNavigator(BuildContext context) {
     setDesktopMiddileMissionPage(context, isVisible: true);
-    OverlayManagement.getInstance().removeDesktopRightFloatingOverlay();
+    final rightSideData = context.read<Env>().routerRightSideData;
+    // AI 面板关闭时只隐藏，不销毁内部 Continue GUI / stream controller，
+    // 否则用户边等回复边收起面板会导致本轮对话被中断。
+    if (rightSideData is Map && rightSideData['page'] == 'ChatGptPage') {
+      OverlayManagement.getInstance().hideDesktopAiFloatingOverlay();
+    } else {
+      OverlayManagement.getInstance().removeDesktopRightFloatingOverlay();
+    }
     if (context.read<Env>().routerRightSideData != null) {
       context.read<Env>().routerRightSideData = null;
     }
@@ -1959,6 +1906,16 @@ class Utility {
   }
 
   /**
+   * desktop返回PC中间内容区默认页
+   *
+   * pushDesktopNavigator 打开的页面不是 Navigator 栈页面，而是写入 Env.routerData
+   * 后由 DesktopRouter 切换出来的内容区；因此关闭这类页面时需要清空 routerData。
+   */
+  static popupDesktopNavigator(BuildContext context) {
+    context.read<Env>().routerData = {};
+  }
+
+  /**
    * 显示当前tab
    */
   static void showCurTab(BuildContext context, int val, Map data) {
@@ -2049,7 +2006,10 @@ class Utility {
   static openRightSideDesktopNavigator(
       BuildContext context, String page, Map data) {
     if (Utility.isHandsetBySize() == false &&
-        (page == 'SettingItemDetailPage' || page == 'GroupChatPage')) {
+        (page == 'SettingItemDetailPage' ||
+            page == 'GroupChatPage' ||
+            page == 'ChatGptPage' ||
+            page == 'WebviewPage')) {
       data['page'] = page;
       data['__overlay_ts'] = DateTime.now().millisecondsSinceEpoch;
       context.read<Env>().routerRightSideData = data;
@@ -2059,6 +2019,23 @@ class Utility {
     }
     data['page'] = page;
     context.read<Env>().routerRightSideData = data;
+  }
+
+  /// 桌面端右侧浮层打开 WebView。
+  ///
+  /// 这里统一走右侧浮层路由，WebView 页面本身只负责承载网页和 JS bridge；
+  /// 以后邀请页、活动页或内部运营页都可以复用这个入口。
+  static openDesktopWebviewPanel(
+    BuildContext context, {
+    required String url,
+    String title = 'WebView',
+    double width = 438,
+  }) {
+    openRightSideDesktopNavigator(context, 'WebviewPage', {
+      'url': url,
+      'title': title,
+      'width': width,
+    });
   }
 
   /**
@@ -6089,6 +6066,31 @@ class Utility {
       prevMonth = month;
       i++;
     }
+
+    if (dayModelListMonth.isNotEmpty && prevMonth != -1) {
+      // 循环内只会在“进入下一个月”时写入上个月，最后一个月需要在退出循环后补收口，
+      // 否则像 2024 年 12 月这种年份末尾月份会直接丢失。
+      monthModel = MonthModel(
+          yearName: prevYear.toString(),
+          isCurrent: dateTimeNowFiltered.month == prevMonth &&
+              dateTimeNowFiltered.year == prevYear,
+          month: prevMonth,
+          dayModelList: dayModelListMonth,
+          monthName: Utility.getMonthName(prevMonth),
+          dateTime: dayModelListMonth.first.dateTime);
+      monthModelListForYear.add(monthModel);
+      monthModelListForCalendar.add(monthModel);
+    }
+    if ((dayModelListYear.isNotEmpty || monthModelListForYear.isNotEmpty) &&
+        prevYear != -1) {
+      // 同理，最后一年也不会触发“跨年”分支，需要在结尾补一次写入。
+      yearModel = YearModel(
+          isCurrent: dateTimeNowFiltered.year == prevYear,
+          year: prevYear,
+          dayModelList: dayModelListYear,
+          monthModelList: monthModelListForYear);
+      calendarModel.yearModelList?.add(yearModel);
+    }
     calendarModel.curDaysIndex = curDateIndex;
     calendarModel.indexDaysOfMonth = indexDaysOfMonth;
 
@@ -6274,6 +6276,29 @@ class Utility {
       prevYear = year;
       prevMonth = month;
       i++;
+    }
+
+    if (dayModelListMonth.isNotEmpty && prevMonth != -1) {
+      // 最后一个月没有“下个月”来触发入列，这里补上收口，避免 12 月缺失。
+      monthModel = MonthModel(
+          yearName: prevYear.toString(),
+          isCurrent: dateTimeNowFiltered.month == prevMonth &&
+              dateTimeNowFiltered.year == prevYear,
+          month: prevMonth,
+          dayModelList: dayModelListMonth,
+          monthName: Utility.getMonthName(prevMonth),
+          dateTime: dayModelListMonth.first.dateTime);
+      monthModelListForYear.add(monthModel);
+      monthModelListForCalendar.add(monthModel);
+    }
+    if ((dayModelListYear.isNotEmpty || monthModelListForYear.isNotEmpty) &&
+        prevYear != -1) {
+      yearModel = YearModel(
+          isCurrent: dateTimeNowFiltered.year == prevYear,
+          year: prevYear,
+          dayModelList: dayModelListYear,
+          monthModelList: monthModelListForYear);
+      calendarModel.yearModelList?.add(yearModel);
     }
     calendarModel.curDaysIndex = curDateIndex;
     calendarModel.indexDaysOfMonth = indexDaysOfMonth;

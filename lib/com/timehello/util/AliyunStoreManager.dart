@@ -42,7 +42,6 @@ class AliyunStoreManager {
     // FirebaseDatabase.instance.ref()
     if (mAliyunStoreManagerr == null) {
       mAliyunStoreManagerr = new AliyunStoreManager();
-      mAliyunStoreManagerr?.init();
     }
     return mAliyunStoreManagerr!;
   }
@@ -65,10 +64,26 @@ class AliyunStoreManager {
     if (client == null) {
       BaseBean baseBean =
           await HttpManager.getInstance().doGetRequest(Apis.getOssToken);
-      this.accessKey = baseBean.data["accessKeyId"];
-      this.accessSecret = baseBean.data["accessKeySecret"];
-      this.expire = baseBean.data['expiration'];
-      this.secureToken = baseBean.data['securityToken'];
+      // OSS 临时凭证必须等到真正上传时再初始化，并且需要显式校验接口返回，避免启动阶段空 data 触发未捕获异常。
+      final dynamic rawTokenData = baseBean.data;
+      if (rawTokenData is! Map) {
+        throw StateError('获取 OSS 临时凭证失败：接口未返回有效 data。');
+      }
+      final tokenData = rawTokenData.cast<String, dynamic>();
+      final accessKeyId = tokenData["accessKeyId"]?.toString();
+      final accessKeySecret = tokenData["accessKeySecret"]?.toString();
+      final expiration = tokenData['expiration']?.toString();
+      final securityToken = tokenData['securityToken']?.toString();
+      if ((accessKeyId ?? '').isEmpty ||
+          (accessKeySecret ?? '').isEmpty ||
+          (expiration ?? '').isEmpty ||
+          (securityToken ?? '').isEmpty) {
+        throw StateError('获取 OSS 临时凭证失败：accessKey 或 securityToken 为空。');
+      }
+      this.accessKey = accessKeyId!;
+      this.accessSecret = accessKeySecret!;
+      this.expire = expiration!;
+      this.secureToken = securityToken!;
       client = Client.init(
           stsUrl: "sts.cn-hongkong.aliyuncs.com",
           ossEndpoint: "oss-cn-hongkong.aliyuncs.com",
@@ -78,12 +93,10 @@ class AliyunStoreManager {
     return;
   }
 
-  Future uploadFile(
-      {required File file,
-        Function? downloadCallback
-        // DocType docType = DocType.image,
-        // FileExtension fileExtensionEnum: FileExtension.jpg,
-        }) async {
+  Future uploadFile({required File file, Function? downloadCallback
+      // DocType docType = DocType.image,
+      // FileExtension fileExtensionEnum: FileExtension.jpg,
+      }) async {
     await this.init();
     String fileName = file.path.split('/').last;
     // String fileExt = getFileTypeByString(file.path);
@@ -99,7 +112,6 @@ class AliyunStoreManager {
       filePath,
       option: PutRequestOption(
         bucketName: "timehello",
-
         onSendProgress: (count, total) {
           // if (kDebugMode) {
           print("send: count = $count, and total = $total");
@@ -130,8 +142,8 @@ class AliyunStoreManager {
   Future uploadFileByFilePath(
       {required String path,
       DocType docType = DocType.image,
-        Function? downloadCallback,
-        FileExtension fileExtensionEnum: FileExtension.jpg,
+      Function? downloadCallback,
+      FileExtension fileExtensionEnum = FileExtension.jpg,
       String fileName = ""}) async {
     await this.init();
     String fileExt = getFileExtensionByEnum(fileExtensionEnum);
@@ -139,7 +151,8 @@ class AliyunStoreManager {
     String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
     File file = File(path);
     int random = Utility.getRandom(from: 1000000, max: 9999999);
-    String filePath = "timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
+    String filePath =
+        "timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
     String ossFilePathUrl =
         "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}${random}.${fileExt}";
     Response<dynamic> res = await client!.putObject(
@@ -204,7 +217,7 @@ class AliyunStoreManager {
 //
   getDownloadUrl(
       {DocType docType = DocType.image,
-      FileExtension fileExtensionEnum: FileExtension.jpg,
+      FileExtension fileExtensionEnum = FileExtension.jpg,
       String fileName = ""}) async {
     String fileExt = getFileExtensionByEnum(fileExtensionEnum);
     String fileType = getFileTypeByEnum(docType);
@@ -215,13 +228,17 @@ class AliyunStoreManager {
         print("received = $count, total = $total");
       },
     );
+    return s;
 
     // String url = await storageReference.child("/${fileType}/${uid}/${fileName}.${fileExt}").getDownloadURL();
     //  return url;
   }
 
-
-  Future<String> setString({DocType docType = DocType.md, FileExtension fileExtensionEnum: FileExtension.md, String fileName = "", required String data}) async {
+  Future<String> setString(
+      {DocType docType = DocType.md,
+      FileExtension fileExtensionEnum = FileExtension.md,
+      String fileName = "",
+      required String data}) async {
     // 编码为 UTF-8
     List<int> utf8Bytes = utf8.encode(data);
 
@@ -230,7 +247,6 @@ class AliyunStoreManager {
     String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
     // TaskSnapshot snapshot = await storageReference.child("/${fileType}/${uid}/${fileName}.${fileExt}").putString(base64.encode(utf8Bytes), format: PutStringFormat.base64);
     // return snapshot;
-
 
     await this.init();
     // String fileExt = getFileExtensionByEnum(fileExtensionEnum);
@@ -274,28 +290,25 @@ class AliyunStoreManager {
     } else {
       throw Exception("Failed to setString");
     }
-
-    print(res);
-    return "";
   }
 
-  Future<Map> getJSON({DocType docType = DocType.md, FileExtension fileExtensionEnum: FileExtension.md, String fileName = "", String? defaultVal}) async {
+  Future<Map> getJSON(
+      {DocType docType = DocType.md,
+      FileExtension fileExtensionEnum = FileExtension.md,
+      String fileName = "",
+      String? defaultVal}) async {
     String fileExt = getFileExtensionByEnum(fileExtensionEnum);
     String fileType = getFileTypeByEnum(docType);
-    String? uid = LoginManager
-        .getInstance()
-        .getUserBean()
-        .uid ?? "otherUid";
+    String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
     try {
       // List<int>? list = await storageReference.child(
       //     "/${fileType}/${uid}/${fileName}.${fileExt}").getData();
 
       String ossFilePathUrl =
-          "${Params
-          .mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
+          "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
       print("ossUrl: $ossFilePathUrl");
-      BaseBean data = await HttpManager.getInstance().doGetFileContentRequest(
-          Utility.getOSSOriginFromUrl(ossFilePathUrl));
+      BaseBean data = await HttpManager.getInstance()
+          .doGetFileContentRequest(Utility.getOSSOriginFromUrl(ossFilePathUrl));
       return data.data;
     } catch (e) {
       print(e);
@@ -305,23 +318,28 @@ class AliyunStoreManager {
   }
 
   // 下载文件
-  Future<String> getString({DocType docType = DocType.md, FileExtension fileExtensionEnum: FileExtension.md, String fileName = "", String? defaultVal}) async {
+  Future<String> getString(
+      {DocType docType = DocType.md,
+      FileExtension fileExtensionEnum = FileExtension.md,
+      String fileName = "",
+      String? defaultVal}) async {
     String fileExt = getFileExtensionByEnum(fileExtensionEnum);
     String fileType = getFileTypeByEnum(docType);
     String? uid = LoginManager.getInstance().getUserBean().uid ?? "otherUid";
-try {
-  // List<int>? list = await storageReference.child(
-  //     "/${fileType}/${uid}/${fileName}.${fileExt}").getData();
+    try {
+      // List<int>? list = await storageReference.child(
+      //     "/${fileType}/${uid}/${fileName}.${fileExt}").getData();
 
-  String ossFilePathUrl =
-      "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
-  BaseBean data = await HttpManager.getInstance().doGetFileContentRequest(ossFilePathUrl);
-  return data.data;
-} catch (e) {
-  print(e);
-  throw Exception("Failed to getString");
-  // return defaultVal ?? "";
-}
+      String ossFilePathUrl =
+          "${Params.mOssUrl}/timehello/${fileType}/${uid}/${fileName}.${fileExt}";
+      BaseBean data = await HttpManager.getInstance()
+          .doGetFileContentRequest(ossFilePathUrl);
+      return data.data;
+    } catch (e) {
+      print(e);
+      throw Exception("Failed to getString");
+      // return defaultVal ?? "";
+    }
   }
 //
 //   void deleteFile({DocType docType = DocType.document, FileExtension fileExtensionEnum: FileExtension.json, String fileName = ""}) {
@@ -368,6 +386,7 @@ try {
         return "others";
     }
   }
+
   // 返回 document image audio video attachment md others
   String getFileTypeByString(String path) {
     String extension = path.split('.').last;
@@ -460,7 +479,6 @@ try {
         return "attachment";
       default:
         return "others";
-
     }
   }
 

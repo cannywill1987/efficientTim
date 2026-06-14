@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:time_hello/com/timehello/components/BaseWidget.dart';
@@ -36,11 +36,19 @@ class FolderSummaryPage extends BaseWidget {
   PickerDateRange? dateTimePickerDateRange;
 
   CalendarTypeEnum calendarTypeEnum = CalendarTypeEnum.last7Days;
-   FolderSummaryPage({Key? key, this.calendarTypeEnum = CalendarTypeEnum.last7Days, this.dateTimePickerDateRange, this.shouldShowNav = false, required this.folderModelWithExtraData}): super(key: key);
+  FolderSummaryPage(
+      {Key? key,
+      this.calendarTypeEnum = CalendarTypeEnum.last7Days,
+      this.dateTimePickerDateRange,
+      this.shouldShowNav = false,
+      required this.folderModelWithExtraData})
+      : super(key: key);
   @override
   BaseWidgetState<BaseWidget<ChangeNotifier>> getState() {
     // TODO: implement getState
-    return FolderSummaryPageState(calendarTypeEnum: calendarTypeEnum, dateTimePickerDateRange: dateTimePickerDateRange);
+    return FolderSummaryPageState(
+        calendarTypeEnum: calendarTypeEnum,
+        dateTimePickerDateRange: dateTimePickerDateRange);
   }
 }
 
@@ -62,18 +70,20 @@ class FolderSummaryPageState extends BaseWidgetState<FolderSummaryPage> {
   FolderModel? curSearchingFocusModel;
   GlobalKey<TodayDataWidgetState>? TodayDataWidgetGlobalKey = GlobalKey();
   GlobalKey<AllDataWidgetState> AllDataWidgetGlobalKey = GlobalKey();
-  GlobalKey<FolderSummaryHeaderWidgetState>? SummaryHeaderWidgetGlobalKey = GlobalKey();
+  GlobalKey<FolderSummaryHeaderWidgetState>? SummaryHeaderWidgetGlobalKey =
+      GlobalKey();
   GlobalKey<TimeLinePageState> TimeLinePageStateGlobalKey = GlobalKey();
 
-
-  FolderSummaryPageState({required this.calendarTypeEnum, this.dateTimePickerDateRange});
+  FolderSummaryPageState(
+      {required this.calendarTypeEnum, this.dateTimePickerDateRange});
 
   @override
   Widget baseBuild(BuildContext context) {
     // TODO: implement build
 
     return ColoredBox(
-      color: ThemeManager.getInstance().getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
+      color: ThemeManager.getInstance()
+          .getBackgroundColor(defaultColor: ColorsConfig.chartBgColor),
       child: ListView(
         cacheExtent: 10000,
         children: [
@@ -84,7 +94,8 @@ class FolderSummaryPageState extends BaseWidgetState<FolderSummaryPage> {
           ContainerWidget(
             child: FolderSummaryHeaderWidget(
               key: SummaryHeaderWidgetGlobalKey,
-              calendarTypeEnum: this.calendarTypeEnum, folderModelWithExtraData: this.widget.folderModelWithExtraData,
+              calendarTypeEnum: this.calendarTypeEnum,
+              folderModelWithExtraData: this.widget.folderModelWithExtraData,
               // listMissionModel: missionListOriginal,
               // listStatsModel: listStatsModel ?? [],
               // listStatsModelPrev: listStatsModelPrev ?? [],
@@ -137,36 +148,45 @@ class FolderSummaryPageState extends BaseWidgetState<FolderSummaryPage> {
               ],
             ),
           ),
-          if(this.widget.folderModelWithExtraData.folderModel.tag != 2)
-          SizedBox(
-            height: marginWidget,
-          ),
-          if(this.widget.folderModelWithExtraData.folderModel.tag != 2)
-          Container(
-            height: 200,
-            child: ContainerWidget(
-              paddingTop: 0,
-              paddingBottom: 0,
-              child: Column(children: [
-                TitleContainerWidget(
-                  title: Utility.isHuaWei() ? getI18NKey().tasks_list: getI18NKey().timeline,
-                ),
-                Container(
-                    width: double.infinity,
-                    height: 2,
-                    color: ColorsConfig.borderLineColor),
-                //时间轴
-                Expanded(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                        child:TimeLinePage(
-                        key: TimeLinePageStateGlobalKey,
-                        folderObjectId: this.widget.folderModelWithExtraData.folderModel.objectId ?? "",
-                        timelinePageFromEnum:
-                            TimelinePageFromEnum.FolderStatisticPage.index)))
-              ]),
+          if (this.widget.folderModelWithExtraData.folderModel.tag != 2)
+            SizedBox(
+              height: marginWidget,
             ),
-          ),
+          if (this.widget.folderModelWithExtraData.folderModel.tag != 2)
+            Container(
+              height: 200,
+              child: ContainerWidget(
+                paddingTop: 0,
+                paddingBottom: 0,
+                child: Column(children: [
+                  TitleContainerWidget(
+                    title: Utility.isHuaWei()
+                        ? getI18NKey().tasks_list
+                        : getI18NKey().timeline,
+                  ),
+                  Container(
+                      width: double.infinity,
+                      height: 2,
+                      color: ColorsConfig.borderLineColor),
+                  //时间轴
+                  Expanded(
+                      child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                          child: TimeLinePage(
+                              key: TimeLinePageStateGlobalKey,
+                              pageBackgroundColor: Colors.transparent,
+                              folderObjectId: this
+                                      .widget
+                                      .folderModelWithExtraData
+                                      .folderModel
+                                      .objectId ??
+                                  "",
+                              timelinePageFromEnum: TimelinePageFromEnum
+                                  .FolderStatisticPage.index)))
+                ]),
+              ),
+            ),
           SizedBox(
             height: marginWidget,
           ),
@@ -175,7 +195,8 @@ class FolderSummaryPageState extends BaseWidgetState<FolderSummaryPage> {
             child: TodayDataWidget(
               key: TodayDataWidgetGlobalKey,
               folderModelWithExtraData: this.widget.folderModelWithExtraData,
-              folderId: this.widget.folderModelWithExtraData.folderModel.objectId,
+              folderId:
+                  this.widget.folderModelWithExtraData.folderModel.objectId,
               calendarTypeEnum: this.calendarTypeEnum,
             ),
           ),
@@ -194,7 +215,7 @@ class FolderSummaryPageState extends BaseWidgetState<FolderSummaryPage> {
 
   componentDidMount() {
     eventBus.on<EventFn>().listen((EventFn event) {
-      if (event.type == Params.ACTION_UPDATE_LISTVIEW ) {
+      if (event.type == Params.ACTION_UPDATE_LISTVIEW) {
         this.requestDatas();
       }
     });
@@ -255,7 +276,7 @@ class FolderSummaryPageState extends BaseWidgetState<FolderSummaryPage> {
     await TimeLinePageStateGlobalKey!.currentState?.requestDatas(
         startDateTime: controller?.dateTimePicker?.startDate,
         endDateTime: controller?.dateTimePicker?.endDate);
-    if(mounted == true) {
+    if (mounted == true) {
       setState(() {});
     }
     // Keys.AllDataWidgetGlobalKey.currentState?.requestDatas(

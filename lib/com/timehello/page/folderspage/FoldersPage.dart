@@ -26,6 +26,7 @@ import 'package:time_hello/com/timehello/page/statisticPage/pages/SummaryPage.da
 import 'package:time_hello/com/timehello/util/AnalyticsEventsManager.dart';
 import 'package:time_hello/com/timehello/util/CloudSharepreferenceManagement.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
+import 'package:time_hello/com/timehello/util/SubscriptionAndPriceManager.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
@@ -49,14 +50,20 @@ import '../missionPage/MissionPage.dart';
 import '../statisticPage/pages/FolderSummaryPage.dart';
 import 'components/CustomHeaderGridView.dart';
 import 'components/FolderSectionTitleWidget.dart';
+import 'components/FoldersMobileDrawerStyleHelper.dart';
 import 'components/MenuSilverList.dart';
 
 class FoldersPage extends BaseWidget {
   final OnMapCallback onTapListener;
   final bool useUnifiedStyle;
+  final bool useMobileModernStyle;
+  final VoidCallback? onCloseListener;
 
   const FoldersPage(
-      {required this.onTapListener, this.useUnifiedStyle = false});
+      {required this.onTapListener,
+      this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false,
+      this.onCloseListener});
 
   @override
   BaseWidgetState<BaseWidget> getState() {
@@ -82,6 +89,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   List<FolderModelWithExtraData> listDatasFilteres = []; // 过滤器列表
   List<FolderModelWithExtraData> listDatasArchive = []; // 归档文件列表
   bool isAddingFolder = false;
+
+  bool get _isModernMobileDrawer =>
+      widget.useMobileModernStyle && Utility.isHandsetBySize();
 
   @override
   void onCreate() {
@@ -143,7 +153,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
     //监听广播 设置页面过来后用得上 todo 应该加一个action
     eventBus.on<EventFn>().listen((EventFn event) {
       //这个不需要也行 但是有一个用户反馈创建用户没刷新这里
-      if (event.type == Params.ACTION_UPDATE_MISSION_CONTAINER) {
+      if (event.type == Params.ACTION_UPDATE_FOLDER_PAGE) {
+        this.requestDatas(shouldRefresh: true); // 文件夹增删改后刷新侧栏树
+      } else if (event.type == Params.ACTION_UPDATE_MISSION_CONTAINER) {
         // Future.delayed(Duration(seconds: 1), () {
         this.requestDatas(shouldRefresh: true); // 请求数据
         FolderModel? folderModel = event.obj['data']; // 获取数据
@@ -849,10 +861,12 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                     key: ValueKey('Scaffold11114'),
                     backgroundColor: widget.useUnifiedStyle
                         ? const Color(0xFFF4E4D7)
-                        : null,
+                        : (_isModernMobileDrawer ? Colors.transparent : null),
                     body: widget.useUnifiedStyle
                         ? _buildUnifiedSidebarShell(context)
-                        : _buildDefaultSidebarShell(context));
+                        : _isModernMobileDrawer
+                            ? _buildMobileModernSidebarShell(context)
+                            : _buildDefaultSidebarShell(context));
               });
         });
   }
@@ -864,6 +878,35 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
             defaultColor:
                 ThemeManager.getInstance().getLightDefaultThemeColor()),
         child: _buildSidebarColumn(context, showLegacyHeader: true));
+  }
+
+  /**
+   * 功能：构建移动端新版抽屉外壳。
+   * 说明：该分支只由 MobileMissionContainerPage 显式启用，避免影响桌面侧栏和其他引用 FoldersPage 的页面。
+   */
+  Widget _buildMobileModernSidebarShell(BuildContext context) {
+    final FoldersMobileDrawerStyleMetrics metrics =
+        FoldersMobileDrawerStyleHelper.modernMetrics;
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(metrics.cornerRadius),
+        bottomRight: Radius.circular(metrics.cornerRadius),
+      ),
+      child: Container(
+        key: const ValueKey('mobile_modern_folder_drawer_shell'),
+        decoration: const BoxDecoration(
+          color: Color(0xFFFFFEFB),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0x1A000000),
+              blurRadius: 26,
+              offset: Offset(8, 0),
+            ),
+          ],
+        ),
+        child: _buildSidebarColumn(context, showLegacyHeader: false),
+      ),
+    );
   }
 
   Widget _buildUnifiedSidebarShell(BuildContext context) {
@@ -953,7 +996,9 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       {required bool showLegacyHeader}) {
     return Column(
       children: [
-        if (showLegacyHeader) ...[
+        if (_isModernMobileDrawer) ...[
+          _buildMobileModernHeader(),
+        ] else if (showLegacyHeader) ...[
           Utility.isHandsetBySize()
               ? SizedBox.shrink()
               : CustomHeaderGridView(
@@ -985,21 +1030,244 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         Expanded(
             key: ValueKey('expanded_1'),
             child: Padding(
-              padding: widget.useUnifiedStyle
-                  ? const EdgeInsets.only(top: 6)
-                  : EdgeInsets.zero,
+              padding: _isModernMobileDrawer
+                  ? const EdgeInsets.only(top: 2)
+                  : widget.useUnifiedStyle
+                      ? const EdgeInsets.only(top: 6)
+                      : EdgeInsets.zero,
               child: getMenuList(),
             )),
-        screenType == ScreenType.Handset
-            ? SizedBox.shrink()
-            : Padding(
-                padding: widget.useUnifiedStyle
-                    ? const EdgeInsets.fromLTRB(14, 8, 14, 16)
-                    : EdgeInsets.zero,
-                child: getItem(context),
-              )
+        _isModernMobileDrawer
+            // 移动端抽屉的首要任务是快速切换清单；固定升级卡会压缩列表高度，导致下方清单入口难以浏览。
+            ? const SizedBox.shrink()
+            : screenType == ScreenType.Handset
+                ? SizedBox.shrink()
+                : Padding(
+                    padding: widget.useUnifiedStyle
+                        ? const EdgeInsets.fromLTRB(14, 8, 14, 16)
+                        : EdgeInsets.zero,
+                    child: getItem(context),
+                  )
       ],
     );
+  }
+
+  /**
+   * 功能：构建移动端新版抽屉顶部品牌区。
+   * 说明：顶部提供品牌识别和关闭按钮，匹配新版任务页顶部导航的番茄视觉。
+   */
+  Widget _buildMobileModernHeader() {
+    final FoldersMobileDrawerStyleMetrics metrics =
+        FoldersMobileDrawerStyleHelper.modernMetrics;
+    return SafeArea(
+      bottom: false,
+      child: SizedBox(
+        height: metrics.headerHeight,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 16, 10),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 48,
+                height: 48,
+                child: Utility.getSVGPicture(R.assetsImgIcTomato, size: 48),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      getI18NKey().app_name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.1,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFF1F1F1F),
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    Text(
+                      getI18NKey().app_tagline_focus_efficient_life,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        height: 1.1,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF8A8A8A),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                borderRadius: BorderRadius.circular(26),
+                onTap: () {
+                  widget.onCloseListener?.call();
+                },
+                child: Container(
+                  width: 50,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 16,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.close_rounded,
+                    color: Color(0xFF777777),
+                    size: 32,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /**
+   * 功能：构建移动端新版底部升级引导卡。
+   * 说明：非侵入式放在抽屉底部，展示前先复用 SubscriptionAndPriceManager 的 VIP 判断，避免会员用户仍看到升级入口。
+   */
+  Widget _buildMobileModernUpgradeCard() {
+    if (SubscriptionAndPriceManager.getInstance().isVIP() == true) {
+      return const SizedBox.shrink();
+    }
+    final FoldersMobileDrawerStyleMetrics metrics =
+        FoldersMobileDrawerStyleHelper.modernMetrics;
+    return SafeArea(
+      top: false,
+      child: Container(
+        height: metrics.upgradeCardHeight,
+        margin: const EdgeInsets.fromLTRB(18, 10, 18, 18),
+        padding: const EdgeInsets.fromLTRB(16, 10, 14, 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFFEF5),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: const Color(0xFFDDEEC3)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 54,
+              height: 54,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.06),
+                    blurRadius: 12,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: Utility.getSVGPicture(R.assetsImgIcVipCrown, size: 32),
+            ),
+            const SizedBox(width: 14),
+            const Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '开启高效人生',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF252525),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    '让每一分钟都更有价值!',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Color(0xFF6F6F6F),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            InkWell(
+              borderRadius: BorderRadius.circular(24),
+              onTap: _handleMobileModernUpgradeTap,
+              child: Container(
+                height: 44,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF9EDB38), Color(0xFF6EBB20)],
+                  ),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF7FC62A).withValues(alpha: 0.28),
+                      blurRadius: 12,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      getI18NKey().upgrade_now,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.chevron_right_rounded,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /**
+   * 功能：处理移动端抽屉底部“立即升级”点击。
+   * 说明：点击时再次读取 SubscriptionAndPriceManager，防止抽屉打开后会员状态发生变化；未开通时直接打开统一会员弹窗。
+   */
+  void _handleMobileModernUpgradeTap() {
+    if (SubscriptionAndPriceManager.getInstance().isVIP() == true) {
+      return;
+    }
+    LoginManager.getInstance().openSubscriptionDialog(context);
   }
 
   Widget _buildUnifiedHeader() {
@@ -1025,7 +1293,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Time Bureau',
+                  getI18NKey().time_bureau,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -1034,7 +1302,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Unified workspace',
+                  getI18NKey().unified_workspace,
                   style: TextStyle(
                     fontSize: 11,
                     color: subtitleColor,
@@ -1061,7 +1329,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  'Focus',
+                  getI18NKey().focus_short,
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -1091,6 +1359,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         FolderSectionTitleWidget(
           title: getI18NKey().listing,
           useUnifiedStyle: widget.useUnifiedStyle,
+          useMobileModernStyle: _isModernMobileDrawer,
           trailingWidget: CustomPopupWidget(
               onSelected: (res) {
                 switch (res.code) {
@@ -1111,27 +1380,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
                 }
               },
               list: CONSTANTS.getFolderButtonList(),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
-                decoration: BoxDecoration(
-                  color: ThemeManager.getInstance().isDark()
-                      ? Colors.white.withValues(alpha: 0.08)
-                      : ColorsConfig.missionSidebarHeaderChipBackground,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  getI18NKey().create,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: ThemeManager.getInstance().getTextColor(
-                        defaultColor: ColorsConfig.missionSidebarTextPrimary,
-                        defaultDarkColor: Colors.white),
-                  ),
-                ),
-              )),
+              child: _buildCreateListingMenuButton()),
         ),
         getMenuSliverListFolders(
             list: Utility.filterFolderModelWithExtraData(this.listDatasListing,
@@ -1145,6 +1394,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         FolderSectionTitleWidget(
             title: getI18NKey().filterer,
             useUnifiedStyle: widget.useUnifiedStyle,
+            useMobileModernStyle: _isModernMobileDrawer,
             onClick: () {
               if (LoginManager.getInstance().isVIP(
                   shouldShowDialog: true,
@@ -1160,6 +1410,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         FolderSectionTitleWidget(
             title: getI18NKey().tag,
             useUnifiedStyle: widget.useUnifiedStyle,
+            useMobileModernStyle: _isModernMobileDrawer,
             onClick: () {
               this.onClick('onTapCreateTagListener', {});
             }),
@@ -1171,6 +1422,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
         FolderSectionTitleWidget(
           title: getI18NKey().archive,
           useUnifiedStyle: widget.useUnifiedStyle,
+          useMobileModernStyle: _isModernMobileDrawer,
         ),
         getMenuSliverListFolders(
             list: Utility.filterFolderModelWithExtraData(this.listDatasArchive,
@@ -1190,6 +1442,69 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
   }
 
   /**
+   * 功能：构建“创建清单”入口。
+   * 说明：移动端新版使用带加号的白色胶囊按钮，旧侧栏继续沿用原来的轻量按钮样式。
+   */
+  Widget _buildCreateListingMenuButton() {
+    final bool isDark = ThemeManager.getInstance().isDark();
+    if (_isModernMobileDrawer) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              getI18NKey().createMission,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF73B825),
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Icon(
+              Icons.add_rounded,
+              size: 18,
+              color: Color(0xFF73B825),
+            ),
+          ],
+        ),
+      );
+    }
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.white.withValues(alpha: 0.08)
+            : ColorsConfig.missionSidebarHeaderChipBackground,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        getI18NKey().create,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: ThemeManager.getInstance().getTextColor(
+              defaultColor: ColorsConfig.missionSidebarTextPrimary,
+              defaultDarkColor: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  /**
    * 获取菜单列表
    */
   MenuSilverList getMenuSliverList(
@@ -1198,6 +1513,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       required FolderPageViewEnum folderPageViewEnum}) {
     return MenuSilverList(
       useUnifiedStyle: widget.useUnifiedStyle,
+      useMobileModernStyle: _isModernMobileDrawer,
       folderPageViewEnum: folderPageViewEnum,
       key: key,
       datas: list,
@@ -1304,6 +1620,7 @@ class _FoldersPageWidgetState<T> extends BaseWidgetState<FoldersPage> {
       required FolderPageViewEnum folderPageViewEnum}) {
     return FolderSilverList(
       useUnifiedStyle: widget.useUnifiedStyle,
+      useMobileModernStyle: _isModernMobileDrawer,
       folderPageViewEnum: folderPageViewEnum,
       key: key,
       datas: list,

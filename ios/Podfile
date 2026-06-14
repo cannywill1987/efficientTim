@@ -68,6 +68,18 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
+  # Xcode 16 会把部分插件 podspec 里的 PrivacyInfo.xcprivacy 误放进 Compile Sources，
+  # 归档时出现 "no rule to process file ... PrivacyInfo.xcprivacy"；隐私清单应作为资源保留。
+  installer.pods_project.targets.each do |target|
+    next unless target.respond_to?(:source_build_phase) && target.source_build_phase
+
+    target.source_build_phase.files.each do |build_file|
+      file_path = build_file.file_ref&.path
+      if file_path&.end_with?('.xcprivacy')
+        target.source_build_phase.remove_build_file(build_file)
+      end
+    end
+  end
   #避免macos 15的问题BoringSSL-GRPC unsupported option '-G' for target 'arm64-apple-ios15.0'
       installer.pods_project.targets.each do |target|
           if target.name == 'BoringSSL-GRPC'
@@ -112,6 +124,7 @@ end
 #lzb 我加的 否则找不到FMDB framework 所以认为加上去了
 pod 'FMDB', '~> 2.7.12'
 pod 'Toast', '~> 4.0.0'
+pod 'MBProgressHUD', '~> 1.2'
 pod 'nanopb'
 
 # pod 'FirebaseAnalytics', '~> 11.7.0'

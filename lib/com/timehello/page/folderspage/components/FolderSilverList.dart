@@ -49,6 +49,7 @@ class FolderSilverList extends StatefulWidget {
   FolderPageViewEnum folderPageViewEnum = FolderPageViewEnum.normal;
   String curSelectedTitle;
   bool useUnifiedStyle;
+  bool useMobileModernStyle;
 
   // String curSelectedTitle;
   FolderSilverList(
@@ -62,6 +63,7 @@ class FolderSilverList extends StatefulWidget {
       required this.folderPageViewEnum,
       required this.onEnterListener,
       this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false,
       this.onCancelListener,
       required this.onUpdateTitleListener,
       required this.onCreateMissionFolderListener,
@@ -169,6 +171,7 @@ class FolderSilverListState extends State<FolderSilverList> {
       bool isOther = item.isOthers;
       FolderSectionHeaderWidget widget = FolderSectionHeaderWidget(
         useUnifiedStyle: this.widget.useUnifiedStyle,
+        useMobileModernStyle: this.widget.useMobileModernStyle,
         onTapFoldedListener: (val) {
           item.folderModel.isFoldedForFolderCached = val;
           this.widget.onTapFoldedListener?.call(item);
@@ -231,6 +234,7 @@ class FolderSilverListState extends State<FolderSilverList> {
             index: index,
             folderPageViewEnum: this.widget.folderPageViewEnum,
             useUnifiedStyle: this.widget.useUnifiedStyle,
+            useMobileModernStyle: this.widget.useMobileModernStyle,
             calendarModel: this.widget.calendarModel,
             curSelectedTitle: this.widget.curSelectedTitle,
             // key: ValueKey(item.folderModel.objectId),

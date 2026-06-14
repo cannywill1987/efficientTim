@@ -5,7 +5,6 @@ import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/models/SettingModel.dart';
 import 'package:time_hello/com/timehello/models/WQBMissionModel.dart';
-import 'package:time_hello/com/timehello/page/ChatGptPage/ChatGptPage.dart';
 import 'package:time_hello/com/timehello/page/ChatGptPage/GPTContainer.dart';
 import 'package:time_hello/com/timehello/page/CountDownListViewPage/CountDownListViewPage.dart';
 import 'package:time_hello/com/timehello/page/CountUpListViewPage/CountUpListViewPage.dart';
@@ -50,7 +49,9 @@ getMainPage([String? page]) {
               final String? rightPage = routerRightSideData?['page'];
               final bool isRightSideOverlay =
                   rightPage == 'SettingItemDetailPage' ||
-                      rightPage == 'GroupChatPage';
+                      rightPage == 'GroupChatPage' ||
+                      rightPage == 'ChatGptPage' ||
+                      rightPage == 'WebviewPage';
               return Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -391,10 +392,6 @@ Widget desktopRightRouter(String page, Map data) {
   } else {
     width = 300;
   }
-  Widget getContainer(Widget child) {
-    return Container(width: width, child: child);
-  }
-
   switch (page) {
     case 'SettingItemDetailPage':
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -415,11 +412,14 @@ Widget desktopRightRouter(String page, Map data) {
     //     });
 
     case 'ChatGptPage':
-      return getContainer(ChatGptPage(
-        key: ValueKey("ejzifjf123zefzef"),
-        createNewMission: data?['createNewMission'] ?? false,
-        message: data?['message'] ?? "",
-      ));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        OverlayManagement.getInstance().openDesktopRightFloatingPage(
+            Utility.getGlobalContext(),
+            page: 'ChatGptPage',
+            data: data,
+            width: 438);
+      });
+      return SizedBox.shrink();
     case 'GroupChatPage':
       WidgetsBinding.instance.addPostFrameCallback((_) {
         OverlayManagement.getInstance().openDesktopRightFloatingPage(
@@ -427,6 +427,16 @@ Widget desktopRightRouter(String page, Map data) {
             page: 'GroupChatPage',
             data: data,
             width: width);
+      });
+      return SizedBox.shrink();
+    case 'WebviewPage':
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        OverlayManagement.getInstance().openDesktopRightFloatingPage(
+            Utility.getGlobalContext(),
+            page: 'WebviewPage',
+            data: data,
+            width:
+                data['width'] is num ? (data['width'] as num).toDouble() : 438);
       });
       return SizedBox.shrink();
     default:

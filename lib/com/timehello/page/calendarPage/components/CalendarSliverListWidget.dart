@@ -237,13 +237,19 @@ class Item extends StatelessWidget {
     required this.dayModel,
   }) : super(key: key);
 
+  bool _shouldShowLunar(BuildContext context) {
+    final String languageCode =
+        Localizations.localeOf(context).languageCode.toLowerCase();
+    return languageCode.startsWith('zh');
+  }
+
   @override
-  Widget build(BuildContext context) => getItem(dayModel);
+  Widget build(BuildContext context) => getItem(context, dayModel);
 
   /**
    * 每个横条Mission
    */
-  Widget getItem(DayModel dayModel) {
+  Widget getItem(BuildContext context, DayModel dayModel) {
     String? week = Utility.getWeekDay(dayModel.weekday);
     int? day = dayModel.day;
     return Row(
@@ -296,37 +302,38 @@ class Item extends StatelessWidget {
                               .getTextColor(defaultColor: Color(0xff5a5c64))),
                 ),
                 Utility.isChina()
-                    ?RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '$day',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: dayModel.isCurrent
-                              ? Colors.blue
-                              : ThemeManager.getInstance().getTextColor(
-                            defaultColor: Color(0xff5a5c64),
-                          ),
-                          fontWeight: FontWeight.bold,
+                    ? RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '$day',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: dayModel.isCurrent
+                                    ? Colors.blue
+                                    : ThemeManager.getInstance().getTextColor(
+                                        defaultColor: Color(0xff5a5c64),
+                                      ),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (_shouldShowLunar(context))
+                              TextSpan(
+                                text: dayModel.lunarDay ?? "",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: dayModel.isCurrent
+                                      ? Colors.blue
+                                      : ThemeManager.getInstance().getTextColor(
+                                          defaultColor: Color(0xff5a5c64),
+                                        ),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                          ],
                         ),
-                      ),
-                      TextSpan(
-                        text: dayModel.lunarDay ?? "",
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: dayModel.isCurrent
-                              ? Colors.blue
-                              : ThemeManager.getInstance().getTextColor(
-                            defaultColor: Color(0xff5a5c64),
-                          ),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  textAlign: TextAlign.center,  // 可选: 如果你需要将文本居中对齐
-                )
+                        textAlign: TextAlign.center, // 可选: 如果你需要将文本居中对齐
+                      )
                     : Text('$day',
                         style: TextStyle(
                             fontSize: 18,
@@ -678,7 +685,8 @@ class ItemIndividualState extends State<ItemIndividualWidget> {
                                                   MissionModel(),
                                               fontSize: 12),
                                           ...WidgetManager.getIsNoteWidget(
-                                            this.widget.missionModel ?? MissionModel(),
+                                            this.widget.missionModel ??
+                                                MissionModel(),
                                           ),
                                         ])),
                               ))),
@@ -744,28 +752,30 @@ class ItemIndividualState extends State<ItemIndividualWidget> {
                                   ],
                                 ),
                               Spacer(),
-                              if(Utility.shouldShowTomatoes(missionModelType: this
-                                  .widget
-                                  .missionModel
-                                  .missionModelType))
-                              RatingBar(
-                                curNumber: this
-                                        .widget
-                                        .missionModel
-                                        .no_tomotoes_finished ??
-                                    0,
-                                number:
-                                    this.widget.missionModel.total_tomotoes ??
-                                        0,
-                                size: 12,
-                              ),
-                              if(Utility.shouldShowTomatoes(missionModelType: this
-                                  .widget
-                                  .missionModel
-                                  .missionModelType))
-                              SizedBox(
-                                width: 3,
-                              ),
+                              if (Utility.shouldShowTomatoes(
+                                  missionModelType: this
+                                      .widget
+                                      .missionModel
+                                      .missionModelType))
+                                RatingBar(
+                                  curNumber: this
+                                          .widget
+                                          .missionModel
+                                          .no_tomotoes_finished ??
+                                      0,
+                                  number:
+                                      this.widget.missionModel.total_tomotoes ??
+                                          0,
+                                  size: 12,
+                                ),
+                              if (Utility.shouldShowTomatoes(
+                                  missionModelType: this
+                                      .widget
+                                      .missionModel
+                                      .missionModelType))
+                                SizedBox(
+                                  width: 3,
+                                ),
                               Icon(
                                 Icons.play_circle_outline,
                                 color: Color(0xfffd5553),

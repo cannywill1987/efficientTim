@@ -1,3 +1,5 @@
+// 文件职责：管理 Flutter 与 Android 原生端的计时器 MethodChannel 通信。
+// 说明：跨端公共能力统一走 commonBridge，避免新增业务时重复创建 channel。
 package com.timespeed.time_hello.util;
 
 import android.appwidget.AppWidgetManager;
@@ -31,6 +33,7 @@ import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
@@ -89,6 +92,9 @@ public class CounterMethodChannelManager {
                             String TAG = ((HashMap<String, String>) ((ArrayList) call.arguments).get(0)).get("TAG");
                             String msg = ((HashMap<String, String>) ((ArrayList) call.arguments).get(0)).get("msg");
                             Log.d(TAG, msg);
+                            break;
+                        case "commonBridge":
+                            result.success(buildCommonBridgeResult(call));
                             break;
                         case "shareToQQ":
                             String mIconUrlQQ = ((HashMap<String, String>) ((ArrayList) call.arguments).get(0)).get("iconUrl");
@@ -518,6 +524,35 @@ public class CounterMethodChannelManager {
                 }
             }
         });
+    }
+
+    // 功能：构造公共桥接器统一返回结构，后续新增 action 时优先在这里分发。
+    private HashMap<String, Object> buildCommonBridgeResult(@NonNull MethodCall call) {
+        HashMap<String, Object> args = getFirstMapArgument(call);
+        String action = args.get("action") instanceof String ? (String) args.get("action") : "";
+        Object params = args.get("params");
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("platform", "android");
+        result.put("action", action);
+        result.put("data", params);
+        return result;
+    }
+
+    // 功能：兼容 Flutter 侧常用的 List<Map> 入参，也允许未来直接传 Map。
+    private HashMap<String, Object> getFirstMapArgument(@NonNull MethodCall call) {
+        Object arguments = call.arguments;
+        if (arguments instanceof ArrayList && ((ArrayList) arguments).size() > 0) {
+            Object first = ((ArrayList) arguments).get(0);
+            if (first instanceof Map) {
+                return new HashMap<>((Map<String, Object>) first);
+            }
+        }
+        if (arguments instanceof Map) {
+            return new HashMap<>((Map<String, Object>) arguments);
+        }
+        return new HashMap<>();
     }
 
     public void settingResult(int resultCode) {

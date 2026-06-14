@@ -39,7 +39,7 @@ class SharePreferenceUtil {
     return _instance!;
   }
 
-   initShareprerence() async {
+  initShareprerence() async {
     if (mSharedPreferences == null) {
       mSharedPreferences = await SharedPreferences.getInstance();
     }
@@ -50,9 +50,9 @@ class SharePreferenceUtil {
     return mSharedPreferences!;
   }
 
-   setString({required String key, required String content}) {
-    if(mSharedPreferences != null) {
-    mSharedPreferences?.setString(key, content);
+  setString({required String key, required String content}) {
+    if (mSharedPreferences != null) {
+      mSharedPreferences?.setString(key, content);
     }
   }
 
@@ -71,15 +71,32 @@ class SharePreferenceUtil {
   }
 
 // 获取字符串列表
-  List<String> getStringList({required String key, List<String> defaultVal = const []}) {
+  List<String> getStringList(
+      {required String key, List<String> defaultVal = const []}) {
     if (mSharedPreferences == null || key == null) {
       return defaultVal;
     }
     return mSharedPreferences?.getStringList(key) ?? defaultVal;
   }
 
+  /// 目标模式里最近使用过的单位历史，供创建/编辑任务页做本地 suggestion 兜底。
+  List<String> getObjectiveUnitHistory() {
+    return getStringList(
+      key: ShareprefrenceKeys.objectiveUnitHistory,
+      defaultVal: const [],
+    );
+  }
+
+  /// 写入目标模式单位历史，默认由前端在编辑完成后维护去重和数量上限。
+  void setObjectiveUnitHistory(List<String> units) {
+    setStringList(
+      key: ShareprefrenceKeys.objectiveUnitHistory,
+      content: units,
+    );
+  }
+
   void setInt({required String key, required int value}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setInt(key, value);
     }
   }
@@ -90,13 +107,13 @@ class SharePreferenceUtil {
         return defaultVal;
       }
       return mSharedPreferences?.getInt(key) ?? defaultVal;
-    } catch(e) {
+    } catch (e) {
       return defaultVal;
     }
   }
 
   void setDouble({required String key, required double value}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setDouble(key, value);
     }
   }
@@ -107,14 +124,13 @@ class SharePreferenceUtil {
         return defaultVal;
       }
       return mSharedPreferences?.getDouble(key) ?? defaultVal;
-    } catch(e) {
+    } catch (e) {
       return defaultVal;
     }
   }
 
-
   void setBool({required String key, required bool val}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool(key, val);
     }
   }
@@ -127,7 +143,7 @@ class SharePreferenceUtil {
   }
 
   void setCompleteMissionVisible({visible: false}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('CompleteMissionVisible', visible);
     }
   }
@@ -137,7 +153,7 @@ class SharePreferenceUtil {
   }
 
   void setWQBCompleteMissionVisible({visible: false}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('WQBCompleteMissionVisible', visible);
     }
   }
@@ -147,7 +163,7 @@ class SharePreferenceUtil {
   }
 
   void setLoopOnFocusing({isOn: false}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('LoopOnFocusing', isOn);
     }
   }
@@ -157,26 +173,35 @@ class SharePreferenceUtil {
   }
 
   void setLoopOnRelaxing({isOn: false}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('LoopOnRelaxing', isOn);
     }
   }
+
   bool getDefault9DigitPasswordsNeedShowWhenLogin() {
-    return mSharedPreferences?.getBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLogin) ?? true;
+    return mSharedPreferences?.getBool(
+            ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLogin) ??
+        true;
   }
 
   void setDefault9DigitPasswordsNeedShowWhenLogin({isOn: false}) {
-    if(mSharedPreferences != null) {
-      mSharedPreferences?.setBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLogin, isOn);
+    if (mSharedPreferences != null) {
+      mSharedPreferences?.setBool(
+          ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLogin, isOn);
     }
   }
+
   bool getDefault9DigitPasswordsNeedShowWhenLoginAppLock() {
-    return mSharedPreferences?.getBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLoginAppLock) ?? true;
+    return mSharedPreferences?.getBool(ShareprefrenceKeys
+            .default9DigitPasswordsNeedShowWhenLoginAppLock) ??
+        true;
   }
 
   void setDefault9DigitPasswordsNeedShowWhenLoginAppLock({isOn: false}) {
-    if(mSharedPreferences != null) {
-      mSharedPreferences?.setBool(ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLoginAppLock, isOn);
+    if (mSharedPreferences != null) {
+      mSharedPreferences?.setBool(
+          ShareprefrenceKeys.default9DigitPasswordsNeedShowWhenLoginAppLock,
+          isOn);
     }
   }
 
@@ -206,9 +231,32 @@ class SharePreferenceUtil {
     mSharedPreferences?.setInt('BgMode', bgMode);
   }
 
-
   bool getLoopOnRelaxing() {
     return mSharedPreferences?.getBool('LoopOnRelaxing') ?? true;
+  }
+
+  /// 专注结束或休息结束时是否允许振动提示。
+  bool isFocusVibrationOn() {
+    return mSharedPreferences?.getBool('focusVibrationOn') ?? true;
+  }
+
+  /// 专注结束或休息结束时是否允许振动提示。
+  void setFocusVibrationOn({bool isOn = true}) {
+    if (mSharedPreferences != null) {
+      mSharedPreferences?.setBool('focusVibrationOn', isOn);
+    }
+  }
+
+  /// 四象限排序方式：0 保持当前布局，1 标准四象限布局（右上为紧急且重要）。
+  int getFourQuadrantOrderMode() {
+    return mSharedPreferences
+            ?.getInt(ShareprefrenceKeys.fourQuadrantOrderMode) ??
+        0;
+  }
+
+  /// 四象限排序方式：0 保持当前布局，1 标准四象限布局（右上为紧急且重要）。
+  void setFourQuadrantOrderMode(int mode) {
+    mSharedPreferences?.setInt(ShareprefrenceKeys.fourQuadrantOrderMode, mode);
   }
 
   /**
@@ -222,11 +270,10 @@ class SharePreferenceUtil {
    * 休息结束铃声开关
    */
   void setFocusBGMusicOn({bool isOn = true}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('isFocusBGMusicOn', isOn);
     }
   }
-
 
   /**
    * 休息结束铃声开关
@@ -239,7 +286,7 @@ class SharePreferenceUtil {
    * 休息结束铃声开关
    */
   void setRestBGMusicOn({bool isOn = true}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('isRestBGMusicOn', isOn);
     }
   }
@@ -255,11 +302,10 @@ class SharePreferenceUtil {
    * 休息结束铃声开关
    */
   void setRestFinishAlertOn({bool isOn = true}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('restFinishAlertOn', isOn);
     }
   }
-
 
   /**
    * 专注结束铃声开关
@@ -272,13 +318,13 @@ class SharePreferenceUtil {
    * 专注结束铃声开关
    */
   void setFocusFinishAlertOn({bool isOn = true}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('focusFinishAlertOn', isOn);
     }
   }
 
   void setAlipushOn({isOn: false}) {
-    if(mSharedPreferences != null) {
+    if (mSharedPreferences != null) {
       mSharedPreferences?.setBool('AlipushOn', isOn);
     }
   }
@@ -313,17 +359,21 @@ class SharePreferenceUtil {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     try {
       initShareprerence();
-      return mSharedPreferences?.getDouble('MobileCounterPosX' + size.width.toString()) ?? size.width - 72;
+      return mSharedPreferences
+              ?.getDouble('MobileCounterPosX' + size.width.toString()) ??
+          size.width - 72;
     } catch (e) {
-      return (size.width)/ 2 - 50/5;
+      return (size.width) / 2 - 50 / 5;
     }
   }
 
   double getMobileCounterPosY() {
-      final size = MediaQuery.of(Utility.getGlobalContext()).size;
+    final size = MediaQuery.of(Utility.getGlobalContext()).size;
     try {
       initShareprerence();
-      return mSharedPreferences?.getDouble('MobileCounterPosY' + size.height.toString()) ?? size.height - 102;
+      return mSharedPreferences
+              ?.getDouble('MobileCounterPosY' + size.height.toString()) ??
+          size.height - 102;
     } catch (e) {
       return size.height - 102;
     }
@@ -332,32 +382,38 @@ class SharePreferenceUtil {
   void setMobileCounterPosX(double x) {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     initShareprerence();
-    mSharedPreferences?.setDouble('MobileCounterPosX' + size.width.toString(), x);
+    mSharedPreferences?.setDouble(
+        'MobileCounterPosX' + size.width.toString(), x);
   }
 
   void setMobileCounterPosY(double y) {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     initShareprerence();
-    mSharedPreferences?.setDouble('MobileCounterPosY' + size.height.toString(), y);
+    mSharedPreferences?.setDouble(
+        'MobileCounterPosY' + size.height.toString(), y);
   }
 
   void setLocalMobileCounterPosX(double x) {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     initShareprerence();
-    mSharedPreferences?.setDouble('LocalMobileCounterPosX' + size.width.toString(), x);
+    mSharedPreferences?.setDouble(
+        'LocalMobileCounterPosX' + size.width.toString(), x);
   }
 
   void setLocalMobileCounterPosY(double y) {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     initShareprerence();
-    mSharedPreferences?.setDouble('LocalMobileCounterPosY' + size.height.toString(), y);
+    mSharedPreferences?.setDouble(
+        'LocalMobileCounterPosY' + size.height.toString(), y);
   }
 
   double getLocalMobileCounterPosX() {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     try {
       initShareprerence();
-      return mSharedPreferences?.getDouble('LocalMobileCounterPosX' + size.width.toString()) ?? 0;
+      return mSharedPreferences
+              ?.getDouble('LocalMobileCounterPosX' + size.width.toString()) ??
+          0;
     } catch (e) {
       return 0;
     }
@@ -367,7 +423,9 @@ class SharePreferenceUtil {
     final size = MediaQuery.of(Utility.getGlobalContext()).size;
     try {
       initShareprerence();
-      return mSharedPreferences?.getDouble('LocalMobileCounterPosY' + size.height.toString()) ?? 0;
+      return mSharedPreferences
+              ?.getDouble('LocalMobileCounterPosY' + size.height.toString()) ??
+          0;
     } catch (e) {
       return 0;
     }
@@ -425,9 +483,11 @@ class SharePreferenceUtil {
     mSharedPreferences?.setInt('tomatoTime', time);
   }
 
-  String getGameMode({required String gameCode, required String defaultGameMode}) {
+  String getGameMode(
+      {required String gameCode, required String defaultGameMode}) {
     initShareprerence();
-    return mSharedPreferences?.getString('gameModeWithGameCode:${gameCode}') ?? defaultGameMode;
+    return mSharedPreferences?.getString('gameModeWithGameCode:${gameCode}') ??
+        defaultGameMode;
   }
 
   void setGameMode({required String gameCode, required String gameMode}) {
@@ -455,7 +515,7 @@ class SharePreferenceUtil {
       int curCounter = this.getTomatoLongDurationCurCounter();
       int interval = this.getTomatoLongDurationInterval();
       // 长计时休息触发
-      if (curCounter > 0&& curCounter % interval == 0) {
+      if (curCounter > 0 && curCounter % interval == 0) {
         return this.getTomatoLongDurationRestTime();
       }
       return mSharedPreferences?.getInt('TomatoRestTime') ?? 5 * 60 * 1000;
@@ -481,7 +541,8 @@ class SharePreferenceUtil {
   int getTomatoLongDurationRestTime() {
     try {
       initShareprerence();
-      return mSharedPreferences?.getInt('TomatoLongDurationRestTime') ?? 5 * 60 * 1000;
+      return mSharedPreferences?.getInt('TomatoLongDurationRestTime') ??
+          5 * 60 * 1000;
     } catch (e) {
       return 5 * 60 * 1000;
     }
@@ -491,7 +552,6 @@ class SharePreferenceUtil {
     initShareprerence();
     mSharedPreferences?.setInt('TomatoLongDurationInterval', times);
   }
-
 
   int getTomatoLongDurationCurCounter() {
     try {
@@ -639,7 +699,8 @@ class SharePreferenceUtil {
         return musicModel;
       }
     } catch (e) {}
-    return MusicModel(url: "http://oss.timerbell.com/resourceOss/2024019-安静的夜晚蟋蟀声音.MP3");
+    return MusicModel(
+        url: "http://oss.timerbell.com/resourceOss/2024019-安静的夜晚蟋蟀声音.MP3");
   }
 
   void setMissionOrderEnum(MissionOrderEnum enumVal, {String mode = ''}) {
@@ -651,7 +712,6 @@ class SharePreferenceUtil {
     initShareprerence();
     mSharedPreferences?.setInt('game:' + game + level.toString(), level);
   }
-
 
   MissionOrderEnum getMissionOrderEnum({String mode = ''}) {
     initShareprerence();
@@ -685,11 +745,13 @@ class SharePreferenceUtil {
     return null;
   }
 
-  void setHttpCache({required String key,  BaseBean? baseBean, String mode = "GET"}) {
+  void setHttpCache(
+      {required String key, BaseBean? baseBean, String mode = "GET"}) {
     if (baseBean != null && key != null) {
       listKeysHttps.add('HttpCache' + mode + key);
       this.setString(
-          key: 'HttpCache' + mode + key, content: jsonEncode(baseBean.toJson()));
+          key: 'HttpCache' + mode + key,
+          content: jsonEncode(baseBean.toJson()));
       LoginManager.getInstance().init();
     }
   }
@@ -703,8 +765,7 @@ class SharePreferenceUtil {
   void setHttpCacheDynamic({required String key, required Map map}) {
     if (map != null && key != null) {
       listKeysHttps.add('HttpCache' + key);
-      this.setString(
-          key: 'HttpCache' + key, content: jsonEncode(map));
+      this.setString(key: 'HttpCache' + key, content: jsonEncode(map));
       LoginManager.getInstance().init();
     }
   }

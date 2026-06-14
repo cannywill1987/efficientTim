@@ -3972,8 +3972,14 @@ class _SfCalendarState extends State<SfCalendar>
 
   /// loads the time zone data base to handle the time zone for calendar
   Future<bool> _loadDataBase() async {
-    final ByteData byteData =
-        await rootBundle.load('packages/timezone/data/latest_all.tzf');
+    // timezone 是纯 Dart 包，不会自动把 data/*.tzf 作为 Flutter asset 打进应用；
+    // 因此优先读取项目内显式声明的资源，兼容旧包资源路径作为兜底。
+    ByteData byteData;
+    try {
+      byteData = await rootBundle.load('assets/timezone/latest_all.tzf');
+    } catch (_) {
+      byteData = await rootBundle.load('packages/timezone/data/latest_all.tzf');
+    }
     initializeDatabase(byteData.buffer.asUint8List());
     _timeZoneLoaded = true;
     // timeZoneLoaded = true;

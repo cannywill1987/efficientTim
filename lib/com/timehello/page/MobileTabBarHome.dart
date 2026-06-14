@@ -28,8 +28,6 @@ class MobileTabBarHome extends BaseWidget {
 class BottomTabBarHomeState extends BaseWidgetState<MobileTabBarHome> {
   // body展示的数据
   Widget buildBodyFunction(int _selectedIndex) {
-    Env env = context.watch<Env>();
-
     ///帧布局结合透明布局
     return Stack(
       children: <Widget>[
@@ -81,76 +79,58 @@ class BottomTabBarHomeState extends BaseWidgetState<MobileTabBarHome> {
         //   ),
         //   backgroundColor: Colors.white,
         // ),
-        floatingActionButton: Container(
-            margin: EdgeInsets.only(top: 20),
-            child: FloatingActionButton(
-                //浮动交互按钮
-                onPressed: () {
-                  context.read<Env>().curMobileTab = 2;
-                },
-                clipBehavior: Clip.antiAlias,
-                mini: true,
-                tooltip: '',
-                //长按提示
-                backgroundColor: Color(
-                    SharePreferenceUtil.getSyncInstance().getCommonColor()),
-                //背景颜色
-                child: Image.asset(R.assetsImgIcLauncher))),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        //融合底部工具栏
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor:
+        // 底部导航统一复用 BaseWidget 中的胶囊组件，避免首页单独维护一套视觉逻辑。
+        bottomNavigationBar: BaseFloatingNavigationBar(
+          activeColor:
               Color(SharePreferenceUtil.getSyncInstance().getCommonColor()),
-          type: BottomNavigationBarType.fixed,
-          elevation: 0,
-          unselectedFontSize: 12.0,
-          selectedFontSize: 12.0,
-          items: [
-            //底部tab 原生tab
-            BottomNavigationBarItem(
-                activeIcon: Utility.getSVGPicture(R.assetsImgIcTab1Selected,
-                    size: iconSize,
-                    ),
-                icon: Utility.getSVGPicture(R.assetsImgIcTab1Unselected,
-                    size: iconSize,
-                    color: ThemeManager.getInstance().getIconColor()),
-                label: getI18NKey().tomatoClock),
-            BottomNavigationBarItem(
-                activeIcon: Utility.getSVGPicture(R.assetsImgIcTab2Selected,
-                    size: iconSize,
-                    ),
-                icon: Utility.getSVGPicture(R.assetsImgIcTab2Unselected,
-                    size: iconSize,
-                    color: ThemeManager.getInstance().getIconColor()),
-                label: getI18NKey().curAnalytics),
-            BottomNavigationBarItem(
-                // activeIcon: Utility.getSVGPicture(R.assetsImgIcTab3Selected, size: iconSize),
-                icon: Utility.getSVGPicture(R.assetsImgIcTab3Selected,
-                    size: iconSize),
-                label: getI18NKey().four_quadrant),
-            BottomNavigationBarItem(
-                activeIcon: Utility.getSVGPicture(R.assetsImgIcTab4Selected,
-                    size: iconSize,
-                    ),
-                icon: Utility.getSVGPicture(R.assetsImgIcTab4Unselected,
-                    size: iconSize,
-                    color: ThemeManager.getInstance().getIconColor()),
-                label: Utility.isHandsetBySize() == true
-                    ? getI18NKey().calendar
-                    : getI18NKey().schedule),
-            BottomNavigationBarItem(
-                activeIcon: Utility.getSVGPicture(R.assetsImgIcTab5Selected,
-                    size: iconSize,
-                    ),
-                icon: Utility.getSVGPicture(R.assetsImgIcTab5Unselected,
-                    size: iconSize,
-                    color: ThemeManager.getInstance().getIconColor()),
-                label: getI18NKey().mine),
-          ],
+          inactiveColor: ThemeManager.getInstance().getIconColor(),
           currentIndex: env.curMobileTab,
           onTap: (index) {
             context.read<Env>().curMobileTab = index;
           },
+          items: [
+            BaseFloatingNavigationItem(
+              activeIcon: Utility.getSVGPicture(R.assetsImgIcTab1Selected,
+                  size: iconSize),
+              icon: Utility.getSVGPicture(R.assetsImgIcTab1Unselected,
+                  size: iconSize,
+                  color: ThemeManager.getInstance().getIconColor()),
+              label: getI18NKey().tomatoClock,
+            ),
+            BaseFloatingNavigationItem(
+              activeIcon: Utility.getSVGPicture(R.assetsImgIcTab2Selected,
+                  size: iconSize),
+              icon: Utility.getSVGPicture(R.assetsImgIcTab2Unselected,
+                  size: iconSize,
+                  color: ThemeManager.getInstance().getIconColor()),
+              label: getI18NKey().curAnalytics,
+            ),
+            BaseFloatingNavigationItem(
+              activeIcon: Utility.getSVGPicture(R.assetsImgIcTab3Selected,
+                  size: iconSize),
+              icon: Utility.getSVGPicture(R.assetsImgIcTab3Selected,
+                  size: iconSize),
+              label: getI18NKey().four_quadrant,
+            ),
+            BaseFloatingNavigationItem(
+              activeIcon: Utility.getSVGPicture(R.assetsImgIcTab4Selected,
+                  size: iconSize),
+              icon: Utility.getSVGPicture(R.assetsImgIcTab4Unselected,
+                  size: iconSize,
+                  color: ThemeManager.getInstance().getIconColor()),
+              label: Utility.isHandsetBySize() == true
+                  ? getI18NKey().calendar
+                  : getI18NKey().schedule,
+            ),
+            BaseFloatingNavigationItem(
+              activeIcon: Utility.getSVGPicture(R.assetsImgIcTab5Selected,
+                  size: iconSize),
+              icon: Utility.getSVGPicture(R.assetsImgIcTab5Unselected,
+                  size: iconSize,
+                  color: ThemeManager.getInstance().getIconColor()),
+              label: getI18NKey().mine,
+            ),
+          ],
         ),
         body: PageStorage(
           child: buildBodyFunction(env.curMobileTab),

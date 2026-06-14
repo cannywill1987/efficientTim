@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/common/provider/Env.dart';
 import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import '../beans/ResourceDeliveryInfoBean.dart';
 import '../beans/ResourceLocationInfoBean.dart';
@@ -18,7 +17,7 @@ class Params {
   static final String mUrl = env == EnvEnum.dev
       ? "http://localhost:3000/web"
       : EnvEnum.uat == env
-          ? "https://www.timerbell.com/web"
+          ? "http://localhost:3000/web"
           : "https://www.timerbell.com/web";
 
   static final isMongoDbCacheOn = true; // mongodb的缓存是否开启
@@ -103,6 +102,175 @@ class Params {
 
   static String PUSH_COUNTER_NOTIFICATION_ID = '1';
   static String PUSH_NOTIFICATION_ID = '2';
+
+  static const String appAiBailianBaseUrl =
+      'https://dashscope.aliyuncs.com/compatible-mode/v1';
+  static const String appAiBailianDefaultModel = 'qwen-plus';
+  static const String appAiBailianApiKey = String.fromEnvironment(
+    'BAILIAN_API_KEY',
+    defaultValue: '',
+  );
+  static String appAiBailianRuntimeBaseUrl = appAiBailianBaseUrl;
+  static String appAiBailianRuntimeModel = appAiBailianDefaultModel;
+  static String appAiBailianRuntimeApiKey = appAiBailianApiKey;
+  static String appAiBailianRuntimeModelName = '通义千问 Plus';
+
+  static List<Map<String, Object?>> appAiBailianModels =
+      buildAppAiBailianModels();
+
+  /// 功能：把资源位/环境变量解析出来的百炼配置写入全局运行时配置。
+  /// 说明：AIPage、移动端语音建任务和语音转写都从这里读取，避免每个入口各自硬编码 key。
+  static void updateAppAiBailianConfig({
+    String? apiKey,
+    String? baseUrl,
+    String? model,
+    String? modelName,
+  }) {
+    final nextApiKey = (apiKey ?? '').trim();
+    final nextBaseUrl = (baseUrl ?? '').trim();
+    final nextModel = (model ?? '').trim();
+    final nextModelName = (modelName ?? '').trim();
+
+    if (nextApiKey.isNotEmpty) {
+      appAiBailianRuntimeApiKey = nextApiKey;
+    }
+    if (nextBaseUrl.isNotEmpty) {
+      appAiBailianRuntimeBaseUrl = nextBaseUrl;
+    }
+    if (nextModel.isNotEmpty) {
+      appAiBailianRuntimeModel = nextModel;
+    }
+    if (nextModelName.isNotEmpty) {
+      appAiBailianRuntimeModelName = nextModelName;
+    }
+    appAiBailianModels = buildAppAiBailianModels(
+      apiKey: appAiBailianRuntimeApiKey,
+      baseUrl: appAiBailianRuntimeBaseUrl,
+      model: appAiBailianRuntimeModel,
+      modelName: appAiBailianRuntimeModelName,
+    );
+  }
+
+  /// 功能：按当前运行时配置生成 AppAIPlugin 和移动端任务解析共用的模型列表。
+  static List<Map<String, Object?>> buildAppAiBailianModels({
+    String? apiKey,
+    String? baseUrl,
+    String? model,
+    String? modelName,
+  }) {
+    final resolvedApiKey = (apiKey ?? appAiBailianRuntimeApiKey).trim();
+    final resolvedBaseUrl = (baseUrl ?? appAiBailianRuntimeBaseUrl).trim();
+    final resolvedModel = (model ?? appAiBailianRuntimeModel).trim();
+    final resolvedModelName =
+        (modelName ?? appAiBailianRuntimeModelName).trim();
+    return <Map<String, Object?>>[
+      <String, Object?>{
+        // 默认模型放在 first，AIPage 和移动端语音 AI 建任务都会优先使用它。
+        'name': resolvedModelName.isNotEmpty ? resolvedModelName : '通义千问 Plus',
+        'baseUrl':
+            resolvedBaseUrl.isNotEmpty ? resolvedBaseUrl : appAiBailianBaseUrl,
+        'model':
+            resolvedModel.isNotEmpty ? resolvedModel : appAiBailianDefaultModel,
+        'apiKey': resolvedApiKey,
+        'contextLength': 1000000,
+        'maxTokens': 8192,
+        'roles': <String>['chat', 'edit', 'apply'],
+      },
+      /*
+    // 暂时只开放 Qwen2.5 Coder 32B；其他百炼模型先保留配置，后续需要时再恢复。
+    <String, Object?>{
+      'name': '通义千问 Max',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen-max',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 32768,
+      'maxTokens': 8192,
+      'roles': <String>['chat', 'edit', 'apply'],
+    },
+    <String, Object?>{
+      'name': '通义千问 Plus (1M)',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen-plus',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 1000000,
+      'maxTokens': 8192,
+      'roles': <String>['chat', 'edit'],
+    },
+    <String, Object?>{
+      'name': '通义千问 Turbo',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen-turbo',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 1000000,
+      'maxTokens': 8192,
+      'roles': <String>['chat'],
+    },
+    <String, Object?>{
+      'name': '通义千问 Long (10M)',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen-long',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 10000000,
+      'maxTokens': 6000,
+      'roles': <String>['chat'],
+    },
+    <String, Object?>{
+      'name': 'Qwen3 Max',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen3-max',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 262144,
+      'maxTokens': 32768,
+      'roles': <String>['chat', 'edit', 'apply'],
+    },
+    <String, Object?>{
+      'name': 'QwQ Plus (推理)',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwq-plus',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 131072,
+      'maxTokens': 8192,
+      'roles': <String>['chat'],
+    },
+    <String, Object?>{
+      'name': 'Qwen2.5 72B Instruct',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen2.5-72b-instruct',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 131072,
+      'maxTokens': 8192,
+      'roles': <String>['chat', 'edit'],
+    },
+    <String, Object?>{
+      'name': 'Qwen2.5 32B Instruct',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'qwen2.5-32b-instruct',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 131072,
+      'maxTokens': 8192,
+      'roles': <String>['chat'],
+    },
+    <String, Object?>{
+      'name': 'DeepSeek V3',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'deepseek-v3',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 65536,
+      'maxTokens': 8192,
+      'roles': <String>['chat', 'edit'],
+    },
+    <String, Object?>{
+      'name': 'DeepSeek R1 (推理)',
+      'baseUrl': appAiBailianBaseUrl,
+      'model': 'deepseek-r1',
+      'apiKey': appAiBailianApiKey,
+      'contextLength': 65536,
+      'maxTokens': 8192,
+      'roles': <String>['chat'],
+    },
+    */
+    ];
+  }
 }
 
 class ResourceInfo {
@@ -226,6 +394,11 @@ class Apis {
   static String gameRankingAdd = "/api/timehello/gameRankingAdd"; //添加游戏分数
   static String gameRankingGetList =
       "/api/timehello/gameRankingGetList"; //游戏排名列表
+  static String focusRankingHeartbeat =
+      "/api/timehello/focusRankingHeartbeat"; //专注榜心跳
+  static String focusRankingStop = "/api/timehello/focusRankingStop"; //专注榜停止
+  static String focusRankingGetList =
+      "/api/timehello/focusRankingGetList"; //专注榜列表
   static String getRandomItem =
       "/api/timehello/gameComparePictureController/getRandomItem"; //拉取随机图片
   static String getComparePicturesList =
@@ -242,6 +415,7 @@ class Apis {
   static String uploadOssJSON = "/api/common/uploadOssJSON"; //上传json到阿里云
 
   static String getReceipt = "/api/storekit/receipt/verify";
+  static String vipCodeInfo = "/api/vipcode/info"; // 查询 VIP Code 信息
 }
 
 //Shareprefrence的key
@@ -266,6 +440,10 @@ class ShareprefrenceKeys {
   static String flomoRatingDialogDontRemindAgain =
       "flomoRatingDialogDontRemindAgain";
   static String isMissionDetailStatsOpen = "isMissionDetailStatsOpen";
+  static String isMissionDetailFocusRankingOpen =
+      "isMissionDetailFocusRankingOpen";
+  static String isMissionDetailFocusRankingShareOpen =
+      "isMissionDetailFocusRankingShareOpen";
   static String listAndGridView = "listAndGridView";
   static String hasCameraPermissionRequested = 'hasCameraPermissionRequested';
   static String hasMicrophonePermissionRequested =
@@ -277,6 +455,7 @@ class ShareprefrenceKeys {
   static String hasRating = "hasRating";
   static String deviceId = "deviceId";
   static String fourquadrantVisible = "fourquadrantVisible";
+  static String fourQuadrantOrderMode = "fourQuadrantOrderMode";
   static String folderOrderObjectId = "folderOrderObjectId";
   static String folderOrderObjectIdForOtherFolders =
       "folderOrderObjectIdForOtherFolders"; // 其他文件夹的排序
@@ -284,6 +463,7 @@ class ShareprefrenceKeys {
   static String folderOrderObjectIdForOtherFoldersArchived =
       "folderOrderObjectIdForOtherFoldersArchived"; // 其他文件夹的排序
   static String gptUserSystemMessage = "gptUserSystemMessage";
+  static String objectiveUnitHistory = "objectiveUnitHistory";
   // AI 回复助手本地配置（Profile/当前 Profile/LLM 模式与密钥/模型）。
   static String aiReplyProfiles = "aiReplyProfiles";
   static String aiReplyActiveProfileId = "aiReplyActiveProfileId";

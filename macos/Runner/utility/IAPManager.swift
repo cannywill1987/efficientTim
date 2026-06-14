@@ -9,6 +9,18 @@ class IAPManager: NSObject, SKRequestDelegate {
     private var completionPurchaseHandler: ((Int, Int, String, Error?) -> Void)? // -1 失败 0 未开始 1 请求中 2 请求成功 3 restore成功 第二个参数时间戳
     private var onSuccess: (() -> Void)?
     private var onFailure: ((Error?) -> Void)?
+
+    /// 生成统一日志时间前缀，格式固定为 MMDD HH:mm:ss，方便和 Flutter 日志一起搜索。
+    private func logTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMdd HH:mm:ss"
+        return formatter.string(from: Date())
+    }
+
+    /// 输出 StoreKit 原生层日志，和 Flutter 侧保持同一套 [time][tag][event] 结构。
+    private func iapLog(_ event: String, _ message: String) {
+        print("[\(logTimestamp())][IAP_NATIVE][\(event)] \(message)")
+    }
     
     /// 获取订阅的到期时间戳和 originalID（秒级时间戳）
     /// 返回格式: ["expireDate": 时间戳, "originalID": originalID]
@@ -68,13 +80,15 @@ class IAPManager: NSObject, SKRequestDelegate {
     /// 获取产品信息
     func fetchProducts(productIDs: [String], completion: @escaping ([Product]) -> Void) async -> Void {
         do {
+            iapLog("product-fetch-native-start", "requestedProductIds=\(productIDs)")
             let fetchedProducts = try await Product.products(for: productIDs)
             self.products = fetchedProducts
-            print("Fetched products successfully.")
+            iapLog("product-fetch-native-result", "requestedProductIds=\(productIDs), returnedCount=\(fetchedProducts.count), returnedProductIds=\(fetchedProducts.map { $0.id })")
             self.completionHandler = completion
             self.completionHandler!(self.products)
         } catch {
-            print("Failed to fetch products: \(error.localizedDescription)")
+            iapLog("product-fetch-native-error", "requestedProductIds=\(productIDs), error=\(error.localizedDescription)")
+            completion([])
         }
     }
     

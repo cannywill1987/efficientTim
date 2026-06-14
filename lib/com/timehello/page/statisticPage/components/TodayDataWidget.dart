@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/components/BlackCheckButtonListWidget.dart';
@@ -38,16 +37,19 @@ import 'TitleContainerWidget.dart';
 import 'TodayMissionCompleteWidget.dart';
 
 class TodayDataWidget extends StatefulWidget {
-  double marginTop = 15;
-  double margin = 0;
-  CalendarTypeEnum calendarTypeEnum;
-  CommonCalendarHeaderWidgetController? controller;
-  FolderModelWithExtraData? folderModelWithExtraData;
-  String? folderId;
+  final double marginTop;
+  final double margin;
+  final CalendarTypeEnum calendarTypeEnum;
+  final CommonCalendarHeaderWidgetController? controller;
+  final FolderModelWithExtraData? folderModelWithExtraData;
+  final String? folderId;
 
   TodayDataWidget(
       {Key? key,
       required this.calendarTypeEnum,
+      this.marginTop = 15,
+      this.margin = 0,
+      this.controller,
       this.folderId,
       this.folderModelWithExtraData})
       : super(key: key) {
@@ -423,7 +425,16 @@ class TodayDataWidgetState extends State<TodayDataWidget> {
                         DialogManagement.getInstance().showMissionListDialog(
                             context,
                             prioriy: this
-                                .curListCurPrioriyMissionModelsPercentageIndex == 3 ? 0 : this.curListCurPrioriyMissionModelsPercentageIndex == 2 ? 1 : this.curListCurPrioriyMissionModelsPercentageIndex == 1 ? 2 : 3,
+                                        .curListCurPrioriyMissionModelsPercentageIndex ==
+                                    3
+                                ? 0
+                                : this.curListCurPrioriyMissionModelsPercentageIndex ==
+                                        2
+                                    ? 1
+                                    : this.curListCurPrioriyMissionModelsPercentageIndex ==
+                                            1
+                                        ? 2
+                                        : 3,
                             list: [
                               ...(this.listSessionMissionModelRed1?.datas ??
                                   []),
@@ -455,7 +466,13 @@ class TodayDataWidgetState extends State<TodayDataWidget> {
                                       child: PrioriyColorsGridViewWidget(
                                         onTapListener: (index) {
                                           setCurIndexOflistCurPrioriyCheckModelPercentage(
-                                              index == 0 ? 3 : index == 1 ? 2 : index == 2 ? 1 : 0);
+                                              index == 0
+                                                  ? 3
+                                                  : index == 1
+                                                      ? 2
+                                                      : index == 2
+                                                          ? 1
+                                                          : 0);
                                           setState(() {});
                                         },
                                         datas:
@@ -695,6 +712,7 @@ class TodayDataWidgetState extends State<TodayDataWidget> {
 
   @override
   void didUpdateWidget(TodayDataWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
     this.calendarTypeEnum = this.widget.calendarTypeEnum;
     // if(oldWidget.startDateTime != this.startDateTime||oldWidget.endDateTime != this.endDateTime) {
     //   requestDatas();
@@ -798,8 +816,10 @@ class TodayDataWidgetState extends State<TodayDataWidget> {
             shouldAddDayType: false);
         // datasFolderModelWithExtraData = [this.widget.folderModelWithExtraData!];
       }
+      // 这里的列表元素是 FolderModelWithExtraData 实例，通用 deepClone 会退化成
+      // List<dynamic>，在真机启动统计页时会触发类型转换异常。
       datasFolderModelDelayWithExtraData =
-          Utility.deepClone(datasFolderModelWithExtraData ?? [])
+          List<FolderModelWithExtraData>.from(datasFolderModelWithExtraData)
             ..removeWhere((element) => element.folderModel.tag != 2);
       getTotalFocusTimeByFolderModelList(datasFolderModelWithExtraData);
       missionListOriginal?.forEach((element) {});
@@ -811,7 +831,7 @@ class TodayDataWidgetState extends State<TodayDataWidget> {
 
   bool shouldShowAllChart() =>
       this.widget.folderModelWithExtraData == null ||
-      (this.widget.folderModelWithExtraData?.folderModel?.tag == 2);
+      (this.widget.folderModelWithExtraData!.folderModel.tag == 2);
 
   getTotalFocusTimeByFolderModelList(List<FolderModelWithExtraData> datas) {
     totalFocusTimeByFolderModelList = 0;

@@ -61,6 +61,7 @@ class CONSTANTS {
   static String CODE_LOGIN_FIRST = "0000JFED";
   static String CODE_LOCAL_MONEY_NOT_ENOUGH = "0000CDEF";
   static String CODE_FAIL = "0000VEWF";
+  static String CODE_ALREADY_BIND_VIPCODE = "0000QSDF";
 
   static const double missionPageMargin = 0;
   static List<FolderModel> folderModelList = [];
@@ -1319,17 +1320,44 @@ class CONSTANTS {
    */
   static List<CheckButtonStateModel> getSettingItemDetailCheckButtonList(
       {int defaultVal = 0}) {
+    // 创建任务页这组分段按钮在选中态下需要白色图标，统一走 ThemeManager
+    // 的选中色封装，避免页面里继续散落写死 Colors.white。
+    final Color activeIconColor =
+        ThemeManager.getInstance().getSelectedIconColor(
+      defaultColor: Colors.white,
+      defaultDarkColor: Colors.white,
+    );
+    final Color inactiveIconColor =
+        ThemeManager.getInstance().getUncheckIconColor(
+      defaultColor: const Color(0xFF8B7767),
+      defaultDarkColor: const Color(0xFFD8D0C8),
+    );
+    const double iconSize = 13;
     List<CheckButtonStateModel> list = [];
     list.add(CheckButtonStateModel(
-        title: getI18NKey().date, isCheck: defaultVal == 0, code: "date"));
+        title: getI18NKey().date,
+        isCheck: defaultVal == 0,
+        code: "date",
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcDateOrange,
+            size: iconSize, color: activeIconColor),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcDateOrange,
+            size: iconSize, color: inactiveIconColor)));
     list.add(CheckButtonStateModel(
         title: getI18NKey().time_segment,
         isCheck: defaultVal == 1,
-        code: "time"));
+        code: "time",
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcClock,
+            size: iconSize, color: activeIconColor),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcClock,
+            size: iconSize, color: inactiveIconColor)));
     list.add(CheckButtonStateModel(
         title: getI18NKey().objective_final,
         isCheck: defaultVal == 2,
-        code: "objective"));
+        code: "objective",
+        checkIcon: Utility.getSVGPicture(R.assetsImgIcObjective,
+            size: iconSize, color: activeIconColor),
+        uncheckIcon: Utility.getSVGPicture(R.assetsImgIcObjective,
+            size: iconSize, color: inactiveIconColor)));
     return list;
   }
 
@@ -2175,6 +2203,14 @@ class CONSTANTS {
             Utility.getSVGPicture(R.assetsImgIcVisible, size: size - 5),
         title: getI18NKey().visible,
         isCheck: defaultVal == 1));
+    list.add(CheckButtonStateModel(
+        code: 'position_order',
+        checkIcon:
+            Icon(Icons.grid_view_rounded, size: size, color: Color(0xff666666)),
+        uncheckIcon:
+            Icon(Icons.grid_view_rounded, size: size, color: Color(0xff666666)),
+        title: getI18NKey().position_order,
+        isCheck: defaultVal == 2));
     return list;
   }
 
@@ -2302,6 +2338,14 @@ class CONSTANTS {
         checkIconUrl: R.assetsImgIcVolume,
         uncheckIconUrl: R.assetsImgIcVolume,
         title: getI18NKey().volume,
+        isCheck: false));
+    list.add(CheckButtonStateModel(
+        code: 'focus_vibration',
+        checkIcon: Icon(Icons.vibration, size: 22, color: Colors.orange),
+        uncheckIcon: Icon(Icons.vibration, size: 22, color: Colors.grey),
+        title: SharePreferenceUtil.getSyncInstance().isFocusVibrationOn()
+            ? getI18NKey().turn_off_vibration
+            : getI18NKey().turn_on_vibration,
         isCheck: false));
     bool isOn = SharePreferenceUtil.getSyncInstance().getLoopOnRelaxing();
     list.add(CheckButtonStateModel(
@@ -3109,12 +3153,6 @@ class CONSTANTS {
     colorsModel.color = 0xfff0f0f0;
     colorsModel.code = "light";
     colorsModel.title = getI18NKey().light_mode;
-    listColorsModel.add(colorsModel);
-
-    colorsModel = new ColorsModel();
-    colorsModel.color = 0xff424242;
-    colorsModel.code = "dark";
-    colorsModel.title = getI18NKey().dark_mode;
     listColorsModel.add(colorsModel);
 
     return listColorsModel;

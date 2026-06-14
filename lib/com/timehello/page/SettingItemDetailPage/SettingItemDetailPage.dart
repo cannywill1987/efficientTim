@@ -61,8 +61,9 @@ import '../missionPage/componnents/ComposedRichEditorWidget.dart';
 import 'components/TagsGridViewWidget.dart';
 
 /**
- * 从MissionPage设置过来的
- * todo 点击还没分配到onClick
+ * 文件类型：页面
+ * 文件作用：用于编辑任务详情里的笔记、子任务、任务设置和时间轴。
+ * 主要职责：承接 MissionPage 进入的设置编辑流程，并在移动端和 PC 端复用同一套任务设置数据更新逻辑。
  */
 class SettingItemDetailPage extends BaseWidget {
   int fromNormal = 0; //0是正常创建更新 1表示CreateAIChatGptMissionPage不需要刷新数据，直接更新即可
@@ -104,11 +105,16 @@ class _SettingItemDetailPageWidgetState<T>
   bool isNeedUpdateBmob =
       false; //是否需要更新BMOB 需要更新就EventBus发送广播让MssionPage重新发起requestData请求
   bool isSaving = false;
+  bool isDeletingMission = false;
   bool isInlineEditingTitle = false;
   TextEditingController? titleEditingController;
   FocusNode titleEditingFocusNode = FocusNode();
 
   bool get isUnifiedDesktop => !Utility.isHandsetBySize();
+
+  bool get isUnifiedMobile => Utility.isHandsetBySize();
+
+  bool get useUnifiedSettingStyle => isUnifiedDesktop || isUnifiedMobile;
 
   bool get isDarkTheme =>
       ThemeManager.getInstance().getThemeMode().isDark ||
@@ -118,9 +124,8 @@ class _SettingItemDetailPageWidgetState<T>
       ? const Color(0xFF1F1915)
       : const Color(0xFFFDF7EE).withValues(alpha: 0.96);
 
-  Color get detailSectionBackground => isDarkTheme
-      ? const Color(0xFF2A231E)
-      : const Color(0xFFFFFCF7);
+  Color get detailSectionBackground =>
+      isDarkTheme ? const Color(0xFF2A231E) : const Color(0xFFFFFCF7);
 
   Color get detailBorderColor =>
       isDarkTheme ? const Color(0xFF443931) : const Color(0xFFEBDCCB);
@@ -129,22 +134,76 @@ class _SettingItemDetailPageWidgetState<T>
       defaultColor: const Color(0xFF352216), defaultDarkColor: Colors.white);
 
   Color get detailSubColor => ThemeManager.getInstance().getTextColor(
-      defaultColor: const Color(0xFF8D7768),
-      defaultDarkColor: Colors.white70);
+      defaultColor: const Color(0xFF8D7768), defaultDarkColor: Colors.white70);
 
+  Color get detailMobileBackground =>
+      isDarkTheme ? const Color(0xFF17130F) : const Color(0xFFF8EEE1);
+
+  /**
+   * 功能：构建移动端设置页统一卡片装饰。
+   * 说明：移动端复用 PC 端的暖色卡片语言，但降低阴影和圆角尺寸，避免在小屏上显得过重。
+   */
+  BoxDecoration buildMobileSettingCardDecoration() {
+    return BoxDecoration(
+      color: detailSectionBackground,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: detailBorderColor),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: isDarkTheme ? 0.12 : 0.035),
+          blurRadius: 14,
+          offset: const Offset(0, 6),
+        ),
+      ],
+    );
+  }
+
+  /**
+   * 功能：构建设置页最外层响应式背景。
+   * 说明：PC 端仍交给右侧面板承载，移动端补齐暖色渐变背景，让任务设置页和 PC 新设计保持一致。
+   */
   Widget wrapUnifiedPageShell({required Widget child}) {
-    if (!isUnifiedDesktop) {
-      return child;
+    if (isUnifiedDesktop) {
+      return Container(
+        color: Colors.transparent,
+        padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+        child: child,
+      );
     }
     return Container(
-      color: Colors.transparent,
-      padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+      decoration: BoxDecoration(
+        color: detailMobileBackground,
+        gradient: isDarkTheme
+            ? null
+            : const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFFFF7EE),
+                  Color(0xFFF8EEE1),
+                  Color(0xFFF1E6D9),
+                ],
+              ),
+      ),
       child: child,
     );
   }
 
+  /**
+   * 功能：统一包装设置页内的分组卡片。
+   * 说明：移动端使用更紧凑的外边距和圆角，PC 端继续使用 UnifiedDesktopCard，保证两端视觉语言一致但密度不同。
+   */
   Widget wrapUnifiedSection(
       {required Widget child, EdgeInsetsGeometry? padding}) {
+    if (isUnifiedMobile) {
+      return Container(
+        width: double.infinity,
+        margin: const EdgeInsets.fromLTRB(14, 10, 14, 0),
+        padding: padding ?? const EdgeInsets.fromLTRB(14, 14, 14, 14),
+        decoration: buildMobileSettingCardDecoration(),
+        child: child,
+      );
+    }
     if (!isUnifiedDesktop) {
       return child;
     }
@@ -175,7 +234,24 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
+  /**
+   * 功能：构建任务设置项容器。
+   * 说明：历史函数名保留 Desktop，但现在移动端也复用它来把设置项转成单列卡片，避免手机上继续使用旧列表样式。
+   */
   Widget buildDesktopSettingsGrid(List<Widget> children) {
+    if (isUnifiedMobile) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
+        child: Column(
+          children: [
+            for (int i = 0; i < children.length; i++) ...[
+              children[i],
+              if (i != children.length - 1) const SizedBox(height: 10),
+            ],
+          ],
+        ),
+      );
+    }
     if (!isUnifiedDesktop) {
       return Column(children: children);
     }
@@ -203,13 +279,12 @@ class _SettingItemDetailPageWidgetState<T>
   }
 
   Widget buildBackgroundPreviewWidget() {
-    if (TextUtil.isEmpty(this.widget.missionModel?.background_url)) {
+    final String backgroundUrl = this.widget.missionModel.background_url ?? '';
+    if (TextUtil.isEmpty(backgroundUrl)) {
       return getBgSettingItem();
     }
     return CachedNetworkImage(
-      imageUrl: Utility.filterHttpUrl(
-          this.widget.missionModel?.background_url ?? '',
-          prefix: "oss"),
+      imageUrl: Utility.filterHttpUrl(backgroundUrl, prefix: "oss"),
       placeholder: (_, __) => getBgSettingItem(),
       errorWidget: (_, __, ___) => getBgSettingItem(),
       imageBuilder: (context, imageProviderTmp) {
@@ -224,7 +299,14 @@ class _SettingItemDetailPageWidgetState<T>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildEditableMissionTitle(fontSize: 22),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: buildEditableMissionTitle(fontSize: 22)),
+              const SizedBox(width: 12),
+              buildDeleteMissionButton(),
+            ],
+          ),
           const SizedBox(height: 16),
           Text(
             getI18NKey().mission_setting,
@@ -245,8 +327,8 @@ class _SettingItemDetailPageWidgetState<T>
                   defaultVal: this.widget.missionModel.time_mode ?? 0),
               onTapListener: (index) async {
                 this.widget.missionModel.time_mode = index;
-                this.widget.missionModel?.end_time = 0;
-                this.widget.missionModel?.start_time = 0;
+                this.widget.missionModel.end_time = 0;
+                this.widget.missionModel.start_time = 0;
                 setState(() {});
               },
             ),
@@ -255,7 +337,59 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
-  double get unifiedTileWidth => 174;
+  Widget buildDeleteMissionButton() {
+    return Tooltip(
+      message: getI18NKey().delete,
+      child: InkWell(
+        onTap: isDeletingMission
+            ? null
+            : () async {
+                await onClickDeleteItem(this.widget.missionModel);
+              },
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: 44,
+          height: 34,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color:
+                isDarkTheme ? const Color(0xFF3A2020) : const Color(0xFFFFF7F5),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: const Color(0xFFFF4D4F),
+              width: 1.4,
+            ),
+          ),
+          child: isDeletingMission
+              ? const SizedBox(
+                  width: 15,
+                  height: 15,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFFFF4D4F),
+                    ),
+                  ),
+                )
+              : const Icon(
+                  Icons.delete_outline_rounded,
+                  size: 19,
+                  color: Color(0xFFFF4D4F),
+                ),
+        ),
+      ),
+    );
+  }
+
+  double get unifiedTileWidth => 156;
+
+  /**
+   * 功能：判断当前任务设置是否按完整日期时间编辑。
+   * 说明：日期模式和目标模式都需要保留年月日时分；只有时间段模式使用每日开始/完成时间。
+   */
+  bool get shouldUseDateTimeSetting =>
+      this.widget.missionModel.time_mode == 1 ||
+      this.widget.missionModel.time_mode == 2;
 
   _SettingItemDetailPageWidgetState({this.curTab = 0}) {}
 
@@ -365,9 +499,13 @@ class _SettingItemDetailPageWidgetState<T>
   }
 
   /**
-   * 侧滑点击删除
+   * 功能：删除当前任务。
+   * 说明：删除期间锁定按钮状态，避免重复提交；删除成功后通知列表和日历刷新。
    */
   Future onClickDeleteItem(data) async {
+    if (isDeletingMission) {
+      return;
+    }
     if (this.widget.fromNormal != 0 &&
         this.widget.onClickDeleteCallback != null) {
       this.widget.onClickDeleteCallback!(data);
@@ -389,15 +527,28 @@ class _SettingItemDetailPageWidgetState<T>
           return true;
         });
     if (result == OkCancelResult.ok) {
-      await MongoApisManager.getInstance()
-          .delete_MissionModel(currentObjectId: data.objectId);
-      eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-      eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
-      Utility.showToastMsg(context: context, msg: getI18NKey().delete_success);
-      if (Utility.isHandsetBySize() == true) {
-        Navigator.of(context).pop();
-      } else {
-        Utility.popupDesktopRightNavigator(context);
+      try {
+        setState(() {
+          isDeletingMission = true;
+        });
+        // 删除任务必须走 MongoApisManager，确保 MongoDB、内存缓存和后续列表刷新链路保持一致。
+        await MongoApisManager.getInstance()
+            .delete_MissionModel(currentObjectId: data.objectId);
+        eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+        eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+        Utility.showToastMsg(
+            context: context, msg: getI18NKey().delete_success);
+        if (Utility.isHandsetBySize() == true) {
+          Navigator.of(context).pop();
+        } else {
+          Utility.popupDesktopRightNavigator(context);
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            isDeletingMission = false;
+          });
+        }
       }
     }
   }
@@ -499,15 +650,31 @@ class _SettingItemDetailPageWidgetState<T>
     updateUI();
   }
 
-  Future<void> submitInlineTitleEdit() async {
+  /**
+   * 功能：把标题输入框里的临时文本同步回当前任务模型。
+   * 说明：移动端点击底部“保存”会先触发输入框失焦，如果这里仍然走取消逻辑，
+   * 会把 controller 重置成旧标题，导致保存时标题被还原。
+   */
+  bool syncInlineTitleTextToMission({bool shouldExitEditMode = true}) {
     final String nextTitle = titleEditingController?.text.trim() ?? '';
     if (TextUtil.isEmpty(nextTitle)) {
       Utility.showToastMsg(
           context: Utility.getGlobalContext(),
           msg: getI18NKey().title_cannot_be_empty);
       titleEditingFocusNode.requestFocus();
-      return;
+      return false;
     }
+
+    // 先写回本地 MissionModel，后续保存按钮会统一走 requestMongoDbUpdateData 持久化。
+    this.widget.missionModel.title = nextTitle;
+    if (shouldExitEditMode) {
+      isInlineEditingTitle = false;
+      titleEditingFocusNode.unfocus();
+    }
+    return true;
+  }
+
+  Future<void> submitInlineTitleEdit() async {
     if (ChatGroupManager.isFolderModelEnabled(
             folderId: this.widget.missionModel.folder_id) ==
         false) {
@@ -516,15 +683,15 @@ class _SettingItemDetailPageWidgetState<T>
       cancelInlineTitleEdit();
       return;
     }
+    if (!syncInlineTitleTextToMission()) {
+      return;
+    }
 
-    this.widget.missionModel.title = nextTitle;
     if (this.widget.fromNormal == 0) {
       await MongoApisManager.getInstance()
           .update_MissionModel(missionModel: this.widget.missionModel);
     }
     isNeedUpdateBmob = true;
-    isInlineEditingTitle = false;
-    titleEditingFocusNode.unfocus();
     updateUI();
   }
 
@@ -557,7 +724,9 @@ class _SettingItemDetailPageWidgetState<T>
           await submitInlineTitleEdit();
         },
         onTapOutside: (_) {
-          cancelInlineTitleEdit();
+          if (syncInlineTitleTextToMission()) {
+            updateUI();
+          }
         },
       );
     }
@@ -613,8 +782,41 @@ class _SettingItemDetailPageWidgetState<T>
     }, onTapListener: (data) {});
   }
 
+  /**
+   * 功能：构建移动端设置页顶部栏。
+   * 说明：移动端参考 PC 端暖色面板设计，把选择壁纸、删除和开始任务收进圆形图标按钮，减少顶部文字拥挤。
+   */
   @override
   baseAppBar(BuildContext context) {
+    if (isUnifiedMobile) {
+      return AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        toolbarHeight: 64,
+        backgroundColor: detailPanelBackground,
+        leadingWidth: 58,
+        iconTheme: IconThemeData(color: detailTitleColor),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded,
+              color: detailTitleColor, size: 21),
+          onPressed: () {
+            Utility.popNavigator(context);
+          },
+        ),
+        title: Text(
+          getI18NKey().setting,
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w800,
+            color: detailTitleColor,
+          ),
+        ),
+        centerTitle: true,
+        actions: getBarWidget(),
+      );
+    }
     return AppBar(
       iconTheme: IconThemeData(
         color: ThemeManager.getInstance()
@@ -629,7 +831,73 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
+  /**
+   * 功能：构建移动端设置页顶部圆形操作按钮。
+   * 说明：移动端顶部操作参考 PC 端胶囊按钮的暖色边框，但保留 AppBar 的紧凑点击区。
+   */
+  Widget buildMobileAppBarAction({
+    required IconData icon,
+    required VoidCallback onTap,
+    Color? iconColor,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(999),
+        child: Container(
+          width: 36,
+          height: 36,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: detailSectionBackground,
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: detailBorderColor),
+          ),
+          child: Icon(icon, size: 19, color: iconColor ?? detailSubColor),
+        ),
+      ),
+    );
+  }
+
+  /**
+   * 功能：根据当前端形态生成顶部操作区。
+   * 说明：移动端使用图标按钮，PC 端保留原有文字/图标操作，避免影响桌面端既有交互习惯。
+   */
   List<Widget> getBarWidget() {
+    if (isUnifiedMobile) {
+      return [
+        buildMobileAppBarAction(
+          icon: Icons.image_outlined,
+          onTap: () {
+            DialogManagement.getInstance().showSelectBgDialog(context,
+                list: ResourceInfo
+                        .missionItemBackgroundLocationInfoBean?.deliveryList ??
+                    [], onTapListener: (String imgUrl) {
+              this.widget.missionModel.background_url = imgUrl;
+              this.isNeedUpdateBmob = true;
+              updateUI();
+              DialogManagement.getInstance().hideDialog(context);
+            });
+          },
+        ),
+        buildMobileAppBarAction(
+          icon: Icons.delete_outline_rounded,
+          iconColor: const Color(0xFFFF4D4F),
+          onTap: () {
+            this.onClick("onClickDeleteItem", this.widget.missionModel);
+          },
+        ),
+        if (this.widget.fromNormal == 0)
+          buildMobileAppBarAction(
+            icon: Icons.play_circle_outline_rounded,
+            iconColor: const Color(0xFFFF5A5F),
+            onTap: () {
+              this.onClick("onClickMissionDetail", this.widget.missionModel);
+            },
+          ),
+      ];
+    }
     return [
       InkWell(
         onTap: () {
@@ -641,7 +909,7 @@ class _SettingItemDetailPageWidgetState<T>
             //     key: ShareprefrenceKeys.pcBackground,
             //     content: imgUrl);
 
-            this.widget.missionModel?.background_url = imgUrl;
+            this.widget.missionModel.background_url = imgUrl;
             this.isNeedUpdateBmob = true;
             // requestMongoDbUpdateData();
             updateUI();
@@ -736,29 +1004,37 @@ class _SettingItemDetailPageWidgetState<T>
     //     missionModelParam: this.widget.missionModel ?? MissionModel(),
     //     calendarModel: context.watch<GlobalStateEnv>().calendarModel);
     return wrapUnifiedPageShell(
-      child: Column(
+        child: Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        CustomTabBarWidget(
-          checkIndex: curTab,
-          list: tabList,
-          onCheckedListener: (int index, CheckButtonStateModel model) {
-            Utility.setDesktopMiddileMissionPage(context, isVisible: true);
-            composedRichEditorWidgetGlobalKey?.currentState?.unfocus();
-            if (Utility.shouldShowAllMissionDetailTab(
-                    missionModelType:
-                        this.widget.missionModel.missionModelType) ==
-                true) {
-              this.curTab = index;
-            } else {
-              this.curTab = (index == 0) ? 0 : 2;
-            }
-            updateUI();
-          },
-          fontSize: isUnifiedDesktop ? 13 : 14,
-          useUnifiedStyle: isUnifiedDesktop,
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            isUnifiedMobile ? 14 : 0,
+            isUnifiedMobile ? 10 : 0,
+            isUnifiedMobile ? 14 : 0,
+            isUnifiedMobile ? 4 : 0,
+          ),
+          child: CustomTabBarWidget(
+            checkIndex: curTab,
+            list: tabList,
+            onCheckedListener: (int index, CheckButtonStateModel model) {
+              Utility.setDesktopMiddileMissionPage(context, isVisible: true);
+              composedRichEditorWidgetGlobalKey?.currentState?.unfocus();
+              if (Utility.shouldShowAllMissionDetailTab(
+                      missionModelType:
+                          this.widget.missionModel.missionModelType) ==
+                  true) {
+                this.curTab = index;
+              } else {
+                this.curTab = (index == 0) ? 0 : 2;
+              }
+              updateUI();
+            },
+            fontSize: isUnifiedDesktop ? 13 : 14,
+            useUnifiedStyle: useUnifiedSettingStyle,
+          ),
         ),
-        isUnifiedDesktop
+        useUnifiedSettingStyle
             ? const SizedBox(height: 8)
             : Container(
                 height: 1,
@@ -766,31 +1042,32 @@ class _SettingItemDetailPageWidgetState<T>
               ),
         if (this.curTab == 0) ...getTabBar0WidgetList(),
         if (this.curTab == 3) ...getTabBar3WidgetList(),
-
         if (this.curTab != 0 && this.curTab != 3)
           Expanded(
             child: SingleChildScrollView(
-                child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-              if (!isUnifiedDesktop)
-                CustomMarquee(
-                  bean: MarqueInfo.marqueSettingItemDetail,
-                ),
-              if (this.curTab == 1 || (!isUnifiedDesktop && this.curTab == 2))
-                _buildMissionHeroBlock(isDoingItNow),
-              // Container(height: 20, color: ColorsConfig.backgroundColor,),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (!useUnifiedSettingStyle)
+                      CustomMarquee(
+                        bean: MarqueInfo.marqueSettingItemDetail,
+                      ),
+                    if (this.curTab == 1 ||
+                        (!isUnifiedDesktop && this.curTab == 2))
+                      _buildMissionHeroBlock(isDoingItNow),
+                    // Container(height: 20, color: ColorsConfig.backgroundColor,),
 
-              if (this.curTab == 1) ...getTabBar1WidgetList(),
-              if (this.curTab == 2) ...getTabBar2WidgetList(),
-            ])),
+                    if (this.curTab == 1) ...getTabBar1WidgetList(),
+                    if (this.curTab == 2) ...getTabBar2WidgetList(),
+                  ]),
+            ),
           ),
-        if (this.curTab != 0&& this.curTab != 3)
+        if (this.curTab != 0 && this.curTab != 3)
           SizedBox(
             height: 20,
           ),
-        if (this.curTab != 0&& this.curTab != 3)
+        if (this.curTab != 0 && this.curTab != 3)
           Align(child: buildSaveButton())
       ],
     ));
@@ -838,34 +1115,54 @@ class _SettingItemDetailPageWidgetState<T>
         ),
       );
     }
-    return InkWell(
-        onTap: () {
-          this.onClick("onClickUpdate", null);
-        },
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(14, 4, 14, 24),
+      child: InkWell(
+        onTap: isSaving
+            ? null
+            : () {
+                this.onClick("onClickUpdate", null);
+              },
+        borderRadius: BorderRadius.circular(999),
         child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.only(bottom: 30),
+          height: 50,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: ThemeManager.getInstance().getButtonBorderColor(
-                    defaultColor: ColorsConfig.standardColor,
-                    defaultDarkColor: Colors.white),
-                width: 1,
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: const Color(0xFFDCC6AB), width: 1.2),
+            color:
+                isDarkTheme ? const Color(0xFF3A2D23) : const Color(0xFFFFEFD9),
+            boxShadow: [
+              BoxShadow(
+                color:
+                    Colors.black.withValues(alpha: isDarkTheme ? 0.12 : 0.04),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
               ),
-              color: ThemeManager.getInstance().getButtonBackgroundColor(
-                  defaultColor: ColorsConfig.standardColor,
-                  defaultDarkColor: Colors.white)),
-          width: 260,
-          height: 45,
-          child: Text(
-            getI18NKey().update,
-            style: TextStyle(
-                color: ThemeManager.getInstance()
-                    .getTextColor(defaultColor: Colors.white),
-                fontSize: 14),
+            ],
           ),
-        ));
+          child: isSaving
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.2,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFF5B4332)),
+                  ),
+                )
+              : Text(
+                  getI18NKey().save,
+                  style: TextStyle(
+                    color: isDarkTheme ? Colors.white : const Color(0xFF5B4332),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+        ),
+      ),
+    );
   }
 
   Widget _buildMissionHeroBlock(bool isDoingItNow) {
@@ -883,11 +1180,10 @@ class _SettingItemDetailPageWidgetState<T>
               buildHeaderActionChip(
                 onTap: () {
                   DialogManagement.getInstance().showSelectBgDialog(context,
-                      list: ResourceInfo
-                              .missionItemBackgroundLocationInfoBean
+                      list: ResourceInfo.missionItemBackgroundLocationInfoBean
                               ?.deliveryList ??
                           [], onTapListener: (String imgUrl) {
-                    this.widget.missionModel?.background_url = imgUrl;
+                    this.widget.missionModel.background_url = imgUrl;
                     this.isNeedUpdateBmob = true;
                     updateUI();
                     DialogManagement.getInstance().hideDialog(context);
@@ -911,6 +1207,14 @@ class _SettingItemDetailPageWidgetState<T>
             ],
           ),
         if (isUnifiedDesktop) const SizedBox(height: 18),
+        if (isUnifiedMobile)
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: buildEditableMissionTitle(fontSize: 20)),
+            ],
+          ),
+        if (isUnifiedMobile) const SizedBox(height: 16),
         Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -948,7 +1252,7 @@ class _SettingItemDetailPageWidgetState<T>
                     ],
                   ),
             SizedBox(width: isUnifiedDesktop ? 12 : 5),
-            if (!isUnifiedDesktop)
+            if (!useUnifiedSettingStyle)
               Expanded(
                 child: Text.rich(
                   TextSpan(
@@ -1003,8 +1307,10 @@ class _SettingItemDetailPageWidgetState<T>
                   shouldOnlyShowSlider: true,
                   onChange: (double value) {
                     this.widget.missionModel?.objectiveValue = value;
-                    if ((this.widget.missionModel?.objectiveTotalValue ?? 0) > 0) {
-                      if ((this.widget.missionModel?.objectiveTotalValue ?? 0) <=
+                    if ((this.widget.missionModel?.objectiveTotalValue ?? 0) >
+                        0) {
+                      if ((this.widget.missionModel?.objectiveTotalValue ??
+                              0) <=
                           value) {
                         this.widget.missionModel?.isFinished = true;
                       } else {
@@ -1053,13 +1359,10 @@ class _SettingItemDetailPageWidgetState<T>
                   ? MissionCountDownTextWidget(
                       fontSize: 12,
                       color: 0xff909090,
-                      end_time:
-                          this.widget.missionModel?.do_it_now?[0]['end_time']
-                              as int,
-                      end_buffer_time: this
-                          .widget
-                          .missionModel
-                          ?.do_it_now?[0]['buffer_end_time'],
+                      end_time: this.widget.missionModel?.do_it_now?[0]
+                          ['end_time'] as int,
+                      end_buffer_time: this.widget.missionModel?.do_it_now?[0]
+                          ['buffer_end_time'],
                       isFinished: this.widget.missionModel?.isFinished ?? false,
                     )
                   : InkWell(
@@ -1085,8 +1388,8 @@ class _SettingItemDetailPageWidgetState<T>
                       CounterMethodChannelManager.getInstance().openReminderApp(
                           id: this.widget.missionModel.objectId ?? "");
                     } else if (this.widget.missionModel.missionModelType == 1) {
-                      CounterMethodChannelManager.getInstance()
-                          .openCalendarApp(timestamp: Utility.getTimeStampToday());
+                      CounterMethodChannelManager.getInstance().openCalendarApp(
+                          timestamp: Utility.getTimeStampToday());
                     }
                   },
                   child: Text(
@@ -1104,14 +1407,15 @@ class _SettingItemDetailPageWidgetState<T>
         SizedBox(height: 10),
         TagsGridViewWidget(
           datas: this.folderModelTags,
-          useUnifiedStyle: isUnifiedDesktop,
+          useUnifiedStyle: useUnifiedSettingStyle,
           onTapAddTagListener: (data) {
             if (ChatGroupManager.isFolderModelEnabled(
                     folderId: this.widget.missionModel.folder_id ?? "",
                     uid: LoginManager.getInstance().userBean.uid ?? "") ==
                 false) {
               Utility.showToastMsg(
-                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  context: Utility.getGlobalContext(),
+                  msg: getI18NKey().no_auth);
               return null;
             }
             this.onClick('onTapTagListener', data);
@@ -1122,14 +1426,16 @@ class _SettingItemDetailPageWidgetState<T>
                     uid: LoginManager.getInstance().userBean.uid ?? "") ==
                 false) {
               Utility.showToastMsg(
-                  context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+                  context: Utility.getGlobalContext(),
+                  msg: getI18NKey().no_auth);
               return null;
             }
             List<String> tagNamesList =
                 this.widget.missionModel?.tagNames?.split(',') ?? [];
             tagNamesList.remove(data.title);
             this.widget.missionModel?.tagNames = tagNamesList.join(',');
-            requestGetTags(this.widget.missionModel?.tagNames?.split(',') ?? []);
+            requestGetTags(
+                this.widget.missionModel?.tagNames?.split(',') ?? []);
             this.isNeedUpdateBmob = true;
           },
         ),
@@ -1141,7 +1447,7 @@ class _SettingItemDetailPageWidgetState<T>
                 missionModelType: this.widget.missionModel.missionModelType) ==
             true)
           PriorityButtonListWidget(
-            useUnifiedStyle: isUnifiedDesktop,
+            useUnifiedStyle: useUnifiedSettingStyle,
             list: CONSTANTS.getPriorityButtonList(),
             initIndex: this.widget.missionModel.priorityStatus ?? 3,
             onTapListener: (data) {
@@ -1157,10 +1463,8 @@ class _SettingItemDetailPageWidgetState<T>
         child: content,
       );
     }
-    return Container(
-      constraints: BoxConstraints(maxWidth: double.infinity, minHeight: 100),
-      padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
-      color: ThemeManager.getInstance().getBackgroundColor(defaultColor: Colors.white),
+    return wrapUnifiedSection(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: content,
     );
   }
@@ -1180,14 +1484,16 @@ class _SettingItemDetailPageWidgetState<T>
                   child: TimeLinePage(
                     missionObjectId: this.widget.missionModel.objectId ?? "",
                     folderObjectId: this.folderModel?.objectId ?? "",
-                    timelinePageFromEnum: TimelinePageFromEnum.ObjectivePage.index,
+                    timelinePageFromEnum:
+                        TimelinePageFromEnum.ObjectivePage.index,
                     key: Key("fjijfixz"),
                   ),
                 )
               : TimeLinePage(
                   missionObjectId: this.widget.missionModel.objectId ?? "",
                   folderObjectId: this.folderModel?.objectId ?? "",
-                  timelinePageFromEnum: TimelinePageFromEnum.ObjectivePage.index,
+                  timelinePageFromEnum:
+                      TimelinePageFromEnum.ObjectivePage.index,
                   key: Key("fjijfixz"),
                 )),
     ];
@@ -1205,11 +1511,11 @@ class _SettingItemDetailPageWidgetState<T>
               missionModelType: this.widget.missionModel.missionModelType) ==
           true)
         MenuItem2(
-            useUnifiedStyle: isUnifiedDesktop,
-            compactUnifiedStyle: isUnifiedDesktop,
+            useUnifiedStyle: useUnifiedSettingStyle,
+            compactUnifiedStyle: useUnifiedSettingStyle,
             width: isUnifiedDesktop ? unifiedTileWidth : null,
             title: (this.widget.missionModel?.repetiveType == 0 ||
-                    this.widget.missionModel.time_mode == 1)
+                    shouldUseDateTimeSetting)
                 ? getI18NKey().start_time
                 : getI18NKey().daily_start_time,
             subTitle: "(${getI18NKey().optional})",
@@ -1223,7 +1529,7 @@ class _SettingItemDetailPageWidgetState<T>
                     msg: getI18NKey().no_auth);
                 return null;
               }
-              if (this.widget.missionModel.time_mode == 1) {
+              if (shouldUseDateTimeSetting) {
                 DateTimeModel? model =
                     await Utility.showDateTimePickerDialog(context);
                 updateAlertTime();
@@ -1233,14 +1539,16 @@ class _SettingItemDetailPageWidgetState<T>
                       model?.datetime?.millisecondsSinceEpoch ?? 0;
                 });
               } else {
-                TimeOfDay? timeOfDay = await Utility.showTimePickerDialog(context);
+                TimeOfDay? timeOfDay =
+                    await Utility.showTimePickerDialog(context);
                 if (timeOfDay == null) {
                   return;
                 }
                 int startTime = timeOfDay.hour * 60 * 60 * 1000 +
                     timeOfDay.minute * 60 * 1000;
                 if (this.widget.missionModel?.daily_end_time != null &&
-                    (this.widget.missionModel?.daily_end_time ?? 0) < startTime) {
+                    (this.widget.missionModel?.daily_end_time ?? 0) <
+                        startTime) {
                   Utility.showToastMsg(
                       context: context,
                       msg: getI18NKey().end_time_cannot_before_start_time);
@@ -1260,12 +1568,14 @@ class _SettingItemDetailPageWidgetState<T>
               children: [
                 Flexible(
                   child: Text(
-                    this.widget.missionModel.time_mode == 1
+                    shouldUseDateTimeSetting
                         ? CONSTANTS.getAlertDateString(
                             Utility.getDateTimeModelFromTimeStamp(
                                 this.widget.missionModel?.start_time ?? 0))
-                        : TextUtil.isEmpty(
-                                    this.widget.missionModel?.daily_start_time) ==
+                        : TextUtil.isEmpty(this
+                                    .widget
+                                    .missionModel
+                                    ?.daily_start_time) ==
                                 false
                             ? Utility.formatHourAndMin2(
                                 this.widget.missionModel?.daily_start_time ?? 0)
@@ -1280,7 +1590,8 @@ class _SettingItemDetailPageWidgetState<T>
                 ),
                 IconButton(
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                  constraints:
+                      const BoxConstraints(minWidth: 28, minHeight: 28),
                   icon: Icon(Icons.cancel,
                       size: 18, color: ColorsConfig.gray_cc_cancel),
                   onPressed: () {
@@ -1298,11 +1609,11 @@ class _SettingItemDetailPageWidgetState<T>
               missionModelType: this.widget.missionModel.missionModelType) ==
           true)
         MenuItem2(
-            useUnifiedStyle: isUnifiedDesktop,
-            compactUnifiedStyle: isUnifiedDesktop,
+            useUnifiedStyle: useUnifiedSettingStyle,
+            compactUnifiedStyle: useUnifiedSettingStyle,
             width: isUnifiedDesktop ? unifiedTileWidth : null,
             title: (this.widget.missionModel?.repetiveType == 0 ||
-                    this.widget.missionModel.time_mode == 1)
+                    shouldUseDateTimeSetting)
                 ? getI18NKey().end_time
                 : getI18NKey().daily_end_time,
             subTitle: this.widget.missionModel.repetiveType == 1
@@ -1318,7 +1629,7 @@ class _SettingItemDetailPageWidgetState<T>
                     msg: getI18NKey().no_auth);
                 return null;
               }
-              if (this.widget.missionModel.time_mode == 1) {
+              if (shouldUseDateTimeSetting) {
                 if (this.widget.missionModel?.start_time == null) {
                   Utility.showToastMsg(
                       context: context,
@@ -1347,7 +1658,8 @@ class _SettingItemDetailPageWidgetState<T>
                       msg: getI18NKey().please_select_daily_start_time);
                   return;
                 }
-                TimeOfDay? timeOfDay = await Utility.showTimePickerDialog(context);
+                TimeOfDay? timeOfDay =
+                    await Utility.showTimePickerDialog(context);
                 if (timeOfDay == null) {
                   return;
                 }
@@ -1373,7 +1685,7 @@ class _SettingItemDetailPageWidgetState<T>
               children: [
                 Flexible(
                   child: Text(
-                    this.widget.missionModel.time_mode == 1
+                    shouldUseDateTimeSetting
                         ? CONSTANTS.getAlertDateString(
                             Utility.getDateTimeModelFromTimeStamp(
                                 this.widget.missionModel?.end_time ?? 0))
@@ -1393,7 +1705,8 @@ class _SettingItemDetailPageWidgetState<T>
                 ),
                 IconButton(
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                  constraints:
+                      const BoxConstraints(minWidth: 28, minHeight: 28),
                   icon: Icon(Icons.cancel,
                       size: 18, color: ColorsConfig.gray_cc_cancel),
                   onPressed: () {
@@ -1411,8 +1724,8 @@ class _SettingItemDetailPageWidgetState<T>
               missionModelType: this.widget.missionModel.missionModelType) ==
           true)
         MenuItem2(
-            useUnifiedStyle: isUnifiedDesktop,
-            compactUnifiedStyle: isUnifiedDesktop,
+            useUnifiedStyle: useUnifiedSettingStyle,
+            compactUnifiedStyle: useUnifiedSettingStyle,
             width: isUnifiedDesktop ? unifiedTileWidth : null,
             title: getI18NKey().mission,
             subTitle: this.widget.missionModel.repetiveType == 1
@@ -1443,7 +1756,8 @@ class _SettingItemDetailPageWidgetState<T>
                 ),
                 IconButton(
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                  constraints:
+                      const BoxConstraints(minWidth: 28, minHeight: 28),
                   icon: Icon(Icons.cancel,
                       size: 18, color: ColorsConfig.gray_cc_cancel),
                   onPressed: () {
@@ -1470,8 +1784,8 @@ class _SettingItemDetailPageWidgetState<T>
         this.widget.missionModel?.isFinished == true
             ? const SizedBox.shrink()
             : MenuItem2(
-                useUnifiedStyle: isUnifiedDesktop,
-                compactUnifiedStyle: isUnifiedDesktop,
+                useUnifiedStyle: useUnifiedSettingStyle,
+                compactUnifiedStyle: useUnifiedSettingStyle,
                 width: isUnifiedDesktop ? unifiedTileWidth : null,
                 title: getI18NKey().tomatoNums,
                 subTitle: getI18NKey().tomatoNums3,
@@ -1510,8 +1824,8 @@ class _SettingItemDetailPageWidgetState<T>
               this.widget.missionModel?.time_mode == 1)
           ? const SizedBox.shrink()
           : MenuItem2(
-              useUnifiedStyle: isUnifiedDesktop,
-              compactUnifiedStyle: isUnifiedDesktop,
+              useUnifiedStyle: useUnifiedSettingStyle,
+              compactUnifiedStyle: useUnifiedSettingStyle,
               width: isUnifiedDesktop ? unifiedTileWidth : null,
               title: getI18NKey().deadLine,
               onTapListener: (data) async {
@@ -1574,8 +1888,8 @@ class _SettingItemDetailPageWidgetState<T>
                   missionModelType: this.widget.missionModel?.missionModelType))
               ? const SizedBox.shrink()
               : MenuItem2(
-                  useUnifiedStyle: isUnifiedDesktop,
-                  compactUnifiedStyle: isUnifiedDesktop,
+                  useUnifiedStyle: useUnifiedSettingStyle,
+                  compactUnifiedStyle: useUnifiedSettingStyle,
                   width: isUnifiedDesktop ? unifiedTileWidth : null,
                   title: getI18NKey().alert,
                   subTitle: "(${getI18NKey().optional})",
@@ -1618,15 +1932,26 @@ class _SettingItemDetailPageWidgetState<T>
                     children: [
                       Flexible(
                         child: Text(
-                          TextUtil.isEmpty(this.widget.missionModel?.alert_time) ==
+                          TextUtil.isEmpty(this
+                                      .widget
+                                      .missionModel
+                                      ?.alert_time) ==
                                   false
                               ? (this.widget.missionModel?.repetiveType == 0
                                   ? CONSTANTS.getAlertDateString(
                                       Utility.getDateTimeModelFromTimeStamp(
-                                          this.widget.missionModel?.alert_time ??
+                                          this
+                                                  .widget
+                                                  .missionModel
+                                                  ?.alert_time ??
                                               0))
-                                  : Utility.getHourAndMinsFromDateTimeFromTimeStamp(
-                                      this.widget.missionModel?.alert_time ?? 0))
+                                  : Utility
+                                      .getHourAndMinsFromDateTimeFromTimeStamp(
+                                          this
+                                                  .widget
+                                                  .missionModel
+                                                  ?.alert_time ??
+                                              0))
                               : getI18NKey().none,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -1656,8 +1981,8 @@ class _SettingItemDetailPageWidgetState<T>
         this.widget.missionModel?.isFinished == true
             ? const SizedBox.shrink()
             : MenuItem2(
-                useUnifiedStyle: isUnifiedDesktop,
-                compactUnifiedStyle: isUnifiedDesktop,
+                useUnifiedStyle: useUnifiedSettingStyle,
+                compactUnifiedStyle: useUnifiedSettingStyle,
                 width: isUnifiedDesktop ? unifiedTileWidth : null,
                 title: getI18NKey().repetive,
                 subTitle: "(${getI18NKey().optional})",
@@ -1681,10 +2006,10 @@ class _SettingItemDetailPageWidgetState<T>
                         valueRightSelected) {
                       this.widget.missionModel?.alert_time = 0;
                     }
-                    this.widget.missionModel?.repetiveType =
-                        valueRightSelected;
+                    this.widget.missionModel?.repetiveType = valueRightSelected;
                     if (this.widget.missionModel?.repetiveWeekDay == null ||
-                        this.widget.missionModel?.repetiveWeekDay?.length == 0) {
+                        this.widget.missionModel?.repetiveWeekDay?.length ==
+                            0) {
                       this.widget.missionModel?.repetiveWeekDay = [
                         false,
                         false,
@@ -1812,7 +2137,8 @@ class _SettingItemDetailPageWidgetState<T>
                   this.widget.missionModel?.tagNames?.split(',') ?? [];
               tagNamesList.remove(data.title);
               this.widget.missionModel?.tagNames = tagNamesList.join(',');
-              requestGetTags(this.widget.missionModel?.tagNames?.split(',') ?? []);
+              requestGetTags(
+                  this.widget.missionModel?.tagNames?.split(',') ?? []);
               this.isNeedUpdateBmob = true;
             },
           ),
@@ -1851,7 +2177,7 @@ class _SettingItemDetailPageWidgetState<T>
     if (shouldShowWallpaper) {
       widgets.add(SectionTitleWidget(
         title: getI18NKey().background_setting,
-        useUnifiedStyle: isUnifiedDesktop,
+        useUnifiedStyle: useUnifiedSettingStyle,
       ));
       widgets.add(buildBackgroundPreviewWidget());
     }
@@ -1859,13 +2185,14 @@ class _SettingItemDetailPageWidgetState<T>
     if (!isUnifiedDesktop) {
       widgets.add(SectionTitleWidget(
         title: getI18NKey().setting,
-        useUnifiedStyle: false,
+        useUnifiedStyle: useUnifiedSettingStyle,
         child: (this.widget.missionModel.missionModelType == 1 ||
                 this.widget.missionModel.missionModelType == 2)
             ? null
             : BlackCheckButtonListWidget(
                 initIndex: this.widget.missionModel.time_mode,
                 backgroundColor: ColorsConfig.gray_40,
+                useUnifiedStyle: useUnifiedSettingStyle,
                 list: CONSTANTS.getSettingItemDetailCheckButtonList(
                     defaultVal: this.widget.missionModel.time_mode ?? 0),
                 onTapListener: (index) async {
@@ -1918,6 +2245,8 @@ class _SettingItemDetailPageWidgetState<T>
             key: composedRichEditorWidgetGlobalKey,
             title: getI18NKey().note_plain,
             onTapOk: () {},
+            // 移动端设置页已经有暖色外壳，编辑器主体透出外层背景，避免出现一整块突兀白底。
+            editorBackgroundColor: isUnifiedMobile ? Colors.transparent : null,
             missionModel: this.widget.missionModel,
             saveModeEnum: SaveModeEnum.normal,
           ),
@@ -1931,7 +2260,7 @@ class _SettingItemDetailPageWidgetState<T>
     return [
       SectionTitleWidget(
           title: getI18NKey().sub_task_add_newline,
-          useUnifiedStyle: isUnifiedDesktop,
+          useUnifiedStyle: useUnifiedSettingStyle,
           child: InkWell(
               onTap: () {
                 submissionSliverListStateGlobalKey?.currentState?.addItem();
@@ -1946,11 +2275,11 @@ class _SettingItemDetailPageWidgetState<T>
 
   /**
    * 更新alert_time
-   * 如果是重复 直接用重复的开始时间
-   * 如果是不重复 用开始时间+结束时间 因为结束时间 是 年月日到日
+   * 日期和目标模式直接使用完整开始时间作为提醒基准。
+   * 时间段模式如果不重复，则用日期到期日叠加每日开始时间；重复任务只保留每日开始时间。
    */
   void updateAlertTime() {
-    if (this.widget.missionModel.time_mode == 1) {
+    if (shouldUseDateTimeSetting) {
       this.widget.missionModel?.alert_time =
           (this.widget.missionModel?.start_time ?? 0);
     } else {
@@ -1966,22 +2295,27 @@ class _SettingItemDetailPageWidgetState<T>
     }
   }
 
+  /**
+   * 功能：构建子任务列表区域。
+   * 说明：统一样式下把子任务列表放进卡片，避免移动端子任务页和任务设置页视觉断层。
+   */
   Container getSubmissionListWidget() {
     return Container(
       decoration: BoxDecoration(
-          color: isUnifiedDesktop
+          color: useUnifiedSettingStyle
               ? Colors.transparent
               : ThemeManager.getInstance()
                   .getBackgroundColor(defaultColor: Colors.white)),
       constraints: BoxConstraints(maxHeight: 320),
-      child: isUnifiedDesktop
+      child: useUnifiedSettingStyle
           ? wrapUnifiedSection(
               padding: EdgeInsets.zero,
               child: SubmissionSliverList(
                 key: submissionSliverListStateGlobalKey,
                 missionModel: this.widget.missionModel,
                 onChange: (MissionModel val) {
-                  this.widget.missionModel.subMissionModels = val.subMissionModels;
+                  this.widget.missionModel.subMissionModels =
+                      val.subMissionModels;
                 },
               ),
             )
@@ -1989,20 +2323,30 @@ class _SettingItemDetailPageWidgetState<T>
               key: submissionSliverListStateGlobalKey,
               missionModel: this.widget.missionModel,
               onChange: (MissionModel val) {
-                this.widget.missionModel.subMissionModels = val.subMissionModels;
+                this.widget.missionModel.subMissionModels =
+                    val.subMissionModels;
               },
             ),
     );
   }
 
+  /**
+   * 功能：构建任务背景图设置项。
+   * 说明：移动端复用 PC 的预览卡片，但压缩图片预览尺寸，保证单手滚动时仍能快速识别当前壁纸。
+   */
   Container getBgSettingItem({ImageProvider<Object>? imageProviderTmp}) {
-    if (isUnifiedDesktop) {
+    if (useUnifiedSettingStyle) {
       return Container(
-        margin: const EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.fromLTRB(
+          isUnifiedMobile ? 14 : 0,
+          isUnifiedMobile ? 8 : 0,
+          isUnifiedMobile ? 14 : 0,
+          8,
+        ),
         padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
         decoration: buildUnifiedDesktopCardDecoration(
           backgroundColor: detailSectionBackground,
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(isUnifiedMobile ? 20 : 22),
           border: Border.all(color: detailBorderColor),
           boxShadow: const [],
         ),
@@ -2010,8 +2354,8 @@ class _SettingItemDetailPageWidgetState<T>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 164,
-              height: 94,
+              width: isUnifiedMobile ? 118 : 164,
+              height: isUnifiedMobile ? 78 : 94,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 image: imageProviderTmp == null
@@ -2148,6 +2492,9 @@ class _SettingItemDetailPageWidgetState<T>
 
   Future onClickUpdate() async {
     MongoDbUpdated? mongoDbUpdated;
+    if (isInlineEditingTitle && !syncInlineTitleTextToMission()) {
+      return;
+    }
     if (mounted) {
       setState(() {
         isSaving = true;
@@ -2196,39 +2543,26 @@ class _SettingItemDetailPageWidgetState<T>
    * 点击完成任务
    */
   Future onClickFinishItem(data) async {
-    if (ChatGroupManager.isFolderModelEnabled(folderId: data.folder_id) ==
-        false) {
-      Utility.showToastMsg(
-          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+    bool didFinish =
+        await MongoApisManager.getInstance().handleFinishMissionModel(
+      missionModel: data,
+      context: context,
+    );
+    if (!didFinish) {
       return;
     }
-
-    OkCancelResult result = await showOkCancelAlertDialog(
-        context: context,
-        title: getI18NKey().confirmToFinished,
-        message: getI18NKey().confirmToFinishMission,
-        okLabel: getI18NKey().confirm,
-        cancelLabel: getI18NKey().cancel,
-        onWillPop: () async {
-          //点击对话框外围黑色区域才会走这里
-          return true;
-        });
-    if (result == OkCancelResult.ok) {
-      await MongoApisManager.getInstance()
-          .finishMissionModel(missionModel: data, context: context);
-      if (!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
-        if (Utility.isHandsetBySize()) {
-          Utility.popNavigator(context, this.widget.missionModel);
-        } else {
-          Utility.popupDesktopRightNavigator(context);
-        }
+    if (!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
+      if (Utility.isHandsetBySize()) {
+        Utility.popNavigator(context, this.widget.missionModel);
       } else {
-        NavigatorManager.getInstance().popupSettingItemDetailPage(context,
-            missionModel: this.widget.missionModel);
+        Utility.popupDesktopRightNavigator(context);
       }
-      // eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
-      // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
+    } else {
+      NavigatorManager.getInstance().popupSettingItemDetailPage(context,
+          missionModel: this.widget.missionModel);
     }
+    // eventBus.fire(EventFn(Params.ACTION_UPDATE_LISTVIEW, {}));
+    // eventBus.fire(EventFn(Params.ACTION_UPDATE_CALENDARPAGE, {}));
   }
 
   SuggestionsController<SuggestionBean> suggestionsController =
@@ -2453,7 +2787,8 @@ class _SettingItemDetailPageWidgetState<T>
     );
   }
 
-  Function funcDebounceWithUpdateSliderVal = Utility.debounceWith((_SettingItemDetailPageWidgetState state) async {
+  Function funcDebounceWithUpdateSliderVal =
+      Utility.debounceWith((_SettingItemDetailPageWidgetState state) async {
     // state.isLoading = true;
     // state.tmpMissionModel?.objectiveValue = value;
     // print("value:$value");
@@ -2470,8 +2805,9 @@ class _SettingItemDetailPageWidgetState<T>
             eventType: "realize_mission",
             mission_id: state.widget.missionModel?.objectId,
             folder_id: state.widget.missionModel?.folder_id,
-            timelineMessage: getI18NKey()
-                .realize_percent(state.widget.missionModel?.title ?? "?", state.widget.missionModel?.objectivePercentString ?? "")));
+            timelineMessage: getI18NKey().realize_percent(
+                state.widget.missionModel?.title ?? "?",
+                state.widget.missionModel?.objectivePercentString ?? "")));
   }, Duration(milliseconds: 3000));
 
   /**

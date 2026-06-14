@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 5.0.7+248
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  app_ai_plugin:
+    path: ./thirdPartyPackages/AppAIPlugin
   flutter_localizations:
     sdk: flutter
   #  harmony: ^1.0.0
@@ -151,6 +153,7 @@ dependencies:
   lunar_calendar_converter_new: ^2.0.0
   shimmer: ^3.0.0 # 好看的动画闪光字体
   audioplayers: ^5.1.0
+  record: ^5.0.1
   flip_card: ^0.7.0 # 翻转卡片 正面 反面互换
   #  flutter_markdown: ^0.6.18
   flutter_reorderable_list: ^1.3.1
@@ -167,9 +170,12 @@ dependencies:
     path: ./thirdPartyPackages/auto_orientation-master #设置屏幕方向
   native_device_orientation: ^1.2.1 #获取屏幕方向
   encrypt: ^5.0.3
+  cryptography: ^2.7.0
   lottie: ^3.0.0
   #  material_symbols_icons: ^4.2719.1 #google font的icon https://fonts.google.com/icons
-  flutter_sound: ^9.28.0
+  # 9.30.0 的 macOS 插件目录缺少 flutter_sound.podspec，会导致 pod install 失败；
+  # 先固定在项目原先可用的 9.28.0，避免 caret 自动升到有问题的版本。
+  flutter_sound: 9.28.0
   flutter_vibrate:
     path: ./thirdPartyPackages/flutter_vibrate-master
   #  calendar_date_picker2: ^0.5.5
@@ -196,7 +202,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   json_annotation: ^4.8.1
   convert: ^3.0.0
   http_parser: ^4.0.0
-  ffi: ^1.1.2
+  ffi: ^2.1.4
   plugin_platform_interface: ^2.1.3
   syncfusion_flutter_core: ^27.1.56
   syncfusion_flutter_calendar: ^27.1.56
@@ -209,6 +215,8 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   device_info_plus: ^11.1.0 #有ffi
   record:
     path: ./thirdPartyLib/record
+  record_darwin:
+    path: ./thirdPartyLib/record_darwin
   flutter_inappwebview: ^6.1.5
   easy_image_viewer: ^1.2.0
   file_selector: ^0.9.3
@@ -267,6 +275,11 @@ flutter:
 
   assets:
     - assets/
+    - thirdPartyPackages/AppAIPlugin/libs/gui/dist/
+    - thirdPartyPackages/AppAIPlugin/libs/gui/dist/assets/
+    - thirdPartyPackages/AppAIPlugin/libs/gui/dist/fonts/
+    - thirdPartyPackages/AppAIPlugin/libs/gui/dist/logos/
+    - assets/timezone/latest_all.tzf
     - assets/appFlowyDemo/
     - assets/background_video.mp4
 

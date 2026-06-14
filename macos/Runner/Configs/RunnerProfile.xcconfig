@@ -1,0 +1,3 @@
+#include "../../Flutter/Flutter-Profile.xcconfig"
+#include "AppInfo.xcconfig"
+#include "Warnings.xcconfig"

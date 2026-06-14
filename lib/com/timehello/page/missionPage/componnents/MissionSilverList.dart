@@ -1,3 +1,9 @@
+/**
+ * 文件类型：任务列表组件
+ * 文件作用：负责渲染普通列表模式下的任务分组内容，并处理完成、播放、编辑、侧滑等交互入口。
+ * 主要职责：在保留旧列表和桌面统一样式的同时，为手机端提供更贴近新版视觉的圆角卡片列表。
+ */
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +34,7 @@ import '../../../components/SubmissionColumnList.dart';
 import '../../../config/ENUMS.dart';
 import '../../../util/DeviceInfoManagement.dart';
 import '../../../util/WidgetManager.dart';
+import 'MissionMobileListStyleHelper.dart';
 
 typedef OnTapFinishListener = void Function(dynamic obj);
 typedef OnTapEditListener = void Function(dynamic obj);
@@ -52,6 +59,7 @@ class MissionSilverList extends StatefulWidget {
   bool? isSlideEnable;
   MultiSelectModeEnum multiSelectModeEnum;
   bool useUnifiedStyle;
+  bool useMobileModernStyle;
 
   MissionSilverList(
       {Key? key,
@@ -67,7 +75,8 @@ class MissionSilverList extends StatefulWidget {
       this.onTapEditTitleListener,
       this.onTapPlayListener,
       this.isSlideEnable = true,
-      this.useUnifiedStyle = false})
+      this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false})
       : super(key: key) {
     this.onTapListener = onTapListener;
     this._datas = datas;
@@ -91,6 +100,7 @@ class MissionSilverState extends State<MissionSilverList> {
       delegate: SliverChildBuilderDelegate((context, index) {
         return MissionSilverListItem(
           useUnifiedStyle: widget.useUnifiedStyle,
+          useMobileModernStyle: widget.useMobileModernStyle,
           multiSelectModeEnum: this.widget.multiSelectModeEnum,
           isSlideEnable: this.widget.isSlideEnable ?? false,
           onTapListener: this.widget.onTapListener,
@@ -127,6 +137,7 @@ class MissionSilverListItem extends StatefulWidget {
   OnTapEditTitleListener? onTapEditTitleListener;
   MultiSelectModeEnum multiSelectModeEnum;
   bool useUnifiedStyle;
+  bool useMobileModernStyle;
 
   // Map<int, Image> map = {};
   MissionSilverListItem(
@@ -145,7 +156,8 @@ class MissionSilverListItem extends StatefulWidget {
       this.onTapDeleteListener,
       this.onTapEditListener,
       this.isSlideEnable = false,
-      this.useUnifiedStyle = false})
+      this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false})
       : super(key: key) {
     this.onTapListener = onTapListener;
     this.index = index;
@@ -186,6 +198,208 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
     numItem: 5,
   );
 
+  bool _isUnifiedObjectiveCard(MissionModel? missionModel) {
+    return widget.useUnifiedStyle &&
+        Utility.getMissionModelEnumByType(missionModel: missionModel) ==
+            MissionModelEnum.objective;
+  }
+
+  double _getObjectiveSliderValue(MissionModel? missionModel) {
+    if (missionModel == null) {
+      return 0;
+    }
+    final double min = missionModel.objectiveStartValue ?? 0;
+    final double max = missionModel.objectiveTotalValue ?? 0;
+    if (max <= min) {
+      return min;
+    }
+    return (missionModel.objectiveValue ?? 0).clamp(min, max).toDouble();
+  }
+
+  String _getObjectiveProgressLabel(MissionModel? missionModel) {
+    final int current = missionModel?.objectiveValue?.toInt() ?? 0;
+    final int total = missionModel?.objectiveTotalValue?.toInt() ?? 0;
+    final String unit = missionModel?.objectiveUnit ?? "";
+    return "$current / $total ${TextUtil.isEmpty(unit) ? getI18NKey().unitMissions : unit}";
+  }
+
+  void _handleObjectiveSliderChange(MissionModel? missionModel, double value) {
+    if (missionModel == null) {
+      return;
+    }
+    missionModel.objectiveValue = value;
+    if ((missionModel.objectiveTotalValue ?? 0) > 0) {
+      missionModel.isFinished =
+          (missionModel.objectiveTotalValue ?? 0) <= value;
+    }
+    tmpMissionModel = missionModel;
+    funcDebounceWithUpdateSliderVal(this);
+    setState(() {});
+  }
+
+  Widget _buildUnifiedObjectiveCardContent(
+      MissionModel? missionModel, FolderModel? folderModel, Color accentColor) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(28, 12, 18, 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  missionModel?.title ?? "",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: ThemeManager.getInstance().getTextStyle(
+                    defaultTextStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF2F2A26),
+                    ),
+                  ),
+                ),
+                if (folderModel != null) ...[
+                  const SizedBox(height: 6),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 6,
+                    children: [
+                      WidgetManager.getFolderModelIcon(folderModel, 12) ??
+                          const SizedBox.shrink(),
+                      Text(
+                        folderModel.title ?? "",
+                        style: ThemeManager.getInstance().getTextStyle(
+                          defaultTextStyle: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF8E7E6F),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          SizedBox(
+            width: 156,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "目标进度",
+                            style: ThemeManager.getInstance().getTextStyle(
+                              defaultTextStyle: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF66754B),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            missionModel?.objectivePercentString ?? "0.0%",
+                            style: ThemeManager.getInstance().getTextStyle(
+                              defaultTextStyle: TextStyle(
+                                fontSize: 18,
+                                height: 1,
+                                fontWeight: FontWeight.w800,
+                                color: accentColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: PopupMenuButton<String>(
+                        tooltip: '',
+                        padding: EdgeInsets.zero,
+                        iconSize: 15,
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: ThemeManager.getInstance().getIconColor(
+                            defaultColor: const Color(0xFF8C8175),
+                          ),
+                        ),
+                        onCanceled: () {},
+                        itemBuilder: (context) {
+                          if (missionModel?.isFinished == false) {
+                            return getUnfinishedPopupList(
+                                missionModel ?? MissionModel());
+                          } else {
+                            return getFinishedPopupList(
+                                missionModel ?? MissionModel());
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                // thumb 半径保持恒定，只切换透明度；否则 hover 时 Flutter 会重算 track inset，滑条左端会抖动。
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    trackHeight: 5,
+                    activeTrackColor: accentColor.withValues(alpha: 0.92),
+                    inactiveTrackColor: accentColor.withValues(alpha: 0.16),
+                    thumbColor: isHover ? accentColor : Colors.transparent,
+                    overlayColor: Colors.transparent,
+                    thumbShape:
+                        const RoundSliderThumbShape(enabledThumbRadius: 5),
+                    overlayShape: const RoundSliderOverlayShape(
+                      overlayRadius: 0,
+                    ),
+                  ),
+                  child: SizedBox(
+                    height: 14,
+                    child: Slider(
+                      value: _getObjectiveSliderValue(missionModel),
+                      min: missionModel?.objectiveStartValue ?? 0,
+                      max: (missionModel?.objectiveTotalValue ?? 0) <=
+                              (missionModel?.objectiveStartValue ?? 0)
+                          ? (missionModel?.objectiveStartValue ?? 0) + 1
+                          : (missionModel?.objectiveTotalValue ?? 0),
+                      onChanged: (missionModel?.objectiveTotalValue ?? 0) > 0
+                          ? (value) =>
+                              _handleObjectiveSliderChange(missionModel, value)
+                          : null,
+                    ),
+                  ),
+                ),
+                Text(
+                  _getObjectiveProgressLabel(missionModel),
+                  style: ThemeManager.getInstance().getTextStyle(
+                    defaultTextStyle: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: accentColor.withValues(alpha: 0.88),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildUnifiedTextProtectionOverlay() {
     return Positioned.fill(
       child: IgnorePointer(
@@ -204,6 +418,518 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
               stops: const [0.0, 0.22, 0.42, 0.68, 1.0],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /**
+   * 功能：统一处理任务卡片点击。
+   * 说明：移动端新版列表和旧列表都走这里，避免多选模式下的选择逻辑出现两套行为。
+   */
+  void _handleMissionTap(MissionModel? missionModel) {
+    if (this.widget.multiSelectModeEnum == MultiSelectModeEnum.multiSelect) {
+      if (this.widget.onTapMultiSelectListener != null) {
+        missionModel?.isSelected = missionModel.isSelected ? false : true;
+        this.widget.onTapMultiSelectListener?.call(missionModel);
+        setState(() {});
+      }
+      return;
+    }
+    if (this.widget.onTapListener != null) {
+      this.widget.onTapListener!(missionModel);
+    }
+  }
+
+  /**
+   * 功能：构建手机端新版列表任务卡。
+   * 说明：该分支只在 MissionPage 显式传入 useMobileModernStyle 时启用，避免影响旧列表和桌面端统一样式。
+   */
+  Widget _buildMobileModernMissionItem({
+    required MissionModel? missionModel,
+    required Color priorityAccentColor,
+  }) {
+    final MissionMobileListStyleMetrics metrics =
+        MissionMobileListStyleHelper.mobileModernMetrics;
+    final bool isObjective =
+        Utility.getMissionModelEnumByType(missionModel: missionModel) ==
+            MissionModelEnum.objective;
+    final bool isSelected = this.widget._missionModel?.isSelected == true;
+
+    return Slidable(
+      key: ValueKey(missionModel),
+      enabled: DeviceInfoManagement.isMoible() == true ||
+          DeviceInfoManagement.isWebMobileBySize(),
+      endActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        extentRatio: ratio,
+        children: missionModel?.isFinished == false
+            ? getUnfinishIconSlideActions(missionModel ?? MissionModel())
+            : getFinishIconSlideActions(missionModel ?? MissionModel()),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(metrics.cardRadius),
+        onTap: () {
+          _handleMissionTap(missionModel);
+        },
+        child: Container(
+          margin: metrics.cardMargin,
+          // 普通任务按内容自然撑开，避免固定最小高度把底部留白撑大；目标任务仍保留进度面板需要的高度。
+          constraints: BoxConstraints(
+            minHeight: isObjective ? metrics.cardMinHeight : 0,
+          ),
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: ThemeManager.getInstance().getCardBackgroundColor(
+              defaultColor: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(metrics.cardRadius),
+            border: Border.all(
+              width:
+                  this.widget.multiSelectModeEnum == MultiSelectModeEnum.normal
+                      ? 0.5
+                      : (isSelected ? 2.0 : 0.5),
+              color:
+                  this.widget.multiSelectModeEnum == MultiSelectModeEnum.normal
+                      ? const Color(0xFFF0F0F0)
+                      : (isSelected
+                          ? priorityAccentColor
+                          : const Color(0xFFF0F0F0)),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.035),
+                blurRadius: 14,
+                offset: const Offset(0, 5),
+              ),
+              BoxShadow(
+                color: Colors.white.withValues(alpha: 0.72),
+                blurRadius: 8,
+                offset: const Offset(-2, -2),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              // 移动端现代列表补齐桌面端同款优先级识别色，方便用户扫列表时快速区分象限。
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: Container(
+                  width: 6,
+                  color: priorityAccentColor,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  16,
+                  isObjective ? 14 : 10,
+                  12,
+                  isObjective ? 14 : 10,
+                ),
+                child: isObjective
+                    ? _buildMobileModernObjectiveContent(
+                        missionModel: missionModel,
+                        accentColor: priorityAccentColor,
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _buildMobileModernCheckButton(missionModel),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildMobileModernTitleLine(missionModel),
+                                const SizedBox(height: 8),
+                                _buildMobileModernMetaRow(missionModel),
+                                if ((missionModel?.subMissions?.length ?? 0) >
+                                    0) ...[
+                                  const SizedBox(height: 8),
+                                  SubmissionColumnList(
+                                    missionModel:
+                                        missionModel ?? MissionModel(),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          _buildMobileModernPlayButton(
+                              missionModel, isObjective),
+                        ],
+                      ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /**
+   * 功能：构建移动端目标任务卡片内容。
+   * 说明：目标任务不显示普通完成圈和开始按钮，右侧改为 PC 端同款目标进度区。
+   */
+  Widget _buildMobileModernObjectiveContent({
+    required MissionModel? missionModel,
+    required Color accentColor,
+  }) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final bool compact = constraints.maxWidth < 320;
+        final double progressWidth = compact ? 124 : 156;
+
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    missionModel?.title ?? "",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: ThemeManager.getInstance().getTextStyle(
+                      defaultTextStyle: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: compact ? 17 : 18,
+                        height: 1.18,
+                        decoration: missionModel?.isFinished == true
+                            ? TextDecoration.lineThrough
+                            : null,
+                        decorationStyle: TextDecorationStyle.solid,
+                        decorationColor: const Color(0xffa0a0a0),
+                        decorationThickness: 2,
+                        color: const Color(0xFF252525),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildMobileModernMetaRow(missionModel),
+                ],
+              ),
+            ),
+            SizedBox(width: compact ? 10 : 16),
+            SizedBox(
+              width: progressWidth,
+              child: _buildMobileModernObjectiveProgressPanel(
+                missionModel: missionModel,
+                accentColor: accentColor,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /**
+   * 功能：构建移动端目标任务进度面板。
+   * 说明：滑条沿用 PC 端目标进度交互，用户可直接在列表里拖动更新 objectiveValue。
+   */
+  Widget _buildMobileModernObjectiveProgressPanel({
+    required MissionModel? missionModel,
+    required Color accentColor,
+  }) {
+    final MissionMobileObjectiveProgressData progressData =
+        MissionMobileListStyleHelper.buildObjectiveProgressData(missionModel);
+    final bool canEditProgress = (missionModel?.objectiveTotalValue ?? 0) > 0;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                "目标进度",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: ThemeManager.getInstance().getTextStyle(
+                  defaultTextStyle: const TextStyle(
+                    fontSize: 11,
+                    height: 1,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF66754B),
+                  ),
+                ),
+              ),
+            ),
+            if (this.widget.onTapEditTitleListener != null)
+              InkWell(
+                borderRadius: BorderRadius.circular(6),
+                onTap: () {
+                  this.widget.onTapEditTitleListener?.call(missionModel);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(2),
+                  child: Icon(
+                    Icons.edit_square,
+                    size: 16,
+                    color: Color(0xFF9A9A9A),
+                  ),
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 3),
+        Text(
+          progressData.percentText,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: ThemeManager.getInstance().getTextStyle(
+            defaultTextStyle: TextStyle(
+              fontSize: 20,
+              height: 1,
+              fontWeight: FontWeight.w800,
+              color: accentColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        // 移动端这里必须保留可见 thumb，否则 0% 的目标任务看起来像没有进度条。
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            trackHeight: 5,
+            activeTrackColor: accentColor.withValues(alpha: 0.92),
+            inactiveTrackColor: accentColor.withValues(alpha: 0.18),
+            disabledActiveTrackColor: accentColor.withValues(alpha: 0.28),
+            disabledInactiveTrackColor: accentColor.withValues(alpha: 0.12),
+            thumbColor: canEditProgress ? accentColor : const Color(0xFFB8B8B8),
+            disabledThumbColor: const Color(0xFFB8B8B8),
+            overlayColor: Colors.transparent,
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
+            overlayShape: const RoundSliderOverlayShape(overlayRadius: 0),
+          ),
+          child: SizedBox(
+            height: 18,
+            child: Slider(
+              value: progressData.sliderValue,
+              min: progressData.sliderMin,
+              max: progressData.sliderMax,
+              onChanged: canEditProgress
+                  ? (double value) {
+                      _handleObjectiveSliderChange(missionModel, value);
+                    }
+                  : null,
+            ),
+          ),
+        ),
+        Text(
+          progressData.countText,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: ThemeManager.getInstance().getTextStyle(
+            defaultTextStyle: TextStyle(
+              fontSize: 11,
+              height: 1,
+              fontWeight: FontWeight.w700,
+              color: accentColor.withValues(alpha: 0.9),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /**
+   * 功能：构建新版移动端的完成勾选按钮。
+   */
+  Widget _buildMobileModernCheckButton(MissionModel? missionModel) {
+    return CheckImage(
+      width: 34,
+      height: 34,
+      isSizeConfigured: true,
+      onTapListener: (res) {
+        if (missionModel?.isFinished == true) {
+          this.widget.onTapUnFinishListener?.call(missionModel);
+        } else {
+          this.widget.onTapFinishListener?.call(missionModel);
+        }
+      },
+      checked: missionModel?.isFinished ?? false,
+      checkIcon: Icon(
+        Icons.check_circle,
+        size: 24,
+        color: ColorsConfig.calendar_green,
+      ),
+      uncheckIcon: const Icon(
+        Icons.radio_button_unchecked_outlined,
+        color: Color(0xFF969696),
+        size: 30,
+      ),
+    );
+  }
+
+  /**
+   * 功能：构建新版移动端任务标题行。
+	 * 说明：保留标签、笔记和子任务标识；移动端允许标题换到两行，避免长标题被过早截断。
+	 */
+  Widget _buildMobileModernTitleLine(MissionModel? missionModel) {
+    return Row(
+      children: [
+        Flexible(
+          fit: FlexFit.loose,
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: missionModel?.title ?? "",
+                  style: ThemeManager.getInstance().getTextStyle(
+                    defaultTextStyle: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                      height: 1.18,
+                      decoration: missionModel?.isFinished == true
+                          ? TextDecoration.lineThrough
+                          : null,
+                      decorationStyle: TextDecorationStyle.solid,
+                      decorationColor: const Color(0xffa0a0a0),
+                      decorationThickness: 2,
+                      color: const Color(0xFF252525),
+                    ),
+                  ),
+                ),
+                ...WidgetManager.getTagsWidgetSpan(
+                  missionModel ?? MissionModel(),
+                  fontSize: 14,
+                ),
+                ...WidgetManager.getIsNoteWidget(
+                  missionModel ?? MissionModel(),
+                ),
+              ],
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        if (this.widget.onTapEditTitleListener != null) ...[
+          const SizedBox(width: 6),
+          InkWell(
+            borderRadius: BorderRadius.circular(6),
+            onTap: () {
+              this.widget.onTapEditTitleListener?.call(missionModel);
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(2),
+              child: Icon(
+                Icons.edit_square,
+                size: 17,
+                color: Color(0xFF9A9A9A),
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  /**
+   * 功能：构建新版移动端任务元信息行。
+   * 说明：番茄数、日期和价值信息仍复用原字段，只调整字号和间距。
+   */
+  Widget _buildMobileModernMetaRow(MissionModel? missionModel) {
+    final List<Widget> metaChildren = [];
+    if (Utility.shouldShowTomatoes(
+            missionModelType: missionModel?.missionModelType) &&
+        Utility.getMissionModelEnumByType(missionModel: missionModel) !=
+            MissionModelEnum.objective) {
+      metaChildren.add(RatingBar(
+        size: 12,
+        curNumber: missionModel?.no_tomotoes_finished ?? 0,
+        number: missionModel?.total_tomotoes ?? 0,
+      ));
+      metaChildren.add(const SizedBox(width: 10));
+    }
+    if (missionModel != null) {
+      metaChildren.addAll(_getMobileModernDateWidgets(missionModel));
+      metaChildren.add(const SizedBox(width: 10));
+    }
+    if (missionModel?.mission_value != null) {
+      metaChildren.add(Text(
+        getI18NKey().value(missionModel?.mission_value ?? "") +
+            getI18NKey().dollar +
+            "(" +
+            getI18NKey().value_per_hour(
+                Utility.getMissionValuePerHourByMissionModel(
+                    missionModel: missionModel!)) +
+            ")",
+        style: TextStyle(
+          color: ColorsConfig.colorGold,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ));
+    }
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      runSpacing: 5,
+      children: metaChildren,
+    );
+  }
+
+  List<Widget> _getMobileModernDateWidgets(MissionModel missionModel) {
+    final String dateText = missionModel.time_mode == 1
+        ? CONSTANTS.getSegmentDateStringSubtitleByMissionModel(missionModel)
+        : CONSTANTS.getDateStringSubtitle(missionModel);
+    if (TextUtil.isEmpty(dateText)) {
+      return [];
+    }
+    return [
+      Icon(
+        Icons.calendar_today_rounded,
+        color: ColorsConfig.darkRed,
+        size: 13,
+      ),
+      const SizedBox(width: 4),
+      Text(
+        dateText,
+        style: TextStyle(
+          fontSize: 14,
+          height: 1.18,
+          fontWeight: FontWeight.w600,
+          color: ColorsConfig.darkRed,
+        ),
+      ),
+    ];
+  }
+
+  /**
+   * 功能：构建新版移动端任务开始按钮。
+   */
+  Widget _buildMobileModernPlayButton(
+      MissionModel? missionModel, bool isObjective) {
+    if (isObjective || missionModel?.isFinished == true) {
+      return const SizedBox.shrink();
+    }
+    return InkWell(
+      borderRadius: BorderRadius.circular(22),
+      onTap: () {
+        this.widget.onTapPlayListener?.call(missionModel);
+      },
+      child: Container(
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: const Color(0xFFFF4B43),
+            width: 3,
+          ),
+        ),
+        alignment: Alignment.center,
+        child: const Icon(
+          Icons.play_arrow_rounded,
+          color: Color(0xFFFF4B43),
+          size: 28,
         ),
       ),
     );
@@ -234,7 +960,6 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
         ),
       ],
     );
-    ;
   }
 
   @override
@@ -244,6 +969,16 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
     bool isDoItNow = this.isDoItNow(_missionModel);
     final Color priorityAccentColor =
         Color(CONSTANTS.getPriorityColor(_missionModel?.priorityStatus ?? 3));
+    final bool isUnifiedObjectiveCard = _isUnifiedObjectiveCard(_missionModel);
+    final bool isMobileModernList =
+        widget.useMobileModernStyle && Utility.isHandsetBySize();
+
+    if (isMobileModernList) {
+      return _buildMobileModernMissionItem(
+        missionModel: _missionModel,
+        priorityAccentColor: priorityAccentColor,
+      );
+    }
 
     // TODO: implement build
     //左边文案和角标
@@ -588,7 +1323,8 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                                 ),
                           boxShadow: [
                             BoxShadow(
-                              color: priorityAccentColor.withValues(alpha: 0.08),
+                              color:
+                                  priorityAccentColor.withValues(alpha: 0.08),
                               blurRadius: 18,
                               offset: const Offset(-3, 6),
                             ),
@@ -700,75 +1436,86 @@ class MissionSilverListItemState extends State<MissionSilverListItem> {
                                 alpha: 150,
                               ),
                         constraints: BoxConstraints(
-                            minHeight: widget.useUnifiedStyle ? 86 : 66),
+                            minHeight: isUnifiedObjectiveCard
+                                ? 92
+                                : (widget.useUnifiedStyle ? 86 : 66)),
                         padding: EdgeInsets.only(top: 0, bottom: 0),
                         alignment: Alignment.centerLeft,
-                        child: Stack(
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: childrenRow,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                        child: isUnifiedObjectiveCard
+                            ? _buildUnifiedObjectiveCardContent(
+                                _missionModel,
+                                folderModel,
+                                priorityAccentColor,
+                              )
+                            : Stack(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: childrenRow,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                       ),
                     ],
                   ),
                 ),
-                Positioned(
-                  right: 3,
-                  top: 0,
-                  child: this.isHover == true
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          child: PopupMenuButton<String>(
-                            tooltip: '',
-                            iconSize: 14,
-                            icon: Icon(
-                              Icons.more_vert,
-                              color: ThemeManager.getInstance().getIconColor(
-                                defaultColor: Color(0xff909090),
+                if (!isUnifiedObjectiveCard)
+                  Positioned(
+                    right: 3,
+                    top: 0,
+                    child: this.isHover == true
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: PopupMenuButton<String>(
+                              tooltip: '',
+                              iconSize: 14,
+                              icon: Icon(
+                                Icons.more_vert,
+                                color: ThemeManager.getInstance().getIconColor(
+                                  defaultColor: Color(0xff909090),
+                                ),
                               ),
+                              onCanceled: () {},
+                              itemBuilder: (context) {
+                                if (_missionModel?.isFinished == false) {
+                                  return getUnfinishedPopupList(
+                                      _missionModel ?? MissionModel());
+                                } else {
+                                  return getFinishedPopupList(
+                                      _missionModel ?? MissionModel());
+                                }
+                              },
                             ),
-                            onCanceled: () {},
-                            itemBuilder: (context) {
-                              if (_missionModel?.isFinished == false) {
-                                return getUnfinishedPopupList(
-                                    _missionModel ?? MissionModel());
-                              } else {
-                                return getFinishedPopupList(
-                                    _missionModel ?? MissionModel());
-                              }
-                            },
-                          ),
-                        )
-                      : isDoItNow
-                          ? MissionCountDownTextWidget(
-                              fontSize: 12,
-                              color: 0xff909090,
-                              end_time: _missionModel?.do_it_now?[0]['end_time']
-                                  as int,
-                              end_buffer_time: _missionModel?.do_it_now?[0]
-                                  ['buffer_end_time'],
-                              isFinished: _missionModel?.isFinished ?? false,
-                            )
-                          : ListingSecurityWidget(
-                              missionModdel_id: _missionModel?.objectId,
-                              folder_id: _missionModel?.folder_id ?? "",
-                              cryptoVersion: _missionModel?.cryptoVersion ?? -1,
-                              marginRight: 5,
-                              marginTop: 5,
-                              size: 14,
-                            ),
-                ),
-                if (Utility.isObjectiveForMissionModel(
-                    missionModel: _missionModel ?? MissionModel()))
+                          )
+                        : isDoItNow
+                            ? MissionCountDownTextWidget(
+                                fontSize: 12,
+                                color: 0xff909090,
+                                end_time: _missionModel?.do_it_now?[0]
+                                    ['end_time'] as int,
+                                end_buffer_time: _missionModel?.do_it_now?[0]
+                                    ['buffer_end_time'],
+                                isFinished: _missionModel?.isFinished ?? false,
+                              )
+                            : ListingSecurityWidget(
+                                missionModdel_id: _missionModel?.objectId,
+                                folder_id: _missionModel?.folder_id ?? "",
+                                cryptoVersion:
+                                    _missionModel?.cryptoVersion ?? -1,
+                                marginRight: 5,
+                                marginTop: 5,
+                                size: 14,
+                              ),
+                  ),
+                if (!isUnifiedObjectiveCard &&
+                    Utility.isObjectiveForMissionModel(
+                        missionModel: _missionModel ?? MissionModel()))
                   Positioned(
                     bottom: 3,
                     right: 0,

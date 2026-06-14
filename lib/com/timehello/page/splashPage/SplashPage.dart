@@ -28,6 +28,7 @@ import '../../components/HabitTrackerApp.dart';
 import '../../config/ColorsConfig.dart';
 import '../../config/Params.dart';
 import '../../util/AnalyticsEventsManager.dart';
+import '../../util/AppAiBailianConfigManager.dart';
 import '../../util/GetResourceDeliveryManager.dart';
 import '../AIReplyAssistPage/AIReplyAssistPage.dart';
 import '../AddFilterPage/AddFilterPage.dart';
@@ -127,6 +128,13 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
             Utility.getResourceDeliveryItemFromList('versionInfo', response)
                     ?.deliveryList ??
                 [];
+        unawaited(
+          AppAiBailianConfigManager.getInstance()
+              .applyConfigFromResourceLocations(
+            response,
+            sourceScene: 'timehello_init',
+          ),
+        );
 
         Params.curLatestVersionAndroid =
             Utility.getResourceDeliveryInfoBeanByKey(

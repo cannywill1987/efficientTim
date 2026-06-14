@@ -1,3 +1,8 @@
+/**
+ * 文件类型：页面级复用组件
+ * 文件作用：承载任务首页头部的统计卡片、快速新增输入框和相关快捷操作。
+ * 主要职责：统一处理移动端/桌面端头部输入框样式、任务快速创建、番茄数选择和文件夹切换入口。
+ */
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -16,15 +21,17 @@ import 'package:time_hello/com/timehello/models/FolderTimeModel.dart';
 import 'package:time_hello/com/timehello/util/TextUtil.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
-import 'package:time_hello/r.dart';
 
 import '../../../common/database/apis/MongoApisManager.dart';
 import '../../../config/CONSTANTS.dart';
+import '../../../config/ENUMS.dart';
 import '../../../config/Params.dart';
 import '../../../models/EventFn.dart';
 import '../../../models/FolderModel.dart';
 import '../../../models/SheetDataModel.dart';
 import '../../../util/AnalyticsEventsManager.dart';
+import '../../../util/CounterManagement.dart';
+import 'HeaderMobileCounterStatusHelper.dart';
 
 class HeaderStatsAndInputWidget extends StatefulWidget {
   List _datas = [];
@@ -33,6 +40,7 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
   HeaderStatsAndInputWidgetState? menuSilverListState;
   Function? onTapUpListener;
   Function? onTapDownListener;
+  VoidCallback? onVoiceTaskLongPress;
   OnSubmitListener? onSubmitListener;
   OnDesktopSubmitListener? onDesktopSubmitListener;
   FolderTimeModel? folderTimeModel;
@@ -42,13 +50,18 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
   bool shouldShowFolderIcons = true;
   bool shouldSliver = true;
   bool useUnifiedStyle = false;
+  bool useMobileModernStyle = false;
+  String? mobileTitle;
   HeaderStatsAndInputWidget(
       {Key? key,
       List? datas,
       this.onTapUpListener,
+      this.onVoiceTaskLongPress,
       this.shouldSliver = true,
       this.shouldShowFolderIcons = true,
       this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false,
+      this.mobileTitle,
       this.onTapDownListener,
       this.onChangeListener,
       this.childAfterInputWidget,
@@ -81,6 +94,69 @@ class HeaderStatsAndInputWidget extends StatefulWidget {
 
 class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
   GlobalKey<HeaderInputState> HeaderInputStateGlobalKey = GlobalKey();
+  bool _didRegisterCounterStatusListener = false;
+
+  /**
+   * 功能：监听全局计时器状态变化并刷新移动端统计卡片。
+   * 说明：头部状态胶囊必须跟 CounterManagement.counterStatus 一致，不能只在首次 build 时取一次值。
+   */
+  void _handleCounterStatusUpdated() {
+    if (mounted && widget.useMobileModernStyle) {
+      setState(() {});
+    }
+  }
+
+  /**
+   * 功能：按需注册计时器状态监听。
+   * 说明：只有移动端新版头部需要这个状态胶囊，旧样式和桌面端不主动初始化 CounterManagement，减少公共组件影响。
+   */
+  void _ensureCounterStatusListener() {
+    if (_didRegisterCounterStatusListener || !widget.useMobileModernStyle) {
+      return;
+    }
+    CounterManagement.getInstance().addOnUpdateUIListener(
+      onUpdateUIListener: _handleCounterStatusUpdated,
+    );
+    _didRegisterCounterStatusListener = true;
+  }
+
+  /**
+   * 功能：移除计时器状态监听。
+   * 说明：HeaderStatsAndInputWidget 会在多个列表模式中复用，销毁时必须解绑，避免旧 State 继续 setState。
+   */
+  void _removeCounterStatusListener() {
+    if (!_didRegisterCounterStatusListener) {
+      return;
+    }
+    CounterManagement.getInstance().removeOnUpdateUIListener(
+      onUpdateUIListener: _handleCounterStatusUpdated,
+    );
+    _didRegisterCounterStatusListener = false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _ensureCounterStatusListener();
+  }
+
+  @override
+  void didUpdateWidget(covariant HeaderStatsAndInputWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.useMobileModernStyle != widget.useMobileModernStyle) {
+      if (widget.useMobileModernStyle) {
+        _ensureCounterStatusListener();
+      } else {
+        _removeCounterStatusListener();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _removeCounterStatusListener();
+    super.dispose();
+  }
 
   List<int> _parseHourMinute(String? value) {
     if (TextUtil.isEmpty(value)) {
@@ -146,7 +222,6 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
     final Color titleColor = ThemeManager.getInstance().getTextColor(
         defaultColor: const Color(0xFF3A2417), defaultDarkColor: Colors.white);
     final Color accentColor = const Color(0xFFC98261);
-    final String headline = widget.folderModel?.title ?? getI18NKey().today;
     final int finished = widget.folderTimeModel?.numMissionFinished ?? 0;
     final int pending = widget.folderTimeModel?.numMissionToFinished ?? 0;
     final int total = finished + pending;
@@ -161,20 +236,9 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
           final Widget left = Expanded(
             flex: compact ? 0 : 3,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  headline,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: compact ? 34 : 50,
-                    fontWeight: FontWeight.w800,
-                    color: titleColor,
-                    height: 0.96,
-                  ),
-                ),
-                const SizedBox(height: 18),
                 Text(
                   _formatHeroDuration(
                       widget.folderTimeModel?.previewTimeString),
@@ -187,7 +251,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  "剩余",
+                  getI18NKey().remaining,
                   style: TextStyle(
                     fontSize: compact ? 28 : 34,
                     fontWeight: FontWeight.w300,
@@ -258,7 +322,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
             );
           }
           return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               left,
               const SizedBox(width: 18),
@@ -289,6 +353,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
             text: this.widget.text,
             onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
             onSubmitListener: this.widget.onSubmitListener,
+            onVoiceTaskLongPress: this.widget.onVoiceTaskLongPress,
             useUnifiedStyle: true,
           ),
           if (detailPanel != null)
@@ -318,6 +383,381 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
         _buildUnifiedHeroOverview(),
         _buildUnifiedInputCard(),
       ],
+    );
+  }
+
+  Widget _buildMobileModernContent() {
+    return Column(
+      children: [
+        _buildMobileModernStatsCard(),
+        _buildMobileModernInputCard(),
+      ],
+    );
+  }
+
+  Widget _buildMobileModernStatsCard() {
+    final String title =
+        widget.mobileTitle ?? widget.folderModel?.title ?? getI18NKey().today;
+    final bool isObjectiveFolder = widget.folderModel?.tag == 5;
+    final Color focusGreen = const Color(0xFF16B540);
+    final Widget counterStatusPill = _buildMobileModernCounterStatusPill();
+    return Container(
+      margin: EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin + 7, 12,
+          CONSTANTS.missionPageMargin + 7, 0),
+      padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+      decoration: BoxDecoration(
+        color: ThemeManager.getInstance()
+            .getCardBackgroundColor(defaultColor: Colors.white),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.black.withValues(alpha: 0.04),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                key: const ValueKey('mobileModernFolderStatusIcon'),
+                width: 24,
+                height: 24,
+                alignment: Alignment.center,
+                child: _buildMobileModernFolderStatusIcon(),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: ThemeManager.getInstance().getTextStyle(
+                    defaultTextStyle: const TextStyle(
+                      fontSize: 20,
+                      height: 1.1,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF222222),
+                    ),
+                  ),
+                ),
+              ),
+              counterStatusPill,
+            ],
+          ),
+          const SizedBox(height: 22),
+          Row(
+            children: [
+              Expanded(
+                child: isObjectiveFolder
+                    ? _buildMobileModernMetric(
+                        icon: Icons.track_changes_rounded,
+                        color: const Color(0xFFFF3D26),
+                        value: widget.folderTimeModel?.objectivePercentString
+                                .toString() ??
+                            '',
+                        label: getI18NKey().complete_ratio,
+                      )
+                    : _buildMobileModernMetric(
+                        icon: Icons.access_time_rounded,
+                        color: const Color(0xFFFF3D26),
+                        durationValue:
+                            widget.folderTimeModel?.previewTimeString,
+                        label: getI18NKey().previewTime,
+                      ),
+              ),
+              _buildMobileModernDivider(),
+              Expanded(
+                child: _buildMobileModernMetric(
+                  icon: Icons.fact_check_outlined,
+                  color: const Color(0xFF1D9BF0),
+                  value:
+                      widget.folderTimeModel?.numMissionToFinished.toString() ??
+                          '0',
+                  label: getI18NKey().missionToBeComplete,
+                ),
+              ),
+              if (!isObjectiveFolder) ...[
+                _buildMobileModernDivider(),
+                Expanded(
+                  child: _buildMobileModernMetric(
+                    icon: Icons.timer_outlined,
+                    color: focusGreen,
+                    durationValue: widget.folderTimeModel?.finishedTimeString,
+                    label: getI18NKey().timefocused,
+                  ),
+                ),
+              ],
+              _buildMobileModernDivider(),
+              Expanded(
+                child: _buildMobileModernMetric(
+                  icon: Icons.check_circle_outline_rounded,
+                  color: const Color(0xFFFF8A00),
+                  value:
+                      widget.folderTimeModel?.numMissionFinished.toString() ??
+                          '0',
+                  label: getI18NKey().missioncompleted,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /**
+   * 功能：构建移动端统计卡片标题左侧的状态图标。
+   * 说明：系统清单图标复用抽屉同款 SVG，自定义清单才回退到用户设置的 MaterialIcons。
+   */
+  Widget _buildMobileModernFolderStatusIcon() {
+    final HeaderMobileFolderIconData iconData =
+        HeaderMobileCounterStatusHelper.folderIconDataForFolder(
+      widget.folderModel,
+    );
+    if (iconData.iconAsset != null) {
+      return Utility.getSVGPicture(
+        iconData.iconAsset ?? '',
+        size: iconData.size,
+        color: iconData.color,
+      );
+    }
+    return Icon(
+      iconData.fallbackIcon ?? Icons.task,
+      size: iconData.size,
+      color: iconData.color ?? const Color(0xFF9BD42D),
+    );
+  }
+
+  /**
+   * 功能：构建移动端顶部统计卡片里的计时器状态胶囊。
+   * 说明：状态来源只读 CounterManagement，避免 UI 在等待、暂停、休息时仍写死显示“专注中”。
+   */
+  Widget _buildMobileModernCounterStatusPill() {
+    final CounterStatus counterStatus =
+        CounterManagement.getInstance().counterStatus;
+    final HeaderMobileCounterStatusData statusData =
+        HeaderMobileCounterStatusHelper.dataForStatus(counterStatus);
+    if (!statusData.isVisible) {
+      return const SizedBox.shrink();
+    }
+    return Container(
+      key: const ValueKey('mobileModernCounterStatusPill'),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Utility.getSVGPicture(
+            statusData.iconAsset,
+            size: 15,
+            color: statusData.color,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            _getMobileModernCounterStatusText(counterStatus),
+            key: const ValueKey('mobileModernCounterStatusText'),
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF555555),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /**
+   * 功能：把 CounterStatus 映射为移动端状态胶囊文案。
+   * 说明：这里不调用 CounterManagement.getBtnText，避免触发计时结算、写库等副作用。
+   */
+  String _getMobileModernCounterStatusText(CounterStatus counterStatus) {
+    switch (counterStatus) {
+      case CounterStatus.focusing:
+        return getI18NKey().focusing;
+      case CounterStatus.pausingFocusing:
+        return getI18NKey().focusPausing;
+      case CounterStatus.relaxing:
+        return getI18NKey().resting;
+      case CounterStatus.waitingToFocus:
+        return getI18NKey().startFocusing;
+      case CounterStatus.waitingToStartRelaxing:
+        return getI18NKey().focusFinished;
+      case CounterStatus.pausingRelaixing:
+        return getI18NKey().restPausing;
+      case CounterStatus.none:
+        return '';
+    }
+  }
+
+  Widget _buildMobileModernInputCard() {
+    return Container(
+      key: const ValueKey('mobileModernHeaderInputContainer'),
+      margin: EdgeInsets.fromLTRB(CONSTANTS.missionPageMargin + 7, 14,
+          CONSTANTS.missionPageMargin + 7, 0),
+      child: HeaderInputWidget(
+        shouldShowFolderIcons: this.widget.shouldShowFolderIcons,
+        folderModel: this.widget.folderModel ?? FolderModel(),
+        key: HeaderInputStateGlobalKey,
+        onChangeListener: this.widget.onChangeListener,
+        text: this.widget.text,
+        onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
+        onSubmitListener: this.widget.onSubmitListener,
+        onVoiceTaskLongPress: this.widget.onVoiceTaskLongPress,
+        useMobileModernStyle: true,
+      ),
+    );
+  }
+
+  Widget _buildMobileModernMetric({
+    required IconData icon,
+    required Color color,
+    required String label,
+    String? value,
+    String? durationValue,
+  }) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // 移动端一行放 4 个指标时，每个指标宽度很窄；先保持完整文本，再按列宽轻微缩放，避免用省略号丢失时间信息。
+        final Widget valueLine = Text.rich(
+          TextSpan(
+            children: [
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: Icon(icon, size: 18, color: color),
+              ),
+              const WidgetSpan(child: SizedBox(width: 5)),
+              durationValue != null
+                  ? _buildMobileModernDurationTextSpan(durationValue, color)
+                  : TextSpan(
+                      text: value ?? '0',
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 20,
+                        height: 1,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+            ],
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.visible,
+          textAlign: TextAlign.center,
+        );
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: constraints.maxWidth,
+              height: 22,
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.center,
+                  child: valueLine,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: ThemeManager.getInstance().getTextStyle(
+                defaultTextStyle: const TextStyle(
+                  color: Color(0xFF555555),
+                  fontSize: 11,
+                  height: 1,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildMobileModernDurationValue(String? value, Color color) {
+    final List<int> hourMinute = _parseHourMinute(value);
+    final TextStyle numberStyle = TextStyle(
+      color: color,
+      fontSize: 24,
+      height: 1,
+      fontWeight: FontWeight.w800,
+    );
+    const TextStyle unitStyle = TextStyle(
+      color: Color(0xFF606060),
+      fontSize: 11,
+      height: 1,
+      fontWeight: FontWeight.w600,
+    );
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Text(hourMinute[0].toString(), style: numberStyle),
+        const SizedBox(width: 2),
+        Text(getI18NKey().hour, style: unitStyle),
+        const SizedBox(width: 4),
+        Text(hourMinute[1].toString().padLeft(2, '0'), style: numberStyle),
+        const SizedBox(width: 2),
+        Text(getI18NKey().mins2, style: unitStyle),
+      ],
+    );
+  }
+
+  InlineSpan _buildMobileModernDurationTextSpan(String? value, Color color) {
+    final List<int> hourMinute = _parseHourMinute(value);
+    final TextStyle numberStyle = TextStyle(
+      color: color,
+      fontSize: 20,
+      height: 1,
+      fontWeight: FontWeight.w800,
+    );
+    const TextStyle unitStyle = TextStyle(
+      color: Color(0xFF606060),
+      fontSize: 9,
+      height: 1,
+      fontWeight: FontWeight.w600,
+    );
+    return TextSpan(
+      children: [
+        TextSpan(text: hourMinute[0].toString(), style: numberStyle),
+        TextSpan(text: getI18NKey().hour, style: unitStyle),
+        TextSpan(
+          text: hourMinute[1].toString().padLeft(2, '0'),
+          style: numberStyle,
+        ),
+        TextSpan(text: getI18NKey().mins2, style: unitStyle),
+      ],
+    );
+  }
+
+  Widget _buildMobileModernDivider() {
+    return Container(
+      width: 1,
+      height: 50,
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      color: const Color(0xFFEDEDED),
     );
   }
 
@@ -352,6 +792,11 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
       return widget.shouldSliver
           ? SliverToBoxAdapter(child: _buildUnifiedDesktopContent())
           : _buildUnifiedDesktopContent();
+    }
+    if (widget.useMobileModernStyle) {
+      return widget.shouldSliver
+          ? SliverToBoxAdapter(child: _buildMobileModernContent())
+          : _buildMobileModernContent();
     }
     if (this.widget.shouldSliver) {
       return getSliverList();
@@ -475,6 +920,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
               text: this.widget.text,
               onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
               onSubmitListener: this.widget.onSubmitListener,
+              onVoiceTaskLongPress: this.widget.onVoiceTaskLongPress,
               useUnifiedStyle: widget.useUnifiedStyle,
             ),
           ),
@@ -600,6 +1046,7 @@ class HeaderStatsAndInputWidgetState extends State<HeaderStatsAndInputWidget> {
                   text: this.widget.text,
                   onDesktopSubmitListener: this.widget.onDesktopSubmitListener,
                   onSubmitListener: this.widget.onSubmitListener,
+                  onVoiceTaskLongPress: this.widget.onVoiceTaskLongPress,
                   useUnifiedStyle: widget.useUnifiedStyle));
         } else if (index == 2) {
           //第三个组件是用来放bottombar
@@ -622,16 +1069,20 @@ class HeaderInputWidget extends StatefulWidget {
   FolderModel? folderModel;
   Function? onTapUpListener;
   Function? onTapDownListener;
+  VoidCallback? onVoiceTaskLongPress;
   bool shouldShowFolderIcons = true;
   bool useUnifiedStyle = false;
+  bool useMobileModernStyle = false;
 
   HeaderInputWidget(
       {Key? key,
       this.shouldShowFolderIcons = true,
       this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false,
       this.onDesktopSubmitListener,
       this.onTapUpListener,
       this.onTapDownListener,
+      this.onVoiceTaskLongPress,
       this.onChangeListener,
       this.onSubmitListener,
       this.folderModel,
@@ -696,6 +1147,76 @@ class HeaderInputState extends State<HeaderInputWidget> {
     _contentFocusNode?.unfocus();
   }
 
+  /**
+   * 功能：构建任务输入框左侧加号，并在移动端长按时唤起语音创建任务面板。
+   * 说明：短按仍然交给 TextField 聚焦输入，长按才进入语音入口，避免破坏原有参数选择和快速输入流程。
+   */
+  Widget _buildPrefixAddIcon(bool useMobileModernStyle) {
+    final Widget iconWidget = useMobileModernStyle
+        ? Container(
+            width: 34,
+            height: 34,
+            margin: const EdgeInsets.only(left: 12, right: 10),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFBDE947),
+                  Color(0xFF8FCB19),
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF8FCB19).withValues(alpha: 0.28),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 24,
+            ),
+          )
+        : Icon(
+            Icons.add,
+            color: ThemeManager.getInstance().getInputPlaceholderColor(
+                defaultColor: widget.useUnifiedStyle
+                    ? const Color(0xFFC58B67)
+                    : const Color(0xffd5d5d5),
+                defaultDarkColor: TextUtil.isEmpty(this.inputController?.text)
+                    ? const Color(0xff575757)
+                    : Colors.white),
+          );
+    if (!Utility.isHandsetBySize() || widget.onVoiceTaskLongPress == null) {
+      return iconWidget;
+    }
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onLongPress: widget.onVoiceTaskLongPress,
+      child: iconWidget,
+    );
+  }
+
+  /**
+   * 功能：根据当前设备和文件夹上下文返回头部输入框的占位文案。
+   * 说明：移动端新版样式只需要短 placeholder，桌面端仍保留带文件夹上下文的提示文案。
+   */
+  String _getHeaderPlaceholderText(FolderModel? curFolderModel) {
+    if (Utility.isHandsetBySize()) {
+      return getI18NKey().addMissions2;
+    }
+    if (curFolderModel == null) {
+      return getI18NKey().missionPageInputHolder;
+    }
+    return getI18NKey().header_input_placeholder_with_title(
+      curFolderModel.title ?? "",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // inputController?.text = this.widget.text ?? "";
@@ -707,8 +1228,15 @@ class HeaderInputState extends State<HeaderInputWidget> {
     //
     // });
     // TODO: implement build
+    final bool useMobileModernStyle = widget.useMobileModernStyle;
+    final String placeholderText = _getHeaderPlaceholderText(curFolderModel);
+    final OutlineInputBorder mobileModernBorder = OutlineInputBorder(
+      gapPadding: 0,
+      borderRadius: BorderRadius.circular(17),
+      borderSide: const BorderSide(color: Color(0xFFB7DF42), width: 1),
+    );
     return Container(
-      color: widget.useUnifiedStyle
+      color: widget.useUnifiedStyle || useMobileModernStyle
           ? Colors.transparent
           : ThemeManager.getInstance().getInputThemeColor(),
       child: Focus(
@@ -768,12 +1296,20 @@ class HeaderInputState extends State<HeaderInputWidget> {
                 fontWeight: FontWeight.w500),
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-              isDense: widget.useUnifiedStyle,
+              isDense: widget.useUnifiedStyle || useMobileModernStyle,
               contentPadding: EdgeInsets.only(
-                  left: 60,
-                  right: 75,
-                  top: widget.useUnifiedStyle ? 8 : 0,
-                  bottom: widget.useUnifiedStyle ? 8 : 0),
+                  left: useMobileModernStyle ? 58 : 60,
+                  right: useMobileModernStyle ? 116 : 75,
+                  top: useMobileModernStyle
+                      ? 18
+                      : widget.useUnifiedStyle
+                          ? 8
+                          : 0,
+                  bottom: useMobileModernStyle
+                      ? 18
+                      : widget.useUnifiedStyle
+                          ? 8
+                          : 0),
               counterStyle: TextStyle(color: Colors.transparent, fontSize: 0),
               //背景颜色，必须结合filled: true,才有效
               // hoverColor: Colors.white,
@@ -884,17 +1420,10 @@ class HeaderInputState extends State<HeaderInputWidget> {
                             color: Color(0xff9a9a9a),
                           )
                   ]),
-              prefixIcon: Icon(
-                Icons.add,
-                color: ThemeManager.getInstance().getInputPlaceholderColor(
-                    defaultColor: widget.useUnifiedStyle
-                        ? const Color(0xFFC58B67)
-                        : Color(0xffd5d5d5),
-                    defaultDarkColor:
-                        TextUtil.isEmpty(this.inputController?.text)
-                            ? Color(0xff575757)
-                            : Colors.white),
-              ),
+              prefixIcon: _buildPrefixAddIcon(useMobileModernStyle),
+              prefixIconConstraints: useMobileModernStyle
+                  ? const BoxConstraints(minWidth: 58, minHeight: 58)
+                  : null,
               // prefixIconColor: Color(0xffd5d5d5),
               border: _outlineInputBorder,
               prefixIconColor: ThemeManager.getInstance().getIconColor(
@@ -902,22 +1431,57 @@ class HeaderInputState extends State<HeaderInputWidget> {
                       ? const Color(0xFFC58B67)
                       : Color(0xffd5d5d5)),
               floatingLabelStyle: TextStyle(
-                  color: widget.useUnifiedStyle
-                      ? const Color(0xFFB69179).withValues(alpha: 0.96)
-                      : ThemeManager.getInstance().getIconColor(),
-                  fontSize: widget.useUnifiedStyle ? 13 : 14,
-                  fontWeight: widget.useUnifiedStyle ? FontWeight.w600 : null),
+                  color: useMobileModernStyle
+                      ? const Color(0xFFBDBDBD)
+                      : widget.useUnifiedStyle
+                          ? const Color(0xFFB69179).withValues(alpha: 0.96)
+                          : ThemeManager.getInstance().getIconColor(),
+                  fontSize: useMobileModernStyle
+                      ? 18
+                      : widget.useUnifiedStyle
+                          ? 13
+                          : 14,
+                  fontWeight: widget.useUnifiedStyle || useMobileModernStyle
+                      ? FontWeight.w600
+                      : null),
               labelStyle: TextStyle(
-                  color: widget.useUnifiedStyle
-                      ? const Color(0xFFB69179).withValues(alpha: 0.88)
-                      : ThemeManager.getInstance().getInputPlaceholderColor(
-                          defaultColor: Color(0xffd5d5d5),
-                          defaultDarkColor:
-                              TextUtil.isEmpty(this.inputController?.text)
-                                  ? Color(0xff575757)
-                                  : Colors.white),
-                  fontSize: widget.useUnifiedStyle ? 13 : 14,
-                  fontWeight: widget.useUnifiedStyle ? FontWeight.w600 : null),
+                  color: useMobileModernStyle
+                      ? const Color(0xFFBDBDBD)
+                      : widget.useUnifiedStyle
+                          ? const Color(0xFFB69179).withValues(alpha: 0.88)
+                          : ThemeManager.getInstance().getInputPlaceholderColor(
+                              defaultColor: Color(0xffd5d5d5),
+                              defaultDarkColor:
+                                  TextUtil.isEmpty(this.inputController?.text)
+                                      ? Color(0xff575757)
+                                      : Colors.white),
+                  fontSize: useMobileModernStyle
+                      ? 18
+                      : widget.useUnifiedStyle
+                          ? 13
+                          : 14,
+                  fontWeight: widget.useUnifiedStyle || useMobileModernStyle
+                      ? FontWeight.w600
+                      : null),
+              hintStyle: TextStyle(
+                  color: useMobileModernStyle
+                      ? const Color(0xFFBDBDBD)
+                      : widget.useUnifiedStyle
+                          ? const Color(0xFFB69179).withValues(alpha: 0.88)
+                          : ThemeManager.getInstance().getInputPlaceholderColor(
+                              defaultColor: Color(0xffd5d5d5),
+                              defaultDarkColor:
+                                  TextUtil.isEmpty(this.inputController?.text)
+                                      ? Color(0xff575757)
+                                      : Colors.white),
+                  fontSize: useMobileModernStyle
+                      ? 18
+                      : widget.useUnifiedStyle
+                          ? 13
+                          : 14,
+                  fontWeight: widget.useUnifiedStyle || useMobileModernStyle
+                      ? FontWeight.w600
+                      : null),
               //边框，一般下面的几个边框一起设置
               //keyboardType: TextInputType.number, //键盘类型
               //obscureText: true,//密码模式
@@ -926,60 +1490,77 @@ class HeaderInputState extends State<HeaderInputWidget> {
                 defaultColor: Colors.white,
               ),
               focusColor: ThemeManager.getInstance().getInputThemeColor(
-                  defaultColor: widget.useUnifiedStyle
-                      ? const Color(0xFFFFF8F2)
-                      : Colors.white,
+                  defaultColor: useMobileModernStyle
+                      ? Colors.white
+                      : widget.useUnifiedStyle
+                          ? const Color(0xFFFFF8F2)
+                          : Colors.white,
                   defaultDarkColor:
                       ThemeManager.getInstance().getBackgroundColor()),
               //右边距是为了放置番茄计数器
               fillColor: ThemeManager.getInstance().getInputThemeColor(
-                  defaultColor: widget.useUnifiedStyle
-                      ? const Color(0xFFFFF8F2)
-                      : Colors.white),
-              focusedBorder: widget.useUnifiedStyle
-                  ? OutlineInputBorder(
-                      gapPadding: 0,
-                      borderRadius: BorderRadius.circular(22),
-                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
-                    )
-                  : _outlineInputBorder,
-              enabledBorder: widget.useUnifiedStyle
-                  ? OutlineInputBorder(
-                      gapPadding: 0,
-                      borderRadius: BorderRadius.circular(22),
-                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
-                    )
-                  : _outlineInputBorder,
-              disabledBorder: widget.useUnifiedStyle
-                  ? OutlineInputBorder(
-                      gapPadding: 0,
-                      borderRadius: BorderRadius.circular(22),
-                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
-                    )
-                  : _outlineInputBorder,
-              focusedErrorBorder: widget.useUnifiedStyle
-                  ? OutlineInputBorder(
-                      gapPadding: 0,
-                      borderRadius: BorderRadius.circular(22),
-                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
-                    )
-                  : _outlineInputBorder,
-              errorBorder: widget.useUnifiedStyle
-                  ? OutlineInputBorder(
-                      gapPadding: 0,
-                      borderRadius: BorderRadius.circular(22),
-                      borderSide: const BorderSide(color: Color(0xFFE6D8C9)),
-                    )
-                  : _outlineInputBorder,
+                  defaultColor: useMobileModernStyle
+                      ? Colors.white
+                      : widget.useUnifiedStyle
+                          ? const Color(0xFFFFF8F2)
+                          : Colors.white),
+              focusedBorder: useMobileModernStyle
+                  ? mobileModernBorder
+                  : widget.useUnifiedStyle
+                      ? OutlineInputBorder(
+                          gapPadding: 0,
+                          borderRadius: BorderRadius.circular(22),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE6D8C9)),
+                        )
+                      : _outlineInputBorder,
+              enabledBorder: useMobileModernStyle
+                  ? mobileModernBorder
+                  : widget.useUnifiedStyle
+                      ? OutlineInputBorder(
+                          gapPadding: 0,
+                          borderRadius: BorderRadius.circular(22),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE6D8C9)),
+                        )
+                      : _outlineInputBorder,
+              disabledBorder: useMobileModernStyle
+                  ? mobileModernBorder
+                  : widget.useUnifiedStyle
+                      ? OutlineInputBorder(
+                          gapPadding: 0,
+                          borderRadius: BorderRadius.circular(22),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE6D8C9)),
+                        )
+                      : _outlineInputBorder,
+              focusedErrorBorder: useMobileModernStyle
+                  ? mobileModernBorder
+                  : widget.useUnifiedStyle
+                      ? OutlineInputBorder(
+                          gapPadding: 0,
+                          borderRadius: BorderRadius.circular(22),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE6D8C9)),
+                        )
+                      : _outlineInputBorder,
+              errorBorder: useMobileModernStyle
+                  ? mobileModernBorder
+                  : widget.useUnifiedStyle
+                      ? OutlineInputBorder(
+                          gapPadding: 0,
+                          borderRadius: BorderRadius.circular(22),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE6D8C9)),
+                        )
+                      : _outlineInputBorder,
               // labelStyle:
               //     TextStyle(color: Color(0x00000000), fontSize: 14),
               // labelText: getI18NKey().search,
-              labelText: Utility.isHandsetBySize()
-                  ? getI18NKey().addMissions2
-                  : curFolderModel == null
-                      ? getI18NKey().missionPageInputHolder
-                      : getI18NKey().header_input_placeholder_with_title(
-                          curFolderModel?.title ?? ""),
+              // 移动端新版头部右侧挂着番茄输入器，labelText 会被 InputDecorator 当成浮动标签参与布局，
+              // 可用宽度会被压得很小，最终只剩“添...”这种截断效果；这里改成真正的 hintText。
+              hintText: useMobileModernStyle ? placeholderText : null,
+              labelText: useMobileModernStyle ? null : placeholderText,
             ),
             // decoration: InputDecoration(
             //     counterStyle: TextStyle(color: Colors.black),

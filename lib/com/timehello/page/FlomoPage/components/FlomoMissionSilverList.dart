@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable, deprecated_colon_for_default_value
+
 import 'package:flutter/material.dart';
-import 'package:time_hello/com/timehello/components/CheckImage.dart';
 import 'package:time_hello/com/timehello/components/IconWidget.dart';
-import 'package:time_hello/com/timehello/components/RatingBar.dart';
-import 'package:time_hello/com/timehello/components/StateImage.dart';
-import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 import 'package:time_hello/com/timehello/config/ColorsConfig.dart';
-import 'package:time_hello/com/timehello/config/ENUMS.dart';
-import 'package:time_hello/com/timehello/config/StylesConfig.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
 import 'package:time_hello/com/timehello/libs/flutter_slidable/src/action_pane_motions.dart';
 import 'package:time_hello/com/timehello/libs/flutter_slidable/src/actions.dart';
@@ -15,12 +10,9 @@ import 'package:time_hello/com/timehello/libs/flutter_slidable/src/slidable.dart
 import 'package:time_hello/com/timehello/models/FlomoMissionModel.dart';
 import 'package:time_hello/com/timehello/util/ThemeManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
-import 'package:time_hello/r.dart';
 
 import '../../../components/DashWidget.dart';
-import '../../../config/Params.dart';
 import '../../../util/DeviceInfoManagement.dart';
-import '../../../util/ScreenUtil.dart';
 import 'ConfirmButton.dart';
 
 typedef OnTapFinishListener = void Function(dynamic obj);
@@ -30,6 +22,11 @@ typedef OnTapDeleteListener = void Function(dynamic obj);
 typedef OnTapPlayListener = void Function(dynamic obj);
 typedef OnDragEndListener = void Function(dynamic obj);
 
+/**
+ * 文件类型：组件
+ * 文件作用：展示 Flomo 打卡任务列表和单个任务卡片。
+ * 主要职责：承接打卡、编辑、归档、删除等交互，并把任务 item 渲染成参考 FolderPage 的圆角卡片样式。
+ */
 class FlomoMissionSilverList extends StatefulWidget {
   String ymd = ""; // 2022-01-12
   DateTime curDateTime;
@@ -52,13 +49,13 @@ class FlomoMissionSilverList extends StatefulWidget {
       {Key? key,
       required List datas,
       OnTapListener? onTapListener,
-        this.onTapClockInListener,
+      this.onTapClockInListener,
       required this.curDateTime,
       String? ymd,
       this.onTapFinishListener,
-       required this.onTapUnfinishListener,
+      required this.onTapUnfinishListener,
       required OnDragEndListener onDragEndListener,
-        required this.onTapCancelClockInListener,
+      required this.onTapCancelClockInListener,
       this.bottomChild,
       this.onTapDeleteListener,
       this.onTapEditListener,
@@ -151,14 +148,14 @@ class FlomoMissionSilverListItem extends StatefulWidget {
       bool isVisible = true,
       required this.curDateTime,
       required this.ymd,
-        this.onTapClockInListener,
+      this.onTapClockInListener,
       this.isDraggable = false,
       OnTapListener? onTapListener,
       required FlomoMissionModel missionModel,
       int? index,
-        this.onTapUnfinishListener,
+      this.onTapUnfinishListener,
       this.onTapEditTitleListener,
-        this.onTapCancelClockInListener,
+      this.onTapCancelClockInListener,
       this.onTapPlayListener,
       this.onTapFinishListener,
       this.onTapDeleteListener,
@@ -191,6 +188,91 @@ class FlomoMissionSilverListItemState
   double ratio = Utility.getRatioForSlider(
     numItem: 5,
   );
+
+  Widget _buildOverflowMenu(FlomoMissionModel missionModel) {
+    final Color iconColor = ThemeManager.getInstance()
+        .getIconColor(defaultColor: Colors.black87)
+        .withValues(alpha: isHover ? 0.95 : 0.55);
+
+    if (missionModel.isFinished == false) {
+      return PopupMenuButton<String>(
+        tooltip: '',
+        padding: EdgeInsets.zero,
+        iconSize: 16,
+        icon: Icon(Icons.more_vert, color: iconColor),
+        itemBuilder: (context) {
+          return <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'complete',
+              onTap: () {
+                Future.delayed(Duration(milliseconds: 100), () {
+                  this.widget.onTapFinishListener?.call(missionModel);
+                });
+              },
+              child: Text(getI18NKey().archived,
+                  style: TextStyle(fontSize: fontSize)),
+            ),
+            PopupMenuItem<String>(
+              value: 'edit',
+              onTap: () {
+                Future.delayed(Duration(milliseconds: 100), () {
+                  this.widget.onTapEditListener?.call(missionModel);
+                });
+              },
+              child: Text(getI18NKey().edit,
+                  style: TextStyle(color: Colors.green, fontSize: fontSize)),
+            ),
+            PopupMenuItem<String>(
+              value: 'cancel_latest_clockin',
+              onTap: () {
+                Future.delayed(Duration(milliseconds: 100), () {
+                  this.widget.onTapCancelClockInListener?.call(missionModel);
+                });
+              },
+              child: Text(getI18NKey().cancel_latest_clockin,
+                  style: TextStyle(color: Colors.grey, fontSize: fontSize)),
+            ),
+            PopupMenuItem<String>(
+              value: 'delete',
+              onTap: () {
+                Future.delayed(Duration(milliseconds: 100), () {
+                  this.widget.onTapDeleteListener?.call(missionModel);
+                });
+              },
+              child: Text(
+                getI18NKey().delete,
+                style: TextStyle(color: ColorsConfig.red, fontSize: fontSize),
+              ),
+            ),
+          ];
+        },
+      );
+    }
+
+    return PopupMenuButton<String>(
+      tooltip: '',
+      padding: EdgeInsets.zero,
+      iconSize: 16,
+      icon: Icon(Icons.more_vert, color: iconColor),
+      itemBuilder: (context) {
+        return <PopupMenuEntry<String>>[
+          PopupMenuItem<String>(
+            value: 'delete',
+            onTap: () {
+              Future.delayed(Duration(milliseconds: 100), () {
+                this.widget.onTapDeleteListener?.call(missionModel);
+              });
+            },
+            child: Text(
+              getI18NKey().delete,
+              style: TextStyle(color: ColorsConfig.red, fontSize: fontSize),
+            ),
+          ),
+        ];
+      },
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -202,15 +284,20 @@ class FlomoMissionSilverListItemState
     });
   }
 
-
-
   Widget getContainerWithHeight(
       {double percent = 0.3,
       double? height,
       required FlomoMissionModel flomoMissionModel,
       required Widget child}) {
-    double draggableWidth =
-        (ScreenUtil.getScreenW(context) - 50) / 2; //可拖曳组件的宽度
+    final bool isDark = ThemeManager.getInstance().isDark();
+    final bool isClockedToday = percentClocksIn >= 1;
+    final Color missionColor =
+        Color(this.widget.missionModel.color ?? 0xffff8800);
+    final Color cardColor = isClockedToday
+        ? (isDark ? const Color(0xff3b3528) : const Color(0xfffff9df))
+        : ThemeManager.getInstance().getCardBackgroundColor(
+            defaultColor: Colors.white,
+          );
 
     //得到container宽度
     return InkWell(
@@ -226,26 +313,49 @@ class FlomoMissionSilverListItemState
         // height: 115,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white),
+          color: cardColor,
           borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isClockedToday
+                ? const Color(0xffffe2a7)
+                : ThemeManager.getInstance().getLineColor(
+                    defaultColor: const Color(0xffedf1fb),
+                  ),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isDark ? 0.10 : 0.035),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         // padding: EdgeInsets.only(
         //     top: Utility.isHandsetBySize() ? 3 : 6,
         //     bottom: Utility.isHandsetBySize() ? 3 : 6),
         margin: EdgeInsets.only(
-            top: 6,
-            bottom: Utility.isHandsetBySize() ? 0 : 2,
+            top: 5,
+            bottom: Utility.isHandsetBySize() ? 0 : 8,
             left: 10,
             right: 10),
         alignment: Alignment.centerLeft,
         child: Stack(
           children: [
-            Container(
-              width: size.width * percentClocksIn,
-              height: 120,
-              color: ThemeManager.getInstance().isDark() ? Color(
-                  (this.widget.missionModel.color ?? 0xffff8800) - 0x50000000) : Color(
-                  (this.widget.missionModel.color ?? 0xffff8800) - 0xb0000000),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 5,
+                  decoration: BoxDecoration(
+                    color: missionColor.withValues(
+                      alpha: isClockedToday ? 0.42 : 0.22,
+                    ),
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
             ),
             Column(
               children: [
@@ -256,28 +366,30 @@ class FlomoMissionSilverListItemState
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      getI18NKey().clockin_n_days_continuously(Utility
-                              .totalFlomoMissionClockInFinishedContinuouslyAtYmdTimeStamp(
-                            flomoMissionModel: flomoMissionModel,
-                            curTimeStamp:
-                                this.widget.curDateTime.millisecondsSinceEpoch,
-                          ).toString()) +
-                          "-" +
-                          getI18NKey().clockin_n_days_totally(
-                              Utility.totalFlomoMissionClockInFinished(
-                            clockInMap: flomoMissionModel?.clockIn ?? {},
-                            daily_num_times: flomoMissionModel.daily_num_times,
-                          ).toString()),
-                      style: TextStyle(color: Color(0xff999999), fontSize: 12),
-                    ),
-                    Spacer(),
-                    Text(
-                      "",
-                      style: TextStyle(color: Color(0xff999999), fontSize: 12),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      // 底部连续/累计打卡文案在窄侧栏里很容易变长，必须限制成单行省略，避免右侧出现 Flutter overflow 黄黑条。
+                      child: Text(
+                        getI18NKey().clockin_n_days_continuously(Utility
+                                .totalFlomoMissionClockInFinishedContinuouslyAtYmdTimeStamp(
+                              flomoMissionModel: flomoMissionModel,
+                              curTimeStamp: this
+                                  .widget
+                                  .curDateTime
+                                  .millisecondsSinceEpoch,
+                            ).toString()) +
+                            "-" +
+                            getI18NKey().clockin_n_days_totally(
+                                Utility.totalFlomoMissionClockInFinished(
+                              clockInMap: flomoMissionModel.clockIn ?? {},
+                              daily_num_times:
+                                  flomoMissionModel.daily_num_times,
+                            ).toString()),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            TextStyle(color: Color(0xff999999), fontSize: 12),
+                      ),
                     ),
                     SizedBox(width: 10)
                   ],
@@ -286,28 +398,33 @@ class FlomoMissionSilverListItemState
             ),
             Positioned(
               top: 38,
-              right:  0 ,
+              right: 0,
               child: // 完成不需要显示
-            this.widget.missionModel.isFinished == true
-                ? SizedBox.shrink()
-                : InkWell(
-              onTap: () {
-                this.widget.onTapClockInListener?.call(this.widget.missionModel);
-              },
-              child: Container(
-                // alignment: Alignment(0.3,-1),
-                padding: EdgeInsets.only(top: 15),
-                alignment: Alignment.topCenter,
-                height: 100,
-                width: 70,
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        0, 0, Utility.isHandsetBySize() ? 0 : 10, 0),
-                    child: ConfirmButton(
-                      isChecked: this.percentClocksIn >= 1 ? true : false,
-                    )),
-              ),
-            ),)
+                  this.widget.missionModel.isFinished == true
+                      ? SizedBox.shrink()
+                      : InkWell(
+                          onTap: () {
+                            this
+                                .widget
+                                .onTapClockInListener
+                                ?.call(this.widget.missionModel);
+                          },
+                          child: Container(
+                            // alignment: Alignment(0.3,-1),
+                            padding: EdgeInsets.only(top: 15),
+                            alignment: Alignment.topCenter,
+                            height: 100,
+                            width: 70,
+                            child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0,
+                                    Utility.isHandsetBySize() ? 0 : 10, 0),
+                                child: ConfirmButton(
+                                  isChecked:
+                                      this.percentClocksIn >= 1 ? true : false,
+                                )),
+                          ),
+                        ),
+            )
           ],
         ),
       ),
@@ -317,7 +434,8 @@ class FlomoMissionSilverListItemState
   @override
   Widget build(BuildContext context) {
     FlomoMissionModel _missionModel = this.widget.missionModel;
-    percentClocksIn = Utility.getPercentOfNumClocksIn(missionModel: this.widget.missionModel, ymd: this.widget.ymd);
+    percentClocksIn = Utility.getPercentOfNumClocksIn(
+        missionModel: this.widget.missionModel, ymd: this.widget.ymd);
     //左边文案和角标
     if (Utility.isHandsetBySize() == false && this.widget.isDraggable == true) {
       fontSize = 12;
@@ -331,7 +449,9 @@ class FlomoMissionSilverListItemState
           alignment: Alignment.center,
           margin: EdgeInsets.only(right: 10, left: 10),
           decoration: BoxDecoration(
-              color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white), borderRadius: BorderRadius.circular(40)),
+              color: ThemeManager.getInstance()
+                  .getCardBackgroundColor(defaultColor: Colors.white),
+              borderRadius: BorderRadius.circular(40)),
           child: IconWidget(
             icon: this.widget.missionModel.icon ?? 0,
             iconSize: 28,
@@ -358,7 +478,8 @@ class FlomoMissionSilverListItemState
                             fontWeight: FontWeight.bold,
                             fontSize: fontSize,
                             overflow: TextOverflow.ellipsis,
-                            color: ThemeManager.getInstance().getTextColor(defaultColor: ColorsConfig.gray_40))),
+                            color: ThemeManager.getInstance().getTextColor(
+                                defaultColor: ColorsConfig.gray_40))),
                     SizedBox(
                       width: Utility.isHandsetBySize() ? 1 : 3,
                     ),
@@ -386,10 +507,10 @@ class FlomoMissionSilverListItemState
                     // ),
                     // SizedBox(width: 2),
                     Text(
-                      (this.widget.missionModel?.alert_times?.length ?? 0) > 0
+                      this.widget.missionModel.alert_times.isNotEmpty
                           ? Utility.formatHourAndMin2(
                               Utility.getTheLatestTimesFromNow(
-                                  this.widget.missionModel?.alert_times ?? []))
+                                  this.widget.missionModel.alert_times))
                           : "",
                       style: TextStyle(
                           fontSize: Utility.isHandsetBySize() ? 10 : 12,
@@ -399,7 +520,6 @@ class FlomoMissionSilverListItemState
                 )
               ]),
           flex: 3),
-
       DeviceInfoManagement.isMoible() == false
           ? SizedBox(
               width: 15,
@@ -414,12 +534,15 @@ class FlomoMissionSilverListItemState
     // }
     return Slidable(
       key: ValueKey(_missionModel),
-      enabled: (DeviceInfoManagement.isMoible() == true || DeviceInfoManagement.isWebMobileBySize() || DeviceInfoManagement.isIOS())
-          ,
+      enabled: (DeviceInfoManagement.isMoible() == true ||
+          DeviceInfoManagement.isWebMobileBySize() ||
+          DeviceInfoManagement.isIOS()),
       startActionPane: ActionPane(
         motion: const DrawerMotion(),
         extentRatio: ratio,
-        children: _missionModel.isFinished == false ? getUnfinishedSlidableItems(_missionModel) : getFinishedSlidableItems(_missionModel),
+        children: _missionModel.isFinished == false
+            ? getUnfinishedSlidableItems(_missionModel)
+            : getFinishedSlidableItems(_missionModel),
       ),
       child: MouseRegion(
         onEnter: (_) {
@@ -440,7 +563,6 @@ class FlomoMissionSilverListItemState
 
   List<Widget> getFinishedSlidableItems(FlomoMissionModel _missionModel) {
     return [
-
       SlidableAction(
         onPressed: (context) {
           if (this.widget.onTapUnfinishListener != null)
@@ -449,9 +571,8 @@ class FlomoMissionSilverListItemState
         backgroundColor: Colors.grey,
         foregroundColor: Colors.white,
         icon: Icons.cancel_outlined,
-        label: getI18NKey().unfinished,  // 添加label以替代旧版中的caption
+        label: getI18NKey().unfinished, // 添加label以替代旧版中的caption
       ),
-
       SlidableAction(
         onPressed: (context) {
           if (this.widget.onTapDeleteListener != null)
@@ -460,54 +581,54 @@ class FlomoMissionSilverListItemState
         backgroundColor: Colors.red,
         foregroundColor: Colors.white,
         icon: Icons.delete,
-        label: getI18NKey().delete,  // 添加label以替代旧版中的caption
+        label: getI18NKey().delete, // 添加label以替代旧版中的caption
       ),
     ];
   }
 
   List<Widget> getUnfinishedSlidableItems(FlomoMissionModel _missionModel) {
     return [
-        SlidableAction(
-          onPressed: (context) {
-            if (this.widget.onTapFinishListener != null)
-              this.widget.onTapFinishListener!(_missionModel);
-          },
-          backgroundColor: Colors.lightBlue,
-          foregroundColor: Colors.white,
-          icon: Icons.check,
-          label: getI18NKey().finish,  // 添加label以替代旧版中的caption
-        ),
-        SlidableAction(
-          onPressed: (context) {
-            if (this.widget.onTapEditListener != null)
-              this.widget.onTapEditListener!(_missionModel);
-          },
-          backgroundColor: Colors.lightGreen,
-          foregroundColor: Colors.white,
-          icon: Icons.edit,
-          label: getI18NKey().edit,  // 添加label以替代旧版中的caption
-        ),
-        SlidableAction(
-          onPressed: (context) {
-            if (this.widget.onTapCancelClockInListener != null)
-              this.widget.onTapCancelClockInListener!(_missionModel);
-          },
-          backgroundColor: Colors.grey,
-          foregroundColor: Colors.white,
-          icon: Icons.cancel_outlined,
-          label: getI18NKey().cancel_latest_clockin,  // 添加label以替代旧版中的caption
-        ),
-        SlidableAction(
-          onPressed: (context) {
-            if (this.widget.onTapDeleteListener != null)
-              this.widget.onTapDeleteListener!(_missionModel);
-          },
-          backgroundColor: Colors.red,
-          foregroundColor: Colors.white,
-          icon: Icons.delete,
-          label: getI18NKey().delete,  // 添加label以替代旧版中的caption
-        ),
-      ];
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapFinishListener != null)
+            this.widget.onTapFinishListener!(_missionModel);
+        },
+        backgroundColor: Colors.lightBlue,
+        foregroundColor: Colors.white,
+        icon: Icons.check,
+        label: getI18NKey().finish, // 添加label以替代旧版中的caption
+      ),
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapEditListener != null)
+            this.widget.onTapEditListener!(_missionModel);
+        },
+        backgroundColor: Colors.lightGreen,
+        foregroundColor: Colors.white,
+        icon: Icons.edit,
+        label: getI18NKey().edit, // 添加label以替代旧版中的caption
+      ),
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapCancelClockInListener != null)
+            this.widget.onTapCancelClockInListener!(_missionModel);
+        },
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        icon: Icons.cancel_outlined,
+        label: getI18NKey().cancel_latest_clockin, // 添加label以替代旧版中的caption
+      ),
+      SlidableAction(
+        onPressed: (context) {
+          if (this.widget.onTapDeleteListener != null)
+            this.widget.onTapDeleteListener!(_missionModel);
+        },
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+        icon: Icons.delete,
+        label: getI18NKey().delete, // 添加label以替代旧版中的caption
+      ),
+    ];
   }
 
   Widget getItem(List<Widget> childrenRow, FlomoMissionModel _missionModel) {
@@ -519,7 +640,8 @@ class FlomoMissionSilverListItemState
           Column(
             children: [
               Container(
-                color: ThemeManager.getInstance().getCardBackgroundColor(defaultColor: Colors.white),
+                color: ThemeManager.getInstance()
+                    .getCardBackgroundColor(defaultColor: Colors.white),
                 padding: EdgeInsets.symmetric(
                     horizontal: marginLeftRight, vertical: 10),
                 child: Column(
@@ -528,19 +650,29 @@ class FlomoMissionSilverListItemState
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          getI18NKey().everyDayOnce(
-                              this.widget.missionModel.daily_num_times),
-                          style:
-                              TextStyle(color: Color(0xff8c8c8c), fontSize: 12),
+                        Expanded(
+                          child: Text(
+                            getI18NKey().everyDayOnce(
+                                this.widget.missionModel.daily_num_times),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color(0xff8c8c8c), fontSize: 12),
+                          ),
                         ),
-                        (this.isHover == true )
+                        const SizedBox(width: 6),
+                        (this.isHover == true)
                             ? SizedBox.shrink()
-                            : Text(
-                                this.widget.missionModel.inspration_message ??
-                                    "",
-                                style: TextStyle(
-                                    color: Color(0xff999999), fontSize: 12),
+                            : Flexible(
+                                child: Text(
+                                  this.widget.missionModel.inspration_message ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      color: Color(0xff999999), fontSize: 12),
+                                ),
                               )
                       ],
                     ),
@@ -562,113 +694,10 @@ class FlomoMissionSilverListItemState
               ]),
             ],
           ),
-          (this.isHover == true && _missionModel.isFinished == false)
-              ? Align(
-                  alignment: Alignment.topRight,
-                  child: PopupMenuButton<String>(
-                    tooltip: '',
-                    padding: EdgeInsets.only(left: 0),
-                    // offset: Offset(130, 30),
-                    iconSize: 14,
-                    icon: Icon(
-                      Icons.more_vert,
-                      color: ThemeManager.getInstance().getIconColor(defaultColor: Colors.black87),
-                    ),
-                    onCanceled: () {
-                      print(1);
-                    },
-                    itemBuilder: (context) {
-                      // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
-                      return <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'complete',
-                          onTap: () {
-                            //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              this.widget.onTapFinishListener!(_missionModel);
-                            });
-                          },
-                          child: Text(getI18NKey().archived,
-                              style: TextStyle(fontSize: fontSize)),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'edit',
-                          onTap: () {
-                            //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              this.widget.onTapEditListener!(_missionModel);
-                            });
-                          },
-                          child: Text(getI18NKey().edit,
-                              style:
-                                  TextStyle(color: Colors.green, fontSize: fontSize)),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'cancel_latest_clockin',
-                          onTap: () {
-                            //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              this.widget.onTapCancelClockInListener!(_missionModel);
-                            });
-                          },
-                          child: Text(getI18NKey().cancel_latest_clockin,
-                              style:
-                              TextStyle(color: Colors.grey, fontSize: fontSize)),
-                        ),
-
-                        PopupMenuItem<String>(
-                          //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
-                          value: 'delete',
-                          onTap: () {
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              this.widget.onTapDeleteListener!(_missionModel);
-                            });
-                          },
-                          child: Text(
-                            getI18NKey().delete,
-                            style: TextStyle(
-                                color: ColorsConfig.red, fontSize: fontSize),
-                          ),
-                        ),
-                      ];
-                    },
-                  ),
-                )
-              :  (this.isHover == true && _missionModel.isFinished == true) ? Align(
+          Align(
             alignment: Alignment.topRight,
-            child: PopupMenuButton<String>(
-              tooltip: '',
-              padding: EdgeInsets.only(left: 0),
-              // offset: Offset(130, 30),
-              iconSize: 14,
-              icon: Icon(
-                Icons.more_vert,
-                color: Colors.black87,
-              ),
-              onCanceled: () {
-                print(1);
-              },
-              itemBuilder: (context) {
-                // PopupMenuButtonStateGlobalKey.currentState.mounted = true;
-                return <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                    //需要加延时，否则弹窗弹出来会造成这里pop没隐藏报错
-                    value: 'delete',
-                    onTap: () {
-                      Future.delayed(Duration(milliseconds: 100), () {
-                        this.widget.onTapDeleteListener!(_missionModel);
-                      });
-                    },
-                    child: Text(
-                      getI18NKey().delete,
-                      style: TextStyle(
-                          color: ColorsConfig.red, fontSize: fontSize),
-                    ),
-                  ),
-                ];
-              },
-            ),
-          ) : SizedBox.shrink()
+            child: _buildOverflowMenu(_missionModel),
+          )
         ],
       ),
     );

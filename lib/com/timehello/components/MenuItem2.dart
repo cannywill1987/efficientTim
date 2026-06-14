@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:time_hello/com/timehello/components/unified/UnifiedDesktopShell.dart';
 import 'package:time_hello/com/timehello/interface/OnTapListener.dart';
@@ -11,6 +13,7 @@ class MenuItem2 extends StatefulWidget {
   OnTapListener? onTapListener;
   bool useUnifiedStyle;
   bool compactUnifiedStyle;
+  bool useCreateMissionMobileStyle;
   double? width;
   MenuItem2(
       {required this.icon,
@@ -20,6 +23,7 @@ class MenuItem2 extends StatefulWidget {
       this.onTapListener,
       this.useUnifiedStyle = false,
       this.compactUnifiedStyle = false,
+      this.useCreateMissionMobileStyle = false,
       this.width});
 
   @override
@@ -50,17 +54,20 @@ class MenuItemState extends State<MenuItem2> {
           SizedBox(
             width: 2,
           ),
-          this.widget.subTitle == null ? SizedBox.shrink() : Text(
-            this.widget.subTitle ?? "",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xffa0a0a0)),
-          )
-
+          this.widget.subTitle == null
+              ? SizedBox.shrink()
+              : Text(
+                  this.widget.subTitle ?? "",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xffa0a0a0)),
+                )
         ],
       )
     ];
     if (this.widget.rightPartContainer != null) {
       items.add(this.widget.rightPartContainer!);
-
     }
     if (widget.useUnifiedStyle) {
       return MouseRegion(
@@ -92,7 +99,8 @@ class MenuItemState extends State<MenuItem2> {
               widget.compactUnifiedStyle ? 12 : 12,
             ),
             decoration: buildUnifiedDesktopCardDecoration(
-              backgroundColor: ThemeManager.getInstance().getCardBackgroundColor(
+              backgroundColor:
+                  ThemeManager.getInstance().getCardBackgroundColor(
                 defaultColor: _isHovered
                     ? const Color(0xFFFFF8F0)
                     : const Color(0xFFFFFCF7),
@@ -105,7 +113,8 @@ class MenuItemState extends State<MenuItem2> {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: _isHovered ? 0.05 : 0.03),
+                  color:
+                      Colors.black.withValues(alpha: _isHovered ? 0.05 : 0.03),
                   blurRadius: _isHovered ? 14 : 10,
                   offset: const Offset(0, 6),
                 )
@@ -153,8 +162,10 @@ class MenuItemState extends State<MenuItem2> {
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
-                                  color: ThemeManager.getInstance().getTextColor(
-                                      defaultColor: const Color(0xFFA18A78)),
+                                  color: ThemeManager.getInstance()
+                                      .getTextColor(
+                                          defaultColor:
+                                              const Color(0xFFA18A78)),
                                 ),
                               ),
                             ],
@@ -163,8 +174,10 @@ class MenuItemState extends State<MenuItem2> {
                             if (this.widget.rightPartContainer != null)
                               DefaultTextStyle.merge(
                                 style: TextStyle(
-                                  color: ThemeManager.getInstance().getTextColor(
-                                      defaultColor: const Color(0xFF3C2A1E)),
+                                  color: ThemeManager.getInstance()
+                                      .getTextColor(
+                                          defaultColor:
+                                              const Color(0xFF3C2A1E)),
                                 ),
                                 child: this.widget.rightPartContainer!,
                               ),
@@ -197,8 +210,8 @@ class MenuItemState extends State<MenuItem2> {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
-                          color: ThemeManager.getInstance()
-                              .getTextColor(defaultColor: const Color(0xFF6D5646)),
+                          color: ThemeManager.getInstance().getTextColor(
+                              defaultColor: const Color(0xFF6D5646)),
                         ),
                       ),
                       if ((this.widget.subTitle ?? "").isNotEmpty) ...[
@@ -234,11 +247,79 @@ class MenuItemState extends State<MenuItem2> {
         ),
       );
     }
+    if (widget.useCreateMissionMobileStyle) {
+      return InkWell(
+          onTap: () {
+            if (this.widget.onTapListener != null) {
+              this.widget.onTapListener!(null);
+            }
+          },
+          child: Container(
+              constraints: const BoxConstraints(minHeight: 66),
+              padding: const EdgeInsets.fromLTRB(28, 0, 18, 0),
+              decoration: BoxDecoration(
+                color: ThemeManager.getInstance()
+                    .getCardBackgroundColor(defaultColor: Colors.white),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black.withValues(alpha: 0.055),
+                    width: 0.7,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 24, height: 24, child: this.widget.icon),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Wrap(
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          this.widget.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                            color: ThemeManager.getInstance().getTextColor(
+                                defaultColor: const Color(0xFF171717)),
+                          ),
+                        ),
+                        if ((this.widget.subTitle ?? "").isNotEmpty) ...[
+                          const SizedBox(width: 4),
+                          Text(
+                            this.widget.subTitle ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF9E9E9E),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  if (this.widget.rightPartContainer != null)
+                    DefaultTextStyle.merge(
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Color(0xFF9E9E9E),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      child: this.widget.rightPartContainer!,
+                    ),
+                ],
+              )));
+    }
     // TODO: implement build
     //获取星星
     return InkWell(
         onTap: () {
-          if(this.widget.onTapListener != null) {
+          if (this.widget.onTapListener != null) {
             this.widget.onTapListener!(null);
           }
         },
@@ -247,7 +328,8 @@ class MenuItemState extends State<MenuItem2> {
             margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
             constraints: BoxConstraints(minHeight: 60),
             // height: 60,
-            color: ThemeManager.getInstance().getCardBackgroundColor(context: context, defaultColor: Colors.white),
+            color: ThemeManager.getInstance().getCardBackgroundColor(
+                context: context, defaultColor: Colors.white),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

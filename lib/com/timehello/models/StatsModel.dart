@@ -3,9 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../libs/mongodb/table/MongoDbObject.dart';
 
-
-
-
 part 'StatsModel.g.dart';
 
 /**
@@ -15,8 +12,7 @@ part 'StatsModel.g.dart';
  * 字符串不能加默认值 加默认值更新update 会自动清空
  */
 @JsonSerializable()
-class StatsModel extends MongoDbObject{
-
+class StatsModel extends MongoDbObject {
   String? title; //任务标题
 
   int? type = 0; // 0 missionModel的数据 1 missionModel 单个已经完成的 2 FolderModel
@@ -60,18 +56,71 @@ class StatsModel extends MongoDbObject{
 
   //此处与类名一致，由指令自动生成代码
   factory StatsModel.fromJson(Map<String, dynamic> json) {
-    StatsModel statsModel = _$StatsModelFromJson(json);
-    try {
-      //value是默认番茄钟的值， 如果其实时间和结束时间花的时间很多证明期间有展厅 ，以value为准， 小的话证明提前完成
-      statsModel.duration =
-      (json['finish_time'] - json['begin_time']) > json['value']
-          ? json['value']
-          : (json['finish_time'] - json['begin_time']);
-    } catch(e) {
-      print(e);
+    final StatsModel statsModel = _$StatsModelFromJson(_normalizeJson(json));
+    final int? beginTime = statsModel.begin_time;
+    final int? finishTime = statsModel.finish_time;
+    final double? targetValue = statsModel.value;
+
+    // 历史数据里 value 可能是 double，开始/结束时间也可能为空；统一用解析后的字段计算，
+    // 避免启动时被 raw json 的动态类型打断。
+    if (beginTime != null && finishTime != null) {
+      final int elapsedDuration = finishTime - beginTime;
+      statsModel.duration = targetValue != null && elapsedDuration > targetValue
+          ? targetValue.toInt()
+          : elapsedDuration;
+    } else if (statsModel.duration == null && targetValue != null) {
+      statsModel.duration = targetValue.toInt();
     }
     return statsModel;
   }
+
+  /**
+   * 功能：兼容 Mongo 历史数据中数字字段为字符串、double 或空值的情况。
+   *
+   * 说明：StatsModel 会在启动统计链路里批量解析，不能让单条历史脏数据影响首页进入。
+   */
+  static Map<String, dynamic> _normalizeJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> normalized = Map<String, dynamic>.from(json);
+    const List<String> intFields = [
+      'type',
+      'focus_duration',
+      'color',
+      'icon',
+      'begin_time',
+      'finish_time',
+      'duration',
+    ];
+    for (final String field in intFields) {
+      normalized[field] = _parseNullableInt(normalized[field]);
+    }
+    normalized['value'] = _parseNullableDouble(normalized['value']);
+    return normalized;
+  }
+
+  static int? _parseNullableInt(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    if (value is String) {
+      final String trimmed = value.trim();
+      if (trimmed.isEmpty) return null;
+      return int.tryParse(trimmed) ?? double.tryParse(trimmed)?.toInt();
+    }
+    return null;
+  }
+
+  static double? _parseNullableDouble(dynamic value) {
+    if (value == null) return null;
+    if (value is double) return value;
+    if (value is num) return value.toDouble();
+    if (value is String) {
+      final String trimmed = value.trim();
+      if (trimmed.isEmpty) return null;
+      return double.tryParse(trimmed);
+    }
+    return null;
+  }
+
   //此处与类名一致，由指令自动生成代码
   Map<String, dynamic> toJson() {
     return _$StatsModelToJson(this);
@@ -82,6 +131,4 @@ class StatsModel extends MongoDbObject{
     // TODO: implement getParams
     return toJson();
   }
-
-
 }

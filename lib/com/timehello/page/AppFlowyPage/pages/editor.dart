@@ -22,6 +22,7 @@ class Editor extends StatefulWidget {
     required this.onEditorStateChange,
     this.focusNode,
     this.editorStyle,
+    this.backgroundColor,
     this.textDirection = TextDirection.ltr,
   });
   final FocusNode? focusNode;
@@ -29,6 +30,7 @@ class Editor extends StatefulWidget {
   final Function? onUploadCallback;
   final Future<String> jsonString;
   final EditorStyle? editorStyle;
+  final Color? backgroundColor;
   final void Function(EditorState editorState) onEditorStateChange;
 
   final TextDirection textDirection;
@@ -45,7 +47,6 @@ class _EditorState extends State<Editor> {
 
   @override
   void didUpdateWidget(covariant Editor oldWidget) {
-
     if (oldWidget.jsonString != widget.jsonString) {
       editorState = null;
       isInitialized = false;
@@ -84,7 +85,7 @@ class _EditorState extends State<Editor> {
   void dispose() {
     try {
       editorState?.dispose();
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     super.dispose();
@@ -92,13 +93,16 @@ class _EditorState extends State<Editor> {
 
   @override
   Widget build(BuildContext context) {
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~charCount:" + (wordCountService?.selectionCounters.charCount ?? 0).toString());
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~charCount:" +
+        (wordCountService?.selectionCounters.charCount ?? 0).toString());
     return Stack(
       children: [
         ColoredBox(
-          color: ThemeManager.getInstance().isDark()
-              ? Colors.black
-              : ColorsConfig.missionEditorSurface,
+          // 设置页移动端需要透出外层暖色背景；未传入时保留编辑器原有表面色，避免影响其它笔记入口。
+          color: widget.backgroundColor ??
+              (ThemeManager.getInstance().isDark()
+                  ? Colors.black
+                  : ColorsConfig.missionEditorSurface),
           child: FutureBuilder<String>(
             //加载外部传进来的json数据
             future: widget.jsonString,
@@ -109,7 +113,8 @@ class _EditorState extends State<Editor> {
                   isInitialized = true;
                   EditorState editorState = EditorState(
                     i18nInstance: getI18NKey(context),
-                    onAttachmentUploadCallback: widget.onAttachmentUploadCallback,
+                    onAttachmentUploadCallback:
+                        widget.onAttachmentUploadCallback,
                     onUploadCallback: widget.onUploadCallback,
                     document: Document.fromJson(
                       Map<String, Object>.from(
@@ -137,10 +142,14 @@ class _EditorState extends State<Editor> {
                 if (PlatformExtension.isDesktopOrWeb) {
                   return DesktopEditor(
                     editorState: editorState!,
-                    textDirection: widget.textDirection, focusNode: this.widget.focusNode,
+                    textDirection: widget.textDirection,
+                    focusNode: this.widget.focusNode,
                   );
                 } else if (PlatformExtension.isMobile) {
-                  return MobileEditor(editorState: editorState!, focusNode: this.widget.focusNode,);
+                  return MobileEditor(
+                    editorState: editorState!,
+                    focusNode: this.widget.focusNode,
+                  );
                 }
               }
 
@@ -189,23 +198,29 @@ class _EditorState extends State<Editor> {
             ),
           ),
         ),
-        if((wordCount ?? 0) == 0 && !Utility.isAndroid())
-        Container(margin: EdgeInsets.only(top: 120), child: AIAppflowyEditorWidget(onTap: (CheckButtonStateModel model) {
-          if(model.code == 'more') {
-            onClickSearchBarMenuWithMoreText(context, model);
-            return;
-          } else {
-            onClickSearchBarMenuWithoutText(context, model);
-          }
-          // print('Button clicked: $model');
-          // editorState?.insertText(model);
-        },))
+        if ((wordCount ?? 0) == 0 && !Utility.isAndroid())
+          Container(
+              margin: EdgeInsets.only(top: 120),
+              child: AIAppflowyEditorWidget(
+                onTap: (CheckButtonStateModel model) {
+                  if (model.code == 'more') {
+                    onClickSearchBarMenuWithMoreText(context, model);
+                    return;
+                  } else {
+                    onClickSearchBarMenuWithoutText(context, model);
+                  }
+                  // print('Button clicked: $model');
+                  // editorState?.insertText(model);
+                },
+              ))
       ],
     );
   }
 
-  void onClickSearchBarMenuWithMoreText(BuildContext context, CheckButtonStateModel model) {
-    showMoreAISearchBarMenuWithoutText(context: context,
+  void onClickSearchBarMenuWithMoreText(
+      BuildContext context, CheckButtonStateModel model) {
+    showMoreAISearchBarMenuWithoutText(
+        context: context,
         editorState: this.editorState!,
         prompt: (model.value ?? "") + "",
         title: "",
@@ -214,14 +229,13 @@ class _EditorState extends State<Editor> {
             {"role": "user", "content": text}
           ];
           ChatGptMessageModel chatGptMessageModelGpt =
-          await ChatGptManager.getInstance().sendMessages(
-              scene: "chat",
-              // chatGptFolderModel: _curChatGptFolderModel,
-              // systemMessage: CONSTANTS.getSystemMessage(aiText),
-              systemMessage: prompt,
-              messages: list);
-          print("chatGptMessageModelGpt:${chatGptMessageModelGpt
-              .toJson()}");
+              await ChatGptManager.getInstance().sendMessages(
+                  scene: "chat",
+                  // chatGptFolderModel: _curChatGptFolderModel,
+                  // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                  systemMessage: prompt,
+                  messages: list);
+          print("chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
           if (chatGptMessageModelGpt?.text != null) {
             return chatGptMessageModelGpt?.text;
           }
@@ -229,20 +243,17 @@ class _EditorState extends State<Editor> {
         },
         onContinue: (String aiText, String originText) async {
           ChatGptMessageModel chatGptMessageModelGpt =
-          await ChatGptManager.getInstance().sendMessages(
-              scene: "chat",
-              // chatGptFolderModel: _curChatGptFolderModel,
-              // systemMessage: CONSTANTS.getSystemMessage(aiText),
-              systemMessage: aiText,
-              messages: [
+              await ChatGptManager.getInstance().sendMessages(
+                  scene: "chat",
+                  // chatGptFolderModel: _curChatGptFolderModel,
+                  // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                  systemMessage: aiText,
+                  messages: [
                 {"role": "user", "content": originText}
               ]);
-          print(
-              "chatGptMessageModelGpt:${chatGptMessageModelGpt
-                  .toJson()}");
+          print("chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
           if (chatGptMessageModelGpt?.text != null) {
-            return originText + "\n" +
-                (chatGptMessageModelGpt?.text ?? "");
+            return originText + "\n" + (chatGptMessageModelGpt?.text ?? "");
           }
           return null;
         },
@@ -252,8 +263,10 @@ class _EditorState extends State<Editor> {
         placeholder: model.content ?? "");
   }
 
-  void onClickSearchBarMenuWithoutText(BuildContext context, CheckButtonStateModel model) {
-    showAISearchBarMenuWithoutText(context: context,
+  void onClickSearchBarMenuWithoutText(
+      BuildContext context, CheckButtonStateModel model) {
+    showAISearchBarMenuWithoutText(
+        context: context,
         editorState: this.editorState!,
         prompt: model.value + "",
         title: model.title ?? "",
@@ -262,14 +275,13 @@ class _EditorState extends State<Editor> {
             {"role": "user", "content": text}
           ];
           ChatGptMessageModel chatGptMessageModelGpt =
-          await ChatGptManager.getInstance().sendMessages(
-              scene: "chat",
-              // chatGptFolderModel: _curChatGptFolderModel,
-              // systemMessage: CONSTANTS.getSystemMessage(aiText),
-              systemMessage: prompt,
-              messages: list);
-          print("chatGptMessageModelGpt:${chatGptMessageModelGpt
-              .toJson()}");
+              await ChatGptManager.getInstance().sendMessages(
+                  scene: "chat",
+                  // chatGptFolderModel: _curChatGptFolderModel,
+                  // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                  systemMessage: prompt,
+                  messages: list);
+          print("chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
           if (chatGptMessageModelGpt?.text != null) {
             return chatGptMessageModelGpt?.text;
           }
@@ -277,20 +289,17 @@ class _EditorState extends State<Editor> {
         },
         onContinue: (String aiText, String originText) async {
           ChatGptMessageModel chatGptMessageModelGpt =
-          await ChatGptManager.getInstance().sendMessages(
-              scene: "chat",
-              // chatGptFolderModel: _curChatGptFolderModel,
-              // systemMessage: CONSTANTS.getSystemMessage(aiText),
-              systemMessage: aiText,
-              messages: [
+              await ChatGptManager.getInstance().sendMessages(
+                  scene: "chat",
+                  // chatGptFolderModel: _curChatGptFolderModel,
+                  // systemMessage: CONSTANTS.getSystemMessage(aiText),
+                  systemMessage: aiText,
+                  messages: [
                 {"role": "user", "content": originText}
               ]);
-          print(
-              "chatGptMessageModelGpt:${chatGptMessageModelGpt
-                  .toJson()}");
+          print("chatGptMessageModelGpt:${chatGptMessageModelGpt.toJson()}");
           if (chatGptMessageModelGpt?.text != null) {
-            return originText + "\n" +
-                (chatGptMessageModelGpt?.text ?? "");
+            return originText + "\n" + (chatGptMessageModelGpt?.text ?? "");
           }
           return null;
         },

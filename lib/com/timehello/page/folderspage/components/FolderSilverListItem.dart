@@ -23,6 +23,7 @@ import '../../../interface/Interface.dart';
 import 'package:time_hello/com/timehello/config/CONSTANTS.dart';
 
 import '../../../../../r.dart';
+import 'FoldersMobileDrawerStyleHelper.dart';
 
 /**
  * 要独立成item 否则isHover会有问题 会不生效
@@ -52,6 +53,7 @@ class FolderSilverListItem extends StatefulWidget {
   FolderPageViewEnum folderPageViewEnum = FolderPageViewEnum.normal; // 文件夹视图枚举
   String curSelectedTitle; // 当前选中的标题
   bool useUnifiedStyle;
+  bool useMobileModernStyle;
   FolderSilverListItem(
       {required this.index,
       required this.folderModelWithExtraData,
@@ -62,6 +64,7 @@ class FolderSilverListItem extends StatefulWidget {
       required this.calendarModel,
       required this.curSelectedTitle,
       this.useUnifiedStyle = false,
+      this.useMobileModernStyle = false,
       this.onTapListener,
       this.onTapMoreListener,
       this.onCancelListener,
@@ -98,6 +101,9 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    // 移动端新版抽屉以可读性优先，压缩图标和统计列间距，把宽度让给清单标题。
+    iconSize = widget.useMobileModernStyle ? 21 : 18;
+    itemPadding = widget.useMobileModernStyle ? 8 : 10;
     return getItem(widget.index, widget.folderModelWithExtraData,
         isOthers: widget.isOthers);
   }
@@ -139,20 +145,31 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(folderModelWithExtraData.folderModel.title ?? "",
+                  maxLines: widget.useMobileModernStyle ? 2 : null,
+                  overflow: widget.useMobileModernStyle
+                      ? TextOverflow.ellipsis
+                      : TextOverflow.visible,
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      fontWeight: widget.useUnifiedStyle
-                          ? FontWeight.w600
-                          : FontWeight.w500,
-                      fontSize: widget.useUnifiedStyle ? 13.5 : 15,
+                      fontWeight: widget.useMobileModernStyle
+                          ? FontWeight.w800
+                          : widget.useUnifiedStyle
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                      fontSize: widget.useMobileModernStyle
+                          ? 16
+                          : widget.useUnifiedStyle
+                              ? 13.5
+                              : 15,
+                      height: widget.useMobileModernStyle ? 1.15 : null,
                       color: ThemeManager.getInstance().getTextColor(
-                          defaultColor:
-                              folderModelWithExtraData.folderModel.iconType == 7
-                                  ? ThemeManager.getInstance()
-                                      .getDefautThemeColor()
-                                  : widget.useUnifiedStyle
-                                      ? ColorsConfig.missionSidebarTextPrimary
-                                      : ColorsConfig.gray_40))),
+                          defaultColor: folderModelWithExtraData
+                                      .folderModel.iconType ==
+                                  7
+                              ? ThemeManager.getInstance().getDefautThemeColor()
+                              : widget.useUnifiedStyle
+                                  ? ColorsConfig.missionSidebarTextPrimary
+                                  : ColorsConfig.gray_40))),
               if (folderModelWithExtraData.folderModel.start_time != null ||
                   folderModelWithExtraData.folderModel.end_time != null)
                 Wrap(
@@ -177,7 +194,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: 11,
+                          fontSize: widget.useMobileModernStyle ? 13 : 11,
                           color: ThemeManager.getInstance()
                               .getTextColor(defaultColor: Color(0xffff8800)))),
             ],
@@ -248,7 +265,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                         getPreviewTimeString(folderModelWithExtraData).isEmpty
                             ? SizedBox.shrink()
                             : Container(
-                                width: 60,
+                                width: widget.useMobileModernStyle ? 58 : 60,
                                 // color: Colors.red,
                                 // padding: EdgeInsets.symmetric(
                                 //     horizontal: 8, vertical: 4),
@@ -266,12 +283,20 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                                             0), //右侧分钟
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                        fontSize:
-                                            widget.useUnifiedStyle ? 12 : 13,
-                                        color: widget.useUnifiedStyle
-                                            ? ColorsConfig
-                                                .missionSidebarTextSecondary
-                                            : Color(0xffb9b9b9)))),
+                                        fontSize: widget.useMobileModernStyle
+                                            ? 14
+                                            : widget.useUnifiedStyle
+                                                ? 12
+                                                : 13,
+                                        fontWeight: widget.useMobileModernStyle
+                                            ? FontWeight.w700
+                                            : FontWeight.normal,
+                                        color: widget.useMobileModernStyle
+                                            ? Color(0xFF8B8B8B)
+                                            : widget.useUnifiedStyle
+                                                ? ColorsConfig
+                                                    .missionSidebarTextSecondary
+                                                : Color(0xffb9b9b9)))),
                       SizedBox(
                         width: itemPadding,
                       ),
@@ -288,12 +313,20 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
                                           folderModelWithExtraData), //右侧分钟
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      fontSize:
-                                          widget.useUnifiedStyle ? 12 : 13,
-                                      color: widget.useUnifiedStyle
-                                          ? ColorsConfig
-                                              .missionSidebarTextSecondary
-                                          : Color(0xffb9b9b9))))
+                                      fontSize: widget.useMobileModernStyle
+                                          ? 14
+                                          : widget.useUnifiedStyle
+                                              ? 12
+                                              : 13,
+                                      fontWeight: widget.useMobileModernStyle
+                                          ? FontWeight.w700
+                                          : FontWeight.normal,
+                                      color: widget.useMobileModernStyle
+                                          ? Color(0xFF8B8B8B)
+                                          : widget.useUnifiedStyle
+                                              ? ColorsConfig
+                                                  .missionSidebarTextSecondary
+                                              : Color(0xffb9b9b9))))
                     ],
                   )
                 : SizedBox.shrink(),
@@ -418,7 +451,7 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
         key: ValueKey(folderModelWithExtraData.folderModel),
         enabled: folderModelWithExtraData.folderModel.tag != null &&
             (folderModelWithExtraData.folderModel.tag == 1 ||
-                folderModelWithExtraData.folderModel.tag == 2||
+                folderModelWithExtraData.folderModel.tag == 2 ||
                 folderModelWithExtraData.folderModel.tag == 5),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
@@ -716,9 +749,12 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
   InkWell getInnerItemWithoutContainer(
       FolderModelWithExtraData _folderModelWithExtraData, List<Widget> children,
       [bool isItemHover = false]) {
-    final bool isSelected = !Utility.isHandsetBySize() &&
-        this.widget.curSelectedTitle ==
-            _folderModelWithExtraData.folderModel.title;
+    final bool isSelected =
+        (widget.useMobileModernStyle || !Utility.isHandsetBySize()) &&
+            this.widget.curSelectedTitle ==
+                _folderModelWithExtraData.folderModel.title;
+    final FoldersMobileDrawerStyleMetrics mobileMetrics =
+        FoldersMobileDrawerStyleHelper.modernMetrics;
     return InkWell(
         onTap: () {
           if (this.widget.onTapListener != null) {
@@ -730,55 +766,72 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
           }
         },
         child: Container(
-          constraints:
-              BoxConstraints(minHeight: widget.useUnifiedStyle ? 52 : 46),
-          margin: widget.useUnifiedStyle
-              ? const EdgeInsets.fromLTRB(8, 2, 12, 2)
-              : EdgeInsets.zero,
-          padding: widget.useUnifiedStyle
-              ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
-              : EdgeInsets.zero,
-          decoration: widget.useUnifiedStyle
+          constraints: BoxConstraints(
+              minHeight: widget.useMobileModernStyle
+                  ? mobileMetrics.menuItemMinHeight
+                  : widget.useUnifiedStyle
+                      ? 52
+                      : 46),
+          margin: widget.useMobileModernStyle
+              ? const EdgeInsets.fromLTRB(14, 1, 14, 1)
+              : widget.useUnifiedStyle
+                  ? const EdgeInsets.fromLTRB(8, 2, 12, 2)
+                  : EdgeInsets.zero,
+          padding: widget.useMobileModernStyle
+              ? const EdgeInsets.symmetric(horizontal: 8, vertical: 6)
+              : widget.useUnifiedStyle
+                  ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
+                  : EdgeInsets.zero,
+          decoration: widget.useMobileModernStyle
               ? BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: isSelected
-                        ? ColorsConfig.missionSidebarSelectedBorder
-                        : Colors.transparent,
-                  ),
-                  color: isSelected
-                      ? ColorsConfig.missionSidebarSelectedBackground
-                      : _folderModelWithExtraData.isHover == true
-                          ? ThemeManager.getInstance().isDark()
-                              ? Colors.white.withValues(alpha: 0.05)
-                              : ColorsConfig.missionSidebarHoverBackground
-                          : ThemeManager.getInstance().isDark()
-                              ? Colors.white.withValues(alpha: 0.02)
-                              : Colors.transparent,
-                  boxShadow: isSelected
-                      ? [
-                          BoxShadow(
-                            color: ColorsConfig.missionSidebarSelectedShadow,
-                            blurRadius: 14,
-                            offset: const Offset(0, 6),
-                          )
-                        ]
-                      : null,
+                  borderRadius: BorderRadius.circular(10),
+                  color:
+                      isSelected ? const Color(0xFFF3F9E7) : Colors.transparent,
                 )
-              : (isSelected
+              : widget.useUnifiedStyle
                   ? BoxDecoration(
-                      border: Border(
-                          right: BorderSide(
-                              width: 5,
-                              color: ThemeManager.getInstance()
-                                  .getDefautThemeColor())))
-                  : BoxDecoration(
-                      border: Border(
-                          right: BorderSide(
-                              width: Utility.isHandsetBySize() == false ? 5 : 0,
-                              color: ThemeManager.getInstance().isDark()
-                                  ? Colors.transparent
-                                  : Colors.transparent)))),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: isSelected
+                            ? ColorsConfig.missionSidebarSelectedBorder
+                            : Colors.transparent,
+                      ),
+                      color: isSelected
+                          ? ColorsConfig.missionSidebarSelectedBackground
+                          : _folderModelWithExtraData.isHover == true
+                              ? ThemeManager.getInstance().isDark()
+                                  ? Colors.white.withValues(alpha: 0.05)
+                                  : ColorsConfig.missionSidebarHoverBackground
+                              : ThemeManager.getInstance().isDark()
+                                  ? Colors.white.withValues(alpha: 0.02)
+                                  : Colors.transparent,
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color:
+                                    ColorsConfig.missionSidebarSelectedShadow,
+                                blurRadius: 14,
+                                offset: const Offset(0, 6),
+                              )
+                            ]
+                          : null,
+                    )
+                  : (isSelected
+                      ? BoxDecoration(
+                          border: Border(
+                              right: BorderSide(
+                                  width: 5,
+                                  color: ThemeManager.getInstance()
+                                      .getDefautThemeColor())))
+                      : BoxDecoration(
+                          border: Border(
+                              right: BorderSide(
+                                  width: Utility.isHandsetBySize() == false
+                                      ? 5
+                                      : 0,
+                                  color: ThemeManager.getInstance().isDark()
+                                      ? Colors.transparent
+                                      : Colors.transparent)))),
           alignment: Alignment.centerLeft,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -790,6 +843,15 @@ class FolderSilverListItemState extends State<FolderSilverListItem> {
   Widget _buildLeadingIcon(FolderModel folderModel,
       {required bool isOthers, required double marginLef}) {
     final Widget iconWidget = this.getIcon(folderModel) ?? const SizedBox();
+    if (widget.useMobileModernStyle) {
+      return Container(
+        margin: EdgeInsets.fromLTRB(isOthers ? 0 : 2, 0, 0, 0),
+        width: 28,
+        height: 28,
+        alignment: Alignment.center,
+        child: iconWidget,
+      );
+    }
     if (!widget.useUnifiedStyle) {
       return Container(
           margin: EdgeInsets.fromLTRB(isOthers ? 0 : marginLef, 0, 0, 0),

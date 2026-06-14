@@ -1,6 +1,7 @@
 import 'drag_and_drop_builder_parameters.dart';
 import 'drag_and_drop_item.dart';
 import 'drag_and_drop_item_target.dart';
+import 'drag_and_drop_layout_log.dart';
 import 'drag_and_drop_item_wrapper.dart';
 import 'drag_and_drop_list_interface.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,9 @@ class DragAndDropList implements DragAndDropListInterface {
   @override
   Widget generateWidget(DragAndDropBuilderParameters params) {
     var contents = <Widget>[];
+    if (params.axis == Axis.horizontal) {
+      return _generateHorizontalWidget(params);
+    }
     if (header != null) {
       contents.add(Flexible(child: header!));
     }
@@ -112,6 +116,48 @@ class DragAndDropList implements DragAndDropListInterface {
     );
   }
 
+  /// 功能：生成桌面横向看板列。
+  /// 说明：横向 ListView 会给每一列一个固定可用高度，不能再用 IntrinsicHeight 按全部任务内容撑开；
+  /// 否则任务较多时列高度会突破父约束，引发 Scrollbar/ListView 的渲染断言。
+  Widget _generateHorizontalWidget(DragAndDropBuilderParameters params) {
+    dragBoardLog(
+      'board-list-horizontal-generate',
+      'itemCount=${children.length}, canDrag=$canDrag, listWidth=${params.listWidth}, listPadding=${params.listPadding}, hasHeader=${header != null}, hasFooter=${footer != null}, hasLeftSide=${leftSide != null}, hasRightSide=${rightSide != null}',
+      onceKey:
+          'list-horizontal-${children.length}-${params.listWidth}-${params.listPadding}-${header != null}-${footer != null}',
+    );
+    final Widget innerContent = Row(
+      mainAxisAlignment: horizontalAlignment,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: _generateDragAndDropListInnerContents(params),
+    );
+    final List<Widget> columnChildren = [];
+    if (header != null) {
+      columnChildren.add(header!);
+    }
+    columnChildren.add(
+      Expanded(
+        child: Container(
+          width: params.listWidth,
+          child: innerContent,
+        ),
+      ),
+    );
+    if (footer != null) {
+      columnChildren.add(footer!);
+    }
+    return Container(
+      width: params.listWidth - (params.listPadding?.horizontal ?? 0),
+      decoration: decoration ?? params.listDecoration,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: verticalAlignment,
+        children: columnChildren,
+      ),
+    );
+  }
+
   List<Widget> _generateDragAndDropListInnerContents(
       DragAndDropBuilderParameters parameters) {
     var contents = <Widget>[];
@@ -146,7 +192,10 @@ class DragAndDropList implements DragAndDropListInterface {
       contents.add(
         Expanded(
           child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            // 横向看板的每一列需要在固定列高内独立纵向滚动；竖向模式继续交给外层列表滚动。
+            physics: parameters.axis == Axis.horizontal
+                ? ClampingScrollPhysics()
+                : NeverScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: verticalAlignment,
               mainAxisSize: MainAxisSize.max,
@@ -159,7 +208,10 @@ class DragAndDropList implements DragAndDropListInterface {
       contents.add(
         Expanded(
           child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            // 空列也保持同一套滚动约束，避免拖拽目标在横向看板里撑破列高度。
+            physics: parameters.axis == Axis.horizontal
+                ? ClampingScrollPhysics()
+                : NeverScrollableScrollPhysics(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -190,5 +242,4 @@ class DragAndDropList implements DragAndDropListInterface {
     }
     return contents;
   }
-
 }

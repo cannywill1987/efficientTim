@@ -74,8 +74,8 @@ android {
         multiDexEnabled = true
         minSdk = flutter.minSdkVersion
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 243
+        versionName = "5.0.5"
     }
 
     buildTypes {

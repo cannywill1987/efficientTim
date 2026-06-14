@@ -86,6 +86,7 @@ class JumpNavigator {
           Future.delayed(Duration(milliseconds: 100), () {
             DialogManagement.getInstance().showPCCustomDialog(
                 context: context,
+                showShell: false,
                 widget: const RecordPage2(
                   richTextModeEnum: RichTextModeEnum.note,
                   shouldShowTitle: null,
@@ -134,6 +135,7 @@ class JumpNavigator {
           Future.delayed(Duration(milliseconds: 100), () {
             DialogManagement.getInstance().showPCCustomDialog(
                 context: context,
+                showShell: false,
                 widget: const RecordPage2(
                   richTextModeEnum: RichTextModeEnum.diary,
                   shouldShowTitle: null,
@@ -161,22 +163,22 @@ class JumpNavigator {
               context, "CountDownListViewPage", {});
         }
         break;
-        case 'CountUpListViewPage':
-          AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
-            "sceneType": "folderpage",
-            "eventType": "folderpage_flip_clock_timing",
-            "description": "倒计时",
+      case 'CountUpListViewPage':
+        AnalyticsEventsManager.getInstance().sendAnalyticsEventMap({
+          "sceneType": "folderpage",
+          "eventType": "folderpage_flip_clock_timing",
+          "description": "倒计时",
+        });
+        if (Utility.isHandsetBySize() == true) {
+          Future.delayed(Duration(milliseconds: 100), () {
+            // Utility.showCurTab(context, CONSTANTS.getCurPage(PageEnum.CountDownListViewPage), {"curTab": 1});
+            Utility.pushNavigator(context,
+                CountUpListViewPage(pageFromEnum: PageFromEnum.Normal));
           });
-          if (Utility.isHandsetBySize() == true) {
-            Future.delayed(Duration(milliseconds: 100), () {
-              // Utility.showCurTab(context, CONSTANTS.getCurPage(PageEnum.CountDownListViewPage), {"curTab": 1});
-              Utility.pushNavigator(context,
-                  CountUpListViewPage(pageFromEnum: PageFromEnum.Normal));
-            });
-          } else {
-            Utility.pushDesktopMainContainerNavigator(
-                context, "CountUpListViewPage", {});
-          }
+        } else {
+          Utility.pushDesktopMainContainerNavigator(
+              context, "CountUpListViewPage", {});
+        }
     }
   }
 }

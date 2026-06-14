@@ -61,8 +61,15 @@ class AppflowyPage extends BaseWidget {
   final bool isDebug;
   final Function? onSaveCallback;
   final Function? onUploadCallback;
+  final Color? editorBackgroundColor;
   // final FocusNode? focusNode;
-  const AppflowyPage({super.key, this.isDebug = false, this.onUploadCallback, this.onSaveCallback, this.fileName = 'example1111123'});
+  const AppflowyPage(
+      {super.key,
+      this.isDebug = false,
+      this.onUploadCallback,
+      this.onSaveCallback,
+      this.editorBackgroundColor,
+      this.fileName = 'example1111123'});
 
   // @override
   // State<HomePage> createState() => _HomePageState();
@@ -158,7 +165,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
   // }
 
   setLoadingStatusEnum(LoadingStatusEnum loadingStatusEnum, [String? text]) {
-    if(loadingStatusEnum == LoadingStatusEnum.success) {
+    if (loadingStatusEnum == LoadingStatusEnum.success) {
       resetTip();
     }
     if (this.loadingStatusEnum != loadingStatusEnum) {
@@ -173,17 +180,27 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
     state.setLoadingStatusEnum(LoadingStatusEnum.loading);
     state.updateUI();
     try {
-       AliyunStoreManager.getInstance()
-          .setString(data: await state._exportFile(state._editorState, ExportFileType.markdown), fileName: state.widget.fileName, fileExtensionEnum: FileExtension.md, docType: DocType.md);
-      String url = await AliyunStoreManager.getInstance()
-          .setString(docType: DocType.document, fileExtensionEnum: FileExtension.json, data: await state._exportFile(state._editorState, ExportFileType.documentJson), fileName: state.widget.fileName);
+      AliyunStoreManager.getInstance().setString(
+          data: await state._exportFile(
+              state._editorState, ExportFileType.markdown),
+          fileName: state.widget.fileName,
+          fileExtensionEnum: FileExtension.md,
+          docType: DocType.md);
+      String url = await AliyunStoreManager.getInstance().setString(
+          docType: DocType.document,
+          fileExtensionEnum: FileExtension.json,
+          data: await state._exportFile(
+              state._editorState, ExportFileType.documentJson),
+          fileName: state.widget.fileName);
       state.widget.onSaveCallback?.call(url.replaceAll(".json", ".md"));
       // String mkString = await FirebaseStoreManager.getInstance()
       //     .getString(fileName: state.widget.fileName, defaultVal: "");
       // state.setLoadingStatusEnum(LoadingStatusEnum.normal);
-      state.setLoadingStatusEnum(LoadingStatusEnum.success, getI18NKey().save_success);
-    } catch(e) {
-      state.setLoadingStatusEnum(LoadingStatusEnum.error, getI18NKey().save_fail);
+      state.setLoadingStatusEnum(
+          LoadingStatusEnum.success, getI18NKey().save_success);
+    } catch (e) {
+      state.setLoadingStatusEnum(
+          LoadingStatusEnum.error, getI18NKey().save_fail);
     }
     print("upload success");
     // missionModel.message = val;
@@ -203,25 +220,34 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
   initData() async {
     this.isEnable = false;
     print("11111111");
-    if(this.widget.isDebug) {
+    if (this.widget.isDebug) {
       print("2222222");
       _jsonString = PlatformExtension.isDesktopOrWeb
-          ? (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/example.json'))
-          : (Utility.isChina() ? rootBundle.loadString('assets/appFlowyDemo/mobile_example_cn.json') : rootBundle.loadString('assets/appFlowyDemo/mobile_example.json'));
+          ? (Utility.isChina()
+              ? rootBundle.loadString('assets/appFlowyDemo/example_cn.json')
+              : rootBundle.loadString('assets/appFlowyDemo/example.json'))
+          : (Utility.isChina()
+              ? rootBundle
+                  .loadString('assets/appFlowyDemo/mobile_example_cn.json')
+              : rootBundle
+                  .loadString('assets/appFlowyDemo/mobile_example.json'));
       _widgetBuilder = (context) => Editor(
-        jsonString: _jsonString,
-          focusNode: focusNode,
-        onEditorStateChange: (editorState) {
-          _editorState = editorState;
-        },
-      );
+            jsonString: _jsonString,
+            backgroundColor: this.widget.editorBackgroundColor,
+            focusNode: focusNode,
+            onEditorStateChange: (editorState) {
+              _editorState = editorState;
+            },
+          );
     } else {
       print("3333333");
       Map? json;
       try {
-        json = await AliyunStoreManager.getInstance()
-            .getJSON(docType: DocType.document, fileExtensionEnum: FileExtension.json, fileName: this.widget.fileName, defaultVal: "");
-
+        json = await AliyunStoreManager.getInstance().getJSON(
+            docType: DocType.document,
+            fileExtensionEnum: FileExtension.json,
+            fileName: this.widget.fileName,
+            defaultVal: "");
       } catch (e) {
         json = null;
         // setLoadingStatusEnum(
@@ -232,10 +258,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
         _loadEditor(
             context,
             Future<String>.value(jsonEncode(
-              EditorState
-                  .blank(withInitialText: true)
-                  .document
-                  .toJson(),
+              EditorState.blank(withInitialText: true).document.toJson(),
             ).toString()));
       } else {
         print("6666666");
@@ -243,7 +266,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
         _loadEditor(context, Future<String>.value(jsonEncode(json!)));
       }
     }
-      setEnable();
+    setEnable();
   }
 
   @override
@@ -279,13 +302,13 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                   child: getTipWidget()),
             ),
           //progressbar
-          if(isProgressBarVisible)
-          LinearProgressIndicator(
-            value: _progress,
-            minHeight: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(Color(colorValue)),
-            backgroundColor: Color(colorValue).withOpacity(0.1),
-          ),
+          if (isProgressBarVisible)
+            LinearProgressIndicator(
+              value: _progress,
+              minHeight: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(Color(colorValue)),
+              backgroundColor: Color(colorValue).withOpacity(0.1),
+            ),
         ],
       );
     } else {
@@ -311,9 +334,11 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
   }
 
   Widget getTipWidget() {
-    if(this.loadingStatusEnum == LoadingStatusEnum.loading) {
+    if (this.loadingStatusEnum == LoadingStatusEnum.loading) {
       return LoadingAnimationWidget.twistingDots(
-        size: 15, leftDotColor: Colors.blue, rightDotColor: Colors.red,
+        size: 15,
+        leftDotColor: Colors.blue,
+        rightDotColor: Colors.red,
       );
     } else if (this.loadingStatusEnum == LoadingStatusEnum.error) {
       return InkWell(
@@ -324,8 +349,11 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Icon(Icons.refresh, color: Colors.red, size: 15),
-            SizedBox(width: 2,),
-            Text(this.topText ?? "error", style: TextStyle(color: Colors.white, fontSize: 12)),
+            SizedBox(
+              width: 2,
+            ),
+            Text(this.topText ?? "error",
+                style: TextStyle(color: Colors.white, fontSize: 12)),
           ],
         ),
       );
@@ -334,8 +362,11 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Icon(Icons.check, color: Colors.green, size: 15),
-          SizedBox(width: 2,),
-          Text(this.topText ?? "success", style: TextStyle(color: Colors.white, fontSize: 12)),
+          SizedBox(
+            width: 2,
+          ),
+          Text(this.topText ?? "success",
+              style: TextStyle(color: Colors.white, fontSize: 12)),
         ],
       );
     }
@@ -356,53 +387,61 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
       () {
         _widgetBuilder = (context) => Editor(
               jsonString: _jsonString,
-            focusNode: this.focusNode,
-            onAttachmentUploadCallback: (path) async {
-              try {
-                // final appDocDir = await getApplicationDocumentsDirectory();
-                // isLoading = true;
-                setLoadingStatusEnum(LoadingStatusEnum.loading);
-                final file = File(path);
-                // String fileName = Utility.getUUID();
-                // XFile xfile = await Utility.compressAndGetFile(file: file);
-                // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
-                // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
-                _progress = 0;
-                this.isProgressBarVisible = true;
-                updateUI();
-                int fileSize = 0;
-                String url = await AliyunStoreManager.getInstance()
-                    .uploadFile(file: file, downloadCallback: (curVal, total) {
-                      fileSize = total;
-                      this.isProgressBarVisible = true;
-                      double progress = curVal / total;
-                      _progress = progress;
-                      print("progress: $progress");
-                      updateUI();
-                });
-                this.widget.onUploadCallback?.call({"create_time": Utility.getTimeStampToday(), "url": url, "fileSize": fileSize, "name": Utility.getFileName(path)});
-                _progress = 1;
-                this.isProgressBarVisible = false;
-                // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
-                // BaseBean res = await HttpManager.getInstance().uploadImage(
-                //     key: "key",
-                //     file: new File(xfile.path),
-                //     url: Apis.uploadOss);
-                //上传图片
-                // uploadPic(xfile);
-                // isLoading = false;
-                setLoadingStatusEnum(LoadingStatusEnum.normal);
-                updateUI();
-                // return res.data['bigImage'];
-                return url;
-              } catch (e) {
-                print(e);
-                // isLoading = false;
-                setLoadingStatusEnum(LoadingStatusEnum.normal);
-                updateUI();
-                return "";
-              }
-            },
+              backgroundColor: this.widget.editorBackgroundColor,
+              focusNode: this.focusNode,
+              onAttachmentUploadCallback: (path) async {
+                try {
+                  // final appDocDir = await getApplicationDocumentsDirectory();
+                  // isLoading = true;
+                  setLoadingStatusEnum(LoadingStatusEnum.loading);
+                  final file = File(path);
+                  // String fileName = Utility.getUUID();
+                  // XFile xfile = await Utility.compressAndGetFile(file: file);
+                  // TaskSnapshot res = await FirebaseStoreManager.getInstance().uploadFile(path: xfile.path, fileName: fileName);
+                  // String downloadUrl = await FirebaseStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+                  _progress = 0;
+                  this.isProgressBarVisible = true;
+                  updateUI();
+                  int fileSize = 0;
+                  String url =
+                      await AliyunStoreManager.getInstance().uploadFile(
+                          file: file,
+                          downloadCallback: (curVal, total) {
+                            fileSize = total;
+                            this.isProgressBarVisible = true;
+                            double progress = curVal / total;
+                            _progress = progress;
+                            print("progress: $progress");
+                            updateUI();
+                          });
+                  this.widget.onUploadCallback?.call({
+                    "create_time": Utility.getTimeStampToday(),
+                    "url": url,
+                    "fileSize": fileSize,
+                    "name": Utility.getFileName(path)
+                  });
+                  _progress = 1;
+                  this.isProgressBarVisible = false;
+                  // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
+                  // BaseBean res = await HttpManager.getInstance().uploadImage(
+                  //     key: "key",
+                  //     file: new File(xfile.path),
+                  //     url: Apis.uploadOss);
+                  //上传图片
+                  // uploadPic(xfile);
+                  // isLoading = false;
+                  setLoadingStatusEnum(LoadingStatusEnum.normal);
+                  updateUI();
+                  // return res.data['bigImage'];
+                  return url;
+                } catch (e) {
+                  print(e);
+                  // isLoading = false;
+                  setLoadingStatusEnum(LoadingStatusEnum.normal);
+                  updateUI();
+                  return "";
+                }
+              },
               onUploadCallback: (path) async {
                 try {
                   // final appDocDir = await getApplicationDocumentsDirectory();
@@ -418,13 +457,16 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                   updateUI();
 
                   String url = await AliyunStoreManager.getInstance()
-                      .uploadFileByFilePath(path: xfile.path, fileName: fileName, downloadCallback: (curVal, total) {
-                    this.isProgressBarVisible = true;
-                    double progress = curVal / total;
-                    _progress = progress;
-                    print("progress: $progress");
-                    updateUI();
-                  });
+                      .uploadFileByFilePath(
+                          path: xfile.path,
+                          fileName: fileName,
+                          downloadCallback: (curVal, total) {
+                            this.isProgressBarVisible = true;
+                            double progress = curVal / total;
+                            _progress = progress;
+                            print("progress: $progress");
+                            updateUI();
+                          });
                   _progress = 1;
                   this.isProgressBarVisible = false;
                   // await AliyunStoreManager.getInstance().getDownloadUrl(fileName: fileName);
@@ -453,8 +495,7 @@ class AppflowyPageState extends BaseWidgetState<AppflowyPage> {
                 if (this.isEnable == false) {
                   return;
                 }
-                if (
-                    LoginManager.isLogin() == false) {
+                if (LoginManager.isLogin() == false) {
                   LoginManager.getInstance()
                       .doAliSdkSecVerifyLogin(Utility.getGlobalContext());
                   return;

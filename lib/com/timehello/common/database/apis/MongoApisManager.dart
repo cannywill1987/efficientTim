@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_hello/com/timehello/beans/ReminderModel.dart';
@@ -7,6 +8,7 @@ import 'package:time_hello/com/timehello/config/ENUMS.dart';
 import 'package:time_hello/com/timehello/config/EVENTNAME.dart';
 import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/libs/mongodb/MongoDb.dart';
+import 'package:time_hello/com/timehello/models/AIUsageEntitlementModel.dart';
 import 'package:time_hello/com/timehello/models/ChatGptFolderModel.dart';
 import 'package:time_hello/com/timehello/models/ChatGptMessageModel.dart';
 import 'package:time_hello/com/timehello/models/CommentModel.dart';
@@ -1899,7 +1901,7 @@ class MongoApisManager {
   }
 
   ///等于条件查询 - StartTimeMissionModel
-  
+
   Future<List<StartTimeMissionModel>> queryWhereEqual_StartTimeMissionModel(
       {String? folder_id,
       String? currentObjectId,
@@ -2000,8 +2002,9 @@ class MongoApisManager {
     });
 
     this.listStartTimeMissionModels = missionModels;
-    Utility.getGlobalContext().read<GlobalStateEnv>().listStartTimeMissionModel =
-        this.listStartTimeMissionModels;
+    Utility.getGlobalContext()
+        .read<GlobalStateEnv>()
+        .listStartTimeMissionModel = this.listStartTimeMissionModels;
     if (callback != null) {
       callback(missionModels);
     }
@@ -4288,6 +4291,9 @@ class MongoApisManager {
       statsModelTmp.color = color;
       statsModelTmp.icon = icon;
       statsModelTmp.type = type;
+      // category 是 StatsModel 后台 schema 的正式字段；之前参数传入后没有落库，
+      // AI 创建统计记录时会导致分类丢失。
+      statsModelTmp.category = category;
       // missionModel.tagId = tagId;
       statsModelTmp.tagNames = tagName != null ? tagName : '';
       statsModelTmp.begin_time = begin_time;
@@ -4581,7 +4587,7 @@ class MongoApisManager {
     if (curMonthTimeStamp == null) {
       curMonthTimeStamp = Utility.getTimeStampToday();
     }
-    Function request = (shouldForceFinishedForRepetiveTmp) async {
+    Future<MongoDbUpdated?> request(shouldForceFinishedForRepetiveTmp) async {
       if (shouldForceFinishedForRepetiveTmp == true) {
         missionModel.isFinished = true;
         // missionModel.repetiveType = 0; //把重复去掉 以免日历不断显示
@@ -4622,28 +4628,31 @@ class MongoApisManager {
       //   print("请先新增一条数据");
       //   // showError(context, "请先新增一条数据");
       // }
-    };
+    }
+
     //强制请求
     if (shouldForceFinishedWithoutRepeativeDialog == true ||
         missionModel.repetiveType == 0) {
-      request(shouldForceFinishedWithoutRepeativeDialog);
+      return await request(shouldForceFinishedWithoutRepeativeDialog);
     } else {
       bool isFinish = Utility.getIsFinishOfMissionModel(
           missionModel: missionModel,
           curMonthTimeStamp: curMonthTimeStamp ?? 0);
       if (isFinish == true) {
         //如果完成
-        request(false);
+        return await request(false);
       } else {
-        DialogManagement.getInstance().showFinishDialog(context,
-            okCallback: (isCheck) {
-          if (isCheck == true) {
-            // shouldForceFinishedForRepetive = true
-            request(true);
-          } else {
-            request(false);
-          }
-        });
+        bool? isCheck =
+            await DialogManagement.getInstance().showFinishDialog(context);
+        if (isCheck == null) {
+          return null;
+        }
+        if (isCheck == true) {
+          // shouldForceFinishedForRepetive = true
+          return await request(true);
+        } else {
+          return await request(false);
+        }
       }
     }
     // if (currentObjectId != null) {
@@ -4655,6 +4664,89 @@ class MongoApisManager {
     //   print("请先新增一条数据");
     //   // showError(context, "请先新增一条数据");
     // }
+  }
+
+  /// 统一处理 MissionModel 的“点击完成”交互。
+  /// 这里把普通任务确认、循环任务弹窗和统计写入收口到一处，
+  /// 避免不同页面各自维护一套逻辑后出现交互不一致。
+  Future<bool> handleFinishMissionModel({
+    required BuildContext context,
+    required MissionModel missionModel,
+    FolderModel? folderModel,
+    int? curMonthTimeStamp,
+    Function? callback,
+  }) async {
+    if (ChatGroupManager.isFolderModelEnabled(
+            folderId: missionModel.folder_id) ==
+        false) {
+      Utility.showToastMsg(
+          context: Utility.getGlobalContext(), msg: getI18NKey().no_auth);
+      return false;
+    }
+    if (missionModel.isFinished == true) {
+      missionModel.isFinished = false;
+      await update_MissionModel(missionModel: missionModel);
+      return true;
+    }
+
+    final int timestamp = curMonthTimeStamp ?? Utility.getTimeStampToday();
+    final bool isRepeatMission = (missionModel.repetiveType ?? 0) > 0;
+    final bool isCurrentRepeatFinished = isRepeatMission
+        ? Utility.getIsFinishOfMissionModel(
+            missionModel: missionModel,
+            curMonthTimeStamp: timestamp,
+          )
+        : false;
+
+    if (!isRepeatMission) {
+      OkCancelResult result = await showOkCancelAlertDialog(
+          context: context,
+          title: getI18NKey().confirmToFinished,
+          message: getI18NKey().confirmToFinishedContent,
+          okLabel: getI18NKey().confirm,
+          cancelLabel: getI18NKey().cancel,
+          onWillPop: () async {
+            return true;
+          });
+      if (result != OkCancelResult.ok) {
+        return false;
+      }
+    }
+
+    if (folderModel == null &&
+        TextUtil.isEmpty(missionModel.folder_id) == false) {
+      folderModel = queryfolderModelWithFolderId(missionModel.folder_id);
+    }
+    folderModel ??= FolderModel();
+
+    final bool shouldInsertStats = missionModel.isFinished != true &&
+        (!isRepeatMission || !isCurrentRepeatFinished);
+    if (shouldInsertStats) {
+      await insertStatsModel(
+        title: missionModel.title,
+        type: 1,
+        icon: folderModel.icon,
+        color: folderModel.color,
+        mission_id: missionModel.objectId,
+        fid: folderModel.objectId,
+        tagName: missionModel.tagNames,
+        begin_time:
+            Utility.getTimestampFromDateTime(missionModel.createdAt ?? ""),
+        finish_time: Utility.getTimeStampToday(),
+        value: missionModel.tomato_duration?.toDouble() ?? 0,
+        category: missionModel.title,
+      );
+    }
+
+    MongoDbUpdated? res = await finishMissionModel(
+      missionModel: missionModel,
+      context: context,
+      isFinished: !isCurrentRepeatFinished,
+      shouldForceFinishedWithoutRepeativeDialog: false,
+      curMonthTimeStamp: timestamp,
+      callback: callback,
+    );
+    return res != null;
   }
 
   /**
@@ -6065,7 +6157,7 @@ class MongoApisManager {
   }
 
   ///删除一条数据 - StartTimeMissionModel
-  
+
   delete_StartTimeMissionModel(
       {currentObjectId,
       title,
@@ -6712,6 +6804,135 @@ class MongoApisManager {
     } else {
       return null;
     }
+  }
+
+  /**
+   * AI 提问权益：没有权益记录时默认创建 3 次免费额度。
+   *
+   * 为什么放在 MongoApisManager：
+   * - AIPage 可能被关闭/重建，页面状态不能作为真实权益来源。
+   * - Continue GUI 的 localStorage 只适合 UI 偏好，不适合做付费/权益扣减。
+   * - uid 优先，未登录时退化到 device_id，保持匿名试用可用。
+   */
+  Future<AIUsageEntitlementModel?> queryOrCreateAIUsageEntitlement({
+    int defaultQuota = 3,
+    bool shouldCreateDefault = true,
+  }) async {
+    await initDeviceId();
+    final String uid = LoginManager.getInstance().getUid() ?? '';
+    final String currentDeviceId = device_id ?? '';
+
+    MongoDbQuery<AIUsageEntitlementModel> query = MongoDbQuery();
+    query.addWhereEqualTo('entitlementType', 'app_ai_chat');
+    query.addWhereEqualTo('status', 1);
+    if (!TextUtil.isEmpty(uid)) {
+      query.addWhereEqualTo('uid', uid);
+    } else {
+      query.addWhereEqualTo('device_id', currentDeviceId);
+    }
+    query.skip = 0;
+    query.limit = 1;
+    query.order = 'updatedAt';
+    query.orderValue = -1;
+
+    final List<dynamic> data = await query.queryObjects();
+    if (data.isNotEmpty) {
+      return AIUsageEntitlementModel.fromJson(data.first);
+    }
+    if (!shouldCreateDefault) {
+      return null;
+    }
+
+    final int now = DateTime.now().millisecondsSinceEpoch;
+    AIUsageEntitlementModel model = AIUsageEntitlementModel();
+    model.uid = uid;
+    model.device_id = currentDeviceId;
+    model.entitlementType = 'app_ai_chat';
+    model.source = 'free_default';
+    model.totalQuota = defaultQuota;
+    model.usedQuota = 0;
+    model.remainingQuota = defaultQuota;
+    model.defaultGranted = true;
+    model.status = 1;
+    model.create_time = now;
+    model.update_time = now;
+    final MongoDbSaved? saved = await model.save();
+    model.objectId = saved?.objectId;
+    model.createdAt = saved?.createdAt;
+    return model;
+  }
+
+  Future<AIUsageConsumeResult> consumeAIUsageEntitlement({
+    int defaultQuota = 3,
+    bool isVip = false,
+  }) async {
+    if (isVip == true) {
+      return AIUsageConsumeResult(
+        allowed: true,
+        isVip: true,
+        remainingQuota: -1,
+        totalQuota: -1,
+        usedQuota: 0,
+      );
+    }
+
+    final AIUsageEntitlementModel? model =
+        await queryOrCreateAIUsageEntitlement(defaultQuota: defaultQuota);
+    if (model == null) {
+      return AIUsageConsumeResult(
+        allowed: false,
+        isVip: false,
+        remainingQuota: 0,
+        totalQuota: defaultQuota,
+        usedQuota: 0,
+      );
+    }
+
+    final int remainingQuota = model.remainingQuota ?? 0;
+    if (remainingQuota <= 0) {
+      return AIUsageConsumeResult(
+        allowed: false,
+        isVip: false,
+        model: model,
+        remainingQuota: 0,
+        totalQuota: model.totalQuota ?? defaultQuota,
+        usedQuota: model.usedQuota ?? 0,
+      );
+    }
+
+    final int now = DateTime.now().millisecondsSinceEpoch;
+    model.usedQuota = (model.usedQuota ?? 0) + 1;
+    model.remainingQuota = remainingQuota - 1;
+    model.update_time = now;
+    model.lastUsedAt = now;
+    await model.update();
+
+    return AIUsageConsumeResult(
+      allowed: true,
+      isVip: false,
+      model: model,
+      remainingQuota: model.remainingQuota ?? 0,
+      totalQuota: model.totalQuota ?? defaultQuota,
+      usedQuota: model.usedQuota ?? 0,
+    );
+  }
+
+  Future<AIUsageEntitlementModel?> grantAIUsageEntitlement({
+    required int quota,
+    String source = 'invite_bonus',
+  }) async {
+    final AIUsageEntitlementModel? model =
+        await queryOrCreateAIUsageEntitlement();
+    if (model == null) {
+      return null;
+    }
+    final int now = DateTime.now().millisecondsSinceEpoch;
+    model.totalQuota = (model.totalQuota ?? 0) + quota;
+    model.remainingQuota = (model.remainingQuota ?? 0) + quota;
+    model.source = source;
+    model.update_time = now;
+    await model.update();
+    return model;
   }
 
   /**
@@ -7443,4 +7664,22 @@ class MongoApisManager {
     //   return null;
     // }
   }
+}
+
+class AIUsageConsumeResult {
+  AIUsageConsumeResult({
+    required this.allowed,
+    required this.isVip,
+    required this.remainingQuota,
+    required this.totalQuota,
+    required this.usedQuota,
+    this.model,
+  });
+
+  final bool allowed;
+  final bool isVip;
+  final int remainingQuota;
+  final int totalQuota;
+  final int usedQuota;
+  final AIUsageEntitlementModel? model;
 }

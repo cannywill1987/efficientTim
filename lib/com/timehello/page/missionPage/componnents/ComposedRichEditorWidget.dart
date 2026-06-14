@@ -37,6 +37,7 @@ class ComposedRichEditorWidget extends StatefulWidget {
   Function onTapOk;
   MissionModel missionModel;
   FocusNode? focusNode;
+  Color? editorBackgroundColor;
 
   // WQBWrongQuestBookSceneEnum wqbSceneEnum = WQBWrongQuestBookSceneEnum.knowledge_point;
 
@@ -44,7 +45,8 @@ class ComposedRichEditorWidget extends StatefulWidget {
       {Key? key,
       required this.onTapOk,
       // required this.wqbSceneEnum,
-        this.focusNode,
+      this.focusNode,
+      this.editorBackgroundColor,
       required this.title,
       required this.saveModeEnum,
       required this.missionModel})
@@ -142,28 +144,29 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
             appflowyPageStateKey.currentState?.initData();
             // this.saveFinal();
           } else if (model.code == "share") {
-            if(!TextUtil.isEmpty(this.missionModel.newRichEditorUrl)) {
-              await RedisManager.getInstance().setString(scene: "mission_note_share",
+            if (!TextUtil.isEmpty(this.missionModel.newRichEditorUrl)) {
+              await RedisManager.getInstance().setString(
+                  scene: "mission_note_share",
                   key: this.missionModel.objectId ?? "",
                   value: this.missionModel.newRichEditorUrl ?? "",
                   time: 60 * 60 * 24);
-              String url = Urls.missionNoteSharing + (this.missionModel.objectId ?? "");
+              String url =
+                  Urls.missionNoteSharing + (this.missionModel.objectId ?? "");
               DialogManagement.getInstance().showCopyTextDialog(context,
-                  title: this.missionModel.title ?? "",
-                  okCallBack: (text) {
-                    Utility.popNavigator(context);
-                    Utility.showToastMsg(msg: getI18NKey().copy_success);
-                    Utility.copyToClipboard(url);
-                  },
-                  cancelCallBack: () {
-                    Utility.popNavigator(context);
-                  },
-                  content: getI18NKey().copy_and_share_with_title(this.missionModel.title ?? "", url));
+                  title: this.missionModel.title ?? "", okCallBack: (text) {
+                Utility.popNavigator(context);
+                Utility.showToastMsg(msg: getI18NKey().copy_success);
+                Utility.copyToClipboard(url);
+              }, cancelCallBack: () {
+                Utility.popNavigator(context);
+              },
+                  content: getI18NKey().copy_and_share_with_title(
+                      this.missionModel.title ?? "", url));
             }
             // appflowyPageStateKey.currentState?.initData();
             // this.saveFinal();
           }
-          if(index >= 0) {
+          if (index >= 0) {
             jumpToTabIndexForNormal(index);
           }
         },
@@ -489,6 +492,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
     this.missionModel.noteOriginUrls = originalImageList;
     updateUi();
   }
+
   unfocus() {
     appflowyPageStateKey.currentState?.unfocus();
   }
@@ -501,11 +505,12 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
       // if(!TextUtil.isEmpty(this.widget.missionModel.objectId)) {
       return appflowyPage = AppflowyPage(
           key: appflowyPageStateKey,
+          editorBackgroundColor: this.widget.editorBackgroundColor,
           onUploadCallback: (data) async {
             if (this.missionModel.attachmentUrls == null) {
               this.missionModel.attachmentUrls = [];
             }
-            if(this.missionModel.attachmentUrls?.contains(data) == false) {
+            if (this.missionModel.attachmentUrls?.contains(data) == false) {
               this.missionModel.attachmentUrls?.add(data);
               await MongoApisManager.getInstance().update_MissionModel(
                   shouldQueryMissionModel: false,
@@ -513,8 +518,7 @@ class ComposedRichEditorWidgetState extends State<ComposedRichEditorWidget> {
             }
           },
           onSaveCallback: (url) async {
-            if (TextUtil.isEmpty(this.missionModel?.newRichEditorUrl) ==
-                true) {
+            if (TextUtil.isEmpty(this.missionModel?.newRichEditorUrl) == true) {
               this.missionModel?.newRichEditorUrl = url;
               await MongoApisManager.getInstance().update_MissionModel(
                   shouldQueryMissionModel: false,
