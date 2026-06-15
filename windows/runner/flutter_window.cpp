@@ -11,7 +11,7 @@
 namespace {
 constexpr char kCounterMethodChannelName[] = "com.efficienttime.counter";
 
-// 功能：兼容 Flutter 侧常用的 List<Map> 入参，也允许未来直接传 Map。
+// Accept the common Flutter List<Map> argument shape and plain Map for future calls.
 flutter::EncodableMap GetFirstMapArgument(
     const flutter::EncodableValue* arguments) {
   if (arguments == nullptr) {
@@ -34,7 +34,7 @@ flutter::EncodableMap GetFirstMapArgument(
   return flutter::EncodableMap();
 }
 
-// 功能：构造公共桥接器统一返回结构，后续新增 action 时优先在这里分发。
+// Build a shared bridge response so future actions can be routed in one place.
 flutter::EncodableValue BuildCommonBridgeResult(
     const flutter::MethodCall<flutter::EncodableValue>& call) {
   const auto args = GetFirstMapArgument(call.arguments());

@@ -1002,7 +1002,8 @@ class _MinePageState extends BaseWidgetState<MinePage> {
             ],
           ),
         ),
-        if (!(Utility.isIOS() || Utility.isMacOS())) ...[
+        // Windows 桌面端与 macOS 共用新版桌面壳层，避免继续展示旧版移动/桌面混合菜单入口。
+        if (!(Utility.isIOS() || Utility.isMacOS() || Utility.isWindows())) ...[
           const SizedBox(height: 10),
           // iOS/Mac 端不展示客户端下载入口，否则会把移动端个人卡底部撑出黑黄溢出标记。
           Align(

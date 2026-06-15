@@ -70,7 +70,7 @@ dependencies:
   #  list_wheel_scroll_view_x: ^0.0.2
   sliver_tools: ^0.2.10
   scroll_to_index: ^2.1.0
-  google_fonts: ^6.1.0
+  google_fonts: ^8.1.0
   just_audio_platform_interface: ^4.0.0
   #  sharesdk_plugin: ^1.3.6
   #  mobcommonlib: ^1.1.4
@@ -81,14 +81,14 @@ dependencies:
   #  native_updater: ^0.1.1
   #  bitsdojo_window_platform_interface: ^0.1.0
   file: ^6.1.4
-  permission_handler: ^12.0.1
+  permission_handler: ^11.3.1
   #  package_info: 0.4.1
   open_file: ^3.5.10
   flutter_downloader: ^1.8.0+1 #删除会闪崩
   #  progress_dialog: 1.2.0
   package_info_plus: ^9.0.0
   #  auto_updater: ^0.1.2
-  camera: ^0.11.3
+  camera: ^0.10.5+9
   image_cropper: ^8.0.2
   marquee: ^2.2.3
   image_picker: ^1.0.4
@@ -129,7 +129,7 @@ dependencies:
   #用于flutter extension
   photo_view: ^0.14.0
   video_player: ^2.4.2
-  youtube_player_flutter: ^9.1.1
+  youtube_player_flutter: ^9.0.4
   gallery_saver:
     path: ./thirdPartyPackages/gallery_saver-master
   string_validator: ^1.0.0
@@ -175,7 +175,7 @@ dependencies:
   #  material_symbols_icons: ^4.2719.1 #google font的icon https://fonts.google.com/icons
   # 9.30.0 的 macOS 插件目录缺少 flutter_sound.podspec，会导致 pod install 失败；
   # 先固定在项目原先可用的 9.28.0，避免 caret 自动升到有问题的版本。
-  flutter_sound: 9.28.0
+  flutter_sound: 9.2.13
   flutter_vibrate:
     path: ./thirdPartyPackages/flutter_vibrate-master
   #  calendar_date_picker2: ^0.5.5
@@ -191,9 +191,9 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   fading_edge_scrollview: ^4.1.1
   pointer_interceptor: ^0.10.1+1 #某些依赖库用得上 我的代码用不上
   file_picker: ^8.1.2 #有ffi
-  font_awesome_flutter: ^10.5.0 #1000+icon图片库
+  font_awesome_flutter: ^11.0.0 #1000+icon图片库
   #  flutter_math_fork: ^0.7.2
-  meta: 1.9.1
+  meta: ^1.15.0
   crypto: ^3.0.0
   cupertino_icons: ^1.0.4
   http: ^1.0.0
@@ -203,7 +203,9 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   convert: ^3.0.0
   http_parser: ^4.0.0
   ffi: ^2.1.4
+  path: ^1.9.0
   plugin_platform_interface: ^2.1.3
+  webview_flutter: 4.5.0
   syncfusion_flutter_core: ^27.1.56
   syncfusion_flutter_calendar: ^27.1.56
   syncfusion_localizations: ^27.1.56
@@ -217,7 +219,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
     path: ./thirdPartyLib/record
   record_darwin:
     path: ./thirdPartyLib/record_darwin
-  flutter_inappwebview: ^6.1.5
+  flutter_inappwebview: ^6.0.0
   easy_image_viewer: ^1.2.0
   file_selector: ^0.9.3
   #  flutter_image_compress: ^2.0.1
@@ -231,7 +233,7 @@ dependency_overrides: #覆盖系统默认的包 因为系统analyzer的版本有
   flutter_colorpicker: ^1.1.0
   flutter_hooks: ^0.18.5+1
   flutter_svg: ^2.0.6
-  file_saver: ^0.2.14
+  file_saver: ^0.2.13
   analyzer: ^5.13.0 # 用于解决json_serializable 6.3.0有问题
   progress_border: ^0.1.5
   adaptive_theme: ^3.6.0
@@ -256,8 +258,8 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.11
   flutter_gen_runner: 5.1.0+1
-  build_web_compilers: ^4.0.8
-  flip_board: ^1.0.0 # 折叠计时用
+  build_web_compilers: ^3.2.7
+  flip_board: ^0.6.1 # 折叠计时用（兼容 Flutter SDK 3.x 的依赖约束）
 # Add this inside pubspec.yaml
 native_updater:
   git: https://github.com/loadsmileau/native_updater

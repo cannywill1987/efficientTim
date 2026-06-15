@@ -31,7 +31,7 @@ class FlutterWindow : public Win32Window {
   // The Flutter instance hosted by this window.
   std::unique_ptr<flutter::FlutterViewController> flutter_controller_;
 
-  // 公共 MethodChannel：Windows 端也接入 com.efficienttime.counter，保持四端桥接一致。
+  // Shared MethodChannel for the Windows com.efficienttime.counter bridge.
   std::unique_ptr<flutter::MethodChannel<flutter::EncodableValue>>
       method_channel_;
 };

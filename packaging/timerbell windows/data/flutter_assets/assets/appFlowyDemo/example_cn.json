@@ -1,0 +1,246 @@
+{
+  "document": {
+    "type": "page",
+    "children": [
+      {
+        "type": "heading",
+        "data": {
+          "level": 2,
+          "delta": [
+            { "insert": "👋 " },
+            { "insert": "欢迎来到", "attributes": { "bold": true } },
+            { "insert": " " },
+            {
+              "insert": "Timerbell Todo 编辑器",
+              "attributes": { "italic": false, "bold": true }
+            }
+          ],
+          "align": "center"
+        }
+      },
+      {
+        "type": "paragraph",
+        "data": {
+          "delta": [
+            { "insert": "Timerbell Todo 编辑器是一个" },
+            { "insert": " " },
+            {
+              "insert": "高度可定制的",
+              "attributes": { "bold": true, "bg_color": "0x7fffeb3b" }
+            },
+            { "insert": " " },
+            { "insert": "富文本编辑器", "attributes": { "italic": true } },
+            { "insert": "，适用于 " },
+            { "insert": "TimerBell", "attributes": { "underline": true } }
+          ]
+        }
+      },
+      {
+        "type": "bulleted_list",
+        "data": {
+          "delta": [
+            {
+              "insert": "可定制",
+              "attributes": { "bg_color": "0x4d00BCF0" }
+            }
+          ]
+        }
+      },
+      {
+        "type": "bulleted_list",
+        "data": {
+          "delta": [
+            {
+              "insert": "测试覆盖",
+              "attributes": { "bg_color": "0x4d00BCF0" }
+            }
+          ]
+        }
+      },
+      {
+        "type": "bulleted_list",
+        "data": {
+          "delta": [
+            { "insert": "更多功能即将推出！", "attributes": { "code": true } }
+          ]
+        }
+      },
+      { "type": "paragraph", "data": { "delta": [] } },
+      {
+        "type": "heading",
+        "data": {
+          "delta": [{ "insert": "以下是一个示例，您可以试试看" }],
+          "level": 4,
+          "align": "center"
+        }
+      },
+      {
+        "type": "todo_list",
+        "data": {
+          "checked": false,
+          "delta": [
+            { "insert": "使用 " },
+            {
+              "insert": "Timerbell Todo 编辑器",
+              "attributes": {
+                "italic": true,
+                "bold": true,
+                "font_color": "0xffD70040",
+                "bg_color": "0x6000BCF0"
+              }
+            },
+            { "insert": " 作为组件来构建您自己的应用程序。" }
+          ]
+        }
+      },
+      {
+        "type": "todo_list",
+        "data": {
+          "delta": [
+            { "insert": "使用 " },
+            {
+              "insert": " / ",
+              "attributes": { "bg_color": "0x4d00BCF0", "code": true }
+            },
+            { "insert": " 插入块。" }
+          ],
+          "checked": false
+        }
+      },
+      {
+        "type": "todo_list",
+        "data": {
+          "checked": false,
+          "delta": [
+            { "insert": "选择文本以 " },
+            {
+              "insert": "触发工具栏",
+              "attributes": { "bg_color": "0x4de91e63" }
+            },
+            { "insert": " 以 " },
+            {
+              "insert": "格式化",
+              "attributes": {
+                "code": true,
+                "bold": true,
+                "underline": true,
+                "italic": true,
+                "font_color": "0xfff44336",
+                "bg_color": "0x4d4caf50"
+              }
+            },
+            { "insert": " 您的笔记。" }
+          ]
+        }
+      },
+      { "type": "paragraph", "data": { "delta": [] } },
+      {
+        "type": "table",
+        "children": [
+          {
+            "type": "table/cell",
+            "children": [
+              {
+                "type": "paragraph",
+                "data": {
+                  "delta": [
+                    { "insert": "通过插入 " },
+                    { "insert": "表格", "attributes": { "bold": true } },
+                    { "insert": " 使用" },
+                    {
+                      "insert": " / ",
+                      "attributes": { "code": true, "bg_color": "0x4d9c27b0" }
+                    },
+                    { "insert": "命令" }
+                  ],
+                  "align": "center"
+                }
+              }
+            ],
+            "data": {
+              "colPosition": 0,
+              "rowPosition": 0,
+              "height": 47.0,
+              "width": 553.09375
+            }
+          },
+          {
+            "type": "table/cell",
+            "children": [{ "type": "paragraph", "data": { "delta": [] } }],
+            "data": {
+              "colPosition": 0,
+              "rowPosition": 1,
+              "height": 46.0,
+              "width": 553.09375
+            }
+          },
+          {
+            "type": "table/cell",
+            "children": [
+              {
+                "type": "paragraph",
+                "data": {
+                  "delta": [
+                    { "insert": "表格中的 " },
+                    {
+                      "insert": "内容",
+                      "attributes": { "underline": true }
+                    },
+                    { "insert": " 也支持 " },
+                    {
+                      "insert": "富文本格式",
+                      "attributes": { "bold": true, "italic": true }
+                    }
+                  ],
+                  "align": "center"
+                }
+              }
+            ],
+            "data": {
+              "colPosition": 1,
+              "rowPosition": 0,
+              "height": 47.0,
+              "width": 490.3984375,
+              "colBackgroundColor": "0x4dffeb3b"
+            }
+          },
+          {
+            "type": "table/cell",
+            "children": [{ "type": "paragraph", "data": { "delta": [] } }],
+            "data": {
+              "colPosition": 1,
+              "rowPosition": 1,
+              "height": 46.0,
+              "width": 490.3984375,
+              "colBackgroundColor": "0x4dffeb3b"
+            }
+          }
+        ],
+        "data": {
+          "colsLen": 2,
+          "rowsLen": 2,
+          "colDefaultWidth": 80.0,
+          "rowDefaultHeight": 40.0,
+          "colMinimumWidth": 40.0,
+          "colsHeight": 99.0
+        }
+      },
+      { "type": "paragraph", "data": { "delta": [] } },
+      {
+        "type": "paragraph",
+        "data": {
+          "delta": [
+            { "insert": "如果您有问题或反馈，请 " },
+            {
+              "insert": "提交问题",
+              "attributes": { "bg_color": "0x4de91e63" }
+            },
+            {
+              "insert": " 在Github上，或加入社区与1000多名开发者一起交流！"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -281,7 +281,10 @@ class PCTopWidgetState extends State<PCTopMenuWidget> {
                     // ),
                     DownloadListwidget(
                       shouldShowWinAndAndroid:
-                          !(Utility.isIOS() || Utility.isMacOS()),
+                          // Windows 桌面端跟随 macOS 新 UI，顶部栏不再展示旧版 Windows 更新入口。
+                          !(Utility.isIOS() ||
+                              Utility.isMacOS() ||
+                              Utility.isWindows()),
                     ),
                     SizedBox(
                       width: 10,

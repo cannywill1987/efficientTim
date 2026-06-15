@@ -35,6 +35,11 @@ class FirebaseAuthManager {
   }
 
   static initialized() async {
+    // Windows 当前没有生成 FirebaseOptions；启动阶段跳过 Firebase，避免桌面端直接白屏。
+    // 如果后续需要 Windows 登录/统计能力，应通过 FlutterFire CLI 生成正式配置后再启用。
+    if (Utility.isWindows()) {
+      return;
+    }
     if (DeviceInfoManagement.isWEB() == false) {
       await Firebase.initializeApp(
         name: "TimerBell",

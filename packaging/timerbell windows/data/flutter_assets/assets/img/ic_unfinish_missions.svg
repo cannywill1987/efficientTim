@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>t_03@2x</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-18.000000, -291.000000)" fill="#FF934A" fill-rule="nonzero">
+            <g id="t_03" transform="translate(18.000000, 291.000000)">
+                <path d="M6.5,0 C10.0898535,0 13,2.91014648 13,6.5 C13,10.0898535 10.0898535,13 6.5,13 C2.91014648,13 0,10.0898535 0,6.5 C0,2.91014648 2.91014648,0 6.5,0 Z M8.9375,5.6875 L4.0625,5.6875 C3.615625,5.6875 3.25,6.053125 3.25,6.5 C3.25,6.946875 3.615625,7.3125 4.0625,7.3125 L4.0625,7.3125 L8.9375,7.3125 C9.384375,7.3125 9.75,6.946875 9.75,6.5 C9.75,6.053125 9.384375,5.6875 8.9375,5.6875 L8.9375,5.6875 Z" id="形状结合"></path>
+            </g>
+        </g>
+    </g>
+</svg>

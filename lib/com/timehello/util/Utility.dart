@@ -6486,8 +6486,11 @@ class Utility {
    * https://fontawesome.com/v5.15/icons?d=gallery&p=2
    * https://fontawesome.com/v6.0/icons?q=tomato&s=solid%2Cbrands
    */
-  static getFontAwesomeIcon(IconData icon, double size, Color color) {
-    return FaIcon(icon, size: size, color: color);
+  static Widget getFontAwesomeIcon(dynamic icon, double size, Color color) {
+    if (icon is FaIconData) {
+      return FaIcon(icon, size: size, color: color);
+    }
+    return Icon(icon as IconData?, size: size, color: color);
   }
 
   static int getRandom({int from = 0, int max = 0}) {

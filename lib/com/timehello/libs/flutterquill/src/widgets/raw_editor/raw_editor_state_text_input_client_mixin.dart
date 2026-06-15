@@ -203,6 +203,41 @@ mixin RawEditorStateTextInputClientMixin on EditorState
     // no-op
   }
 
+  @override
+  bool onFocusReceived() {
+    if (!widget.focusNode.hasFocus) {
+      widget.focusNode.requestFocus();
+    }
+    return widget.focusNode.hasFocus;
+  }
+
+  @override
+  void insertContent(KeyboardInsertedContent content) {
+    widget.contentInsertionConfiguration?.onContentInserted.call(content);
+  }
+
+  @override
+  void insertTextPlaceholder(Size size) {
+    // Scribble handwriting can request temporary writing space. This editor
+    // does not render placeholders, so keeping this as a no-op preserves the
+    // previous desktop/mobile editing behavior.
+  }
+
+  @override
+  void removeTextPlaceholder() {
+    // See insertTextPlaceholder.
+  }
+
+  @override
+  void didChangeInputControl(
+    TextInputControl? oldControl,
+    TextInputControl? newControl,
+  ) {
+    if (hasConnection) {
+      _textInputConnection?.show();
+    }
+  }
+
   // The time it takes for the floating cursor to snap to the text aligned
   // cursor position after the user has finished placing it.
   static const Duration _floatingCursorResetTime = Duration(milliseconds: 125);

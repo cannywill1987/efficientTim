@@ -393,7 +393,7 @@ class CanvasSideBar extends HookWidget {
 }
 
 class _IconBox extends StatelessWidget {
-  final IconData? iconData;
+  final dynamic iconData;
   final Widget? child;
   final bool selected;
   final VoidCallback onTap;
@@ -429,14 +429,26 @@ class _IconBox extends StatelessWidget {
             message: tooltip,
             preferBelow: false,
             child: child ??
-                Icon(
-                  iconData,
-                  color: selected ? Colors.grey[900] : Colors.grey,
-                  size: 20,
-                ),
+                _buildIcon(),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildIcon() {
+    final iconColor = selected ? Colors.grey[900] : Colors.grey;
+    if (iconData is FaIconData) {
+      return FaIcon(
+        iconData as FaIconData,
+        color: iconColor,
+        size: 20,
+      );
+    }
+    return Icon(
+      iconData as IconData?,
+      color: iconColor,
+      size: 20,
     );
   }
 }
