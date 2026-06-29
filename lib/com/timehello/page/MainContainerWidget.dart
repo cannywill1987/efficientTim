@@ -51,8 +51,9 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
     initIOSLiveActivity();
     //结束当前liveActivity
     CounterMethodChannelManager.getInstance().stopLiveActivity();
-    // notification授权
-    CounterMethodChannelManager.getInstance().grantNotificationPermission();
+    // App Store 审核要求首启和 onboarding 阶段不要主动弹系统授权/评分类请求。
+    // 通知授权保留在用户创建提醒、番茄钟或设置页主动开启时再触发，避免 macOS 审核机启动后被系统弹窗卡住。
+    // CounterMethodChannelManager.getInstance().grantNotificationPermission();
     //没登录且deviceId为空，尝试重新获取一次deviceId
     if ((MongoApisManager.getInstance().device_id == null ||
             MongoApisManager.getInstance().device_id?.isEmpty == true) &&
@@ -191,7 +192,8 @@ class MainContainerWidgetState extends BaseWidgetState<MainContainerWidget> {
   initData() async {
     //app打开次数统计 等于3次先显示引导弹窗
     if(NumTimesAppOpenManager.getInstance().numTimesOpen == 3) {
-      DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
+      // App Store 审核要求：暂时隐藏首轮使用期间的评分弹窗，避免在用户充分体验前请求评分。
+      // DialogManagement.showRatingDialog(context, scene: EVENTNAME.MainContainerWidget);
     }
 
     //todo 应该用不上了 机子是否第一次启动

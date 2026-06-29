@@ -30,24 +30,26 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
 //        SKPaymentQueue.default().add(IAPManager.shared)
 
         
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge, .provisional])
-        { granted, error in
-            if error != nil
-            {
-                print ("Request notifications permission Error");
-            };
-            if granted
-            {
-                //               self.allowNotifications = true ;
-                print ("Notifications allowed");
-            }
-            else
-            {
-                //               self.allowNotifications = false ;
-                print ("Notifications denied");
-            };
-        }
+        // App Store 审核要求应用首启后不要立即弹出系统授权请求，避免审核机误判为启动后无响应。
+        // 通知权限改为在用户创建提醒、番茄钟或设置页主动开启通知时再请求；原启动请求先保留注释，便于后续按需恢复。
+//        let center = UNUserNotificationCenter.current()
+//        center.requestAuthorization(options: [.alert, .sound, .badge, .provisional])
+//        { granted, error in
+//            if error != nil
+//            {
+//                print ("Request notifications permission Error");
+//            };
+//            if granted
+//            {
+//                //               self.allowNotifications = true ;
+//                print ("Notifications allowed");
+//            }
+//            else
+//            {
+//                //               self.allowNotifications = false ;
+//                print ("Notifications denied");
+//            };
+//        }
         //        if (UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
         // Request notification permissions from the user
         //              UNUserNotificationCenter.current().requestAuthorization (UNAuthorizationOptions.Alert, (approved, err) => {
@@ -308,4 +310,3 @@ class AppDelegate: FlutterAppDelegate, NSUserNotificationCenterDelegate, UNUserN
     }
     
 }
-

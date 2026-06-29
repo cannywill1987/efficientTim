@@ -404,8 +404,9 @@ class CreateAIChatGptMissionPageState
           title: getI18NKey().trainee_give_your_advice(this.role),
           okCallback: () {
             DialogManagement.getInstance().hideDialog(context);
-            DialogManagement.showRatingDialog(context,
-                scene: EVENTNAME.CreateAIChatGptMissionPage);
+            // App Store 审核要求：暂时隐藏 AI 创建任务流程结束后的评分弹窗，保留原代码便于后续恢复。
+            // DialogManagement.showRatingDialog(context,
+            //     scene: EVENTNAME.CreateAIChatGptMissionPage);
           },
           // cancelCallback: () {
           //   DialogManagement.getInstance().hideDialog(context);

@@ -593,8 +593,9 @@ class CounterManagement {
     counterStatus = CounterStatus.waitingToStartRelaxing;
     this.btnText = getBtnText(counterStatus);
     if (this.timeUsed > 5 * 60 * 1000) {
-      DialogManagement.showRatingDialog(Utility.getGlobalContext(),
-          scene: EVENTNAME.missiondetailpage);
+      // App Store 审核要求：暂时隐藏专注结束后的评分弹窗，保留原代码便于后续恢复。
+      // DialogManagement.showRatingDialog(Utility.getGlobalContext(),
+      //     scene: EVENTNAME.missiondetailpage);
     }
     AudioPlayUtil.getInstance()?.pause();
     MoneyManager.getInstance().resetLocalMoney();

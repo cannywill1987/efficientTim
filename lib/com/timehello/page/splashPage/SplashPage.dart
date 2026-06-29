@@ -370,7 +370,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
       this.initData();
       //各种授权
       CounterMethodChannelManager.getInstance().requestInit();
-      CounterMethodChannelManager.getInstance().initPushNotification();
+      // App Store 审核要求首启/onboarding 不主动弹系统通知授权。
+      // 通知初始化保留到用户创建提醒、番茄钟或在设置页主动开启通知时再触发。
+      // CounterMethodChannelManager.getInstance().initPushNotification();
       initThirdparty(Utility.getGlobalContext(), false);
       // AutoUpdateManager.getInstance()
       //     .checkVersionCode(context, Params.latestVersion);
@@ -379,7 +381,9 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
       startCountdownTimer();
       //测试android id是否在同意后获取
       // Future.delayed(Duration(milliseconds: 500), () {
-      CounterMethodChannelManager.getInstance().initPushNotification();
+      // App Store 审核要求首启/onboarding 不主动弹系统通知授权。
+      // 通知初始化保留到用户创建提醒、番茄钟或在设置页主动开启通知时再触发。
+      // CounterMethodChannelManager.getInstance().initPushNotification();
       initThirdparty(Utility.getGlobalContext(), true);
       this.initData();
       // });

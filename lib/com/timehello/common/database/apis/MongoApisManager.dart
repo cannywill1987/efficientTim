@@ -2226,6 +2226,12 @@ class MongoApisManager {
     this.listMissionModels.addAll(this.listPureMissionModels);
     this.listCalendarMissionModels.clear();
     this.listRemindersMissionModels.clear();
+    if (shouldQuery != true) {
+      // App Store 审核机在首启后会检查应用是否可立即操作。
+      // 启动加载任务列表时不主动请求日历/提醒事项权限，避免系统授权弹窗让审核误判为无响应；
+      // 用户在日历/提醒同步等明确操作中传入 shouldQuery: true 时，仍复用下面原有同步逻辑。
+      return;
+    }
     if (DeviceInfoManagement.isMacOs() || DeviceInfoManagement.isIOS()) {
       try {
         BaseBean accessBaseBean =
@@ -4235,8 +4241,9 @@ class MongoApisManager {
       int insertMissionCount = SharePreferenceUtil.getSyncInstance()
           .getInt(key: ShareprefrenceKeys.insertMissionCount, defaultVal: 0);
       if (insertMissionCount == 3) {
-        DialogManagement.showRatingDialog(Utility.getGlobalContext(),
-            scene: EVENTNAME.INSERT_MISSION);
+        // App Store 审核要求：暂时隐藏早期创建任务后的评分弹窗，保留原代码便于后续恢复。
+        // DialogManagement.showRatingDialog(Utility.getGlobalContext(),
+        //     scene: EVENTNAME.INSERT_MISSION);
       }
       SharePreferenceUtil.getSyncInstance().setInt(
           key: ShareprefrenceKeys.insertMissionCount,
