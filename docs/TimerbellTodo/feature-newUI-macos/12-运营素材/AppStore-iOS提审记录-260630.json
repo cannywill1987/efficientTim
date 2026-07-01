@@ -1,0 +1,28 @@
+{
+  "app": {
+    "name": "Timerbell todo-Podomoro",
+    "appId": "1663610373",
+    "bundleId": "com.timespeed.timehello",
+    "platform": "IOS"
+  },
+  "release": {
+    "version": "5.0.8",
+    "build": "253",
+    "ipaPath": "build/ios/ipa/TimerBell.ipa",
+    "deliveryUuid": "81c0eb92-bdd5-49d3-a320-65534f783297",
+    "appStoreVersionId": "8e982463-f8aa-4a5d-adc6-f7c0243e2751",
+    "selectedBuildId": "81c0eb92-bdd5-49d3-a320-65534f783297",
+    "reviewSubmissionId": "5645b9c6-e00c-4bf8-a3fe-26bde83d2f7b",
+    "submittedDate": "2026-06-30T08:50:14.171Z",
+    "state": "WAITING_FOR_REVIEW"
+  },
+  "checks": {
+    "localBuild": "passed",
+    "altoolValidate": "VERIFY_SUCCEEDED",
+    "altoolUpload": "UPLOAD_SUCCEEDED",
+    "connectApiBuildProcessingState": "VALID",
+    "appStoreConnectBuildSelected": true,
+    "releaseNotesUpdatedLocales": 11
+  },
+  "note": "Submitted for Apple review. This is not approved or live on the App Store yet."
+}

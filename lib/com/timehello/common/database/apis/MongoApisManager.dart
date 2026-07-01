@@ -6741,10 +6741,17 @@ class MongoApisManager {
       content,
       String? avatar,
       String? username,
+      int? rating,
+      String? contact,
+      String? platform,
+      String? market,
+      bool? storeReviewPrompted,
+      int? storeReviewPromptedAt,
       Function? callback}) async {
     try {
       CommentModel commentModel = CommentModel();
       // folderModel.id = id;
+      commentModel.appScene = Params.appScene;
       commentModel.title = title;
       commentModel.avatar = avatar ?? "";
       commentModel.username = username ?? "";
@@ -6753,6 +6760,12 @@ class MongoApisManager {
       commentModel.content = content;
       commentModel.uid = LoginManager.getInstance().getUid();
       commentModel.device_id = this.device_id ?? "";
+      commentModel.rating = rating ?? 0;
+      commentModel.contact = contact ?? "";
+      commentModel.platform = platform ?? "";
+      commentModel.market = market ?? "";
+      commentModel.storeReviewPrompted = storeReviewPrompted ?? false;
+      commentModel.storeReviewPromptedAt = storeReviewPromptedAt;
 
       User user = User();
       user.setObjectId(LoginManager.getInstance().getUid());
@@ -6776,10 +6789,30 @@ class MongoApisManager {
    * 主要PresentModel进入页面会不断请求这个api
    * 但是如果有数据就不需要刷新
    */
-  Future<List<CommentModel>> queryWhereEqual_CommentModel({callback}) async {
+  Future<List<CommentModel>> queryWhereEqual_CommentModel(
+      {int? status, callback}) async {
     MongoDbQuery<CommentModel> query = MongoDbQuery();
+    if (Params.appScene == "efficientTime") {
+      MongoDbQuery<CommentModel> appSceneQuery = MongoDbQuery();
+      appSceneQuery.addWhereEqualTo("appScene", Params.appScene);
+      MongoDbQuery<CommentModel> legacyQuery = MongoDbQuery();
+      legacyQuery.addWhereDoesNotExists("appScene");
+      query.or([appSceneQuery, legacyQuery]);
+    } else {
+      query.addWhereEqualTo("appScene", Params.appScene);
+    }
+    if (status != null) {
+      query.addWhereEqualTo("status", status);
+    }
+    String uid = LoginManager.getInstance().getUid();
+    if (!TextUtil.isEmpty(uid)) {
+      query.addWhereEqualTo("uid", uid);
+    } else {
+      await initDeviceId();
+      query.addWhereEqualTo("device_id", this.device_id ?? "");
+    }
     query.skip = 0;
-    query.limit = 100000;
+    query.limit = 100;
     List<dynamic> data = await query.queryObjects();
     List<CommentModel> listTmp = data.map((i) {
       return CommentModel.fromJson(i);

@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:app_ai_plugin/app_ai_plugin.dart';
 import 'package:app_ai_plugin/app_ai_plugin_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:time_hello/com/timehello/common/database/apis/MongoApisManager.dart';
@@ -16,8 +17,10 @@ import 'package:time_hello/com/timehello/config/Params.dart';
 import 'package:time_hello/com/timehello/util/AIInterfaceManager.dart';
 import 'package:time_hello/com/timehello/util/AppAiVoiceRecordUtils.dart';
 import 'package:time_hello/com/timehello/util/AppAiBailianConfigManager.dart';
+import 'package:time_hello/com/timehello/util/AiVoiceDebugLog.dart';
 import 'package:time_hello/com/timehello/util/LoginManager.dart';
 import 'package:time_hello/com/timehello/util/MoneyManager.dart';
+import 'package:time_hello/com/timehello/util/RealtimeVoiceTranscriptionManager.dart';
 import 'package:time_hello/com/timehello/util/SubscriptionAndPriceManager.dart';
 import 'package:time_hello/com/timehello/util/Utility.dart';
 import 'package:time_hello/com/timehello/util/VoiceTranscriptionManager.dart';
@@ -147,17 +150,32 @@ class _AIPageState extends State<AIPage> {
   late final ContinueGuiShellPort _shellPort;
   late final ContinueShellController _controller;
   late final AppAiVoiceRecordUtils _voiceRecordUtils;
+  late final RealtimeVoiceTranscriptionManager _realtimeTranscriptionManager;
+  final List<String> _realtimeVoiceFinalTexts = <String>[];
+  final ValueNotifier<String> _nativeVoicePreviewText =
+      ValueNotifier<String>('');
+  String _realtimeVoicePartialText = '';
+  bool _isRealtimeVoiceFallbackRecording = false;
+  bool _isRealtimeVoiceFallbackRunning = false;
   int _aiUsageUsed = 0;
   int _aiUsageTotal = _freeAiUsageLimit;
   int _aiUsageRemaining = _freeAiUsageLimit;
   bool _aiUsageLoaded = false;
   bool _isAiStreaming = false;
+  final List<AppAiChatEntry> _nativeMessages = <AppAiChatEntry>[
+    AppAiChatEntry(
+      id: 'native-welcome',
+      role: AppAiMessageRole.assistant,
+      content: '你好，我可以帮你创建、查询、更新任务和清单。',
+    ),
+  ];
 
   @override
   void initState() {
     super.initState();
     AIInterfaceManager.getInstance().registerContext(context);
     _voiceRecordUtils = AppAiVoiceRecordUtils();
+    _realtimeTranscriptionManager = RealtimeVoiceTranscriptionManager();
     _shellPort = ContinueGuiShellPort();
     final serializedProfileInfo = _buildSerializedProfileInfo();
     _controller = ContinueShellController(
@@ -314,7 +332,9 @@ class _AIPageState extends State<AIPage> {
     AIInterfaceManager.getInstance().unregisterContext(context);
     _controller.shutdown();
     _shellPort.dispose();
+    unawaited(_realtimeTranscriptionManager.dispose());
     unawaited(_voiceRecordUtils.dispose());
+    _nativeVoicePreviewText.dispose();
     super.dispose();
   }
 
@@ -488,17 +508,118 @@ class _AIPageState extends State<AIPage> {
     }
   }
 
-  /// 功能：响应 AppAIPlugin 输入栏的开始录音请求，只启动原生录音，不弹出额外页面。
+  /// 功能：响应 AppAIPlugin 输入栏的开始录音请求，优先启动实时语音识别。
+  /// 说明：macOS AI 面板继续复用 Web GUI 内联录音条；宿主侧切到和移动端一致的实时 ASR，失败时保留录完识别兜底。
   Future<Map<String, Object?>> _startVoiceRecordingForGui() async {
-    final localPath = await _voiceRecordUtils.start();
-    return <String, Object?>{
-      'recording': true,
-      'localPath': localPath,
-    };
+    _resetRealtimeVoiceState();
+    try {
+      await _realtimeTranscriptionManager.start(
+        onUpdate: _handleRealtimeVoiceUpdateForGui,
+        onError: _handleRealtimeVoiceErrorForGui,
+      );
+      AiVoiceDebugLog.log('ai-page-realtime-start', 'mode=realtime');
+      return const <String, Object?>{
+        'recording': true,
+        'mode': 'realtime',
+      };
+    } catch (error, stackTrace) {
+      AiVoiceDebugLog.log(
+        'ai-page-realtime-start-error',
+        'errorType=${error.runtimeType}',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      await _realtimeTranscriptionManager.cancel();
+      final localPath = await _startFileVoiceFallbackForGui(
+        reason: 'start-error',
+      );
+      return <String, Object?>{
+        'recording': true,
+        'mode': 'fileFallback',
+        'localPath': localPath,
+      };
+    }
   }
 
-  /// 功能：响应输入栏的结束录音请求，停止录音后上传 OSS，并将公网音频 URL 交给百炼转写。
-  Future<Map<String, Object?>> _stopVoiceRecordingForGui() async {
+  void _resetRealtimeVoiceState() {
+    _realtimeVoiceFinalTexts.clear();
+    _realtimeVoicePartialText = '';
+    _nativeVoicePreviewText.value = '';
+    _isRealtimeVoiceFallbackRecording = false;
+    _isRealtimeVoiceFallbackRunning = false;
+  }
+
+  /// 功能：合并实时 ASR 的 final/partial 文本，供 AppAIPlugin 停止录音时直接写回输入框。
+  void _handleRealtimeVoiceUpdateForGui(
+      RealtimeVoiceTranscriptionUpdate update) {
+    if (update.isFinal) {
+      if (update.text.trim().isNotEmpty &&
+          (_realtimeVoiceFinalTexts.isEmpty ||
+              _realtimeVoiceFinalTexts.last != update.text)) {
+        _realtimeVoiceFinalTexts.add(update.text);
+      }
+      _realtimeVoicePartialText = '';
+    } else {
+      _realtimeVoicePartialText = update.text;
+    }
+    // 原生 macOS AI 输入框不再走 Web GUI，所以这里把实时识别文本同步给 Flutter 组件做 live preview。
+    _nativeVoicePreviewText.value = _currentRealtimeVoiceText();
+    AiVoiceDebugLog.log(
+      'ai-page-realtime-update',
+      'textLength=${_currentRealtimeVoiceText().length}, isFinal=${update.isFinal}',
+    );
+  }
+
+  void _handleRealtimeVoiceErrorForGui(Object error) {
+    unawaited(_switchToFileVoiceFallbackForGui(reason: 'socket-error'));
+  }
+
+  String _currentRealtimeVoiceText() {
+    return <String>[
+      ..._realtimeVoiceFinalTexts,
+      if (_realtimeVoicePartialText.trim().isNotEmpty)
+        _realtimeVoicePartialText,
+    ].join('').trim();
+  }
+
+  Future<String> _startFileVoiceFallbackForGui({required String reason}) async {
+    if (!_voiceRecordUtils.isRecording) {
+      final localPath = await _voiceRecordUtils.start();
+      _isRealtimeVoiceFallbackRecording = true;
+      AiVoiceDebugLog.log(
+        'ai-page-file-fallback-start',
+        'reason=$reason, localPathLength=${localPath.length}',
+      );
+      return localPath;
+    }
+    _isRealtimeVoiceFallbackRecording = true;
+    return '';
+  }
+
+  /// 功能：实时识别连接启动后异常断开时，切换到录完识别兜底，避免 macOS AI 输入栏卡死。
+  Future<void> _switchToFileVoiceFallbackForGui(
+      {required String reason}) async {
+    if (_isRealtimeVoiceFallbackRunning) {
+      return;
+    }
+    _isRealtimeVoiceFallbackRunning = true;
+    try {
+      AiVoiceDebugLog.log('ai-page-realtime-fallback-start', 'reason=$reason');
+      await _realtimeTranscriptionManager.cancel();
+      await _startFileVoiceFallbackForGui(reason: reason);
+    } catch (error, stackTrace) {
+      AiVoiceDebugLog.log(
+        'ai-page-realtime-fallback-error',
+        'reason=$reason, errorType=${error.runtimeType}',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    } finally {
+      _isRealtimeVoiceFallbackRunning = false;
+    }
+  }
+
+  Future<Map<String, Object?>> _transcribeFileVoiceFallbackForGui() async {
     final recordResult = await _voiceRecordUtils.stop();
     final transcriptionResult =
         await VoiceTranscriptionManager.getInstance().transcribeLocalAudioFile(
@@ -511,12 +632,35 @@ class _AIPageState extends State<AIPage> {
       'localPath': recordResult.path,
       'duration': recordResult.duration,
       'fileSize': recordResult.fileSize,
+      'mode': 'fileFallback',
     };
   }
 
-  /// 功能：响应输入栏取消录音请求，丢弃当前临时音频，不触发上传和转写。
+  /// 功能：响应输入栏的结束录音请求，优先返回实时 ASR 文本，必要时回退到录完识别。
+  Future<Map<String, Object?>> _stopVoiceRecordingForGui() async {
+    if (_isRealtimeVoiceFallbackRecording || _voiceRecordUtils.isRecording) {
+      return _transcribeFileVoiceFallbackForGui();
+    }
+
+    await _realtimeTranscriptionManager.stop();
+    final text = _currentRealtimeVoiceText();
+    AiVoiceDebugLog.log(
+      'ai-page-realtime-stop',
+      'textLength=${text.length}',
+    );
+    return <String, Object?>{
+      'text': text,
+      'mode': 'realtime',
+    };
+  }
+
+  /// 功能：响应输入栏取消录音请求，停止实时 ASR 并丢弃可能存在的兜底录音文件。
   Future<Map<String, Object?>> _cancelVoiceRecordingForGui() async {
-    await _voiceRecordUtils.cancel();
+    await _realtimeTranscriptionManager.cancel();
+    if (_voiceRecordUtils.isRecording) {
+      await _voiceRecordUtils.cancel();
+    }
+    _resetRealtimeVoiceState();
     return const <String, Object?>{'cancelled': true};
   }
 
@@ -1489,6 +1633,142 @@ class _AIPageState extends State<AIPage> {
     final locale = Localizations.maybeLocaleOf(context);
     final languageCode = locale?.languageCode.toLowerCase();
     return languageCode == null || languageCode == 'zh' ? zh : en;
+  }
+
+  /// 功能：不能使用 Continue GUI WebView 的平台直接走 Flutter 原生聊天面板。
+  /// 说明：这里复用同一套百炼请求与本地工具路由，避免生产包为了本地静态服务额外申请 server 权限。
+  Future<void> _handleNativePrompt(String prompt) async {
+    final trimmedPrompt = prompt.trim();
+    if (trimmedPrompt.isEmpty || _isAiStreaming) {
+      return;
+    }
+    final now = DateTime.now().microsecondsSinceEpoch;
+    final assistantEntryId = 'native-assistant-$now';
+    setState(() {
+      _nativeMessages.add(
+        AppAiChatEntry(
+          id: 'native-user-$now',
+          role: AppAiMessageRole.user,
+          content: trimmedPrompt,
+        ),
+      );
+      _nativeMessages.add(
+        AppAiChatEntry(
+          id: assistantEntryId,
+          role: AppAiMessageRole.assistant,
+          content: _aiText(zh: '正在思考...', en: 'Thinking...'),
+          isStreaming: true,
+        ),
+      );
+      _isAiStreaming = true;
+    });
+
+    final buffer = StringBuffer();
+    try {
+      await for (final chunk in _handleGuiStreamChat(
+        ContinueMessage(
+          messageType: 'llm/streamChat',
+          messageId: 'native-stream-$now',
+          data: <String, Object?>{
+            'messages': <Map<String, String>>[
+              <String, String>{'role': 'user', 'content': trimmedPrompt},
+            ],
+          },
+        ),
+        trimmedPrompt,
+      )) {
+        buffer.write(chunk);
+        _replaceNativeAssistantMessage(
+          assistantEntryId: assistantEntryId,
+          content: buffer.toString(),
+          isStreaming: true,
+        );
+      }
+    } catch (error) {
+      buffer
+        ..clear()
+        ..write(_aiText(zh: 'AI 请求失败：$error', en: 'AI request failed: $error'));
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isAiStreaming = false;
+        });
+        _replaceNativeAssistantMessage(
+          assistantEntryId: assistantEntryId,
+          content: buffer.toString().trim().isEmpty
+              ? _aiText(zh: 'AI 没有返回内容。', en: 'AI returned no content.')
+              : buffer.toString().trim(),
+          isStreaming: false,
+        );
+      }
+    }
+  }
+
+  void _replaceNativeAssistantMessage({
+    required String assistantEntryId,
+    required String content,
+    required bool isStreaming,
+  }) {
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      final index =
+          _nativeMessages.indexWhere((entry) => entry.id == assistantEntryId);
+      if (index == -1) {
+        return;
+      }
+      _nativeMessages[index] = AppAiChatEntry(
+        id: assistantEntryId,
+        role: AppAiMessageRole.assistant,
+        content: content,
+        isStreaming: isStreaming,
+      );
+    });
+  }
+
+  /// 功能：构建 Flutter 原生 AI 聊天界面。
+  /// 说明：macOS Release 不再承载本地 Continue Web GUI，避免触发本地 HttpServer 和 App Sandbox server entitlement。
+  Widget _buildNativeAiChatPanel(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FBFA),
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Expanded(
+                  child: AppAiChatTimeline(messages: _nativeMessages),
+                ),
+                AppAiChatComposer(
+                  hintText: _aiText(
+                    zh: '输入要创建、查询或更新的任务...',
+                    en: 'Ask to create, query, or update tasks...',
+                  ),
+                  liveVoiceTextListenable: _nativeVoicePreviewText,
+                  voiceStartTooltip: _aiText(zh: '语音输入', en: 'Voice input'),
+                  voiceStopTooltip:
+                      getI18NKey(context).app_ai_voice_stop_recording,
+                  voiceCancelTooltip:
+                      getI18NKey(context).app_ai_voice_cancel_recording,
+                  voiceRecordingLabel:
+                      getI18NKey(context).app_ai_voice_recording,
+                  voiceTranscribingLabel:
+                      getI18NKey(context).app_ai_voice_transcribing,
+                  onStartVoiceRecording: _startVoiceRecordingForGui,
+                  onStopVoiceRecording: _stopVoiceRecordingForGui,
+                  onCancelVoiceRecording: _cancelVoiceRecordingForGui,
+                  onSubmit: (prompt) {
+                    unawaited(_handleNativePrompt(prompt));
+                  },
+                ),
+              ],
+            ),
+            if (_shouldShowAiUsageOverlay) _buildAiUsageGateOverlay(context),
+          ],
+        ),
+      ),
+    );
   }
 
   Map<String, Object?> _todayMissionListArgs({bool? isFinished}) {
@@ -2700,6 +2980,10 @@ class _AIPageState extends State<AIPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb || Platform.isMacOS) {
+      return _buildNativeAiChatPanel(context);
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       body: SafeArea(

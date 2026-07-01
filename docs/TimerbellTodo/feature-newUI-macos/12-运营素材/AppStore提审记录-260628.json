@@ -1,0 +1,30 @@
+{
+  "createdDate": "260628",
+  "app": {
+    "name": "Timerbell ToDo - Podomoro & AI",
+    "appleId": "1663772116",
+    "bundleId": "com.moonrainbowsoft.time.flutterTimeHello",
+    "platform": "macOS"
+  },
+  "release": {
+    "version": "5.0.8",
+    "build": "252",
+    "deliveryUuid": "6957000f-a2b9-412d-ac30-042e85364f0e",
+    "pkgPath": "build/macos/export/5.0.8-252/Timerbell Todo.pkg"
+  },
+  "fixes": [
+    "Added com.apple.security.network.server to Release entitlements for the local AI GUI server.",
+    "Bundled AppAIPlugin GUI dist into the production build."
+  ],
+  "appStoreConnect": {
+    "binaryValidation": "VERIFY_SUCCEEDED",
+    "binaryUpload": "UPLOAD_SUCCEEDED",
+    "buildProcessing": "VALID_BINARY",
+    "buildAudienceType": "APP_STORE_ELIGIBLE",
+    "selectedBuild": "5.0.8 (252)",
+    "whatsNewLocalesUpdated": 11,
+    "submission": "SUBMITTED_FOR_REVIEW",
+    "currentState": "WAITING_FOR_REVIEW"
+  },
+  "note": "Submitted for Apple review. This is not approved or live on the App Store yet."
+}

@@ -43,6 +43,7 @@ import '../interface/OnTapListener.dart';
 import '../models/CheckButtonStateModel.dart';
 import '../page/FlomoPage/components/FlomoRatingDialog.dart';
 import '../page/GroupChatPage/components/GroupChatPermissionSharingWidget.dart';
+import '../page/FeedbackPage/components/RatingFeedbackDialog.dart';
 import '../page/missionDetailPage/MissionDetailPage.dart';
 import 'CloudSharepreferenceManagement.dart';
 import 'EventCollection.dart';
@@ -70,6 +71,15 @@ class DialogManagement {
 
   init() {
     return mDialogManagement;
+  }
+
+  /**
+   * 展示通用好评与反馈弹窗，五星走系统/商店评分，低星进入反馈表单。
+   */
+  Future<void> showRatingFeedbackDialog(BuildContext context,
+      {String scene = "default", VoidCallback? onFeedbackSubmitted}) {
+    return RatingFeedbackDialog.show(context,
+        scene: scene, onFeedbackSubmitted: onFeedbackSubmitted);
   }
 
   Future<bool?> showCustomIconTitleAndDescDialog(BuildContext context,

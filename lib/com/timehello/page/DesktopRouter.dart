@@ -22,6 +22,7 @@ import 'package:time_hello/com/timehello/util/Utility.dart';
 
 import '../util/AnalyticsEventsManager.dart';
 import 'AddFilterPage/AddFilterPage.dart';
+import 'AppPromotionPage/AppPromotionPage.dart';
 import 'CreditCardManagementPage/pages/CreditCardPage.dart';
 import 'FlomoPage/FlomoPCContainerPage.dart';
 import 'FourQuadrant/FourQuadrantPage.dart';
@@ -35,6 +36,7 @@ import 'WrongQuestionBookPage/WQBContainer.dart';
 import 'WrongQuestionBookPage/WrongQuestionBookPage.dart';
 import 'calendarPage/TimeManagementPage.dart';
 import 'createFolderPage/CreateFolderPage.dart';
+import 'FeedbackPage/MyFeedbackPage.dart';
 import 'missionPage/MissionContainerPage.dart';
 import '../util/OverlayManagement.dart';
 
@@ -186,6 +188,14 @@ Widget buildBodyFunction([String? page]) {
 
             !(page == 'CoursePage') ? SizedBox.shrink() : const CoursePage(),
             //课程页面
+            !(page == 'AppPromotionPage')
+                ? SizedBox.shrink()
+                : const AppPromotionPage(),
+            //应用相互推广页面
+            !(page == 'MyFeedbackPage')
+                ? SizedBox.shrink()
+                : const MyFeedbackPage(),
+            //我的反馈页面
             settingModel.isGamePageOn != 1
                 ? SizedBox.shrink()
                 : !(page == 'GamePage')

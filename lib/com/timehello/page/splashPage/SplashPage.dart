@@ -79,6 +79,15 @@ class _SplashPageState<T> extends BaseWidgetState<SplashPage> {
         ResourceInfo.promptsGptResourceLocationInfoBean = response[0];
       }
     });
+    GetResourceDeliveryManager.getInstance()?.requestGetResourceDelivery(
+        ResourceInfo.appPromotionSceneCode,
+        isCachableOn: true, onResourceComplete:
+            (List<ResourceLocationInfoBean> response, bool isFromCache) {
+      ResourceInfo.appPromotionResourceLocationInfoBeanList = response;
+      ResourceInfo.appPromotionListResourceLocationInfoBean =
+          Utility.getResourceDeliveryItemFromList(
+              ResourceInfo.appPromotionListLocationCode, response);
+    });
 
     /**
      * 打卡的默认数据

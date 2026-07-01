@@ -36,10 +36,9 @@ packages:
   ali_auth:
     dependency: "direct main"
     description:
-      name: ali_auth
-      sha256: c94f99c592a0bbb0be29e154ff23dd291389284d9843bcb2b65020227761b638
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "thirdPartyPackages/ali_auth"
+      relative: true
+    source: path
     version: "1.3.8"
   analyzer:
     dependency: "direct overridden"

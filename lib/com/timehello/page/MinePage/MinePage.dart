@@ -40,6 +40,7 @@ import '../../components/MoneyHandlerWidget.dart';
 import '../../components/ThirdPartyLoginWidget.dart';
 import '../../config/ENUMS.dart';
 import '../../util/MoneyManager.dart';
+import '../AppPromotionPage/AppPromotionPage.dart';
 import '../ChatGptPage/GPTContainer.dart';
 import '../FeedbackPage/FeedbackPage.dart';
 import '../PrivacySettingPage/PrivacySettingPage.dart';
@@ -704,6 +705,12 @@ class _MinePageState extends BaseWidgetState<MinePage> {
           onTapListener: () {
             Utility.pushNavigator(context, FeedbackPage());
           }));
+    list.add(GridMenuItem(
+        icon: Icon(Icons.apps_outlined, size: iconSize + 5),
+        title: AppPromotionStrings.of(context).title,
+        onTapListener: () {
+          Utility.pushNavigator(context, const AppPromotionPage());
+        }));
     list.add(GridMenuItem(
         icon: Utility.getSVGPicture(R.assetsImgIcFeedback2, size: iconSize + 7),
         title: getI18NKey().copy_qq,
@@ -1560,6 +1567,14 @@ class _MinePageState extends BaseWidgetState<MinePage> {
     }
 
     entries.addAll([
+      _MobileMineMenuEntry(
+        icon: const Icon(Icons.apps_outlined, color: Colors.black, size: 30),
+        title: AppPromotionStrings.of(context).title,
+        subtitle: AppPromotionStrings.of(context).subtitle,
+        onTap: () {
+          Utility.pushNavigator(context, const AppPromotionPage());
+        },
+      ),
       _MobileMineMenuEntry(
         icon: Utility.getSVGPicture(R.assetsImgIcFeedback2, size: menuIconSize),
         title: getI18NKey().copy_qq,

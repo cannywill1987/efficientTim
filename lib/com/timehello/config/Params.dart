@@ -31,6 +31,7 @@ class Params {
   static String curLatestVersionMAC = '';
   static String curLatestVersionWin = '';
   static String appName = "";
+  static const String appScene = "efficientTime"; // 多 App 共用 Egg 后台时的业务隔离标识
   static bool isFirstTime = false;
   static String sysCode = "TimerBell"; //埋点用得上 系统编码
   static final bool isDebug = env == EnvEnum.dev;
@@ -274,6 +275,9 @@ class Params {
 }
 
 class ResourceInfo {
+  static const String appPromotionSceneCode = 'app_cross_promotion';
+  static const String appPromotionListLocationCode = 'app_list';
+
   static ResourceLocationInfoBean? pcMissionBackgroundResourceLocationInfoBean;
   static ResourceLocationInfoBean?
       mobileMissionBackgroundResourceLocationInfoBean;
@@ -287,6 +291,9 @@ class ResourceInfo {
   static ResourceLocationInfoBean? chatGptRolesResourceLocationInfoBean;
   static ResourceLocationInfoBean?
       chatGptRolesForCreateMissionResourceLocationInfoBean;
+  static List<ResourceLocationInfoBean>?
+      appPromotionResourceLocationInfoBeanList;
+  static ResourceLocationInfoBean? appPromotionListResourceLocationInfoBean;
 }
 
 class DeliveryInfoBean {
